@@ -32,6 +32,10 @@
   services.zfs.autoScrub.enable = true;
   services.zfs.autoSnapshot.enable = true;
 
+  # ZramSwap
+  zramSwap.enable = true;
+  boot.kernel.sysctl."vm.swappiness" = 100;
+
   # networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
