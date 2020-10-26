@@ -26,6 +26,12 @@
   fileSystems."/boot2" = { options = [ "defaults" "nofail" "x-systemd.device-timeout=5s" ]; };
   fileSystems."/boot3" = { options = [ "defaults" "nofail" "x-systemd.device-timeout=5s" ]; };
 
+  # ZFS
+  boot.supportedFilesystems = [ "zfs" ];
+  networking.hostId = "65e3452b";
+  services.zfs.autoScrub.enable = true;
+  services.zfs.autoSnapshot.enable = true;
+
   # networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
