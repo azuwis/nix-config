@@ -10,9 +10,21 @@
       ./hardware-configuration.nix
     ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
+  # Grub
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub = {
+    enable = true;
+    copyKernels = true;
+    efiSupport = true;
+    mirroredBoots = [
+      { devices = [ "nodev" ]; path = "/boot1"; }
+      { devices = [ "nodev" ]; path = "/boot2"; }
+      { devices = [ "nodev" ]; path = "/boot3"; }
+    ];
+  };
+  fileSystems."/boot1" = { options = [ "defaults" "nofail" "x-systemd.device-timeout=5s" ]; };
+  fileSystems."/boot2" = { options = [ "defaults" "nofail" "x-systemd.device-timeout=5s" ]; };
+  fileSystems."/boot3" = { options = [ "defaults" "nofail" "x-systemd.device-timeout=5s" ]; };
 
   # networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
