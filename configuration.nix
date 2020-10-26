@@ -8,6 +8,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      # Home Manager
+      <home-manager/nixos>
     ];
 
   # Grub
@@ -114,6 +116,13 @@
     shell = pkgs.zsh;
   };
   security.sudo.wheelNeedsPassword = false;
+
+  # Home Manager
+  # nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+  home-manager.useUserPackages = true;
+  home-manager.useGlobalPkgs = true;
+  home-manager.users.azuwis = import ./home.nix;
+  environment.pathsToLink = [ "/share/zsh" ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
