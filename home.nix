@@ -19,6 +19,14 @@
     };
   };
 
+  # Vim
+  programs.vim = {
+    enable = true;
+    plugins = with pkgs.vimPlugins; [
+      vim-nix
+    ];
+  };
+
   # Zsh
   programs.fzf.enable = true;
   programs.zoxide.enable = true;
