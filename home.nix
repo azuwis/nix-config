@@ -1,11 +1,26 @@
-{ pkgs, ... }: {
+{ email, name }: { pkgs, ... }: {
   home.packages = with pkgs; [
     pure-prompt
     zsh-fast-syntax-highlighting
     zsh-history-substring-search
   ];
+
+  # Git
+  programs.git = {
+    enable = true;
+    userEmail = email;
+    userName = name;
+    aliases = {
+      ci = "commit";
+      cp = "cherry-pick";
+      fixup = "!sh -c 'git commit --fixup=$1 && git rebase --interactive --autosquash $1~' -";
+      lg = "log --abbrev-commit --graph --date=relative --pretty=format:'%C(yellow)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset'";
+      st = "status";
+    };
+  };
+
+  # Zsh
   programs.fzf.enable = true;
-  programs.git.enable = true;
   programs.zoxide.enable = true;
   programs.zsh = {
     enable = true;

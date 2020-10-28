@@ -121,7 +121,7 @@
   # nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
   home-manager.useUserPackages = true;
   home-manager.useGlobalPkgs = true;
-  home-manager.users.azuwis = import ./home.nix;
+  home-manager.users.azuwis = import ./home.nix { email = "azuwis@gmail.com"; name = "Zhong Jianxin"; };
   environment.pathsToLink = [ "/share/zsh" ];
 
   # This value determines the NixOS release from which the default
