@@ -11,6 +11,7 @@
     enable = true;
     enableAutosuggestions = true;
     enableCompletion = true;
+    defaultKeymap = "emacs";
     history.extended = true;
     initExtra = ''
       # Pure prompt
