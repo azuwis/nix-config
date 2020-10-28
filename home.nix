@@ -43,6 +43,9 @@
     enableCompletion = true;
     defaultKeymap = "emacs";
     history.extended = true;
+    envExtra = ''
+      setopt no_global_rcs
+    '';
     initExtra = ''
       # Pure prompt
       . ${pkgs.pure-prompt}/share/zsh/site-functions/async
