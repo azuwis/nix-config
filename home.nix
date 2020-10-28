@@ -23,8 +23,15 @@
   programs.vim = {
     enable = true;
     plugins = with pkgs.vimPlugins; [
+      lightline-vim
       vim-nix
     ];
+    extraConfig = ''
+      set noshowmode
+      let g:lightline = {
+        \ 'colorscheme': 'seoul256',
+        \ }
+    '';
   };
 
   # Zsh
