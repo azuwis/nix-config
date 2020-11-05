@@ -43,6 +43,11 @@
     enableCompletion = true;
     defaultKeymap = "emacs";
     history.extended = true;
+    shellAliases = {
+      l = "ls -alh";
+      ll = "ls -l";
+      ls = "ls --color=tty";
+    };
     initExtra = ''
       # Pure prompt
       . ${pkgs.pure-prompt}/share/zsh/site-functions/async
