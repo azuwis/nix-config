@@ -49,6 +49,10 @@
   environment.variables = {
     EDITOR = "vim";
   };
+  environment.etc."sudoers.d/custom".text = ''
+    Defaults timestamp_timeout=300
+  '';
+
   system.defaults.NSGlobalDomain = {
     InitialKeyRepeat = 20;
     KeyRepeat = 2;
