@@ -30,9 +30,13 @@
     cleanup = "zap";
     brewPrefix = "/opt/homebrew/bin";
     taps = [
+      "homebrew/cask"
+      "homebrew/homebrew-services"
       "xorpse/formulae"
     ];
     brews = [
+    ];
+    casks = [
     ];
     extraConfig = ''
       brew "xorpse/formulae/yabai", args:["HEAD"]
