@@ -46,6 +46,7 @@
     };
   };
 
+  environment.systemPath =  [ "/opt/homebrew/bin" ];
   environment.variables = {
     EDITOR = "vim";
   };
