@@ -5,6 +5,7 @@
     <home-manager/nix-darwin>
     ./homebrew.nix
     ./sudo.nix
+    ./system.nix
     ./vim.nix
     ./yabai.nix
   ];
@@ -30,21 +31,6 @@
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
-
-  system.defaults.NSGlobalDomain = {
-    InitialKeyRepeat = 20;
-    KeyRepeat = 2;
-  };
-  system.defaults.dock.autohide = true;
-  system.defaults.trackpad = {
-    Clicking = true;
-    Dragging = true;
-    TrackpadThreeFingerDrag = true;
-  };
-  system.keyboard = {
-    enableKeyMapping = true;
-    remapCapsLockToControl = true;
-  };
 
   # Home Manager
   # nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
