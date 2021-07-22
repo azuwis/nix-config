@@ -1,7 +1,11 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ <home-manager/nix-darwin> ];
+  imports = [
+    <home-manager/nix-darwin>
+    ./homebrew.nix
+    ./yabai.nix
+  ];
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
@@ -25,28 +29,6 @@
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
 
-  homebrew = {
-    enable = true;
-    cleanup = "zap";
-    brewPrefix = "/opt/homebrew/bin";
-    taps = [
-      "homebrew/cask"
-      "homebrew/homebrew-services"
-      "xorpse/formulae"
-    ];
-    brews = [
-    ];
-    casks = [
-    ];
-    extraConfig = ''
-      brew "xorpse/formulae/yabai", args:["HEAD"]
-    '';
-    masApps = {
-      # Xcode = 497799835;
-    };
-  };
-
-  environment.systemPath =  [ "/opt/homebrew/bin" ];
   environment.variables = {
     EDITOR = "vim";
   };
