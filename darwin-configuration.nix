@@ -3,15 +3,16 @@
 {
   imports = [
     <home-manager/nix-darwin>
-    ./sudo.nix
     ./homebrew.nix
+    ./sudo.nix
+    ./vim.nix
     ./yabai.nix
   ];
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    vim
+    # vim
   ];
 
   # Use a custom configuration.nix location.
@@ -29,10 +30,6 @@
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
-
-  environment.variables = {
-    EDITOR = "vim";
-  };
 
   system.defaults.NSGlobalDomain = {
     InitialKeyRepeat = 20;
