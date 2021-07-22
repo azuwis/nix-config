@@ -25,6 +25,23 @@
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
 
+  homebrew = {
+    enable = true;
+    cleanup = "zap";
+    brewPrefix = "/opt/homebrew/bin";
+    taps = [
+      "xorpse/formulae"
+    ];
+    brews = [
+    ];
+    extraConfig = ''
+      brew "xorpse/formulae/yabai", args:["HEAD"]
+    '';
+    masApps = {
+      # Xcode = 497799835;
+    };
+  };
+
   environment.variables = {
     EDITOR = "vim";
   };
