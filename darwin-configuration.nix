@@ -10,6 +10,7 @@ with lib;
     <home-manager/nix-darwin>
     ./home.nix
     ./homebrew.nix
+    ./spacebar.nix
     ./sudo.nix
     ./system.nix
     ./vim.nix
