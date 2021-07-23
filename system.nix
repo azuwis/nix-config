@@ -20,7 +20,7 @@
     trackpad = {
       Clicking = true;
       Dragging = true;
-      TrackpadThreeFingerDrag = true;
+      # TrackpadThreeFingerDrag = true;
     };
   };
   system.keyboard = {
