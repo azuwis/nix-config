@@ -22,6 +22,11 @@
     ${config.my.user} ALL = (root) NOPASSWD: ${pkgs.yabai}/bin/yabai --load-sa
   '';
 
+  launchd.user.agents.yabai.serviceConfig = {
+    StandardErrorPath = "/tmp/yabai.log";
+    StandardOutPath = "/tmp/yabai.log";
+  };
+
   services.yabai = {
     enable = true;
     package = pkgs.yabai;
