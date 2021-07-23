@@ -1,6 +1,12 @@
 { config, pkgs, ... }:
 
 {
+  environment.systemPackages = with pkgs; [
+    # vim
+  ];
+  programs.zsh.enable = true;
+  services.nix-daemon.enable = true;
+  # nix.package = pkgs.nix;
   system.defaults = {
     NSGlobalDomain = {
       InitialKeyRepeat = 20;
@@ -27,5 +33,6 @@
     enableKeyMapping = true;
     remapCapsLockToControl = true;
   };
+  system.stateVersion = 4;
   time.timeZone = "Asia/Shanghai";
 }
