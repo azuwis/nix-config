@@ -5,7 +5,7 @@
   environment.variables = { HOMEBREW_NO_ANALYTICS = "1"; };
   homebrew = {
     enable = true;
-    autoUpdate = true;
+    # autoUpdate = true;
     cleanup = "zap";
     global = {
       brewfile = true;
