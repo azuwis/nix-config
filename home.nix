@@ -24,6 +24,14 @@
         lg = "log --abbrev-commit --graph --date=relative --pretty=format:'%C(yellow)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset'";
         st = "status";
       };
+      ignores = [
+        "*.swp"
+      ];
+      extraConfig = {
+        url = {
+          "ssh://git@github.com:22/" = { pushInsteadOf = "https://github.com/"; };
+        };
+      };
     };
 
     # Vim
