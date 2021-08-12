@@ -26,6 +26,7 @@
         # Pure prompt
         . ${pkgs.pure-prompt}/share/zsh/site-functions/async
         . ${pkgs.pure-prompt}/share/zsh/site-functions/prompt_pure_setup
+        PURE_GIT_PULL=0
         RPS1=""
 
         # Fast syntax highlight
