@@ -3,6 +3,8 @@
 {
   environment.systemPackages = with pkgs; [
   ];
+  fonts.enableFontDir = true;
+  fonts.fonts = [ pkgs.jetbrains-mono ];
   # nix.extraOptions = ''
   #   experimental-features = flakes nix-command
   # '';
