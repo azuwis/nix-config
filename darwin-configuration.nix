@@ -8,6 +8,7 @@ with lib;
   # nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
   imports = [
     <home-manager/nix-darwin>
+    ./alacritty.nix
     ./git.nix
     ./home-manager.nix
     ./homebrew.nix
