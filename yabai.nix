@@ -22,31 +22,54 @@
     ${config.my.user} ALL = (root) NOPASSWD: ${pkgs.yabai}/bin/yabai --load-sa
   '';
 
-  launchd.user.agents.yabai.serviceConfig = {
-    StandardErrorPath = "/tmp/yabai.log";
-    StandardOutPath = "/tmp/yabai.log";
-  };
-
   services.yabai = {
     enable = true;
     package = pkgs.yabai;
     config = {
-      window_gap = 3;
+      auto_balance = "on";
+      layout = "bsp";
+      mouse_modifier = "alt";
+      window_gap = 1;
+      window_shadow = "float";
     };
     extraConfig = ''
       sudo ${pkgs.yabai}/bin/yabai --load-sa
       yabai -m signal --add event=dock_did_restart action="sudo ${pkgs.yabai}/bin/yabai --load-sa"
+      yabai -m rule --add app="System Preferences" manage=off
     '';
   };
+
+  # launchd.user.agents.yabai.serviceConfig = {
+  #   StandardErrorPath = "/tmp/yabai.log";
+  #   StandardOutPath = "/tmp/yabai.log";
+  # };
 
   services.skhd = {
     enable = true;
     skhdConfig = ''
-      # float / unfloat window and center on screen
-      alt - t : yabai -m window --toggle float;\
-                yabai -m window --grid 4:4:1:1:2:2
-      # make floating window fill screen
-      shift + alt - up     : yabai -m window --grid 1:1:0:0:1:1
+      alt - 1 : yabai -m space --focus 1
+      alt - 2 : yabai -m space --focus 2
+      alt - 3 : yabai -m space --focus 3
+      alt - 4 : yabai -m space --focus 4
+      alt - 5 : yabai -m space --focus 5
+      alt - 6 : yabai -m space --focus 6
+      alt - 7 : yabai -m space --focus 7
+      alt - 8 : yabai -m space --focus 8
+      alt - 9 : yabai -m space --focus 9
+      alt - 0 : yabai -m space --focus 10
+      alt - 0x32 : yabai -m space --focus recent
+      alt - f : yabai -m window --toggle zoom-fullscreen
+      alt - return : alacritty
+      alt - c : yabai -m window --toggle float && yabai -m window --grid 6:6:1:1:4:4
     '';
   };
+
+  home-manager.users."${config.my.user}".home.activation.skhd = ''
+    ${pkgs.skhd}/bin/skhd --reload
+  '';
+
+  # launchd.user.agents.skhd.serviceConfig = {
+  #   StandardErrorPath = "/tmp/skhd.log";
+  #   StandardOutPath = "/tmp/skhd.log";
+  # };
 }
