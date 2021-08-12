@@ -12,7 +12,7 @@ with lib;
     ./home-manager.nix
     ./homebrew.nix
     ./mpv.nix
-    ./spacebar.nix
+    ./simple-bar.nix
     ./sudo.nix
     ./system.nix
     ./vim.nix
