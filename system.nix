@@ -2,8 +2,11 @@
 
 {
   environment.systemPackages = with pkgs; [
-    # vim
   ];
+  # nix.extraOptions = ''
+  #   experimental-features = flakes nix-command
+  # '';
+  # nix.package = pkgs.nixUnstable;
   programs.zsh.enable = true;
   services.nix-daemon.enable = true;
   # nix.package = pkgs.nix;
@@ -14,6 +17,7 @@
     };
     dock = {
       autohide = true;
+      expose-animation-duration = "0";
       mru-spaces = false;
       minimize-to-application = true;
     };
