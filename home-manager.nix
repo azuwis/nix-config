@@ -6,6 +6,7 @@
 
   home-manager.users."${config.my.user}" = {
     home.packages = with pkgs; [
+      ripgrep
     ];
   };
 }
