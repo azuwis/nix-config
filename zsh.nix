@@ -1,8 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  home-manager.useUserPackages = true;
-  home-manager.useGlobalPkgs = true;
   environment.pathsToLink = [ "/share/zsh" ];
 
   home-manager.users."${config.my.user}" = {
@@ -12,44 +10,6 @@
       zsh-history-substring-search
     ];
 
-    # Git
-    programs.git = {
-      enable = true;
-      userEmail = config.my.email;
-      userName = config.my.name;
-      aliases = {
-        ci = "commit";
-        cp = "cherry-pick";
-        fixup = "!sh -c 'git commit --fixup=$1 && git rebase --interactive --autosquash $1~' -";
-        lg = "log --abbrev-commit --graph --date=relative --pretty=format:'%C(yellow)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset'";
-        st = "status";
-      };
-      ignores = [
-        "*.swp"
-      ];
-      extraConfig = {
-        url = {
-          "ssh://git@github.com:22/" = { pushInsteadOf = "https://github.com/"; };
-        };
-      };
-    };
-
-    # Vim
-    programs.vim = {
-      enable = true;
-      plugins = with pkgs.vimPlugins; [
-        lightline-vim
-        vim-nix
-      ];
-      extraConfig = ''
-        set noshowmode
-        let g:lightline = {
-          \ 'colorscheme': 'seoul256',
-          \ }
-      '';
-    };
-
-    # Zsh
     programs.fzf.enable = true;
     programs.zoxide.enable = true;
     programs.zsh = {

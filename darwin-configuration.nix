@@ -8,13 +8,16 @@ with lib;
   # nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
   imports = [
     <home-manager/nix-darwin>
-    ./home.nix
+    ./git.nix
+    ./home-manager.nix
     ./homebrew.nix
+    ./mpv.nix
     ./spacebar.nix
     ./sudo.nix
     ./system.nix
     ./vim.nix
     ./yabai.nix
+    ./zsh.nix
   ];
 
   options.my = {
