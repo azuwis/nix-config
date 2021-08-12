@@ -23,6 +23,8 @@
         ll = "ls -l";
       };
       initExtra = ''
+        export CLICOLOR=1
+
         # Pure prompt
         . ${pkgs.pure-prompt}/share/zsh/site-functions/async
         . ${pkgs.pure-prompt}/share/zsh/site-functions/prompt_pure_setup
