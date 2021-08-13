@@ -12,6 +12,7 @@ with lib;
     ./git.nix
     ./home-manager.nix
     ./homebrew.nix
+    ./lorri.nix
     ./mpv.nix
     ./simple-bar.nix
     ./sudo.nix
