@@ -1,8 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  environment.systemPackages = [ pkgs.alacritty ];
   home-manager.users."${config.my.user}" = {
-    home.packages = [ pkgs.alacritty ];
     home.file.".config/alacritty/alacritty.yml".text = ''
       font:
         normal:

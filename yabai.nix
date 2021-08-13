@@ -59,7 +59,7 @@
       alt - 0 : yabai -m space --focus 10
       alt - 0x32 : yabai -m space --focus recent
       alt - f : yabai -m window --toggle zoom-fullscreen
-      alt - return : alacritty
+      alt - return : open -na ~/Applications/Alacritty.app
       alt - c : yabai -m window --toggle float && yabai -m window --grid 6:6:1:1:4:4
     '';
   };
