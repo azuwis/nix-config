@@ -12,6 +12,9 @@
   programs.zsh.enable = true;
   services.nix-daemon.enable = true;
   # nix.package = pkgs.nix;
+  system.activationScripts.postActivation.text = ''
+    ${pkgs.nixUnstable}/bin/nix store --experimental-features nix-command diff-closures /run/current-system "$systemConfig"
+  '';
   system.defaults = {
     NSGlobalDomain = {
       InitialKeyRepeat = 20;
