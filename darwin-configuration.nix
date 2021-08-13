@@ -1,7 +1,5 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
   # nix-channel --add https://github.com/LnL7/nix-darwin/archive/master.tar.gz darwin
   # nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
@@ -23,14 +21,14 @@ with lib;
   ];
 
   options.my = {
-    user = mkOption {
-      type = types.str;
+    user = lib.mkOption {
+      type = lib.types.str;
     };
     name = lib.mkOption {
-      type = types.str;
+      type = lib.types.str;
     };
     email = lib.mkOption {
-      type = types.str;
+      type = lib.types.str;
     };
   };
 
