@@ -6,10 +6,15 @@
   };
   home-manager.users."${config.my.user}" = {
     home.packages = [ pkgs.simple-bar ];
-    home.file."Library/Application Support/Übersicht/widgets/simple-bar".source = pkgs.simple-bar;
     home.activation.ubersicht = ''
-      rm -f ~/Library/Application\ Support/Übersicht/widgets/GettingStarted.jsx
-      rm -f ~/Library/Application\ Support/Übersicht/widgets/logo.png
+      ubersicht_widgets=~/Library/Application\ Support/Übersicht/widgets
+      mkdir -p "$ubersicht_widgets"
+      rm -f "$ubersicht_widgets/GettingStarted.jsx"
+      rm -f "$ubersicht_widgets/logo.png"
+      if [ ! -e "$ubersicht_widgets/simple-bar" ] || [ "$(readlink "$ubersicht_widgets/simple-bar")" != "${pkgs.simple-bar}" ]
+      then
+        ln -sfn "${pkgs.simple-bar}" "$ubersicht_widgets/simple-bar"
+      fi
     '';
   };
   homebrew.casks = [ "ubersicht" ];
