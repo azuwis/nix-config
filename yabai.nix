@@ -58,9 +58,16 @@
       alt - 9 : yabai -m space --focus 9
       alt - 0 : yabai -m space --focus 10
       alt - 0x32 : yabai -m space --focus recent
-      alt - f : yabai -m window --toggle zoom-fullscreen
-      alt - return : open -na ~/Applications/Alacritty.app
+      alt - l : yabai -m window --focus east
+      alt - j : yabai -m window --focus south
+      alt - h : yabai -m window --focus west
+      alt - k : yabai -m window --focus north
       alt - c : yabai -m window --toggle float && yabai -m window --grid 6:6:1:1:4:4
+      alt - f : yabai -m window --toggle zoom-fullscreen
+      alt - w : yabai -m space --layout stack
+      alt - e : yabai -m space --layout bsp
+      alt - s : yabai -m space --layout float
+      alt - return : open -na ~/Applications/Alacritty.app
     '';
   };
 
