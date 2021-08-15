@@ -13,6 +13,7 @@
     ./lorri.nix
     ./mpv.nix
     ./simple-bar.nix
+    ./squirrel.nix
     ./sudo.nix
     ./system.nix
     ./vim.nix
