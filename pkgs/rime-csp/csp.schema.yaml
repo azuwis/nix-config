@@ -10,8 +10,6 @@ schema:
     - Rime schema by Zhong Jianxin <azuwis@gmail.com>
   description: |
     C双拼方案。
-  dependencies:
-    - stroke
 
 switches:
   - name: ascii_mode
