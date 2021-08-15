@@ -6,7 +6,6 @@ in
 
 {
   home-manager.users."${config.my.user}" = {
-    home.packages = [ simple-bar ];
     home.activation.ubersicht = ''
       ubersicht_widgets=~/Library/Application\ Support/Übersicht/widgets
       mkdir -p "$ubersicht_widgets"
