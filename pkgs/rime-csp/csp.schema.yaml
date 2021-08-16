@@ -16,7 +16,6 @@ switches:
     reset: 1
     states: [ 中, 英 ]
   - name: zh_simp_s2t
-    reset: 0
     states: [ 简, 繁 ]
   - name: full_shape
     states: [ 半, 全 ]
@@ -779,7 +778,7 @@ reverse_lookup:
     - xlit/ZYXWVUTSRQPONMLKJIHGFEDCBA/zyxwvutsrqponmlkjihgfedcba/
 
 punctuator:
-  import_preset: default
+  import_preset: symbols
 
 key_binder:
   import_preset: default
@@ -787,6 +786,7 @@ key_binder:
 recognizer:
   import_preset: default
   patterns:
+    punct: '^/([0-9]0?|[A-Za-z]+)$'
     reverse_lookup: "`[a-z]*'?$"
 
 __include: grammar:/hans
