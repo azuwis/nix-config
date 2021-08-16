@@ -8,9 +8,13 @@ stdenvNoCC.mkDerivation rec {
     stripRoot = false;
     sha256 = "1920xga1m5sx7f9lc2x6hfny1y6hjmix164r6h3k1fjhjigwz2fz";
   };
-  octagram = fetchurl {
+  hans = fetchurl {
     url = "https://github.com/lotem/rime-octagram-data/raw/hans/zh-hans-t-essay-bgw.gram";
     sha256 = "0ygcpbhp00lb5ghi56kpxl1mg52i7hdlrznm2wkdq8g3hjxyxfqi";
+  };
+  grammar = fetchurl {
+    url = "https://github.com/lotem/rime-octagram-data/raw/master/grammar.yaml";
+    sha256 = "0aa14rvypnja38dm15hpq34xwvf06al6am9hxls6c4683ppyk355";
   };
   schema = ./csp.schema.yaml;
   phases = [ "unpackPhase" "installPhase" ];
@@ -21,7 +25,8 @@ stdenvNoCC.mkDerivation rec {
     ；	;
     EOF
     cp *.dict.yaml $out/
-    cp ${octagram} $out/zh-hans-t-essay-bgw.gram
+    cp ${hans} $out/zh-hans-t-essay-bgw.gram
+    cp ${grammar} $out/grammar.yaml
     cp ${schema} $out/csp.schema.yaml
   '';
 }
