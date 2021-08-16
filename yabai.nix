@@ -57,13 +57,29 @@
       alt - 8 : yabai -m space --focus 8
       alt - 9 : yabai -m space --focus 9
       alt - 0 : yabai -m space --focus 10
-      alt - tab : yabai -m space --focus recent
+      shift + alt - 1 : yabai -m window --space 1
+      shift + alt - 2 : yabai -m window --space 2
+      shift + alt - 3 : yabai -m window --space 3
+      shift + alt - 4 : yabai -m window --space 4
+      shift + alt - 5 : yabai -m window --space 5
+      shift + alt - 6 : yabai -m window --space 6
+      shift + alt - 7 : yabai -m window --space 7
+      shift + alt - 8 : yabai -m window --space 8
+      shift + alt - 9 : yabai -m window --space 9
+      shift + alt - 0 : yabai -m window --space 10
       alt - l : yabai -m window --focus east || yabai -m window --focus stack.next
       alt - j : yabai -m window --focus south
       alt - h : yabai -m window --focus west || yabai -m window --focus stack.prev
       alt - k : yabai -m window --focus north
+      shift + alt - l : yabai -m window --swap east
+      shift + alt - j : yabai -m window --swap south
+      shift + alt - h : yabai -m window --swap west
+      shift + alt - k : yabai -m window --swap north
+      shift + alt - 0x29 : yabai -m window --toggle split
       alt - c : yabai -m window --toggle float && yabai -m window --grid 6:6:1:1:4:4
       alt - f : yabai -m window --toggle zoom-fullscreen
+      alt - m : yabai -m window --minimize
+      alt - tab : yabai -m space --focus recent
       alt - w : yabai -m space --layout stack
       alt - e : yabai -m space --layout bsp
       alt - s : yabai -m space --layout float
