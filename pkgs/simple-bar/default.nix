@@ -12,6 +12,6 @@ stdenvNoCC.mkDerivation {
   installPhase = ''
     mkdir $out/
     cp -r *.jsx lib $out/
-    sed -i -e s,/usr/local/bin/yabai,/run/current-system/sw/bin/yabai, $out/lib/settings.js
+    substituteInPlace $out/lib/settings.js --replace /usr/local/bin/yabai /run/current-system/sw/bin/yabai
   '';
 }
