@@ -24,6 +24,7 @@
       };
       initExtra = ''
         export CLICOLOR=1
+        ulimit -n 2048
 
         # Pure prompt
         . ${pkgs.pure-prompt}/share/zsh/site-functions/async
