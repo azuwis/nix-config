@@ -57,7 +57,7 @@
       alt - 8 : yabai -m space --focus 8
       alt - 9 : yabai -m space --focus 9
       alt - 0 : yabai -m space --focus 10
-      alt - 0x32 : yabai -m space --focus recent
+      alt - tab : yabai -m space --focus recent
       alt - l : yabai -m window --focus east || yabai -m window --focus stack.next
       alt - j : yabai -m window --focus south
       alt - h : yabai -m window --focus west || yabai -m window --focus stack.prev
