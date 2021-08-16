@@ -6,6 +6,8 @@
 
   home-manager.users."${config.my.user}" = {
     home.packages = with pkgs; [
+      curl
+      hydra-check
       ripgrep
     ];
   };
