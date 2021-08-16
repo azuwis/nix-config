@@ -18,7 +18,7 @@ stdenvNoCC.mkDerivation rec {
     mkdir $out/
     cat <<EOF >> clover.dict.yaml
     ...
-    ；	;;
+    ；	;
     EOF
     cp *.dict.yaml $out/
     cp ${octagram} $out/zh-hans-t-essay-bgw.gram
