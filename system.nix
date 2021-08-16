@@ -3,6 +3,10 @@
 {
   environment.systemPackages = with pkgs; [
   ];
+  environment.variables = {
+    LANG = "en_US.UTF-8";
+    LC_ALL = "en_US.UTF-8";
+  };
   fonts.enableFontDir = true;
   fonts.fonts = [ pkgs.jetbrains-mono ];
   # nix.extraOptions = ''
@@ -11,7 +15,6 @@
   # nix.package = pkgs.nixUnstable;
   programs.zsh.enable = true;
   services.nix-daemon.enable = true;
-  # nix.package = pkgs.nix;
   system.activationScripts.postActivation.text = ''
     ${pkgs.nixUnstable}/bin/nix store --experimental-features nix-command diff-closures /run/current-system "$systemConfig"
   '';
