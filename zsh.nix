@@ -1,9 +1,9 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   environment.pathsToLink = [ "/share/zsh" ];
 
-  home-manager.users."${config.my.user}" = {
+  home-manager.users."${config.my.user}" = { config, lib, pkgs, ... }: {
     home.packages = with pkgs; [
       pure-prompt
       zsh-completions

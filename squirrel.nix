@@ -1,9 +1,8 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
-let rime-csp = pkgs.callPackage ./pkgs/rime-csp {};
-
+let
+  rime-csp = pkgs.callPackage ./pkgs/rime-csp {};
 in
-
 {
   home-manager.users."${config.my.user}" = {
     home.file."Library/Rime" = {

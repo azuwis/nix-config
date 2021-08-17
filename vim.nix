@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   environment.systemPackages = [
@@ -7,17 +7,19 @@
   environment.variables = {
     EDITOR = "vim";
   };
-  home-manager.users."${config.my.user}".programs.vim = {
-    enable = true;
-    plugins = with pkgs.vimPlugins; [
-      lightline-vim
-      vim-nix
-    ];
-    extraConfig = ''
-      set noshowmode
-      let g:lightline = {
-	\ 'colorscheme': 'seoul256',
-	\ }
-    '';
+  home-manager.users."${config.my.user}" = { config, lib, pkgs, ... }: {
+    programs.vim = {
+      enable = true;
+      plugins = with pkgs.vimPlugins; [
+        lightline-vim
+        vim-nix
+      ];
+      extraConfig = ''
+        set noshowmode
+        let g:lightline = {
+          \ 'colorscheme': 'seoul256',
+          \ }
+      '';
+    };
   };
 }

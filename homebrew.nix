@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   environment.systemPath =  [ "/opt/homebrew/bin" ];

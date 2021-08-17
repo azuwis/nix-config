@@ -1,11 +1,10 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
-let simple-bar = pkgs.callPackage ./pkgs/simple-bar {};
-
+let
+  simple-bar = pkgs.callPackage ./pkgs/simple-bar {};
 in
-
 {
-  home-manager.users."${config.my.user}" = { pkgs, lib, ... }: {
+  home-manager.users."${config.my.user}" = { config, lib, pkgs, ... }: {
     home.activation.ubersicht = lib.hm.dag.entryAfter ["writeBoundary"] ''
       ubersicht_widgets=~/Library/Application\ Support/Übersicht/widgets
       mkdir -p "$ubersicht_widgets"
