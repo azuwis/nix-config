@@ -5,8 +5,8 @@ let simple-bar = pkgs.callPackage ./pkgs/simple-bar {};
 in
 
 {
-  home-manager.users."${config.my.user}" = {
-    home.activation.ubersicht = ''
+  home-manager.users."${config.my.user}" = { pkgs, lib, ... }: {
+    home.activation.ubersicht = lib.hm.dag.entryAfter ["writeBoundary"] ''
       ubersicht_widgets=~/Library/Application\ Support/Übersicht/widgets
       mkdir -p "$ubersicht_widgets"
       rm -f "$ubersicht_widgets/GettingStarted.jsx"

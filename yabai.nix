@@ -87,9 +87,11 @@
     '';
   };
 
-  home-manager.users."${config.my.user}".home.activation.skhd = ''
-    ${pkgs.skhd}/bin/skhd --reload
-  '';
+  home-manager.users."${config.my.user}" = { pkgs, lib, ... }: {
+    home.activation.skhd = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      ${pkgs.skhd}/bin/skhd --reload
+    '';
+  };
 
   # launchd.user.agents.skhd.serviceConfig = {
   #   StandardErrorPath = "/tmp/skhd.log";
