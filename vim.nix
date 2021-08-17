@@ -11,6 +11,7 @@
     programs.vim = {
       enable = true;
       plugins = with pkgs.vimPlugins; [
+        vim-commentary
         lightline-vim
         vim-nix
       ];
