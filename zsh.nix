@@ -21,8 +21,8 @@
       defaultKeymap = "emacs";
       history.extended = true;
       shellAliases = {
-        l = "ls --color -l";
-        ls = "ls --color";
+        l = "ls --color=auto -l";
+        ls = "ls --color=auto";
       };
       initExtra = ''
         zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'm:{a-zA-Z}={A-Za-z} l:|=* r:|=*'
