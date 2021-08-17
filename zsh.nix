@@ -25,6 +25,7 @@
         ls = "ls --color";
       };
       initExtra = ''
+        zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'm:{a-zA-Z}={A-Za-z} l:|=* r:|=*'
         ulimit -n 2048
 
         # pure-prompt
