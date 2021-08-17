@@ -6,6 +6,7 @@
 
   home-manager.users."${config.my.user}" = { config, lib, pkgs, ... }: {
     home.packages = with pkgs; [
+      coreutils-full
       curl
       gnupg
       htop
