@@ -5,6 +5,7 @@
 
   home-manager.users."${config.my.user}" = { config, lib, pkgs, ... }: {
     home.packages = with pkgs; [
+      fd
       pure-prompt
       zsh-completions
       zsh-fast-syntax-highlighting
@@ -27,6 +28,17 @@
       initExtra = ''
         zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'm:{a-zA-Z}={A-Za-z} l:|=* r:|=*'
         ulimit -n 2048
+
+        # fzf
+        export FZF_COMPLETION_TRIGGER='*'
+        export FZF_DEFAULT_COMMAND='fd --type file --follow --hidden --exclude .git'
+        export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+        _fzf_compgen_path() {
+          fd --hidden --follow --exclude '.git' . "$1"
+        }
+        _fzf_compgen_dir() {
+          fd --type d --hidden --follow --exclude '.git' . "$1"
+        }
 
         # pure-prompt
         . ${pkgs.pure-prompt}/share/zsh/site-functions/async
