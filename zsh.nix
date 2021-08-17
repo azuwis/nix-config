@@ -21,11 +21,10 @@
       defaultKeymap = "emacs";
       history.extended = true;
       shellAliases = {
-        l = "ls -alh";
-        ll = "ls -l";
+        l = "ls --color -l";
+        ls = "ls --color";
       };
       initExtra = ''
-        export CLICOLOR=1
         ulimit -n 2048
 
         # pure-prompt
