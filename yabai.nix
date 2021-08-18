@@ -33,8 +33,8 @@
       window_shadow = "float";
     };
     extraConfig = ''
-      sudo ${pkgs.yabai}/bin/yabai --load-sa
-      yabai -m signal --add event=dock_did_restart action="sudo ${pkgs.yabai}/bin/yabai --load-sa"
+      sudo yabai --load-sa
+      yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
       yabai -m rule --add app="System Preferences" manage=off
     '';
   };
