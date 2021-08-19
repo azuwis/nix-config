@@ -3,10 +3,10 @@
 {
   nixpkgs.overlays = [( self: super: {
     yabai = super.yabai.overrideAttrs (o: rec {
-      version = "3.3.10";
+      version = "3.3.10-1";
       src = builtins.fetchTarball {
-        url = "https://github.com/azuwis/yabai/releases/download/v${version}/yabai-v${version}.tar.gz";
-        sha256 = "0gbigxgs5n6ack56sb24y08qqyaygq8nwqdlmqqbrwdq02yps3dv";
+        url = "https://github.com/azuwis/yabai/releases/download/v3.3.10/yabai-v${version}.tar.gz";
+        sha256 = "1za1b3hdns9hhhwpq3fvya2528rc17cyz9sl0jq4q6y1i35jkrm6";
       };
 
       installPhase = ''
