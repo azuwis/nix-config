@@ -10,7 +10,10 @@
     LC_ALL = "en_US.UTF-8";
   };
   fonts.enableFontDir = true;
-  fonts.fonts = [ pkgs.jetbrains-mono ];
+  fonts.fonts = with pkgs; [
+    jetbrains-mono
+    sf-symbols
+  ];
   # nix.extraOptions = ''
   #   experimental-features = flakes nix-command
   # '';
