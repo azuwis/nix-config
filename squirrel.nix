@@ -1,12 +1,9 @@
 { config, lib, pkgs, ... }:
 
-let
-  rime-csp = pkgs.callPackage ./pkgs/rime-csp {};
-in
 {
   home-manager.users."${config.my.user}" = {
     home.file."Library/Rime" = {
-      source = rime-csp;
+      source = pkgs.rime-csp;
       recursive = true;
     };
     home.file."Library/Rime/default.custom.yaml".text = ''

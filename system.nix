@@ -1,6 +1,8 @@
 { config, lib, pkgs, ... }:
 
 {
+  # darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/configuration.nix
+  environment.darwinConfig = "$HOME/.config/nixpkgs/configuration.nix";
   environment.systemPackages = with pkgs; [
   ];
   environment.variables = {
@@ -13,6 +15,7 @@
   #   experimental-features = flakes nix-command
   # '';
   # nix.package = pkgs.nixUnstable;
+  nixpkgs.overlays = import ./overlays.nix;
   programs.zsh.enable = true;
   services.nix-daemon.enable = true;
   system.activationScripts.postActivation.text = ''

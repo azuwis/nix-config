@@ -1,8 +1,5 @@
 { config, lib, pkgs, ... }:
 
-let
-  simple-bar = pkgs.callPackage ./pkgs/simple-bar {};
-in
 {
   home-manager.users."${config.my.user}" = { config, lib, pkgs, ... }: {
     home.activation.ubersicht = lib.hm.dag.entryAfter ["writeBoundary"] ''
@@ -10,9 +7,9 @@ in
       mkdir -p "$ubersicht_widgets"
       rm -f "$ubersicht_widgets/GettingStarted.jsx"
       rm -f "$ubersicht_widgets/logo.png"
-      if [ ! -e "$ubersicht_widgets/simple-bar" ] || [ "$(readlink "$ubersicht_widgets/simple-bar")" != "${simple-bar}" ]
+      if [ ! -e "$ubersicht_widgets/simple-bar" ] || [ "$(readlink "$ubersicht_widgets/simple-bar")" != "${pkgs.simple-bar}" ]
       then
-        ln -sfn "${simple-bar}" "$ubersicht_widgets/simple-bar"
+        ln -sfn "${pkgs.simple-bar}" "$ubersicht_widgets/simple-bar"
       fi
     '';
   };
