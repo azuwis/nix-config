@@ -12,7 +12,7 @@
     ./homebrew.nix
     ./lorri.nix
     ./mpv.nix
-    ./simple-bar.nix
+    ./nibar.nix
     ./squirrel.nix
     ./sudo.nix
     ./system.nix
