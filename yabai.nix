@@ -31,6 +31,7 @@
       do
         yabai -m signal --add event=$event action='echo \{\"type\":\"WIDGET_WANTS_REFRESH\",\"payload\":\"nibar-windows-jsx\"\} | websocat -E --origin http://127.0.0.1:41416 ws://127.0.0.1:41416' label=nibar_windows_$event
       done
+      yabai -m space 5 --layout float
     '';
   };
 
