@@ -5,8 +5,8 @@ stdenvNoCC.mkDerivation {
   src = fetchFromGitHub {
     owner = "azuwis";
     repo = "nibar";
-    rev = "a1190d596041a6ba95b6b8c11c8d10aa269bb1a9";
-    sha256 = "0pm1hq86pn30rkrz27xh9hi5fmm2swvv4fy9znwmskmc34h3dxpc";
+    rev = "ad68d5b8a934369748f356240d9ad2d3162e5ca6";
+    sha256 = "1rs81rsbxckfhc75lzyyxf3xlqa2xdr0xbynp8pbcrlcsq1p2g4s";
   };
   phases = [ "unpackPhase" "installPhase" ];
   installPhase = ''
