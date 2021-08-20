@@ -1,4 +1,8 @@
-{ lib, stdenvNoCC, fetchurl, undmg, xar, cpio }:
+{ lib, stdenvNoCC, fetchurl, undmg, xar, cpio
+, fonts ? true
+, full ? false
+, app ? false
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "sf-symbols";
@@ -12,14 +16,20 @@ stdenvNoCC.mkDerivation rec {
   sourceRoot = ".";
   buildInputs = [ undmg xar cpio ];
   installPhase = ''
-    xar -Oxf SF\ Symbols.pkg SFSymbols.pkg/Payload | gzip -d | cpio -id ./Library/Fonts/SF-Pro.ttf
+    xar -Oxf SF\ Symbols.pkg SFSymbols.pkg/Payload | gzip -d | cpio -i
+  ''
+  + lib.optionalString fonts ''
     mkdir -p $out/share/fonts/truetype
-    cp ./Library/Fonts/SF-Pro.ttf $out/share/fonts/truetype
+    cp ./Library/Fonts/${if full then "*" else "SF-Pro.ttf"} $out/share/fonts/truetype
+  ''
+  + lib.optionalString app ''
+    mkdir -p $out/Applications
+    cp -R ./Applications/SF\ Symbols.app $out/Applications
   '';
 
   meta = {
-    description = "Tool that provides consistent, highly configurable symbols for apps";
+    description = if app then "Tool that provides consistent, highly configurable symbols for apps" else "Fonts from SF Symbols";
     homepage = "https://developer.apple.com/sf-symbols/";
-    platforms = lib.platforms.all;
+    platforms = if app then lib.platforms.darwin else lib.platforms.all;
   };
 }

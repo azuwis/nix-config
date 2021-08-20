@@ -4,7 +4,7 @@
   # darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/configuration.nix
   environment.darwinConfig = "$HOME/.config/nixpkgs/configuration.nix";
   environment.systemPackages = with pkgs; [
-    sf-symbols
+    sf-symbols-app
   ];
   environment.variables = {
     LANG = "en_US.UTF-8";
