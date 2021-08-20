@@ -10,6 +10,12 @@
         size: 15.0
       window:
         decorations: buttonless
+        dimensions:
+          columns: 106
+          lines: 29
+        position:
+          x: 480
+          y: 340
     '';
   };
 }
