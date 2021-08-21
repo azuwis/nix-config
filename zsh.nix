@@ -27,6 +27,7 @@
       };
       initExtra = ''
         zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'm:{a-zA-Z}={A-Za-z} l:|=* r:|=*'
+        setopt MENU_COMPLETE
         ulimit -n 2048
 
         # fzf
