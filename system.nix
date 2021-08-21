@@ -33,8 +33,11 @@
     dock = {
       autohide = true;
       expose-animation-duration = "0";
-      mru-spaces = false;
+      mineffect = "scale";
       minimize-to-application = true;
+      mru-spaces = false;
+      orientation = "left";
+      show-recents = false;
     };
     finder = {
       AppleShowAllExtensions = true;
