@@ -11,12 +11,12 @@ let
       log_info = on;
       redirector = pf;
     }
-
     redsocks {
       bind = "${cfg.bind}:${toString cfg.port}";
       relay = "${cfg.relay}";
       type = socks5;
     }
+    ${cfg.extraConfig}
   '';
 in
 
@@ -51,6 +51,12 @@ in
       type = types.str;
       default = "127.0.0.1:1080";
       description = "This option specifies the ip:port on which redsocks2 will relay.";
+    };
+
+    services.redsocks2.extraConfig = mkOption {
+      type = types.lines;
+      default = "";
+      description = "Additional text to be appended to <filename>redsocks2.conf</filename>.";
     };
   };
 
