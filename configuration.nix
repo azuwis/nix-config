@@ -6,7 +6,6 @@
   # nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
   imports = [
     <home-manager/nix-darwin>
-    ./alacritty.nix
     ./homebrew.nix
     ./lorri.nix
     ./mpv.nix

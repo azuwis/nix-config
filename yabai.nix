@@ -80,7 +80,7 @@
       lalt - w : yabai -m space --layout stack
       lalt - e : yabai -m space --layout bsp
       lalt - s : yabai -m space --layout float
-      lalt - return : open -na ~/Applications/Alacritty.app
+      lalt - return : alacritty
     '';
   };
 
