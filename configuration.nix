@@ -8,6 +8,7 @@
     <home-manager/nix-darwin>
     ./homebrew.nix
     ./modules/services/redsocks2
+    ./modules/services/shadowsocks
     ./my.nix
     ./nibar.nix
     ./skhd.nix
