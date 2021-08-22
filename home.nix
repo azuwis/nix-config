@@ -4,6 +4,7 @@
   imports = [
     ./alacritty.nix
     ./git.nix
+    ./mpv.nix
     ./my.nix
     ./vim.nix
     ./zsh.nix

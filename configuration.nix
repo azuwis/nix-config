@@ -7,7 +7,6 @@
   imports = [
     <home-manager/nix-darwin>
     ./homebrew.nix
-    ./mpv.nix
     ./my.nix
     ./nibar.nix
     ./squirrel.nix
