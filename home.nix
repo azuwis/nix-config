@@ -18,6 +18,7 @@
     gnupg
     htop
     hydra-check
+    less
     pass-otp
     ripgrep
   ];
