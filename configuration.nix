@@ -8,7 +8,6 @@
     <home-manager/nix-darwin>
     ./alacritty.nix
     ./git.nix
-    ./home-manager.nix
     ./homebrew.nix
     ./lorri.nix
     ./mpv.nix
@@ -21,4 +20,8 @@
     ./yabai.nix
     ./zsh.nix
   ];
+
+  home-manager.useUserPackages = true;
+  home-manager.useGlobalPkgs = true;
+  home-manager.users."${config.my.user}" = import ./home.nix;
 }
