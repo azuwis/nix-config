@@ -7,7 +7,6 @@
   imports = [
     <home-manager/nix-darwin>
     ./homebrew.nix
-    ./lorri.nix
     ./mpv.nix
     ./my.nix
     ./nibar.nix
@@ -20,4 +19,6 @@
   home-manager.useUserPackages = true;
   home-manager.useGlobalPkgs = true;
   home-manager.users."${config.my.user}" = import ./home.nix;
+
+  services.lorri.enable = true;
 }

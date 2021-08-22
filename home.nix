@@ -17,4 +17,5 @@
     pass-otp
     ripgrep
   ];
+  programs.direnv.enable = true;
 }
