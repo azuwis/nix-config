@@ -14,7 +14,6 @@
     ./squirrel.nix
     ./sudo.nix
     ./system.nix
-    ./vim.nix
     ./yabai.nix
   ];
 

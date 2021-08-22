@@ -5,6 +5,7 @@
     ./alacritty.nix
     ./git.nix
     ./my.nix
+    ./vim.nix
     ./zsh.nix
   ];
   home.packages = with pkgs; [
