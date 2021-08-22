@@ -6,6 +6,7 @@
     ./git.nix
     ./mpv.nix
     ./my.nix
+    ./squirrel.nix
     ./vim.nix
     ./zsh.nix
   ];
