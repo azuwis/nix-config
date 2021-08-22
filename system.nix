@@ -3,18 +3,13 @@
 {
   # darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/configuration.nix
   environment.darwinConfig = "$HOME/.config/nixpkgs/configuration.nix";
-  environment.systemPackages = with pkgs; [
-    sf-symbols-app
-  ];
+  environment.systemPackages = with pkgs; [ sf-symbols-app ];
   environment.variables = {
     LANG = "en_US.UTF-8";
     LC_ALL = "en_US.UTF-8";
   };
   fonts.enableFontDir = true;
-  fonts.fonts = with pkgs; [
-    jetbrains-mono
-    sf-symbols
-  ];
+  fonts.fonts = with pkgs; [ jetbrains-mono sf-symbols ];
   # nix.extraOptions = ''
   #   experimental-features = flakes nix-command
   # '';

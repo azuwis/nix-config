@@ -5,9 +5,7 @@
     ${config.my.user} ALL = (root) NOPASSWD: ${pkgs.yabai}/bin/yabai --load-sa
   '';
 
-  environment.systemPackages = [
-    pkgs.websocat
-  ];
+  environment.systemPackages = [ pkgs.websocat ];
 
   services.yabai = {
     enable = true;

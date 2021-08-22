@@ -3,7 +3,7 @@
 if builtins.hasAttr "hm" lib then
 
 {
-  home.activation.skhd = lib.hm.dag.entryAfter ["writeBoundary"] ''
+  home.activation.skhd = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     ${pkgs.skhd}/bin/skhd --reload
   '';
 }

@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  environment.systemPath =  [ "/opt/homebrew/bin" ];
+  environment.systemPath = [ "/opt/homebrew/bin" ];
   environment.variables = { HOMEBREW_NO_ANALYTICS = "1"; };
   homebrew = {
     enable = true;
@@ -17,10 +17,8 @@
       "homebrew/cask"
       # "homebrew/homebrew-services"
     ];
-    brews = [
-    ];
-    casks = [
-    ];
+    brews = [ ];
+    casks = [ ];
     masApps = {
       # Xcode = 497799835;
     };

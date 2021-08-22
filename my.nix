@@ -2,15 +2,9 @@
 
 {
   options.my = {
-    user = lib.mkOption {
-      type = lib.types.str;
-    };
-    name = lib.mkOption {
-      type = lib.types.str;
-    };
-    email = lib.mkOption {
-      type = lib.types.str;
-    };
+    user = lib.mkOption { type = lib.types.str; };
+    name = lib.mkOption { type = lib.types.str; };
+    email = lib.mkOption { type = lib.types.str; };
   };
   config = {
     my = {

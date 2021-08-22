@@ -3,7 +3,7 @@
 if builtins.hasAttr "hm" lib then
 
 {
-  home.activation.ubersicht = lib.hm.dag.entryAfter ["writeBoundary"] ''
+  home.activation.ubersicht = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     ubersicht_widgets=~/Library/Application\ Support/Übersicht/widgets
     mkdir -p "$ubersicht_widgets"
     rm -f "$ubersicht_widgets/GettingStarted.jsx"
