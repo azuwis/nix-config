@@ -9,6 +9,7 @@
     ./homebrew.nix
     ./my.nix
     ./nibar.nix
+    ./skhd.nix
     ./squirrel.nix
     ./sudo.nix
     ./system.nix
