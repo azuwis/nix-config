@@ -22,4 +22,5 @@
   home-manager.users."${config.my.user}" = import ./home.nix;
 
   services.lorri.enable = true;
+  services.redsocks2.enable = true;
 }
