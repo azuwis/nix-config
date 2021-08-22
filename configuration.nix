@@ -17,7 +17,6 @@
     ./system.nix
     ./vim.nix
     ./yabai.nix
-    ./zsh.nix
   ];
 
   home-manager.useUserPackages = true;
