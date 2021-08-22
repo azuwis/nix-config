@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./git.nix
     ./my.nix
   ];
   home.packages = with pkgs; [

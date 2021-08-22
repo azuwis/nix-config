@@ -7,7 +7,6 @@
   imports = [
     <home-manager/nix-darwin>
     ./alacritty.nix
-    ./git.nix
     ./homebrew.nix
     ./lorri.nix
     ./mpv.nix
