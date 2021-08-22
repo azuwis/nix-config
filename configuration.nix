@@ -7,6 +7,7 @@
   imports = [
     <home-manager/nix-darwin>
     ./homebrew.nix
+    ./modules/services/redsocks2
     ./my.nix
     ./nibar.nix
     ./skhd.nix
