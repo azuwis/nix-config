@@ -18,9 +18,8 @@ let
     }
     ${cfg.extraConfig}
   '';
-in
 
-{
+in {
   options = {
     services.redsocks2.enable = mkOption {
       type = types.bool;
@@ -32,25 +31,25 @@ in
       type = types.path;
       default = pkgs.redsocks2;
       defaultText = "pkgs.redsocks2";
-      description = "This option specifies the redsocks2 package to use.";
+      description = "The redsocks2 package to use.";
     };
 
     services.redsocks2.bind = mkOption {
       type = types.str;
       default = "127.0.0.1";
-      description = "This option specifies the interface on which redsocks2 will listen.";
+      description = "The interface on which redsocks2 will listen.";
     };
 
     services.redsocks2.port = mkOption {
       type = types.int;
       default = 1081;
-      description = "This option specifies port on which redsocks2 will listen.";
+      description = "The port on which redsocks2 will listen.";
     };
 
     services.redsocks2.relay = mkOption {
       type = types.str;
       default = "127.0.0.1:1080";
-      description = "This option specifies the ip:port on which redsocks2 will relay.";
+      description = "The ip:port on which redsocks2 will relay.";
     };
 
     services.redsocks2.extraConfig = mkOption {
@@ -64,12 +63,7 @@ in
     environment.systemPackages = [ cfg.package ];
 
     launchd.daemons.redsocks2 = {
-      serviceConfig.ProgramArguments = [
-        "${cfg.package}/bin/redsocks2"
-        "-c"
-        "${configFile}"
-      ];
-
+      serviceConfig.ProgramArguments = [ "${cfg.package}/bin/redsocks2" "-c" "${configFile}" ];
       serviceConfig.KeepAlive = true;
       serviceConfig.RunAtLoad = true;
     };
