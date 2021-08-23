@@ -58,6 +58,7 @@ in
         "--keep-in-foreground"
         "--listen-address=${cfg.bind}"
         "--port=${toString cfg.localDomainPort}"
+        "--strict-order"
       ];
       serviceConfig.KeepAlive = true;
       serviceConfig.RunAtLoad = true;
@@ -71,7 +72,7 @@ in
         "--port=${toString cfg.port}"
         "--no-resolv"
         "--server=${cfg.remoteDomainServer}"
-        "--conf-file=${smartdnsConf}"
+        "--servers-file=${smartdnsConf}"
       ];
       serviceConfig.KeepAlive = true;
       serviceConfig.RunAtLoad = true;
