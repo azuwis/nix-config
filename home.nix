@@ -21,6 +21,7 @@
     less
     pass-otp
     ripgrep
+    watch
   ];
   programs.direnv.enable = true;
 }
