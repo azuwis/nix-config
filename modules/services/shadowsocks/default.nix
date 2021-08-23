@@ -40,6 +40,7 @@ in {
       serviceConfig.KeepAlive = true;
       serviceConfig.RunAtLoad = true;
       serviceConfig.UserName = "shadowsocks";
+      serviceConfig.SoftResourceLimits.NumberOfFiles = 4096;
     };
   };
 }
