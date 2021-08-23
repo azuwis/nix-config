@@ -11,12 +11,9 @@
       co = "checkout";
       cp = "cherry-pick";
       di = "diff";
-      fixup =
-        "!sh -c 'git commit --fixup=$1 && git rebase --interactive --autosquash $1~' -";
-      gch =
-        "!sh -c 'git reflog expire --expire=now --all && git gc --prune=now --aggressive'";
-      lg =
-        "log --abbrev-commit --graph --date=relative --pretty=format:'%C(yellow)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset'";
+      fixup = "!sh -c 'git commit --fixup=$1 && git rebase --interactive --autosquash $1~' -";
+      gch = "!sh -c 'git reflog expire --expire=now --all && git gc --prune=now --aggressive'";
+      lg = "log --abbrev-commit --graph --date=relative --pretty=format:'%C(yellow)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset'";
       st = "status";
       rewind = "!sh -c 'git update-ref refs/heads/$1 \${2:-HEAD}' -";
     };

@@ -6,8 +6,7 @@ stdenvNoCC.mkDerivation rec {
   version = "2.1";
 
   src = fetchurl {
-    url =
-      "https://devimages-cdn.apple.com/design/resources/download/SF-Symbols-${version}.dmg";
+    url = "https://devimages-cdn.apple.com/design/resources/download/SF-Symbols-${version}.dmg";
     sha256 = "0bn00f1jm48xwl11f0hnmasdl7p6pnwsljgn5krggpbhw3g5dbwp";
   };
 
