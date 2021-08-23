@@ -7,6 +7,7 @@
   imports = [
     <home-manager/nix-darwin>
     ./homebrew.nix
+    ./modules/services/smartdns
     ./modules/services/redsocks2
     ./modules/services/shadowsocks
     ./my.nix
