@@ -13,6 +13,7 @@
     ./my.nix
     ./nibar.nix
     ./skhd.nix
+    ./smartnet.nix
     ./squirrel.nix
     ./sudo.nix
     ./system.nix
@@ -24,5 +25,4 @@
   home-manager.users."${config.my.user}" = import ./home.nix;
 
   services.lorri.enable = true;
-  services.redsocks2.enable = true;
 }
