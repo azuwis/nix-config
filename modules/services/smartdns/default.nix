@@ -6,8 +6,7 @@ let
   cfg = config.services.smartdns;
   domains = ./domains;
   smartdnsConf = pkgs.runCommand "smartdns.conf" {} ''
-    pwd
-    sed -e 's,^,server=/,' -e 's,$,/${cfg.bind}#${toString cfg.localDomainPort},' ${domains} >$out
+    sed -e 's,^,server=/,' -e 's,$,/${cfg.local.bind}#${toString cfg.local.port},' ${domains} >$out
   '';
   smartdnsUpdate = pkgs.writeScript "smartdns-update" ''
     #!/bin/sh
@@ -67,13 +66,19 @@ in
       description = "The port on which SmartDNS will listen.";
     };
 
-    services.smartdns.localDomainPort = mkOption {
+    services.smartdns.local.bind = mkOption {
+      type = types.str;
+      default = "127.0.0.1";
+      description = "The interface on which SmartDNS will listen for local domains.";
+    };
+
+    services.smartdns.local.port = mkOption {
       type = types.int;
       default = 54;
       description = "The port on which SmartDNS will listen for local domains.";
     };
 
-    services.smartdns.remoteDomainServer = mkOption {
+    services.smartdns.remoteServer = mkOption {
       type = types.str;
       default = "127.0.0.1#55";
       description = "The server on which SmartDNS will forward for remote domains.";
@@ -85,8 +90,8 @@ in
       serviceConfig.ProgramArguments = [
         "${cfg.package}/bin/dnsmasq"
         "--keep-in-foreground"
-        "--listen-address=${cfg.bind}"
-        "--port=${toString cfg.localDomainPort}"
+        "--listen-address=${cfg.local.bind}"
+        "--port=${toString cfg.local.port}"
         "--resolv-file=/var/run/smartdns-update"
         "--strict-order"
         "--cache-size=0"
@@ -114,7 +119,7 @@ in
         "--listen-address=${cfg.bind}"
         "--port=${toString cfg.port}"
         "--no-resolv"
-        "--server=${cfg.remoteDomainServer}"
+        "--server=${cfg.remoteServer}"
         "--servers-file=${smartdnsConf}"
       ];
       serviceConfig.KeepAlive = true;
