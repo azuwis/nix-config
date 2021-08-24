@@ -89,6 +89,7 @@ in
         "--port=${toString cfg.localDomainPort}"
         "--resolv-file=/var/run/smartdns-update"
         "--strict-order"
+        "--cache-size=0"
       ];
       serviceConfig.KeepAlive = true;
       serviceConfig.RunAtLoad = true;
