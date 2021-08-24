@@ -21,7 +21,7 @@ let
         fi
       done
     else
-      iface="$(netstat -rnf inet | awk '/^default/ {print $4}')"
+      iface="$(netstat -rnf inet | awk '/^default/ {print $4; exit}')"
       test -z "$iface" && exit
       dns="$(ipconfig getoption "$iface" domain_name_server)"
       test -z "$dns" && exit
