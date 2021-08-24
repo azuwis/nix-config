@@ -4,9 +4,9 @@ with lib;
 
 let
   cfg = config.services.smartdns;
-  domains = ./domains;
+  localDomains = ./local-domains;
   smartdnsConf = pkgs.runCommand "smartdns.conf" {} ''
-    sed -e 's,^,server=/,' -e 's,$,/${cfg.local.bind}#${toString cfg.local.port},' ${domains} >$out
+    sed -e 's,^,server=/,' -e 's,$,/${cfg.local.bind}#${toString cfg.local.port},' ${localDomains} >$out
   '';
   smartdnsUpdate = pkgs.writeScript "smartdns-update" ''
     #!/bin/sh
