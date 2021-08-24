@@ -83,6 +83,12 @@ in
       default = "127.0.0.1#55";
       description = "The server on which SmartDNS will forward for remote domains.";
     };
+
+    services.smartdns.update.enable = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Whether to enable SmartDNS auto set DNS server for this computer.";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -92,7 +98,7 @@ in
         "--keep-in-foreground"
         "--listen-address=${cfg.local.bind}"
         "--port=${toString cfg.local.port}"
-        "--resolv-file=/var/run/smartdns-update"
+        "--resolv-file=/var/run/${if cfg.update.enable then "smartdns-update" else "resolv.conf"}"
         "--strict-order"
         "--cache-size=0"
       ];
@@ -100,7 +106,7 @@ in
       serviceConfig.RunAtLoad = true;
     };
 
-    launchd.daemons.smartdns-update = {
+    launchd.daemons.smartdns-update = mkIf cfg.update.enable {
       serviceConfig.ProgramArguments = [
         "${smartdnsUpdate}"
       ];
