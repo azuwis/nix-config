@@ -6,10 +6,10 @@
   # nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
   imports = [
     <home-manager/nix-darwin>
+    ./services/smartdns
+    ./services/redsocks2
+    ./services/shadowsocks
     ./homebrew.nix
-    ./modules/services/smartdns
-    ./modules/services/redsocks2
-    ./modules/services/shadowsocks
     ./my.nix
     ./nibar.nix
     ./skhd.nix
