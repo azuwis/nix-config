@@ -17,7 +17,7 @@
       st = "status";
       rewind = "!sh -c 'git update-ref refs/heads/$1 \${2:-HEAD}' -";
     };
-    ignores = [ "*.swp" ];
+    ignores = [ ".*.sw?" ];
     extraConfig = {
       rebase = {
         autosquash = true;
