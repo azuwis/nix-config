@@ -57,33 +57,43 @@ in {
       default = "";
       description = "Additional text to be appended to <filename>redsocks2.conf</filename>.";
     };
-  };
 
-  config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
-
-    launchd.daemons.redsocks2 = {
-      serviceConfig.ProgramArguments = [ "${cfg.package}/bin/redsocks2" "-c" "${configFile}" ];
-      serviceConfig.KeepAlive.PathState."/nix/store" = true;
-      serviceConfig.SoftResourceLimits.NumberOfFiles = 4096;
+    services.redsocks2.pf.enable = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Whether to enable redsocks2. Run <code>sudo pfctl -d</code> after disable this option.";
     };
-
-    environment.etc."pf.direct".source = ./pf.direct;
-
-    system.patches = [
-      (pkgs.writeText "pf-conf.patch" ''
-        --- a/etc/pf.conf
-        +++ b/etc/pf.conf
-        @@ -23,5 +23,8 @@
-         nat-anchor "com.apple/*"
-         rdr-anchor "com.apple/*"
-         dummynet-anchor "com.apple/*"
-        +table <direct> persist file "/etc/pf.direct"
-        +rdr pass on lo0 proto tcp from any to !<direct> -> ${cfg.bind} port ${toString cfg.port}
-        +pass out route-to (lo0 127.0.0.1) proto tcp from any to !<direct> 
-         anchor "com.apple/*"
-         load anchor "com.apple" from "/etc/pf.anchors/com.apple"
-      '')
-    ];
   };
+
+  config = mkMerge [
+    (mkIf cfg.enable {
+      environment.systemPackages = [ cfg.package ];
+
+      launchd.daemons.redsocks2 = {
+        serviceConfig.ProgramArguments = [ "${cfg.package}/bin/redsocks2" "-c" "${configFile}" ];
+        serviceConfig.KeepAlive.PathState."/nix/store" = true;
+        serviceConfig.SoftResourceLimits.NumberOfFiles = 4096;
+      };
+    })
+
+    (mkIf (cfg.enable && cfg.pf.enable) {
+      environment.etc."pf.direct".source = ./pf.direct;
+
+      system.patches = [
+        (pkgs.writeText "pf-conf.patch" ''
+          --- a/etc/pf.conf
+          +++ b/etc/pf.conf
+          @@ -23,5 +23,8 @@
+           nat-anchor "com.apple/*"
+           rdr-anchor "com.apple/*"
+           dummynet-anchor "com.apple/*"
+          +table <direct> persist file "/etc/pf.direct"
+          +rdr pass on lo0 proto tcp from any to !<direct> -> ${cfg.bind} port ${toString cfg.port}
+          +pass out route-to (lo0 127.0.0.1) proto tcp from any to !<direct> 
+           anchor "com.apple/*"
+           load anchor "com.apple" from "/etc/pf.anchors/com.apple"
+        '')
+      ];
+    })
+  ];
 }
