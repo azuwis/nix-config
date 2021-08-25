@@ -78,15 +78,13 @@ in
         "--strict-order"
         "--cache-size=0"
       ];
-      serviceConfig.KeepAlive = true;
-      serviceConfig.RunAtLoad = true;
+      serviceConfig.KeepAlive.PathState."/nix/store" = true;
     };
 
     launchd.daemons.smartdns-update = mkIf cfg.update.enable {
       serviceConfig.ProgramArguments = [
         "${smartdnsUpdate}"
       ];
-      serviceConfig.RunAtLoad = true;
       serviceConfig.ThrottleInterval = 1;
       serviceConfig.WatchPaths = [
         "/var/run/resolv.conf"
@@ -104,8 +102,7 @@ in
         "--server=${cfg.remoteServer}"
         "--servers-file=${smartdnsConf}"
       ];
-      serviceConfig.KeepAlive = true;
-      serviceConfig.RunAtLoad = true;
+      serviceConfig.KeepAlive.PathState."/nix/store" = true;
     };
   };
 }

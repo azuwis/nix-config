@@ -64,8 +64,7 @@ in {
 
     launchd.daemons.redsocks2 = {
       serviceConfig.ProgramArguments = [ "${cfg.package}/bin/redsocks2" "-c" "${configFile}" ];
-      serviceConfig.KeepAlive = true;
-      serviceConfig.RunAtLoad = true;
+      serviceConfig.KeepAlive.PathState."/nix/store" = true;
       serviceConfig.SoftResourceLimits.NumberOfFiles = 4096;
     };
 
