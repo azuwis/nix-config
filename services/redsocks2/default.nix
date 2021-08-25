@@ -98,6 +98,14 @@ in {
            load anchor "com.apple" from "/etc/pf.anchors/com.apple"
         '')
       ];
+
+      launchd.daemons.redsocks2-pf = {
+        serviceConfig.ProgramArguments = [
+          "/bin/sh" "-c" ''/bin/wait4path /nix/store && exec "$@"'' "--"
+          "/sbin/pfctl" "-e" "-f" "/etc/pf.conf"
+        ];
+        serviceConfig.RunAtLoad = true;
+      };
     })
   ];
 }
