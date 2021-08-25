@@ -70,6 +70,7 @@ in
   config = mkIf cfg.enable {
     launchd.daemons.smartdns-local = {
       serviceConfig.ProgramArguments = [
+        "/bin/sh" "-c" ''/bin/wait4path /nix/store && exec "$@"'' "--"
         "${cfg.package}/bin/dnsmasq"
         "--keep-in-foreground"
         "--listen-address=${cfg.local.bind}"
@@ -78,7 +79,8 @@ in
         "--strict-order"
         "--cache-size=0"
       ];
-      serviceConfig.KeepAlive.PathState."/nix/store" = true;
+      serviceConfig.KeepAlive = true;
+      serviceConfig.RunAtLoad = true;
     };
 
     launchd.daemons.smartdns-update = mkIf cfg.update.enable {
@@ -94,6 +96,7 @@ in
 
     launchd.daemons.smartdns = {
       serviceConfig.ProgramArguments = [
+        "/bin/sh" "-c" ''/bin/wait4path /nix/store && exec "$@"'' "--"
         "${cfg.package}/bin/dnsmasq"
         "--keep-in-foreground"
         "--listen-address=${cfg.bind}"
@@ -102,7 +105,8 @@ in
         "--server=${cfg.remoteServer}"
         "--servers-file=${smartdnsConf}"
       ];
-      serviceConfig.KeepAlive.PathState."/nix/store" = true;
+      serviceConfig.KeepAlive = true;
+      serviceConfig.RunAtLoad = true;
     };
   };
 }

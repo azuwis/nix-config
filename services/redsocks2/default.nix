@@ -70,8 +70,12 @@ in {
       environment.systemPackages = [ cfg.package ];
 
       launchd.daemons.redsocks2 = {
-        serviceConfig.ProgramArguments = [ "${cfg.package}/bin/redsocks2" "-c" "${configFile}" ];
-        serviceConfig.KeepAlive.PathState."/nix/store" = true;
+        serviceConfig.ProgramArguments = [
+          "/bin/sh" "-c" ''/bin/wait4path /nix/store && exec "$@"'' "--"
+          "${cfg.package}/bin/redsocks2" "-c" "${configFile}"
+        ];
+        serviceConfig.KeepAlive = true;
+        serviceConfig.RunAtLoad = true;
         serviceConfig.SoftResourceLimits.NumberOfFiles = 4096;
       };
     })
