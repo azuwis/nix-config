@@ -6,7 +6,6 @@
     ./git.nix
     ./mpv.nix
     ./my.nix
-    ./nibar.nix
     ./skhd.nix
     ./squirrel.nix
     ./vim.nix
