@@ -16,6 +16,7 @@
     enable = true;
     enableAutosuggestions = true;
     enableCompletion = true;
+    autocd = true;
     defaultKeymap = "emacs";
     history.extended = true;
     shellAliases = {
