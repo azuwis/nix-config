@@ -1,5 +1,6 @@
 [
   (self: super: {
+    fetchgitSparse = super.callPackage ./pkgs/fetchgitSparse { };
     nibar = super.callPackage ./pkgs/nibar { };
     rime-csp = super.callPackage ./pkgs/rime-csp { };
     sf-symbols = self.sf-symbols-minimal;
