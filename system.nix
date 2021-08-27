@@ -14,6 +14,9 @@
   #   experimental-features = flakes nix-command
   # '';
   # nix.package = pkgs.nixUnstable;
+  launchd.daemons.activate-system.script = lib.mkOrder 0 ''
+    wait4path /nix/store
+  '';
   nixpkgs.overlays = import ./overlays.nix;
   programs.zsh.enable = true;
   services.nix-daemon.enable = true;
