@@ -4,6 +4,9 @@
     jetbrains-mono-nerdfont = super.callPackage ./pkgs/nerdfonts {
       font = "JetBrainsMono/Ligatures";
     };
+    kitty = super.kitty.overrideAttrs (o: rec {
+      NIX_CFLAGS_COMPILE = "-Wno-deprecated-declarations";
+    });
     nibar = super.callPackage ./pkgs/nibar { };
     rime-csp = super.callPackage ./pkgs/rime-csp { };
     sf-symbols = self.sf-symbols-minimal;

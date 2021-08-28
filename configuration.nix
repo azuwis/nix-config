@@ -10,6 +10,7 @@
     ./services/shadowsocks
     ./services/smartdns
     ./homebrew.nix
+    ./kitty.nix
     ./my.nix
     ./skhd.nix
     ./smartnet.nix
