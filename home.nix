@@ -6,9 +6,9 @@
     ./kitty.nix
     ./mpv.nix
     ./my.nix
+    ./neovim.nix
     ./skhd.nix
     ./squirrel.nix
-    ./vim.nix
     ./zsh.nix
   ];
   home.packages = with pkgs; [
