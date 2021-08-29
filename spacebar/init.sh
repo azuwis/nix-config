@@ -21,7 +21,7 @@ spacebar -m config clock_icon " "
 spacebar -m config clock_format "%a %m-%d %H:%M"
 spacebar -m config right_shell on
 spacebar -m config right_shell_icon " "
-spacebar -m config right_shell_command @rightShell@
+spacebar -m config right_shell_command /etc/spacebar/right-shell.sh
 
 cache="$HOME/.cache/spacebar"
 mkdir -p "$cache"
