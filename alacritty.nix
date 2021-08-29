@@ -2,7 +2,7 @@
 
 {
   home.packages = [ pkgs.alacritty ];
-  home.file.".config/alacritty/alacritty.yml".text = ''
+  xdg.configFile."alacritty/alacritty.yml".text = ''
     font:
       normal:
         family: JetBrains Mono
