@@ -6,17 +6,17 @@
     enable = true;
     plugins = with pkgs.vimPlugins; [
       lightline-vim
+      nord-vim
       vim-commentary
       vim-fugitive
-      vim-gruvbox8
       vim-nix
     ];
     extraConfig = ''
       set bg=dark
-      colorscheme gruvbox8_hard
+      colorscheme nord
       set noshowmode
       let g:lightline = {
-        \ 'colorscheme': 'seoul256',
+        \ 'colorscheme': 'nord',
         \ }
     '';
   };
