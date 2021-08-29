@@ -51,7 +51,7 @@ else
       lalt - w : yabai -m space --layout stack
       lalt - e : yabai -m space --layout bsp
       lalt - s : yabai -m space --layout float
-      lalt - return : alacritty
+      lalt - return : ${pkgs.kitty}/Applications/kitty.app/Contents/MacOS/kitty --single-instance --directory ~
     '';
   };
 
