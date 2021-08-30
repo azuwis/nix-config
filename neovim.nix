@@ -13,6 +13,7 @@
     ];
     extraConfig = ''
       runtime nvchad-init.lua
+      set commentstring=#\ %s
     '';
     withNodeJs = true;
     withRuby = false;
