@@ -15,6 +15,9 @@
       runtime nvchad-init.lua
       set commentstring=#\ %s
     '';
+    plugins = with pkgs.vimPlugins; [
+      vim-nix
+    ];
     withNodeJs = true;
     withRuby = false;
     viAlias = true;
