@@ -24,6 +24,8 @@ else
       lalt - 8 : yabai -m space --focus 8
       lalt - 9 : yabai -m space --focus 9
       lalt - 0 : yabai -m space --focus 10
+      lshift + lalt - n : yabai -m space --create
+      lshift + lalt - m : yabai -m space --destroy
       lshift + lalt - 1 : yabai -m window --space 1
       lshift + lalt - 2 : yabai -m window --space 2
       lshift + lalt - 3 : yabai -m window --space 3
