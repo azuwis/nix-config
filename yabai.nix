@@ -16,13 +16,15 @@
       auto_balance = "on";
       layout = "bsp";
       mouse_modifier = "alt";
-      window_gap = 1;
       window_shadow = "float";
     };
     extraConfig = ''
       sudo yabai --load-sa
       yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
-      yabai -m rule --add app="System Preferences" manage=off
+      yabai -m rule --add app="^(System Preferences|mpv)$" manage=off
+      yabai -m rule --add app="^Safari$" space=2
+      yabai -m rule --add app="^Mail$" space=3
+      yabai -m rule --add app="^网易POPO$" manage=off space=5 grid=1:1:0:0:1:1
       yabai -m space 5 --layout float
     '';
   };
