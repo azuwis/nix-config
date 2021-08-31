@@ -16,6 +16,7 @@
       set commentstring=#\ %s
     '';
     plugins = with pkgs.vimPlugins; [
+      vim-jsonnet
       vim-nix
     ];
     withNodeJs = true;
