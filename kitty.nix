@@ -4,6 +4,10 @@ if builtins.hasAttr "hm" lib then
 
 {
   programs.kitty.enable = true;
+  programs.kitty.darwinLaunchOptions = [
+    "--single-instance"
+    "--directory=~"
+  ];
   programs.kitty.environment = {
     TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
   };
