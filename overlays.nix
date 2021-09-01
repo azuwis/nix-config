@@ -8,6 +8,7 @@
       NIX_CFLAGS_COMPILE = "-Wno-deprecated-declarations";
     });
     nibar = super.callPackage ./pkgs/nibar { };
+    passmenu = super.callPackage ./pkgs/passmenu { };
     rime-csp = super.callPackage ./pkgs/rime-csp { };
     sf-symbols = self.sf-symbols-minimal;
     sf-symbols-app = super.callPackage ./pkgs/sf-symbols {

@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./alacritty.nix
     ./git.nix
     ./kitty.nix
     ./mpv.nix
@@ -19,6 +20,7 @@
     hydra-check
     less
     pass-otp
+    passmenu
     ripgrep
     watch
   ];

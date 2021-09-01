@@ -44,6 +44,7 @@ else
       lshift + lalt - j : yabai -m window --swap south
       lshift + lalt - h : yabai -m window --swap west
       lshift + lalt - k : yabai -m window --swap north
+      lshift + lalt - p : alacritty -o window.dimensions.columns=50 -o window.dimensions.lines=6 -o window.position.x=1000 -o window.position.y=48 --title=Passmenu --command passmenu
       lshift + lalt - 0x29 : yabai -m window --toggle split
       lalt - c : yabai -m window --toggle float && yabai -m window --grid 6:6:1:1:4:4
       lalt - f : yabai -m window --toggle zoom-fullscreen; yabai -m window --grid 1:1:0:0:1:1
