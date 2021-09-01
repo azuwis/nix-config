@@ -19,6 +19,7 @@
     htop
     hydra-check
     less
+    openssh_8_7
     pass-otp
     passmenu
     ripgrep
