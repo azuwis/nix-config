@@ -27,7 +27,7 @@ cache="$HOME/.cache/spacebar"
 mkdir -p "$cache"
 if ! mount | grep -qF "$cache"
 then
-  disk=$(hdiutil attach -nobrowse -nomount ram://2048)
+  disk=$(hdiutil attach -nobrowse -nomount ram://1024)
   disk="${disk%% *}"
   newfs_hfs -v spacebar $disk
   mount -t hfs -o nobrowse $disk "$cache"
