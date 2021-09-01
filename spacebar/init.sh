@@ -29,6 +29,6 @@ if ! mount | grep -qF "$cache"
 then
   disk=$(hdiutil attach -nobrowse -nomount ram://1024)
   disk="${disk%% *}"
-  newfs_hfs -v spacebar $disk
-  mount -t hfs -o nobrowse $disk "$cache"
+  newfs_hfs -v spacebar "$disk"
+  mount -t hfs -o nobrowse "$disk" "$cache"
 fi
