@@ -6,8 +6,8 @@ clang12Stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "FelixKratz";
     repo = "SketchyBar";
-    rev = "7f7539872c2187b4615c777aa4cb4925363faa64";
-    sha256 = "00amlnn78vpg3i647km70970jd8rbx34h9gq91acfb2bl60dwgp0";
+    rev = "8cc64fab47df88d5d132e805c3908ccbce4aab85";
+    sha256 = "0kk17jcxxmbd3kshzc7311v52q4rz2s5ajl12c1ra2pxflzc5w74";
   };
 
   buildInputs = with pkgs.darwin.apple_sdk.frameworks; [
@@ -20,7 +20,7 @@ clang12Stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A minimal status bar for macOS";
+    description = "A custom macOS statusbar with shell plugin, interaction and graph support";
     inherit (src.meta) homepage;
     platforms = platforms.darwin;
     license = licenses.mit;
