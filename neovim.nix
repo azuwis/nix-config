@@ -7,6 +7,7 @@
     extraPackages = with pkgs; [
       nixpkgs-fmt
       rnix-lsp
+      stylua
       terraform-ls
       tree-sitter
       yaml-language-server
