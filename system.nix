@@ -25,9 +25,27 @@
   '';
   system.defaults = {
     NSGlobalDomain = {
+      AppleMeasurementUnits = "Centimeters";
+      AppleMetricUnits = 1;
+      AppleShowAllExtensions = true;
+      AppleTemperatureUnit = "Celsius";
       InitialKeyRepeat = 20;
       KeyRepeat = 2;
+      NSAutomaticCapitalizationEnabled = false;
+      NSAutomaticDashSubstitutionEnabled = false;
+      NSAutomaticPeriodSubstitutionEnabled = false;
+      NSAutomaticQuoteSubstitutionEnabled = false;
+      NSAutomaticSpellingCorrectionEnabled = false;
+      NSDisableAutomaticTermination = true;
+      NSDocumentSaveNewDocumentsToCloud = false;
+      NSNavPanelExpandedStateForSaveMode = true;
+      NSNavPanelExpandedStateForSaveMode2 = true;
+      NSTableViewDefaultSizeMode = 2;
+      NSWindowResizeTime = "0.0001";
+      PMPrintingExpandedStateForPrint = true;
+      PMPrintingExpandedStateForPrint2 = true;
     };
+    LaunchServices.LSQuarantine = false;
     dock = {
       autohide = true;
       expose-animation-duration = "0";
