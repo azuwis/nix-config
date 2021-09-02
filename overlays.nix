@@ -1,6 +1,7 @@
 [
   (self: super: {
     fetchgitSparse = super.callPackage ./pkgs/fetchgitSparse { };
+    fmenu = super.callPackage ./pkgs/fmenu { };
     jetbrains-mono-nerdfont = super.callPackage ./pkgs/nerdfonts {
       font = "JetBrainsMono/Ligatures";
     };
@@ -19,7 +20,6 @@
         };
       }
     );
-    passmenu = super.callPackage ./pkgs/passmenu { };
     rime-csp = super.callPackage ./pkgs/rime-csp { };
     sf-symbols = self.sf-symbols-minimal;
     sf-symbols-app = super.callPackage ./pkgs/sf-symbols {

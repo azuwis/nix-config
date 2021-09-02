@@ -15,13 +15,13 @@
   home.packages = with pkgs; [
     coreutils-full
     curl
+    fmenu
     gnupg
     htop
     hydra-check
     less
     openssh_8_7
     pass-otp
-    passmenu
     ripgrep
     watch
   ];

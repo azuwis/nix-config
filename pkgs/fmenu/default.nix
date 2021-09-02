@@ -4,7 +4,7 @@ let bin = ./bin;
 
 in
 
-pkgs.runCommand "passmenu" { } ''
+pkgs.runCommand "fmenu" { } ''
   mkdir -p $out/bin
   cp ${bin}/* $out/bin
   chmod +x $out/bin/*
