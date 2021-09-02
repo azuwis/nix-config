@@ -1,5 +1,24 @@
 [
   (self: super: {
+    emacsUnstable = (super.emacs.override { srcRepo = true; nativeComp = true; }).overrideAttrs (
+      o: rec {
+        version = "28";
+        src = super.fetchgit {
+          url = "git://git.sv.gnu.org/emacs.git";
+          rev = "f85b8678c4a08fd91d9b5f32dcde2f0b21bc6e38";
+          sha256 = "06wnzyvdzgpy7kd13japggz5nvdv4lvjw07c17xik0s4xxn20nsi";
+        };
+        patches = [
+          ./pkgs/emacs/fix-window-role.patch
+          ./pkgs/emacs/no-titlebar.patch
+        ];
+        postPatch = o.postPatch + ''
+          substituteInPlace lisp/loadup.el \
+          --replace '(emacs-repository-get-branch)' '"master"'
+        '';
+        CFLAGS = "-DMAC_OS_X_VERSION_MAX_ALLOWED=110203 -g -O2";
+      }
+    );
     fetchgitSparse = super.callPackage ./pkgs/fetchgitSparse { };
     fmenu = super.callPackage ./pkgs/fmenu { };
     jetbrains-mono-nerdfont = super.callPackage ./pkgs/nerdfonts {
