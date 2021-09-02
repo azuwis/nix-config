@@ -15,6 +15,7 @@
     extraConfig = ''
       runtime nvchad-init.lua
       set commentstring=#\ %s
+      autocmd! FileType gitcommit exec 'norm gg' | startinsert!
     '';
     plugins = with pkgs.vimPlugins; [
       vim-jsonnet
