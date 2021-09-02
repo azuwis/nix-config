@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+shopt -s nullglob
+
+apps=( ~/Applications/*.app ~/Applications/*/*.app /Applications/*.app /Applications/*/*.app /System/Applications/*.app /System/Applications/*/*.app )
+apps=( "${apps[@]%.app}" )
+
+app=$(printf '%s\n' "${apps[@]}" | fzf --reverse --no-info --delimiter='/' --with-nth=-1 "$@")
+
+[[ -n "$app" ]] || exit 0;
+
+open -a "$app.app"
