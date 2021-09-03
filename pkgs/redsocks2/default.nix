@@ -1,7 +1,8 @@
 { stdenv, fetchFromGitHub, cacert, curl, libevent, openssl }:
 
 stdenv.mkDerivation {
-  name = "redsocks2";
+  pname = "redsocks2";
+  version = "2021-08-22";
   src = fetchFromGitHub {
     owner = "azuwis";
     repo = "redsocks";
