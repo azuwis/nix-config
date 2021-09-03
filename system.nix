@@ -2,6 +2,7 @@
 
 {
   # darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/configuration.nix
+  # sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
   environment.darwinConfig = "$HOME/.config/nixpkgs/configuration.nix";
   environment.systemPackages = with pkgs; [ sf-symbols-app ];
   environment.variables = {
