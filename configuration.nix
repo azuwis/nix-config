@@ -9,6 +9,7 @@
     ./services/redsocks2
     ./services/shadowsocks
     ./services/smartdns
+    ./emacs.nix
     ./homebrew.nix
     ./kitty.nix
     ./my.nix

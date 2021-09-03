@@ -3,6 +3,7 @@
 {
   imports = [
     ./alacritty.nix
+    ./emacs.nix
     ./git.nix
     ./kitty.nix
     ./mpv.nix
