@@ -1,13 +1,14 @@
 { pkgs, lib, clang12Stdenv, fetchFromGitHub }:
 
 clang12Stdenv.mkDerivation rec {
-  name = "sketchybar";
+  pname = "sketchybar";
+  version = "1.0.4";
 
   src = fetchFromGitHub {
     owner = "FelixKratz";
     repo = "SketchyBar";
-    rev = "8cc64fab47df88d5d132e805c3908ccbce4aab85";
-    sha256 = "0kk17jcxxmbd3kshzc7311v52q4rz2s5ajl12c1ra2pxflzc5w74";
+    rev = "v1.0.4";
+    sha256 = "126wq8y9gjbzsxhx5sjs00y8r9wwzcswplj8r65ihn09yfkb3039";
   };
 
   buildInputs = with pkgs.darwin.apple_sdk.frameworks; [
