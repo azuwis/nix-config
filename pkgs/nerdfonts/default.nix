@@ -1,7 +1,8 @@
 { pkgs, lib, stdenvNoCC, font }:
 
 stdenvNoCC.mkDerivation rec {
-  name = "nerdfonts";
+  pname = "nerdfonts";
+  version = "2021-04-26";
 
   src = pkgs.fetchgitSparse {
     url = "https://github.com/ryanoasis/nerd-fonts.git";
