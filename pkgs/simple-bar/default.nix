@@ -1,7 +1,8 @@
 { stdenvNoCC, fetchFromGitHub }:
 
 stdenvNoCC.mkDerivation {
-  name = "simple-bar";
+  pname = "simple-bar";
+  version = "2021-08-12";
   src = fetchFromGitHub {
     owner = "Jean-Tinland";
     repo = "simple-bar";
