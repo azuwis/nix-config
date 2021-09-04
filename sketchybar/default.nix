@@ -57,6 +57,7 @@ in
 
     # wifi
     sketchybar -m add item wifi right
+    sketchybar -m set wifi click_script "${scripts}/click-wifi.sh"
 
     # load
     sketchybar -m add item load right
