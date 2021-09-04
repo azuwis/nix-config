@@ -1,6 +1,6 @@
 #!/bin/bash
 
-status="$HOME/.cache/spacebar/status"
+STATUS="$HOME/.cache/spacebar/status"
 
 readable() {
   local bytes=$1
@@ -20,32 +20,45 @@ readable() {
   fi
 }
 
-wifi=$(networksetup -getairportnetwork en0)
-read -r _ _ test WIFI_SSID <<< "$wifi"
-if [ "$test" = "Network:" ]
-then
-  WIFI_ICON="􀙇"
-else
-  WIFI_SSID=""
-  WIFI_ICON="􀙈"
-fi
+get_wifi() {
+  local wifi test ssid
+  wifi=$(networksetup -getairportnetwork en0)
+  read -r _ _ test ssid <<< "$wifi"
+  if [ "$test" = "Network:" ]
+  then
+    WIFI="􀙇 $ssid"
+  else
+    WIFI="􀙈"
+  fi
+}
 
-LOAD_AVERAGE=$(sysctl -n vm.loadavg)
-read -r _ _ LOAD_AVERAGE _ <<< "$LOAD_AVERAGE"
+get_load() {
+  local load
+  load=$(sysctl -n vm.loadavg)
+  read -r _ _ load _ <<< "$load"
+  LOAD="􀍽 $load"
+}
 
-network=$(netstat -ibn -I en0)
-network="${network##*en0}"
-read -r _ _ _ _ _ ibytes _ _ obytes _ <<< "${network}"
-ISPEED="-1"
-OSPEED="-1"
-if [ -e "$status" ]
-then
-  read -r last_ibytes last_obytes < "$status"
-  ISPEED=$(( (ibytes - last_ibytes) / 5 ))
-  OSPEED=$(( (obytes - last_obytes) / 5 ))
-fi
-echo "$ibytes $obytes" > "$status"
+get_network() {
+  local network ibytes obytes last_ibytes last_obytes
+  network=$(netstat -ibn -I en0)
+  network="${network##*en0}"
+  read -r _ _ _ _ _ ibytes _ _ obytes _ <<< "${network}"
+  ISPEED="-1"
+  OSPEED="-1"
+  if [ -e "$STATUS" ]
+  then
+    read -r last_ibytes last_obytes < "$STATUS"
+    ISPEED=$(( (ibytes - last_ibytes) / 5 ))
+    OSPEED=$(( (obytes - last_obytes) / 5 ))
+  fi
+  echo "$ibytes $obytes" > "$STATUS"
+}
+
+get_wifi
+get_load
+get_network
 
 readable "$ISPEED" "↓ "
 readable "$OSPEED" "↑ "
-echo "􀍽 $LOAD_AVERAGE $WIFI_ICON $WIFI_SSID"
+echo "$LOAD $WIFI"
