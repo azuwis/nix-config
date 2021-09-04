@@ -20,6 +20,8 @@
     defaultKeymap = "emacs";
     history.extended = true;
     shellAliases = {
+      c = "z";
+      cr = ''cd "$(git rev-parse --show-toplevel)"'';
       l = "ls --color=auto -l";
       ls = "ls --color=auto";
     };
