@@ -41,6 +41,7 @@ in
       sketchybar -m set space$i associated_display 1
       sketchybar -m set space$i associated_space $i
       sketchybar -m set space$i icon $i
+      sketchybar -m set space$i script "${scripts}/space.sh"
     done
 
     # status default
