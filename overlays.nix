@@ -1,5 +1,6 @@
 [
   (self: super: {
+    anime4k = super.callPackage ./pkgs/anime4k { };
     emacsUnstable = (super.emacs.override { srcRepo = true; nativeComp = true; }).overrideAttrs (
       o: rec {
         version = "28";
