@@ -53,8 +53,10 @@ in
     sketchybar -m set clock script "${scripts}/status.sh"
     sketchybar -m set clock icon_padding_left 2
 
-    # power
-    sketchybar -m add item power right
+    # battery
+    sketchybar -m add item battery right
+    sketchybar -m set battery update_freq 60
+    sketchybar -m set battery script "${scripts}/battery.sh"
 
     # wifi
     sketchybar -m add item wifi right

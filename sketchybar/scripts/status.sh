@@ -19,19 +19,6 @@ readable() {
   fi
 }
 
-get_battery() {
-  local battery status
-  battery="$(pmset -g batt)"
-  BATTERY_LABEL="${battery%\%*}"
-  BATTERY_LABEL="${BATTERY_LABEL##*	}"
-  read -r _ _ _ status _ <<< "$battery"
-  BATTERY_ICON="􀛨"
-  if [ "$status" = "'AC" ]
-  then
-    BATTERY_ICON="􀢋"
-  fi
-}
-
 get_wifi() {
   local wifi test
   wifi=$(networksetup -getairportnetwork en0)
@@ -68,14 +55,11 @@ get_network() {
   echo "$ibytes $obytes" > "$STATUS"
 }
 
-get_battery
 get_wifi
 get_load
 get_network
 
 sketchybar -m set clock label "$(date +'%a %m-%d %H:%M')"
-sketchybar -m set power icon "$BATTERY_ICON"
-sketchybar -m set power label "${BATTERY_LABEL}%"
 sketchybar -m set wifi icon "$WIFI_ICON"
 sketchybar -m set wifi label "$WIFI_LABEL"
 if [ -z "$WIFI_LABEL" ]
