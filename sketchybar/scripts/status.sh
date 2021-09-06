@@ -73,7 +73,6 @@ get_wifi
 get_load
 get_network
 
-sketchybar -m freeze on
 sketchybar -m set clock label "$(date +'%a %m-%d %H:%M')"
 sketchybar -m set power icon "$BATTERY_ICON"
 sketchybar -m set power label "${BATTERY_LABEL}%"
@@ -87,4 +86,3 @@ else
 fi
 sketchybar -m set load label "$LOAD"
 sketchybar -m set network label "$(readable "$ISPEED")↓ $(readable "$OSPEED")↑"
-sketchybar -m freeze off
