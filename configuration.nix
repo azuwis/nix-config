@@ -8,6 +8,7 @@
     <home-manager/nix-darwin>
     ./services/redsocks2
     ./services/shadowsocks
+    ./services/sketchybar
     ./services/smartdns
     ./emacs.nix
     ./homebrew.nix
@@ -15,7 +16,7 @@
     ./my.nix
     ./skhd.nix
     ./smartnet.nix
-    ./spacebar
+    ./sketchybar
     ./squirrel.nix
     ./sudo.nix
     ./system.nix
