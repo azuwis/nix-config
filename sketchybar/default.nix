@@ -5,7 +5,7 @@ let scripts = ./scripts;
 in
 
 {
-  # environment.systemPackages = [ pkgs.jq ];
+  environment.systemPackages = [ pkgs.jq ];
   # launchd.user.agents.sketchybar.serviceConfig = {
   #   StandardErrorPath = "/tmp/sketchybar.log";
   #   StandardOutPath = "/tmp/sketchybar.log";
@@ -41,7 +41,6 @@ in
       sketchybar -m set space$i associated_display 1
       sketchybar -m set space$i associated_space $i
       sketchybar -m set space$i icon $i
-      sketchybar -m set space$i script "${scripts}/space.sh"
     done
 
     # status default
@@ -66,6 +65,8 @@ in
     # load
     sketchybar -m add item load right
     sketchybar -m set load icon 􀍽
+    sketchybar -m set load script "${scripts}/space.sh"
+    sketchybar -m subscribe load space_change
 
     # network
     sketchybar -m add item network right
