@@ -18,6 +18,7 @@
       autocmd! FileType gitcommit exec 'norm gg' | startinsert!
     '';
     plugins = with pkgs.vimPlugins; [
+      csv-vim
       vim-jsonnet
       vim-nix
     ];
