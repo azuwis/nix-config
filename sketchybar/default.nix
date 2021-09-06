@@ -5,11 +5,11 @@ let scripts = ./scripts;
 in
 
 {
-  environment.systemPackages = [ pkgs.jq ];
-  launchd.user.agents.sketchybar.serviceConfig = {
-    StandardErrorPath = "/tmp/sketchybar.log";
-    StandardOutPath = "/tmp/sketchybar.log";
-  };
+  # environment.systemPackages = [ pkgs.jq ];
+  # launchd.user.agents.sketchybar.serviceConfig = {
+  #   StandardErrorPath = "/tmp/sketchybar.log";
+  #   StandardOutPath = "/tmp/sketchybar.log";
+  # };
   services.sketchybar.enable = true;
   services.sketchybar.package = pkgs.sketchybar;
   services.sketchybar.extraConfig = ''
@@ -26,14 +26,15 @@ in
     # scripts cache
     sketchybar -m default cache_scripts on
 
-    # spaces
+    # default
     sketchybar -m default icon_font "JetBrains Mono:Regular:13.0"
     sketchybar -m default icon_color 0xbbd8dee9
+    sketchybar -m default icon_highlight_color 0xffebcb8b
     sketchybar -m default label_font "JetBrains Mono:Regular:13.0"
     sketchybar -m default label_color 0xbbd8dee9
-    sketchybar -m default icon_padding_right 16
-    sketchybar -m default icon_highlight_color 0xffebcb8b
 
+    # spaces
+    sketchybar -m default icon_padding_right 16
     for i in {1..8}
     do
       sketchybar -m add component space space$i left
@@ -65,7 +66,6 @@ in
 
     # network
     sketchybar -m add item network right
-    # sketchybar -m set network icon 􀄬
 
     # end
     sketchybar -m freeze off
