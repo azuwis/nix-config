@@ -17,46 +17,32 @@ in
     sketchybar -m freeze on
 
     # bar
-    sketchybar -m config height 24
-    sketchybar -m config position top
-    sketchybar -m config padding_left 10
-    sketchybar -m config padding_right 10
-    sketchybar -m config bar_color 0xff2e3440
+    sketchybar -m batch --config height=24 position=top padding_left=10 padding_right=10 bar_color=0xff2e3440
 
     # scripts cache
     sketchybar -m default cache_scripts on
 
     # default
-    sketchybar -m default icon_font "JetBrains Mono:Regular:13.0"
-    sketchybar -m default icon_color 0xbbd8dee9
-    sketchybar -m default icon_highlight_color 0xffebcb8b
-    sketchybar -m default label_font "JetBrains Mono:Regular:13.0"
-    sketchybar -m default label_color 0xbbd8dee9
+    sketchybar -m batch --default icon_font="JetBrains Mono:Regular:13.0" icon_color=0xbbd8dee9 icon_highlight_color=0xffebcb8b label_font="JetBrains Mono:Regular:13.0" label_color=0xbbd8dee9
 
     # spaces
     sketchybar -m default icon_padding_right 16
     for i in {1..8}
     do
       sketchybar -m add component space space$i left
-      sketchybar -m set space$i associated_display 1
-      sketchybar -m set space$i associated_space $i
-      sketchybar -m set space$i icon $i
+      sketchybar -m batch --set space$i associated_display=1 associated_space=$i icon=$i
     done
 
     # status default
-    sketchybar -m default icon_padding_left 10
-    sketchybar -m default icon_padding_right 6
+    sketchybar -m batch --default icon_padding_left=10 icon_padding_right=6
 
     # clock
     sketchybar -m add item clock right
-    sketchybar -m set clock update_freq 10
-    sketchybar -m set clock script "${scripts}/status.sh"
-    sketchybar -m set clock icon_padding_left 2
+    sketchybar -m batch --set clock update_freq=10 script="${scripts}/status.sh" icon_padding_left=2
 
     # battery
     sketchybar -m add item battery right
-    sketchybar -m set battery update_freq 60
-    sketchybar -m set battery script "${scripts}/battery.sh"
+    sketchybar -m batch --set battery update_freq=60 script="${scripts}/battery.sh"
 
     # wifi
     sketchybar -m add item wifi right
@@ -64,8 +50,7 @@ in
 
     # load
     sketchybar -m add item load right
-    sketchybar -m set load icon 􀍽
-    sketchybar -m set load script "${scripts}/space.sh"
+    sketchybar -m batch --set load icon="􀍽" script="${scripts}/space.sh"
     sketchybar -m subscribe load space_change
 
     # network
