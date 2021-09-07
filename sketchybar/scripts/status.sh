@@ -26,9 +26,11 @@ get_wifi() {
   if [ "$test" = "Network:" ]
   then
       WIFI_ICON="􀙇"
+      WIFI_PADDING=6
   else
       WIFI_LABEL=""
       WIFI_ICON="􀙈"
+      WIFI_PADDING=0
   fi
 }
 
@@ -60,13 +62,6 @@ get_load
 get_network
 
 sketchybar -m set clock label "$(date +'%a %m-%d %H:%M')"
-sketchybar -m set wifi icon "$WIFI_ICON"
-sketchybar -m set wifi label "$WIFI_LABEL"
-if [ -z "$WIFI_LABEL" ]
-then
-  sketchybar -m set wifi icon_padding_right 0
-else
-  sketchybar -m set wifi icon_padding_right 6
-fi
+sketchybar -m batch --set wifi icon="$WIFI_ICON" icon_padding_right="$WIFI_PADDING" label="$WIFI_LABEL"
 sketchybar -m set load label "$LOAD"
 sketchybar -m set network label "$(readable "$ISPEED")↓ $(readable "$OSPEED")↑"
