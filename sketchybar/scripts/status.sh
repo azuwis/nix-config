@@ -39,7 +39,7 @@ get_load() {
   load=$(sysctl -n vm.loadavg)
   read -r _ load _ _ <<< "$load"
   LOAD_LABEL="$load"
-  if [ "${load%.*}" -ge 3 ]
+  if [ "${load%.*}" -ge 4 ]
   then
     LOAD_HIGHLIGHT="on"
   else
