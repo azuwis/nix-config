@@ -3,6 +3,7 @@
 {
   imports = [
     ./alacritty.nix
+    ./direnv.nix
     ./emacs.nix
     ./git.nix
     ./kitty.nix
@@ -35,5 +36,4 @@
     ripgrep
     watch
   ];
-  programs.direnv.enable = true;
 }
