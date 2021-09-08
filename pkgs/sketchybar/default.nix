@@ -7,12 +7,12 @@ clang12Stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "FelixKratz";
     repo = "SketchyBar";
-    rev = "24fd74bc922f2b1841ba7782d5c0f5e018629eee";
-    sha256 = "1inb0wgzcj0qr4vkw7rpf5dca40jvbsbydbfcsix3s2zlg8ixng8";
+    rev = "fbe7000691a62ab177c4012826018e157ed04059";
+    sha256 = "07b4dkp1l4fdqckiz2y7hnv02l4f3drifksn8lxgwlm056mqwr8b";
   };
 
   buildInputs = with pkgs.darwin.apple_sdk.frameworks; [
-    Carbon Cocoa CoreServices IOKit ScriptingBridge SkyLight
+    Carbon Cocoa SkyLight
   ];
 
   installPhase = ''
