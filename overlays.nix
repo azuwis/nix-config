@@ -1,6 +1,23 @@
 [
   (self: super: {
+    # pkgs
     anime4k = super.callPackage ./pkgs/anime4k { };
+    fetchgitSparse = super.callPackage ./pkgs/fetchgitSparse { };
+    fmenu = super.callPackage ./pkgs/fmenu { };
+    jetbrains-mono-nerdfont = super.callPackage ./pkgs/nerdfonts { font = "JetBrainsMono/Ligatures"; };
+    nibar = super.callPackage ./pkgs/nibar { };
+    redsocks2 = super.callPackage ./pkgs/redsocks2 { };
+    rime-csp = super.callPackage ./pkgs/rime-csp { };
+    sf-symbols = self.sf-symbols-minimal;
+    sf-symbols-app = super.callPackage ./pkgs/sf-symbols { app = true; fonts = false; };
+    sf-symbols-full = super.callPackage ./pkgs/sf-symbols { full = true; };
+    sf-symbols-minimal = super.callPackage ./pkgs/sf-symbols { };
+    simple-bar = super.callPackage ./pkgs/simple-bar { };
+    sketchybar = super.callPackage ./pkgs/sketchybar { };
+    spacebar = super.callPackage ./pkgs/spacebar { };
+    yabai = super.callPackage ./pkgs/yabai { };
+
+    # overrides
     emacsUnstable = (super.emacs.override { srcRepo = true; nativeComp = true; }).overrideAttrs (
       o: rec {
         version = "28";
@@ -20,17 +37,11 @@
         CFLAGS = "-DMAC_OS_X_VERSION_MAX_ALLOWED=110203 -g -O2";
       }
     );
-    fetchgitSparse = super.callPackage ./pkgs/fetchgitSparse { };
-    fmenu = super.callPackage ./pkgs/fmenu { };
-    jetbrains-mono-nerdfont = super.callPackage ./pkgs/nerdfonts {
-      font = "JetBrainsMono/Ligatures";
-    };
     kitty = super.kitty.overrideAttrs (
       o: rec {
         NIX_CFLAGS_COMPILE = "-Wno-deprecated-declarations";
       }
     );
-    nibar = super.callPackage ./pkgs/nibar { };
     openssh_8_7 = super.openssh.overrideAttrs (
       o: rec {
         version = "8.7p1";
@@ -40,19 +51,6 @@
         };
       }
     );
-    rime-csp = super.callPackage ./pkgs/rime-csp { };
-    sf-symbols = self.sf-symbols-minimal;
-    sf-symbols-app = super.callPackage ./pkgs/sf-symbols {
-      app = true;
-      fonts = false;
-    };
-    sf-symbols-full = super.callPackage ./pkgs/sf-symbols { full = true; };
-    sf-symbols-minimal = super.callPackage ./pkgs/sf-symbols { };
-    simple-bar = super.callPackage ./pkgs/simple-bar { };
-    sketchybar = super.callPackage ./pkgs/sketchybar { };
-    spacebar = super.callPackage ./pkgs/spacebar { };
-    redsocks2 = super.callPackage ./pkgs/redsocks2 { };
-    yabai = super.callPackage ./pkgs/yabai { };
     zsh-fzf-tab = super.zsh-fzf-tab.overrideAttrs (
       o: rec {
         patches = [ ./pkgs/zsh-fzf-tab/darwin.patch ];
