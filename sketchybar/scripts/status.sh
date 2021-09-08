@@ -37,7 +37,7 @@ get_wifi() {
 get_load() {
   local load
   load=$(sysctl -n vm.loadavg)
-  read -r _ _ load _ <<< "$load"
+  read -r _ load _ _ <<< "$load"
   LOAD_LABEL="$load"
   if [ "${load%.*}" -ge 3 ]
   then
