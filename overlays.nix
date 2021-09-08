@@ -1,3 +1,6 @@
+let
+  pkgsX64 = import <nixpkgs> { localSystem = "x86_64-darwin"; overlays = []; };
+in
 [
   (self: super: {
     # pkgs
@@ -16,6 +19,12 @@
     sketchybar = super.callPackage ./pkgs/sketchybar { };
     spacebar = super.callPackage ./pkgs/spacebar { };
     yabai = super.callPackage ./pkgs/yabai { };
+
+    # x64
+    # hydra-check --arch aarch64-darwin --channel nixpkgs/nixpkgs-unstable-aarch64-darwin ansible
+    # ansible = pkgsX64.ansible;
+    # ansible-lint = pkgsX64.ansible-lint;
+    # shellcheck = pkgsX64.shellcheck;
 
     # overrides
     emacsUnstable = (super.emacs.override { srcRepo = true; nativeComp = true; }).overrideAttrs (
