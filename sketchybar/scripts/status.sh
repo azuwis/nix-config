@@ -38,7 +38,13 @@ get_load() {
   local load
   load=$(sysctl -n vm.loadavg)
   read -r _ _ load _ <<< "$load"
-  LOAD="$load"
+  LOAD_LABEL="$load"
+  if [ "${load%.*}" -ge 3 ]
+  then
+    LOAD_HIGHLIGHT="on"
+  else
+    LOAD_HIGHLIGHT="off"
+  fi
 }
 
 get_network() {
@@ -63,5 +69,5 @@ get_network
 
 sketchybar -m set clock label "$(date +'%a %m-%d %H:%M')"
 sketchybar -m batch --set wifi icon="$WIFI_ICON" icon_padding_right="$WIFI_PADDING" label="$WIFI_LABEL"
-sketchybar -m set load label "$LOAD"
+sketchybar -m batch --set load label="$LOAD_LABEL" label_highlight="$LOAD_HIGHLIGHT"
 sketchybar -m set network label "$(readable "$ISPEED")↓ $(readable "$OSPEED")↑"

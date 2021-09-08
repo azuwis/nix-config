@@ -23,7 +23,13 @@ in
     sketchybar -m default cache_scripts on
 
     # default
-    sketchybar -m batch --default icon_font="JetBrains Mono:Regular:13.0" icon_color=0xbbd8dee9 icon_highlight_color=0xffebcb8b label_font="JetBrains Mono:Regular:13.0" label_color=0xbbd8dee9
+    sketchybar -m batch --default \
+      icon_font="JetBrains Mono:Regular:13.0" \
+      icon_color=0xbbd8dee9 \
+      icon_highlight_color=0xffebcb8b \
+      label_font="JetBrains Mono:Regular:13.0" \
+      label_color=0xbbd8dee9 \
+      label_highlight_color=0xffebcb8b
 
     # spaces
     sketchybar -m default icon_padding_right 16
