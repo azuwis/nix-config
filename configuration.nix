@@ -26,6 +26,4 @@
   home-manager.useUserPackages = true;
   home-manager.useGlobalPkgs = true;
   home-manager.users."${config.my.user}" = import ./home.nix;
-
-  services.lorri.enable = true;
 }
