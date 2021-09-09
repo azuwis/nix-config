@@ -23,7 +23,7 @@
       if [[ ! -e shell.nix ]] && [[ ! -e default.nix ]]; then
         cat > default.nix <<'EOF'
     with import <nixpkgs> {};
-    mkShell {
+    mkShellNoCC {
       nativeBuildInputs = [
         bashInteractive
       ];
