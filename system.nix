@@ -12,6 +12,9 @@
   fonts.enableFontDir = true;
   fonts.fonts = with pkgs; [ jetbrains-mono jetbrains-mono-nerdfont sf-symbols ];
   # nix.extraOptions = ''
+  #   extra-platforms = x86_64-darwin aarch64-darwin
+  # '';
+  # nix.extraOptions = ''
   #   experimental-features = flakes nix-command
   # '';
   # nix.package = pkgs.nixUnstable;
