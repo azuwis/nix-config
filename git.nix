@@ -18,7 +18,11 @@
       st = "status";
       rewind = "!sh -c 'git update-ref refs/heads/$1 \${2:-HEAD}' -";
     };
-    ignores = [ ".*.sw?" ];
+    ignores = [
+      ".*.sw?"
+      ".direnv/"
+      ".envrc"
+    ];
     extraConfig = {
       rebase = {
         autosquash = true;
