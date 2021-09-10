@@ -1,19 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [
-    ./alacritty.nix
-    ./direnv.nix
-    ./emacs.nix
-    ./git.nix
-    ./kitty.nix
-    ./mpv.nix
-    ./my.nix
-    ./neovim.nix
-    ./skhd.nix
-    ./squirrel.nix
-    ./zsh.nix
-  ];
+  imports = import ./modules.nix { inherit lib; };
   home.file."Applications/Home Manager Apps".source =
     let
       apps = pkgs.buildEnv {
