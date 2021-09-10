@@ -22,6 +22,7 @@
     openssh_8_7
     pass-otp
     ripgrep
+    shellcheck
     watch
   ];
 }
