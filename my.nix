@@ -1,10 +1,12 @@
 { config, lib, pkgs, ... }:
 
+with lib;
+
 {
   options.my = {
-    user = lib.mkOption { type = lib.types.str; };
-    name = lib.mkOption { type = lib.types.str; };
-    email = lib.mkOption { type = lib.types.str; };
+    user = mkOption { type = types.str; };
+    name = mkOption { type = types.str; };
+    email = mkOption { type = types.str; };
   };
   config = {
     my = {
