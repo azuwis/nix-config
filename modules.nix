@@ -5,7 +5,7 @@ if builtins.hasAttr "hm" lib then
 [
   ./alacritty.nix
   ./direnv.nix
-  ./emacs.nix
+  ./emacs
   ./git.nix
   ./kitty.nix
   ./mpv.nix
@@ -24,7 +24,7 @@ else
   ./services/shadowsocks
   ./services/sketchybar
   ./services/smartdns
-  ./emacs.nix # emacs-all-the-icons-fonts
+  ./emacs # emacs-all-the-icons-fonts
   ./homebrew.nix
   ./kitty.nix # sudo keep TERMINFO_DIRS env
   ./my.nix
