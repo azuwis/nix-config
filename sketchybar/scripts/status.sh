@@ -67,7 +67,8 @@ get_wifi
 get_load
 get_network
 
-sketchybar -m set clock label "$(date +'%a %m-%d %H:%M')"
-sketchybar -m batch --set wifi icon="$WIFI_ICON" icon_padding_right="$WIFI_PADDING" label="$WIFI_LABEL"
-sketchybar -m batch --set load label="$LOAD_LABEL" label_highlight="$LOAD_HIGHLIGHT"
-sketchybar -m set network label "$(readable "$ISPEED")↓ $(readable "$OSPEED")↑"
+sketchybar -m batch \
+  --set clock label="$(date +'%a %m-%d %H:%M')" \
+  --set wifi icon="$WIFI_ICON" icon_padding_right="$WIFI_PADDING" label="$WIFI_LABEL" \
+  --set load label="$LOAD_LABEL" label_highlight="$LOAD_HIGHLIGHT" \
+  --set network label="$(readable "$ISPEED")↓ $(readable "$OSPEED")↑"

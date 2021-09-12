@@ -13,57 +13,47 @@ in
   services.sketchybar.enable = true;
   services.sketchybar.package = pkgs.sketchybar;
   services.sketchybar.extraConfig = ''
-    #!/bin/sh
-    sketchybar -m freeze on
+    #!/bin/bash
 
-    # bar
-    sketchybar -m batch --config height=24 position=top padding_left=10 padding_right=10 bar_color=0xff2e3440
-
-    # scripts cache
-    sketchybar -m default cache_scripts on
-
-    # default
-    sketchybar -m batch --default \
-      icon_font="JetBrains Mono:Regular:13.0" \
-      icon_color=0xbbd8dee9 \
-      icon_highlight_color=0xffebcb8b \
-      label_font="JetBrains Mono:Regular:13.0" \
-      label_color=0xbbd8dee9 \
-      label_highlight_color=0xffebcb8b
-
-    # spaces
-    sketchybar -m default icon_padding_right 16
+    spaces=()
     for i in {1..8}
     do
-      sketchybar -m add component space space$i left
-      sketchybar -m batch --set space$i associated_display=1 associated_space=$i icon=$i
+        spaces+=(--add component space space$i left \
+          --set space$i associated_display=1 associated_space=$i icon=$i)
     done
 
-    # status default
-    sketchybar -m batch --default icon_padding_left=10 icon_padding_right=6
+    sketchybar -m batch \
+      --config \
+        height=24 \
+        position=top \
+        padding_left=10 \
+        padding_right=10 \
+        bar_color=0xff2e3440 \
+      --default \
+        cache_scripts=on \
+        icon_font="JetBrains Mono:Regular:13.0" \
+        icon_color=0xbbd8dee9 \
+        icon_highlight_color=0xffebcb8b \
+        label_font="JetBrains Mono:Regular:13.0" \
+        label_color=0xbbd8dee9 \
+        label_highlight_color=0xffebcb8b \
+        icon_padding_left=10 \
+        icon_padding_right=6 \
+      --add item clock right \
+      --set clock update_freq=10 script="${scripts}/status.sh" icon_padding_left=2 \
+      --add item battery right \
+      --set battery update_freq=60 script="${scripts}/battery.sh" \
+      --add item wifi right \
+      --set wifi click_script "${scripts}/click-wifi.sh" \
+      --add item load right \
+      --set load icon="􀍽" script="${scripts}/space.sh" \
+      --subscribe load space_change \
+      --add item network right \
+      --default \
+        icon_padding_left=0 \
+        icon_padding_right=16 \
+      "''${spaces[@]}"
 
-    # clock
-    sketchybar -m add item clock right
-    sketchybar -m batch --set clock update_freq=10 script="${scripts}/status.sh" icon_padding_left=2
-
-    # battery
-    sketchybar -m add item battery right
-    sketchybar -m batch --set battery update_freq=60 script="${scripts}/battery.sh"
-
-    # wifi
-    sketchybar -m add item wifi right
-    sketchybar -m set wifi click_script "${scripts}/click-wifi.sh"
-
-    # load
-    sketchybar -m add item load right
-    sketchybar -m batch --set load icon="􀍽" script="${scripts}/space.sh"
-    sketchybar -m subscribe load space_change
-
-    # network
-    sketchybar -m add item network right
-
-    # end
-    sketchybar -m freeze off
     sketchybar -m update
 
     # ram disk
