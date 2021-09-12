@@ -60,12 +60,6 @@ in
         };
       }
     );
-    zsh-fzf-tab = super.zsh-fzf-tab.overrideAttrs (
-      o: rec {
-        patches = [ ./pkgs/zsh-fzf-tab/darwin.patch ];
-        meta.platforms = super.lib.platforms.unix;
-      }
-    );
   }
   )
 ]
