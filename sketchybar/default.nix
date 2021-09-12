@@ -15,6 +15,14 @@ in
   services.sketchybar.extraConfig = ''
     #!/bin/bash
 
+    bar_color=0xff2e3440
+    icon_font="JetBrains Mono:Regular:13.0"
+    icon_color=0xbbd8dee9
+    icon_highlight_color=0xffebcb8b
+    label_font="$icon_font"
+    label_color="$icon_color"
+    label_highlight_color="$icon_highlight_color"
+
     spaces=()
     for i in {1..8}
     do
@@ -28,15 +36,15 @@ in
         position=top \
         padding_left=10 \
         padding_right=10 \
-        bar_color=0xff2e3440 \
+        bar_color="$bar_color" \
       --default \
         cache_scripts=on \
-        icon_font="JetBrains Mono:Regular:13.0" \
-        icon_color=0xbbd8dee9 \
-        icon_highlight_color=0xffebcb8b \
-        label_font="JetBrains Mono:Regular:13.0" \
-        label_color=0xbbd8dee9 \
-        label_highlight_color=0xffebcb8b \
+        icon_font="$icon_font" \
+        icon_color="$icon_color" \
+        icon_highlight_color="$icon_highlight_color" \
+        label_font="$label_font" \
+        label_color="$label_color" \
+        label_highlight_color="$label_highlight_color" \
         icon_padding_left=10 \
         icon_padding_right=6 \
       --add item clock right \
