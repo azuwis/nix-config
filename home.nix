@@ -23,6 +23,7 @@
     pass-otp
     ripgrep
     shellcheck
+    telnet
     watch
   ];
 }
