@@ -8,3 +8,4 @@
 
 (package! jsonnet-mode)
 (package! nix-mode)
+(package! ztree)
