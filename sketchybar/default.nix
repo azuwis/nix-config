@@ -59,7 +59,8 @@ in
       --add item network right \
       --default \
         icon_padding_left=0 \
-        icon_padding_right=16 \
+        icon_padding_right=2 \
+        label_padding_right=16 \
       "''${spaces[@]}"
 
     sketchybar -m update
