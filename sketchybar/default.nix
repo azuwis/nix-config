@@ -27,7 +27,7 @@ in
     for i in {1..8}
     do
         spaces+=(--add component space space$i left \
-          --set space$i associated_display=1 associated_space=$i icon=$i)
+          --set space$i associated_display=1 associated_space=$i icon=$i script=${scripts}/space.sh)
     done
 
     sketchybar -m batch \
