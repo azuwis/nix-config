@@ -54,7 +54,7 @@ in
       --add item wifi right \
       --set wifi click_script "${scripts}/click-wifi.sh" \
       --add item load right \
-      --set load icon="􀍽" script="${scripts}/space.sh" \
+      --set load icon="􀍽" script="${scripts}/window-indicator.sh" \
       --subscribe load space_change \
       --add item network right \
       --default \
