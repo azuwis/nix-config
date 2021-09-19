@@ -36,9 +36,9 @@ else
       lshift + lalt - 8 : yabai -m window --space 8
       lshift + lalt - 9 : yabai -m window --space 9
       lshift + lalt - 0 : yabai -m window --space 10
-      lalt - l : yabai -m window --focus east || yabai -m window --focus stack.next
+      lalt - l : yabai -m window --focus east || yabai -m window --focus stack.next || yabai -m window --focus stack.first
       lalt - j : yabai -m window --focus south
-      lalt - h : yabai -m window --focus west || yabai -m window --focus stack.prev
+      lalt - h : yabai -m window --focus west || yabai -m window --focus stack.prev || yabai -m window --focus stack.last
       lalt - k : yabai -m window --focus north
       lalt - space : alacritty -o window.dimensions.columns=50 -o window.dimensions.lines=6 -o window.position.x=1000 -o window.position.y=48 --title=Passmenu --command appmenu
       lshift + lalt - l : yabai -m window --swap east
