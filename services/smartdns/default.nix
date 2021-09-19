@@ -8,8 +8,8 @@ let
   smartdnsConf = pkgs.runCommand "smartdns.conf" {} ''
     sed -e 's,^,server=/,' -e 's,$,/${cfg.local.bind}#${toString cfg.local.port},' ${localDomains} >$out
   '';
-  smartdnsUpdate = pkgs.substituteAll {
-    src = ./smartdns-update.sh;
+  smartdnsResolv = pkgs.substituteAll {
+    src = ./smartdns-resolv.sh;
     isExecutable = true;
     smartdns = cfg.bind;
   };
@@ -75,7 +75,7 @@ in
         "--keep-in-foreground"
         "--listen-address=${cfg.local.bind}"
         "--port=${toString cfg.local.port}"
-        "--resolv-file=/var/run/${if cfg.update.enable then "smartdns-update" else "resolv.conf"}"
+        "--resolv-file=/var/run/${if cfg.update.enable then "smartdns-resolv" else "resolv.conf"}"
         "--strict-order"
         "--cache-size=0"
       ];
@@ -83,9 +83,9 @@ in
       serviceConfig.RunAtLoad = true;
     };
 
-    launchd.daemons.smartdns-update = mkIf cfg.update.enable {
+    launchd.daemons.smartdns-resolv = mkIf cfg.update.enable {
       serviceConfig.ProgramArguments = [
-        "${smartdnsUpdate}"
+        "${smartdnsResolv}"
       ];
       serviceConfig.ThrottleInterval = 1;
       serviceConfig.WatchPaths = [
