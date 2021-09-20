@@ -63,6 +63,14 @@ in
       };
     };
     python39Packages = python39.pkgs;
+    # olive-editor = super.libsForQt515.callPackage <nixpkgs/pkgs/applications/video/olive-editor> {
+    #   inherit (super.darwin.apple_sdk.frameworks) CoreFoundation;
+    # };
+    # kitty = super.kitty.overrideAttrs (
+    #   o: rec {
+    #     buildInputs = o.buildInputs ++ [ super.darwin.apple_sdk.frameworks.UserNotifications ];
+    #   }
+    # );
     openssh_8_7 = super.openssh.overrideAttrs (
       o: rec {
         version = "8.7p1";
