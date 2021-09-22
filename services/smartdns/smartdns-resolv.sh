@@ -1,6 +1,5 @@
 #!/bin/sh
-# smartdns=@smartdns@
-smartdns=127.0.0.1
+smartdns=@smartdns@
 smartdns_resolv=/var/run/smartdns-resolv
 
 enable() {
