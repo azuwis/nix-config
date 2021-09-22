@@ -12,6 +12,7 @@ let
     src = ./smartdns-resolv.sh;
     isExecutable = true;
     smartdns = cfg.bind;
+    launchdLabel = config.launchd.daemons.smartdns-resolv.serviceConfig.Label;
   };
 in
 
