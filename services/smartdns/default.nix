@@ -8,7 +8,7 @@ let
   smartdnsConf = pkgs.runCommand "smartdns.conf" {} ''
     sed -e 's,^,server=/,' -e 's,$,/${cfg.local.bind}#${toString cfg.local.port},' ${localDomains} >$out
   '';
-  smartdnsResolv = pkgs.substituteAll {
+  smartdnsResolvScript = pkgs.substituteAll {
     src = ./smartdns-resolv.sh;
     isExecutable = true;
     smartdns = cfg.bind;
@@ -61,11 +61,18 @@ in
       description = "The server on which SmartDNS will forward for remote domains.";
     };
 
-    services.smartdns.update.enable = mkOption {
+    services.smartdns.resolv.enable = mkOption {
       type = types.bool;
       default = true;
       description = "Whether to enable SmartDNS auto set DNS server for this computer.";
     };
+
+    services.smartdns.resolv.script = mkOption {
+      type = types.path;
+      default = smartdnsResolvScript;
+      readOnly = true;
+    };
+
   };
 
   config = mkIf cfg.enable {
@@ -76,7 +83,7 @@ in
         "--keep-in-foreground"
         "--listen-address=${cfg.local.bind}"
         "--port=${toString cfg.local.port}"
-        "--resolv-file=/var/run/${if cfg.update.enable then "smartdns-resolv" else "resolv.conf"}"
+        "--resolv-file=/var/run/${if cfg.resolv.enable then "smartdns-resolv" else "resolv.conf"}"
         "--strict-order"
         "--cache-size=0"
       ];
@@ -84,9 +91,9 @@ in
       serviceConfig.RunAtLoad = true;
     };
 
-    launchd.daemons.smartdns-resolv = mkIf cfg.update.enable {
+    launchd.daemons.smartdns-resolv = mkIf cfg.resolv.enable {
       serviceConfig.ProgramArguments = [
-        "${smartdnsResolv}"
+        "${smartdnsResolvScript}"
       ];
       serviceConfig.ThrottleInterval = 1;
       serviceConfig.WatchPaths = [
