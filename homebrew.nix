@@ -20,6 +20,7 @@
     brews = [ ];
     casks = [
       "google-chrome"
+      "musescore"
     ];
     masApps = {
       # Xcode = 497799835;
