@@ -16,7 +16,7 @@ in
     #!/bin/bash
 
     bar_color=0xff2e3440
-    icon_font="JetBrains Mono:Regular:13.0"
+    icon_font="JetBrains Mono:Medium:13.0"
     icon_color=0xbbd8dee9
     icon_highlight_color=0xffebcb8b
     label_font="$icon_font"
