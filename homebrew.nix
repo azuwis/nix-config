@@ -19,6 +19,7 @@
     ];
     brews = [ ];
     casks = [
+      "android-platform-tools"
       "google-chrome"
       "musescore"
     ];
