@@ -1,7 +1,10 @@
 { config, lib, pkgs, ... }:
 
 {
-  home.packages = [ pkgs.git-remote-gcrypt ];
+  home.packages = with pkgs; [
+    git-crypt
+    git-remote-gcrypt
+  ];
   programs.git = {
     enable = true;
     userEmail = config.my.email;
