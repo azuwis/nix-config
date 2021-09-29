@@ -26,6 +26,7 @@ else
   ./services/smartdns
   ./emacs # emacs-all-the-icons-fonts
   ./homebrew.nix
+  ./hostname.nix
   ./kitty.nix # sudo keep TERMINFO_DIRS env
   ./my.nix
   ./skhd.nix
