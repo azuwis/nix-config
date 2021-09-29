@@ -12,6 +12,7 @@
     in
     "${apps}/Applications";
   home.packages = with pkgs; [
+    borgbackup
     coreutils-full
     curl
     fmenu
