@@ -17,7 +17,9 @@
       "homebrew/cask"
       # "homebrew/homebrew-services"
     ];
-    brews = [ ];
+    brews = [
+      "mas"
+    ];
     casks = [
       "android-platform-tools"
       "google-chrome"
