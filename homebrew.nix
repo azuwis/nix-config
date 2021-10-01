@@ -26,6 +26,7 @@
       "musescore"
     ];
     masApps = {
+      Wechat = 836500024;
       # Xcode = 497799835;
     };
   };
