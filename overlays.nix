@@ -36,8 +36,8 @@ in
         version = "28";
         src = super.fetchgit {
           url = "git://git.sv.gnu.org/emacs.git";
-          rev = "995a623594de27d398f0d97fcab9277e37fe29d1";
-          sha256 = "0mhn9kvcvc7cs87v8ndb8dpkyzkvh83ma083v1kdxgvjhkwcdz45";
+          rev = "b506c5b217d4adf68013c15be0d1b16189de089b";
+          sha256 = "1f1q9z21s0v8wmmy38nq3nra8x30k5kx6xz5cps8j11hybgf45d4";
         };
         patches = [
           ./pkgs/emacs/fix-window-role.patch
