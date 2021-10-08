@@ -20,7 +20,7 @@
     htop
     hydra-check
     less
-    openssh_8_7
+    openssh
     pass-otp
     ripgrep
     shellcheck

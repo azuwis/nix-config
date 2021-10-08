@@ -71,15 +71,6 @@ in
     #     buildInputs = o.buildInputs ++ [ super.darwin.apple_sdk.frameworks.UserNotifications ];
     #   }
     # );
-    openssh_8_7 = super.openssh.overrideAttrs (
-      o: rec {
-        version = "8.7p1";
-        src = super.fetchurl {
-          url = "mirror://openbsd/OpenSSH/portable/openssh-${version}.tar.gz";
-          sha256 = "090yxpi03pxxzb4ppx8g8hdpw7c4nf8p0avr6c7ybsaana5lp8vw";
-        };
-      }
-    );
   }
   )
 ]
