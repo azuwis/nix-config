@@ -12,6 +12,7 @@
     in
     "${apps}/Applications";
   home.packages = with pkgs; [
+    p7zip
     borgbackup
     coreutils-full
     curl
