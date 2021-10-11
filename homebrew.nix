@@ -19,13 +19,18 @@
     ];
     brews = [
       "mas"
+      "tofrodos"
     ];
     casks = [
+      "android-file-transfer"
       "android-platform-tools"
       "google-chrome"
       "musescore"
+      "qbittorrent"
+      "reaper"
     ];
     masApps = {
+      "Microsoft Remote Desktop" = 1295203466;
       Wechat = 836500024;
       # Xcode = 497799835;
     };
