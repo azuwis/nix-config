@@ -15,9 +15,9 @@
     extra-platforms = x86_64-darwin
     keep-env-derivations = true
     keep-outputs = true
-    # experimental-features = flakes nix-command
+    experimental-features = flakes nix-command
   '';
-  # nix.package = pkgs.nixUnstable;
+  nix.package = pkgs.nixUnstable;
   launchd.daemons.activate-system.script = lib.mkOrder 0 ''
     wait4path /nix/store
   '';
