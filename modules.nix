@@ -19,7 +19,6 @@ if builtins.hasAttr "hm" lib then
 else
 
 [
-  <home-manager/nix-darwin>
   ./services/redsocks2
   ./services/shadowsocks
   ./services/sketchybar
