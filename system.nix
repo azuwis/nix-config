@@ -13,6 +13,7 @@
   fonts.fonts = with pkgs; [ jetbrains-mono jetbrains-mono-nerdfont sf-symbols ];
   nix.extraOptions = ''
     extra-platforms = x86_64-darwin
+    keep-env-derivations = true
     keep-outputs = true
     # experimental-features = flakes nix-command
   '';
