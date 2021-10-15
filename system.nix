@@ -17,6 +17,7 @@
     keep-env-derivations = true
     keep-outputs = true
     experimental-features = flakes nix-command
+    tarball-ttl = 43200
   '';
   nix.package = pkgs.nixUnstable;
   launchd.daemons.activate-system.script = lib.mkOrder 0 ''
