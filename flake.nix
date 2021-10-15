@@ -14,6 +14,12 @@
     darwinConfigurations."mbp" = darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       modules = [
+        {
+          nix.registry.local = {
+            flake = nixpkgs;
+            from = { id = "local"; type = "indirect"; };
+          };
+        }
         ./configuration.nix
         home-manager.darwinModules.home-manager
         {
