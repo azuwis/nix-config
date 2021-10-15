@@ -15,6 +15,7 @@
       system = "aarch64-darwin";
       modules = [
         {
+          nix.nixPath = [ "nixpkgs=${nixpkgs}" ];
           nix.registry.local = {
             flake = nixpkgs;
             from = { id = "local"; type = "indirect"; };
