@@ -33,7 +33,7 @@ in
     services.sketchybar.config = mkOption {
       type = attrs;
       default = {};
-      example = literalExample ''
+      example = literalExpression ''
         {
           clock_format     = "%R";
           background_color = "0xff202020";
@@ -48,7 +48,7 @@ in
     services.sketchybar.extraConfig = mkOption {
       type = str;
       default = "";
-      example = literalExample ''
+      example = literalExpression ''
         echo "sketchybar config loaded..."
       '';
       description = ''
