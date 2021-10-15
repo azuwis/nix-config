@@ -13,6 +13,7 @@
   #   }
   # '';
   programs.direnv.nix-direnv.enable = true;
+  programs.direnv.nix-direnv.enableFlakes = true;
   programs.zsh.initExtra = ''
     # nix-direnv
     nixify() {
@@ -31,6 +32,16 @@
     EOF
         ''${EDITOR:-vim} default.nix
       fi
+    }
+
+    flakifiy() {
+      if [ ! -e flake.nix ]; then
+        nix flake new -t github:nix-community/nix-direnv .
+      elif [ ! -e .envrc ]; then
+        echo "use flake" > .envrc
+        direnv allow
+      fi
+      ''${EDITOR:-vim} flake.nix
     }
   '';
 }
