@@ -11,6 +11,7 @@ if builtins.hasAttr "hm" lib then
   ./common/neovim.nix
   ./common/zsh.nix
   ./darwin/emacs
+  ./darwin/home-manager-apps.nix
   ./darwin/kitty.nix
   ./darwin/skhd.nix
   ./darwin/squirrel.nix
