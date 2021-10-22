@@ -3,36 +3,36 @@
 if builtins.hasAttr "hm" lib then
 
 [
-  ./alacritty.nix
-  ./direnv.nix
-  ./emacs
-  ./git.nix
-  ./kitty.nix
-  ./mpv.nix
-  ./my.nix
-  ./neovim.nix
-  ./skhd.nix
-  ./squirrel.nix
-  ./zsh.nix
+  ./common/alacritty.nix
+  ./common/direnv.nix
+  ./common/git.nix
+  ./common/mpv.nix
+  ./common/my.nix
+  ./common/neovim.nix
+  ./common/zsh.nix
+  ./darwin/emacs
+  ./darwin/kitty.nix
+  ./darwin/skhd.nix
+  ./darwin/squirrel.nix
 ]
 
 else
 
 [
+  ./common/my.nix
+  ./darwin/emacs # emacs-all-the-icons-fonts
+  ./darwin/homebrew.nix
+  ./darwin/hostname.nix
+  ./darwin/kitty.nix # sudo keep TERMINFO_DIRS env
+  ./darwin/sketchybar
+  ./darwin/skhd.nix
+  ./darwin/smartnet.nix
+  ./darwin/squirrel.nix
+  ./darwin/sudo.nix
+  ./darwin/system.nix
+  ./darwin/yabai.nix
   ./services/redsocks2
   ./services/shadowsocks
   ./services/sketchybar
   ./services/smartdns
-  ./emacs # emacs-all-the-icons-fonts
-  ./homebrew.nix
-  ./hostname.nix
-  ./kitty.nix # sudo keep TERMINFO_DIRS env
-  ./my.nix
-  ./skhd.nix
-  ./smartnet.nix
-  ./sketchybar
-  ./squirrel.nix
-  ./sudo.nix
-  ./system.nix
-  ./yabai.nix
 ]

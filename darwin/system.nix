@@ -3,7 +3,7 @@
 {
   # darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/configuration.nix
   # sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
-  environment.darwinConfig = "$HOME/.config/nixpkgs/configuration.nix";
+  environment.darwinConfig = "$HOME/.config/nixpkgs/darwin.nix";
   environment.systemPackages = with pkgs; [ sf-symbols-app ];
   environment.variables = {
     LANG = "en_US.UTF-8";
@@ -23,7 +23,7 @@
   launchd.daemons.activate-system.script = lib.mkOrder 0 ''
     wait4path /nix/store
   '';
-  nixpkgs.overlays = import ./overlays.nix;
+  nixpkgs.overlays = import ../overlays.nix;
   programs.zsh.enable = true;
   services.nix-daemon.enable = true;
   system.activationScripts.postActivation.text = ''

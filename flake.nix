@@ -21,7 +21,7 @@
             from = { id = "local"; type = "indirect"; };
           };
         }
-        ./configuration.nix
+        ./darwin.nix
         home-manager.darwinModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
