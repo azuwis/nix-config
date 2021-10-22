@@ -1,9 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  # darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/configuration.nix
   # sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
-  environment.darwinConfig = "$HOME/.config/nixpkgs/darwin.nix";
   environment.systemPackages = with pkgs; [ sf-symbols-app ];
   environment.variables = {
     LANG = "en_US.UTF-8";
@@ -11,20 +9,12 @@
   };
   fonts.enableFontDir = true;
   fonts.fonts = with pkgs; [ jetbrains-mono jetbrains-mono-nerdfont sf-symbols ];
-  nix.allowedUsers = [ "${config.my.user}" ];
   nix.extraOptions = ''
     extra-platforms = x86_64-darwin
-    keep-env-derivations = true
-    keep-outputs = true
-    experimental-features = flakes nix-command
-    tarball-ttl = 43200
   '';
-  nix.package = pkgs.nixUnstable;
   launchd.daemons.activate-system.script = lib.mkOrder 0 ''
     wait4path /nix/store
   '';
-  nixpkgs.overlays = import ../overlays.nix;
-  programs.zsh.enable = true;
   services.nix-daemon.enable = true;
   system.activationScripts.postActivation.text = ''
     ${pkgs.nixUnstable}/bin/nix store --experimental-features nix-command diff-closures /run/current-system "$systemConfig"
@@ -78,5 +68,4 @@
     remapCapsLockToControl = true;
   };
   system.stateVersion = 4;
-  time.timeZone = "Asia/Shanghai";
 }
