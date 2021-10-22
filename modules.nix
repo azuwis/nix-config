@@ -9,10 +9,12 @@ if builtins.hasAttr "hm" lib then
   ./common/mpv.nix
   ./common/my.nix
   ./common/neovim.nix
+  ./common/packages.nix
   ./common/zsh.nix
   ./darwin/emacs
   ./darwin/home-manager-apps.nix
   ./darwin/kitty.nix
+  ./darwin/packages.nix
   ./darwin/skhd.nix
   ./darwin/squirrel.nix
 ]
