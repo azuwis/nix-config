@@ -52,7 +52,7 @@
             ./common/packages.nix
             ./common/zsh.nix
             ./darwin/emacs
-            ./darwin/home-manager-apps.nix
+            ./darwin/hmapps.nix
             ./darwin/kitty.nix
             ./darwin/packages.nix
             ./darwin/skhd.nix
