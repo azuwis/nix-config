@@ -22,7 +22,7 @@
       vim-jsonnet
       vim-nix
     ];
-    withNodeJs = true;
+    withNodeJs = false;
     withRuby = false;
     viAlias = true;
     vimAlias = true;
