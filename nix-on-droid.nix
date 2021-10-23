@@ -10,6 +10,7 @@
       ./common/git.nix
       ./common/my.nix
       ./common/zsh.nix
+      ./droid/termux.nix
       ./droid/zsh.nix
     ];
   };
