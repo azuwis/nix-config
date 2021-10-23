@@ -10,6 +10,7 @@
       ./common/git.nix
       ./common/my.nix
       ./common/neovim.nix
+      ./common/packages.nix
       ./common/zsh.nix
       ./droid/zsh.nix
     ];
