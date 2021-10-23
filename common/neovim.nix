@@ -7,11 +7,10 @@
     extraPackages = with pkgs; [
       nixpkgs-fmt
       rnix-lsp
-      stylua
       terraform-ls
       tree-sitter
       yaml-language-server
-    ];
+    ] ++ lib.optionals (builtins.hasAttr "stylua" pkgs) [ stylua ];
     extraConfig = ''
       runtime nvchad-init.lua
       set commentstring=#\ %s
