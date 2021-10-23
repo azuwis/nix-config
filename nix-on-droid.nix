@@ -9,6 +9,7 @@
       ./common/direnv.nix
       ./common/git.nix
       ./common/my.nix
+      ./common/neovim.nix
       ./common/zsh.nix
       ./droid/termux.nix
       ./droid/zsh.nix
