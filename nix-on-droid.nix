@@ -12,6 +12,7 @@
       ./common/neovim.nix
       ./common/packages.nix
       ./common/zsh.nix
+      ./common/zsh-ssh-agent.nix
       ./droid/zsh.nix
     ];
   };
