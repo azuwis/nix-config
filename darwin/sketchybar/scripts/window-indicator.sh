@@ -12,4 +12,4 @@ do
   fi
 done <<< "$(yabai -m query --spaces | jq -r '.[] | [.index, .windows[0]] | @sh')"
 
-sketchybar -m batch "${args[@]}"
+sketchybar -m "${args[@]}"

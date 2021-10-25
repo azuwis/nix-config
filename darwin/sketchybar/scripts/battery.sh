@@ -23,4 +23,4 @@ get_battery() {
 
 get_battery
 
-sketchybar -m batch --set battery icon="$BATTERY_ICON" label="${BATTERY_LABEL}%"
+sketchybar -m --set battery icon="$BATTERY_ICON" icon.highlight="$BATTERY_HIGHLIGHT" label="${BATTERY_LABEL}%"

@@ -7,9 +7,9 @@ status="${status#*: }"
 
 if [ "$status" = "On" ]
 then
-  sketchybar -m batch --set wifi icon="􀙈" icon_padding_right=0 label=""
+  sketchybar -m --set wifi icon="􀙈" icon.padding_right=0 label=""
   networksetup -setairportpower "$iface" off
 else
-  sketchybar -m set wifi icon "􀙇"
+  sketchybar -m --set wifi icon="􀙇"
   networksetup -setairportpower "$iface" on
 fi

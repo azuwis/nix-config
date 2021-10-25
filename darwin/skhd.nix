@@ -51,7 +51,7 @@ else
       lalt - f : yabai -m window --toggle zoom-fullscreen; yabai -m window --grid 1:1:0:0:1:1; \
                  read -r index fullscreen <<< "$(yabai -m query --windows --window mouse | jq -r '[.space, ."zoom-fullscreen"] | @sh')"; \
                  if [ "$fullscreen" = 1 ]; then; icon="↑"; padding=14; else; icon="$index"; padding=16; fi; \
-                 sketchybar -m batch --set "space$index" icon="$icon" label_padding_right="$padding"
+                 sketchybar -m --set "space$index" icon="$icon" label_padding_right="$padding"
       lalt - m : yabai -m window --minimize
       lalt - t : yabai -m window --toggle float
       lalt - tab : yabai -m space --focus recent

@@ -26,7 +26,7 @@ in
     spaces=()
     for i in {1..8}
     do
-        spaces+=(--add component space space$i left \
+        spaces+=(--add space space$i left \
           --set space$i \
             associated_display=1 \
             associated_space=$i \
@@ -35,40 +35,40 @@ in
             script=${scripts}/space.sh)
     done
 
-    sketchybar -m batch \
-      --config \
+    sketchybar -m \
+      --bar \
         height=24 \
         position=top \
         padding_left=10 \
         padding_right=10 \
-        bar_color="$bar_color" \
+        color="$bar_color" \
       --default \
         cache_scripts=on \
-        icon_font="$icon_font" \
-        icon_color="$icon_color" \
-        icon_highlight_color="$icon_highlight_color" \
-        label_font="$label_font" \
-        label_color="$label_color" \
-        label_highlight_color="$label_highlight_color" \
-        icon_padding_left=10 \
-        icon_padding_right=6 \
+        icon.font="$icon_font" \
+        icon.color="$icon_color" \
+        icon.highlight_color="$icon_highlight_color" \
+        label.font="$label_font" \
+        label.color="$label_color" \
+        label.highlight_color="$label_highlight_color" \
+        icon.padding_left=10 \
+        icon.padding_right=6 \
       --add item clock right \
-      --set clock update_freq=10 script="${scripts}/status.sh" icon_padding_left=2 \
+      --set clock update_freq=10 script="${scripts}/status.sh" icon.padding_left=2 \
       --add item battery right \
       --set battery update_freq=60 script="${scripts}/battery.sh" \
       --add item wifi right \
-      --set wifi click_script "${scripts}/click-wifi.sh" \
+      --set wifi click_script="${scripts}/click-wifi.sh" \
       --add item load right \
       --set load icon="􀍽" script="${scripts}/window-indicator.sh" \
       --subscribe load space_change \
       --add item network right \
       --default \
-        icon_padding_left=0 \
-        icon_padding_right=2 \
-        label_padding_right=16 \
+        icon.padding_left=0 \
+        icon.padding_right=2 \
+        label.padding_right=16 \
       "''${spaces[@]}"
 
-    sketchybar -m update
+    sketchybar -m --update
 
     # ram disk
     cache="$HOME/.cache/sketchybar"
