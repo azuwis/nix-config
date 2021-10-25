@@ -13,6 +13,7 @@
       ./common/packages.nix
       ./common/zsh.nix
       ./common/zsh-ssh-agent.nix
+      ./droid/packages.nix
       ./droid/zsh.nix
     ];
   };
