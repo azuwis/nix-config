@@ -2,11 +2,7 @@ let
   pkgsX64 = import <nixpkgs> { localSystem = "x86_64-darwin"; overlays = []; };
 in
 [
-  (self: super:
-    let
-      lib = super.lib;
-    in
-    rec {
+  (self: super: {
     # pkgs
     anime4k = super.callPackage ./pkgs/anime4k { };
     fetchgitSparse = super.callPackage ./pkgs/fetchgitSparse { };
@@ -55,14 +51,6 @@ in
         NIX_CFLAGS_COMPILE = "-Wno-deprecated-declarations";
       }
     );
-    python39 = super.python39.override {
-      packageOverrides = self: super: {
-        beautifulsoup4 = super.beautifulsoup4.overrideAttrs (old: {
-          propagatedBuildInputs = lib.remove super.lxml old.propagatedBuildInputs;
-        });
-      };
-    };
-    python39Packages = python39.pkgs;
     # olive-editor = super.libsForQt515.callPackage <nixpkgs/pkgs/applications/video/olive-editor> {
     #   inherit (super.darwin.apple_sdk.frameworks) CoreFoundation;
     # };
