@@ -31,9 +31,9 @@ in
       o: rec {
         version = "28";
         src = super.fetchgit {
-          url = "git://git.sv.gnu.org/emacs.git";
-          rev = "b506c5b217d4adf68013c15be0d1b16189de089b";
-          sha256 = "1f1q9z21s0v8wmmy38nq3nra8x30k5kx6xz5cps8j11hybgf45d4";
+          url = "https://github.com/emacs-mirror/emacs.git";
+          rev = "9d6162053ebb508dee02baabfae26dea053446c4";
+          sha256 = "sha256-zwkoWrZKPJM6DmIg41pIO8MPNXVfV0sP2praCiIkLXY=";
         };
         patches = [
           ./pkgs/emacs/fix-window-role.patch
