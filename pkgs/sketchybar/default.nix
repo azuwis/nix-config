@@ -6,13 +6,13 @@ in
 
 stdenv.mkDerivation rec {
   pname = "sketchybar";
-  version = "2.0.2";
+  version = "2.2.0";
 
   src = fetchFromGitHub {
     owner = "FelixKratz";
     repo = "SketchyBar";
     rev = "v${version}";
-    sha256 = "0vm9znndq2i9nqkvkpq8c7m5dhqdq8vnizmvb2myjm5v97gqpxzl";
+    sha256 = "087mhlpijasr0sdna944nzh685psagmzj1v16mvynb5lk1gagqw0";
   };
 
   buildInputs = with pkgs.darwin.apple_sdk.frameworks; [
