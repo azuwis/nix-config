@@ -3,7 +3,6 @@
 {
   environment.etcBackupExtension = ".bak";
   nix.extraConfig = ''
-    keep-env-derivations = true
     keep-outputs = true
     tarball-ttl = 43200
   '';
