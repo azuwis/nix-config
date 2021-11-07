@@ -32,6 +32,6 @@ stdenv.mkDerivation rec {
     description = "A custom macOS statusbar with shell plugin, interaction and graph support";
     inherit (src.meta) homepage;
     platforms = platforms.darwin;
-    license = licenses.mit;
+    license = licenses.gpl3;
   };
 }
