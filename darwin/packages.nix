@@ -3,8 +3,8 @@
 {
   home.packages = with pkgs; [
     coreutils-full
-    fmenu
     hydra-check
+    scripts
     wireguard
   ];
 }
