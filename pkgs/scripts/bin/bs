@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+darwin_rebuild() {
+  pushd ~/.config/nixpkgs || exit
+  darwin-rebuild switch --flake .
+  popd || exit
+}
+
+droid_rebuild() {
+  nix-on-droid switch
+}
+
+nixos_rebuild() {
+  sudo nixos-rebuild switch --flake '/etc/nixos'
+}
+
+case "$(uname -s)" in
+  Darwin)
+    darwin_rebuild
+    ;;
+  Linux)
+    if [[ -d /system/app/ && -d /system/priv-app ]]
+    then
+      droid_rebuild
+    else
+      nixos_rebuild
+    fi
+    ;;
+esac

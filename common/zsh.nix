@@ -61,13 +61,6 @@
 
       # zsh-nix-shell
       . ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
-
-      # darwin
-      ds() {
-        pushd ~/.config/nixpkgs
-        darwin-rebuild switch --flake .
-        popd
-      }
     '';
   };
 }
