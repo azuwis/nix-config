@@ -13,6 +13,7 @@
     gnutar
     gzip
     htop
+    ipcalc
     less
     man
     openssh
