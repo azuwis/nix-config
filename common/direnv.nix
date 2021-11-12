@@ -13,7 +13,6 @@
   #   }
   # '';
   programs.direnv.nix-direnv.enable = true;
-  programs.direnv.nix-direnv.enableFlakes = true;
   programs.zsh.initExtra = ''
     # nix-direnv
     nixify() {
