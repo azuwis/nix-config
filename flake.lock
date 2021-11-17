@@ -3,7 +3,7 @@
     "darwin": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgsUnstable"
+          "nixpkgsDarwin"
         ]
       },
       "locked": {
@@ -16,15 +16,14 @@
       },
       "original": {
         "owner": "lnl7",
-        "ref": "master",
         "repo": "nix-darwin",
         "type": "github"
       }
     },
-    "hmUnstable": {
+    "hmDarwin": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgsUnstable"
+          "nixpkgsDarwin"
         ]
       },
       "locked": {
@@ -41,7 +40,7 @@
         "type": "github"
       }
     },
-    "nixpkgsUnstable": {
+    "nixpkgsDarwin": {
       "locked": {
         "lastModified": 1637102477,
         "narHash": "sha256-rN68YRtZwLfgz9qh8eUrbggoMYMDh3t5jw60ynA8wNg=",
@@ -60,8 +59,8 @@
     "root": {
       "inputs": {
         "darwin": "darwin",
-        "hmUnstable": "hmUnstable",
-        "nixpkgsUnstable": "nixpkgsUnstable"
+        "hmDarwin": "hmDarwin",
+        "nixpkgsDarwin": "nixpkgsDarwin"
       }
     }
   },

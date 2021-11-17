@@ -3,21 +3,21 @@
 
   inputs = {
     darwin.url = "github:lnl7/nix-darwin/master";
-    darwin.inputs.nixpkgs.follows = "nixpkgsUnstable";
-    hmUnstable.url = "github:nix-community/home-manager";
-    hmUnstable.inputs.nixpkgs.follows = "nixpkgsUnstable";
+    darwin.inputs.nixpkgs.follows = "nixpkgsDarwin";
+    hmDarwin.url = "github:nix-community/home-manager/master";
+    hmDarwin.inputs.nixpkgs.follows = "nixpkgsDarwin";
     # https://hydra.nixos.org/jobset/nixpkgs/nixpkgs-unstable-aarch64-darwin
-    nixpkgsUnstable.url = "github:nixos/nixpkgs/eeac1c5";
+    nixpkgsDarwin.url = "github:nixos/nixpkgs/eeac1c5";
   };
 
-  outputs = { self, darwin, hmUnstable, nixpkgsUnstable }: {
+  outputs = { self, darwin, hmDarwin, nixpkgsDarwin }: {
     darwinConfigurations."mbp" = darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       modules = [
         {
-          nix.nixPath = [ "nixpkgs=${nixpkgsUnstable}" ];
+          nix.nixPath = [ "nixpkgs=${nixpkgsDarwin}" ];
           nix.registry.local = {
-            flake = nixpkgsUnstable;
+            flake = nixpkgsDarwin;
             from = { id = "local"; type = "indirect"; };
           };
         }
@@ -38,7 +38,7 @@
         ./services/shadowsocks
         ./services/sketchybar
         ./services/smartdns
-        hmUnstable.darwinModules.home-manager
+        hmDarwin.darwinModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
