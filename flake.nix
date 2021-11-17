@@ -7,7 +7,7 @@
     hmUnstable.url = "github:nix-community/home-manager";
     hmUnstable.inputs.nixpkgs.follows = "nixpkgsUnstable";
     # https://hydra.nixos.org/jobset/nixpkgs/nixpkgs-unstable-aarch64-darwin
-    nixpkgsUnstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgsUnstable.url = "github:nixos/nixpkgs/eeac1c5";
   };
 
   outputs = { self, darwin, hmUnstable, nixpkgsUnstable }: {
