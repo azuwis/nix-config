@@ -8,9 +8,13 @@
     hmDarwin.inputs.nixpkgs.follows = "nixpkgsDarwin";
     # https://hydra.nixos.org/jobset/nixpkgs/nixpkgs-unstable-aarch64-darwin
     nixpkgsDarwin.url = "github:nixos/nixpkgs/eeac1c5";
+
+    nixos.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixosHm.url = "github:nix-community/home-manager/master";
+    nixosHm.inputs.nixpkgs.follows = "nixos";
   };
 
-  outputs = { self, darwin, hmDarwin, nixpkgsDarwin }: {
+  outputs = { self, darwin, hmDarwin, nixpkgsDarwin, nixos, nixosHm }: {
     darwinConfigurations."mbp" = darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       modules = [
@@ -57,6 +61,39 @@
             ./darwin/packages.nix
             ./darwin/skhd.nix
             ./darwin/squirrel.nix
+          ]; };
+        }
+      ];
+    };
+
+    nixosConfigurations.nuc = nixos.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        {
+          nix.nixPath = [ "nixpkgs=${nixos}" ];
+          nix.registry.local = {
+            flake = nixos;
+            from = { id = "local"; type = "indirect"; };
+          };
+        }
+        ./common/my.nix
+        ./common/system.nix
+        ./nixos/nuc.nix
+        # nixos-generate-config --show-hardware-config > nixos/nuc-hardware.nix
+        ./nixos/nuc-hardware.nix
+        ./nixos/system.nix
+        nixosHm.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.azuwis = { imports = [
+            ./common/direnv.nix
+            ./common/git.nix
+            ./common/mpv.nix
+            ./common/my.nix
+            ./common/neovim.nix
+            ./common/packages.nix
+            ./common/zsh.nix
           ]; };
         }
       ];
