@@ -21,6 +21,7 @@
     pass-otp
     ripgrep
     rsync
+    scripts
     shellcheck
     telnet
     unzip
