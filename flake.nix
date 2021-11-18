@@ -94,6 +94,7 @@
             ./common/neovim.nix
             ./common/packages.nix
             ./common/zsh.nix
+            ./nixos/packages.nix
           ]; };
         }
       ];
