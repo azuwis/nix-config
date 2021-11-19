@@ -49,8 +49,8 @@ else
       lshift + lalt - 0x29 : yabai -m window --toggle split
       lalt - c : yabai -m window --toggle float && yabai -m window --grid 6:6:1:1:4:4
       lalt - f : yabai -m window --toggle zoom-fullscreen; yabai -m window --grid 1:1:0:0:1:1; \
-                 read -r index fullscreen <<< "$(yabai -m query --windows --window mouse | jq -r '[.space, ."zoom-fullscreen"] | @sh')"; \
-                 if [ "$fullscreen" = 1 ]; then; icon="↑"; padding=14; else; icon="$index"; padding=16; fi; \
+                 read -r index fullscreen <<< "$(yabai -m query --windows --window mouse | jq -r '[.space, ."has-fullscreen-zoom"] | @sh')"; \
+                 if [ "$fullscreen" = true ]; then; icon="↑"; padding=14; else; icon="$index"; padding=16; fi; \
                  sketchybar -m --set "space$index" icon="$icon" label_padding_right="$padding"
       lalt - m : yabai -m window --minimize
       lalt - t : yabai -m window --toggle float
