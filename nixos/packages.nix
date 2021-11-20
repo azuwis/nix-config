@@ -3,5 +3,6 @@
 {
   home.packages = with pkgs; [
     compsize
+    efibootmgr
   ];
 }
