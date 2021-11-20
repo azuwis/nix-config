@@ -7,6 +7,7 @@
     curl
     diffutils
     findutils
+    file
     gnugrep
     gnupg
     gnused
