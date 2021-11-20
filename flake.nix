@@ -20,9 +20,9 @@
       modules = [
         {
           nix.nixPath = [ "nixpkgs=${nixpkgsDarwin}" ];
-          nix.registry.local = {
+          nix.registry.l = {
             flake = nixpkgsDarwin;
-            from = { id = "local"; type = "indirect"; };
+            from = { id = "l"; type = "indirect"; };
           };
         }
         ./common/my.nix
@@ -71,9 +71,9 @@
       modules = [
         {
           nix.nixPath = [ "nixpkgs=${nixos}" ];
-          nix.registry.local = {
+          nix.registry.l = {
             flake = nixos;
-            from = { id = "local"; type = "indirect"; };
+            from = { id = "l"; type = "indirect"; };
           };
         }
         ./common/my.nix
