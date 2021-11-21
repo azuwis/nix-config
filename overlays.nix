@@ -27,13 +27,13 @@ in
     # shellcheck = pkgsX64.shellcheck;
 
     # overrides
-    emacsUnstable = (super.emacs.override { srcRepo = true; nativeComp = true; }).overrideAttrs (
+    emacsUnstable = (super.emacs.override { srcRepo = true; nativeComp = false; }).overrideAttrs (
       o: rec {
         version = "28";
         src = super.fetchgit {
           url = "https://github.com/emacs-mirror/emacs.git";
-          rev = "9d6162053ebb508dee02baabfae26dea053446c4";
-          sha256 = "sha256-zwkoWrZKPJM6DmIg41pIO8MPNXVfV0sP2praCiIkLXY=";
+          rev = "0dd3883defc04ea02d2f77d79debf4e18157500d";
+          sha256 = "sha256-s5XTkDg9qyZjZonk8NeGfK2Sfkc34cjpXVa7KWuyp68=";
         };
         patches = [
           ./pkgs/emacs/fix-window-role.patch
