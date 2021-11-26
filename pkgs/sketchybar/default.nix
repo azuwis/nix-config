@@ -1,7 +1,10 @@
 { pkgs, lib, stdenv, fetchFromGitHub }:
 
 let
-  arch = if stdenv.isAarch64 then "arm" else "x86";
+  target = {
+    "aarch64-darwin" = "arm";
+    "x86_64-darwin" = "x86";
+  }.${stdenv.hostPlatform.system};
 in
 
 stdenv.mkDerivation rec {
@@ -20,12 +23,12 @@ stdenv.mkDerivation rec {
   ];
 
   buildPhase = ''
-    make ${arch}
+    make ${target}
   '';
 
   installPhase = ''
     mkdir -p $out/bin
-    cp ./bin/sketchybar_${arch} $out/bin/sketchybar
+    cp ./bin/sketchybar_${target} $out/bin/sketchybar
   '';
 
   meta = with lib; {
