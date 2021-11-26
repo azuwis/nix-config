@@ -5,7 +5,7 @@
     hmDarwin.url = "github:nix-community/home-manager/master";
     hmDarwin.inputs.nixpkgs.follows = "nixpkgsDarwin";
     # https://hydra.nixos.org/jobset/nixpkgs/nixpkgs-unstable-aarch64-darwin
-    nixpkgsDarwin.url = "github:nixos/nixpkgs/f508ae8";
+    nixpkgsDarwin.url = "github:nixos/nixpkgs/02cea62";
 
     nixos.url = "github:nixos/nixpkgs/nixos-unstable";
     nixosHm.url = "github:nix-community/home-manager/master";
