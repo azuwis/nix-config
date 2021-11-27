@@ -2,11 +2,16 @@
 
 shopt -s nullglob
 
-apps=( ~/Applications/*.app ~/Applications/*/*.app /Applications/*.app /Applications/*/*.app /System/Applications/*.app /System/Applications/*/*.app )
+apps=( ~/Applications/*.app ~/Applications/*/*.app /Applications/*.app /Applications/*/*.app /System/Applications/*.app /System/Applications/*/*.app /etc/profiles/per-user/$USER/bin/* )
 apps=( "${apps[@]%.app}" )
 
-app=$(printf '%s\n' "${apps[@]}" | fzf --reverse --no-info --delimiter='/' --with-nth=-1 "$@")
+app=$(printf '%s\n' "${apps[@]}" | fzf --history="$HOME/.cache/appfzf" --reverse --no-info --delimiter='/' --with-nth=-1 "$@")
 
 [[ -n "$app" ]] || exit 0;
 
-open -a "$app.app"
+if [[ "$app" == "/etc/profiles/per-user/$USER/bin/"* ]]
+then
+  daemonize "$app"
+else
+  open -a "$app.app"
+fi
