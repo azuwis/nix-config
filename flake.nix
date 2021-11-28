@@ -18,10 +18,7 @@
       modules = [
         {
           nix.nixPath = [ "nixpkgs=${nixpkgsDarwin}" ];
-          nix.registry.l = {
-            flake = nixpkgsDarwin;
-            from = { id = "l"; type = "indirect"; };
-          };
+          nix.registry.l.flake = nixpkgsDarwin;
         }
         ./common/my.nix
         ./common/system.nix
