@@ -3,7 +3,7 @@
 {
   home.packages = with pkgs; [
     coreutils-full
-    daemonize
+    daemon
     hydra-check
     wireguard
   ];

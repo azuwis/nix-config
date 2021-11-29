@@ -11,7 +11,7 @@ app=$(printf '%s\n' "${apps[@]}" | fzf --history="$HOME/.cache/appfzf" --reverse
 
 if [[ "$app" == "/etc/profiles/per-user/$USER/bin/"* ]]
 then
-  daemonize "$app"
+  daemon "$app"
 else
   open -a "$app.app"
 fi
