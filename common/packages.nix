@@ -8,6 +8,7 @@
     diffutils
     findutils
     file
+    gawk
     gnugrep
     gnupg
     gnused
@@ -25,6 +26,7 @@
     scripts
     shellcheck
     telnet
+    tree
     unzip
     watch
     xz
