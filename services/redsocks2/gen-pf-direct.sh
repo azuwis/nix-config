@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p mapcidr
 (
 cat <<EOF
 0.0.0.0/8
@@ -20,5 +21,5 @@ cat <<EOF
 64.62.200.2/32
 1.1.1.0/24
 EOF
-curl -s 'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest' | grep ipv4 | grep CN | awk -F\| '{ printf("%s/%d\n", $4, 32-log($5)/log(2)) }'
-) | sort -V | aggregate > pf.direct
+curl -s 'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest' | awk -F\| '/CN\|ipv4/ { printf("%s/%d\n", $4, 32-log($5)/log(2)) }'
+) | mapcidr -silent -aggregate | sort -V > pf.direct
