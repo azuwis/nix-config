@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 curl -Ls https://github.com/felixonmars/dnsmasq-china-list/raw/master/accelerated-domains.china.conf | sed -e 's!/114.114.114.114$!/127.0.0.53!' | grep -Fv cn.debian.org | awk -F/ '{print $2}' > local-domains
 
-cat <<EOF >> domains
+cat <<EOF >> local-domains
 app.arukas.io
 bnbsky.com
 dl.google.com
