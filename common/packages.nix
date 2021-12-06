@@ -6,8 +6,8 @@
     bzip2
     curl
     diffutils
-    findutils
     file
+    findutils
     gawk
     gnugrep
     gnupg
@@ -15,6 +15,7 @@
     gnutar
     gzip
     htop
+    imagemagick
     ipcalc
     less
     man
@@ -27,6 +28,7 @@
     shellcheck
     telnet
     tree
+    unrar
     unzip
     watch
     xz
