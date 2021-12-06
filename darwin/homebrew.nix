@@ -26,6 +26,7 @@
       "android-file-transfer"
       "android-platform-tools"
       "google-chrome"
+      "microsoft-office"
       "musescore"
       "qbittorrent"
       "reaper"
