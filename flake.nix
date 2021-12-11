@@ -22,6 +22,8 @@
         }
         ./common/my.nix
         ./common/system.nix
+        ./darwin/age.nix
+        ./darwin/agenix.nix
         ./darwin/emacs # emacs-all-the-icons-fonts
         ./darwin/homebrew.nix
         ./darwin/hostname.nix
