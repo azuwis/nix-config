@@ -1,24 +1,24 @@
 {
   inputs = {
     darwin.url = "github:lnl7/nix-darwin/master";
-    darwin.inputs.nixpkgs.follows = "nixpkgsDarwin";
-    hmDarwin.url = "github:nix-community/home-manager/master";
-    hmDarwin.inputs.nixpkgs.follows = "nixpkgsDarwin";
+    darwin.inputs.nixpkgs.follows = "darwinNixpkgs";
+    darwinHm.url = "github:nix-community/home-manager/master";
+    darwinHm.inputs.nixpkgs.follows = "darwinNixpkgs";
     # https://hydra.nixos.org/jobset/nixpkgs/nixpkgs-unstable-aarch64-darwin
-    nixpkgsDarwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    darwinNixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     nixos.url = "github:nixos/nixpkgs/nixos-unstable";
     nixosHm.url = "github:nix-community/home-manager/master";
     nixosHm.inputs.nixpkgs.follows = "nixos";
   };
 
-  outputs = { self, darwin, hmDarwin, nixpkgsDarwin, nixos, nixosHm }: {
+  outputs = { self, darwin, darwinHm, darwinNixpkgs, nixos, nixosHm }: {
     darwinConfigurations."mbp" = darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       modules = [
         {
-          nix.nixPath = [ "nixpkgs=${nixpkgsDarwin}" ];
-          nix.registry.l.flake = nixpkgsDarwin;
+          nix.nixPath = [ "nixpkgs=${darwinNixpkgs}" ];
+          nix.registry.l.flake = darwinNixpkgs;
         }
         ./common/my.nix
         ./common/system.nix
@@ -37,7 +37,7 @@
         ./services/shadowsocks
         ./services/sketchybar
         ./services/smartdns
-        hmDarwin.darwinModules.home-manager
+        darwinHm.darwinModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
