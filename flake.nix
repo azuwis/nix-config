@@ -34,6 +34,7 @@
         ./darwin/squirrel.nix
         ./darwin/sudo.nix
         ./darwin/system.nix
+        ./darwin/wireguard.nix
         ./darwin/yabai.nix
         ./services/redsocks2
         ./services/shadowsocks

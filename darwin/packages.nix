@@ -6,6 +6,5 @@
     daemon
     element-desktop
     hydra-check
-    wireguard
   ];
 }
