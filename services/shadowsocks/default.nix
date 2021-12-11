@@ -18,6 +18,13 @@ in {
       defaultText = "pkgs.shadowsocks-libev";
       description = "This option specifies the shadowsocks package to use.";
     };
+
+    services.shadowsocks.config = mkOption {
+      type = types.path;
+      default = "/etc/shadowsocks/ss-local.json";
+      defaultText = "/etc/shadowsocks/ss-local.json";
+      description = "This option specifies the shadowsocks config file to use.";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -36,7 +43,7 @@ in {
     launchd.daemons.shadowsocks = {
       serviceConfig.ProgramArguments = [
         "/bin/sh" "-c" ''/bin/wait4path /nix/store && exec "$@"'' "--"
-        "${cfg.package}/bin/ss-local" "-c" "/etc/shadowsocks/ss-local.json"
+        "${cfg.package}/bin/ss-local" "-c" "${cfg.config}"
       ];
 
       serviceConfig.UserName = "shadowsocks";
