@@ -36,6 +36,12 @@ in
       timeout = 4;
     }
   '';
+  age.secrets.shadowsocks = {
+    file = "/etc/age/shadowsocks.age";
+    owner = config.users.users.shadowsocks.name;
+    group = config.users.users.shadowsocks.name;
+  };
   services.shadowsocks.enable = true;
+  services.shadowsocks.config = config.age.secrets.shadowsocks.path;
   services.smartdns.enable = true;
 }
