@@ -32,5 +32,6 @@
     unzip
     watch
     xz
+    zstd
   ];
 }
