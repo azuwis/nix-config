@@ -3,6 +3,7 @@
 {
   programs.zsh.envExtra = ''
   . "/data/data/com.termux.nix/files/home/.nix-profile/etc/profile.d/nix-on-droid-session-init.sh"
+  set +u
   '';
   programs.zsh.initExtra = ''
   start-sshd() {
