@@ -1,6 +1,9 @@
 { pkgs, config, ... }:
 
 {
+  # nix-channel --add https://github.com/nix-community/home-manager/archive/release-21.11.tar.gz home-manager
+  # nix-channel --add https://github.com/t184256/nix-on-droid/archive/master.tar.gz nix-on-droid
+  # nix-channel --add https://nixos.org/channels/nixos-21.11 nixpkgs
   imports = [
     ./droid/system.nix
   ];
