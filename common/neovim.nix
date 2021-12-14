@@ -5,6 +5,7 @@
   programs.neovim = {
     enable = true;
     extraPackages = with pkgs; [
+      gcc
       nixpkgs-fmt
       rnix-lsp
       terraform-ls
