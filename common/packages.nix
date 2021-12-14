@@ -28,7 +28,7 @@
     shellcheck
     telnet
     tree
-    unrar
+    unar
     unzip
     watch
     xz
