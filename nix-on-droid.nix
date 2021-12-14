@@ -17,6 +17,7 @@
       ./common/packages.nix
       ./common/zsh-ssh-agent.nix
       ./common/zsh.nix
+      ./droid/compat.nix
       ./droid/gnupg.nix
       ./droid/packages.nix
       ./droid/zsh.nix
