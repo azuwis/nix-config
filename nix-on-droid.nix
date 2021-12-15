@@ -7,6 +7,7 @@
   imports = [
     ./droid/sshd.nix
     ./droid/system.nix
+    ./droid/termux.nix
   ];
   home-manager.config = {
     imports = [
