@@ -21,7 +21,6 @@
       ./droid/compat.nix
       ./droid/gnupg.nix
       ./droid/packages.nix
-      ./droid/zsh.nix
     ];
   };
 }
