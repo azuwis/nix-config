@@ -1,6 +1,14 @@
 { pkgs, config, ... }:
 
 {
+  build.activation.procStat = ''
+    if [ ! -e "${config.build.installationDir}/proc/stat" ]; then
+      $VERBOSE_ECHO "Generating fake /proc/stat"
+      $DRY_RUN_CMD mkdir -p "${config.build.installationDir}/proc"
+      $DRY_RUN_CMD echo "btime 0" > "${config.build.installationDir}/proc/stat"
+    fi
+  '';
+  build.extraProotOptions = ["-b" "${config.build.installationDir}/proc/stat:/proc/stat"];
   environment.etc.zshenv.text = ''
   . "${config.build.sessionInit}/etc/profile.d/nix-on-droid-session-init.sh"
   set +u
