@@ -5,6 +5,7 @@
   # nix-channel --add https://github.com/t184256/nix-on-droid/archive/master.tar.gz nix-on-droid
   # nix-channel --add https://nixos.org/channels/nixos-21.11 nixpkgs
   imports = [
+    ./droid/sshd.nix
     ./droid/system.nix
   ];
   home-manager.config = {
