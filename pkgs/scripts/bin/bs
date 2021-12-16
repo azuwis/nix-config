@@ -7,7 +7,7 @@ darwin_rebuild() {
 }
 
 droid_rebuild() {
-  nix-on-droid switch
+  nix-on-droid switch --flake "$HOME/.config/nixpkgs/#device"
 }
 
 nixos_rebuild() {
