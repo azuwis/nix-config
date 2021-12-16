@@ -72,11 +72,34 @@
     };
 
     nixOnDroidConfigurations.device = droid.lib.nixOnDroidConfiguration rec {
-      config = ./nix-on-droid.nix;
       system = "aarch64-linux";
       pkgs = import droidNixpkgs {
         inherit system;
         overlays = import ./overlays.nix;
+      };
+      config = {
+        imports = [
+          ./droid/sshd.nix
+          ./droid/system.nix
+          ./droid/termux.nix
+        ];
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.config = {
+          imports = [
+            ./common/direnv.nix
+            ./common/git.nix
+            ./common/gnupg.nix
+            ./common/my.nix
+            ./common/neovim.nix
+            ./common/packages.nix
+            ./common/zsh-ssh-agent.nix
+            ./common/zsh.nix
+            ./droid/compat.nix
+            ./droid/gnupg.nix
+            ./droid/packages.nix
+          ];
+        };
       };
     };
 
