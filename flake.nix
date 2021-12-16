@@ -7,12 +7,19 @@
     # https://hydra.nixos.org/jobset/nixpkgs/nixpkgs-unstable-aarch64-darwin
     darwinNixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
+    droid.url = "github:t184256/nix-on-droid";
+    droid.inputs.nixpkgs.follows = "droidNixpkgs";
+    droid.inputs.home-manager.follows = "droidHm";
+    droidHm.url = "github:nix-community/home-manager/release-21.11";
+    droidHm.inputs.nixpkgs.follows = "droidNixpkgs";
+    droidNixpkgs.url = "github:NixOS/nixpkgs/release-21.11";
+
     nixos.url = "github:nixos/nixpkgs/nixos-unstable";
     nixosHm.url = "github:nix-community/home-manager/master";
     nixosHm.inputs.nixpkgs.follows = "nixos";
   };
 
-  outputs = { self, darwin, darwinHm, darwinNixpkgs, nixos, nixosHm }: {
+  outputs = { self, darwin, darwinHm, darwinNixpkgs, droid, droidNixpkgs, nixos, nixosHm, ... }: {
     darwinConfigurations."mbp" = darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       modules = [
@@ -62,6 +69,15 @@
           ]; };
         }
       ];
+    };
+
+    nixOnDroidConfigurations.device = droid.lib.nixOnDroidConfiguration rec {
+      config = ./nix-on-droid.nix;
+      system = "aarch64-linux";
+      pkgs = import droidNixpkgs {
+        inherit system;
+        overlays = import ./overlays.nix;
+      };
     };
 
     nixosConfigurations.nuc = nixos.lib.nixosSystem {

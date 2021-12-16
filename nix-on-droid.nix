@@ -9,6 +9,8 @@
     ./droid/system.nix
     ./droid/termux.nix
   ];
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
   home-manager.config = {
     imports = [
       ./common/direnv.nix

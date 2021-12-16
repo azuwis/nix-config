@@ -58,6 +58,82 @@
         "type": "github"
       }
     },
+    "droid": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "home-manager": [
+          "droidHm"
+        ],
+        "nixpkgs": [
+          "droidNixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1639604574,
+        "narHash": "sha256-Ib7+NjBKgcq+eBEimWLE8u8I+P1SZrZugK3dYUMPo2g=",
+        "owner": "t184256",
+        "repo": "nix-on-droid",
+        "rev": "b5325c18f6e69a6a9fb909b512fec67f693ee21a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "t184256",
+        "repo": "nix-on-droid",
+        "type": "github"
+      }
+    },
+    "droidHm": {
+      "inputs": {
+        "nixpkgs": [
+          "droidNixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1638553958,
+        "narHash": "sha256-leETjYMtD9y37CvfRSQhIGibcIl4dNVlFkY/8QgqmAM=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "6ce1d64073f48b9bc9425218803b1b607454c1e7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "release-21.11",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "droidNixpkgs": {
+      "locked": {
+        "lastModified": 1639611244,
+        "narHash": "sha256-9Q+KZIrByBR7pqK/Y7/yIdagaGig7O+gPTbipKpWFWs=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "432864f33c84af53192d4b23ee5871697e57f094",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "release-21.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1638122382,
+        "narHash": "sha256-sQzZzAbvKEqN9s0bzWuYmRaA03v40gaJ4+iL1LXjaeI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "74f7e4319258e287b0f9cb95426c9853b282730b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "nixos": {
       "locked": {
         "lastModified": 1638986258,
@@ -100,6 +176,9 @@
         "darwin": "darwin",
         "darwinHm": "darwinHm",
         "darwinNixpkgs": "darwinNixpkgs",
+        "droid": "droid",
+        "droidHm": "droidHm",
+        "droidNixpkgs": "droidNixpkgs",
         "nixos": "nixos",
         "nixosHm": "nixosHm"
       }
