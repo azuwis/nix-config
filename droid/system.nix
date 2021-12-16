@@ -9,10 +9,6 @@
     fi
   '';
   build.extraProotOptions = ["-b" "${config.build.installationDir}/proc/stat:/proc/stat"];
-  environment.etc.zshenv.text = ''
-  . "${config.build.sessionInit}/etc/profile.d/nix-on-droid-session-init.sh"
-  set +u
-  '';
   environment.etcBackupExtension = ".bak";
   nix.extraConfig = ''
     experimental-features = flakes nix-command
