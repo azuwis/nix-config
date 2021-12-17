@@ -16,6 +16,7 @@ if builtins.hasAttr "hm" lib then
   programs.kitty.settings = {
     copy_on_select = true;
     cursor_blink_interval = 0;
+    editor = "vim";
     hide_window_decorations = true;
     scrollback_pager_history_size = 1;
     update_check_interval = 0;
