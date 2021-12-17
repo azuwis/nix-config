@@ -62,6 +62,10 @@ else
     '';
   };
 
+  launchd.user.agents.skhd.environment = {
+    SHELL = "/bin/sh";
+  };
+
   # launchd.user.agents.skhd.serviceConfig = {
   #   StandardErrorPath = "/tmp/skhd.log";
   #   StandardOutPath = "/tmp/skhd.log";
