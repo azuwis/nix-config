@@ -18,6 +18,7 @@ if builtins.hasAttr "hm" lib then
     cursor_blink_interval = 0;
     hide_window_decorations = true;
     scrollback_pager_history_size = 1;
+    update_check_interval = 0;
     foreground = "#D8DEE9";
     background = "#2E3440";
     selection_foreground = "#000000";
