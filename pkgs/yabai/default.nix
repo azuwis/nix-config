@@ -2,11 +2,11 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "yabai";
-  version = "4.0.0-1";
+  version = "4.0.0-2";
 
   src = fetchzip {
     url = "https://github.com/azuwis/yabai/releases/download/v3.3.10/yabai-v${version}.tar.gz";
-    sha256 = "sha256-PHtAZlS+L4SHN86ca1g1RsLzdJYIe6dH5nWabWdtFz0=";
+    sha256 = "sha256-1tMiOAPUTNad9wllbL4gHHb1XMcAg9XBsUzfQTUciRk=";
   };
 
   installPhase = ''
