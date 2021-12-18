@@ -35,6 +35,7 @@
         ./darwin/homebrew.nix
         ./darwin/hostname.nix
         ./darwin/kitty.nix # sudo keep TERMINFO_DIRS env
+        ./darwin/my.nix
         ./darwin/sketchybar
         ./darwin/skhd.nix
         ./darwin/smartnet.nix

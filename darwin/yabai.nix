@@ -28,6 +28,8 @@
     '';
   };
 
+  launchd.user.agents.yabai.serviceConfig.EnvironmentVariables.PATH = lib.mkForce config.my.systemPath;
+
   # launchd.user.agents.yabai.serviceConfig = {
   #   StandardErrorPath = "/tmp/yabai.log";
   #   StandardOutPath = "/tmp/yabai.log";
