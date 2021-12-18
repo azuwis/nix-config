@@ -14,7 +14,7 @@
     droidHm.inputs.nixpkgs.follows = "droidNixpkgs";
     droidNixpkgs.url = "github:NixOS/nixpkgs/release-21.11";
 
-    nixos.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixos.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixosHm.url = "github:nix-community/home-manager/master";
     nixosHm.inputs.nixpkgs.follows = "nixos";
   };
