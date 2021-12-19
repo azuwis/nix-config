@@ -23,12 +23,8 @@
     darwinConfigurations."mbp" = darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       modules = [
-        {
-          nix.nixPath = [ "nixpkgs=${darwinNixpkgs}" ];
-          nix.registry.l.flake = darwinNixpkgs;
-        }
+        (import ./common/system.nix { nixpkgs = darwinNixpkgs; })
         ./common/my.nix
-        ./common/system.nix
         ./darwin/age.nix
         ./darwin/agenix.nix
         ./darwin/emacs # emacs-all-the-icons-fonts
@@ -107,15 +103,8 @@
     nixosConfigurations.nuc = nixos.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
-        {
-          nix.nixPath = [ "nixpkgs=${nixos}" ];
-          nix.registry.l = {
-            flake = nixos;
-            from = { id = "l"; type = "indirect"; };
-          };
-        }
+        (import ./common/system.nix { nixpkgs = nixos; })
         ./common/my.nix
-        ./common/system.nix
         ./nixos/nuc.nix
         # nixos-generate-config --show-hardware-config > nixos/nuc-hardware.nix
         ./nixos/nuc-hardware.nix

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+inputs: { config, lib, pkgs, ... }:
 
 {
   nix.allowedUsers = [ "${config.my.user}" ];
@@ -8,6 +8,8 @@
     keep-outputs = true
     tarball-ttl = 43200
   '';
+  nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+  nix.registry.l.flake = inputs.nixpkgs;
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = import ../overlays.nix;
   programs.zsh.enable = true;
