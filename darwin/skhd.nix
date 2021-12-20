@@ -66,7 +66,7 @@ else
     SHELL = "/bin/sh";
   };
 
-  launchd.user.agents.skhd.path = lib.mkOverride 0 [ config.my.systemPath ];
+  launchd.user.agents.skhd.path = lib.mkForce [ config.my.systemPath ];
 
   # launchd.user.agents.skhd.serviceConfig = {
   #   StandardErrorPath = "/tmp/skhd.log";
