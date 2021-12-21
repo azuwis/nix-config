@@ -48,17 +48,16 @@ in
     );
     kitty = super.kitty.overrideAttrs (
       o: rec {
-        NIX_CFLAGS_COMPILE = "-Wno-deprecated-declarations";
+        buildInputs = o.buildInputs ++
+          super.lib.optionals
+            (super.stdenv.isDarwin && (builtins.hasAttr "UserNotifications" super.darwin.apple_sdk.frameworks))
+          [ super.darwin.apple_sdk.frameworks.UserNotifications ];
+        patches = super.lib.optionals super.stdenv.isDarwin [ ./pkgs/kitty/apple-sdk-11.patch ];
       }
     );
     # olive-editor = super.libsForQt515.callPackage <nixpkgs/pkgs/applications/video/olive-editor> {
     #   inherit (super.darwin.apple_sdk.frameworks) CoreFoundation;
     # };
-    # kitty = super.kitty.overrideAttrs (
-    #   o: rec {
-    #     buildInputs = o.buildInputs ++ [ super.darwin.apple_sdk.frameworks.UserNotifications ];
-    #   }
-    # );
   }
   )
 ]
