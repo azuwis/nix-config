@@ -1,13 +1,6 @@
 { pkgs, config, ... }:
 
-let
-  fakeProcStat = pkgs.writeText "fakeProcStat" ''
-    btime 0
-  '';
-in
-
 {
-  build.extraProotOptions = ["-b" "${config.build.installationDir}${fakeProcStat}:/proc/stat"];
   environment.etcBackupExtension = ".bak";
   nix.extraConfig = ''
     experimental-features = flakes nix-command
