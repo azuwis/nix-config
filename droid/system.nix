@@ -1,14 +1,13 @@
 { pkgs, config, ... }:
 
-{
-  build.activation.procStat = ''
-    if [ ! -e "${config.build.installationDir}/proc/stat" ]; then
-      $VERBOSE_ECHO "Generating fake /proc/stat"
-      $DRY_RUN_CMD mkdir -p "${config.build.installationDir}/proc"
-      $DRY_RUN_CMD echo "btime 0" > "${config.build.installationDir}/proc/stat"
-    fi
+let
+  fakeProcStat = pkgs.writeText "fakeProcStat" ''
+    btime 0
   '';
-  build.extraProotOptions = ["-b" "${config.build.installationDir}/proc/stat:/proc/stat"];
+in
+
+{
+  build.extraProotOptions = ["-b" "${config.build.installationDir}${fakeProcStat}:/proc/stat"];
   environment.etcBackupExtension = ".bak";
   nix.extraConfig = ''
     experimental-features = flakes nix-command
