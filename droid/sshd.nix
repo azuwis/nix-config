@@ -25,7 +25,7 @@ in
     (pkgs.writeScriptBin "sshd-start" ''
       #!${pkgs.runtimeShell}
 
-      echo "Starting sshd in non-daemonized way on port ${toString port}"
+      echo "Starting sshd on port ${toString port}"
       ${pkgs.openssh}/bin/sshd
     '')
   ];
