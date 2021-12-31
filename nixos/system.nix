@@ -16,7 +16,7 @@
   };
   users.users."${config.my.user}" = {
     extraGroups = [ "wheel" ];
-    group = "azuwis";
+    group = "${config.my.user}";
     isNormalUser = true;
     shell = pkgs.zsh;
     uid = config.my.uid;
