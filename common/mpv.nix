@@ -35,6 +35,7 @@ in
       osd-on-seek = false;
       profile = "gpu-hq";
       script-opts = "osc-seekbarstyle=knob,osc-deadzonesize=1,osc-minmousemove=1";
+      slang = "chi";
       sub-auto = "fuzzy";
       sub-codepage = "gbk";
     };
