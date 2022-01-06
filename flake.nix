@@ -20,10 +20,11 @@
   };
 
   outputs = { self, darwin, darwinHm, darwinNixpkgs, droid, droidNixpkgs, nixos, nixosHm, ... }: {
-    darwinConfigurations."mbp" = darwin.lib.darwinSystem {
+    darwinConfigurations.mbp = darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       modules = [
         (import ./common/system.nix { nixpkgs = darwinNixpkgs; })
+        ./common/firefox
         ./common/my.nix
         ./darwin/age.nix
         ./darwin/agenix.nix
@@ -51,6 +52,7 @@
           home-manager.users.azuwis = { imports = [
             ./common/alacritty.nix
             ./common/direnv.nix
+            ./common/firefox
             ./common/git.nix
             ./common/mpv.nix
             ./common/my.nix

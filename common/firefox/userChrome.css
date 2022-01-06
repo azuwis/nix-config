@@ -1,0 +1,29 @@
+@-moz-document url(chrome://browser/content/browser.xhtml) {
+  /* show close button only when hover on tabs */
+  .tabbrowser-tab:not([pinned]) .tab-close-button {
+    display: none !important;
+  }
+  .tabbrowser-tab:not([pinned]):hover .tab-close-button {
+    display: -moz-box !important;
+  }
+
+  /* style for unloaded tabs */
+  .tabbrowser-tab[pending] {
+    opacity: .5;
+  }
+
+  /* hide tab scroll buttons */
+  #TabsToolbar toolbarbutton[class^="scrollbutton"] {
+    display: none;
+  }
+
+  /* hide alltabs button */
+  #TabsToolbar toolbarbutton#alltabs-button {
+    display: none;
+  }
+
+  /* remove menu icon */
+  :-moz-any(#contentAreaContextMenu, #tabContextMenu) > :-moz-any(menuitem, menu) > .menu-iconic-left {
+    visibility: hidden !important;
+  }
+}
