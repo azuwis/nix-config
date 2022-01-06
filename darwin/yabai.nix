@@ -21,7 +21,7 @@
       yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
       yabai -m rule --add app="^(Digital Color Meter|System Preferences|mpv)$" manage=off
       yabai -m rule --add app="^alacritty$" title="^Fzf$" manage=off
-      yabai -m rule --add app="^Safari$" space=2
+      yabai -m rule --add app="^(Firefox|Google Chrome|Safari)$" space=2
       yabai -m rule --add app="^Mail$" space=3
       yabai -m rule --add app="^网易POPO$" title="^$" manage=off space=5 grid=1:1:0:0:1:1
       yabai -m space 5 --layout float
