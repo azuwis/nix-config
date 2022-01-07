@@ -1,11 +1,11 @@
-{ config, lib, pkgs, ... }:
+inputs: { config, lib, pkgs, ... }:
 
 {
   programs.firefox = {
     enable = true;
     profiles =
       let
-        userChrome = builtins.readFile ./userChrome.css;
+        userChrome = builtins.readFile "${inputs.cascade}/userChrome.css";
         settings = {
           "extensions.update.enabled" = true;
           "ui.caretBlinkTime" = 0;

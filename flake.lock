@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "cascade": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1639143815,
+        "narHash": "sha256-3TT5knZPcBzC6BrRfeq2sLIteZ6nfH2qIhVdpGZzTrE=",
+        "owner": "andreasgrafen",
+        "repo": "cascade",
+        "rev": "dd90ab9421406bd00d6c89ee08d1a2ca8d8c2562",
+        "type": "github"
+      },
+      "original": {
+        "owner": "andreasgrafen",
+        "repo": "cascade",
+        "type": "github"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -173,6 +189,7 @@
     },
     "root": {
       "inputs": {
+        "cascade": "cascade",
         "darwin": "darwin",
         "darwinHm": "darwinHm",
         "darwinNixpkgs": "darwinNixpkgs",

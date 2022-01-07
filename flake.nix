@@ -17,9 +17,12 @@
     nixos.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixosHm.url = "github:nix-community/home-manager/master";
     nixosHm.inputs.nixpkgs.follows = "nixos";
+
+    cascade.url = "github:andreasgrafen/cascade";
+    cascade.flake = false;
   };
 
-  outputs = { self, darwin, darwinHm, darwinNixpkgs, droid, droidNixpkgs, nixos, nixosHm, ... }: {
+  outputs = { self, darwin, darwinHm, darwinNixpkgs, droid, droidNixpkgs, nixos, nixosHm, cascade, ... }: {
     darwinConfigurations.mbp = darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       modules = [
@@ -52,7 +55,7 @@
           home-manager.users.azuwis = { imports = [
             ./common/alacritty.nix
             ./common/direnv.nix
-            ./common/firefox
+            (import ./common/firefox { inherit cascade; })
             ./common/git.nix
             ./common/mpv.nix
             ./common/my.nix
