@@ -24,11 +24,11 @@
       system = "aarch64-darwin";
       modules = [
         (import ./common/system.nix { nixpkgs = darwinNixpkgs; })
-        ./common/firefox
         ./common/my.nix
         ./darwin/age.nix
         ./darwin/agenix.nix
         ./darwin/emacs # emacs-all-the-icons-fonts
+        ./darwin/firefox.nix
         ./darwin/homebrew.nix
         ./darwin/hostname.nix
         ./darwin/kitty.nix # sudo keep TERMINFO_DIRS env
@@ -60,6 +60,7 @@
             ./common/packages.nix
             ./common/zsh.nix
             ./darwin/emacs
+            ./darwin/firefox.nix
             ./darwin/hmapps.nix
             ./darwin/kitty.nix
             ./darwin/packages.nix

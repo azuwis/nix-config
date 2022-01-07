@@ -1,10 +1,7 @@
 { config, lib, pkgs, ... }:
 
-if builtins.hasAttr "hm" lib then
-
 {
   programs.firefox = {
-    package = lib.mkIf pkgs.stdenv.isDarwin (pkgs.runCommand "firefox-0.0.0" { } "mkdir $out");
     enable = true;
     profiles =
       let
@@ -88,10 +85,4 @@ if builtins.hasAttr "hm" lib then
         };
       };
   };
-}
-
-else
-
-{
-  homebrew.casks = lib.mkIf pkgs.stdenv.isDarwin [ "firefox" ];
 }

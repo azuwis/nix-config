@@ -7,6 +7,7 @@ in
     anime4k = super.callPackage ./pkgs/anime4k { };
     fetchgitSparse = super.callPackage ./pkgs/fetchgitSparse { };
     jetbrains-mono-nerdfont = super.callPackage ./pkgs/nerdfonts { font = "JetBrainsMono/Ligatures"; };
+    legacyfox = super.callPackage ./pkgs/legacyfox { };
     nibar = super.callPackage ./pkgs/nibar { };
     redsocks2 = super.callPackage ./pkgs/redsocks2 { };
     rime-csp = super.callPackage ./pkgs/rime-csp { };
