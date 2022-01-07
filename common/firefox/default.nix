@@ -9,6 +9,7 @@
         settings = {
           "extensions.update.enabled" = true;
           "ui.caretBlinkTime" = 0;
+          "browser.compactmode.show" = true;
           "browser.tabs.closeWindowWithLastTab" = false;
           "browser.tabs.tabClipWidth" = 50;
           "browser.ctrlTab.previews" = true;
@@ -69,11 +70,12 @@
           "privacy.userContext.ui.enabled" = true;
           "extensions.shield-recipe-client.enabled" = false;
           "app.shield.optoutstudies.enabled" = false;
-          # "layers.omtp.enabled" = true;
           "browser.autofocus" = false;
+          # "layers.omtp.enabled" = true;
           # "layers.acceleration.force-enabled" = true;
           # "gfx.webrender.all" = true;
           # "media.ffmpeg.vaapi.enabled" = true;
+          "media.hardware-video-decoding.force-enabled" = true;
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
           "extensions.VimFx.config_file_directory" = "~/.vimfx";
         };
