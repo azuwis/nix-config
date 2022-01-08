@@ -1,11 +1,14 @@
-inputs: { config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   programs.firefox = {
     enable = true;
     profiles =
       let
-        userChrome = builtins.readFile "${inputs.cascade}/userChrome.css";
+        userChrome = builtins.readFile (builtins.fetchurl {
+          url = "https://raw.githubusercontent.com/andreasgrafen/cascade/dd90ab9421406bd00d6c89ee08d1a2ca8d8c2562/userChrome.css";
+          sha256 = "0mj4klfmrhfqx2c1027iwxzlbgwywrfqqqwl5nay89l7f7hi6q9i";
+        });
         settings = {
           "extensions.update.enabled" = true;
           "ui.caretBlinkTime" = 0;
