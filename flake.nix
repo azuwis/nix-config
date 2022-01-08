@@ -75,7 +75,7 @@
       system = "aarch64-linux";
       pkgs = import droidNixpkgs {
         inherit system;
-        overlays = import ./overlays.nix;
+        overlays = import ./common/overlays.nix;
       };
       config = {
         imports = [

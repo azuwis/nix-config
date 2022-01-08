@@ -11,7 +11,7 @@ inputs: { config, lib, pkgs, ... }:
   nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
   nix.registry.l.flake = inputs.nixpkgs;
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.overlays = import ../overlays.nix;
+  nixpkgs.overlays = import ./overlays.nix;
   programs.zsh.enable = true;
   time.timeZone = "Asia/Shanghai";
 }
