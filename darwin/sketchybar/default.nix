@@ -6,6 +6,7 @@ in
 
 {
   environment.systemPackages = [ pkgs.jq ];
+  launchd.user.agents.sketchybar.serviceConfig.EnvironmentVariables.PATH = lib.mkForce "${config.my.systemPath}";
   # launchd.user.agents.sketchybar.serviceConfig = {
   #   StandardErrorPath = "/tmp/sketchybar.log";
   #   StandardOutPath = "/tmp/sketchybar.log";
