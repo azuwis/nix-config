@@ -80,6 +80,7 @@
           # "media.ffmpeg.vaapi.enabled" = true;
           "media.hardware-video-decoding.force-enabled" = true;
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+          "media.autoplay.default" = 0;
           "extensions.VimFx.config_file_directory" = "~/.vimfx";
         };
       in
