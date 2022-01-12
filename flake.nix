@@ -56,7 +56,7 @@
             ./common/git.nix
             ./common/mpv.nix
             ./common/my.nix
-            ./common/neovim.nix
+            ./common/neovim
             ./common/packages.nix
             ./common/zsh.nix
             ./darwin/emacs
@@ -90,7 +90,7 @@
           ./common/git.nix
           ./common/gnupg.nix
           ./common/my.nix
-          ./common/neovim.nix
+          ./common/neovim
           ./common/packages.nix
           ./common/zsh-ssh-agent.nix
           ./common/zsh.nix
@@ -119,7 +119,7 @@
             ./common/git.nix
             ./common/mpv.nix
             ./common/my.nix
-            ./common/neovim.nix
+            ./common/neovim
             ./common/packages.nix
             ./common/zsh.nix
             ./nixos/packages.nix
