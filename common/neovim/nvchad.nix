@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
+  custom = ./nvchad;
   nvchad = pkgs.vimUtils.buildVimPluginFrom2Nix {
     pname = "nvchad";
     version = "2022-01-11";
@@ -15,6 +16,8 @@ let
         -e 's/show_close_icon = true,/show_close_icon = false,/' \
         -e 's/show_buffer_close_icons = true,/show_buffer_close_icons = false,/' \
         lua/plugins/configs/bufferline.lua
+      mkdir -p lua/custom/
+      cp -r ${custom}/*.lua lua/custom/
     '';
     meta.homepage = "https://github.com/NvChad/NvChad/";
   };
