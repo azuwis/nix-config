@@ -26,4 +26,19 @@
   :-moz-any(#contentAreaContextMenu, #tabContextMenu) > :-moz-any(menuitem, menu) > .menu-iconic-left {
     visibility: hidden !important;
   }
+
+  /* transition to oneline */
+  @media (min-width: 1000px) {
+
+    #nav-bar { background: var(--uc-theme-colour) !important; }
+
+    #nav-bar:not([customizing]){
+      margin: calc((var(--urlbar-min-height) * -1) - 10px) 100vw 0 0 !important;
+      z-index: 2 !important;
+    }
+
+    #navigator-toolbox:focus-within > .browser-toolbar,
+    #nav-bar:hover { margin: calc((var(--urlbar-min-height) * -1) - 10px) 0 0 0 !important; }
+
+  } /* end media query */
 }
