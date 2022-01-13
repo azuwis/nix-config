@@ -27,6 +27,7 @@
     visibility: hidden !important;
   }
 
+  /* https://github.com/andreasgrafen/cascade/issues/20 */
   /* transition to oneline */
   @media (min-width: 1000px) {
 
