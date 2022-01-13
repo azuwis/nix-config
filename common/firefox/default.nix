@@ -5,10 +5,11 @@
     enable = true;
     profiles =
       let
-        userChrome = builtins.readFile (builtins.fetchurl {
-          url = "https://raw.githubusercontent.com/andreasgrafen/cascade/a16181ec77da1872f102e51bcf2739c627b03a1b/userChrome.css";
-          sha256 = "1h7kzr5mprv5q8a5bwp1hil25hl5qfjlncnq1ailvx7k4nlg71nz";
-        });
+        # userChrome = builtins.readFile (builtins.fetchurl {
+        #   url = "https://raw.githubusercontent.com/andreasgrafen/cascade/a16181ec77da1872f102e51bcf2739c627b03a1b/userChrome.css";
+        #   sha256 = "1h7kzr5mprv5q8a5bwp1hil25hl5qfjlncnq1ailvx7k4nlg71nz";
+        # });
+        userChrome = builtins.readFile ./userChrome.css;
         settings = {
           "extensions.update.enabled" = true;
           "ui.caretBlinkTime" = 0;
