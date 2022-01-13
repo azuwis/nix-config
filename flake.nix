@@ -57,6 +57,7 @@
             ./common/mpv.nix
             ./common/my.nix
             ./common/neovim
+            ./common/nix-index.nix
             ./common/packages.nix
             ./common/zsh.nix
             ./darwin/emacs
@@ -120,6 +121,7 @@
             ./common/mpv.nix
             ./common/my.nix
             ./common/neovim
+            ./common/nix-index.nix
             ./common/packages.nix
             ./common/zsh.nix
             ./nixos/packages.nix
