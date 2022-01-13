@@ -34,6 +34,7 @@
     ];
     masApps = {
       "Microsoft Remote Desktop" = 1295203466;
+      DingTalk = 1435447041;
       WeChat = 836500024;
       # Xcode = 497799835;
     };
