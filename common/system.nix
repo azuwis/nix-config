@@ -9,7 +9,7 @@ inputs: { config, lib, pkgs, ... }:
     tarball-ttl = 43200
   '';
   nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
-  nix.registry.l.flake = inputs.nixpkgs;
+  nix.registry.nixpkgs.flake = inputs.nixpkgs;
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = import ./overlays.nix;
   programs.zsh.enable = true;
