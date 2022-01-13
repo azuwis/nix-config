@@ -6,8 +6,8 @@
     profiles =
       let
         userChrome = builtins.readFile (builtins.fetchurl {
-          url = "https://raw.githubusercontent.com/andreasgrafen/cascade/dd90ab9421406bd00d6c89ee08d1a2ca8d8c2562/userChrome.css";
-          sha256 = "0mj4klfmrhfqx2c1027iwxzlbgwywrfqqqwl5nay89l7f7hi6q9i";
+          url = "https://raw.githubusercontent.com/andreasgrafen/cascade/a16181ec77da1872f102e51bcf2739c627b03a1b/userChrome.css";
+          sha256 = "1h7kzr5mprv5q8a5bwp1hil25hl5qfjlncnq1ailvx7k4nlg71nz";
         });
         settings = {
           "extensions.update.enabled" = true;
