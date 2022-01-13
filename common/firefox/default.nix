@@ -42,7 +42,10 @@
           "privacy.trackingprotection.enabled" = true;
           "privacy.trackingprotection.socialtracking.enabled" = true;
           "xpinstall.signatures.required" = false;
-          "browser.urlbar.suggest.searches" = true;
+          "browser.urlbar.suggest.engines" = false;
+          "browser.urlbar.suggest.searches" = false;
+          "browser.urlbar.suggest.quicksuggest.nonsponsored" = false;
+          "browser.urlbar.suggest.quicksuggest.sponsored" = false;
           "browser.urlbar.trimURLs" = false;
           "extensions.pocket.enabled" = false;
           "browser.safebrowsing.enabled" = false;
