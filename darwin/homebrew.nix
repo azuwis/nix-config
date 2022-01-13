@@ -28,6 +28,7 @@
       "google-chrome"
       "microsoft-office"
       "musescore"
+      "obs"
       "qbittorrent"
       "reaper"
     ];
