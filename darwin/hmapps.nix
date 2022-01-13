@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  home.file."Applications/Home Manager Apps".source =
+  home.file."Applications/HomeManager".source =
     let
       apps = pkgs.buildEnv {
         name = "home-manager-applications";
