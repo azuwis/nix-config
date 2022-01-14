@@ -16,6 +16,10 @@ let
 in
 
 {
+  home.packages = with pkgs; [
+    ffmpeg
+    yt-dlp
+  ];
   programs.mpv = {
     enable = true;
     bindings = {
