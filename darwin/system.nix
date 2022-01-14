@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  # sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
   environment.systemPackages = with pkgs; [ sf-symbols-app ];
   environment.variables = {
     LANG = "en_US.UTF-8";
@@ -18,6 +17,9 @@
   '';
   services.nix-daemon.enable = true;
   system.activationScripts.postActivation.text = ''
+    # disable spotlight
+    launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist >/dev/null 2>&1 || true
+    # show upgrade diff
     nix store --experimental-features nix-command diff-closures /run/current-system "$systemConfig"
   '';
   system.defaults = {
