@@ -1,6 +1,9 @@
 { config, lib, pkgs, ... }:
 
 {
+  home.activation.vimfx = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    ${pkgs.rsync}/bin/rsync -a ${./vimfx}/ ~/.config/vimfx/
+  '';
   programs.firefox = {
     enable = true;
     profiles =
@@ -85,7 +88,7 @@
           "media.hardware-video-decoding.force-enabled" = true;
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
           "media.autoplay.default" = 0;
-          "extensions.VimFx.config_file_directory" = "~/.vimfx";
+          "extensions.VimFx.config_file_directory" = "~/.config/vimfx";
         };
       in
       {
