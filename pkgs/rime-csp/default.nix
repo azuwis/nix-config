@@ -4,9 +4,9 @@ stdenvNoCC.mkDerivation rec {
   pname = "rime-csp";
   version = "0.1";
   src = fetchzip {
-    url = "https://github.com/fkxxyz/rime-cloverpinyin/releases/download/1.1.4/clover.schema-1.1.4.zip";
+    url = "https://github.com/myl7/rime-cloverpinyin/releases/download/1.2.1/clover.schema-1.2.1.zip";
     stripRoot = false;
-    sha256 = "1920xga1m5sx7f9lc2x6hfny1y6hjmix164r6h3k1fjhjigwz2fz";
+    sha256 = "sha256-mEEWtGltdRb+L+671xpYgd2ZN6j2ayFpGJbUfg4IlU0=";
   };
   hans = fetchurl {
     url = "https://github.com/lotem/rime-octagram-data/raw/hans/zh-hans-t-essay-bgw.gram";
@@ -19,6 +19,7 @@ stdenvNoCC.mkDerivation rec {
   schema = ./csp.schema.yaml;
   phases = [ "unpackPhase" "installPhase" ];
   installPhase = ''
+    sed -i -e '/荜露蓝蒌/d' -e '/筚路褴褛/d' -e '/荜露蓝蒌/d' clover.phrase.dict.yaml
     mkdir $out/
     cat <<EOF >> clover.dict.yaml
     ...
