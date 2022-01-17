@@ -1,12 +1,13 @@
-{ stdenvNoCC, fetchzip, fetchurl }:
+{ stdenvNoCC, fetchFromGitHub, fetchurl }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "rime-csp";
   version = "0.1";
-  src = fetchzip {
-    url = "https://github.com/myl7/rime-cloverpinyin/releases/download/1.2.1/clover.schema-1.2.1.zip";
-    stripRoot = false;
-    sha256 = "sha256-mEEWtGltdRb+L+671xpYgd2ZN6j2ayFpGJbUfg4IlU0=";
+  src = fetchFromGitHub {
+    owner = "iDvel";
+    repo = "rime-settings";
+    rev = "f161a97f81c170bc040ab2a635e4b75617ae52b2";
+    sha256 = "sha256-GfeKg8J/oVEXhZiTo42ZcBEq+168EPzq11Ssqd5zoSI=";
   };
   hans = fetchurl {
     url = "https://github.com/lotem/rime-octagram-data/raw/hans/zh-hans-t-essay-bgw.gram";
@@ -17,15 +18,12 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "0aa14rvypnja38dm15hpq34xwvf06al6am9hxls6c4683ppyk355";
   };
   schema = ./csp.schema.yaml;
-  phases = [ "unpackPhase" "installPhase" ];
   installPhase = ''
-    sed -i -e '/荜露蓝蒌/d' -e '/筚路褴褛/d' -e '/荜露蓝蒌/d' clover.phrase.dict.yaml
     mkdir $out/
-    cat <<EOF >> clover.dict.yaml
-    ...
-    ；	;
-    EOF
-    cp *.dict.yaml $out/
+    sed -i -e '/cn_dicts\/av/d' -e '/cn_dicts\/private/d' pinyin_simp.dict.yaml
+    cp pinyin_simp.dict.yaml $out/
+    mkdir $out/cn_dicts
+    cp cn_dicts/8105.dict.yaml cn_dicts/sys*.dict.yaml $out/cn_dicts/
     cp ${hans} $out/zh-hans-t-essay-bgw.gram
     cp ${grammar} $out/grammar.yaml
     cp ${schema} $out/csp.schema.yaml

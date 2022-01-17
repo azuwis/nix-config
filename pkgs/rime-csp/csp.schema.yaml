@@ -235,7 +235,7 @@ speller:
     - xform/^nian$/NW/
     - xform/^liu$/LQ/
     - xform/^hu$/HF/
-    - xform/^lve$/LB/
+    - xform/^lue$/LB/
     - xform/^ruo$/RP/
     - xform/^kai$/KH/
     - xform/^kao$/KJ/
@@ -407,7 +407,7 @@ speller:
     - xlit/ZYXWVUTSRQPONMLKJIHGFEDCBA/zyxwvutsrqponmlkjihgfedcba/
 
 translator:
-  dictionary: clover
+  dictionary: pinyin_simp
   prism: csp
 
 simplifier:
@@ -415,7 +415,7 @@ simplifier:
   opencc_config: s2t.json
 
 reverse_lookup:
-  dictionary: clover
+  dictionary: pinyin_simp
   enable_completion: true
   prefix: "`"
   suffix: "'"
@@ -662,7 +662,7 @@ reverse_lookup:
     - xform/mao/MB/
     - xform/man/MN/
     - xform/mai/MX/
-    - xform/lve/LB/
+    - xform/lue/LB/
     - xform/luo/LB/
     - xform/lun/LC/
     - xform/lou/LQ/

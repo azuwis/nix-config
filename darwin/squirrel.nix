@@ -18,7 +18,7 @@ if builtins.hasAttr "hm" lib then
   home.file."Library/Rime/luna_pinyin.custom.yaml".text = ''
     patch:
       __include: grammar:/hans
-      translator/dictionary: clover
+      translator/dictionary: pinyin_simp
   '';
   home.file."Library/Rime/squirrel.custom.yaml".text = ''
     patch:
