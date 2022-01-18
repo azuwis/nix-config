@@ -11,7 +11,6 @@
       brewfile = true;
       noLock = true;
     };
-    brewPrefix = "/opt/homebrew/bin";
     taps = [
       "homebrew/core"
       "homebrew/cask"
