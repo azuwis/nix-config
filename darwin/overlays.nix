@@ -11,7 +11,7 @@ in
     # overrides
     # remove alacritty when https://github.com/NixOS/nixpkgs/issues/153304 fixed
     alacritty = super.alacritty.overrideAttrs (
-      o: rec {
+      o: {
         doCheck = false;
       }
     );
@@ -34,21 +34,12 @@ in
         CFLAGS = "-DMAC_OS_X_VERSION_MAX_ALLOWED=110203 -g -O2";
       }
     );
-    kitty = super.kitty.overrideAttrs (
-      o: rec {
-        buildInputs = o.buildInputs ++
-          super.lib.optionals
-            (super.stdenv.isDarwin && (builtins.hasAttr "UserNotifications" super.darwin.apple_sdk.frameworks))
-          [ super.darwin.apple_sdk.frameworks.UserNotifications ];
-        patches = super.lib.optionals super.stdenv.isDarwin [ ../pkgs/kitty/apple-sdk-11.patch ];
-      }
-    );
-    #mpv-unwrapped = (super.mpv-unwrapped.override { swiftSupport = true; }).overrideAttrs (
-    #  o: {
-    #    wafConfigureFlags = o.wafConfigureFlags ++ [
-    #    ];
-    #  }
-    #);
+    # mpv-unwrapped = (super.mpv-unwrapped.override { swiftSupport = true; }).overrideAttrs (
+    #   o: {
+    #     wafConfigureFlags = o.wafConfigureFlags ++ [
+    #     ];
+    #   }
+    # );
     swift = super.stdenv.mkDerivation {
       name = "swift-CommandLineTools-0.0.0";
       phases = [ "installPhase" "fixupPhase" ];
