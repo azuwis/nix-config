@@ -3,6 +3,7 @@
 if builtins.hasAttr "hm" lib then
 
 {
+  # /Library/Input\ Methods/Squirrel.app/Contents/SharedSupport
   home.file."Library/Rime" = {
     source = pkgs.rime-csp;
     recursive = true;
