@@ -53,6 +53,7 @@
       mru-spaces = false;
       orientation = "left";
       show-recents = false;
+      wvous-br-corner = 1; # Disabled
     };
     finder = {
       AppleShowAllExtensions = true;
