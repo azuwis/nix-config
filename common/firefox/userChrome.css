@@ -13,12 +13,12 @@
   }
 
   /* hide tab scroll buttons */
-  #TabsToolbar toolbarbutton[class^="scrollbutton"] {
+  toolbarbutton#scrollbutton-up, toolbarbutton#scrollbutton-down {
     display: none;
   }
 
   /* hide alltabs button */
-  #TabsToolbar toolbarbutton#alltabs-button {
+  toolbarbutton#alltabs-button {
     display: none;
   }
 
