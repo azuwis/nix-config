@@ -3,11 +3,7 @@
 {
   home.packages = with pkgs; [
     fd
-    pure-prompt
     zsh-completions
-    zsh-fast-syntax-highlighting
-    zsh-history-substring-search
-    zsh-nix-shell
   ];
 
   programs.fzf.enable = true;
