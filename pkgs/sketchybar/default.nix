@@ -1,4 +1,4 @@
-{ pkgs, lib, stdenv, fetchFromGitHub }:
+{ lib, stdenv, darwin, fetchFromGitHub }:
 
 let
   target = {
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5psncEuSxBPDp5OM3Y8mF4bTwn1z1Y0ilwev5iq9FMI=";
   };
 
-  buildInputs = with pkgs.darwin.apple_sdk.frameworks; [
+  buildInputs = with darwin.apple_sdk.frameworks; [
     Carbon Cocoa SkyLight
   ];
 
