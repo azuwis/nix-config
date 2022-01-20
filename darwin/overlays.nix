@@ -75,6 +75,28 @@ in
     # olive-editor = super.libsForQt515.callPackage <nixpkgs/pkgs/applications/video/olive-editor> {
     #   inherit (super.darwin.apple_sdk.frameworks) CoreFoundation;
     # };
+    yabai = let
+      replace = {
+        "aarch64-darwin" = "--replace '-arch x86_64' ''";
+        "x86_64-darwin" = "--replace '-arch arm64e' '' --replace '-arch arm64' ''";
+      }.${super.pkgs.stdenv.hostPlatform.system};
+    in super.yabai.overrideAttrs(
+      o: rec {
+        version = "4.0.0";
+        src = super.fetchFromGitHub {
+          owner = "koekeishiya";
+          repo = "yabai";
+          rev = "297156c02854f21a811f5593504226a040a60414";
+          sha256 = "sha256-7utBcPcCZ6dRnTwUMLFqiNULmJH2pAJy07WCdKjCmDI=";
+        };
+        prePatch = ''
+          substituteInPlace makefile ${replace};
+        '';
+        buildPhase = ''
+          PATH=/usr/bin:/bin /usr/bin/make install
+        '';
+      }
+    );
   }
   )
 ]
