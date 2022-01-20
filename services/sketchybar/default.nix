@@ -39,7 +39,7 @@ in
     };
   };
 
-  config = mkIf (cfg.enable) {
+  config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
 
     launchd.user.agents.sketchybar = {
