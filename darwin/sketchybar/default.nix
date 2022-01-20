@@ -13,7 +13,7 @@ in
   # };
   services.sketchybar.enable = true;
   services.sketchybar.package = pkgs.sketchybar;
-  services.sketchybar.extraConfig = ''
+  services.sketchybar.config = ''
     #!/bin/bash
 
     bar_color=0xff2e3440
