@@ -4,12 +4,12 @@ let
   custom = ./nvchad;
   nvchad = pkgs.vimUtils.buildVimPluginFrom2Nix {
     pname = "nvchad";
-    version = "2022-01-11";
+    version = "2022-01-20";
     src = pkgs.fetchFromGitHub {
       owner = "NvChad";
       repo = "NvChad";
-      rev = "b1338beb0f775deb55c91a88a09e6738e73e5f97";
-      sha256 = "sha256-tLCIhV2uwJrwh4feIahfk6xuDhZPGQWhQD1LjufwcBM=";
+      rev = "8f7b19f23b17dbd9dd814299d6b52039914d21b";
+      sha256 = "sha256-Q0IYNImLwLEQVhx1p3v4rBM8b/pQth04pHcYtkS8h2I=";
     };
     postPatch = ''
       ${pkgs.gnused}/bin/sed -i \
