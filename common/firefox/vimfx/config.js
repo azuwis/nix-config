@@ -63,6 +63,16 @@ let exec = (cmd, args, observer) => {
     process.runAsync(args, args.length, observer)
 }
 
+let isUrl = (window, string) => {
+    let url
+    try {
+        url = new window.URL(string)
+    } catch (_) {
+        return false
+    }
+    return url.protocol === "http:" || url.protocol === "https:"
+}
+
 // options
 set('prevent_autofocus', true)
 // set('hints.chars', 'FJDKSLAGHRUEIWONC MV')
@@ -83,8 +93,12 @@ vimfx.addCommand({
 }, ({vim}) => {
     vimfx.send(vim, 'getInfo', null, ({selection}) => {
         let {gURLBar} = vim.window
-        gURLBar.value = `g ${selection}`
-        gURLBar.handleCommand(new vim.window.KeyboardEvent('keydown', {altKey: true}))
+        if (isUrl(vim.window, selection)) {
+            vim.window.switchToTabHavingURI(selection, true)
+        } else {
+            gURLBar.value = `g ${selection}`
+            gURLBar.handleCommand(new vim.window.KeyboardEvent('keydown', {altKey: true}))
+        }
     })
 })
 map('s', 'search_selected_text', true)
