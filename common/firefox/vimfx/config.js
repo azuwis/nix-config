@@ -259,8 +259,8 @@ map(',u', 'ublock_bootstrap', true)
 
 let bootstrap = () => {
     // whitelist frame.js in content sandbox
-    Preferences.set('security.sandbox.content.mac.testing_read_path1', OS.Path.fromFileURI(`${__dirname}`))
-    Preferences.set('security.sandbox.content.read_path_whitelist', OS.Path.fromFileURI(`${__dirname}`))
+    Preferences.set('security.sandbox.content.mac.testing_read_path1', OS.Path.fromFileURI(`${__dirname}/frame.js`))
+    Preferences.set('security.sandbox.content.read_path_whitelist', OS.Path.fromFileURI(`${__dirname}/frame.js`))
     // set font for different OSes
     switch (Services.appinfo.OS) {
     case 'Darwin':
