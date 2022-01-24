@@ -9,12 +9,6 @@ in
     # ansible = pkgsX64.ansible;
 
     # overrides
-    # remove alacritty when https://github.com/NixOS/nixpkgs/issues/153304 fixed
-    alacritty = super.alacritty.overrideAttrs (
-      o: {
-        doCheck = false;
-      }
-    );
     emacsUnstable = (super.emacs.override { srcRepo = true; nativeComp = false; }).overrideAttrs (
       o: rec {
         version = "28";
