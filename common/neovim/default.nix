@@ -1,7 +1,10 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ./nvchad.nix ];
+  imports = [
+    ./nvchad.nix
+    ./update-nix-fetchgit.nix
+  ];
   home.sessionVariables.EDITOR = "nvim";
   programs.neovim = {
     enable = true;
