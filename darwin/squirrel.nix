@@ -26,7 +26,11 @@ if builtins.hasAttr "hm" lib then
       app_options/io.alacritty:
         ascii_mode: true
         no_inline: true
+      style/color_scheme: purity_of_form
       style/font_point: 18
+      preset_color_schemes/purity_of_form/text_color: 0x333333
+      preset_color_schemes/purity_of_form/back_color: 0x545554
+      preset_color_schemes/purity_of_form/hilited_candidate_back_color: 0xe3e3e3
   '';
 }
 
