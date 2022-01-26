@@ -14,6 +14,5 @@
     sf-symbols-minimal = super.callPackage ../pkgs/sf-symbols { };
     simple-bar = super.callPackage ../pkgs/simple-bar { };
     sketchybar = super.callPackage ../pkgs/sketchybar { };
-    spacebar = super.callPackage ../pkgs/spacebar { };
   })
 ]
