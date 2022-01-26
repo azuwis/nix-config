@@ -12,7 +12,6 @@
     sf-symbols-app = super.callPackage ../pkgs/sf-symbols { app = true; fonts = false; };
     sf-symbols-full = super.callPackage ../pkgs/sf-symbols { full = true; };
     sf-symbols-minimal = super.callPackage ../pkgs/sf-symbols { };
-    simple-bar = super.callPackage ../pkgs/simple-bar { };
     sketchybar = super.callPackage ../pkgs/sketchybar { };
   })
 ]
