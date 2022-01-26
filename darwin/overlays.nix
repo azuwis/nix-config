@@ -11,11 +11,11 @@ in
     # overrides
     emacsUnstable = (super.emacs.override { srcRepo = true; nativeComp = false; }).overrideAttrs (
       o: rec {
-        version = "28";
+        version = "unstable-2022-01-08";
         src = super.fetchgit {
           url = "https://github.com/emacs-mirror/emacs.git";
-          rev = "emacs-28.0.90";
-          sha256 = "sha256-db8D5X264wFJpVxeFcNYh3U3NhSO7wvb9p+QM8Hrm0o=";
+          rev = "d193801f59822554d28e497da146d982f5ab7995"; # tags/emacs-2*
+          sha256 = "04jd742ys4saa0jxs6carn8wsidm38m7pdcryc42rb7y1a9l3zyf";
         };
         patches = [
           ../pkgs/emacs/fix-window-role.patch
