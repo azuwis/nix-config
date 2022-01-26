@@ -15,6 +15,5 @@
     simple-bar = super.callPackage ../pkgs/simple-bar { };
     sketchybar = super.callPackage ../pkgs/sketchybar { };
     spacebar = super.callPackage ../pkgs/spacebar { };
-    # yabai = super.callPackage ../pkgs/yabai { };
   })
 ]
