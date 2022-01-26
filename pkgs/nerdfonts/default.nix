@@ -1,16 +1,16 @@
-{ pkgs, lib, stdenvNoCC, font }:
+{ lib, stdenvNoCC, fetchgit, font }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "nerdfonts";
-  version = "2021-04-26";
+  version = "2022-01-10";
 
-  src = pkgs.fetchgitSparse {
+  src = fetchgit {
     url = "https://github.com/ryanoasis/nerd-fonts.git";
-    rev = "bc4416e176d4ac2092345efd7bcb4abef9d6411e";
+    rev = "877887cac2d6ccc7354a8d95e8c39fff10bf120b";
     sparseCheckout = ''
       patched-fonts/${font}
     '';
-    sha256 = "04ag7p8jvs6628qfhkyh7w5584xc2d27iskwl7sq8anzjv5xmrlg";
+    sha256 = "sha256-qBgyMc3CKIM98c61qMUitWudpkvyLq02LGFlavxmkn8=";
   };
 
   installPhase = ''

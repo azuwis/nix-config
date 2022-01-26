@@ -2,7 +2,6 @@
   (self: super: {
     # pkgs
     anime4k = super.callPackage ../pkgs/anime4k { };
-    fetchgitSparse = super.callPackage ../pkgs/fetchgitSparse { };
     jetbrains-mono-nerdfont = super.callPackage ../pkgs/nerdfonts { font = "JetBrainsMono/Ligatures"; };
     legacyfox = super.callPackage ../pkgs/legacyfox { };
     nibar = super.callPackage ../pkgs/nibar { };
