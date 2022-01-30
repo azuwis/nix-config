@@ -76,12 +76,12 @@ in
       }.${super.pkgs.stdenv.hostPlatform.system};
     in super.yabai.overrideAttrs(
       o: rec {
-        version = "unstable-2022-01-22";
+        version = "unstable-2022-01-26";
         src = super.fetchFromGitHub {
           owner = "koekeishiya";
           repo = "yabai";
-          rev = "fe86f24a21772810cd186d1b5bd2eff84b2701a9";
-          sha256 = "0m40i07gls47l5ibr6ys0qnqnfhqk9fnq0k7wdjmy04l859zqpw3";
+          rev = "7409c709c50dd63537321503809d52c868eb5140";
+          sha256 = "0a72553rw3jnqd5b8a6v5i7jbzxh2yqnj7dvkk8kmkpw7z7633rm";
         };
         prePatch = ''
           substituteInPlace makefile ${replace};
