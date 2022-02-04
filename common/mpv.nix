@@ -43,6 +43,9 @@ in
       sub-auto = "fuzzy";
       sub-codepage = "gbk";
     };
+    # scripts = with pkgs.mpvScripts; [
+    #   cutter
+    # ];
   };
   xdg.configFile."mpv/fonts.conf".text = lib.optionals pkgs.stdenv.isDarwin ''
     <?xml version="1.0" encoding="UTF-8"?>
