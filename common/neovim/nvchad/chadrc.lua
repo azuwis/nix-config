@@ -23,6 +23,7 @@ M.plugins = {
       },
     },
   },
+  install = require "custom.plugins",
   options = {
     lspconfig = {
       setup_lspconf = "custom.lspconfig",
