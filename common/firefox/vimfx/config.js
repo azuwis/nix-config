@@ -88,20 +88,24 @@ map('S', 'stop')
 
 // commands
 vimfx.addCommand({
-    name: 'search_selected_text',
-    description: 'Search for the selected text'
+    name: 'search_selected_text_or_open_focused_link',
+    description: 'Search for the selected text or open focused link'
 }, ({vim}) => {
-    vimfx.send(vim, 'getInfo', null, ({selection}) => {
-        let {gURLBar} = vim.window
-        if (isUrl(vim.window, selection)) {
-            vim.window.switchToTabHavingURI(selection, true)
-        } else {
-            gURLBar.value = `g ${selection}`
-            gURLBar.handleCommand(new vim.window.KeyboardEvent('keydown', {altKey: true}))
+    vimfx.send(vim, 'getInfo', null, ({href, selection}) => {
+        if (selection) {
+            if (isUrl(vim.window, selection)) {
+                vim.window.switchToTabHavingURI(selection, true)
+            } else {
+                let {gURLBar} = vim.window
+                gURLBar.value = `g ${selection}`
+                gURLBar.handleCommand(new vim.window.KeyboardEvent('keydown', {altKey: true}))
+            }
+        } else if (href) {
+            vim.window.switchToTabHavingURI(href, true)
         }
     })
 })
-map('s', 'search_selected_text', true)
+map('s', 'search_selected_text_or_open_focused_link', true)
 
 vimfx.addCommand({
     name: 'search_in_yuan',
