@@ -60,6 +60,7 @@
             ./common/nix-index.nix
             ./common/packages.nix
             ./common/zsh.nix
+            ./common/zsh-ssh-agent.nix
             ./darwin/emacs
             ./darwin/firefox.nix
             ./darwin/hmapps.nix
