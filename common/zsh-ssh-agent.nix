@@ -2,10 +2,11 @@
 
 {
   programs.zsh.initExtra = ''
+    # ssh-agent
     start_ssh_agent() {
-      if [ -z "$SSH_AUTH_SOCK" ]
+      local socket="$HOME/.ssh/ssh-agent.socket"
+      if [ "$SSH_AUTH_SOCK" != "$socket" ]
       then
-        local socket="$HOME/.ssh/ssh-agent.socket"
         if [ -e "$socket" ]
         then
           export SSH_AUTH_SOCK="$socket"
