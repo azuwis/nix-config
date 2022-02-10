@@ -2,12 +2,12 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "rime-csp";
-  version = "0.1";
+  version = "unstable-2022-02-06";
   src = fetchFromGitHub {
     owner = "iDvel";
     repo = "rime-settings";
-    rev = "f161a97f81c170bc040ab2a635e4b75617ae52b2";
-    sha256 = "sha256-GfeKg8J/oVEXhZiTo42ZcBEq+168EPzq11Ssqd5zoSI=";
+    rev = "55195eb4dfc957cb319c1740db2791e773ef76e6";
+    sha256 = "1a934rnag99b4vhqbkybcnl4k89wk2wr30w1iwbd9x9v9pspdyi0";
   };
   hans = fetchurl {
     url = "https://github.com/lotem/rime-octagram-data/raw/hans/zh-hans-t-essay-bgw.gram";
