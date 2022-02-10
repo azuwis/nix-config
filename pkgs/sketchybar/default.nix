@@ -22,6 +22,10 @@ stdenv.mkDerivation rec {
     Carbon Cocoa SkyLight
   ];
 
+  postPatch = ''
+    sed -i -e '/^#include <malloc\/_malloc.h>/d' src/*.[ch] src/*/*.[ch]
+  '';
+
   buildPhase = ''
     make ${target}
   '';
