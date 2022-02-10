@@ -2,13 +2,17 @@
 
 if builtins.hasAttr "hm" lib then
 
+let
+  rimeDir = "Library/Rime";
+in
+
 {
   # /Library/Input\ Methods/Squirrel.app/Contents/SharedSupport
-  home.file."Library/Rime" = {
+  home.file."${rimeDir}" = {
     source = pkgs.rime-csp;
     recursive = true;
   };
-  home.file."Library/Rime/default.custom.yaml".text = ''
+  home.file."${rimeDir}/default.custom.yaml".text = ''
     patch:
       switcher/hotkeys:
         - Control+grave
@@ -16,12 +20,12 @@ if builtins.hasAttr "hm" lib then
         - schema: csp
         - schema: luna_pinyin
   '';
-  home.file."Library/Rime/luna_pinyin.custom.yaml".text = ''
+  home.file."${rimeDir}/luna_pinyin.custom.yaml".text = ''
     patch:
       __include: grammar:/hans
       translator/dictionary: pinyin_simp
   '';
-  home.file."Library/Rime/squirrel.custom.yaml".text = ''
+  home.file."${rimeDir}/squirrel.custom.yaml".text = ''
     patch:
       app_options/io.alacritty:
         ascii_mode: true
