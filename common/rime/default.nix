@@ -3,11 +3,14 @@
 if builtins.hasAttr "hm" lib then
 
 let
-  rimeDir = "Library/Rime";
+  rimeDir = {
+    # /Library/Input\ Methods/Squirrel.app/Contents/SharedSupport
+    Darwin = "Library/Rime";
+    Linux = ".local/share/fcitx5/rime";
+  }."${pkgs.stdenv.hostPlatform.uname.system}";
 in
 
 {
-  # /Library/Input\ Methods/Squirrel.app/Contents/SharedSupport
   home.file."${rimeDir}" = {
     source = pkgs.rime-csp;
     recursive = true;
@@ -25,7 +28,7 @@ in
       __include: grammar:/hans
       translator/dictionary: pinyin_simp
   '';
-  home.file."${rimeDir}/squirrel.custom.yaml".text = ''
+  home.file."${rimeDir}/squirrel.custom.yaml".text = lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
     patch:
       app_options/io.alacritty:
         ascii_mode: true
@@ -41,5 +44,5 @@ in
 else
 
 {
-  homebrew.casks = [ "squirrel" ];
+  homebrew.casks = lib.optionals pkgs.stdenv.hostPlatform.isDarwin [ "squirrel" ];
 }

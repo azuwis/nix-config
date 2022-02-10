@@ -25,6 +25,7 @@
       modules = [
         (import ./common/system.nix { nixpkgs = darwinNixpkgs; })
         ./common/my.nix
+        ./common/rime
         ./darwin/age.nix
         ./darwin/agenix.nix
         ./darwin/emacs # emacs-all-the-icons-fonts
@@ -36,7 +37,6 @@
         ./darwin/sketchybar
         ./darwin/skhd.nix
         ./darwin/smartnet.nix
-        ./darwin/squirrel.nix
         ./darwin/sudo.nix
         ./darwin/system.nix
         ./darwin/wireguard.nix
@@ -59,6 +59,7 @@
             ./common/neovim
             ./common/nix-index.nix
             ./common/packages.nix
+            ./common/rime
             ./common/zsh.nix
             ./common/zsh-ssh-agent.nix
             ./darwin/emacs
@@ -67,7 +68,6 @@
             ./darwin/kitty.nix
             ./darwin/packages.nix
             ./darwin/skhd.nix
-            ./darwin/squirrel.nix
           ]; };
         }
       ];
