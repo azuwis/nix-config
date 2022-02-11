@@ -30,8 +30,10 @@ in
     );
     # mpv-unwrapped = (super.mpv-unwrapped.override { swiftSupport = true; }).overrideAttrs (
     #   o: {
+    #     enableParallelBuilding = false;
     #     wafConfigureFlags = o.wafConfigureFlags ++ [
     #     ];
+    #     wafFlags = [ "-v" ];
     #   }
     # );
     swift = super.stdenv.mkDerivation {
