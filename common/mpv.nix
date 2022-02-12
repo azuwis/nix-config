@@ -28,6 +28,10 @@ in
       y = "sub_step -1";                       # immediately display next subtitle
       g = "sub_step +1";                       # previous
       R = "cycle_values window-scale 2 0.5 1"; # switch between 2x, 1/2, unresized window size
+    } // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
+      # workaround for nix's mpv does not support swift, and the default `f`
+      # keybinding to fullscreen does not work
+      f = "run yabai -m window --toggle native-fullscreen";
     } // low1k;
     config = {
       audio-display = false;
