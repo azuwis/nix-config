@@ -19,6 +19,7 @@
     ipcalc
     less
     man
+    netcat
     openssh
     p7zip
     pass-otp
