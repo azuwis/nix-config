@@ -130,5 +130,32 @@
         }
       ];
     };
+
+    nixosConfigurations.utm = nixos.lib.nixosSystem {
+      system = "aarch64-linux";
+      modules = [
+        (import ./common/system.nix { nixpkgs = nixos; })
+        ./common/my.nix
+        ./nixos/utm.nix
+        # nixos-generate-config --show-hardware-config > nixos/utm-hardware.nix
+        ./nixos/utm-hardware.nix
+        ./nixos/system.nix
+        nixosHm.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.azuwis = { imports = [
+            ./common/direnv.nix
+            ./common/git.nix
+            ./common/my.nix
+            ./common/neovim
+            ./common/nix-index.nix
+            ./common/packages.nix
+            ./common/zsh.nix
+            ./nixos/packages.nix
+          ]; };
+        }
+      ];
+    };
   };
 }
