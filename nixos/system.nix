@@ -10,7 +10,7 @@
     challengeResponseAuthentication = false;
     passwordAuthentication = false;
   };
-  system.stateVersion = "21.11";
+  system.stateVersion = "22.05";
   users.groups."${config.my.user}" = {
     gid = config.my.uid;
   };
