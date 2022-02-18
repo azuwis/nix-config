@@ -20,5 +20,6 @@
     isNormalUser = true;
     shell = pkgs.zsh;
     uid = config.my.uid;
+    openssh.authorizedKeys.keys = config.my.keys;
   };
 }
