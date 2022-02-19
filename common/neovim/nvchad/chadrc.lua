@@ -22,6 +22,15 @@ M.plugins = {
         show_close_icon = false,
       },
     },
+    nvim_treesitter = {
+      ensure_installed = {
+        "hcl",       
+        "lua",          
+        "nix",       
+        "vim",       
+        "yaml",       
+      },
+    },
   },
   install = require "custom.plugins",
   options = {
