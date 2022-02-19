@@ -1,6 +1,8 @@
 { config, lib, pkgs, ... }:
 
 {
+  # workaround for packer problems:
+  # rm -rf ~/.config/nvim/plugin/packer_compiled.lua ~/.cache/nvim/ ~/.local/share/nvim/site/
   imports = [
     ./nvchad.nix
     ./update-nix-fetchgit.nix
