@@ -4,14 +4,21 @@
   home.packages = with pkgs; [
     (writeScriptBin "bs" ''
       #!${runtimeShell}
-      if [ "$1" = "u" ]
-      then
-        args=(--update-input darwin --update-input darwinHm --update-input darwinNixpkgs)
-      else
-        args=("$@")
-      fi
       pushd ~/.config/nixpkgs || exit
-      darwin-rebuild switch --flake . ''${args[@]}
+      if [ "$1" = "u" ]
+      shift
+      then
+        args=(--update-input darwin --update-input darwinHm)
+        if [ -n "$1" ]
+        then
+          args+=(--override-input darwinNixpkgs "github:NixOS/nixpkgs/$1")
+        else
+          args+=(--update-input darwinNixpkgs)
+        fi
+        nix flake lock ''${args[@]}
+        shift
+      fi
+      darwin-rebuild switch --flake . "''$@"
       popd || exit
     '')
     coreutils-full
