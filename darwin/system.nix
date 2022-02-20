@@ -8,6 +8,7 @@
   };
   fonts.enableFontDir = true;
   fonts.fonts = with pkgs; [ jetbrains-mono jetbrains-mono-nerdfont sf-symbols ];
+  nix.allowedUsers = [ "${config.my.user}" ];
   nix.extraOptions = ''
     extra-platforms = x86_64-darwin
   '';

@@ -1,7 +1,6 @@
 inputs: { config, lib, pkgs, ... }:
 
 {
-  nix.allowedUsers = [ "${config.my.user}" ];
   nix.extraOptions = ''
     auto-optimise-store = true
     experimental-features = flakes nix-command
