@@ -24,11 +24,11 @@ M.plugins = {
     },
     nvim_treesitter = {
       ensure_installed = {
-        "hcl",       
-        "lua",          
-        "nix",       
-        "vim",       
-        "yaml",       
+        "hcl",
+        "lua",
+        "nix",
+        "vim",
+        "yaml",
       },
     },
   },
