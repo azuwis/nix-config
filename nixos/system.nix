@@ -7,7 +7,7 @@
   security.sudo.wheelNeedsPassword = false;
   services.openssh = {
     enable = true;
-    challengeResponseAuthentication = false;
+    kbdInteractiveAuthentication = false;
     passwordAuthentication = false;
   };
   system.stateVersion = "22.05";
