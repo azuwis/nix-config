@@ -61,7 +61,10 @@
       _FXShowPosixPathInTitle = true;
       FXEnableExtensionChangeWarning = false;
     };
-    screencapture.location = "/tmp";
+    screencapture = {
+      disable-shadow = true;
+      location = "/tmp";
+    };
     trackpad = {
       Clicking = true;
       Dragging = true;
