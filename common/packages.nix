@@ -19,6 +19,7 @@
     ipcalc
     less
     man
+    nix-tree
     netcat
     openssh
     p7zip
