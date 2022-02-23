@@ -19,7 +19,7 @@
     extraConfig = ''
       sudo yabai --load-sa
       yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
-      yabai -m rule --add app="^(Digital Color Meter|System Preferences|mpv)$" manage=off
+      yabai -m rule --add app="^(Digital Color Meter|Finder|System Information|System Preferences|mpv)$" manage=off
       yabai -m rule --add app="^alacritty$" title="^Fzf$" manage=off
       yabai -m rule --add app="^(Firefox|Google Chrome|Safari)$" space=2
       yabai -m rule --add app="^Mail$" space=3
