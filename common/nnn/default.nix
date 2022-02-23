@@ -23,4 +23,5 @@ in
 
 {
   home.packages = [ nnn-wrapped ];
+  home.shellAliases = { n = "nnn"; };
 }
