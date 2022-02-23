@@ -128,12 +128,12 @@ handle_audio() {
 
 handle_video() {
     if [ "$GUI" -ne 0 ]; then
-        if is_mac; then
-            nohup open "${FPATH}" >/dev/null 2>&1 &
+        if type mpv >/dev/null 2>&1; then
+            nohup mpv "${FPATH}" >/dev/null 2>&1 &
         elif type smplayer >/dev/null 2>&1; then
             nohup smplayer "${FPATH}" >/dev/null 2>&1 &
-        elif type mpv >/dev/null 2>&1; then
-            nohup mpv "${FPATH}" >/dev/null 2>&1 &
+        elif is_mac; then
+            nohup open "${FPATH}" >/dev/null 2>&1 &
         else
             return
         fi
