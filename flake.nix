@@ -58,6 +58,7 @@
             ./common/my.nix
             ./common/neovim
             ./common/nix-index.nix
+            ./common/nnn
             ./common/packages.nix
             ./common/rime
             ./common/zsh.nix
@@ -93,6 +94,7 @@
           ./common/gnupg.nix
           ./common/my.nix
           ./common/neovim
+          ./common/nnn
           ./common/packages.nix
           ./common/zsh-ssh-agent.nix
           ./common/zsh.nix
@@ -150,6 +152,7 @@
             ./common/my.nix
             ./common/neovim
             ./common/nix-index.nix
+            ./common/nnn
             ./common/packages.nix
             ./common/zsh.nix
             ./nixos/packages.nix
