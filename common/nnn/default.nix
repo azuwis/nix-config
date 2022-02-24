@@ -16,6 +16,7 @@ let
   nnn-wrapped = with pkgs; runCommandNoCC "nnn" { buildInputs = [ makeWrapper ]; } ''
     makeWrapper ${nnn}/bin/nnn $out/bin/nnn \
       --add-flags -c \
+      --add-flags -A \
       --set GUI 1 \
       --set NNN_OPENER "${./nuke}" \
       --set NNN_BMS "${renderSettings bookmarks}"
