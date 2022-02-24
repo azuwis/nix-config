@@ -12,12 +12,14 @@ let
     s = "~/src";
     v = "~/Videos";
   };
+  nnn = pkgs.nnn.override({ withNerdIcons = true; });
   nnn-wrapped = with pkgs; runCommandNoCC "nnn" { buildInputs = [ makeWrapper ]; } ''
-    makeWrapper ${nnn.override({ withNerdIcons = true; })}/bin/nnn $out/bin/nnn \
+    makeWrapper ${nnn}/bin/nnn $out/bin/nnn \
       --add-flags -c \
       --set GUI 1 \
       --set NNN_OPENER "${./nuke}" \
       --set NNN_BMS "${renderSettings bookmarks}"
+    ln -s ${nnn}/share $out/share
   '';
 in
 
