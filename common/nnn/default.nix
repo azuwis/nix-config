@@ -15,8 +15,7 @@ let
   nnn = pkgs.nnn.override({ withNerdIcons = true; });
   nnn-wrapped = with pkgs; runCommandNoCC "nnn" { buildInputs = [ makeWrapper ]; } ''
     makeWrapper ${nnn}/bin/nnn $out/bin/nnn \
-      --add-flags -c \
-      --add-flags -A \
+      --add-flags -Acd \
       --set GUI 1 \
       --set NNN_OPENER "${./nuke}" \
       --set NNN_BMS "${renderSettings bookmarks}"
