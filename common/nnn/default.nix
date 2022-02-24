@@ -19,6 +19,7 @@ let
       --set GUI 1 \
       --set NNN_OPENER "${./nuke}" \
       --set NNN_BMS "${renderSettings bookmarks}"
+    ln -s ${gnused}/bin/sed $out/bin/gsed
     ln -s ${nnn}/share $out/share
   '';
 in
