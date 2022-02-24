@@ -5,7 +5,7 @@
     darwinHm.url = "github:nix-community/home-manager/master";
     darwinHm.inputs.nixpkgs.follows = "darwinNixpkgs";
     # https://hydra.nixos.org/jobset/nixpkgs/nixpkgs-unstable-aarch64-darwin
-    darwinNixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    darwinNixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     droid.url = "github:t184256/nix-on-droid";
     droid.inputs.nixpkgs.follows = "droidNixpkgs";
@@ -14,7 +14,7 @@
     droidHm.inputs.nixpkgs.follows = "droidNixpkgs";
     droidNixpkgs.url = "github:NixOS/nixpkgs/release-21.11";
 
-    nixos.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixos.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixosHm.url = "github:nix-community/home-manager/master";
     nixosHm.inputs.nixpkgs.follows = "nixos";
   };
