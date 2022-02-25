@@ -25,5 +25,6 @@
     daemon
     element-desktop
     hydra-check
+    # losslesscut-bin
   ];
 }
