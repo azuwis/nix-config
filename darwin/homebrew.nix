@@ -30,6 +30,7 @@
       "obs"
       "qbittorrent"
       "reaper"
+      "utm"
     ];
     masApps = {
       "Microsoft Remote Desktop" = 1295203466;
