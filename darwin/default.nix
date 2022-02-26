@@ -2,6 +2,8 @@
 
 {
   imports = [
+    ../common
+    ../home/darwin
     ./age.nix
     ./emacs.nix # emacs-all-the-icons-fonts
     ./firefox.nix

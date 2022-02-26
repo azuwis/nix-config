@@ -3,6 +3,7 @@
 {
   imports = [
     darwinHm.darwinModules.home-manager
+    ../common
   ];
   home-manager.users.${config.my.user} = { imports = [
     ./emacs

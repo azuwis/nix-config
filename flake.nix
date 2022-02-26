@@ -24,10 +24,7 @@
       system = "aarch64-darwin";
       specialArgs = inputs;
       modules = [
-        ./common
         ./darwin
-        ./home/common
-        ./home/darwin
       ];
     };
 
