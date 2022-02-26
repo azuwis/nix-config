@@ -3,7 +3,6 @@
 {
   imports = [
     ./age.nix
-    ./agenix.nix
     ./emacs.nix # emacs-all-the-icons-fonts
     ./firefox.nix
     ./homebrew.nix
@@ -18,6 +17,7 @@
     ./system.nix
     ./wireguard.nix
     ./yabai.nix
+    ../modules/agenix
     ../modules/redsocks2
     ../modules/shadowsocks
     ../modules/sketchybar
