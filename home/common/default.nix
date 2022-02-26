@@ -9,6 +9,7 @@
     ./direnv.nix
     ./firefox
     ./git.nix
+    ./gnupg.nix
     ./mpv.nix
     ./neovim
     ./nix-index.nix
