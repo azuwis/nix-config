@@ -19,58 +19,15 @@
     nixosHm.inputs.nixpkgs.follows = "nixos";
   };
 
-  outputs = { self, darwin, darwinHm, darwinNixpkgs, droid, droidNixpkgs, nixos, nixosHm, ... }: {
+  outputs = inputs@{ self, darwin, darwinHm, darwinNixpkgs, droid, droidNixpkgs, nixos, nixosHm, ... }: {
     darwinConfigurations.mbp = darwin.lib.darwinSystem {
       system = "aarch64-darwin";
+      specialArgs = inputs;
       modules = [
-        (import ./common/system.nix { nixpkgs = darwinNixpkgs; })
-        ./common/my.nix
-        ./common/rime
-        ./darwin/age.nix
-        ./darwin/agenix.nix
-        ./darwin/emacs # emacs-all-the-icons-fonts
-        ./darwin/firefox.nix
-        ./darwin/homebrew.nix
-        ./darwin/hostname.nix
-        ./darwin/kitty.nix # sudo keep TERMINFO_DIRS env
-        ./darwin/my.nix
-        ./darwin/sketchybar
-        ./darwin/skhd.nix
-        ./darwin/smartnet.nix
-        ./darwin/sudo.nix
-        ./darwin/system.nix
-        ./darwin/wireguard.nix
-        ./darwin/yabai.nix
-        ./services/redsocks2
-        ./services/shadowsocks
-        ./services/sketchybar
-        ./services/smartdns
-        darwinHm.darwinModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.azuwis = { imports = [
-            ./common/alacritty.nix
-            ./common/direnv.nix
-            ./common/firefox
-            ./common/git.nix
-            ./common/mpv.nix
-            ./common/my.nix
-            ./common/neovim
-            ./common/nix-index.nix
-            ./common/nnn
-            ./common/packages.nix
-            ./common/rime
-            ./common/zsh.nix
-            ./common/zsh-ssh-agent.nix
-            ./darwin/emacs
-            ./darwin/firefox.nix
-            ./darwin/hmapps.nix
-            ./darwin/kitty.nix
-            ./darwin/packages.nix
-            ./darwin/skhd.nix
-          ]; };
-        }
+        ./common
+        ./darwin
+        ./home/common
+        ./home/darwin
       ];
     };
 

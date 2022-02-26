@@ -1,4 +1,4 @@
-inputs: { config, lib, pkgs, ... }:
+{ config, lib, pkgs, darwinNixpkgs, ... }:
 
 {
   nix.extraOptions = ''
@@ -7,8 +7,8 @@ inputs: { config, lib, pkgs, ... }:
     keep-outputs = true
     tarball-ttl = 43200
   '';
-  nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
-  nix.registry.nixpkgs.flake = inputs.nixpkgs;
+  nix.nixPath = [ "nixpkgs=${darwinNixpkgs}" ];
+  nix.registry.nixpkgs.flake = darwinNixpkgs;
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = import ./overlays.nix;
   programs.zsh.enable = true;
