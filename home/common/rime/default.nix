@@ -1,7 +1,5 @@
 { config, lib, pkgs, ... }:
 
-if builtins.hasAttr "hm" lib then
-
 let
   rimeDir = {
     # /Library/Input\ Methods/Squirrel.app/Contents/SharedSupport
@@ -48,10 +46,4 @@ in
       preset_color_schemes/purity_of_form/back_color: 0x545554
       preset_color_schemes/purity_of_form/hilited_candidate_back_color: 0xe3e3e3
   '';
-}
-
-else
-
-{
-  homebrew.casks = lib.optionals pkgs.stdenv.hostPlatform.isDarwin [ "squirrel" ];
 }

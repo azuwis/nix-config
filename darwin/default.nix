@@ -4,12 +4,13 @@
   imports = [
     ./age.nix
     ./agenix.nix
-    ./emacs # emacs-all-the-icons-fonts
+    ./emacs.nix # emacs-all-the-icons-fonts
     ./firefox.nix
     ./homebrew.nix
     ./hostname.nix
     ./kitty.nix # sudo keep TERMINFO_DIRS env
     ./my.nix
+    ./rime.nix
     ./sketchybar
     ./skhd.nix
     ./smartnet.nix

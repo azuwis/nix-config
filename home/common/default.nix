@@ -4,18 +4,18 @@
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.users.${config.my.user} = { imports = [
-    ../../common/alacritty.nix
-    ../../common/direnv.nix
-    ../../common/firefox
-    ../../common/git.nix
-    ../../common/mpv.nix
     ../../common/my.nix
-    ../../common/neovim
-    ../../common/nix-index.nix
-    ../../common/nnn
-    ../../common/packages.nix
-    ../../common/rime
-    ../../common/zsh.nix
-    ../../common/zsh-ssh-agent.nix
+    ./alacritty.nix
+    ./direnv.nix
+    ./firefox
+    ./git.nix
+    ./mpv.nix
+    ./neovim
+    ./nix-index.nix
+    ./nnn
+    ./packages.nix
+    ./rime
+    ./zsh-ssh-agent.nix
+    ./zsh.nix
   ]; };
 }
