@@ -1,7 +1,10 @@
-{ config, lib, pkgs, darwinNixpkgs, ... }:
+{ config, lib, pkgs, darwinNixpkgs, nixos, ... }:
 
 let
-  nixpkgs = darwinNixpkgs;
+  nixpkgs = {
+    Darwin = darwinNixpkgs;
+    Linux = nixos;
+  }.${pkgs.stdenv.hostPlatform.uname.system};
 in
 
 {
