@@ -19,50 +19,64 @@
     nixosHm.inputs.nixpkgs.follows = "nixos";
   };
 
-  outputs = { self, darwin, darwinHm, darwinNixpkgs, droid, droidNixpkgs, nixos, nixosHm, ... }: {
-    darwinConfigurations.mbp = darwin.lib.darwinSystem {
-      system = "aarch64-darwin";
-      modules = [
-        (import ./common/registry.nix { nixpkgs = darwinNixpkgs; })
-        ./common/system.nix
-        ./common/my.nix
-        ./common/rime
-        ./darwin/age.nix
-        ./darwin/agenix.nix
-        ./darwin/emacs # emacs-all-the-icons-fonts
-        ./darwin/firefox.nix
-        ./darwin/homebrew.nix
-        ./darwin/hostname.nix
-        ./darwin/kitty.nix # sudo keep TERMINFO_DIRS env
-        ./darwin/my.nix
-        ./darwin/sketchybar
-        ./darwin/skhd.nix
-        ./darwin/smartnet.nix
-        ./darwin/sudo.nix
-        ./darwin/system.nix
-        ./darwin/wireguard.nix
-        ./darwin/yabai.nix
-        ./services/redsocks2
-        ./services/shadowsocks
-        ./services/sketchybar
-        ./services/smartdns
-        darwinHm.darwinModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.azuwis = { imports = [
+  outputs = { self, darwin, darwinHm, darwinNixpkgs, droid, droidNixpkgs, nixos, nixosHm, ... }:
+    let
+      modules = rec {
+        common = [
+          ./common/my.nix
+          ./common/system.nix
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+          }
+        ];
+        darwin = common ++ [
+          (import ./common/registry.nix { nixpkgs = darwinNixpkgs; })
+          ./common/rime
+          ./darwin/age.nix
+          ./darwin/agenix.nix
+          ./darwin/emacs # emacs-all-the-icons-fonts
+          ./darwin/firefox.nix
+          ./darwin/homebrew.nix
+          ./darwin/hostname.nix
+          ./darwin/kitty.nix # sudo keep TERMINFO_DIRS env
+          ./darwin/my.nix
+          ./darwin/sketchybar
+          ./darwin/skhd.nix
+          ./darwin/smartnet.nix
+          ./darwin/sudo.nix
+          ./darwin/system.nix
+          ./darwin/wireguard.nix
+          ./darwin/yabai.nix
+          ./services/redsocks2
+          ./services/shadowsocks
+          ./services/sketchybar
+          ./services/smartdns
+          darwinHm.darwinModules.home-manager
+        ];
+        nixos = common ++ [
+          (import ./common/registry.nix { nixpkgs = nixos; })
+          ./nixos/system.nix
+          nixosHm.nixosModules.home-manager
+        ];
+      };
+      modulesHm = rec {
+        common = [
+          ./common/direnv.nix
+          ./common/git.nix
+          ./common/gnupg.nix
+          ./common/mpv.nix
+          ./common/my.nix
+          ./common/neovim
+          ./common/nnn
+          ./common/nix-index.nix
+          ./common/packages.nix
+          ./common/zsh.nix
+        ];
+        darwin = common ++ [
             ./common/alacritty.nix
-            ./common/direnv.nix
             ./common/firefox
-            ./common/git.nix
-            ./common/mpv.nix
-            ./common/my.nix
-            ./common/neovim
-            ./common/nix-index.nix
-            ./common/nnn
-            ./common/packages.nix
             ./common/rime
-            ./common/zsh.nix
             ./common/zsh-ssh-agent.nix
             ./darwin/emacs
             ./darwin/firefox.nix
@@ -70,6 +84,17 @@
             ./darwin/kitty.nix
             ./darwin/packages.nix
             ./darwin/skhd.nix
+        ];
+        nixos = common ++ [
+          ./nixos/packages.nix
+        ];
+      };
+    in {
+    darwinConfigurations.mbp = darwin.lib.darwinSystem {
+      system = "aarch64-darwin";
+      modules = modules.darwin ++ [
+        {
+          home-manager.users.azuwis = { imports = modulesHm.darwin ++ [
           ]; };
         }
       ];
@@ -89,16 +114,8 @@
         ];
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
-        home-manager.config = { imports = [
-          ./common/direnv.nix
-          ./common/git.nix
-          ./common/gnupg.nix
-          ./common/my.nix
-          ./common/neovim
-          ./common/nnn
-          ./common/packages.nix
+        home-manager.config = { imports = modulesHm.common ++ [
           ./common/zsh-ssh-agent.nix
-          ./common/zsh.nix
           ./droid/compat.nix
           ./droid/gnupg.nix
           ./droid/packages.nix
@@ -108,28 +125,12 @@
 
     nixosConfigurations.nuc = nixos.lib.nixosSystem {
       system = "x86_64-linux";
-      modules = [
-        (import ./common/registry.nix { nixpkgs = nixos; })
-        ./common/system.nix
-        ./common/my.nix
+      modules = modules.nixos [
         ./nixos/nuc.nix
-        # nixos-generate-config --show-hardware-config > nixos/nuc-hardware.nix
+        # nixos-generate-config --show-hardware-config > nixos/utm-hardware.nix
         ./nixos/nuc-hardware.nix
-        ./nixos/system.nix
-        nixosHm.nixosModules.home-manager
         {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.azuwis = { imports = [
-            ./common/direnv.nix
-            ./common/git.nix
-            ./common/mpv.nix
-            ./common/my.nix
-            ./common/neovim
-            ./common/nix-index.nix
-            ./common/packages.nix
-            ./common/zsh.nix
-            ./nixos/packages.nix
+          home-manager.users.azuwis = { imports = modulesHm.nixos ++ [
           ]; };
         }
       ];
@@ -137,28 +138,12 @@
 
     nixosConfigurations.utm = nixos.lib.nixosSystem {
       system = "aarch64-linux";
-      modules = [
-        (import ./common/registry.nix { nixpkgs = nixos; })
-        ./common/system.nix
-        ./common/my.nix
+      modules = modules.nixos ++ [
         ./nixos/utm.nix
         # nixos-generate-config --show-hardware-config > nixos/utm-hardware.nix
         ./nixos/utm-hardware.nix
-        ./nixos/system.nix
-        nixosHm.nixosModules.home-manager
         {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.azuwis = { imports = [
-            ./common/direnv.nix
-            ./common/git.nix
-            ./common/my.nix
-            ./common/neovim
-            ./common/nix-index.nix
-            ./common/nnn
-            ./common/packages.nix
-            ./common/zsh.nix
-            ./nixos/packages.nix
+          home-manager.users.azuwis = { imports = modulesHm.nixos ++ [
           ]; };
         }
       ];
