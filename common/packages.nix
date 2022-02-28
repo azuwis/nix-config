@@ -2,6 +2,7 @@
 
 {
   home.packages = with pkgs; [
+    (pass.withExtensions(ext: [ ext.pass-otp ]))
     borgbackup
     bzip2
     curl
@@ -16,19 +17,18 @@
     gzip
     htop
     imagemagick
+    inetutils
     ipcalc
     less
     man
-    nix-tree
     netcat
+    nix-tree
     openssh
     p7zip
-    pass-otp
     ripgrep
     rsync
     scripts
     shellcheck
-    telnet
     tree
     unar
     unzip
