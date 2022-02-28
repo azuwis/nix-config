@@ -23,7 +23,8 @@
     darwinConfigurations.mbp = darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       modules = [
-        (import ./common/system.nix { nixpkgs = darwinNixpkgs; })
+        (import ./common/registry.nix { nixpkgs = darwinNixpkgs; })
+        ./common/system.nix
         ./common/my.nix
         ./common/rime
         ./darwin/age.nix
@@ -108,7 +109,8 @@
     nixosConfigurations.nuc = nixos.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
-        (import ./common/system.nix { nixpkgs = nixos; })
+        (import ./common/registry.nix { nixpkgs = nixos; })
+        ./common/system.nix
         ./common/my.nix
         ./nixos/nuc.nix
         # nixos-generate-config --show-hardware-config > nixos/nuc-hardware.nix
@@ -136,7 +138,8 @@
     nixosConfigurations.utm = nixos.lib.nixosSystem {
       system = "aarch64-linux";
       modules = [
-        (import ./common/system.nix { nixpkgs = nixos; })
+        (import ./common/registry.nix { nixpkgs = nixos; })
+        ./common/system.nix
         ./common/my.nix
         ./nixos/utm.nix
         # nixos-generate-config --show-hardware-config > nixos/utm-hardware.nix
