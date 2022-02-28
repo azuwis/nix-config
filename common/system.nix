@@ -7,7 +7,8 @@ inputs: { config, lib, pkgs, ... }:
     keep-outputs = true
     tarball-ttl = 43200
   '';
-  nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+  environment.etc."nix/inputs/nixpkgs".source = inputs.nixpkgs;
+  nix.nixPath = [ "nixpkgs=/etc/nix/inputs/nixpkgs" ];
   nix.registry.nixpkgs.flake = inputs.nixpkgs;
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = import ./overlays.nix;
