@@ -32,10 +32,10 @@
         ];
         darwin = common ++ [
           (import ./common/registry.nix { nixpkgs = darwinNixpkgs; })
+          ./common/emacs # emacs-all-the-icons-fonts
           ./common/rime
           ./darwin/age.nix
           ./darwin/agenix.nix
-          ./darwin/emacs # emacs-all-the-icons-fonts
           ./darwin/firefox.nix
           ./darwin/homebrew.nix
           ./darwin/hostname.nix
@@ -75,10 +75,10 @@
         ];
         darwin = common ++ [
           ./common/alacritty.nix
+          ./common/emacs
           ./common/firefox
           ./common/rime
           ./common/zsh-ssh-agent.nix
-          ./darwin/emacs
           ./darwin/firefox.nix
           ./darwin/hmapps.nix
           ./darwin/kitty.nix
