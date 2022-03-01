@@ -7,7 +7,7 @@ let
     # /Library/Input\ Methods/Squirrel.app/Contents/SharedSupport
     Darwin = {
       dir = "Library/Rime";
-      deploy = "/Library/Input\ Methods/Squirrel.app/Contents/MacOS/Squirrel --reload";
+      deploy = "'/Library/Input Methods/Squirrel.app/Contents/MacOS/Squirrel' --reload";
     };
     Linux = {
       dir = ".local/share/fcitx5/rime";
