@@ -1,12 +1,15 @@
 { config, lib, pkgs, ... }:
 
 {
-  # workaround for packer problems:
-  # rm -rf ~/.config/nvim/plugin/packer_compiled.lua ~/.cache/nvim/ ~/.local/share/nvim/site/
   imports = [
     ./nvchad.nix
     ./update-nix-fetchgit.nix
   ];
+  # workaround for updating lua code:
+  # rm -rf ~/.config/nvim/plugin/packer_compiled.lua ~/.cache/nvim/ ~/.local/share/nvim/site/
+  home.activation.neovim = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    rm ~/.cache/nvim/luacache_chunks ~/.cache/nvim/luacache_modpaths
+  '';
   home.sessionVariables.EDITOR = "nvim";
   programs.neovim = {
     enable = true;
