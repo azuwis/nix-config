@@ -1,12 +1,13 @@
 { config, lib, pkgs, ... }:
 
 {
+  # Clear all caches
+  # rm -rf ~/.config/nvim/plugin/packer_compiled.lua ~/.cache/nvim/ ~/.local/share/nvim/site/
   imports = [
     ./nvchad.nix
     ./update-nix-fetchgit.nix
   ];
-  # workaround for updating lua code:
-  # rm -rf ~/.config/nvim/plugin/packer_compiled.lua ~/.cache/nvim/ ~/.local/share/nvim/site/
+  # workaround for https://github.com/lewis6991/impatient.nvim/issues/42
   home.activation.neovim = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     rm ~/.cache/nvim/luacache_chunks ~/.cache/nvim/luacache_modpaths
   '';
