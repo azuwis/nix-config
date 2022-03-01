@@ -3,7 +3,7 @@
 if builtins.hasAttr "hm" lib then
 
 {
-   home.packages = [ pkgs.emacsUnstable ];
+   home.packages = [ pkgs.emacs ];
    home.file.".doom.d".source = ./doom.d;
 }
 

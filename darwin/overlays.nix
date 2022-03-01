@@ -9,7 +9,7 @@ in
     # ansible = pkgsX64.ansible;
 
     # overrides
-    emacsUnstable = (super.emacs.override { srcRepo = true; nativeComp = false; }).overrideAttrs (
+    emacs = (super.emacs.override { srcRepo = true; nativeComp = false; }).overrideAttrs (
       o: rec {
         version = "unstable-2022-01-08";
         src = super.fetchgit {
