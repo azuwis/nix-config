@@ -3,19 +3,23 @@
 if builtins.hasAttr "hm" lib then
 
 let
-  rimeDir = {
+  rime = {
     # /Library/Input\ Methods/Squirrel.app/Contents/SharedSupport
-    Darwin = "Library/Rime";
-    Linux = ".local/share/fcitx5/rime";
+    Darwin = {
+      dir = "Library/Rime";
+    };
+    Linux = {
+      dir = ".local/share/fcitx5/rime";
+    };
   }."${pkgs.stdenv.hostPlatform.uname.system}";
 in
 
 {
-  home.file."${rimeDir}" = {
+  home.file."${rime.dir}" = {
     source = pkgs.rime-idvel;
     recursive = true;
   };
-  home.file."${rimeDir}/default.custom.yaml".text = ''
+  home.file."${rime.dir}/default.custom.yaml".text = ''
     patch:
       switcher/hotkeys:
         - Control+grave
@@ -23,21 +27,21 @@ in
         - schema: csp
         - schema: luna_pinyin
   '';
-  home.file."${rimeDir}/csp.schema.yaml".source = ./csp.schema.yaml;
-  home.file."${rimeDir}/grammar.yaml".source = pkgs.fetchurl {
+  home.file."${rime.dir}/csp.schema.yaml".source = ./csp.schema.yaml;
+  home.file."${rime.dir}/grammar.yaml".source = pkgs.fetchurl {
     url = "https://github.com/lotem/rime-octagram-data/raw/master/grammar.yaml";
     sha256 = "0aa14rvypnja38dm15hpq34xwvf06al6am9hxls6c4683ppyk355";
   };
-  home.file."${rimeDir}/zh-hans-t-essay-bgw.gramhans".source = pkgs.fetchurl {
+  home.file."${rime.dir}/zh-hans-t-essay-bgw.gramhans".source = pkgs.fetchurl {
     url = "https://github.com/lotem/rime-octagram-data/raw/hans/zh-hans-t-essay-bgw.gram";
     sha256 = "0ygcpbhp00lb5ghi56kpxl1mg52i7hdlrznm2wkdq8g3hjxyxfqi";
   };
-  home.file."${rimeDir}/luna_pinyin.custom.yaml".text = ''
+  home.file."${rime.dir}/luna_pinyin.custom.yaml".text = ''
     patch:
       __include: grammar:/hans
       translator/dictionary: pinyin_simp
   '';
-  home.file."${rimeDir}/squirrel.custom.yaml".text = lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
+  home.file."${rime.dir}/squirrel.custom.yaml".text = lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
     patch:
       app_options/io.alacritty:
         ascii_mode: true
