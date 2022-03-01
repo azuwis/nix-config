@@ -9,7 +9,7 @@
   ];
   # workaround for https://github.com/lewis6991/impatient.nvim/issues/42
   home.activation.neovim = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    rm ~/.cache/nvim/luacache_chunks ~/.cache/nvim/luacache_modpaths
+    rm -f ~/.cache/nvim/luacache_chunks ~/.cache/nvim/luacache_modpaths
   '';
   home.sessionVariables.EDITOR = "nvim";
   programs.neovim = {
