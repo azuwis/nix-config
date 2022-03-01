@@ -74,16 +74,16 @@
           ./common/zsh.nix
         ];
         darwin = common ++ [
-            ./common/alacritty.nix
-            ./common/firefox
-            ./common/rime
-            ./common/zsh-ssh-agent.nix
-            ./darwin/emacs
-            ./darwin/firefox.nix
-            ./darwin/hmapps.nix
-            ./darwin/kitty.nix
-            ./darwin/packages.nix
-            ./darwin/skhd.nix
+          ./common/alacritty.nix
+          ./common/firefox
+          ./common/rime
+          ./common/zsh-ssh-agent.nix
+          ./darwin/emacs
+          ./darwin/firefox.nix
+          ./darwin/hmapps.nix
+          ./darwin/kitty.nix
+          ./darwin/packages.nix
+          ./darwin/skhd.nix
         ];
         nixos = common ++ [
           ./nixos/packages.nix
