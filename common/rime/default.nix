@@ -7,9 +7,11 @@ let
     # /Library/Input\ Methods/Squirrel.app/Contents/SharedSupport
     Darwin = {
       dir = "Library/Rime";
+      deploy = "/Library/Input\ Methods/Squirrel.app/Contents/MacOS/Squirrel --reload";
     };
     Linux = {
       dir = ".local/share/fcitx5/rime";
+      deploy = "fcitx-remote -r";
     };
   }."${pkgs.stdenv.hostPlatform.uname.system}";
 in
@@ -18,6 +20,7 @@ in
   home.file."${rime.dir}" = {
     source = pkgs.rime-idvel;
     recursive = true;
+    onChange = rime.deploy;
   };
   home.file."${rime.dir}/default.custom.yaml".text = ''
     patch:
