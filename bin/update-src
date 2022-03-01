@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+nix run nixpkgs#update-nix-fetchgit -- common/neovim/nvchad.nix pkgs/rime-idvel/default.nix
