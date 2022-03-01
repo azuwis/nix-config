@@ -11,6 +11,7 @@ return {
     config = function()
       require("neogit").setup {
         disable_commit_confirmation = true,
+        use_magit_keybindings = true,
         signs = {
           section = { "", "" },
           item = { "", "" },
