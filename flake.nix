@@ -35,7 +35,6 @@
           ./common/emacs # emacs-all-the-icons-fonts
           ./common/rime
           ./darwin/age.nix
-          ./darwin/agenix.nix
           ./darwin/firefox.nix
           ./darwin/homebrew.nix
           ./darwin/hostname.nix
@@ -48,6 +47,7 @@
           ./darwin/system.nix
           ./darwin/wireguard.nix
           ./darwin/yabai.nix
+          ./modules/age
           ./modules/redsocks2
           ./modules/shadowsocks
           ./modules/sketchybar
