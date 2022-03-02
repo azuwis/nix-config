@@ -125,7 +125,7 @@
 
     nixosConfigurations.nuc = nixos.lib.nixosSystem {
       system = "x86_64-linux";
-      modules = modules.nixos [
+      modules = modules.nixos ++ [
         ./nixos/nuc.nix
         # nixos-generate-config --show-hardware-config > nixos/utm-hardware.nix
         ./nixos/nuc-hardware.nix
