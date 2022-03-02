@@ -38,6 +38,7 @@ in
   '';
   age.secrets.shadowsocks = {
     file = "/etc/age/shadowsocks.age";
+    path = "/etc/shadowsocks/config.json";
     owner = config.users.users.shadowsocks.name;
     group = config.users.users.shadowsocks.name;
   };
