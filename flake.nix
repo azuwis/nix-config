@@ -48,10 +48,10 @@
           ./darwin/system.nix
           ./darwin/wireguard.nix
           ./darwin/yabai.nix
-          ./services/redsocks2
-          ./services/shadowsocks
-          ./services/sketchybar
-          ./services/smartdns
+          ./modules/redsocks2
+          ./modules/shadowsocks
+          ./modules/sketchybar
+          ./modules/smartdns
           darwinHm.darwinModules.home-manager
         ];
         nixos = common ++ [
