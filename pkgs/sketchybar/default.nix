@@ -1,10 +1,11 @@
-{ lib, stdenv, darwin, fetchFromGitHub }:
+{ lib, stdenv, fetchFromGitHub, Carbon, Cocoa, SkyLight }:
 
 let
+  inherit (stdenv.hostPlatform) system;
   target = {
     "aarch64-darwin" = "arm";
     "x86_64-darwin" = "x86";
-  }.${stdenv.hostPlatform.system};
+  }.${system} or (throw "Unsupported system: ${system}");
 in
 
 stdenv.mkDerivation rec {
@@ -18,17 +19,15 @@ stdenv.mkDerivation rec {
     sha256 = "1370xjl8sas5nghxgjxmc1zgskf28g40pv7nxgh37scjwdrkrrvb";
   };
 
-  buildInputs = with darwin.apple_sdk.frameworks; [
-    Carbon Cocoa SkyLight
-  ];
+  buildInputs = [ Carbon Cocoa SkyLight ];
 
   postPatch = ''
     sed -i -e '/^#include <malloc\/_malloc.h>/d' src/*.[ch] src/*/*.[ch]
   '';
 
-  buildPhase = ''
-    make ${target}
-  '';
+  makeFlags = [
+    target
+  ];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -37,8 +36,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A highly customizable macOS status bar replacement";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/FelixKratz/SketchyBar";
     platforms = platforms.darwin;
+    maintainers = [ maintainers.azuwis ];
     license = licenses.gpl3;
   };
 }

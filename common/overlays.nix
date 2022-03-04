@@ -12,6 +12,8 @@
     sf-symbols-app = super.callPackage ../pkgs/sf-symbols { app = true; fonts = false; };
     sf-symbols-full = super.callPackage ../pkgs/sf-symbols { full = true; };
     sf-symbols-minimal = super.callPackage ../pkgs/sf-symbols { };
-    # sketchybar = super.callPackage ../pkgs/sketchybar { };
+    # sketchybar = super.callPackage ../pkgs/sketchybar {
+    #   inherit (super.darwin.apple_sdk.frameworks) Carbon Cocoa SkyLight;
+    # };
   })
 ]
