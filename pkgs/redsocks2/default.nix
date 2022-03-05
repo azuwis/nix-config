@@ -10,7 +10,7 @@ stdenv.mkDerivation {
     sha256 = "11b71a3n0iljb5nbpdgbxlsa4g94vlgdrrnwgldc5rfc8wcc2ggw";
   };
   buildInputs = [ cacert curl libevent openssl darwin.DarwinTools ];
-  buileFlags = [ "DISABLE_SHADOWSOCKS=true" ];
+  makeFlags = [ "DISABLE_SHADOWSOCKS=true" "release" ];
   installPhase = ''
     install -d 0644 $out/bin
     install -m 0755 redsocks2 $out/bin
