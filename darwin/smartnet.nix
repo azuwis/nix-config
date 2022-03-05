@@ -3,6 +3,9 @@
 let
   smartnet = pkgs.writeScriptBin "smartnet" ''
     smartdns_resolv_script=${config.services.smartdns.resolv.script}
+    is_on() {
+      sudo launchctl list "${config.launchd.daemons.smartdns-resolv.serviceConfig.Label}" 1>/dev/null 2>/dev/null
+    }
     on() {
       sudo "$smartdns_resolv_script" enable
       sudo pfctl -e -f /etc/pf.conf 2>&1 | tail -n1
@@ -11,17 +14,28 @@ let
       sudo "$smartdns_resolv_script" disable
       sudo pfctl -d 2>&1 | tail -n1
     }
-    action="$1"
-    if [ -n "$action" ]
-    then
-      "$action"
-    else
-      if sudo launchctl list "${config.launchd.daemons.smartdns-resolv.serviceConfig.Label}" 1>/dev/null 2>/dev/null
+    status() {
+      if is_on
+      then
+        echo "on"
+      else
+        echo "off"
+      fi
+    }
+    toggle() {
+      if is_on
       then
         off
       else
         on
       fi
+    }
+    action="$1"
+    if [ -n "$action" ]
+    then
+      "$action"
+    else
+      status
     fi
   '';
 in
