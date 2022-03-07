@@ -1,18 +1,23 @@
 { config, lib, pkgs, ... }:
 
 let
+  shadowsocks = pkgs.shadowsocks-rust.overrideAttrs(o: {
+    cargoBuildFlags = [ "--features=aead-cipher-extra,local-dns,local-http-native-tls,local-redir,local-tun,stream-cipher" ];
+    doCheck = false;
+  });
   smartnet = pkgs.writeScriptBin "smartnet" ''
     smartdns_resolv_script=${config.services.smartdns.resolv.script}
+    route_script=${config.services.route.script}
     is_on() {
       sudo launchctl list "${config.launchd.daemons.smartdns-resolv.serviceConfig.Label}" 1>/dev/null 2>/dev/null
     }
     on() {
       sudo "$smartdns_resolv_script" enable
-      sudo pfctl -e -f /etc/pf.conf 2>&1 | tail -n1
+      sudo "$route_script" enable
     }
     off() {
       sudo "$smartdns_resolv_script" disable
-      sudo pfctl -d 2>&1 | tail -n1
+      sudo "$route_script" disable
     }
     status() {
       if is_on
@@ -42,21 +47,14 @@ in
 
 {
   environment.systemPackages = [ smartnet ];
-  services.redsocks2.enable = true;
-  services.redsocks2.extraConfig = ''
-    tcpdns {
-      bind = "127.0.0.1:55";
-      tcpdns1 = "8.8.8.8";
-      timeout = 4;
-    }
-  '';
   age.secrets.shadowsocks = {
     file = "/etc/age/shadowsocks.age";
     path = "/etc/shadowsocks/config.json";
-    owner = config.users.users.shadowsocks.name;
-    group = config.users.users.shadowsocks.name;
   };
   services.shadowsocks.enable = true;
-  services.shadowsocks.config = config.age.secrets.shadowsocks.path;
+  services.shadowsocks.package = shadowsocks;
+  services.shadowsocks.programArgs = [ "${shadowsocks}/bin/sslocal" "-c" config.age.secrets.shadowsocks.path ];
+  services.shadowsocks.user = "root";
   services.smartdns.enable = true;
+  services.route.enable = true;
 }
