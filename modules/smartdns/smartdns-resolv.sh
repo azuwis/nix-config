@@ -6,7 +6,7 @@ smartdns_resolv=/var/run/smartdns-resolv
 
 start() {
   echo "Start smartdns resolv"
-  iface="$(netstat -rnf inet | awk '/^default/ {print $4; exit}')"
+  iface="$(route -n get default 2>/dev/null | awk '/interface/ {print $2}')"
   test -z "$iface" && exit
   service="$(networksetup -listnetworkserviceorder | sed -rn "s/.*: ([^,]+),.*$iface\).*/\1/p")"
   test -z "$service" && exit
