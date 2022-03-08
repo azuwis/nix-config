@@ -49,9 +49,9 @@
           ./darwin/yabai.nix
           ./modules/age
           ./modules/scidns
+          ./modules/sciroute
           ./modules/shadowsocks
           ./modules/sketchybar
-          ./modules/route
           darwinHm.darwinModules.home-manager
         ];
         nixos = common ++ [

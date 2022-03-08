@@ -3,48 +3,48 @@
 with lib;
 
 let
-  cfg = config.services.route;
+  cfg = config.services.sciroute;
   localCidr = ./local-cidr;
-  routeScript = pkgs.substituteAll {
+  scirouteScript = pkgs.substituteAll {
     inherit (cfg) interface;
     inherit localCidr;
-    src = ./route.sh;
+    src = ./sciroute.sh;
     isExecutable = true;
-    launchdLabel = config.launchd.daemons.route.serviceConfig.Label;
+    launchdLabel = config.launchd.daemons.sciroute.serviceConfig.Label;
   };
 in
 
 {
   options = {
-    services.route.enable = mkOption {
+    services.sciroute.enable = mkOption {
       type = types.bool;
       default = false;
-      description = "Whether to enable route.";
+      description = "Whether to enable sciroute.";
     };
 
-    services.route.interface = mkOption {
+    services.sciroute.interface = mkOption {
       type = types.str;
       default = "utun99";
     };
 
-    services.route.script = mkOption {
+    services.sciroute.script = mkOption {
       type = types.path;
-      default = routeScript;
+      default = scirouteScript;
       readOnly = true;
     };
 
   };
 
   config = mkIf cfg.enable {
-    launchd.daemons.route = mkIf cfg.enable {
+    launchd.daemons.sciroute = mkIf cfg.enable {
       serviceConfig.ProgramArguments = [
-        "${routeScript}"
+        "${scirouteScript}"
       ];
       serviceConfig.ThrottleInterval = 10;
       serviceConfig.WatchPaths = [
         "/var/run/resolv.conf"
       ];
-      # serviceConfig.StandardErrorPath = "/tmp/route.log";
+      # serviceConfig.StandardErrorPath = "/tmp/sciroute.log";
     };
   };
 }

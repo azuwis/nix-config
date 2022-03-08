@@ -7,17 +7,17 @@ let
   });
   smartnet = pkgs.writeScriptBin "smartnet" ''
     scidns_resolv_script=${config.services.scidns.resolv.script}
-    route_script=${config.services.route.script}
+    sciroute_script=${config.services.sciroute.script}
     is_on() {
       sudo launchctl list "${config.launchd.daemons.scidns-resolv.serviceConfig.Label}" 1>/dev/null 2>/dev/null
     }
     on() {
       sudo "$scidns_resolv_script" enable
-      sudo "$route_script" enable
+      sudo "$sciroute_script" enable
     }
     off() {
       sudo "$scidns_resolv_script" disable
-      sudo "$route_script" disable
+      sudo "$sciroute_script" disable
     }
     status() {
       if is_on
@@ -56,5 +56,5 @@ in
   services.shadowsocks.programArgs = [ "${shadowsocks}/bin/sslocal" "-c" config.age.secrets.shadowsocks.path ];
   services.shadowsocks.user = "root";
   services.scidns.enable = true;
-  services.route.enable = true;
+  services.sciroute.enable = true;
 }

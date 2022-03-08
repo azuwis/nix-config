@@ -5,7 +5,7 @@ launchd_label="@launchdLabel@"
 launchd_plist="/Library/LaunchDaemons/$launchd_label.plist"
 
 start() {
-  echo "Start route"
+  echo "Start sciroute"
   gateway="$(route -n get default 2>/dev/null | awk '/gateway/ {print $2}')"
   test -z "$gateway" && exit
   if [ "$(netstat -rnf inet | wc -l)" -lt 1000 ]
@@ -32,7 +32,7 @@ start() {
 }
 
 stop() {
-  echo "Stop route"
+  echo "Stop sciroute"
   route -n delete 0.0.0.0/1
   route -n delete 128.0.0.0/1
   echo "Stop finished"
