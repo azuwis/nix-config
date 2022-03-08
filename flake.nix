@@ -48,9 +48,9 @@
           ./darwin/wireguard.nix
           ./darwin/yabai.nix
           ./modules/age
+          ./modules/scidns
           ./modules/shadowsocks
           ./modules/sketchybar
-          ./modules/smartdns
           ./modules/route
           darwinHm.darwinModules.home-manager
         ];

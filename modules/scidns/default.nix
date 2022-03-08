@@ -3,87 +3,87 @@
 with lib;
 
 let
-  cfg = config.services.smartdns;
+  cfg = config.services.scidns;
   localDomains = ./local-domains;
-  smartdnsConf = pkgs.runCommand "smartdns.conf" {} ''
+  scidnsConf = pkgs.runCommand "scidns.conf" {} ''
     sed -e 's,^,server=/,' -e 's,$,/${cfg.local.bind}#${toString cfg.local.port},' ${localDomains} >$out
   '';
-  smartdnsResolvScript = pkgs.substituteAll {
-    src = ./smartdns-resolv.sh;
+  scidnsResolvScript = pkgs.substituteAll {
+    src = ./scidns-resolv.sh;
     isExecutable = true;
-    smartdns = cfg.bind;
-    launchdLabel = config.launchd.daemons.smartdns-resolv.serviceConfig.Label;
+    scidns = cfg.bind;
+    launchdLabel = config.launchd.daemons.scidns-resolv.serviceConfig.Label;
   };
 in
 
 {
   options = {
-    services.smartdns.enable = mkOption {
+    services.scidns.enable = mkOption {
       type = types.bool;
       default = false;
-      description = "Whether to enable SmartDNS.";
+      description = "Whether to enable SciDNS.";
     };
 
-    services.smartdns.package = mkOption {
+    services.scidns.package = mkOption {
       type = types.path;
       default = pkgs.dnsmasq;
       defaultText = "pkgs.dnsmasq";
       description = "The dnsmasq package to use.";
     };
 
-    services.smartdns.bind = mkOption {
+    services.scidns.bind = mkOption {
       type = types.str;
       default = "127.0.0.1";
-      description = "The interface on which SmartDNS will listen.";
+      description = "The interface on which SciDNS will listen.";
     };
 
-    services.smartdns.port = mkOption {
+    services.scidns.port = mkOption {
       type = types.int;
       default = 53;
-      description = "The port on which SmartDNS will listen.";
+      description = "The port on which SciDNS will listen.";
     };
 
-    services.smartdns.local.bind = mkOption {
+    services.scidns.local.bind = mkOption {
       type = types.str;
       default = "127.0.0.1";
-      description = "The interface on which SmartDNS will listen for local domains.";
+      description = "The interface on which SciDNS will listen for local domains.";
     };
 
-    services.smartdns.local.port = mkOption {
+    services.scidns.local.port = mkOption {
       type = types.int;
       default = 54;
-      description = "The port on which SmartDNS will listen for local domains.";
+      description = "The port on which SciDNS will listen for local domains.";
     };
 
-    services.smartdns.remoteServer = mkOption {
+    services.scidns.remoteServer = mkOption {
       type = types.str;
       default = "127.0.0.1#55";
-      description = "The server on which SmartDNS will forward for remote domains.";
+      description = "The server on which SciDNS will forward for remote domains.";
     };
 
-    services.smartdns.resolv.enable = mkOption {
+    services.scidns.resolv.enable = mkOption {
       type = types.bool;
       default = true;
-      description = "Whether to enable SmartDNS auto set DNS server for this computer.";
+      description = "Whether to enable SciDNS auto set DNS server for this computer.";
     };
 
-    services.smartdns.resolv.script = mkOption {
+    services.scidns.resolv.script = mkOption {
       type = types.path;
-      default = smartdnsResolvScript;
+      default = scidnsResolvScript;
       readOnly = true;
     };
 
   };
 
   config = mkIf cfg.enable {
-    launchd.daemons.smartdns-local = {
+    launchd.daemons.scidns-local = {
       serviceConfig.ProgramArguments = [
         "/bin/sh" "-c" ''/bin/wait4path /nix/store && exec "$@"'' "--"
         "${cfg.package}/bin/dnsmasq"
         "--keep-in-foreground"
         "--listen-address=${cfg.local.bind}"
         "--port=${toString cfg.local.port}"
-        "--resolv-file=/var/run/${if cfg.resolv.enable then "smartdns-resolv" else "resolv.conf"}"
+        "--resolv-file=/var/run/${if cfg.resolv.enable then "scidns-resolv" else "resolv.conf"}"
         "--strict-order"
         "--cache-size=0"
       ];
@@ -91,18 +91,18 @@ in
       serviceConfig.RunAtLoad = true;
     };
 
-    launchd.daemons.smartdns-resolv = mkIf cfg.resolv.enable {
+    launchd.daemons.scidns-resolv = mkIf cfg.resolv.enable {
       serviceConfig.ProgramArguments = [
-        "${smartdnsResolvScript}"
+        "${scidnsResolvScript}"
       ];
       serviceConfig.ThrottleInterval = 1;
       serviceConfig.WatchPaths = [
         "/var/run/resolv.conf"
       ];
-      # serviceConfig.StandardErrorPath = "/tmp/smartdns.log";
+      # serviceConfig.StandardErrorPath = "/tmp/scidns.log";
     };
 
-    launchd.daemons.smartdns = {
+    launchd.daemons.scidns = {
       serviceConfig.ProgramArguments = [
         "/bin/sh" "-c" ''/bin/wait4path /nix/store && exec "$@"'' "--"
         "${cfg.package}/bin/dnsmasq"
@@ -111,7 +111,7 @@ in
         "--port=${toString cfg.port}"
         "--no-resolv"
         "--server=${cfg.remoteServer}"
-        "--servers-file=${smartdnsConf}"
+        "--servers-file=${scidnsConf}"
       ];
       serviceConfig.KeepAlive = true;
       serviceConfig.RunAtLoad = true;
