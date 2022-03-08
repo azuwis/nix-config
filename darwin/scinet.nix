@@ -5,7 +5,7 @@ let
     cargoBuildFlags = [ "--features=aead-cipher-extra,local-dns,local-http-native-tls,local-redir,local-tun,stream-cipher" ];
     doCheck = false;
   });
-  smartnet = pkgs.writeScriptBin "smartnet" ''
+  scinet = pkgs.writeScriptBin "scinet" ''
     scidns_resolv_script=${config.services.scidns.resolv.script}
     sciroute_script=${config.services.sciroute.script}
     is_on() {
@@ -46,7 +46,7 @@ let
 in
 
 {
-  environment.systemPackages = [ smartnet ];
+  environment.systemPackages = [ scinet ];
   age.secrets.shadowsocks = {
     file = "/etc/age/shadowsocks.age";
     path = "/etc/shadowsocks/config.json";
