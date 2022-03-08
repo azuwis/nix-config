@@ -60,6 +60,7 @@ in {
         serviceConfig.KeepAlive = true;
         serviceConfig.RunAtLoad = true;
         serviceConfig.SoftResourceLimits.NumberOfFiles = 4096;
+        # serviceConfig.StandardErrorPath = "/tmp/shadowsocks.log";
       };
     })
 
