@@ -1,0 +1,20 @@
+{
+  "server": "",
+  "server_port": ,
+  "method": "",
+  "password": "",
+  "locals": [
+    {
+      "protocol": "tun",
+      "tun_interface_name": "utun100",
+      "tun_interface_address": "10.255.0.1/24"
+    },
+    {
+      "protocol": "dns",
+      "local_address": "127.0.0.1",
+      "local_port": 55,
+      "local_dns_address": "114.114.114.114",
+      "remote_dns_address": "8.8.8.8"
+    }
+  ]
+}
