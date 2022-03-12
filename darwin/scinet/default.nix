@@ -1,10 +1,11 @@
 { config, lib, pkgs, ... }:
 
 let
-  shadowsocks = pkgs.shadowsocks-rust.overrideAttrs(o: {
-    cargoBuildFlags = [ "--features=aead-cipher-extra,local-dns,local-http-native-tls,local-redir,local-tun,stream-cipher" ];
-    doCheck = false;
-  });
+  # shadowsocks = pkgs.shadowsocks-rust.overrideAttrs(o: {
+  #   cargoBuildFlags = [ "--features=aead-cipher-extra,local-dns,local-http-native-tls,local-redir,local-tun,stream-cipher" ];
+  #   doCheck = false;
+  # });
+  shadowsocks = pkgs.shadowsocks-rust;
   scinetScript = pkgs.substituteAll {
     src = ./scinet.sh;
     name = "scinet";
