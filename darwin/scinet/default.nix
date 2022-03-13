@@ -1,11 +1,6 @@
 { config, lib, pkgs, ... }:
 
 let
-  # shadowsocks = pkgs.shadowsocks-rust.overrideAttrs(o: {
-  #   cargoBuildFlags = [ "--features=aead-cipher-extra,local-dns,local-http-native-tls,local-redir,local-tun,stream-cipher" ];
-  #   doCheck = false;
-  # });
-  shadowsocks = pkgs.shadowsocks-rust;
   scinetScript = pkgs.substituteAll {
     src = ./scinet.sh;
     name = "scinet";
@@ -22,10 +17,12 @@ in
     file = "/etc/age/shadowsocks.age";
     path = "/etc/shadowsocks/config.json";
   };
-  services.shadowsocks.enable = true;
-  services.shadowsocks.package = shadowsocks;
-  services.shadowsocks.programArgs = [ "${shadowsocks}/bin/sslocal" "-c" config.age.secrets.shadowsocks.path ];
-  services.shadowsocks.user = "root";
+  services.shadowsocks = {
+    enable = true;
+    package = pkgs.shadowsocks-rust;
+    programArgs = [ "${pkgs.shadowsocks-rust}/bin/sslocal" "-c" config.age.secrets.shadowsocks.path ];
+    user = "root";
+  };
   services.scidns.enable = true;
   services.sciroute.enable = true;
 }
