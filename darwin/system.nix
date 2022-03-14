@@ -58,8 +58,10 @@
     };
     finder = {
       AppleShowAllExtensions = true;
-      _FXShowPosixPathInTitle = true;
+      FXDefaultSearchScope = "SCcf";
       FXEnableExtensionChangeWarning = false;
+      FXPreferredViewStyle = "Nlsv";
+      ShowPathbar = true;
     };
     screencapture = {
       disable-shadow = true;
