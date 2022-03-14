@@ -22,7 +22,7 @@
       yabai -m rule --add app="^alacritty$" title="^Fzf$" manage=off
       yabai -m rule --add app="^(Firefox|Google Chrome|Safari)$" space=2
       yabai -m rule --add app="^Mail$" space=3
-      yabai -m rule --add app="^网易POPO$" title="^$" manage=off space=5 grid=1:1:0:0:1:1
+      yabai -m rule --add app="^网易POPO$" manage=off space=5
       yabai -m space 5 --layout float
       wait4path /etc/sudoers.d/yabai
       sudo yabai --load-sa
