@@ -1,152 +1,71 @@
 {
   inputs = {
+    # utils.url = "github:gytis-ivaskevicius/flake-utils-plus/master";
+    utils.url = "github:bbuscarino/flake-utils-plus/fix-darwin";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     darwin.url = "github:lnl7/nix-darwin/master";
-    darwin.inputs.nixpkgs.follows = "darwinNixpkgs";
-    darwinHm.url = "github:nix-community/home-manager/master";
-    darwinHm.inputs.nixpkgs.follows = "darwinNixpkgs";
-    # https://hydra.nixos.org/jobset/nixpkgs/nixpkgs-unstable-aarch64-darwin
-    darwinNixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-
-    droid.url = "github:t184256/nix-on-droid";
-    droid.inputs.nixpkgs.follows = "droidNixpkgs";
-    droid.inputs.home-manager.follows = "droidHm";
-    droidHm.url = "github:nix-community/home-manager/release-21.11";
-    droidHm.inputs.nixpkgs.follows = "droidNixpkgs";
-    droidNixpkgs.url = "github:NixOS/nixpkgs/release-21.11";
-
-    nixos.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixosHm.url = "github:nix-community/home-manager/master";
-    nixosHm.inputs.nixpkgs.follows = "nixos";
+    darwin.inputs.nixpkgs.follows = "nixpkgs";
+    home.url = "github:nix-community/home-manager/master";
+    home.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, darwin, darwinHm, darwinNixpkgs, droid, droidNixpkgs, nixos, nixosHm, ... }:
+  outputs = inputs@{ self, utils, nixpkgs, darwin, ... }:
     let
-      modules = rec {
-        common = [
-          ./common/my.nix
-          ./common/system.nix
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-          }
-        ];
-        darwin = common ++ [
-          (import ./common/registry.nix { nixpkgs = darwinNixpkgs; })
-          ./common/emacs # emacs-all-the-icons-fonts
-          ./common/rime
-          ./darwin/age.nix
-          ./darwin/firefox.nix
-          ./darwin/homebrew.nix
-          ./darwin/hostname.nix
-          ./darwin/kitty.nix # sudo keep TERMINFO_DIRS env
-          ./darwin/my.nix
-          ./darwin/scinet
-          ./darwin/sketchybar
-          ./darwin/skhd.nix
-          ./darwin/sudo.nix
-          ./darwin/system.nix
-          ./darwin/wireguard.nix
-          ./darwin/yabai.nix
-          ./modules/age
-          ./modules/scidns
-          ./modules/sciroute
-          ./modules/shadowsocks
-          ./modules/sketchybar
-          darwinHm.darwinModules.home-manager
-        ];
-        nixos = common ++ [
-          (import ./common/registry.nix { nixpkgs = nixos; })
-          ./nixos/system.nix
-          nixosHm.nixosModules.home-manager
-        ];
-      };
-      modulesHm = rec {
-        common = [
-          ./common/direnv.nix
-          ./common/git.nix
-          ./common/gnupg.nix
-          ./common/mpv.nix
-          ./common/my.nix
-          ./common/neovim
-          ./common/nnn
-          ./common/nix-index.nix
-          ./common/packages.nix
-          ./common/zsh.nix
-        ];
-        darwin = common ++ [
-          ./common/alacritty.nix
-          ./common/emacs
-          ./common/firefox
-          ./common/rime
-          ./common/zsh-ssh-agent.nix
-          ./darwin/firefox.nix
-          ./darwin/hmapps.nix
-          ./darwin/kitty.nix
-          ./darwin/packages.nix
-          ./darwin/skhd.nix
-        ];
-        nixos = common ++ [
-          ./nixos/packages.nix
-        ];
-      };
-    in {
-    darwinConfigurations.mbp = darwin.lib.darwinSystem {
-      system = "aarch64-darwin";
-      modules = modules.darwin ++ [
-        {
-          home-manager.users.azuwis = { imports = modulesHm.darwin ++ [
-          ]; };
-        }
-      ];
-    };
+      inherit (utils.lib) mkFlake exportModules exportPackages exportOverlays;
+    in
+    mkFlake {
+      inherit self inputs;
 
-    nixOnDroidConfigurations.device = droid.lib.nixOnDroidConfiguration rec {
-      system = "aarch64-linux";
-      pkgs = import droidNixpkgs {
-        inherit system;
-        overlays = import ./common/overlays.nix;
+      channelsConfig = {
+        allowUnfree = true;
       };
-      config = {
-        imports = [
-          ./droid/sshd.nix
-          ./droid/system.nix
-          ./droid/termux.nix
+
+      overlay = import ./overlay.nix;
+      overlays = exportOverlays {
+        inherit (self) pkgs inputs;
+      };
+      sharedOverlays = [ self.overlay ];
+
+      outputsBuilder = channels: {
+        packages = exportPackages self.overlays channels;
+      };
+
+      modules = exportModules [
+        ./common.nix
+        ./darwin.nix
+        ./nixos.nix
+      ];
+
+      hostDefaults = {
+        modules = [ self.modules.common ];
+        specialArgs = { inherit inputs; };
+      };
+
+      hosts.mbp = {
+        system = "aarch64-darwin";
+        modules = [ self.modules.darwin ];
+        output = "darwinConfigurations";
+        builder = darwin.lib.darwinSystem;
+      };
+
+      hosts.nuc = {
+        modules = [
+          # nixos-generate-config --show-hardware-config > nixos/nuc-hardware.nix
+          ./nixos/nuc-hardware.nix
+          ./nixos/nuc.nix
+          self.modules.nixos
         ];
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.config = { imports = modulesHm.common ++ [
-          ./common/zsh-ssh-agent.nix
-          ./droid/compat.nix
-          ./droid/gnupg.nix
-          ./droid/packages.nix
-        ]; };
       };
-    };
 
-    nixosConfigurations.nuc = nixos.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = modules.nixos ++ [
-        ./nixos/nuc.nix
-        # nixos-generate-config --show-hardware-config > nixos/utm-hardware.nix
-        ./nixos/nuc-hardware.nix
-        {
-          home-manager.users.azuwis = { imports = modulesHm.nixos ++ [
-          ]; };
-        }
-      ];
-    };
+      hosts.utm = {
+        system = "aarch64-linux";
+        modules = [
+          # nixos-generate-config --show-hardware-config > nixos/utm-hardware.nix
+          ./nixos/utm-hardware.nix
+          ./nixos/utm.nix
+          self.modules.nixos
+        ];
+      };
 
-    nixosConfigurations.utm = nixos.lib.nixosSystem {
-      system = "aarch64-linux";
-      modules = modules.nixos ++ [
-        ./nixos/utm.nix
-        # nixos-generate-config --show-hardware-config > nixos/utm-hardware.nix
-        ./nixos/utm-hardware.nix
-        {
-          home-manager.users.azuwis = { imports = modulesHm.nixos ++ [
-          ]; };
-        }
-      ];
     };
-  };
 }

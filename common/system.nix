@@ -7,8 +7,8 @@
     keep-outputs = true
     tarball-ttl = 43200
   '';
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.overlays = import ./overlays.nix;
+  nix.generateNixPathFromInputs = true;
+  nix.generateRegistryFromInputs = true;
   programs.zsh.enable = true;
   time.timeZone = "Asia/Shanghai";
 }

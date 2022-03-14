@@ -2,8 +2,12 @@
 
 if builtins.hasAttr "hm" lib then
 
+let
+  emacs = if pkgs.stdenv.isDarwin then pkgs.emacsMac else pkgs.emacs;
+in
+
 {
-   home.packages = [ pkgs.emacs ];
+   home.packages = [ emacs ];
    home.file.".doom.d".source = ./doom.d;
 }
 
