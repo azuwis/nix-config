@@ -2,6 +2,7 @@
 
 {
   fileSystems."/".options = [ "compress=zstd" ];
+  fileSystems."/srv".options = [ "compress=zstd" ];
   networking.hostName = "nuc";
   networking.useDHCP = false;
   networking.interfaces.vlan1.useDHCP = true;
