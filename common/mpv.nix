@@ -51,7 +51,7 @@ in
     #   cutter
     # ];
   };
-  xdg.configFile."mpv/fonts.conf".text = lib.optionals pkgs.stdenv.isDarwin ''
+  xdg.configFile."mpv/fonts.conf".text = lib.optionalString pkgs.stdenv.isDarwin ''
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE fontconfig SYSTEM "../fonts.dtd">
     <fontconfig>
