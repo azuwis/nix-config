@@ -2,7 +2,7 @@
 
 stdenvNoCC.mkDerivation {
   pname = "nibar";
-  version = "2021-04-09";
+  version = "2021-08-21";
 
   src = fetchFromGitHub {
     owner = "azuwis";
