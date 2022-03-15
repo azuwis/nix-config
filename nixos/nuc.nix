@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  fileSystems."/".options = [ "compress=zstd" ];
+  fileSystems."/".options = [ "compress-force=zstd" ];
   fileSystems."/srv".options = [ "compress=zstd" ];
   networking.hostName = "nuc";
   networking.useDHCP = false;
