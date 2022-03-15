@@ -8,4 +8,12 @@
   networking.interfaces.vlan1.useDHCP = true;
   networking.vlans.vlan1.id = 1;
   networking.vlans.vlan1.interface = "eno1";
+  services.beesd.filesystems = {
+    nixos = {
+      spec = "/";
+      hashTableSizeMB = 256;
+      verbosity = "crit";
+      extraOptions = [ "--loadavg-target" "2.0" ];
+    };
+  };
 }
