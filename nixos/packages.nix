@@ -14,5 +14,6 @@
     '')
     compsize
     efibootmgr
+    iotop-c
   ];
 }
