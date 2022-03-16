@@ -9,6 +9,7 @@
   '';
   nix.generateNixPathFromInputs = true;
   nix.generateRegistryFromInputs = true;
+  nix.linkInputs = true;
   programs.zsh.enable = true;
   time.timeZone = "Asia/Shanghai";
 }

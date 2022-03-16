@@ -86,16 +86,16 @@
         "flake-utils": "flake-utils"
       },
       "locked": {
-        "lastModified": 1646974393,
-        "narHash": "sha256-Q8KZ9COv3i5JAnvU7QfTWO8+29ymViqh0I/HxzIrEzo=",
-        "owner": "bbuscarino",
+        "lastModified": 1647265934,
+        "narHash": "sha256-wJlriS1a0fs4Sgyo6HVv177GvW5rc99jAgHR3FanJO0=",
+        "owner": "gytis-ivaskevicius",
         "repo": "flake-utils-plus",
-        "rev": "95970cc4ba8b7045ad599b8c25e4a70a987ec003",
+        "rev": "2a97a781cb3933585b3e4dd966c182e252fbe327",
         "type": "github"
       },
       "original": {
-        "owner": "bbuscarino",
-        "ref": "fix-darwin",
+        "owner": "gytis-ivaskevicius",
+        "ref": "pull/117/head",
         "repo": "flake-utils-plus",
         "type": "github"
       }

@@ -1,7 +1,7 @@
 {
   inputs = {
     # utils.url = "github:gytis-ivaskevicius/flake-utils-plus/master";
-    utils.url = "github:bbuscarino/flake-utils-plus/fix-darwin";
+    utils.url = "github:gytis-ivaskevicius/flake-utils-plus/pull/117/head";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
