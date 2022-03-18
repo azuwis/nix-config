@@ -11,8 +11,8 @@
   services.beesd.filesystems = {
     nixos = {
       spec = "/";
-      hashTableSizeMB = 256;
-      verbosity = "crit";
+      hashTableSizeMB = 128;
+      verbosity = "info";
       extraOptions = [ "--loadavg-target" "2.0" ];
     };
   };
