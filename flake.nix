@@ -34,6 +34,8 @@
         ./common.nix
         ./darwin.nix
         ./nixos.nix
+        ./hosts/nuc.nix
+        ./hosts/utm.nix
       ];
 
       hostDefaults = {
@@ -49,22 +51,13 @@
       };
 
       hosts.nuc = {
-        modules = [
-          # nixos-generate-config --show-hardware-config > nixos/nuc-hardware.nix
-          ./nixos/nuc-hardware.nix
-          ./nixos/nuc.nix
-          self.modules.nixos
-        ];
+        system = "x86_64-linux";
+        modules = with self.modules; [ nixos nuc ];
       };
 
       hosts.utm = {
         system = "aarch64-linux";
-        modules = [
-          # nixos-generate-config --show-hardware-config > nixos/utm-hardware.nix
-          ./nixos/utm-hardware.nix
-          ./nixos/utm.nix
-          self.modules.nixos
-        ];
+        modules = with self.modules; [ nixos utm ];
       };
 
     };

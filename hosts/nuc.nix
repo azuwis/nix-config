@@ -1,6 +1,10 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    # nixos-generate-config --show-hardware-config > nuc-hardware.nix
+    ./nuc-hardware.nix
+  ];
   fileSystems."/".options = [ "compress-force=zstd" ];
   fileSystems."/srv".options = [ "compress=zstd" ];
   networking.hostName = "nuc";
