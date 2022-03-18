@@ -40,12 +40,12 @@ self: super: {
     }.${super.pkgs.stdenv.hostPlatform.system};
   in super.yabai.overrideAttrs(
     o: rec {
-      version = "unstable-2022-01-30";
+      version = "4.0.0";
       src = super.fetchFromGitHub {
         owner = "koekeishiya";
         repo = "yabai";
-        rev = "916d9133f9d13fb38678baa3d0adf3cfb9dff003";
-        sha256 = "191d3nm05fss03lcrqrfzgsy0g01qa34d3s4kvby3xqghda2wla4";
+        rev = "v${version}";
+        sha256 = "sha256-rllgvj9JxyYar/DTtMn5QNeBTdGkfwqDr7WT3MvHBGI=";
       };
       prePatch = ''
         substituteInPlace makefile ${replace};
