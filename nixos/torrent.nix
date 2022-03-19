@@ -4,12 +4,13 @@
   services.qbittorrent.enable = true;
   services.qbittorrent.config = ''
     [BitTorrent]
-    Session\Port=8999
+    Session\DefaultSavePath=/srv/torrent
     Session\GlobalDLSpeedLimit=15000
     Session\GlobalUPSpeedLimit=3072
     Session\MaxActiveDownloads=5
     Session\MaxActiveTorrents=100
     Session\MaxActiveUploads=100
+    Session\Port=8999
     Session\Preallocation=true
     Session\QueueingSystemEnabled=true
     Session\ValidateHTTPSTrackerCertificate=false
