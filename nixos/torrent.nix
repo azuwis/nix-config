@@ -14,6 +14,11 @@
     Session\QueueingSystemEnabled=true
     Session\ValidateHTTPSTrackerCertificate=false
 
+    [Network]
+    Proxy\IP=127.0.0.1
+    Proxy\Port=8082
+    Proxy\Type=HTTP
+
     [Preferences]
     WebUI\Address=127.0.0.1
     WebUI\Port=8080
@@ -23,4 +28,14 @@
   users.groups.qbittorrent.gid = 20000;
   users.users.${config.my.user}.extraGroups = [ config.services.qbittorrent.group ];
   networking.firewall.allowedTCPPorts = [ 8999 ];
+  systemd.services.torrent-ratio = {
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      User = config.services.qbittorrent.user;
+      Type = "simple";
+      Restart = "always";
+      ExecStart="${pkgs.torrent-ratio}/bin/torrent-ratio -v";
+    };
+  };
 }
