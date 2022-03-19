@@ -1,10 +1,27 @@
 { config, lib, pkgs, ... }:
 
+let
+  user = "torrent";
+  path = "/srv/torrent";
+in
+
 {
+  users.users.${user} = {
+    uid = 20000;
+    group = user;
+    shell = pkgs.bashInteractive;
+    home = config.services.qbittorrent.dataDir;
+    isSystemUser = true;
+  };
+  users.groups.${user}.gid = 20000;
+  users.users.${config.my.user}.extraGroups = [ user ];
+
   services.qbittorrent.enable = true;
+  services.qbittorrent.user = user;
+  services.qbittorrent.group = user;
   services.qbittorrent.config = ''
     [BitTorrent]
-    Session\DefaultSavePath=/srv/torrent
+    Session\DefaultSavePath=${path}
     Session\GlobalDLSpeedLimit=15000
     Session\GlobalUPSpeedLimit=3072
     Session\MaxActiveDownloads=5
@@ -25,15 +42,13 @@
     WebUI\Port=8080
     WebUI\UseUPnP=false
   '';
-  users.users.qbittorrent.uid = 20000;
-  users.groups.qbittorrent.gid = 20000;
-  users.users.${config.my.user}.extraGroups = [ config.services.qbittorrent.group ];
   networking.firewall.allowedTCPPorts = [ 8999 ];
+
   systemd.services.torrent-ratio = {
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
-      User = config.services.qbittorrent.user;
+      User = user;
       Type = "simple";
       Restart = "always";
       ExecStart="${pkgs.torrent-ratio}/bin/torrent-ratio -v";
