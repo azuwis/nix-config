@@ -33,6 +33,7 @@ self: super: {
   # sketchybar = super.callPackage ./pkgs/sketchybar {
   #   inherit (super.darwin.apple_sdk.frameworks) Carbon Cocoa SkyLight;
   # };
+  torrent-ratio = super.callPackage ./pkgs/torrent-ratio { };
   yabai = let
     replace = {
       "aarch64-darwin" = "--replace '-arch x86_64' ''";
