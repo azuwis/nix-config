@@ -5,6 +5,7 @@ with lib;
 let
 
   cfg = config.services.qbittorrent;
+  configFile = pkgs.writeText "qBittorrent.conf" cfg.config;
 
 in {
   options.services.qbittorrent = {
@@ -43,21 +44,23 @@ in {
       '';
     };
 
-    port = mkOption {
-      type = types.port;
-      default = 8999;
+    config = mkOption {
+      type = types.lines;
+      default = "";
+      example = literalExpression ''
+        [BitTorrent]
+        Session\Port=8999
+
+        [Preferences]
+        WebUI\Address=127.0.0.1
+        WebUI\Port=8080
+      '';
       description = ''
-        The qBittorrent port.
+        The config to be merged into <filename>$XDG_CONFIG_HOME/qBittorrent/qBittorrent.conf</filename>.
+        Beware removing lines from this option will NOT effect qBittorrent.conf, only adding and changing will do.
       '';
     };
 
-    openFirewall = mkOption {
-      type = types.bool;
-      default = false;
-      description = ''
-        Whether to open the firewall for the port in <option>services.qbittorrent.port</option>.
-      '';
-    };
   };
 
   config = mkIf cfg.enable {
@@ -76,8 +79,6 @@ in {
       };
     };
 
-    networking.firewall.allowedTCPPorts = mkIf (cfg.openFirewall) [ cfg.port ];
-
     systemd = {
       services = {
         qbittorrent = {
@@ -92,11 +93,16 @@ in {
             Restart = "on-failure";
             WorkingDirectory = cfg.dataDir;
             ExecStart="${cfg.package}/bin/qbittorrent-nox";
+          } // lib.optionalAttrs (cfg.config != "") {
+            ExecStartPre = ''${pkgs.bash}/bin/bash -c "${pkgs.crudini}/bin/crudini --merge ${cfg.dataDir}/.config/qBittorrent/qBittorrent.conf < ${configFile}"'';
           };
         };
       };
 
-      tmpfiles.rules = [ "d '${cfg.dataDir}' 0750 ${cfg.user} ${cfg.group} -" ];
+      tmpfiles.rules = [
+        "d '${cfg.dataDir}' 0750 ${cfg.user} ${cfg.group} -"
+        "d '${cfg.dataDir}/.config/qBittorrent' 0755 ${cfg.user} ${cfg.group} -"
+      ];
     };
   };
 }
