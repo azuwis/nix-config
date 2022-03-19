@@ -54,4 +54,10 @@ in
       ExecStart="${pkgs.torrent-ratio}/bin/torrent-ratio -v";
     };
   };
+
+  services.samba.shares.torrent = {
+    inherit path;
+    browseable = "no";
+    "valid users" = user;
+  };
 }
