@@ -6,7 +6,7 @@
       #!${runtimeShell}
       if [ "$1" = "u" ]
       then
-        args=(--update-input nixos --update-input nixosHm)
+        args=(--update-input home --update-input nixpkgs --update-input utils)
       else
         args=("$@")
       fi

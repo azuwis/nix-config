@@ -8,12 +8,12 @@
       if [ "$1" = "u" ]
       shift
       then
-        args=(--update-input darwin --update-input darwinHm)
+        args=(--update-input darwin --update-input home --update-input utils)
         if [ -n "$1" ]
         then
-          args+=(--override-input darwinNixpkgs "github:NixOS/nixpkgs/$1")
+          args+=(--override-input nixpkgs "github:NixOS/nixpkgs/$1")
         else
-          args+=(--update-input darwinNixpkgs)
+          args+=(--update-input nixpkgs)
         fi
         nix flake lock ''${args[@]}
         shift
