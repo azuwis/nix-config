@@ -4,8 +4,9 @@
   imports = [
     # nixos-generate-config --show-hardware-config > nuc-hardware.nix
     ./nuc-hardware.nix
-    ../nixos/torrent.nix
     ../nixos/samba.nix
+    ../nixos/sway.nix
+    ../nixos/torrent.nix
   ];
   fileSystems."/".options = [ "compress-force=zstd" ];
   fileSystems."/srv".options = [ "compress=zstd" ];
