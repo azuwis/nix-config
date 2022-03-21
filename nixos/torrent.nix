@@ -3,6 +3,7 @@
 let
   user = "torrent";
   path = "/srv/torrent";
+  inherit (config.my) domain;
 in
 
 {
@@ -39,10 +40,37 @@ in
 
     [Preferences]
     WebUI\Address=127.0.0.1
+    WebUI\CSRFProtection=false
     WebUI\Port=8080
     WebUI\UseUPnP=false
   '';
   networking.firewall.allowedTCPPorts = [ 8999 ];
+
+  services.nginx.virtualHosts.torrent = {
+    serverName = "q.${domain}";
+    onlySSL = true;
+    useACMEHost = "default";
+    locations."/".proxyPass = "http://127.0.0.1:8080";
+  };
+
+  services.nginx.virtualHosts.vuetorrent = let
+    vuetorrent = pkgs.fetchzip {
+      url = "https://github.com/WDaan/VueTorrent/releases/download/v0.15.3/vuetorrent.zip";
+      sha256 = "sha256-IcgGL9u+nSIBT/tebXkmqXwvCbb0Q3U1OPtVuHo9a1M=";
+    };
+  in {
+    serverName = "v.${domain}";
+    onlySSL = true;
+    useACMEHost = "default";
+    root = "${vuetorrent}/public";
+    locations."/api".proxyPass = "http://127.0.0.1:8080";
+  };
+
+  services.samba.shares.torrent = {
+    inherit path;
+    browseable = "no";
+    "valid users" = user;
+  };
 
   systemd.services.torrent-ratio = {
     after = [ "network.target" ];
@@ -53,11 +81,5 @@ in
       Restart = "always";
       ExecStart="${pkgs.torrent-ratio}/bin/torrent-ratio -v";
     };
-  };
-
-  services.samba.shares.torrent = {
-    inherit path;
-    browseable = "no";
-    "valid users" = user;
   };
 }
