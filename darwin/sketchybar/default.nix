@@ -45,7 +45,6 @@ in
         padding_right=10 \
         color="$bar_color" \
       --default \
-        cache_scripts=on \
         icon.font="$icon_font" \
         icon.color="$icon_color" \
         icon.highlight_color="$icon_highlight_color" \
