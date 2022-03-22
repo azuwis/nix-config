@@ -64,6 +64,10 @@ in
       --set load icon="􀍽" script="${scripts}/window-indicator.sh" \
       --subscribe load space_change \
       --add item network right \
+      --add item input right \
+      --add event input_change 'AppleSelectedInputSourcesChangedNotification' \
+      --subscribe input input_change \
+      --set input script="${scripts}/input.sh" label.padding_right=-8 \
       --default \
         icon.padding_left=0 \
         icon.padding_right=2 \
