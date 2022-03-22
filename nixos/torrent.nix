@@ -3,6 +3,7 @@
 let
   user = "torrent";
   path = "/srv/torrent";
+  port = "8080";
   inherit (config.my) domain;
 in
 
@@ -41,7 +42,7 @@ in
     [Preferences]
     WebUI\Address=127.0.0.1
     WebUI\CSRFProtection=false
-    WebUI\Port=8080
+    WebUI\Port=${port}
     WebUI\UseUPnP=false
   '';
   networking.firewall.allowedTCPPorts = [ 8999 ];
@@ -50,7 +51,7 @@ in
     serverName = "q.${domain}";
     onlySSL = true;
     useACMEHost = "default";
-    locations."/".proxyPass = "http://127.0.0.1:8080";
+    locations."/".proxyPass = "http://127.0.0.1:${port}";
   };
 
   services.nginx.virtualHosts.vuetorrent = let
@@ -63,7 +64,7 @@ in
     onlySSL = true;
     useACMEHost = "default";
     root = "${vuetorrent}/public";
-    locations."/api".proxyPass = "http://127.0.0.1:8080";
+    locations."/api".proxyPass = "http://127.0.0.1:${port}";
   };
 
   services.samba.shares.torrent = {
