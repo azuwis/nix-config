@@ -15,5 +15,6 @@
     compsize
     efibootmgr
     iotop-c
+    nixos-option
   ];
 }
