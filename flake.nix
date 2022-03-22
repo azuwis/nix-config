@@ -24,7 +24,7 @@
       overlays = exportOverlays {
         inherit (self) pkgs inputs;
       };
-      sharedOverlays = [ self.overlay ];
+      sharedOverlays = [ self.overlay utils.overlay ];
 
       outputsBuilder = channels: {
         packages = exportPackages self.overlays channels;

@@ -10,6 +10,7 @@
     diffutils
     file
     findutils
+    fup-repl
     gawk
     gnugrep
     gnupg
