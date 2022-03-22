@@ -54,6 +54,9 @@ in
         label.highlight_color="$label_highlight_color" \
         icon.padding_left=10 \
         icon.padding_right=6 \
+      --add item title center \
+      --set title script='sketchybar --set "$NAME" label="$INFO"' \
+      --subscribe title front_app_switched \
       --add item clock right \
       --set clock update_freq=10 script="${scripts}/status.sh" icon.padding_left=2 \
       --add item battery right \
