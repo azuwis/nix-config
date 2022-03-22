@@ -3,11 +3,11 @@ self: super: {
   anime4k = super.callPackage ./pkgs/anime4k { };
   emacsMac = (super.emacs.override { srcRepo = true; nativeComp = false; }).overrideAttrs (
     o: rec {
-      version = "unstable-2022-01-08";
+      version = "unstable-2022-03-12";
       src = super.fetchgit {
         url = "https://github.com/emacs-mirror/emacs.git";
-        rev = "d193801f59822554d28e497da146d982f5ab7995"; # tags/emacs-2*
-        sha256 = "04jd742ys4saa0jxs6carn8wsidm38m7pdcryc42rb7y1a9l3zyf";
+        rev = "5ba9c8c364f652221a0ac9ed918a831e122581db"; # tags/emacs-2*
+        sha256 = "0gh2qqcsmjych3xazq5n6s430yfnc5k1hmc7vin6c2scnlswlbz0";
       };
       patches = [
         ./pkgs/emacs/fix-window-role.patch
