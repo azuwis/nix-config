@@ -11,7 +11,6 @@ in
   users.users.${user} = {
     uid = 20000;
     group = user;
-    shell = pkgs.bashInteractive;
     home = config.services.qbittorrent.dataDir;
     isSystemUser = true;
   };
