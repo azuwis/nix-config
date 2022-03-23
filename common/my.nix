@@ -9,6 +9,7 @@ with lib;
     email = mkOption { type = types.str; };
     uid = mkOption { type = types.int; };
     keys = mkOption { type = types.listOf types.singleLineStr; };
+    domain = mkOption { type = types.str; };
   };
   config = {
     my = {
