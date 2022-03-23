@@ -26,6 +26,7 @@
     netcat
     nix-tree
     openssh
+    openssl
     p7zip
     ripgrep
     rsync
