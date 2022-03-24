@@ -70,6 +70,9 @@ in
     '';
     locations."/" = {
       proxyPass = "http://127.0.0.1:8083";
+    };
+    locations."/api" = {
+      proxyPass = "http://127.0.0.1:8083/api";
       proxyWebsockets = true;
     };
   };
