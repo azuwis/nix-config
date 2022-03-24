@@ -93,9 +93,10 @@ in {
             Restart = "on-failure";
             WorkingDirectory = cfg.dataDir;
             ExecStart="${cfg.package}/bin/qbittorrent-nox";
-          } // lib.optionalAttrs (cfg.config != "") {
-            ExecStartPre = ''${pkgs.bash}/bin/bash -c "${pkgs.crudini}/bin/crudini --merge ${cfg.dataDir}/.config/qBittorrent/qBittorrent.conf < ${configFile}"'';
           };
+          preStart = lib.optionalString (cfg.config != "") ''
+            ${pkgs.crudini}/bin/crudini --merge ${cfg.dataDir}/.config/qBittorrent/qBittorrent.conf < ${configFile}
+          '';
         };
       };
 
