@@ -1,5 +1,9 @@
 { config, lib, pkgs, ...}:
 
+let
+ inherit (config.my) domain;
+in
+
 {
   services.mosquitto = {
     enable = true;
@@ -22,7 +26,6 @@
   services.zigbee2mqtt = {
     enable = true;
     settings = {
-      serial.disable_led = true;
       advanced = {
         channel = 26;
         last_seen = "ISO_8601_local";
@@ -49,6 +52,25 @@
         "0x00158d00024689f1" = { "friendly_name" = "plug"; };
         "0x00158d000287aa4d" = { "friendly_name" = "smoke"; };
       };
+      frontend = {
+        host = "127.0.0.1";
+        port = 8083;
+      };
+      serial.disable_led = true;
+    };
+  };
+
+  services.nginx.virtualHosts.zigbee2mqtt = {
+    serverName = "z.${domain}";
+    onlySSL = true;
+    useACMEHost = "default";
+    extraConfig = ''
+      ssl_client_certificate ${./ca.crt};
+      ssl_verify_client on;
+    '';
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:8083";
+      proxyWebsockets = true;
     };
   };
 }
