@@ -11,6 +11,14 @@
     }];
   };
 
+  # https://github.com/Koenkk/Z-Stack-firmware/tree/master/coordinator/Z-Stack_Home_1.2/bin/default
+  # https://github.com/zigpy/zigpy-znp/blob/dev/TOOLS.md
+  # nix shell --impure --expr 'with import <nixpkgs> {}; python3.withPackages(ps: [ps.zigpy-znp])'
+  # python3 -m zigpy_znp.tools.nvram_read -o nvram_backup.json /dev/ttyACM0
+  # python3 -m zigpy_znp.tools.network_backup -o network_backup.json /dev/ttyACM0
+  # python3 -m zigpy_znp.tools.flash_read -o firmware_backup.bin /dev/ttyACM0
+  # python3 -m zigpy_znp.tools.flash_write -i CC2531ZNP-Prod.bin /dev/ttyACM0
+  users.users.${config.my.user}.extraGroups = [ "dialout" ];
   services.zigbee2mqtt = {
     enable = true;
     settings = {
