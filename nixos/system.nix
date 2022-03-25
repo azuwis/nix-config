@@ -3,6 +3,7 @@
 {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
+  networking.useNetworkd = true;
   nix.settings.allowed-users = [ "${config.my.user}" ];
   security.sudo.wheelNeedsPassword = false;
   services.openssh = {
