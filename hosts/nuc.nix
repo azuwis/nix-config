@@ -6,6 +6,7 @@
     ./hardware-nuc.nix
     ../nixos/hass.nix
     ../nixos/nginx.nix
+    ../nixos/rpiplay.nix
     ../nixos/samba.nix
     ../nixos/sway.nix
     ../nixos/torrent.nix
