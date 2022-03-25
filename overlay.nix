@@ -21,6 +21,11 @@ self: super: {
     }
   );
   jetbrains-mono-nerdfont = super.callPackage ./pkgs/nerdfonts { font = "JetBrainsMono/Ligatures"; };
+  kitty = super.kitty.overrideAttrs (
+    o: rec {
+      patches = o.patches ++ super.lib.optionals super.stdenv.isDarwin [ ./pkgs/kitty/darwin.patch ];
+    }
+  );
   legacyfox = super.callPackage ./pkgs/legacyfox { };
   nibar = super.callPackage ./pkgs/nibar { };
   nixos-option = let
