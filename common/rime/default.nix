@@ -5,15 +5,15 @@ if builtins.hasAttr "hm" lib then
 let
   rime = {
     # /Library/Input\ Methods/Squirrel.app/Contents/SharedSupport
-    Darwin = {
+    darwin = {
       dir = "Library/Rime";
       deploy = "'/Library/Input Methods/Squirrel.app/Contents/MacOS/Squirrel' --reload";
     };
-    Linux = {
+    linux = {
       dir = ".local/share/fcitx5/rime";
       deploy = "fcitx-remote -r";
     };
-  }."${pkgs.stdenv.hostPlatform.uname.system}";
+  }.${pkgs.stdenv.hostPlatform.parsed.kernel.name};
 in
 
 {
