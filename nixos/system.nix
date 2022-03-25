@@ -12,6 +12,25 @@
     kbdInteractiveAuthentication = false;
     passwordAuthentication = false;
   };
+  # run `udevadm trigger` to apply immediately
+  services.udev.extraHwdb = ''
+    # General keyboard, swap capslock leftctrl
+    evdev:atkbd:dmi:*
+     KEYBOARD_KEY_1d=capslock
+     KEYBOARD_KEY_3a=leftctrl
+    
+    # Dell XPS13, swap leftmeta leftalt
+    evdev:atkbd:dmi:bvn*:bvr*:bd*:svnDell*:pnXPS13*:pvr*
+     KEYBOARD_KEY_38=leftmeta
+     KEYBOARD_KEY_db=leftalt
+    
+    # Logitech K400 Plus, swap leftmeta leftalt, swap capslock leftctrl
+    evdev:name:Logitech K400 Plus:dmi:*
+     KEYBOARD_KEY_70039=leftctrl
+     KEYBOARD_KEY_700e0=capslock
+     KEYBOARD_KEY_700e2=leftmeta
+     KEYBOARD_KEY_700e3=leftalt
+  '';
   # nix profile diff-closures --profile /nix/var/nix/profiles/system
   system.activationScripts.systemDiff = ''
     # show upgrade diff
