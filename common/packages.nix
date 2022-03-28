@@ -21,6 +21,7 @@
     imagemagick
     inetutils
     ipcalc
+    jq
     less
     man
     netcat
