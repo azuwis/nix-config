@@ -34,6 +34,7 @@
         ./common.nix
         ./darwin.nix
         ./nixos.nix
+        ./nixos/desktop.nix
         ./hosts/nuc.nix
         ./hosts/utm.nix
       ];
@@ -52,7 +53,7 @@
 
       hosts.nuc = {
         system = "x86_64-linux";
-        modules = with self.modules; [ nixos nuc ];
+        modules = with self.modules; [ nixos desktop nuc ];
       };
 
       hosts.utm = {
