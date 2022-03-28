@@ -15,6 +15,7 @@
     compsize
     efibootmgr
     iotop-c
+    netproc
     nixos-option
   ];
 }
