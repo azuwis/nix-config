@@ -56,8 +56,8 @@ self: super: {
   torrent-ratio = super.callPackage ./pkgs/torrent-ratio { };
   yabai = let
     replace = {
-      "aarch64-darwin" = "--replace '-arch x86_64' ''";
-      "x86_64-darwin" = "--replace '-arch arm64e' '' --replace '-arch arm64' ''";
+      aarch64-darwin = ''--replace "-arch x86_64" ""'';
+      x86_64-darwin = ''--replace "-arch arm64e" "" --replace "-arch arm64" ""'';
     }.${super.pkgs.stdenv.system};
   in super.yabai.overrideAttrs(
     o: rec {
