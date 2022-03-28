@@ -42,6 +42,7 @@ in
     WebUI\Address=127.0.0.1
     WebUI\CSRFProtection=false
     WebUI\Port=${port}
+    WebUI\SessionTimeout=86400
     WebUI\UseUPnP=false
   '';
   networking.firewall.allowedTCPPorts = [ 8999 ];
