@@ -1,20 +1,10 @@
-{ config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 
 let
  inherit (config.my) domain;
 in
 
 {
-  services.mosquitto = {
-    enable = true;
-    listeners = [{
-      address = "127.0.0.1";
-      settings = {
-        allow_anonymous = true;
-      };
-    }];
-  };
-
   # https://github.com/Koenkk/Z-Stack-firmware/tree/master/coordinator/Z-Stack_Home_1.2/bin/default
   # https://github.com/zigpy/zigpy-znp/blob/dev/TOOLS.md
   # nix shell --impure --expr 'with import <nixpkgs> {}; python3.withPackages(ps: [ps.zigpy-znp])'
@@ -65,7 +55,7 @@ in
     onlySSL = true;
     useACMEHost = "default";
     extraConfig = ''
-      ssl_client_certificate ${./ca.crt};
+      ssl_client_certificate ${../ca.crt};
       ssl_verify_client on;
     '';
     locations."/" = {
