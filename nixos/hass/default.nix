@@ -6,6 +6,7 @@ in
 
 {
   imports = [
+    ./light.nix
     ./mosquitto.nix
     ./zigbee2mqtt.nix
   ];
