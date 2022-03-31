@@ -13,6 +13,7 @@
       sudo nixos-rebuild switch --flake '/etc/nixos' ''${args[@]}
     '')
     compsize
+    dnsutils
     efibootmgr
     iotop-c
     netproc
