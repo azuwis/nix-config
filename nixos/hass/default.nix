@@ -6,6 +6,7 @@ in
 
 {
   imports = [
+    ./acpartner.nix
     ./light.nix
     ./mosquitto.nix
     ./zigbee2mqtt.nix
@@ -57,4 +58,8 @@ in
       proxyWebsockets = true;
     };
   };
+
+  systemd.tmpfiles.rules = [
+    "d ${config.services.home-assistant.configDir}/custom_components 0755 hass hass"
+  ];
 }
