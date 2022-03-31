@@ -24,7 +24,7 @@
     jq
     less
     man
-    netcat
+    netcat-gnu
     nix-tree
     openssh
     openssl
