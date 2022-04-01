@@ -320,10 +320,16 @@ views:
             service_data:
               message: This is a test message
       - type: entities
+        show_header_toggle: false
         entities:
-          - input_boolean.zigbee2mqtt_permit_join
-          - timer.zigbee2mqtt_permit_join
-          - input_select.zigbee2mqtt_log_level
+          - entity: sensor.zigbee2mqtt_bridge_state
+          - entity: sensor.zigbee2mqtt_version
+          - entity: sensor.coordinator_version
+          - entity: input_select.zigbee2mqtt_log_level
+          - type: divider
+          - entity: switch.zigbee2mqtt_main_join
+          - entity: input_number.zigbee2mqtt_join_minutes
+          - entity: timer.zigbee_permit_join
 
   - title: Debug
     path: debug
