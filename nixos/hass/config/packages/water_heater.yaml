@@ -1,0 +1,52 @@
+switch:
+  - platform: template
+    switches:
+      water_heater:
+        friendly_name: Water heater
+        value_template: >-
+          {{ state_attr('climate.ac_partner', 'load_power') | int > 100 }}
+        icon_template: mdi:fire
+        turn_on:
+          - &water_heater_condition
+            condition: template
+            value_template: >-
+              {{ state_attr('climate.ac_partner', 'load_power') | int < 100 }}
+          - &water_heater_heating
+            service: xiaomi_miio_airconditioningcompanion.climate_send_command
+            data:
+              command: FE00000000000000000000000006002E2254003600A901C403860D6D138832000100010100000001000000000100010000010101000101010101000100000001000001000101010001043205C4
+          - &water_heater_wait
+            delay: '00:00:03'
+          - &water_heater_update
+            service: homeassistant.update_entity
+            entity_id: climate.ac_partner
+          - *water_heater_condition
+          - &water_heater_power
+            service: xiaomi_miio_airconditioningcompanion.climate_send_command
+            data:
+              command: FE00000000000000000000000005002C2251003600A801C403841388320001000101000000010000000001000100000101010001010101000100000000010001000101010100010410
+          - &water_heater_delay
+            delay: '00:00:01'
+          - *water_heater_heating
+          - *water_heater_wait
+          - *water_heater_update
+          - *water_heater_condition
+          - *water_heater_power
+          - *water_heater_delay
+          - *water_heater_heating
+          - *water_heater_wait
+          - *water_heater_update
+          - *water_heater_condition
+          - condition: time
+            after: '16:29'
+            before: '16:31'
+          - service: notify.html5
+            data:
+              message: Failed to turn on water heater
+        turn_off:
+          - condition: template
+            value_template: >-
+              {{ state_attr('climate.ac_partner', 'load_power') | int > 100 }}
+          - *water_heater_heating
+          - *water_heater_wait
+          - *water_heater_update
