@@ -12,7 +12,7 @@ in
   };
 
   services.home-assistant.config.lovelace.mode = "yaml";
-  services.home-assistant.config.lovelace.resources = 
+  services.home-assistant.config.lovelace.resources =
   let
     mkModule = name:
     let
