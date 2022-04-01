@@ -10,4 +10,6 @@
       };
     }];
   };
+
+  services.home-assistant.config.mqtt = {};
 }

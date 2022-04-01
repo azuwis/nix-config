@@ -1,0 +1,159 @@
+# https://www.zigbee2mqtt.io/guide/usage/integrations/home_assistant.html#controlling-zigbee2mqtt-via-home-assistant
+# Input select for Zigbee2MQTT debug level
+input_select:
+  zigbee2mqtt_log_level:
+    name: Zigbee2MQTT Log Level
+    options:
+      - debug
+      - info
+      - warn
+      - error
+    initial: info
+    icon: mdi:format-list-bulleted
+
+# Input number for joining time remaining (in minutes)
+input_number:
+  zigbee2mqtt_join_minutes:
+    name: "Zigbee2MQTT join minutes"
+    initial: 2
+    min: 1
+    max: 5
+    step: 1
+    mode: slider
+
+# Input text to input Zigbee2MQTT friendly_name for scripts
+input_text:
+  zigbee2mqtt_old_name:
+    name: Zigbee2MQTT Old Name
+    initial: ""
+  zigbee2mqtt_new_name:
+    name: Zigbee2MQTT New Name
+    initial: ""
+  zigbee2mqtt_remove:
+    name: Zigbee2MQTT Remove
+    initial: ""
+
+# Input boolean to set the force remove flag for devices
+input_boolean:
+  zigbee2mqtt_force_remove:
+    name: Zigbee2MQTT Force Remove
+    initial: false
+    icon: mdi:alert-remove
+
+# Scripts for renaming & removing devices
+script:
+  zigbee2mqtt_rename:
+    alias: Zigbee2MQTT Rename
+    sequence:
+      service: mqtt.publish
+      data_template:
+        topic: zigbee2mqtt/bridge/request/device/rename
+        payload_template: >-
+          {
+            "from": "{{ states.input_text.zigbee2mqtt_old_name.state | string }}",
+            "to": "{{ states.input_text.zigbee2mqtt_new_name.state | string }}"
+          }
+  zigbee2mqtt_remove:
+    alias: Zigbee2MQTT Remove
+    sequence:
+      service: mqtt.publish
+      data_template:
+        topic: zigbee2mqtt/bridge/request/device/remove
+        payload_template: >-
+          {
+            "id": "{{ states.input_text.zigbee2mqtt_remove.state | string }}",
+            "force": {% if states.input_boolean.zigbee2mqtt_force_remove.state == "off" %}false{% else %}true{% endif %}
+          }
+
+# Timer for joining time remaining (120 sec = 2 min)
+timer:
+  zigbee_permit_join:
+    name: Time remaining
+    duration: 120
+
+sensor:
+  # Sensor for monitoring the bridge state
+  - platform: mqtt
+    name: Zigbee2MQTT Bridge state
+    state_topic: "zigbee2mqtt/bridge/state"
+    icon: mdi:router-wireless
+  # Sensor for Showing the Zigbee2MQTT Version
+  - platform: mqtt
+    name: Zigbee2MQTT Version
+    state_topic: "zigbee2mqtt/bridge/info"
+    value_template: "{{ value_json.version }}"
+    icon: mdi:zigbee
+  # Sensor for Showing the Coordinator Version
+  - platform: mqtt
+    name: Coordinator Version
+    state_topic: "zigbee2mqtt/bridge/info"
+    value_template: "{{ value_json.coordinator }}"
+    icon: mdi:chip
+
+# Switch for enabling joining
+switch:
+  - platform: mqtt
+    name: "Zigbee2MQTT Main join"
+    state_topic: "zigbee2mqtt/bridge/info"
+    value_template: '{{ value_json.permit_join | lower }}'
+    command_topic: "zigbee2mqtt/bridge/request/permit_join"
+    payload_on: "true"
+    payload_off: "false"
+
+automation:
+  # Automation for sending MQTT message on input select change
+  - alias: Zigbee2MQTT Log Level
+    initial_state: "on"
+    trigger:
+      platform: state
+      entity_id: input_select.zigbee2mqtt_log_level
+    action:
+      - service: mqtt.publish
+        data:
+          payload_template: "{{ states('input_select.zigbee2mqtt_log_level') }}"
+          topic: zigbee2mqtt/bridge/request/config/log_level
+  # Automation to start timer when enable join is turned on
+  - id: zigbee_join_enabled
+    alias: Zigbee Join Enabled
+    trigger:
+      platform: state
+      entity_id: switch.zigbee2mqtt_main_join
+      to: "on"
+    action:
+      service: timer.start
+      entity_id: timer.zigbee_permit_join
+      data_template:
+        duration: "{{ '00:0%i:00' % (states('input_number.zigbee2mqtt_join_minutes') | int ) }}"
+  # Automation to stop timer when switch turned off and turn off switch when timer finished
+  - id: zigbee_join_disabled
+    alias: Zigbee Join Disabled
+    trigger:
+      - platform: event
+        event_type: timer.finished
+        event_data:
+          entity_id: timer.zigbee_permit_join
+      - platform: state
+        entity_id: switch.zigbee2mqtt_main_join
+        to: "off"
+    action:
+      - service: timer.cancel
+        data:
+          entity_id: timer.zigbee_permit_join
+      - service: switch.turn_off
+        entity_id: switch.zigbee2mqtt_main_join
+  - id: "zigbee2mqtt_create_notification_on_successful_interview"
+    alias: Zigbee Device Joined Notification
+    trigger:
+      platform: mqtt
+      topic: 'zigbee2mqtt/bridge/event'
+    condition:
+      condition: template
+      value_template: '{{trigger.payload_json.type == "device_interview" and trigger.payload_json.data.status == "successful" and trigger.payload_json.data.supported}}'
+    action:
+      - service: persistent_notification.create
+        data_template:
+          title: Device joined the Zigbee2MQTT network
+          message: "Name: {{trigger.payload_json.data.friendly_name}},
+                    Vendor: {{trigger.payload_json.data.definition.vendor}},
+                    Model: {{trigger.payload_json.data.definition.model}},
+                    Description: {{trigger.payload_json.data.definition.description}}"

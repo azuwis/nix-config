@@ -27,6 +27,7 @@ in
       longitude = "!secret longitude";
       elevation = "!secret elevation";
       customize_domain.climate.icon = "mdi:air-conditioner";
+      packages = "!include_dir_named packages";
     };
     frontend.themes = {
       custom = {
@@ -59,7 +60,8 @@ in
     };
   };
 
-  systemd.tmpfiles.rules = [
-    "d ${config.services.home-assistant.configDir}/custom_components 0755 hass hass"
+  systemd.tmpfiles.rules = let inherit (config.services.home-assistant) configDir; in [
+    "d ${configDir}/custom_components 0755 hass hass"
+    "d ${configDir}/packages 0755 hass hass"
   ];
 }
