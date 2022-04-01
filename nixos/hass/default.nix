@@ -8,6 +8,7 @@ in
   imports = [
     ./acpartner.nix
     ./light.nix
+    ./lovelace.nix
     ./mqtt.nix
     ./zigbee2mqtt.nix
   ];

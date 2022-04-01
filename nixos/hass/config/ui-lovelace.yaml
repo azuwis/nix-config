@@ -1,0 +1,344 @@
+title: Home
+
+views:
+  - title: Home
+    path: home
+    icon: mdi:view-grid
+    cards:
+      - type: picture-elements
+        image: /local/floorplan.png?v=3
+        elements:
+          # living room
+          - type: custom:state-icon
+            entity: sensor.plug_power
+            icon: mdi:piano
+            style:
+              top: 33%
+              left: 35%
+          - type: state-icon
+            entity: binary_sensor.motion_living_room
+            style:
+              top: 48%
+              left: 41%
+          - type: state-icon
+            entity: binary_sensor.motion_sofas
+            style:
+              top: 15%
+              left: 50%
+          - type: state-icon
+            entity: binary_sensor.motion_dining_room
+            style:
+              top: 53%
+              left: 77%
+          - type: state-icon
+            entity: light.living_room
+            hold_action:
+              action: call-service
+              service: switch.toggle
+              service_data:
+                entity_id: switch.light_living_room
+            double_tap_action:
+              action: call-service
+              service: light.toggle
+              service_data:
+                entity_id: light.living_room_ambilight
+            style:
+              top: 33%
+              left: 50%
+          - type: custom:state-icon
+            entity: media_player.tv
+            hold_action:
+              action: toggle
+            style:
+              top: 54%
+              left: 50%
+          # living room balcony
+          - type: state-icon
+            entity: switch.water_heater
+            hold_action:
+              action: toggle
+            style:
+              top: 17%
+              left: 22%
+          # bedroom
+          - type: state-icon
+            entity: binary_sensor.door_bedroom
+            style:
+              top: 64.8%
+              left: 29.5%
+          - type: state-icon
+            entity: light.bedroom
+            hold_action:
+              action: toggle
+            style:
+              top: 71%
+              left: 18%
+          - type: custom:state-icon
+            entity: climate.bedroom
+            hold_action:
+              action: toggle
+            style:
+              top: 83%
+              left: 34%
+          - type: state-label
+            entity: sensor.ht_bedroom_temperature
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/history
+            hold_action:
+              action: more-info
+            style:
+              top: 90%
+              left: 12.5%
+          - type: state-label
+            entity: sensor.ht_bedroom_humidity
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/history
+            hold_action:
+              action: more-info
+            style:
+              top: 85%
+              left: 12%
+          # people
+          - type: state-icon
+            entity: camera.living_room
+            style:
+              top: 90%
+              left: 87%
+          - type: image
+            entity: device_tracker.device_1
+            image: /local/device_1.jpg
+            state_filter:
+              not_home: grayscale(100%)
+              work: grayscale(100%)
+            style:
+              top: 85%
+              left: 95%
+              width: 5%
+              border-radius: 50%
+          - type: image
+            entity: device_tracker.device_2
+            image: /local/device_2.jpg
+            state_filter:
+              not_home: grayscale(100%)
+            style:
+              top: 93%
+              left: 95%
+              width: 5%
+              border-radius: 50%
+          # kitchen
+          - type: state-icon
+            entity: binary_sensor.smoke_smoke
+            style:
+              top: 44%
+              left: 77%
+          - type: state-icon
+            entity: light.kitchen
+            style:
+              top: 50%
+              left: 82%
+          # outside
+          - type: state-label
+            entity: sensor.dark_sky_apparent_temperature
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/history
+            hold_action:
+              action: more-info
+            style:
+              top: 72%
+              left: 90.3%
+          - type: state-label
+            entity: sensor.dark_sky_humidity
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/history
+            hold_action:
+              action: more-info
+            style:
+              top: 67%
+              left: 89.6%
+          - type: state-label
+            entity: !secret air_sensor
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/history
+            hold_action:
+              action: more-info
+            style:
+              top: 77%
+              left: 89.8%
+
+      - type: custom:glance-card
+        show_name: no
+        show_state: no
+        columns: 8
+        entities:
+          - entity: light.living_room
+            name: Living room
+            tap_action:
+              action: call-service
+              service: switch.toggle
+              service_data:
+                entity_id: switch.light_living_room
+          - entity: light.bedroom
+            tap_action:
+              action: toggle
+          - entity: switch.plug_switch
+            icon: mdi:piano
+            tap_action:
+              action: toggle
+          - entity: switch.water_heater
+            tap_action:
+              action: toggle
+          - entity: climate.bedroom
+            tap_action:
+              action: toggle
+          - entity: media_player.tv
+            tap_action:
+              action: toggle
+          - entity: switch.moonlight_living_room
+            tap_action:
+              action: toggle
+          - entity: switch.moonlight_bedroom
+            tap_action:
+              action: toggle
+
+      - type: conditional
+        conditions:
+          - entity: media_player.tv
+            state: 'on'
+        card:
+          type: custom:mini-media-player
+          entity: media_player.tv
+          hide_controls: yes
+          power_color: yes
+          show_source: small
+          # - type: custom:mini-media-player
+          #   entity: media_player.vlc
+          #   hide_controls: yes
+          #   hide_power: yes
+          #   group: yes
+          #   show_tts: google
+
+      - type: conditional
+        conditions:
+          - entity: climate.bedroom
+            state_not: 'off'
+          - entity: climate.bedroom
+            state_not: 'unavailable'
+        card:
+          type: custom:simple-thermostat
+          entity: climate.bedroom
+          step_size: 1
+          sensors:
+            - entity: sensor.ht_bedroom_humidity
+              name: Humidity
+
+      - type: conditional
+        conditions:
+          - entity: weather.hangzhou
+            state_not: dummy
+        card:
+          type: weather-forecast
+          entity: weather.hangzhou
+
+  - title: History
+    path: history
+    icon: mdi:chart-line
+    panel: yes
+    cards:
+      - type: history-graph
+        refresh_interval: 60
+        entities:
+          - entity: sensor.ht_bedroom_temperature
+            name: Bedroom
+          - entity: sensor.ht_bedroom_humidity
+            name: Bedroom
+          - entity: sensor.dark_sky_apparent_temperature
+            name: Outside
+          - entity: sensor.dark_sky_humidity
+            name: Outside
+          - entity: !secret air_sensor
+            name: !secret air_name
+
+  - title: Map
+    path: map
+    icon: mdi:map
+    panel: yes
+    cards:
+      - type: map
+        entities:
+          - device_tracker.device_1
+          - device_tracker.device_2
+          - zone.home
+          - zone.work
+        hours_to_show: 24
+
+  - title: Settings
+    path: settings
+    icon: mdi:cog
+    cards:
+      - type: entities
+        entities:
+          - type: call-service
+            name: Hass reload groups
+            icon: mdi:home-assistant
+            action_name: Groups
+            service: group.reload
+            service_data: {}
+          - type: call-service
+            name: Hass reload scripts
+            icon: mdi:home-assistant
+            action_name: Scripts
+            service: script.reload
+            service_data: {}
+          - type: call-service
+            name: Hass reload automations
+            icon: mdi:home-assistant
+            action_name: Autos
+            service: automation.reload
+            service_data: {}
+          - type: call-service
+            name: Hass reload core
+            icon: mdi:home-assistant
+            action_name: Core
+            service: homeassistant.reload_core_config
+            service_data: {}
+          - type: call-service
+            name: Hass restart
+            icon: mdi:home-assistant
+            action_name: Restart
+            service: homeassistant.restart
+            service_data: {}
+          - type: call-service
+            name: Test notification
+            icon: mdi:message-text
+            action_name: Test
+            service: notify.html5
+            service_data:
+              message: This is a test message
+      - type: entities
+        entities:
+          - input_boolean.zigbee2mqtt_permit_join
+          - timer.zigbee2mqtt_permit_join
+          - input_select.zigbee2mqtt_log_level
+
+  - title: Debug
+    path: debug
+    icon: mdi:bug
+    # panel: yes
+    cards:
+      - type: history-graph
+        hours_to_show: 12
+        refresh_interval: 60
+        entities:
+          - sensor.climate_bedroom_mode
+          - sensor.climate_bedroom_temperature_change
+          - sensor.ht_climate_bedroom_temperature
+          - sensor.ht_bedroom_temperature
+      - type: "custom:zigbee2mqtt-networkmap"
+        entity: sensor.zigbee2mqtt_networkmap
+        height: 320
+        force: 2000
