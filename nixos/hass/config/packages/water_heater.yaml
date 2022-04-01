@@ -50,3 +50,36 @@ switch:
           - *water_heater_heating
           - *water_heater_wait
           - *water_heater_update
+
+automation:
+  - alias: Water heater
+    trigger:
+      - platform: time
+        at: '16:30:00'
+      - platform: time
+        at: '16:40:00'
+      - platform: time
+        at: '17:30:00'
+      - platform: time
+        at: '18:30:00'
+      - platform: time
+        at: '20:00:00'
+      - platform: time
+        at: '21:00:00'
+    action:
+      service: switch.turn_on
+      data:
+        entity_id: switch.water_heater
+
+  - alias: Water heater season
+    trigger:
+      platform: time
+      at: '22:00:00'
+    condition:
+      condition: template
+      value_template: >-
+        {{ not is_state('sensor.season', 'summer')  }}
+    action:
+      service: switch.turn_on
+      data:
+        entity_id: switch.water_heater
