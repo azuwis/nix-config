@@ -16,7 +16,7 @@ views:
               top: 33%
               left: 35%
           - type: state-icon
-            entity: binary_sensor.motion_living_room
+            entity: binary_sensor.motion_living_room_occupancy
             style:
               top: 48%
               left: 41%
@@ -26,7 +26,7 @@ views:
               top: 15%
               left: 50%
           - type: state-icon
-            entity: binary_sensor.motion_dining_room
+            entity: binary_sensor.motion_dining_room_occupancy
             style:
               top: 53%
               left: 77%
