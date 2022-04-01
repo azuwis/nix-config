@@ -66,8 +66,4 @@ in
       proxyWebsockets = true;
     };
   };
-
-  systemd.tmpfiles.rules = [
-    "L+ ${config.services.home-assistant.configDir}/packages/zigbee2mqtt.yaml - - - - ${./zigbee2mqtt.yaml}"
-  ];
 }

@@ -60,8 +60,11 @@ in
     };
   };
 
-  systemd.tmpfiles.rules = let inherit (config.services.home-assistant) configDir; in [
+  systemd.tmpfiles.rules = let
+    inherit (config.services.home-assistant) configDir;
+    hassConfig = ./config;
+    rules = map (x: "L+ ${configDir}/${x} - - - - ${hassConfig}/${x}") (builtins.attrNames (builtins.readDir hassConfig));
+  in [
     "d ${configDir}/custom_components 0755 hass hass"
-    "d ${configDir}/packages 0755 hass hass"
-  ];
+  ] ++ rules;
 }
