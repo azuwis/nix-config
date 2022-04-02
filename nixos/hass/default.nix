@@ -10,6 +10,7 @@ in
     ./light.nix
     ./lovelace.nix
     ./mqtt.nix
+    ./theme.nix
     ./zigbee2mqtt.nix
   ];
 
@@ -30,11 +31,7 @@ in
       customize_domain.climate.icon = "mdi:air-conditioner";
       packages = "!include_dir_named packages";
     };
-    frontend.themes = {
-      custom = {
-        state-icon-active-color = "#F57F17";
-      };
-    };
+    frontend = {};
     config = {};
     http = {
       server_host = "127.0.0.1";
