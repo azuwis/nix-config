@@ -11,6 +11,7 @@ in
     ./lovelace.nix
     ./mqtt.nix
     ./theme.nix
+    ./weather.nix
     ./zigbee2mqtt.nix
   ];
 
