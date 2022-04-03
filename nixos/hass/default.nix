@@ -7,12 +7,12 @@ in
 {
   imports = [
     ./acpartner.nix
-    ./aligenie.nix
     ./light.nix
     ./lovelace.nix
     ./mqtt.nix
     ./theme.nix
     ./weather.nix
+    ./zhibot.nix
     ./zigbee2mqtt.nix
   ];
 
