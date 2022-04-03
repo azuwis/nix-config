@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
- inherit (config.my) domain;
+  inherit (config.my) domain;
 in
 
 {
