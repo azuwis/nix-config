@@ -1,6 +1,22 @@
 self: super: {
   # pkgs
   anime4k = super.callPackage ./pkgs/anime4k { };
+  jetbrains-mono-nerdfont = super.callPackage ./pkgs/nerdfonts { font = "JetBrainsMono/Ligatures"; };
+  legacyfox = super.callPackage ./pkgs/legacyfox { };
+  nibar = super.callPackage ./pkgs/nibar { };
+  redsocks2 = super.callPackage ./pkgs/redsocks2 { };
+  rime-idvel = super.callPackage ./pkgs/rime-idvel { };
+  scripts = super.callPackage ./pkgs/scripts { };
+  sf-symbols = self.sf-symbols-minimal;
+  sf-symbols-app = super.callPackage ./pkgs/sf-symbols { app = true; fonts = false; };
+  sf-symbols-full = super.callPackage ./pkgs/sf-symbols { full = true; };
+  sf-symbols-minimal = super.callPackage ./pkgs/sf-symbols { };
+  # sketchybar = super.callPackage ./pkgs/sketchybar {
+  #   inherit (super.darwin.apple_sdk.frameworks) Carbon Cocoa SkyLight;
+  # };
+  torrent-ratio = super.callPackage ./pkgs/torrent-ratio { };
+
+  # override
   emacsMac = (super.emacs.override { srcRepo = true; nativeComp = false; }).overrideAttrs (
     o: rec {
       version = "unstable-2022-03-12";
@@ -20,14 +36,11 @@ self: super: {
       CFLAGS = "-DMAC_OS_X_VERSION_MAX_ALLOWED=110203 -g -O2";
     }
   );
-  jetbrains-mono-nerdfont = super.callPackage ./pkgs/nerdfonts { font = "JetBrainsMono/Ligatures"; };
   kitty = super.kitty.overrideAttrs (
     o: rec {
       patches = o.patches ++ super.lib.optionals super.stdenv.isDarwin [ ./pkgs/kitty/darwin.patch ];
     }
   );
-  legacyfox = super.callPackage ./pkgs/legacyfox { };
-  nibar = super.callPackage ./pkgs/nibar { };
   nixos-option = let
     flake-compact = super.fetchFromGitHub {
       owner = "edolstra";
@@ -43,17 +56,6 @@ self: super: {
       --add-flags --options_expr \
       --add-flags "\"${prefix}.options\""
   '';
-  redsocks2 = super.callPackage ./pkgs/redsocks2 { };
-  rime-idvel = super.callPackage ./pkgs/rime-idvel { };
-  scripts = super.callPackage ./pkgs/scripts { };
-  sf-symbols = self.sf-symbols-minimal;
-  sf-symbols-app = super.callPackage ./pkgs/sf-symbols { app = true; fonts = false; };
-  sf-symbols-full = super.callPackage ./pkgs/sf-symbols { full = true; };
-  sf-symbols-minimal = super.callPackage ./pkgs/sf-symbols { };
-  # sketchybar = super.callPackage ./pkgs/sketchybar {
-  #   inherit (super.darwin.apple_sdk.frameworks) Carbon Cocoa SkyLight;
-  # };
-  torrent-ratio = super.callPackage ./pkgs/torrent-ratio { };
   yabai = let
     replace = {
       aarch64-darwin = ''--replace "-arch x86_64" ""'';
