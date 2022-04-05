@@ -12,6 +12,7 @@
   nix.extraOptions = ''
     extra-platforms = x86_64-darwin
   '';
+  nix.package = pkgs.nix;
   launchd.daemons.activate-system.script = lib.mkOrder 0 ''
     wait4path /nix/store
   '';
