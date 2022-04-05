@@ -36,11 +36,6 @@ self: super: {
       CFLAGS = "-DMAC_OS_X_VERSION_MAX_ALLOWED=110203 -g -O2";
     }
   );
-  kitty = super.kitty.overrideAttrs (
-    o: rec {
-      patches = o.patches ++ super.lib.optionals super.stdenv.isDarwin [ ./pkgs/kitty/darwin.patch ];
-    }
-  );
   nixos-option = let
     flake-compact = super.fetchFromGitHub {
       owner = "edolstra";
