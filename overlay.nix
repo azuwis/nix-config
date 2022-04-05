@@ -19,11 +19,11 @@ self: super: {
   # override
   emacsMac = (super.emacs.override { srcRepo = true; nativeComp = false; }).overrideAttrs (
     o: rec {
-      version = "unstable-2022-03-12";
+      version = "28.1";
       src = super.fetchgit {
         url = "https://github.com/emacs-mirror/emacs.git";
-        rev = "5ba9c8c364f652221a0ac9ed918a831e122581db"; # tags/emacs-2*
-        sha256 = "0gh2qqcsmjych3xazq5n6s430yfnc5k1hmc7vin6c2scnlswlbz0";
+        rev = "5a223c7f2ef4c31abbd46367b6ea83cd19d30aa7"; # tags/emacs-2*
+        sha256 = "01mfwl6lh79f9icrfw07dns3g0nqwc06k6fm3gr45iv1bjgg0z8g";
       };
       patches = [
         ./pkgs/emacs/fix-window-role.patch
