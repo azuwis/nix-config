@@ -58,11 +58,9 @@ in
     # locations."/" = {
     locations."= /geniebot" = {
       proxyPass = "http://127.0.0.1:8123";
-      proxyWebsockets = true;
     };
     locations."~ ^/(aligenie/|genie2bot$)" = {
       proxyPass = "http://127.0.0.1:8123";
-      proxyWebsockets = true;
     };
   };
 }

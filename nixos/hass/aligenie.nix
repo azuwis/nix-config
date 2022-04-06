@@ -70,7 +70,6 @@ in
     # locations."/" = {
     locations."= /ali_genie_gate" = {
       proxyPass = "http://127.0.0.1:8123";
-      proxyWebsockets = true;
     };
   };
 }
