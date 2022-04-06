@@ -14,6 +14,7 @@ in
     ./weather.nix
     ./zhibot.nix
     ./zigbee2mqtt.nix
+    ./zigbee2mqtt-networkmap.nix
   ];
 
   services.home-assistant = {
