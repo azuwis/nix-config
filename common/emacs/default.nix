@@ -3,7 +3,8 @@
 if builtins.hasAttr "hm" lib then
 
 let
-  emacs = if pkgs.stdenv.isDarwin then pkgs.emacsMac else pkgs.emacs;
+  # emacs = if pkgs.stdenv.isDarwin then pkgs.emacsMac else pkgs.emacs;
+  emacs = pkgs.emacs;
 in
 
 {
