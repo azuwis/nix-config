@@ -13,49 +13,35 @@ in
 
 {
   services.home-assistant.config = {
-    zhibot = [{
-      platform = "genie";
-    }];
+    zhibot = [
+      {
+        platform = "genie";
+      }
+      {
+        platform = "genie2";
+        token = "!secret zhibot_token";
+        file = "!secret zhibot_file";
+        text = "!secret zhibot_text";
+      }
+    ];
     homeassistant.customize = {
-      "light.living_room" = {
-        hagenie_deviceName = "灯";
-        hagenie_deviceType = "light";
-        hagenie_zone = "客厅";
-      };
-      "media_player.tv" = {
-        hagenie_deviceName = "电视";
-        hagenie_deviceType = "television";
-        hagenie_zone = "客厅";
-      };
-      "switch.water_heater" = {
-        hagenie_deviceName = "热水器";
-        hagenie_deviceType = "waterheater";
-        hagenie_zone = "客厅";
+      "climate.bedroom" = {
+        friendly_name = "空调";
       };
       "light.bedroom" = {
-        hagenie_deviceName = "灯";
-        hagenie_deviceType = "light";
-        hagenie_zone = "卧室";
+        friendly_name = "卧室灯";
       };
-      "climate.bedroom" = {
-        hagenie_deviceName = "空调";
-        hagenie_deviceType = "aircondition";
-        hagenie_zone = "卧室";
-      };
-      "sensor.ht_bedroom_temperature" = {
-        hagenie_deviceName = "温度";
-        hagenie_deviceType = "sensor";
-        hagenie_zone = "卧室";
-      };
-      "sensor.ht_bedroom_humidity" = {
-        hagenie_deviceName = "湿度";
-        hagenie_deviceType = "sensor";
-        hagenie_zone = "卧室";
+      "light.living_room" = {
+        friendly_name = "客厅灯";
       };
       "light.kitchen" = {
-        hagenie_deviceName = "灯";
-        hagenie_deviceType = "light";
-        hagenie_zone = "厨房";
+        friendly_name = "厨房灯";
+      };
+      "media_player.tv" = {
+        friendly_name = "电视";
+      };
+      "switch.water_heater" = {
+        friendly_name = "热水器";
       };
     };
     logger.logs."custom_components.zhibot" = "debug";
@@ -71,6 +57,10 @@ in
     useACMEHost = "default";
     # locations."/" = {
     locations."= /geniebot" = {
+      proxyPass = "http://127.0.0.1:8123";
+      proxyWebsockets = true;
+    };
+    locations."~ ^/(aligenie/|genie2bot$)" = {
       proxyPass = "http://127.0.0.1:8123";
       proxyWebsockets = true;
     };
