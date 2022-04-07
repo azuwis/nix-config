@@ -17,6 +17,9 @@ in
     ./zigbee2mqtt-networkmap.nix
   ];
 
+  users.users.${config.my.user}.extraGroups = [ "hass" ];
+  systemd.services.home-assistant.serviceConfig.UMask = lib.mkForce "0027";
+
   services.home-assistant = {
     enable = true;
     # package = (pkgs.home-assistant.override {
