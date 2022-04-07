@@ -8,6 +8,7 @@
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.users.${config.my.user} = { imports = [
+        ./common/difftastic.nix
         ./common/direnv.nix
         ./common/git.nix
         ./common/gnupg.nix
