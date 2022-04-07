@@ -12,7 +12,8 @@ in
   # python3 -m zigpy_znp.tools.network_backup -o network_backup.json /dev/ttyACM0
   # python3 -m zigpy_znp.tools.flash_read -o firmware_backup.bin /dev/ttyACM0
   # python3 -m zigpy_znp.tools.flash_write -i CC2531ZNP-Prod.bin /dev/ttyACM0
-  users.users.${config.my.user}.extraGroups = [ "dialout" ];
+  users.users.${config.my.user}.extraGroups = [ "dialout" "zigbee2mqtt" ];
+  systemd.services.zigbee2mqtt.serviceConfig.UMask = lib.mkForce "0027";
   services.zigbee2mqtt = {
     enable = true;
     settings = {
