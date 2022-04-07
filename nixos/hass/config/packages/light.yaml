@@ -1,0 +1,119 @@
+switch:
+  - platform: template
+    switches:
+      light_living_room:
+        friendly_name: Light living room
+        value_template: >-
+          {{ is_state('light.living_room', 'on') }}
+        turn_on:
+          service: light.turn_on
+          data_template:
+            entity_id: light.living_room
+            brightness: >-
+              {% if now().hour >= 12 or state_attr('sun.sun', 'elevation') > 3 %}
+                255
+              {% else %}
+                1
+              {% endif %}
+            kelvin: >-
+              {% if now().hour >= 12 or state_attr('sun.sun', 'elevation') > 3 %}
+                6500
+              {% else %}
+                2700
+              {% endif %}
+        turn_off:
+          service: light.turn_off
+          data:
+            entity_id: light.living_room
+
+      moonlight_bedroom:
+        friendly_name: Moonlight bedroom
+        value_template: >-
+          {{ is_state('binary_sensor.bedroom_nightlight', 'on') and is_state('light.bedroom', 'on') }}
+        icon_template: mdi:weather-night
+        turn_on:
+          service: yeelight.set_mode
+          data:
+            entity_id: light.bedroom
+            mode: moonlight
+        turn_off:
+          service: yeelight.set_mode
+          data:
+            entity_id: light.bedroom
+            mode: normal
+
+      moonlight_living_room:
+        friendly_name: Moonlight living room
+        value_template: >-
+          {{ is_state('binary_sensor.living_room_nightlight', 'on') and is_state('light.living_room', 'on') }}
+        icon_template: mdi:weather-night
+        turn_on:
+          service: yeelight.set_mode
+          data:
+            entity_id: light.living_room
+            mode: moonlight
+        turn_off:
+          service: yeelight.set_mode
+          data:
+            entity_id: light.living_room
+            mode: normal
+
+automation:
+  - alias: Button a single
+    trigger:
+      platform: mqtt
+      topic: zigbee2mqtt/button_a
+    condition:
+      condition: template
+      value_template: >-
+        {{ trigger.payload_json.click == 'single' }}
+    action:
+      service: switch.toggle
+      data:
+        entity_id: switch.light_living_room
+
+  - alias: Button c single
+    trigger:
+      platform: mqtt
+      topic: zigbee2mqtt/button_c
+    condition:
+      condition: template
+      value_template: >-
+        {{ trigger.payload_json.click == 'single' }}
+    action:
+      service: light.toggle
+      data:
+        entity_id: light.bedroom
+
+  - alias: Button c long
+    trigger:
+      platform: mqtt
+      topic: zigbee2mqtt/button_c
+    condition:
+      condition: template
+      value_template: >-
+        {{ trigger.payload_json.click == 'long' }}
+    action:
+      service: switch.toggle
+      data:
+        entity_id: switch.light_living_room
+
+  - alias: Light living room set brightness when available
+    trigger:
+      - platform: state
+        entity_id: light.living_room
+        from: 'unavailable'
+        to: 'on'
+      - platform: numeric_state
+        entity_id: sun.sun
+        value_template: >-
+          {{ state.attributes.elevation }}
+        above: 3
+    condition:
+      condition: state
+      entity_id: light.living_room
+      state: 'on'
+    action:
+      service: switch.turn_on
+      data:
+        entity_id: switch.light_living_room
