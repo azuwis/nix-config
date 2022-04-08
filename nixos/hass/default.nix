@@ -17,8 +17,11 @@ in
     ./zigbee2mqtt-networkmap.nix
   ];
 
-  users.users.${config.my.user}.extraGroups = [ "hass" ];
+  # let my.user read data dir
+  # createHome will ensure dir mode 0700, disable it and let systemd tempfile manage
   systemd.services.home-assistant.serviceConfig.UMask = lib.mkForce "0027";
+  users.users.${config.my.user}.extraGroups = [ "hass" ];
+  users.users.hass.createHome = lib.mkForce false;
 
   services.home-assistant = {
     enable = true;
@@ -69,6 +72,7 @@ in
     hassConfig = ./config;
     rules = map (x: "L+ ${configDir}/${x} - - - - ${hassConfig}/${x}") (builtins.attrNames (builtins.readDir hassConfig));
   in [
+    "d ${configDir} 0750 hass hass"
     "d ${configDir}/custom_components 0755 hass hass"
   ] ++ rules;
 }
