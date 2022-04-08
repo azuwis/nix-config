@@ -12,8 +12,14 @@ in
   # python3 -m zigpy_znp.tools.network_backup -o network_backup.json /dev/ttyACM0
   # python3 -m zigpy_znp.tools.flash_read -o firmware_backup.bin /dev/ttyACM0
   # python3 -m zigpy_znp.tools.flash_write -i CC2531ZNP-Prod.bin /dev/ttyACM0
-  users.users.${config.my.user}.extraGroups = [ "dialout" "zigbee2mqtt" ];
+
+  # let my.user read data dir
+  # createHome will ensure dir mode 0700, disable it and let systemd tempfile manage
   systemd.services.zigbee2mqtt.serviceConfig.UMask = lib.mkForce "0027";
+  systemd.tmpfiles.rules = [ "d ${config.services.zigbee2mqtt.dataDir} 0750 zigbee2mqtt zigbee2mqtt" ];
+  users.users.${config.my.user}.extraGroups = [ "dialout" "zigbee2mqtt" ];
+  users.users.zigbee2mqtt.createHome = lib.mkForce false;
+
   services.zigbee2mqtt = {
     enable = true;
     settings = {
