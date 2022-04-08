@@ -2,12 +2,12 @@
 
 {
   imports = [
-    ./nixos/system.nix
-    ./modules/qbittorrent
+    ./system.nix
+    ../modules/qbittorrent
     inputs.home.nixosModules.home-manager
     {
       home-manager.users.${config.my.user} = { imports = [
-        ./nixos/packages.nix
+        ./packages.nix
       ]; };
     }
   ];

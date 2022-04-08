@@ -33,7 +33,7 @@
       modules = exportModules [
         ./common
         ./darwin.nix
-        ./nixos.nix
+        ./nixos
         ./nixos/desktop.nix
         ./hosts/nuc.nix
         ./hosts/utm.nix
