@@ -7,6 +7,7 @@ in
 {
   imports = [
     ./acpartner.nix
+    ./braviatv.nix
     ./light.nix
     ./lovelace.nix
     ./mqtt.nix
