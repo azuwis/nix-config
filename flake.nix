@@ -31,7 +31,7 @@
       };
 
       modules = exportModules [
-        ./common.nix
+        ./common
         ./darwin.nix
         ./nixos.nix
         ./nixos/desktop.nix
