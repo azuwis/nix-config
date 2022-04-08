@@ -2,5 +2,6 @@
 
 nix run nixpkgs#update-nix-fetchgit -- \
   common/neovim/nvchad.nix \
+  common/nix-index.nix \
   pkgs/rime-idvel/default.nix \
   pkgs/torrent-ratio/default.nix
