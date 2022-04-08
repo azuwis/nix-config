@@ -5,7 +5,7 @@
   xdg.configFile."alacritty/alacritty.yml".text = ''
     font:
       normal:
-        family: JetBrains Mono
+        family: JetBrainsMono Nerd Font
       size: 15.0
     window:
       decorations: buttonless
