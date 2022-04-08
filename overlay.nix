@@ -1,4 +1,4 @@
-self: super: {
+self: super: rec {
   # pkgs
   anime4k = super.callPackage ./pkgs/anime4k { };
   jetbrains-mono-nerdfont = super.callPackage ./pkgs/nerdfonts {
@@ -54,6 +54,12 @@ self: super: {
       --add-flags --options_expr \
       --add-flags "\"${prefix}.options\""
   '';
+  python3 = super.python3.override {
+    packageOverrides = python-self: python-super: {
+      pysonybraviapsk = python3Packages.callPackage ./pkgs/pysonybraviapsk { };
+    };
+  };
+  python3Packages = python3.pkgs;
   yabai = let
     replace = {
       aarch64-darwin = ''--replace "-arch x86_64" ""'';
