@@ -1,9 +1,8 @@
 { config, lib, pkgs, ... }:
 
 let
-  version = "0.7.0";
   js = pkgs.fetchurl {
-    url = "https://github.com/azuwis/zigbee2mqtt-networkmap/releases/download/v${version}/zigbee2mqtt-networkmap.js";
+    url = "https://github.com/azuwis/zigbee2mqtt-networkmap/releases/download/v0.7.0/zigbee2mqtt-networkmap.js";
     sha256 = "sha256-OB2MOzFtSwzmW1b1wxBrWvW2GXdzf80vD/p+t5TN2jE=";
   };
 in
@@ -17,7 +16,7 @@ in
 
   services.home-assistant.config = {
     lovelace.resources = [{
-      url = "/local/zigbee2mqtt-networkmap.js?v=${version}";
+      url = "/local/zigbee2mqtt-networkmap.js?v=${builtins.hashFile "md5" js}";
       type = "module";
     }];
     sensor = [{
