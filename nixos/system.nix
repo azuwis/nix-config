@@ -5,7 +5,7 @@
   boot.loader.efi.canTouchEfiVariables = false;
   networking.useDHCP = false;
   networking.useNetworkd = true;
-  nix.settings.allowed-users = [ "${config.my.user}" ];
+  # nix.settings.allowed-users = [ "${config.my.user}" ];
   security.sudo.wheelNeedsPassword = false;
   services.openssh = {
     enable = true;
