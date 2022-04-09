@@ -1,13 +1,13 @@
 { config, lib, pkgs, ... }:
 
 let
-  hassConfig = ./config;
+  www = ./www;
 in
 
 {
   services.nginx.virtualHosts.hass = {
     locations."/local/" = {
-      alias = "${hassConfig}/www/";
+      alias = "${www}/";
     };
   };
 
@@ -16,7 +16,7 @@ in
   let
     mkModule = name:
     let
-      hash = builtins.hashFile "md5" "${hassConfig}/www/${name}.js";
+      hash = builtins.hashFile "md5" "${www}/${name}.js";
     in {
       url = "/local/${name}.js?v=${hash}";
       type = "module";
