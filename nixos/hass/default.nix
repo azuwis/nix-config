@@ -10,6 +10,7 @@ in
     ./braviatv.nix
     ./light.nix
     ./lovelace.nix
+    ./mini-media-player.nix
     ./mqtt.nix
     ./theme.nix
     ./weather.nix
