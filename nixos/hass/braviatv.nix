@@ -11,19 +11,15 @@ let
 in
 
 {
+  home-manager.users.hass.home.file."custom_components/braviatv_psk".source = "${component}/custom_components/braviatv_psk";
+
   services.home-assistant.extraPackages = ps: [ pkgs.python3Packages.pysonybraviapsk ];
 
-  services.home-assistant.config = {
-    media_player = [{
-      platform = "braviatv_psk";
-      name = "TV";
-      host = "braviatv.lan";
-      mac = "!secret braviatv_mac";
-      psk = "!secret braviatv_psk";
-    }];
-  };
-
-  systemd.tmpfiles.rules = [
-    "L+ ${config.services.home-assistant.configDir}/custom_components/braviatv_psk - - - - ${component}/custom_components/braviatv_psk"
-  ];
+  services.home-assistant.config.media_player = [{
+    platform = "braviatv_psk";
+    name = "TV";
+    host = "braviatv.lan";
+    mac = "!secret braviatv_mac";
+    psk = "!secret braviatv_psk";
+  }];
 }

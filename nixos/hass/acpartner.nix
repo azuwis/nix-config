@@ -11,6 +11,8 @@ let
 in
 
 {
+  home-manager.users.hass.home.file."custom_components/xiaomi_miio_airconditioningcompanion".source = "${component}/custom_components/xiaomi_miio_airconditioningcompanion";
+
   services.home-assistant.extraPackages = python3Packages: with python3Packages; [ python-miio ];
 
   services.home-assistant.config = {
@@ -22,8 +24,4 @@ in
       target_sensor = "sensor.ht_bedroom_temperature";
     }];
   };
-
-  systemd.tmpfiles.rules = [
-    "L+ ${config.services.home-assistant.configDir}/custom_components/xiaomi_miio_airconditioningcompanion - - - - ${component}/custom_components/xiaomi_miio_airconditioningcompanion"
-  ];
 }

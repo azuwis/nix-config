@@ -74,6 +74,5 @@ in
     rules = map (x: "L+ ${configDir}/${x} - - - - ${hassConfig}/${x}") (builtins.attrNames (builtins.readDir hassConfig));
   in [
     "d ${configDir} 0750 hass hass"
-    "d ${configDir}/custom_components 0755 hass hass"
   ] ++ rules;
 }

@@ -12,6 +12,8 @@ let
 in
 
 {
+  home-manager.users.hass.home.file."custom_components/zhibot".source = "${component}/custom_components/zhibot";
+
   services.home-assistant.config = {
     zhibot = [
       {
@@ -46,10 +48,6 @@ in
     };
     logger.logs."custom_components.zhibot" = "debug";
   };
-
-  systemd.tmpfiles.rules = [
-    "L+ ${config.services.home-assistant.configDir}/custom_components/zhibot - - - - ${component}/custom_components/zhibot"
-  ];
 
   services.nginx.virtualHosts.zhibot = {
     serverName = "i.${domain}";
