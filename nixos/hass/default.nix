@@ -68,11 +68,16 @@ in
     };
   };
 
-  systemd.tmpfiles.rules = let
-    inherit (config.services.home-assistant) configDir;
+  systemd.tmpfiles.rules = [
+    "d ${config.services.home-assistant.configDir} 0750 hass hass"
+  ];
+
+  home-manager.users.hass.home.file = let
     hassConfig = ./config;
-    rules = map (x: "L+ ${configDir}/${x} - - - - ${hassConfig}/${x}") (builtins.attrNames (builtins.readDir hassConfig));
-  in [
-    "d ${configDir} 0750 hass hass"
-  ] ++ rules;
+    file = builtins.mapAttrs
+    (name: value: {
+      source = "${hassConfig}/${name}";
+    })
+    (builtins.readDir hassConfig);
+  in file;
 }
