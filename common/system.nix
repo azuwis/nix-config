@@ -10,6 +10,7 @@
   nix.generateNixPathFromInputs = true;
   nix.generateRegistryFromInputs = true;
   nix.linkInputs = true;
+  nix.package = pkgs.nix;
   programs.zsh.enable = true;
   time.timeZone = "Asia/Shanghai";
 }
