@@ -6,11 +6,11 @@
       #!${runtimeShell}
       if [ "$1" = "u" ]
       then
-        args=(--update-input droid --update-input droidHm --update-input droidNixpkgs)
+        args=(--update-input droid --update-input home --update-input nixpkgs --update-input utils)
       else
         args=("$@")
       fi
-      nix-on-droid switch --flake "$HOME/.config/nixpkgs/#device" ''${args[@]}
+      nix-on-droid switch --flake "$HOME/.config/nixpkgs/#droid" ''${args[@]}
     '')
   ];
 }

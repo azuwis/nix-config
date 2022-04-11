@@ -21,7 +21,47 @@
         "type": "github"
       }
     },
+    "droid": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "home-manager": [
+          "home"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1649660429,
+        "narHash": "sha256-Gvo9hu7fzCL2jyZA0BZqI/K2LFnTegBI30DF2GSzLZA=",
+        "owner": "azuwis",
+        "repo": "nix-on-droid",
+        "rev": "d3a6d2eaa78285295272fcffd9ed86debbb7eb36",
+        "type": "github"
+      },
+      "original": {
+        "owner": "azuwis",
+        "ref": "master",
+        "repo": "nix-on-droid",
+        "type": "github"
+      }
+    },
     "flake-utils": {
+      "locked": {
+        "lastModified": 1648297722,
+        "narHash": "sha256-W+qlPsiZd8F3XkzXOzAoR+mpFqzm3ekQkJNa+PIh1BQ=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "0f8662f1319ad6abf89b3380dd2722369fc51ade",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_2": {
       "locked": {
         "lastModified": 1644229661,
         "narHash": "sha256-1YdnJAsNy69bpcjuoKdOYQX0YxZBiCYZo4Twxerqv7k=",
@@ -76,6 +116,7 @@
     "root": {
       "inputs": {
         "darwin": "darwin",
+        "droid": "droid",
         "home": "home",
         "nixpkgs": "nixpkgs",
         "utils": "utils"
@@ -83,7 +124,7 @@
     },
     "utils": {
       "inputs": {
-        "flake-utils": "flake-utils"
+        "flake-utils": "flake-utils_2"
       },
       "locked": {
         "lastModified": 1647265934,
