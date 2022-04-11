@@ -6,8 +6,8 @@
     ./sway.nix
     {
       home-manager.users.${config.my.user} = { imports = [
+        ../common/mpv.nix
         ./fcitx5
-        ./mpv.nix
       ]; };
     }
   ];
