@@ -7,6 +7,7 @@
     {
       home-manager.users.${config.my.user} = { imports = [
         ./fcitx5
+        ./mpv.nix
       ]; };
     }
   ];

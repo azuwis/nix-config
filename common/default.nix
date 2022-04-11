@@ -12,7 +12,6 @@
         ./direnv.nix
         ./git.nix
         ./gnupg.nix
-        ./mpv.nix
         ./my.nix
         ./neovim
         ./nnn
