@@ -40,6 +40,7 @@
         ./nixos/desktop.nix
         ./hosts/nuc.nix
         ./hosts/utm.nix
+        ./hosts/hyperv.nix
       ];
 
       hostDefaults = {
@@ -62,6 +63,11 @@
       hosts.utm = {
         system = "aarch64-linux";
         modules = with self.modules; [ nixos utm ];
+      };
+
+      hosts.hyperv = {
+        system = "x86_64-linux";
+        modules = with self.modules; [ nixos hyperv ];
       };
 
       hosts.droid = {
