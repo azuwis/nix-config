@@ -26,6 +26,11 @@ if builtins.hasAttr "hm" lib then
       terminal = "footclient";
     };
   };
+
+  xsession.pointerCursor = {
+    name = "Vanilla-DMZ-AA";
+    package = pkgs.vanilla-dmz;
+  };
 }
 
 else
