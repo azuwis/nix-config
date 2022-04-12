@@ -3,12 +3,18 @@
 if builtins.hasAttr "hm" lib then
 
 {
+  home.packages = with pkgs; [
+    firefox-wayland
+    foot
+    pulsemixer
+  ];
+
   wayland.windowManager.sway = {
     enable = true;
     package = null;
     systemdIntegration = false;
     config = {
-      terminal = "${pkgs.foot}/bin/foot";
+      terminal = "foot";
     };
   };
 }
@@ -33,17 +39,32 @@ else
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
-    extraPackages = with pkgs; [
-      rofi-wayland
-    ];
     extraSessionCommands = ''
       export SDL_VIDEODRIVER=wayland
     '';
   };
 
-  environment.systemPackages = with pkgs; [
-    firefox-wayland
-    kitty
-    pulsemixer
-  ];
+  fonts = {
+    fonts = with pkgs; [
+      fira
+      jetbrains-mono-nerdfont
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
+      poly
+    ];
+    fontconfig.defaultFonts = {
+      sansSerif = [
+        "Fira Sans"
+        "Noto Sans CJK SC"
+      ];
+      serif = [
+        "Poly"
+        "Noto Serif CJK SC"
+      ];
+      monospace = [
+        "JetBrainsMono Nerd Font"
+        "Noto Sans Mono CJK SC"
+      ];
+    };
+  };
 }
