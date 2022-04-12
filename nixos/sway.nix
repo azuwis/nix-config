@@ -1,5 +1,20 @@
 { config, lib, pkgs, ...}:
 
+if builtins.hasAttr "hm" lib then
+
+{
+  wayland.windowManager.sway = {
+    enable = true;
+    package = null;
+    systemdIntegration = false;
+    config = {
+      terminal = "${pkgs.foot}/bin/foot";
+    };
+  };
+}
+
+else
+
 {
   services.greetd = {
     enable = true;
