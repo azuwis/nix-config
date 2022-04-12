@@ -5,16 +5,25 @@ if builtins.hasAttr "hm" lib then
 {
   home.packages = with pkgs; [
     firefox-wayland
-    foot
     pulsemixer
   ];
+
+  programs.foot = {
+    enable = true;
+    server.enable = true;
+    settings = {
+      main = {
+        font = "monospace:size=26";
+        dpi-aware = "yes";
+      };
+    };
+  };
 
   wayland.windowManager.sway = {
     enable = true;
     package = null;
-    systemdIntegration = false;
     config = {
-      terminal = "foot";
+      terminal = "footclient";
     };
   };
 }
