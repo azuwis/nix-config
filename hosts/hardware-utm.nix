@@ -29,6 +29,5 @@
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = lib.mkDefault false;
-  networking.interfaces.enp0s8.useDHCP = lib.mkDefault true;
 
 }
