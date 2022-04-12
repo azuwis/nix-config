@@ -1,8 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = false;
+  boot.loader.systemd-boot.enable = lib.mkDefault true;
   networking.useDHCP = false;
   networking.useNetworkd = true;
   # nix.settings.allowed-users = [ "${config.my.user}" ];
