@@ -28,6 +28,7 @@ if builtins.hasAttr "hm" lib then
     package = null;
     config = {
       terminal = "footclient";
+      gaps.smartBorders = "on";
     };
   };
 
