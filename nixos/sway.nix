@@ -13,8 +13,8 @@ if builtins.hasAttr "hm" lib then
     server.enable = true;
     settings = {
       main = {
-        font = "monospace:size=26";
         dpi-aware = "yes";
+        font = "monospace:size=12";
       };
     };
   };
