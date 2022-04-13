@@ -18,6 +18,8 @@
       { devices = [ "nodev" ]; path = "/boot3"; }
     ];
   };
+  # conflict with hyperv_drm, needed by sway
+  boot.blacklistedKernelModules = [ "hyperv_fb" ];
   fileSystems."/boot1" = { options = [ "defaults" "nofail" "x-systemd.device-timeout=5s" ]; };
   fileSystems."/boot2" = { options = [ "defaults" "nofail" "x-systemd.device-timeout=5s" ]; };
   fileSystems."/boot3" = { options = [ "defaults" "nofail" "x-systemd.device-timeout=5s" ]; };
