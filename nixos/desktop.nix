@@ -13,6 +13,13 @@
     ./sway.nix
   ];
 
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      vaapiIntel
+    ];
+  };
+
   services.greetd = {
     enable = true;
     settings = {
