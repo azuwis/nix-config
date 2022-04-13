@@ -3,6 +3,7 @@
 {
   imports = [
     ./fcitx5
+    ./fonts.nix
     ./sway.nix
     {
       home-manager.users.${config.my.user} = { imports = [
