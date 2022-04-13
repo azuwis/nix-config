@@ -23,20 +23,19 @@
     ./wireguard.nix
     ./yabai.nix
     inputs.home.darwinModules.home-manager
-    {
-      home-manager.users.${config.my.user} = { imports = [
-        ../common/alacritty.nix
-        ../common/emacs
-        ../common/firefox
-        ../common/mpv.nix
-        ../common/rime
-        ../common/zsh-ssh-agent.nix
-        ./firefox.nix
-        ./hmapps.nix
-        ./kitty.nix
-        ./packages.nix
-        ./skhd.nix
-      ]; };
-    }
+  ];
+
+  hm.imports = [
+    ../common/alacritty.nix
+    ../common/emacs
+    ../common/firefox
+    ../common/mpv.nix
+    ../common/rime
+    ../common/zsh-ssh-agent.nix
+    ./firefox.nix
+    ./hmapps.nix
+    ./kitty.nix
+    ./packages.nix
+    ./skhd.nix
   ];
 }

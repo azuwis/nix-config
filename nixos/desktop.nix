@@ -5,13 +5,12 @@
     ./fcitx5
     ./fonts.nix
     ./sway.nix
-    {
-      home-manager.users.${config.my.user} = { imports = [
-        ../common/mpv.nix
-        ./fcitx5
-        ./sway.nix
-      ]; };
-    }
+  ];
+
+  hm.imports = [
+    ../common/mpv.nix
+    ./fcitx5
+    ./sway.nix
   ];
 
   services.greetd = {
