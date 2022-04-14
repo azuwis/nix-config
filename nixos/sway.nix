@@ -4,7 +4,6 @@ if builtins.hasAttr "hm" lib then
 
 {
   home.packages = with pkgs; [
-    firefox-wayland
     pulsemixer
   ];
 

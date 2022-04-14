@@ -8,6 +8,7 @@
   ];
 
   hm.imports = [
+    ../common/firefox
     ../common/mpv.nix
     ./fcitx5
     ./sway.nix
