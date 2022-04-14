@@ -36,6 +36,8 @@ let
 
   firefox = pkgs.firefox-wayland.overrideAttrs(o: {
     buildCommand = o.buildCommand + ''
+      # conflict with legacyfox
+      rm $out/lib/firefox/defaults/pref/autoconfig.js
       lndir -silent ${pkgs.legacyfox} $out
     '';
   });
