@@ -28,6 +28,7 @@ if builtins.hasAttr "hm" lib then
     config = {
       terminal = "footclient";
       gaps.smartBorders = "on";
+      output."*".bg = "#2E3440 solid_color";
     };
   };
 
