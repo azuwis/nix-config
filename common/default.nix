@@ -21,4 +21,5 @@
     ./packages.nix
     ./zsh.nix
   ];
+  hm.home.stateVersion = "22.05";
 }
