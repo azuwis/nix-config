@@ -12,8 +12,8 @@ stdenvNoCC.mkDerivation rec {
   };
 
   installPhase = ''
-    mkdir $out/
-    cp -r defaults/ legacy/ config.js legacy.manifest $out/
+    mkdir -p $out/lib/firefox
+    cp -r defaults/ legacy/ config.js legacy.manifest $out/lib/firefox
   '';
 
   meta = with lib; {
