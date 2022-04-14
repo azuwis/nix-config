@@ -4,7 +4,7 @@ with lib;
 
 {
   imports = [
-    (mkAliasOptionModule [ "home-manager" "users" "${config.my.user}" ] [ "home-manager" "config" ])
+    (mkAliasOptionModule [ "home-manager" "users" config.my.user ] [ "home-manager" "config" ])
   ];
 
   options = {

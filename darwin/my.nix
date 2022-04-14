@@ -9,7 +9,7 @@ with lib;
   config = {
     my = {
       systemPath = builtins.replaceStrings
-        [ "$HOME" "$USER" ] [ "/Users/${config.my.user}" "${config.my.user}" ]
+        [ "$HOME" "$USER" ] [ "/Users/${config.my.user}" config.my.user ]
         config.environment.systemPath;
     };
   };
