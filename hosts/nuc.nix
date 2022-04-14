@@ -32,4 +32,6 @@
       extraOptions = [ "--loadavg-target" "2.0" ];
     };
   };
+
+  hm.programs.foot.settings.main.font = "monospace:size=30";
 }
