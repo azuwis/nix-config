@@ -35,6 +35,10 @@
       extraOptions = [ "--loadavg-target" "2.0" ];
     };
   };
+  services.greetd.settings.initial_session = {
+    command = "sway";
+    user = config.my.user;
+  };
 
   hm.programs.foot.settings.main.font = "monospace:size=30";
 }
