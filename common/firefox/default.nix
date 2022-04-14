@@ -1,11 +1,55 @@
 { config, lib, pkgs, ... }:
 
+let
+
+  buildFirefoxXpiAddon = lib.makeOverridable ({ stdenv ? pkgs.stdenv
+    , fetchurl ? pkgs.fetchurl, pname, version, addonId, url, sha256, meta, ...
+    }:
+    stdenv.mkDerivation {
+      name = "${pname}-${version}";
+
+      inherit meta;
+
+      src = fetchurl { inherit url sha256; };
+
+      preferLocalBuild = true;
+      allowSubstitutes = true;
+
+      buildCommand = ''
+        dst="$out/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+        mkdir -p "$dst"
+        install -v -m644 "$src" "$dst/${addonId}.xpi"
+      '';
+    });
+
+  vimfx = buildFirefoxXpiAddon rec {
+    pname = "vimfx";
+    version = "0.24.6";
+    addonId = "VimFx-unlisted@akhodakivskiy.github.com";
+    url = "https://github.com/akhodakivskiy/VimFx/releases/download/v${version}/VimFx.xpi";
+    sha256 = "sha256-1NRQAjQ2uopC75xwWskjXCCWfq+we3fctlR5ZezjM+I=";
+    meta = with lib; {
+      homepage = "https://github.com/akhodakivskiy/VimFx";
+      description = "Vim keyboard shortcuts for Firefox";
+    };
+  };
+
+  firefox = pkgs.firefox-wayland.overrideAttrs(o: {
+    buildCommand = o.buildCommand + ''
+      lndir -silent ${pkgs.legacyfox} $out
+    '';
+  });
+
+in
+
 {
   home.activation.vimfx = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     ${pkgs.rsync}/bin/rsync -a ${./vimfx}/ ~/.config/vimfx/
   '';
   programs.firefox = {
     enable = true;
+    package = lib.mkDefault firefox;
+    extensions = [ vimfx ];
     profiles =
       let
         # userChrome = builtins.readFile (builtins.fetchurl {
