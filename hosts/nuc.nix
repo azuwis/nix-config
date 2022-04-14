@@ -10,6 +10,9 @@
     ../nixos/samba.nix
     ../nixos/torrent.nix
   ];
+  hm.imports = [
+    ../nixos/rpiplay.nix
+  ];
   powerManagement.cpuFreqGovernor = "schedutil";
   fileSystems."/".options = [ "compress-force=zstd" ];
   fileSystems."/srv".options = [ "compress=zstd" ];
