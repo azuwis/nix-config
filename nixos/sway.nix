@@ -26,10 +26,11 @@ if builtins.hasAttr "hm" lib then
     enable = true;
     package = null;
     config = {
+      gaps.smartBorders = "no_gaps";
       menu = "${pkgs.fuzzel}/bin/fuzzel --lines=8 --no-icons --background-color=2E3440FF --text-color=D8DEE9FF --selection-color=4C566AFF --selection-text-color=E8DEE9FF --log-level=error";
-      terminal = "footclient";
-      gaps.smartBorders = "on";
       output."*".bg = "#2E3440 solid_color";
+      terminal = "footclient";
+      window.hideEdgeBorders = "both";
     };
   };
 
