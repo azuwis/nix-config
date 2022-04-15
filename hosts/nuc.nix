@@ -39,6 +39,4 @@
     command = "sway";
     user = config.my.user;
   };
-
-  hm.programs.foot.settings.main.font = "monospace:size=30";
 }
