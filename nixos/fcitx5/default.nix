@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 
 let
   fcitx5 = pkgs.fcitx5-with-addons.override {
