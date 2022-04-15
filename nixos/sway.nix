@@ -12,7 +12,7 @@ if builtins.hasAttr "hm" lib then
     server.enable = true;
     settings = {
       main = {
-        dpi-aware = "yes";
+        dpi-aware = "no";
         font = lib.mkDefault "monospace:size=12";
         include = "${pkgs.fetchurl {
           url = "https://codeberg.org/dnkl/foot/raw/commit/a1796ba5cd1cc7b6ef03021d7db57503e445b5dd/themes/nord";
