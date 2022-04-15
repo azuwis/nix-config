@@ -67,7 +67,7 @@
 
       hosts.hyperv = {
         system = "x86_64-linux";
-        modules = with self.modules; [ nixos hyperv ];
+        modules = with self.modules; [ nixos desktop hyperv ];
       };
 
       hosts.droid = {
