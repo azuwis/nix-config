@@ -5,6 +5,7 @@ if builtins.hasAttr "hm" lib then
 {
   imports = [
     ./foot.nix
+    ./yambar.nix
   ];
 
   home.packages = with pkgs; [
