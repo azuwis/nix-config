@@ -1,0 +1,38 @@
+bar:
+  location: top
+  height: 26
+  background: 2E3440FF
+  font: monospace:pixelsize=16
+  spacing: 6
+
+  center:
+    - foreign-toplevel:
+        content:
+          map:
+            tag: activated
+            values:
+              false: {empty: {}}
+              true:
+                - string: {text: "{app-id}"}
+
+  right:
+    - script:
+        path: @scripts@/net-speed
+        content:
+          - string: {text: "", right-margin: 2}
+          - string: {text: "{rate}"}
+    - cpu:
+        interval: 10000
+        content:
+          - string: {text: "龍", right-margin: 2}
+          - string: {text: "{cpu}%"}
+    - mem:
+        interval: 10000
+        content:
+          - string: {text: "", right-margin: 2}
+          - string: {text: "{free:gb}G"}
+    - clock:
+        date-format: "%a %m-%d"
+        content:
+          - string: {text: "", right-margin: 2}
+          - string: {text: "{date} {time}"}
