@@ -19,9 +19,9 @@ if builtins.hasAttr "hm" lib then
       gaps.smartBorders = "no_gaps";
       menu = "${pkgs.fuzzel}/bin/fuzzel --lines=8 --no-icons --font=monospace:pixelsize=20 --background-color=2E3440FF --text-color=D8DEE9FF --selection-color=4C566AFF --selection-text-color=E8DEE9FF --log-level=error";
       keybindings = let
-        modifier = config.wayland.windowManager.sway.config.modifier;
+        mod = config.wayland.windowManager.sway.config.modifier;
       in lib.mkOptionDefault {
-        "${modifier}+Tab" = "workspace back_and_forth";
+        "${mod}+Tab" = "workspace back_and_forth";
       };
       output."*".bg = "#2E3440 solid_color";
       window.hideEdgeBorders = "both";
