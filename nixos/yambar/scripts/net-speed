@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ifaces=$(ls /sys/class/net | grep -E '^(en|wl)')
+ifaces=$(ls /sys/class/net | grep -E '^(en|eth|wl)')
 interval=5
 
 last_rx=0
