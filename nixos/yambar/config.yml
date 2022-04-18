@@ -4,6 +4,7 @@ bar:
   background: 2E3440FF
   font: monospace:pixelsize=16
   spacing: 6
+  margin: 6
 
   center:
     - foreign-toplevel:
