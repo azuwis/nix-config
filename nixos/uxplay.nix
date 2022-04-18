@@ -19,10 +19,7 @@ then
     Install = { WantedBy = [ "graphical-session.target" ]; };
   };
 
-  wayland.windowManager.sway.config.window.commands = [{
-    criteria = { instance = "uxplay"; };
-    command = "fullscreen enable";
-  }];
+  wayland.windowManager.sway.config.floating.criteria = [{ instance = "uxplay"; }];
 }
 
 else
