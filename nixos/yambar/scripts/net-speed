@@ -31,7 +31,7 @@ update_rate() {
     read tmp_rx < "/sys/class/net/${iface}/statistics/rx_bytes"
     read tmp_tx < "/sys/class/net/${iface}/statistics/tx_bytes"
     if [ $? -ne 0 ]; then
-      ifaces=$(ls /sys/class/net | grep -E '^(en|wl)')
+      ifaces=$(ls /sys/class/net | grep -E '^(en|eth|wl)')
       last_rx=0
       last_tx=0
       return
