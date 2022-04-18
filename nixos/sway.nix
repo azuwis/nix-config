@@ -30,6 +30,11 @@ if builtins.hasAttr "hm" lib then
     };
   };
 
+  wayland.windowManager.sway.swaynag = {
+    enable = true;
+    settings."<config>".edge = "bottom";
+  };
+
   xsession.pointerCursor = {
     name = "Vanilla-DMZ-AA";
     package = pkgs.vanilla-dmz;
