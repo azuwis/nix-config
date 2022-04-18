@@ -23,6 +23,7 @@
     ipcalc
     jq
     less
+    lsof
     man
     netcat-gnu
     nix-tree
