@@ -16,6 +16,9 @@ if builtins.hasAttr "hm" lib then
     enable = true;
     package = null;
     config = {
+      floating.criteria = [
+        { app_id = "^mpv$"; }
+      ];
       gaps.smartBorders = "no_gaps";
       menu = "${pkgs.fuzzel}/bin/fuzzel --lines=8 --no-icons --font=monospace:pixelsize=20 --background-color=2E3440FF --text-color=D8DEE9FF --selection-color=4C566AFF --selection-text-color=E8DEE9FF --log-level=error";
       keybindings = let
