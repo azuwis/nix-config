@@ -19,10 +19,7 @@ then
     Install = { WantedBy = [ "graphical-session.target" ]; };
   };
 
-  wayland.windowManager.sway.config.window.commands = [{
-    criteria = { instance = "rpiplay"; };
-    command = "fullscreen enable";
-  }];
+  wayland.windowManager.sway.config.floating.criteria = [{ instance = "rpiplay"; }];
 }
 
 else
