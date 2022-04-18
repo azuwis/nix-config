@@ -14,12 +14,19 @@ in
 {
   home.packages = [ pkgs.yambar ];
 
-  wayland.windowManager.sway = {
-    config = {
-      bars = [];
-      startup = [{
-        command = "yambar --config=${config} --log-level=error";
-      }];
+  systemd.user.services.yambar = {
+    Unit = {
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
     };
+
+    Service = {
+      ExecStart = "${pkgs.yambar}/bin/yambar --config=${config} --log-level=error";
+      Restart = "on-failure";
+    };
+
+    Install = { WantedBy = [ "graphical-session.target" ]; };
   };
+
+  wayland.windowManager.sway.config.bars = [];
 }
