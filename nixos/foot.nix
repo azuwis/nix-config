@@ -16,4 +16,6 @@
   };
 
   wayland.windowManager.sway.config.terminal = "footclient";
+
+  systemd.user.services.foot.Service.ExecStart = lib.mkForce "${config.programs.foot.package}/bin/foot --server --log-level=error";
 }
