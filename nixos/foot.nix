@@ -3,6 +3,7 @@
 {
   programs.foot = {
     enable = true;
+    server.enable = true;
     settings = {
       main = {
         font = lib.mkDefault "monospace:pixelsize=20";
@@ -14,12 +15,5 @@
     };
   };
 
-  wayland.windowManager.sway = {
-    config = {
-      startup = [{
-        command = "foot --server --log-level=error";
-      }];
-      terminal = "footclient";
-    };
-  };
+  wayland.windowManager.sway.config.terminal = "footclient";
 }
