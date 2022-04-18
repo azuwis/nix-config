@@ -22,6 +22,8 @@ if builtins.hasAttr "hm" lib then
         mod = config.wayland.windowManager.sway.config.modifier;
       in lib.mkOptionDefault {
         "${mod}+Tab" = "workspace back_and_forth";
+        # stop graphical-session.target so services like foot will not try to restart itself
+        "${mod}+Shift+e" = "exec swaynag -t warning -m 'Do you really want to exit sway?' -b 'Yes, exit sway' 'systemctl --user stop graphical-session.target; swaymsg exit'";
       };
       output."*".bg = "#2E3440 solid_color";
       window.hideEdgeBorders = "both";
