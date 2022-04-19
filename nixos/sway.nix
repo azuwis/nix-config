@@ -20,7 +20,7 @@ if builtins.hasAttr "hm" lib then
         { app_id = "^mpv$"; }
       ];
       gaps.smartBorders = "no_gaps";
-      menu = "${pkgs.fuzzel}/bin/fuzzel --lines=8 --no-icons --font=monospace:pixelsize=20 --background-color=2E3440FF --text-color=D8DEE9FF --selection-color=4C566AFF --selection-text-color=E8DEE9FF --log-level=error";
+      menu = "${pkgs.fuzzel}/bin/fuzzel --lines=8 --no-icons --font=monospace:pixelsize=20 --background-color=2E3440FF --text-color=D8DEE9FF --selection-color=4C566AFF --selection-text-color=E8DEE9FF --terminal=footclient --log-level=error";
       keybindings = let
         mod = config.wayland.windowManager.sway.config.modifier;
       in lib.mkOptionDefault {
