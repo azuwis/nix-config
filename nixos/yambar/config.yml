@@ -1,3 +1,5 @@
+underline: &underline {underline: {size: 2, color: 81A1C1FF}}
+
 bar:
   location: top
   height: 26
@@ -5,6 +7,25 @@ bar:
   font: monospace:pixelsize=16
   spacing: 6
   margin: 6
+
+  left:
+    - i3:
+        anchors:
+          - string: &default {text: "{name}", margin: 6, on-click: "swaymsg --quiet workspace {name}"}
+          - focused: &focused
+              deco: {stack: [*underline]}
+          - urgent: &urgent
+              foreground: 000000FF
+              deco: {stack: [background: {color: BF616AFF}]}
+        content:
+          "":
+            map:
+              tag: state
+              values:
+                focused:   {string: {<<: [*default, *focused]}}
+                unfocused: {string: {<<: *default}}
+                invisible: {string: {<<: *default}}
+                urgent:    {string: {<<: [*default, *urgent]}}
 
   center:
     - foreign-toplevel:
