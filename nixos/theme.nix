@@ -3,10 +3,23 @@
 if builtins.hasAttr "hm" lib then
 
 {
-  xsession.pointerCursor = {
-    name = "Vanilla-DMZ-AA";
-    package = pkgs.vanilla-dmz;
+  gtk = {
+    enable = true;
+    iconTheme = {
+      name = "Adwaita";
+      package = pkgs.gnome.adwaita-icon-theme;
+    };
+    cursorTheme = {
+      name = "Adwaita";
+      size = 16;
+    };
+    theme = {
+      name = "Adwaita";
+      package = pkgs.gnome.gnome-themes-extra;
+    };
   };
+
+  wayland.windowManager.sway.config.seat."*".xcursor_theme = config.gtk.cursorTheme.name;
 }
 
 else
