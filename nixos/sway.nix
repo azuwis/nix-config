@@ -16,6 +16,10 @@ if builtins.hasAttr "hm" lib then
     enable = true;
     package = null;
     config = {
+      # swaymsg -t get_tree
+      assigns = {
+        "2" = [{ app_id = "^firefox$"; }];
+      };
       floating.criteria = [
         { app_id = "^mpv$"; }
       ];
