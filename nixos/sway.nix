@@ -46,6 +46,7 @@ else
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
+    extraPackages = [];
     extraSessionCommands = ''
       export SDL_VIDEODRIVER=wayland
     '';
