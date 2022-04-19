@@ -17,6 +17,7 @@ bar:
           - urgent: &urgent
               foreground: 000000FF
               deco: {stack: [background: {color: BF616AFF}]}
+        sort: ascending
         content:
           "":
             map:
