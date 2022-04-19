@@ -130,7 +130,6 @@ in
           # "layers.omtp.enabled" = true;
           # "layers.acceleration.force-enabled" = true;
           # "gfx.webrender.all" = true;
-          # "media.ffmpeg.vaapi.enabled" = true;
           "media.hardware-video-decoding.force-enabled" = true;
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
           "media.autoplay.default" = 0;

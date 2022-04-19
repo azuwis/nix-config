@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./firefox.nix
     ./fcitx5
     ./sway.nix
     ./theme.nix
@@ -11,6 +12,7 @@
     ../common/firefox
     ../common/mpv.nix
     ./fcitx5
+    ./firefox.nix
     ./sway.nix
     ./theme.nix
   ];
