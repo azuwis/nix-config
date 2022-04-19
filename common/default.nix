@@ -7,8 +7,6 @@
     ./system.nix
   ];
 
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
   hm.imports = [
     ./difftastic.nix
     ./direnv.nix
@@ -21,5 +19,11 @@
     ./packages.nix
     ./zsh.nix
   ];
-  hm.home.stateVersion = "22.05";
+
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
+
+  hm = {
+    home.stateVersion = "22.05";
+  };
 }
