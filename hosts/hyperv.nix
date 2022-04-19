@@ -34,4 +34,6 @@
 
   # follow OS keyboard, so capslock/ctrl will NOT be swapped back
   services.udev.extraHwdb = lib.mkForce "";
+
+  hm.wayland.windowManager.sway.config.output."*".mode = "1600x900";
 }
