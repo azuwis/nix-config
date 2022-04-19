@@ -1,5 +1,16 @@
 { config, lib, pkgs, ... }:
 
+if builtins.hasAttr "hm" lib then
+
+{
+  xsession.pointerCursor = {
+    name = "Vanilla-DMZ-AA";
+    package = pkgs.vanilla-dmz;
+  };
+}
+
+else
+
 {
   fonts = {
     fonts = with pkgs; [

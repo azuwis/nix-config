@@ -3,8 +3,8 @@
 {
   imports = [
     ./fcitx5
-    ./fonts.nix
     ./sway.nix
+    ./theme.nix
   ];
 
   hm.imports = [
@@ -12,6 +12,7 @@
     ../common/mpv.nix
     ./fcitx5
     ./sway.nix
+    ./theme.nix
   ];
 
   hardware.opengl = {

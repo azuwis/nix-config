@@ -37,11 +37,6 @@ if builtins.hasAttr "hm" lib then
     enable = true;
     settings."<config>".edge = "bottom";
   };
-
-  xsession.pointerCursor = {
-    name = "Vanilla-DMZ-AA";
-    package = pkgs.vanilla-dmz;
-  };
 }
 
 else
