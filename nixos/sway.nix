@@ -36,7 +36,11 @@ if builtins.hasAttr "hm" lib then
         "${mod}+c" = "floating enable; move absolute position center";
       };
       # Inputs/outputs
-      input."*".natural_scroll = "enabled";
+      input."*" = {
+        repeat_delay = "300";
+        repeat_rate = "33";
+        natural_scroll = "enabled";
+      };
       output."*".bg = "#2E3440 solid_color";
     };
   };
