@@ -5,7 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
-    droid.url = "github:azuwis/nix-on-droid/master";
+    droid.url = "github:t184256/nix-on-droid/master";
     droid.inputs.nixpkgs.follows = "nixpkgs";
     droid.inputs.home-manager.follows = "home";
     home.url = "github:nix-community/home-manager/master";
