@@ -25,7 +25,7 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "home-manager": [
-          "home"
+          "home-manager"
         ],
         "nixpkgs": [
           "nixpkgs"
@@ -76,18 +76,18 @@
         "type": "github"
       }
     },
-    "home": {
+    "home-manager": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1649887921,
-        "narHash": "sha256-h2LZzn5LLwIFvVFLCdR8+VWluEP3U1I5y+0mDZjFjAk=",
+        "lastModified": 1650413050,
+        "narHash": "sha256-e4Ajk6n+xQnF4CmqZf42OaLxsqm4LpJHkofRh5wwad0=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "92f58b6728e7c631a7ea0ed68cd21bb29a4876ff",
+        "rev": "8ec13d33b17f246e03ddfea100b7c3a143255bea",
         "type": "github"
       },
       "original": {
@@ -117,7 +117,7 @@
       "inputs": {
         "darwin": "darwin",
         "droid": "droid",
-        "home": "home",
+        "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "utils": "utils"
       }

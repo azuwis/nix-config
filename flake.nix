@@ -7,9 +7,9 @@
     darwin.inputs.nixpkgs.follows = "nixpkgs";
     droid.url = "github:t184256/nix-on-droid/master";
     droid.inputs.nixpkgs.follows = "nixpkgs";
-    droid.inputs.home-manager.follows = "home";
-    home.url = "github:nix-community/home-manager/master";
-    home.inputs.nixpkgs.follows = "nixpkgs";
+    droid.inputs.home-manager.follows = "home-manager";
+    home-manager.url = "github:nix-community/home-manager/master";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs@{ self, utils, nixpkgs, darwin, droid, ... }:

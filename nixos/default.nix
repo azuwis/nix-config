@@ -4,7 +4,7 @@
   imports = [
     ./system.nix
     ../modules/qbittorrent
-    inputs.home.nixosModules.home-manager
+    inputs.home-manager.nixosModules.home-manager
   ];
 
   hm.imports = [

@@ -22,7 +22,7 @@
     ./system.nix
     ./wireguard.nix
     ./yabai.nix
-    inputs.home.darwinModules.home-manager
+    inputs.home-manager.darwinModules.home-manager
   ];
 
   hm.imports = [
