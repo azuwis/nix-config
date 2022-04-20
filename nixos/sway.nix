@@ -36,10 +36,23 @@ if builtins.hasAttr "hm" lib then
         "${mod}+c" = "floating enable; move absolute position center";
       };
       # Inputs/outputs
-      input."*" = {
-        repeat_delay = "300";
-        repeat_rate = "33";
-        natural_scroll = "enabled";
+      input = {
+        "*" = {
+          natural_scroll = "enabled";
+        };
+        "type:keyboard" = {
+          repeat_delay = "300";
+          repeat_rate = "33";
+        };
+        "type:touchpad" = {
+          accel_profile = "adaptive";
+          drag_lock = "enabled";
+          dwt = "enabled";
+          pointer_accel = "0.28";
+          tap = "enabled";
+          scroll_method = "edge";
+          scroll_factor = "0.6";
+        };
       };
       output."*".bg = "#2E3440 solid_color";
     };
