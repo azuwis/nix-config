@@ -2,8 +2,8 @@
 
 {
   imports = [
-    ./firefox.nix
     ./fcitx5
+    ./firefox.nix
     ./sway.nix
     ./theme.nix
   ];
