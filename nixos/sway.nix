@@ -24,6 +24,7 @@ if builtins.hasAttr "hm" lib then
         { app_id = "^mpv$"; }
       ];
       gaps.smartBorders = "no_gaps";
+      window.hideEdgeBorders = "both";
       menu = "${pkgs.fuzzel}/bin/fuzzel --lines=8 --no-icons --font=monospace:pixelsize=20 --background-color=2E3440FF --text-color=D8DEE9FF --selection-color=4C566AFF --selection-text-color=E8DEE9FF --terminal=footclient --log-level=error";
       keybindings = let
         mod = config.wayland.windowManager.sway.config.modifier;
@@ -33,8 +34,8 @@ if builtins.hasAttr "hm" lib then
         "${mod}+Shift+e" = "exec swaynag -t warning -m 'Do you really want to exit sway?' -b 'Yes, exit sway' 'systemctl --user stop graphical-session.target; swaymsg exit'";
         "${mod}+c" = "floating enable; move absolute position center";
       };
+      input."*".natural_scroll = "enabled";
       output."*".bg = "#2E3440 solid_color";
-      window.hideEdgeBorders = "both";
     };
   };
 
