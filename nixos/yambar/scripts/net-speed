@@ -1,5 +1,7 @@
 #!/bin/sh
 
+enable -f "$(dirname "$(readlink -f /bin/sh)")/../lib/bash/sleep" sleep
+
 ifaces=$(ls /sys/class/net | grep -E '^(en|eth|wl)')
 interval=5
 
