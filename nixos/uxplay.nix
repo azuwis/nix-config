@@ -12,7 +12,7 @@ then
     };
 
     Service = {
-      ExecStart = "${pkgs.uxplay}/bin/uxplay -p";
+      ExecStart = "${pkgs.uxplay}/bin/uxplay -p -vd vah264dec";
       Restart = "on-failure";
     };
 
