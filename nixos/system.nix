@@ -33,7 +33,10 @@
   # nix profile diff-closures --profile /nix/var/nix/profiles/system
   system.activationScripts.systemDiff = ''
     # show upgrade diff
-    ${pkgs.nix}/bin/nix store --experimental-features nix-command diff-closures /run/current-system "$systemConfig"
+    if [ -e /run/current-system ]
+    then
+      ${pkgs.nix}/bin/nix store --experimental-features nix-command diff-closures /run/current-system "$systemConfig" || true
+    fi
   '';
   system.stateVersion = "22.05";
   users.groups.${config.my.user} = {
