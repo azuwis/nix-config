@@ -8,6 +8,8 @@
     droid.url = "github:t184256/nix-on-droid/master";
     droid.inputs.nixpkgs.follows = "nixpkgs";
     droid.inputs.home-manager.follows = "home-manager";
+    wsl.url = "github:nix-community/NixOS-WSL";
+    wsl.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -41,6 +43,7 @@
         ./hosts/nuc.nix
         ./hosts/utm.nix
         ./hosts/hyperv.nix
+        ./hosts/wsl.nix
       ];
 
       hostDefaults = {
@@ -68,6 +71,11 @@
       hosts.hyperv = {
         system = "x86_64-linux";
         modules = with self.modules; [ nixos desktop hyperv ];
+      };
+
+      hosts.wsl = {
+        system = "x86_64-linux";
+        modules = with self.modules; [ nixos wsl ];
       };
 
       hosts.droid = {

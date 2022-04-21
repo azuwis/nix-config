@@ -3,7 +3,7 @@
 {
   boot.loader.systemd-boot.enable = lib.mkDefault true;
   networking.useDHCP = false;
-  networking.useNetworkd = true;
+  networking.useNetworkd = lib.mkDefault true;
   # nix.settings.allowed-users = [ config.my.user ];
   security.sudo.wheelNeedsPassword = false;
   services.openssh = {
