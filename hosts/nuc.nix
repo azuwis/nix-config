@@ -6,12 +6,12 @@
     ./hardware-nuc.nix
     ../nixos/hass
     ../nixos/nginx.nix
-    ../nixos/rpiplay.nix
     ../nixos/samba.nix
     ../nixos/torrent.nix
+    ../nixos/uxplay.nix
   ];
   hm.imports = [
-    ../nixos/rpiplay.nix
+    ../nixos/uxplay.nix
   ];
   powerManagement.cpuFreqGovernor = "schedutil";
   fileSystems."/".options = [ "compress-force=zstd" ];
