@@ -6,14 +6,14 @@ bar:
   background: 2E3440FF
   font: monospace:pixelsize=16
   spacing: 6
-  margin: 6
+  margin: 12
 
   left:
     - i3:
         anchors:
           - string: &default {text: "{name}", margin: 6, on-click: "swaymsg --quiet workspace {name}"}
           - focused: &focused
-              deco: {stack: [*underline]}
+              foreground: EBCB8BFF
           - urgent: &urgent
               foreground: 000000FF
               deco: {stack: [background: {color: BF616AFF}]}
