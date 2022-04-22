@@ -1,15 +1,19 @@
 {
   inputs = {
+    flake-utils.url = "github:numtide/flake-utils";
     # flake-utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus/master";
     flake-utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus/pull/117/head";
+    flake-utils-plus.inputs.flake-utils.follows = "flake-utils";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
     droid.url = "github:t184256/nix-on-droid/master";
     droid.inputs.nixpkgs.follows = "nixpkgs";
+    droid.inputs.flake-utils.follows = "flake-utils";
     droid.inputs.home-manager.follows = "home-manager";
     wsl.url = "github:nix-community/NixOS-WSL";
     wsl.inputs.nixpkgs.follows = "nixpkgs";
+    wsl.inputs.flake-utils.follows = "flake-utils";
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
