@@ -5,6 +5,7 @@
   networking.useDHCP = false;
   networking.useNetworkd = lib.mkDefault true;
   # nix.settings.allowed-users = [ config.my.user ];
+  programs.ssh.startAgent = true;
   security.sudo.wheelNeedsPassword = false;
   services.openssh = {
     enable = true;
