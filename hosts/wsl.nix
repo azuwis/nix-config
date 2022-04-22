@@ -21,4 +21,6 @@
     startMenuLaunchers = true;
     wslConf.network.hostname = "wsl";
   };
+
+  hm.wayland.windowManager.sway.config.output."*".mode = "1920x1080";
 }

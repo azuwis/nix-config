@@ -75,7 +75,7 @@
 
       hosts.wsl = {
         system = "x86_64-linux";
-        modules = with self.modules; [ nixos wsl ];
+        modules = with self.modules; [ nixos desktop wsl ];
       };
 
       hosts.droid = {
