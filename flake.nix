@@ -1,7 +1,7 @@
 {
   inputs = {
-    # utils.url = "github:gytis-ivaskevicius/flake-utils-plus/master";
-    utils.url = "github:gytis-ivaskevicius/flake-utils-plus/pull/117/head";
+    # flake-utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus/master";
+    flake-utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus/pull/117/head";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
@@ -14,9 +14,9 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ self, utils, nixpkgs, darwin, droid, ... }:
+  outputs = inputs@{ self, flake-utils-plus, nixpkgs, darwin, droid, ... }:
     let
-      inherit (utils.lib) mkFlake exportModules exportPackages exportOverlays;
+      inherit (flake-utils-plus.lib) mkFlake exportModules exportPackages exportOverlays;
     in
     mkFlake {
       inherit self inputs;
@@ -29,7 +29,7 @@
       overlays = exportOverlays {
         inherit (self) pkgs inputs;
       };
-      sharedOverlays = [ self.overlay utils.overlay ];
+      sharedOverlays = [ self.overlay flake-utils-plus.overlay ];
 
       outputsBuilder = channels: {
         packages = exportPackages self.overlays channels;
@@ -88,7 +88,7 @@
           config = { imports = modules; };
           pkgs = import nixpkgs {
             inherit system;
-            overlays = [ self.overlay utils.overlay ];
+            overlays = [ self.overlay flake-utils-plus.overlay ];
           };
         };
       };
