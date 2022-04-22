@@ -9,10 +9,12 @@
 
   imports = [ inputs.wsl.nixosModules.wsl ];
 
-  # WSL does not need bootloader and network setup
+  # WSL does not need bootloader/networking/greetd/pipewire
   boot.loader.systemd-boot.enable = false;
   networking.firewall.enable = false;
   networking.useNetworkd = false;
+  services.greetd.enable = lib.mkForce false;
+  services.pipewire.enable = lib.mkForce false;
 
   wsl = {
     enable = true;
