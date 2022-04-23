@@ -13,13 +13,15 @@
 
 stdenv.mkDerivation rec {
   pname = "uxplay";
-  version = "1.49";
+  version = "1.48";
 
   src = fetchFromGitHub {
     owner = "FDH2";
     repo = "UxPlay";
-    rev = "v${version}";
-    sha256 = "sha256-k4ZZ0BxqSndxnbe9Tlob43800sWmwcubiajlT1kJv7M=";
+    # rev = "v${version}";
+    # https://github.com/FDH2/UxPlay/issues/91
+    rev = "3401427e006a5581177e7cc5cf03f903f5859246";
+    sha256 = "sha256-nn2hTEXg7ieMIy33atLeelISbfaBWRZce+0aAmEYJ7Q=";
   };
 
   nativeBuildInputs = [
