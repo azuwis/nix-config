@@ -17,5 +17,6 @@
 
   wayland.windowManager.sway.config.terminal = "footclient";
 
-  systemd.user.services.foot.Service.ExecStart = lib.mkForce "${config.programs.foot.package}/bin/foot --server --log-level=error";
+  # hack to avoid sd-switch restart foot service
+  systemd.user.services.foot.Service.ExecStart = lib.mkForce "/etc/profiles/per-user/%u/bin/foot --server --log-level=error";
 }
