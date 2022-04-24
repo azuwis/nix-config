@@ -6,7 +6,7 @@
       #!${runtimeShell}
       if [ "$1" = "u" ]
       then
-        args=(--update-input droid --update-input home --update-input nixpkgs --update-input utils)
+        args=(--recreate-lock-file)
       else
         args=("$@")
       fi
