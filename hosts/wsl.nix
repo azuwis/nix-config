@@ -24,5 +24,12 @@
     wslConf.network.hostname = "wsl";
   };
 
+  programs.sway.extraSessionCommands = ''
+    # workaround for XWayland refuces to start
+    if [ -L /tmp/.X11-unix ]
+    then
+      sudo rm /tmp/.X11-unix
+    fi
+  '';
   hm.wayland.windowManager.sway.config.output."*".mode = "1920x1080";
 }
