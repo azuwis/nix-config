@@ -2,6 +2,7 @@
 , stdenv
 , pkg-config
 , fetchFromGitHub
+, fetchpatch
 , cmake
 , wrapGAppsHook
 , avahi
@@ -13,16 +14,22 @@
 
 stdenv.mkDerivation rec {
   pname = "uxplay";
-  version = "1.48";
+  version = "1.50";
 
   src = fetchFromGitHub {
     owner = "FDH2";
     repo = "UxPlay";
-    # rev = "v${version}";
-    # https://github.com/FDH2/UxPlay/issues/91
-    rev = "3401427e006a5581177e7cc5cf03f903f5859246";
-    sha256 = "sha256-nn2hTEXg7ieMIy33atLeelISbfaBWRZce+0aAmEYJ7Q=";
+    rev = "v${version}";
+    sha256 = "sha256-43BCpYh0XtsnI064/ddcz2/Imj399g+bxLlT0BpqLMI=";
   };
+
+  patches = [
+    # https://github.com/FDH2/UxPlay/issues/91
+    (fetchpatch {
+      url = "https://github.com/FDH2/UxPlay/commit/f373fb2edcfb1f4c279e5796cf21e4a865800a71.patch";
+      sha256 = "sha256-ENT/sMyPjDdZ4gdxiatYJ/UxuCl+ekk0iQOn8ELDAKQ=";
+    })
+  ];
 
   nativeBuildInputs = [
     cmake
