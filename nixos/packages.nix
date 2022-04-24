@@ -10,7 +10,8 @@
       else
         args=("$@")
       fi
-      sudo nixos-rebuild switch --flake '/etc/nixos' ''${args[@]}
+      # --use-remote-sudo is needed, see https://github.com/NixOS/nixpkgs/issues/169193
+      nixos-rebuild --use-remote-sudo switch --flake '/etc/nixos' ''${args[@]}
     '')
     compsize
     dnsutils
