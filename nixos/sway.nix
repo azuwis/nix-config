@@ -70,9 +70,14 @@ else
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
-    extraPackages = [];
+    extraPackages = with pkgs; [
+      qt5.qtwayland
+    ];
     extraSessionCommands = ''
       export SDL_VIDEODRIVER=wayland
+      export QT_QPA_PLATFORM=wayland-egl
+      export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+      export _JAVA_AWT_WM_NONREPARENTING=1
     '';
   };
 }
