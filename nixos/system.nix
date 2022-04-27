@@ -2,6 +2,8 @@
 
 {
   boot.loader.systemd-boot.enable = lib.mkDefault true;
+  # explicitly enable nixos docs, system like wsl does not enable this
+  documentation.nixos.enable = true;
   networking.useDHCP = false;
   networking.useNetworkd = lib.mkDefault true;
   # nix.settings.allowed-users = [ config.my.user ];
