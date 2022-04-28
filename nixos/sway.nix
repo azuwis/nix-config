@@ -34,6 +34,9 @@ if builtins.hasAttr "hm" lib then
         # stop graphical-session.target so services like foot will not try to restart itself
         "${mod}+Shift+e" = "exec swaynag -t warning -m 'Do you really want to exit sway?' -b 'Yes, exit sway' 'systemctl --user stop graphical-session.target; swaymsg exit'";
         "${mod}+c" = "floating enable; move absolute position center";
+        "XF86AudioRaiseVolume" = "exec pulsemixer --change-volume +3";
+        "XF86AudioLowerVolume" = "exec pulsemixer --change-volume -3";
+        "XF86AudioMute" = "exec pulsemixer --toggle-mute";
       };
       # Inputs/outputs
       input = {
