@@ -54,6 +54,18 @@ bar:
         content:
           - string: {text: "", right-margin: 2}
           - string: {text: "{free:gb}G"}
+    - alsa:
+        card: default
+        mixer: Master
+        content:
+          - map:
+             tag: muted
+             values:
+               true:
+                 - string: {text: "婢", right-margin: 2}
+               false:
+                 - string: {text: "墳", right-margin: 2}
+          - string: {text: "{percent}"}
     - clock:
         date-format: "%a %m-%d"
         content:
