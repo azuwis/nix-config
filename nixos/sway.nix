@@ -13,6 +13,7 @@ in
 
 {
   imports = [
+    ./cliphist.nix
     ./foot.nix
     ./yambar
   ];
