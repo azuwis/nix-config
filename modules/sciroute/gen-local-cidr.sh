@@ -14,5 +14,5 @@ cat <<EOF
 198.51.100.0/24
 203.0.113.0/24
 EOF
-curl -s 'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest' | awk -F\| '/CN\|ipv4/ { printf("%s/%d\n", $4, 32-log($5)/log(2)) }'
+curl -Ls https://github.com/misakaio/chnroutes2/raw/master/chnroutes.txt | grep -v '^#'
 ) | mapcidr -silent -aggregate | sort -V > local-cidr
