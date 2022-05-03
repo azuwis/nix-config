@@ -19,5 +19,7 @@
     iotop-c
     netproc
     nixos-option
+    pciutils
+    usbutils
   ];
 }
