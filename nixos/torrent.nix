@@ -26,8 +26,8 @@ in
     Session\GlobalDLSpeedLimit=15000
     Session\GlobalUPSpeedLimit=3072
     Session\MaxActiveDownloads=5
-    Session\MaxActiveTorrents=100
-    Session\MaxActiveUploads=100
+    Session\MaxActiveTorrents=150
+    Session\MaxActiveUploads=150
     Session\Port=8999
     Session\Preallocation=true
     Session\QueueingSystemEnabled=true
