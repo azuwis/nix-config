@@ -18,7 +18,7 @@ self: super: rec {
   #   inherit (super.darwin.apple_sdk.frameworks) Carbon Cocoa SkyLight;
   # };
   torrent-ratio = super.callPackage ./pkgs/torrent-ratio { };
-  # uxplay = super.callPackage ./pkgs/uxplay { };
+  uxplay = super.callPackage ./pkgs/uxplay { };
 
   # override
   emacsMac = (super.emacs.override { srcRepo = true; nativeComp = false; }).overrideAttrs (
