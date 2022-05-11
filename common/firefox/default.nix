@@ -91,7 +91,6 @@ in
           "reader.font_type" = "serif";
           "privacy.trackingprotection.enabled" = true;
           "privacy.trackingprotection.socialtracking.enabled" = true;
-          "xpinstall.signatures.required" = false;
           "browser.urlbar.suggest.engines" = false;
           "browser.urlbar.suggest.searches" = false;
           "browser.urlbar.suggest.quicksuggest.nonsponsored" = false;
