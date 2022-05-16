@@ -4,25 +4,30 @@ M.ui = {
   theme = "nord",
 }
 
-M.mappings = {}
-M.mappings.plugins = {
-  comment = {
-    toggle = "gc",
-  },
-  telescope = {
-    find_files = "<leader><leader>",
+M.mappings = {
+  general = {
+    n = {
+      ["<leader>fq"] = { "<cmd> :wq <CR>", "   Save and quit" },
+      ["<leader>fs"] = { "<cmd> :update <CR>", "   Save" },
+      ["<leader>gg"] = { "<cmd> :Neogit <CR>", "  Neogit" },
+    },
   },
 }
 
 M.plugins = {
-  default_plugin_config_replace = {
-    bufferline = {
+  options = {
+    lspconfig = {
+      setup_lspconf = "custom.lspconfig",
+    },
+  },
+
+  override = {
+    ["akinsho/bufferline.nvim"] = {
       options = {
         show_buffer_close_icons = false,
-        show_close_icon = false,
       },
     },
-    nvim_treesitter = {
+    ["nvim-treesitter/nvim-treesitter"] = {
       ensure_installed = {
         "hcl",
         "lua",
@@ -31,13 +36,18 @@ M.plugins = {
         "yaml",
       },
     },
-  },
-  install = require "custom.plugins",
-  options = {
-    lspconfig = {
-      setup_lspconf = "custom.lspconfig",
+    ["williamboman/nvim-lsp-installer"] = {
+      options = {
+        automatic_installation = false,
+      },
     },
   },
+
+  remove = {
+    "williamboman/nvim-lsp-installer",
+  },
+
+  user = require "custom.plugins",
 }
 
 return M

@@ -1,6 +1,5 @@
 return {
-  {
-    "TimUntersberger/neogit",
+  ["TimUntersberger/neogit"] = {
     cmd = {
       "Neogit",
     },
@@ -24,8 +23,7 @@ return {
     end,
   },
 
-  {
-    "nvim-orgmode/orgmode",
+  ["nvim-orgmode/orgmode"] = {
     after = "nvim-treesitter",
     config = function()
       -- Load custom tree-sitter grammar for org filetype

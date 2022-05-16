@@ -13,9 +13,6 @@ M.setup_lsp= function(attach, capabilities)
     lspconfig[lsp].setup {
       on_attach = attach,
       capabilities = capabilities,
-      flags = {
-        debounce_text_changes = 150,
-      },
     }
   end
 end
