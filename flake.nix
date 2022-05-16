@@ -1,8 +1,7 @@
 {
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
-    # flake-utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus";
-    flake-utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus/pull/117/head";
+    flake-utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus";
     flake-utils-plus.inputs.flake-utils.follows = "flake-utils";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     darwin.url = "github:lnl7/nix-darwin";
