@@ -14,9 +14,9 @@ self: super: rec {
   sf-symbols-app = super.callPackage ./pkgs/sf-symbols { app = true; fonts = false; };
   sf-symbols-full = super.callPackage ./pkgs/sf-symbols { full = true; };
   sf-symbols-minimal = super.callPackage ./pkgs/sf-symbols { };
-  # sketchybar = super.callPackage ./pkgs/sketchybar {
-  #   inherit (super.darwin.apple_sdk.frameworks) Carbon Cocoa SkyLight;
-  # };
+  sketchybar = super.callPackage ./pkgs/sketchybar {
+    inherit (super.darwin.apple_sdk.frameworks) Carbon Cocoa SkyLight;
+  };
   torrent-ratio = super.callPackage ./pkgs/torrent-ratio { };
   uxplay = super.callPackage ./pkgs/uxplay { };
 
