@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, Carbon, Cocoa, SkyLight }:
+{ lib, stdenv, fetchFromGitHub, memstreamHook, Carbon, Cocoa, SkyLight }:
 
 let
   inherit (stdenv.hostPlatform) system;
@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ucTyJhRhSVyE4E/x6PtFz7nHRUg6cKKVOrRpPs39iO8=";
   };
 
-  buildInputs = [ Carbon Cocoa SkyLight ];
+  buildInputs = [ Carbon Cocoa SkyLight ]
+    ++ lib.optionals (stdenv.system == "x86_64-darwin") [ memstreamHook ];
 
   makeFlags = [
     target
