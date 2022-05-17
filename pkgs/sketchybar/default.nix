@@ -15,8 +15,10 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "FelixKratz";
     repo = "SketchyBar";
-    rev = "v${version}";
-    sha256 = "sha256-jz9NBMIaHf8iTuVVL/I0hHkBdb0mlp3R6RbOIjxswW0=";
+    # rev = "v${version}";
+    # https://github.com/FelixKratz/SketchyBar/issues/185
+    rev = "55668a48f0cd64ed7a79f54d250785626033e44c";
+    sha256 = "sha256-xkgNPVrGxmi8377+G1HQ8SdwS0fOnGhwYy43yLRyvF0=";
   };
 
   buildInputs = [ Carbon Cocoa SkyLight ]
