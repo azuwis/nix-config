@@ -4,7 +4,6 @@
   imports = [
     ../common/emacs # emacs-all-the-icons-fonts
     ../common/rime
-    ../modules/age
     ../modules/scidns
     ../modules/sciroute
     ../modules/shadowsocks
@@ -22,6 +21,7 @@
     ./system.nix
     ./wireguard.nix
     ./yabai.nix
+    inputs.agenix.darwinModule
     inputs.home-manager.darwinModules.home-manager
   ];
 

@@ -15,6 +15,8 @@
     wsl.inputs.flake-utils.follows = "flake-utils";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    agenix.url = "github:ryantm/agenix/pull/107/head";
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs@{ self, flake-utils-plus, nixpkgs, darwin, droid, ... }:

@@ -1,5 +1,26 @@
 {
   "nodes": {
+    "agenix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1652747504,
+        "narHash": "sha256-0FnoUBia9EYeDlg/XcPf043Tl/5RneSUaZ6IMsBYreY=",
+        "owner": "ryantm",
+        "repo": "agenix",
+        "rev": "36d70a4a1d0f1aaab60bd70c88c9010d9cc7abe8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ryantm",
+        "ref": "pull/107/head",
+        "repo": "agenix",
+        "type": "github"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -135,6 +156,7 @@
     },
     "root": {
       "inputs": {
+        "agenix": "agenix",
         "darwin": "darwin",
         "droid": "droid",
         "flake-utils": "flake-utils",

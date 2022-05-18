@@ -16,6 +16,7 @@ in
   age.secrets.shadowsocks = {
     file = "/etc/age/shadowsocks.age";
     path = "/etc/shadowsocks/config.json";
+    symlink = false;
   };
   services.shadowsocks = {
     enable = true;
