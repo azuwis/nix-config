@@ -19,9 +19,16 @@ in {
       description = "This option specifies the shadowsocks package to use.";
     };
 
+    services.shadowsocks.bin = mkOption {
+      type = types.str;
+      default = "ss-local";
+      defaultText = "ss-local";
+      description = "This option specifies the shadowsocks bin to use.";
+    };
+
     services.shadowsocks.programArgs = mkOption {
       type = types.listOf types.str;
-      default = [ "${cfg.package}/bin/ss-local" "-c" "${cfg.config}" ];
+      default = [ "${cfg.package}/bin/${cfg.bin}" "-c" "${cfg.config}" ];
       description = "This option specifies the shadowsocks program and args to use.";
     };
 
@@ -53,7 +60,7 @@ in {
 
       launchd.daemons.shadowsocks = {
         serviceConfig.ProgramArguments = [
-          "/bin/sh" "-c" ''/bin/wait4path /nix/store && exec "$@"'' "--"
+          "/bin/sh" "-c" ''/bin/wait4path ${cfg.config} && exec "$@"'' "--"
         ] ++ cfg.programArgs;
 
         serviceConfig.UserName = cfg.user;

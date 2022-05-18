@@ -20,7 +20,8 @@ in
   services.shadowsocks = {
     enable = true;
     package = pkgs.shadowsocks-rust;
-    programArgs = [ "${pkgs.shadowsocks-rust}/bin/sslocal" "-c" config.age.secrets.shadowsocks.path ];
+    bin = "sslocal";
+    config = config.age.secrets.shadowsocks.path;
     user = "root";
   };
   services.scidns.enable = true;
