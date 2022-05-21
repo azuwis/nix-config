@@ -18,6 +18,7 @@
       gcc
       nixpkgs-fmt
       rnix-lsp
+      sumneko-lua-language-server
       terraform-ls
       tree-sitter
       yaml-language-server
