@@ -36,11 +36,6 @@ M.plugins = {
         "yaml",
       },
     },
-    ["williamboman/nvim-lsp-installer"] = {
-      options = {
-        automatic_installation = false,
-      },
-    },
   },
 
   remove = {
