@@ -10,6 +10,12 @@ let
       rev = "ec62a5cee85f841089ed3e8528dc0cc33a060ca6";
       sha256 = "1f6kfrpvxsl84vcvzi8dcvdpql9lw1i8nfcvdbi66v2jrad00bqw";
     };
+    # nvim-lsp-installer does not work well on NixOS, e.g. It checks nodejs when yamlls exe already exists
+    postPatch = ''
+      sed -i \
+        -e '/after = "nvim-lsp-installer",/d' \
+        lua/plugins/init.lua
+    '';
     meta.homepage = "https://github.com/NvChad/NvChad/";
   };
 in
