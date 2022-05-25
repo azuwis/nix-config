@@ -14,6 +14,7 @@
       auto_balance = "on";
       layout = "bsp";
       mouse_modifier = "alt";
+      window_gap = 2;
       window_shadow = "float";
     };
     extraConfig = ''
