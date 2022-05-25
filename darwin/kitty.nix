@@ -14,6 +14,7 @@ if builtins.hasAttr "hm" lib then
   programs.kitty.font.name = "JetBrainsMono Nerd Font";
   programs.kitty.font.size = 15;
   programs.kitty.settings = {
+    # background_opacity = "0.85";
     copy_on_select = true;
     cursor_blink_interval = 0;
     editor = "vim";
