@@ -6,9 +6,4 @@
     ./hardware-utm.nix
   ];
   networking.hostName = "utm";
-  # The iface name on UTM is not stable, use en* to match it
-  systemd.network.networks."99-en-dhcp" = {
-    matchConfig.Name = [ "en*" ];
-    DHCP = "yes";
-  };
 }
