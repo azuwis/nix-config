@@ -16,7 +16,7 @@
   powerManagement.cpuFreqGovernor = "schedutil";
   fileSystems."/srv".options = [ "compress=zstd" ];
   networking.hostName = "nuc";
-  networking.interfaces.eno1.useDHCP = false;
+  networking.useDHCP = false;
   networking.vlans.vlan1.id = 1;
   networking.vlans.vlan1.interface = "eno1";
   networking.interfaces.vlan1.useDHCP = true;
