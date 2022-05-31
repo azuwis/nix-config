@@ -14,6 +14,10 @@
       auto_balance = "on";
       layout = "bsp";
       mouse_modifier = "alt";
+      # top_padding = 0;
+      # bottom_padding = 2;
+      # left_padding = 2;
+      # right_padding = 2;
       window_gap = 2;
       window_shadow = "float";
     };
