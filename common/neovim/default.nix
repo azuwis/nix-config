@@ -8,9 +8,9 @@
     ./update-nix-fetchgit.nix
   ];
   # workaround for https://github.com/lewis6991/impatient.nvim/issues/42
-  home.activation.neovim = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    $DRY_RUN_CMD rm -f $VERBOSE_ARG ~/.cache/nvim/luacache_chunks ~/.cache/nvim/luacache_modpaths
-  '';
+  # home.activation.neovim = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  #   $DRY_RUN_CMD rm -f $VERBOSE_ARG ~/.cache/nvim/luacache_chunks ~/.cache/nvim/luacache_modpaths
+  # '';
   home.sessionVariables.EDITOR = "nvim";
   programs.neovim = {
     enable = true;
