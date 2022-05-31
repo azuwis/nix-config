@@ -17,7 +17,8 @@ in
   services.sketchybar.config = ''
     #!/bin/bash
 
-    bar_color=0xff2e3440
+    # bar_color=0xff2e3440
+    bar_color=0x30000000
     icon_font="JetBrainsMono Nerd Font:Medium:13.0"
     icon_color=0xbbd8dee9
     icon_highlight_color=0xffebcb8b
