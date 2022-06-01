@@ -3,12 +3,12 @@
 let
   nvchad = pkgs.vimUtils.buildVimPluginFrom2Nix {
     pname = "nvchad";
-    version = "unstable-2022-05-30";
+    version = "unstable-2022-06-01";
     src = pkgs.fetchFromGitHub {
       owner = "NvChad";
       repo = "NvChad";
-      rev = "59de298d8fc05b4ee2633cd2dfe9d517cf6f6d68";
-      sha256 = "020a1x6m6ng0zi0694bv7pnzbnphrw1lms3jshr28kdrw3nfd4ba";
+      rev = "f78dc305086d7948c3aa31a8de2fb09462654314";
+      sha256 = "0vfd41sv6k9gvbm2iy8xq8sm602hwjb6dwn76mz8qs46ds8vp2wa";
     };
     # nvim-lsp-installer does not work well on NixOS, e.g. It checks nodejs when yamlls exe already exists
     postPatch = ''
