@@ -20,10 +20,9 @@ in
   ];
 
   # let my.user read data dir
-  # createHome will ensure dir mode 0700, disable it and let systemd tempfile manage
   systemd.services.home-assistant.serviceConfig.UMask = lib.mkForce "0027";
   users.users.${config.my.user}.extraGroups = [ "hass" ];
-  users.users.hass.createHome = lib.mkForce false;
+  users.users.hass.homeMode = "0750";
 
   services.home-assistant = {
     enable = true;
@@ -68,10 +67,6 @@ in
       proxyWebsockets = true;
     };
   };
-
-  systemd.tmpfiles.rules = [
-    "d ${config.services.home-assistant.configDir} 0750 hass hass"
-  ];
 
   home-manager.users.hass.home.file = let
     hassConfig = ./config;
