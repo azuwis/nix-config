@@ -17,7 +17,7 @@ in
 
 {
   home.packages = with pkgs; [
-    ffmpeg
+    ffmpeg-full
     yt-dlp
   ];
   programs.mpv = {
