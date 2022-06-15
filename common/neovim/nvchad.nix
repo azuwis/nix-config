@@ -3,12 +3,12 @@
 let
   nvchad = pkgs.vimUtils.buildVimPluginFrom2Nix {
     pname = "nvchad";
-    version = "unstable-2022-06-07";
+    version = "unstable-2022-06-14";
     src = pkgs.fetchFromGitHub {
       owner = "NvChad";
       repo = "NvChad";
-      rev = "700801b3131af63970a9c6091bb0b5e34c7347ce";
-      sha256 = "0h64gsb20j1069m51nmaa9fdbmhcnlhd0vaqp80ayg1z2l12vfiw";
+      rev = "a7a6945f52f079caca0ff4f1eaecf8196a61851c";
+      sha256 = "0dlrni157hrmm1msr254yhyghjh3g95wwcrbhqcnphv7lnmiqng1";
     };
     meta.homepage = "https://github.com/NvChad/NvChad/";
   };
