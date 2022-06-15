@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# See all nix-direnv gcroots
+nix-store --gc --print-roots | awk  '/flake-profile/ {print $1}' | xargs -o nix-tree
