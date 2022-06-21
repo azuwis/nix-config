@@ -23,6 +23,9 @@ in
   services.qbittorrent.config = ''
     [BitTorrent]
     Session\DefaultSavePath=${path}
+    Session\DisableAutoTMMByDefault=false
+    Session\DisableAutoTMMTriggers\CategorySavePathChanged=false
+    Session\DisableAutoTMMTriggers\DefaultSavePathChanged=false
     Session\GlobalDLSpeedLimit=15000
     Session\GlobalUPSpeedLimit=3072
     Session\MaxActiveDownloads=5
