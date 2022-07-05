@@ -22,11 +22,6 @@ M.plugins = {
   },
 
   override = {
-    ["akinsho/bufferline.nvim"] = {
-      options = {
-        show_buffer_close_icons = false,
-      },
-    },
     ["nvim-treesitter/nvim-treesitter"] = {
       ensure_installed = {
         "hcl",
