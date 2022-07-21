@@ -25,15 +25,7 @@
     daemon
     element-desktop
     hydra-check
-    ((darwin.iproute2mac.override { python2 = pkgs.python3; })
-    .overrideAttrs (o: rec {
-      version = "1.3.0";
-      src = fetchFromGitHub {
-        owner = "brona";
-        repo = "iproute2mac";
-        rev = "v${version}";
-        sha256 = "sha256-Xz/8OHn7BEM8L4BnFB2AhQ7sZTY9euYvFZBGSo5fl+0=";
-      };
+    (darwin.iproute2mac.overrideAttrs (o: rec {
       postPatch = "";
     }))
     # losslesscut-bin

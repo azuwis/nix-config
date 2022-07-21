@@ -3,8 +3,8 @@
     flake-utils.url = "github:numtide/flake-utils";
     flake-utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus";
     flake-utils-plus.inputs.flake-utils.follows = "flake-utils";
-    nixpkgs.url = "github:NixOS/nixpkgs/release-22.05";
-    nixpkgsDarwin.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # nixpkgsDarwin.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
     darwin.url = "github:lnl7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
     droid.url = "github:t184256/nix-on-droid";
@@ -14,7 +14,7 @@
     wsl.url = "github:nix-community/NixOS-WSL";
     wsl.inputs.nixpkgs.follows = "nixpkgs";
     wsl.inputs.flake-utils.follows = "flake-utils";
-    home-manager.url = "github:nix-community/home-manager/release-22.05";
+    home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     agenix.url = "github:ryantm/agenix/pull/107/head";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
@@ -59,7 +59,7 @@
 
       hosts.mbp = {
         system = "aarch64-darwin";
-        channelName = "nixpkgsDarwin";
+        # channelName = "nixpkgsDarwin";
         modules = [ self.modules.darwin ];
         output = "darwinConfigurations";
         builder = darwin.lib.darwinSystem;
