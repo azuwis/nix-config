@@ -7,6 +7,13 @@ return {
     end,
   },
 
+  ["jose-elias-alvarez/null-ls.nvim"] = {
+    after = "nvim-lspconfig",
+    config = function()
+      require "custom.plugins.null-ls"
+    end,
+  },
+
   ["sindrets/diffview.nvim"] = {
     requires = "nvim-lua/plenary.nvim",
     after = "plenary.nvim",
