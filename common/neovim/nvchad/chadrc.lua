@@ -15,12 +15,6 @@ M.mappings = {
 }
 
 M.plugins = {
-  options = {
-    lspconfig = {
-      setup_lspconf = "custom.lspconfig",
-    },
-  },
-
   override = {
     ["nvim-treesitter/nvim-treesitter"] = {
       ensure_installed = {
