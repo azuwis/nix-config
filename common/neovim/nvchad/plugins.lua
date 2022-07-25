@@ -6,14 +6,15 @@ return {
     end,
   },
 
+  ["sindrets/diffview.nvim"] = {
+    requires = "nvim-lua/plenary.nvim",
+    after = "plenary.nvim",
+  },
   ["TimUntersberger/neogit"] = {
     cmd = {
       "Neogit",
     },
-    requires = {
-      "nvim-lua/plenary.nvim",
-      "sindrets/diffview.nvim",
-    },
+    requires = "nvim-lua/plenary.nvim",
     config = function()
       require("neogit").setup {
         disable_commit_confirmation = true,
