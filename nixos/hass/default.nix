@@ -68,6 +68,7 @@ in
     };
   };
 
+  home-manager.users.hass.home.stateVersion = "22.05";
   home-manager.users.hass.home.file = let
     hassConfig = ./config;
     file = builtins.mapAttrs
