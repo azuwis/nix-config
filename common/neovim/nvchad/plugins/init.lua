@@ -1,6 +1,5 @@
 return {
   ["neovim/nvim-lspconfig"] = {
-    after = "gitsigns.nvim",
     config = function()
       require "plugins.configs.lspconfig"
       require "custom.plugins.lspconfig"

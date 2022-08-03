@@ -29,7 +29,7 @@ M.plugins = {
 
   remove = {
     "lewis6991/impatient.nvim",
-    "williamboman/nvim-lsp-installer",
+    "williamboman/mason.nvim",
   },
 
   user = require "custom.plugins",
