@@ -22,6 +22,7 @@ in
 
     Service = {
       ExecStart = "${pkgs.yambar}/bin/yambar --config=${config} --log-level=error";
+      Environment = "PATH=${pkgs.coreutils-full}/bin";
       Restart = "on-failure";
     };
 
