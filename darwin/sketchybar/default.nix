@@ -42,6 +42,7 @@ in
       --bar \
         height=24 \
         position=top \
+        sticky=on \
         padding_left=10 \
         padding_right=10 \
         color="$bar_color" \
