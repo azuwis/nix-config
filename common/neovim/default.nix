@@ -23,10 +23,6 @@
       tree-sitter
       yaml-language-server
     ] ++ lib.optionals (builtins.hasAttr "stylua" pkgs) [ stylua ];
-    extraConfig = ''
-      set commentstring=#\ %s
-      autocmd! FileType gitcommit exec 'norm gg' | startinsert!
-    '';
     plugins = with pkgs.vimPlugins; [
       csv-vim
       vim-jsonnet
