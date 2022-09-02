@@ -8,7 +8,7 @@
   };
   fonts.fontDir.enable = true;
   fonts.fonts = with pkgs; [ jetbrains-mono-nerdfont sf-symbols ];
-  nix.allowedUsers = [ config.my.user ];
+  nix.settings.allowed-users = [ config.my.user ];
   nix.extraOptions = ''
     extra-platforms = x86_64-darwin
   '';
@@ -41,14 +41,14 @@
       NSNavPanelExpandedStateForSaveMode = true;
       NSNavPanelExpandedStateForSaveMode2 = true;
       NSTableViewDefaultSizeMode = 2;
-      NSWindowResizeTime = "0.0001";
+      NSWindowResizeTime = 0.0001;
       PMPrintingExpandedStateForPrint = true;
       PMPrintingExpandedStateForPrint2 = true;
     };
     LaunchServices.LSQuarantine = false;
     dock = {
       autohide = true;
-      expose-animation-duration = "0";
+      expose-animation-duration = 0.0;
       mineffect = "scale";
       minimize-to-application = true;
       mru-spaces = false;
