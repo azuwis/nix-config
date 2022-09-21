@@ -18,6 +18,20 @@ return {
     },
   },
 
+  ["NvChad/ui"] = {
+    override_options = {
+      tabufline = {
+        overriden_modules = function()
+          return {
+            buttons = function()
+              return ""
+            end,
+          }
+        end,
+      },
+    },
+  },
+
   ["lewis6991/impatient.nvim"] = false,
   ["williamboman/mason.nvim"] = false,
 
