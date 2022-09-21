@@ -6,6 +6,21 @@ return {
     end,
   },
 
+  ["nvim-treesitter/nvim-treesitter"] = {
+    override_options = {
+      ensure_installed = {
+        "hcl",
+        "lua",
+        "nix",
+        "vim",
+        "yaml",
+      },
+    },
+  },
+
+  ["lewis6991/impatient.nvim"] = false,
+  ["williamboman/mason.nvim"] = false,
+
   ["jose-elias-alvarez/null-ls.nvim"] = {
     after = "nvim-lspconfig",
     config = function()

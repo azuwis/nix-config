@@ -14,25 +14,6 @@ M.mappings = {
   },
 }
 
-M.plugins = {
-  override = {
-    ["nvim-treesitter/nvim-treesitter"] = {
-      ensure_installed = {
-        "hcl",
-        "lua",
-        "nix",
-        "vim",
-        "yaml",
-      },
-    },
-  },
-
-  remove = {
-    "lewis6991/impatient.nvim",
-    "williamboman/mason.nvim",
-  },
-
-  user = require "custom.plugins",
-}
+M.plugins = require "custom.plugins"
 
 return M
