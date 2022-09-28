@@ -3,7 +3,7 @@
 if builtins.hasAttr "hm" lib then
 
 let
-  fuzzelWrapped = with pkgs; runCommandNoCC "fuzzel" { buildInputs = [ makeWrapper ]; } ''
+  fuzzelWrapped = with pkgs; runCommand "fuzzel" { buildInputs = [ makeWrapper ]; } ''
     options="--lines=8 --no-icons --font=monospace:pixelsize=20 --background-color=2E3440FF --text-color=D8DEE9FF --selection-color=4C566AFF --selection-text-color=E8DEE9FF --terminal=footclient --log-level=error"
     makeWrapper ${fuzzel}/bin/fuzzel $out/bin/fuzzel --add-flags "$options"
     # for passmenu

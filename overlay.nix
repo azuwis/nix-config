@@ -48,7 +48,7 @@ self: super: rec {
       sha256 = "sha256-hY8g6H2KFL8ownSiFeMOjwPC8P0ueXpCVEbxgda3pko=";
     };
     prefix = ''(import ${flake-compact} { src = /etc/nixos; }).defaultNix.nixosConfigurations.\$(hostname)'';
-  in super.runCommandNoCC "nixos-option" { buildInputs = [ super.makeWrapper ]; } ''
+  in super.runCommand "nixos-option" { buildInputs = [ super.makeWrapper ]; } ''
     makeWrapper ${super.nixos-option}/bin/nixos-option $out/bin/nixos-option \
       --add-flags --config_expr \
       --add-flags "\"${prefix}.config\"" \

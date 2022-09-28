@@ -13,7 +13,7 @@ let
     v = "~/Videos";
   };
   nnn = pkgs.nnn.override({ withNerdIcons = true; });
-  nnn-wrapped = with pkgs; runCommandNoCC "nnn" { buildInputs = [ makeWrapper ]; } ''
+  nnn-wrapped = with pkgs; runCommand "nnn" { buildInputs = [ makeWrapper ]; } ''
     makeWrapper ${nnn}/bin/nnn $out/bin/nnn \
       --add-flags -Acd \
       --set GUI 1 \
