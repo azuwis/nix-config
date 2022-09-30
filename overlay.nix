@@ -68,12 +68,12 @@ self: super: rec {
     }.${super.pkgs.stdenv.system};
   in super.yabai.overrideAttrs(
     o: rec {
-      version = "4.0.1";
+      version = "5.0.1";
       src = super.fetchFromGitHub {
         owner = "koekeishiya";
         repo = "yabai";
         rev = "v${version}";
-        sha256 = "sha256-H1zMg+/VYaijuSDUpO6RAs/KLAAZNxhkfIC6CHk/xoI=";
+        sha256 = "sha256-5WtWLfiWVOqshbsx50fuEv8ab3U0y6z5+yvXoxpLokU=";
       };
       postPatch = ''
         substituteInPlace makefile ${replace};
