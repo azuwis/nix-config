@@ -5,11 +5,12 @@
   environment.variables = { HOMEBREW_NO_ANALYTICS = "1"; };
   homebrew = {
     enable = true;
-    # autoUpdate = true;
-    cleanup = "zap";
+    onActivation = {
+      # autoUpdate = true;
+      cleanup = "zap";
+    };
     global = {
       brewfile = true;
-      noLock = true;
     };
     taps = [
       "homebrew/core"
