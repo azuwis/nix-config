@@ -16,10 +16,10 @@ in
 
 {
   programs.neovim = {
-    extraConfig = ''
-      source ${nvchad}/init.lua
-    '';
     plugins = [ nvchad ];
   };
+  xdg.configFile."nvim/init.lua".text = ''
+    vim.cmd [[source ${nvchad}/init.lua]]
+  '';
   xdg.configFile."nvim/lua/custom".source = ./nvchad;
 }
