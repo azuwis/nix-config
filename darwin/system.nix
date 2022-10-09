@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
+  users.users.${config.my.user}.home = "/Users/${config.my.user}";
   environment.systemPackages = with pkgs; [ sf-symbols-app ];
   environment.variables = {
     LANG = "en_US.UTF-8";
