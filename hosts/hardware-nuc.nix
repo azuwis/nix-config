@@ -23,14 +23,14 @@
       fsType = "vfat";
     };
 
-  fileSystems."/srv" =
-    { device = "/dev/disk/by-uuid/4c8c58d5-f889-4d21-a5ca-6e9b569b3941";
-      fsType = "btrfs";
-    };
-
   fileSystems."/home/debian" =
     { device = "/dev/disk/by-uuid/fc76164f-b704-42c4-af66-85e40af52947";
       fsType = "ext4";
+    };
+
+  fileSystems."/srv" =
+    { device = "/dev/disk/by-uuid/4c8c58d5-f889-4d21-a5ca-6e9b569b3941";
+      fsType = "btrfs";
     };
 
   swapDevices = [ ];
@@ -41,8 +41,7 @@
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.eno1.useDHCP = lib.mkDefault true;
-  # networking.interfaces.vlan1.useDHCP = lib.mkDefault true;
-  # networking.interfaces.vlan5.useDHCP = lib.mkDefault true;
 
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
