@@ -6,6 +6,7 @@
   documentation.nixos.enable = true;
   fileSystems."/".options = lib.mkIf (config.fileSystems."/".fsType == "btrfs") [ "compress-force=zstd" ];
   networking.useNetworkd = lib.mkDefault true;
+  systemd.network.wait-online.anyInterface = true;
   # nix.settings.allowed-users = [ config.my.user ];
   programs.ssh.startAgent = true;
   security.sudo.wheelNeedsPassword = false;
