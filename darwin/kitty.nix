@@ -8,9 +8,6 @@ if builtins.hasAttr "hm" lib then
     "--single-instance"
     "--directory=~"
   ];
-  programs.kitty.environment = {
-    TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
-  };
   programs.kitty.font.name = "JetBrainsMono Nerd Font";
   programs.kitty.font.size = 15;
   programs.kitty.settings = {
