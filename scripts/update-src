@@ -1,5 +1,10 @@
 #!/usr/bin/env sh
 
+set -u
+
+nix_index_tag="$(curl -fsSL https://api.github.com/repos/Mic92/nix-index-database/releases/latest | awk -F'"' '/"tag_name"/ {print $4}')"
+sed -i -e "s|/[0-9-]\{10\}/|/${nix_index_tag}/|" common/nix-index.nix
+
 nix run nixpkgs#update-nix-fetchgit -- \
   common/neovim/nvchad.nix \
   common/nix-index.nix \
