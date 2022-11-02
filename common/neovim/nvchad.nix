@@ -22,4 +22,5 @@ in
     vim.cmd [[source ${nvchad}/init.lua]]
   '';
   xdg.configFile."nvim/lua/custom".source = ./nvchad;
+  xdg.configFile."nvim/lua/telescope".source = ./telescope;
 }
