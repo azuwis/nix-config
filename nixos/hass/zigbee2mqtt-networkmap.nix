@@ -19,9 +19,8 @@ in
       url = "/local/zigbee2mqtt-networkmap.js?v=${builtins.hashFile "md5" js}";
       type = "module";
     }];
-    sensor = [{
+    mqtt.sensor = [{
       name = "Zigbee2mqtt Networkmap";
-      platform = "mqtt";
       state_topic = "zigbee2mqtt/bridge/response/networkmap";
       value_template = ''{{ now().strftime("%Y-%m-%d %H:%M:%S") }}'';
       json_attributes_topic = "zigbee2mqtt/bridge/response/networkmap";
