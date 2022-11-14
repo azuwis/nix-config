@@ -7,7 +7,8 @@ return require("telescope").register_extension {
         dir = vim.fn.expand("%:p:h:h")
       end
       local title = require("plenary.path"):new(dir):shorten()
-      require("telescope.builtin").find_files({ prompt_title=title, cwd=dir })
+      vim.cmd("cd ".. dir)
+      require("telescope.builtin").find_files({ prompt_title=title })
     end,
   },
 }

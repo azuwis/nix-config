@@ -6,6 +6,32 @@ return {
     end,
   },
 
+  ["nvim-telescope/telescope.nvim"] = {
+    override_options = {
+      pickers = {
+        find_files = {
+          mappings = {
+            i = {
+              [".."] = function ()
+                vim.cmd("cd ..")
+                local title = require("plenary.path"):new(vim.loop.cwd()):shorten()
+                require("telescope.builtin").find_files({ prompt_title = title})
+              end,
+              ["//"] = function ()
+                local dir = vim.fn.system({'git', 'rev-parse', '--show-toplevel'})
+                if vim.v.shell_error == 0 then
+                  vim.cmd("cd " .. dir)
+                end
+                local title = require("plenary.path"):new(vim.loop.cwd()):shorten()
+                require("telescope.builtin").find_files({ prompt_title = title})
+              end,
+            },
+          },
+        },
+      },
+    },
+  },
+
   ["nvim-treesitter/nvim-treesitter"] = {
     override_options = {
       ensure_installed = {
