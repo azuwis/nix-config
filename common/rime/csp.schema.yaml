@@ -235,7 +235,7 @@ speller:
     - xform/^nian$/NW/
     - xform/^liu$/LQ/
     - xform/^hu$/HF/
-    - xform/^lue$/LB/
+    - xform/^lve$/LB/
     - xform/^ruo$/RP/
     - xform/^kai$/KH/
     - xform/^kao$/KJ/
@@ -662,7 +662,7 @@ reverse_lookup:
     - xform/mao/MB/
     - xform/man/MN/
     - xform/mai/MX/
-    - xform/lue/LB/
+    - xform/lve/LB/
     - xform/luo/LB/
     - xform/lun/LC/
     - xform/lou/LQ/
