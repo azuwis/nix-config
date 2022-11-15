@@ -9,7 +9,6 @@
     darwin.inputs.nixpkgs.follows = "nixpkgs";
     droid.url = "github:t184256/nix-on-droid";
     droid.inputs.nixpkgs.follows = "nixpkgs";
-    droid.inputs.flake-utils.follows = "flake-utils";
     droid.inputs.home-manager.follows = "home-manager";
     wsl.url = "github:nix-community/NixOS-WSL";
     wsl.inputs.nixpkgs.follows = "nixpkgs";
