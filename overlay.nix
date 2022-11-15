@@ -75,6 +75,7 @@ self: super: rec {
         rev = "v${version}";
         sha256 = "sha256-5WtWLfiWVOqshbsx50fuEv8ab3U0y6z5+yvXoxpLokU=";
       };
+      dontBuild = false;
       postPatch = ''
         substituteInPlace makefile ${replace};
       '';
