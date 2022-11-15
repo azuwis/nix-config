@@ -8,7 +8,7 @@ self: super: rec {
   legacyfox = super.callPackage ./pkgs/legacyfox { };
   nibar = super.callPackage ./pkgs/nibar { };
   redsocks2 = super.callPackage ./pkgs/redsocks2 { };
-  rime-idvel = super.callPackage ./pkgs/rime-idvel { };
+  rime-ice = super.callPackage ./pkgs/rime-ice { };
   scripts = super.callPackage ./pkgs/scripts { };
   sf-symbols = self.sf-symbols-minimal;
   sf-symbols-app = super.callPackage ./pkgs/sf-symbols { app = true; fonts = false; };

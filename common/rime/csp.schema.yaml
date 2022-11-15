@@ -407,7 +407,7 @@ speller:
     - xlit/ZYXWVUTSRQPONMLKJIHGFEDCBA/zyxwvutsrqponmlkjihgfedcba/
 
 translator:
-  dictionary: pinyin_simp
+  dictionary: rime_ice
   prism: csp
 
 simplifier:
@@ -415,7 +415,7 @@ simplifier:
   opencc_config: s2t.json
 
 reverse_lookup:
-  dictionary: pinyin_simp
+  dictionary: rime_ice
   enable_completion: true
   prefix: "`"
   suffix: "'"

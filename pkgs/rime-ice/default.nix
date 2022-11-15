@@ -1,7 +1,7 @@
 { lib, stdenvNoCC, fetchFromGitHub }:
 
 stdenvNoCC.mkDerivation rec {
-  pname = "rime-idvel";
+  pname = "rime-ice";
   version = "unstable-2022-11-11";
 
   src = fetchFromGitHub {
@@ -13,12 +13,11 @@ stdenvNoCC.mkDerivation rec {
 
   installPhase = ''
     mkdir $out/
-    sed -i -e '/cn_dicts\/private/d' pinyin_simp.dict.yaml
-    cp -r cn_dicts/ pinyin_simp.dict.yaml $out/
+    cp -r cn_dicts/ rime_ice.dict.yaml $out/
   '';
 
   meta = with lib; {
     description = "Rime pinyin dict from iDvel";
-    homepage = "https://github.com/iDvel/rime-settings";
+    homepage = "https://github.com/iDvel/rime-ice";
   };
 }

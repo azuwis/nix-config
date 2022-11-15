@@ -18,7 +18,7 @@ in
 
 {
   home.file."${rime.dir}" = {
-    source = pkgs.rime-idvel;
+    source = pkgs.rime-ice;
     recursive = true;
     onChange = rime.deploy;
   };
@@ -42,7 +42,7 @@ in
   home.file."${rime.dir}/luna_pinyin.custom.yaml".text = ''
     patch:
       __include: grammar:/hans
-      translator/dictionary: pinyin_simp
+      translator/dictionary: rime_ice
   '';
   home.file."${rime.dir}/squirrel.custom.yaml".text = lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
     patch:
