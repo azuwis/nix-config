@@ -35,7 +35,7 @@ in
     url = "https://github.com/lotem/rime-octagram-data/raw/master/grammar.yaml";
     sha256 = "0aa14rvypnja38dm15hpq34xwvf06al6am9hxls6c4683ppyk355";
   };
-  home.file."${rime.dir}/zh-hans-t-essay-bgw.gramhans".source = pkgs.fetchurl {
+  home.file."${rime.dir}/zh-hans-t-essay-bgw.gram".source = pkgs.fetchurl {
     url = "https://github.com/lotem/rime-octagram-data/raw/hans/zh-hans-t-essay-bgw.gram";
     sha256 = "0ygcpbhp00lb5ghi56kpxl1mg52i7hdlrznm2wkdq8g3hjxyxfqi";
   };
