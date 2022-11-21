@@ -72,8 +72,9 @@ self: super: rec {
       src = super.fetchFromGitHub {
         owner = "koekeishiya";
         repo = "yabai";
-        rev = "v${version}";
-        sha256 = "sha256-5WtWLfiWVOqshbsx50fuEv8ab3U0y6z5+yvXoxpLokU=";
+        # rev = "v${version}";
+        rev = "206c0d6968210f48363f206526760e5750810a61";
+        sha256 = "sha256-qwtenjHpvm1kPrcc3B451hXTSERFc4hvgm8g7s4KXpM=";
       };
       dontBuild = false;
       postPatch = ''
