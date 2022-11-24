@@ -33,7 +33,6 @@
     ../common/rime
     ../common/zsh-ssh-agent.nix
     ./firefox.nix
-    ./hmapps.nix
     ./kitty.nix
     ./mpv.nix
     ./packages.nix
