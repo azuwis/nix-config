@@ -23,7 +23,6 @@
       "tofrodos"
     ];
     casks = [
-      "android-file-transfer"
       "android-platform-tools"
       "google-chrome"
       "microsoft-office"

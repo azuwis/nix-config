@@ -21,6 +21,7 @@
       darwin-rebuild switch --flake . "''$@"
       popd || exit
     '')
+    android-file-transfer
     coreutils-full
     daemon
     element-desktop
