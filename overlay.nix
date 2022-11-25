@@ -58,28 +58,5 @@ self: super: rec {
     };
   };
   python3Packages = python3.pkgs;
-  yabai = let
-    replace = {
-      aarch64-darwin = ''--replace "-arch x86_64" ""'';
-      x86_64-darwin = ''--replace "-arch arm64e" "" --replace "-arch arm64" ""'';
-    }.${super.pkgs.stdenv.system};
-  in super.yabai.overrideAttrs(
-    o: rec {
-      version = "5.0.1";
-      src = super.fetchFromGitHub {
-        owner = "koekeishiya";
-        repo = "yabai";
-        # rev = "v${version}";
-        rev = "206c0d6968210f48363f206526760e5750810a61";
-        sha256 = "sha256-qwtenjHpvm1kPrcc3B451hXTSERFc4hvgm8g7s4KXpM=";
-      };
-      dontBuild = false;
-      postPatch = ''
-        substituteInPlace makefile ${replace};
-      '';
-      buildPhase = ''
-        PATH=/usr/bin:/bin /usr/bin/make install
-      '';
-    }
-  );
+  yabai = super.callPackage ./pkgs/yabai { };
 }
