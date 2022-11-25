@@ -2,15 +2,13 @@
 
 {
   networking.hostName = "mbp";
-  system.patches = [
-    (pkgs.writeText "hosts.patch" ''
-      --- a/etc/hosts
-      +++ b/etc/hosts
-      @@ -7,3 +7,4 @@
-       127.0.0.1	localhost
-       255.255.255.255	broadcasthost
-       ::1             localhost
-      +${config.networking.hostName}             localhost
-    '')
-  ];
+  system.activationScripts.hostname.text = ''
+    echo >&2 "setting up hostname in /etc/hosts..."
+    if grep -q nix-darwin /etc/hosts
+    then
+        sed -i -e "s/^127.0.0.1 .* # nix-darwin$/127.0.0.1 ${config.networking.hostName} # nix-darwin/" /etc/hosts
+    else
+        echo "127.0.0.1 ${config.networking.hostName} # nix-darwin" >> /etc/hosts
+    fi
+  '';
 }
