@@ -8,9 +8,7 @@ stdenvNoCC.mkDerivation rec {
     inherit sha256;
     url = "https://github.com/ryanoasis/nerd-fonts.git";
     rev = "df6d602440f06695d3db372b45465632de264cc2";
-    sparseCheckout = ''
-      patched-fonts/${font}
-    '';
+    sparseCheckout = [ "patched-fonts/${font}" ];
   };
 
   installPhase = ''
