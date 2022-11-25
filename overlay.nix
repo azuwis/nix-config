@@ -1,10 +1,7 @@
 self: super: rec {
   # pkgs
   anime4k = super.callPackage ./pkgs/anime4k { };
-  jetbrains-mono-nerdfont = super.callPackage ./pkgs/nerdfonts {
-    font = "JetBrainsMono/Ligatures";
-    sha256 = "sha256-uuUuHSXxXWK1QB9yNNTqK4WQaDQ0t47SvMYu8V59V+E=";
-  };
+  jetbrains-mono-nerdfont = super.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
   legacyfox = super.callPackage ./pkgs/legacyfox { };
   nibar = super.callPackage ./pkgs/nibar { };
   redsocks2 = super.callPackage ./pkgs/redsocks2 { };
