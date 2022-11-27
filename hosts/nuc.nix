@@ -4,6 +4,7 @@
   imports = [
     # nixos-generate-config --show-hardware-config > hardware-nuc.nix
     ./hardware-nuc.nix
+    ../nixos/android.nix
     ../nixos/hass
     ../nixos/nginx.nix
     ../nixos/samba.nix

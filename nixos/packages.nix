@@ -13,7 +13,6 @@
       # --use-remote-sudo is needed, see https://github.com/NixOS/nixpkgs/issues/169193
       nixos-rebuild --use-remote-sudo switch --flake '/etc/nixos' ''${args[@]}
     '')
-    android-file-transfer
     compsize
     dnsutils
     efibootmgr
