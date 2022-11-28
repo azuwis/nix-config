@@ -29,7 +29,10 @@ in
   services.nginx= {
     enable = true;
     enableReload = true;
+    recommendedGzipSettings = true;
+    recommendedOptimisation = true;
     recommendedProxySettings = true;
+    recommendedTlsSettings = true;
     virtualHosts.default = {
       default = true;
       onlySSL = true;
