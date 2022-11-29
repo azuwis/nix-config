@@ -8,6 +8,7 @@
   ];
 
   hm.imports = [
+    ./gnupg.nix
     ./packages.nix
   ];
 }
