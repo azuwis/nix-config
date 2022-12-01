@@ -74,6 +74,8 @@ in {
         group = cfg.group;
         shell = pkgs.bashInteractive;
         home = cfg.dataDir;
+        createHome = true;
+        homeMode = "0750";
         description = "qBittorrent Daemon user";
         isSystemUser = true;
       };
@@ -101,7 +103,6 @@ in {
       };
 
       tmpfiles.rules = [
-        "d '${cfg.dataDir}' 0750 ${cfg.user} ${cfg.group} -"
         "d '${cfg.dataDir}/.config/qBittorrent' 0755 ${cfg.user} ${cfg.group} -"
       ];
     };
