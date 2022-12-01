@@ -7,6 +7,7 @@
     ../nixos/android.nix
     ../nixos/hass
     ../nixos/nginx.nix
+    ../nixos/photoprism.nix
     ../nixos/samba.nix
     ../nixos/torrent.nix
     ../nixos/uxplay.nix
