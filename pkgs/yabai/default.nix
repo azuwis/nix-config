@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "koekeishiya";
-    repo = pname;
+    repo = "yabai";
     # rev = "v${version}";
     rev = "c02de22e0c7c653d2048fd15eb1f86677d0f43e5";
     sha256 = "sha256-zo4uDLI1Exmd+Z4pgdVvBfpbIAJ/C+WxlPlxNayzIo0=";
