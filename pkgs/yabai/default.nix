@@ -11,8 +11,8 @@ stdenv.mkDerivation rec {
     owner = "koekeishiya";
     repo = pname;
     # rev = "v${version}";
-    rev = "206c0d6968210f48363f206526760e5750810a61";
-    sha256 = "sha256-qwtenjHpvm1kPrcc3B451hXTSERFc4hvgm8g7s4KXpM=";
+    rev = "c02de22e0c7c653d2048fd15eb1f86677d0f43e5";
+    sha256 = "sha256-zo4uDLI1Exmd+Z4pgdVvBfpbIAJ/C+WxlPlxNayzIo0=";
   };
 
   postPatch = let
