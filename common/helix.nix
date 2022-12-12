@@ -26,7 +26,13 @@
       keys.normal = {
         space.space = "file_picker";
       };
-      theme = "nord";
+      theme = "mynord";
+    };
+    themes = {
+      mynord = {
+        inherits = "nord";
+        "ui.virtual.indent-guide" = "nord1";
+      };
     };
   };
 }
