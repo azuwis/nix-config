@@ -16,6 +16,7 @@ in
 
 {
   programs.neovim = {
+    # plugins = [ nvchad pkgs.vimPlugins.telescope-fzf-native-nvim ];
     plugins = [ nvchad ];
   };
   xdg.configFile."nvim/init.lua".text = ''
