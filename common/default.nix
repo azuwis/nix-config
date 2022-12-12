@@ -12,6 +12,7 @@
     ./direnv.nix
     ./helix.nix
     ./git.nix
+    ./gitui.nix
     ./gnupg.nix
     ./my.nix
     ./neovim
