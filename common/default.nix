@@ -10,6 +10,7 @@
   hm.imports = [
     ./difftastic.nix
     ./direnv.nix
+    ./helix.nix
     ./git.nix
     ./gnupg.nix
     ./my.nix
