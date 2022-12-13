@@ -16,7 +16,10 @@
       editor = {
         bufferline = "multiple";
         color-modes = true;
-        cursor-shape.insert = "bar";
+        cursor-shape = {
+          insert = "bar";
+          select = "underline";
+        };
         indent-guides = {
           render = true;
           character = "▏";
