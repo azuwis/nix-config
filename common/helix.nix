@@ -27,6 +27,7 @@
         };
       };
       keys.normal = {
+        space.q = ":quit";
         space.space = "file_picker";
       };
       theme = "mynord";
