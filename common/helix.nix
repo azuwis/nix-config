@@ -35,6 +35,7 @@
     themes = {
       mynord = {
         inherits = "nord";
+        "ui.cursor.primary" = { bg = "#6d7b99"; };
         "ui.virtual.indent-guide" = "nord1";
       };
     };
