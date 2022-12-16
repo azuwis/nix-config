@@ -42,7 +42,7 @@ bar:
     - script:
         path: @scripts@/net-speed
         content:
-          - string: {text: "", right-margin: 2}
+          - string: {text: "", right-margin: 6}
           - string: {text: "{rate}"}
     - cpu:
         interval: 10000
