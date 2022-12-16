@@ -18,6 +18,7 @@ self: super: rec {
   # uxplay = super.callPackage ./pkgs/uxplay { };
 
   # override
+  fcitx5-configtool = null;
   nixos-option = let
     flake-compact = super.fetchFromGitHub {
       owner = "edolstra";
