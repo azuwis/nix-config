@@ -70,6 +70,9 @@ in
       };
       output."*".bg = "#2E3440 solid_color";
     };
+    extraConfig = ''
+      exec systemctl --user start xdg-autostart-if-no-desktop-manager.target
+    '';
   };
 
   wayland.windowManager.sway.swaynag = {
@@ -94,4 +97,5 @@ else
       export _JAVA_AWT_WM_NONREPARENTING=1
     '';
   };
+  services.xserver.desktopManager.runXdgAutostartIfNone = true;
 }
