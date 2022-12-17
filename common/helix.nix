@@ -22,6 +22,7 @@
           character = "▏";
           skip-levels = 1;
         };
+        true-color = true;
       };
       keys.normal = {
         space.q = ":quit";
