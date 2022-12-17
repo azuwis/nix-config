@@ -1,119 +1,62 @@
-switch:
-  - platform: template
-    switches:
-      light_living_room:
-        friendly_name: Light living room
-        value_template: >-
-          {{ is_state('light.living_room', 'on') }}
-        turn_on:
-          service: light.turn_on
-          data_template:
-            entity_id: light.living_room
-            brightness: >-
-              {% if now().hour >= 12 or state_attr('sun.sun', 'elevation') > 3 %}
-                255
-              {% else %}
-                1
-              {% endif %}
-            kelvin: >-
-              {% if now().hour >= 12 or state_attr('sun.sun', 'elevation') > 3 %}
-                6500
-              {% else %}
-                2700
-              {% endif %}
-        turn_off:
-          service: light.turn_off
-          data:
-            entity_id: light.living_room
-
-      moonlight_bedroom:
-        friendly_name: Moonlight bedroom
-        value_template: >-
-          {{ is_state('binary_sensor.bedroom_nightlight', 'on') and is_state('light.bedroom', 'on') }}
-        icon_template: mdi:weather-night
-        turn_on:
-          service: yeelight.set_mode
-          data:
-            entity_id: light.bedroom
-            mode: moonlight
-        turn_off:
-          service: yeelight.set_mode
-          data:
-            entity_id: light.bedroom
-            mode: normal
-
-      moonlight_living_room:
-        friendly_name: Moonlight living room
-        value_template: >-
-          {{ is_state('binary_sensor.living_room_nightlight', 'on') and is_state('light.living_room', 'on') }}
-        icon_template: mdi:weather-night
-        turn_on:
-          service: yeelight.set_mode
-          data:
-            entity_id: light.living_room
-            mode: moonlight
-        turn_off:
-          service: yeelight.set_mode
-          data:
-            entity_id: light.living_room
-            mode: normal
-
 automation:
-  - alias: Button a single
-    trigger:
-      platform: mqtt
-      topic: zigbee2mqtt/button_a
-    condition:
-      condition: template
-      value_template: >-
-        {{ trigger.payload_json.click == 'single' }}
-    action:
-      service: switch.toggle
-      data:
-        entity_id: switch.light_living_room
-
-  - alias: Button c single
-    trigger:
-      platform: mqtt
-      topic: zigbee2mqtt/button_c
-    condition:
-      condition: template
-      value_template: >-
-        {{ trigger.payload_json.click == 'single' }}
-    action:
-      service: light.toggle
-      data:
-        entity_id: light.bedroom
-
-  - alias: Button c long
-    trigger:
-      platform: mqtt
-      topic: zigbee2mqtt/button_c
-    condition:
-      condition: template
-      value_template: >-
-        {{ trigger.payload_json.click == 'long' }}
-    action:
-      service: switch.toggle
-      data:
-        entity_id: switch.light_living_room
-
-  - alias: Light living room set brightness when available
+  - alias: Auto brightness day
     trigger:
       - platform: state
-        entity_id: light.living_room
-        from: 'unavailable'
+        entity_id: &all_lights
+          - light.living_room
+          - light.primary_bedroom
+          - light.secondary_bedroom
+          - light.kids_room
+          - light.kitchen_door
+          - light.kitchen_window
+          - light.bathroom
         to: 'on'
-      - platform: numeric_state
-        entity_id: sun.sun
+    condition:
+      - condition: time
+        after: '07:35:00'
+        before: '22:45:00'
+      - condition: template
         value_template: >-
-          {{ state.attributes.elevation }}
-        above: 3
+          {{ state_attr(trigger.entity_id, 'brightness') < 250 }}
+    action:
+      service: light.turn_on
+      data_template:
+        entity_id: >-
+          {{ trigger.entity_id }}
+        brightness: 255
+
+  - alias: Auto brightness night
+    trigger:
+      - platform: state
+        entity_id: *all_lights
+        to: 'on'
+    condition:
+      - condition: time
+        after: '22:45:00'
+        before: '07:35:00'
+      - condition: template
+        value_template: >-
+          {{ state_attr(trigger.entity_id, 'brightness') > 5 }}
+    action:
+      service: light.turn_on
+      data_template:
+        entity_id: >-
+          {{ trigger.entity_id }}
+        brightness: 1
+
+  - alias: Sync kitchen lights
+    trigger:
+      - platform: state
+        entity_id:
+          - light.kitchen_door
+          - light.kitchen_window
+        to: 'off'
+        for: '00:00:01'
     condition:
       condition: state
-      entity_id: light.living_room
+      entity_id: light.kitchen
       state: 'on'
     action:
-      service: switch.turn_on
+      service: light.turn_off
       data:
-        entity_id: switch.light_living_room
+        entity_id: light.kitchen
