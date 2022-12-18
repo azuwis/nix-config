@@ -1,5 +1,6 @@
 automation:
   - alias: Auto brightness day
+    mode: parallel
     trigger:
       - platform: state
         entity_id: &all_lights
@@ -26,6 +27,7 @@ automation:
         brightness: 255
 
   - alias: Auto brightness night
+    mode: parallel
     trigger:
       - platform: state
         entity_id: *all_lights
