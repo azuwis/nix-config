@@ -46,6 +46,28 @@ automation:
           {{ trigger.entity_id }}
         brightness: 1
 
+  - alias: Set brightness day
+    trigger:
+      - platform: time
+        at: '07:35:00'
+    action:
+      service: light.turn_on
+      data_template:
+        entity_id: >-
+          {{ expand(states.light) | selectattr('state', 'eq', 'on') | map(attribute='entity_id') | list }}
+        brightness: 255
+
+  - alias: Set brightness night
+    trigger:
+      - platform: time
+        at: '22:45:00'
+    action:
+      service: light.turn_on
+      data_template:
+        entity_id: >-
+          {{ expand(states.light) | selectattr('state', 'eq', 'on') | map(attribute='entity_id') | list }}
+        brightness: 1
+
   - alias: Sync kitchen lights
     trigger:
       - platform: state
