@@ -5,6 +5,7 @@
   # explicitly enable nixos docs, system like wsl does not enable this
   documentation.nixos.enable = true;
   fileSystems."/".options = lib.mkIf (config.fileSystems."/".fsType == "btrfs") [ "compress-force=zstd" ];
+  networking.enableIPv6 = false;
   networking.useNetworkd = lib.mkDefault true;
   systemd.network.wait-online.anyInterface = true;
   # nix.settings.allowed-users = [ config.my.user ];
