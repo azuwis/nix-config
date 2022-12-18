@@ -30,20 +30,26 @@ in
       "climate.bedroom" = {
         friendly_name = "空调";
       };
-      "light.bedroom" = {
-        friendly_name = "卧室灯";
-      };
       "light.living_room" = {
         friendly_name = "客厅灯";
+      };
+      "light.primary_bedroom" = {
+        friendly_name = "主卧灯";
+      };
+      "light.secondary_bedroom" = {
+        friendly_name = "次卧灯";
+      };
+      "light.kids_room" = {
+        friendly_name = "儿童房灯";
       };
       "light.kitchen" = {
         friendly_name = "厨房灯";
       };
+      "light.bathroom" = {
+        friendly_name = "卫生间灯";
+      };
       "media_player.tv" = {
         friendly_name = "电视";
-      };
-      "switch.water_heater" = {
-        friendly_name = "热水器";
       };
     };
     logger.logs."custom_components.zhibot" = "debug";
