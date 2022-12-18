@@ -15,7 +15,7 @@ automation:
     condition:
       - condition: time
         after: '07:35:00'
-        before: '22:45:00'
+        before: '22:35:00'
       - condition: template
         value_template: >-
           {{ state_attr(trigger.entity_id, 'brightness') < 250 }}
@@ -34,7 +34,7 @@ automation:
         to: 'on'
     condition:
       - condition: time
-        after: '22:45:00'
+        after: '22:35:00'
         before: '07:35:00'
       - condition: template
         value_template: >-
@@ -60,7 +60,7 @@ automation:
   - alias: Set brightness night
     trigger:
       - platform: time
-        at: '22:45:00'
+        at: '22:35:00'
     action:
       service: light.turn_on
       data_template:
