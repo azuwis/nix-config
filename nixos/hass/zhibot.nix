@@ -6,8 +6,8 @@ let
     name = "${owner}-${repo}-${rev}";
     owner = "Yonsm";
     repo = "ZhiBot";
-    rev = "91a4974a104f787c45c81ea4211619afa4235014";
-    sha256 = "10iys3g3217vnqgjmhz3d61ls4dsnzbg152sxmmdgd0p919wf7ld";
+    rev = "e4ff1062529cb931c6172859d7137a25dc61e8ed";
+    sha256 = "1x7vdvhjwl5xkkdw312a1ccdk4c2hsw6ynbppxx7fq1138mkf1sm";
   };
 in
 
