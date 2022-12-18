@@ -51,6 +51,7 @@ in
         host = "127.0.0.1";
         port = 8083;
       };
+      mqtt.server = "mqtt://127.0.0.1:1883";
       serial.disable_led = true;
     };
   };
