@@ -5,6 +5,7 @@ automation:
       - platform: state
         entity_id: &all_lights
           - light.living_room
+          - light.yeelink_fancl5_e358_light
           - light.primary_bedroom
           - light.secondary_bedroom
           - light.kids_room
