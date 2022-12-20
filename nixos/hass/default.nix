@@ -36,6 +36,7 @@ in
   services.home-assistant.config = {
     homeassistant = {
       name = "Home";
+      country = "CN";
       latitude = "!secret latitude";
       longitude = "!secret longitude";
       elevation = "!secret elevation";
