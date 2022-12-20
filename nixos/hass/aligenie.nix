@@ -4,10 +4,10 @@ let
   inherit (config.my) domain;
   component = pkgs.fetchFromGitHub rec {
     name = "${owner}-${repo}-${rev}";
-    owner = "raychow";
+    owner = "azuwis";
     repo = "aligenie";
-    rev = "2965ac0ca03fe196a67d7214971b26c664eda080";
-    sha256 = "sha256-I+E1rH4VFSfUaTmeDYGwFGtgdSTCOp3AxcFv5rHXIwU=";
+    rev = "0a3874364e6b057d4de8a90c8afd7c04f749d5bd";
+    sha256 = "sha256-BIEnCJu841EYHpgVUR30dsSv/u0HBJQDRjWPw9DS43Y=";
   };
 in
 
