@@ -6,6 +6,7 @@ in
 
 {
   imports = [
+    ./aligenie.nix
     ./braviatv.nix
     ./light.nix
     ./lovelace.nix
@@ -14,7 +15,7 @@ in
     ./theme.nix
     ./weather.nix
     ./xiaomi_miot.nix
-    ./zhibot.nix
+    # ./zhibot.nix
     ./zigbee2mqtt.nix
     ./zigbee2mqtt-networkmap.nix
   ];
