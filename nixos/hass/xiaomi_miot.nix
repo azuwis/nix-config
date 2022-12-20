@@ -13,7 +13,12 @@ in
 {
   home-manager.users.hass.home.file."custom_components/xiaomi_miot".source = "${component}/custom_components/xiaomi_miot";
 
-  services.home-assistant.extraPackages = ps: with ps; [ python-miio micloud ];
+  services.home-assistant.extraPackages = ps: with ps; [
+    hap-python
+    micloud
+    pyqrcode
+    python-miio
+  ];
 
   services.home-assistant.config = {
     ffmpeg = {};
