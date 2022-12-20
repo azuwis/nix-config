@@ -45,7 +45,7 @@ automation:
       data_template:
         entity_id: >-
           {{ trigger.entity_id }}
-        brightness: 1
+        brightness: 3
 
   - alias: Set brightness day
     trigger:
