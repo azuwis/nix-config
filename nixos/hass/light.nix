@@ -112,7 +112,7 @@
         data_template:
           entity_id: >-
             {{ expand(states.light) | selectattr('state', 'eq', 'on') | map(attribute='entity_id') | list }}
-          brightness: 1
+          brightness: 3
 
     - alias: Sync kitchen lights
       trigger:
