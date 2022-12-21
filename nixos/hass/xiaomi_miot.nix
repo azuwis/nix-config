@@ -24,4 +24,20 @@ in
     ffmpeg = {};
     # logger.logs."custom_components.xiaomi_miot" = "debug";
   };
+
+  hass.automations = ''
+    - alias: JSQ1 screen brightness
+      trigger:
+        - platform: time
+          at:
+            - "08:30"
+            - "21:30"
+      action:
+        service: number.set_value
+        data_template:
+          entity_id: >-
+            {{ expand(states.number) | selectattr('entity_id', 'search', '^number\.leshow_jsq1_.*_screen_brightness$') | map(attribute='entity_id') | list }}
+          value: >-
+            {{ (now() > today_at("21:00")) | iif(0, 1) }}
+  '';
 }
