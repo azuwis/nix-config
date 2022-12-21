@@ -12,7 +12,7 @@ let
 in
 
 {
-  home-manager.users.hass.home.file."custom_components/aligenie".source = "${component}/custom_components/aligenie";
+  hass.file."custom_components/aligenie".source = "${component}/custom_components/aligenie";
 
   services.home-assistant.config = {
     aligenie.expire_hours = 9999999;

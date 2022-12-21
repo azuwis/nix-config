@@ -12,7 +12,7 @@ let
 in
 
 {
-  home-manager.users.hass.home.file."custom_components/zhibot".source = "${component}/custom_components/zhibot";
+  hass.file."custom_components/zhibot".source = "${component}/custom_components/zhibot";
 
   services.home-assistant.config = {
     zhibot = [

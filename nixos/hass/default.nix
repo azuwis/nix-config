@@ -6,6 +6,7 @@ in
 
 {
   imports = [
+    (lib.mkAliasOptionModule [ "hass" "file" ] [ "home-manager" "users" "hass" "home" "file" ])
     ./aligenie.nix
     ./braviatv.nix
     ./light.nix
