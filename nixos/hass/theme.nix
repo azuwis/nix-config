@@ -6,16 +6,15 @@
       modes.light.state-icon-active-color = "#F57F17";
       modes.dark.state-icon-active-color = "#F57F17";
     };
-    automation = [{
-      alias = "Set theme";
-      trigger = [{
-        platform = "homeassistant";
-        event = "start";
-      }];
-      action = {
-        service = "frontend.set_theme";
-        data.name = "custom";
-      };
-    }];
   };
+  hass.automations = ''
+    - alias: Set theme
+      trigger:
+        - event: start
+          platform: homeassistant
+      action:
+        service: frontend.set_theme
+        data:
+          name: custom
+  '';
 }

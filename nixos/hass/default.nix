@@ -7,6 +7,7 @@ in
 {
   imports = [
     (lib.mkAliasOptionModule [ "hass" "file" ] [ "home-manager" "users" "hass" "home" "file" ])
+    (lib.mkAliasOptionModule [ "hass" "automations" ] [ "home-manager" "users" "hass" "home" "file" "automations.yaml" "text" ])
     ./aligenie.nix
     ./braviatv.nix
     ./light.nix
@@ -55,6 +56,7 @@ in
     logbook = {};
     sun = {};
     logger.default = "warning";
+    automation = "!include automations.yaml";
   };
 
   services.nginx.virtualHosts.hass = {
