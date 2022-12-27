@@ -18,7 +18,7 @@ in
   services.home-assistant.config.media_player = [{
     platform = "braviatv_psk";
     name = "TV";
-    host = "braviatv.lan";
+    host = "tvc5a360064409.lan";
     mac = "!secret braviatv_mac";
     psk = "!secret braviatv_psk";
   }];
