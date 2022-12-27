@@ -9,103 +9,173 @@ views:
         image: /local/floorplan.png?v=3
         elements:
           # living room
-          - type: custom:state-icon
-            entity: sensor.plug_power
-            icon: mdi:piano
-            style:
-              top: 33%
-              left: 35%
-          - type: state-icon
-            entity: binary_sensor.motion_living_room_occupancy
-            style:
-              top: 48%
-              left: 41%
-          - type: state-icon
-            entity: binary_sensor.motion_sofas
-            style:
-              top: 15%
-              left: 50%
-          - type: state-icon
-            entity: binary_sensor.motion_dining_room_occupancy
-            style:
-              top: 53%
-              left: 77%
           - type: state-icon
             entity: light.living_room
             hold_action:
-              action: call-service
-              service: switch.toggle
-              service_data:
-                entity_id: switch.light_living_room
-            double_tap_action:
-              action: call-service
-              service: light.toggle
-              service_data:
-                entity_id: light.living_room_ambilight
+              action: toggle
             style:
-              top: 33%
-              left: 50%
-          - type: custom:state-icon
+              top: 72.8%
+              left: 75.3%
+          - type: state-icon
             entity: media_player.tv
             hold_action:
               action: toggle
             style:
-              top: 54%
+              top: 72.6%
+              left: 59%
+          # dining room
+          - type: state-icon
+            entity: light.yeelink_fancl5_e358_light
+            hold_action:
+              action: toggle
+            style:
+              top: 51.8%
+              left: 77%
+          # primary bedroom
+          - type: state-icon
+            entity: light.primary_bedroom
+            hold_action:
+              action: toggle
+            style:
+              top: 72%
+              left: 31%
+          - type: state-icon
+            entity: climate.xiaomi_mt0_bedd_air_conditioner
+            hold_action:
+              action: toggle
+            style:
+              top: 84%
               left: 50%
-          # living room balcony
-          - type: state-icon
-            entity: switch.water_heater
-            hold_action:
-              action: toggle
-            style:
-              top: 17%
-              left: 22%
-          # bedroom
-          - type: state-icon
-            entity: binary_sensor.door_bedroom
-            style:
-              top: 64.8%
-              left: 29.5%
-          - type: state-icon
-            entity: light.bedroom
-            hold_action:
-              action: toggle
-            style:
-              top: 71%
-              left: 18%
-          - type: custom:state-icon
-            entity: climate.bedroom
-            hold_action:
-              action: toggle
-            style:
-              top: 83%
-              left: 34%
           - type: state-label
-            entity: sensor.ht_bedroom_temperature
+            entity: sensor.xiaomi_mt0_bedd_temperature
             tap_action:
               action: navigate
               navigation_path: /lovelace/history
             hold_action:
               action: more-info
             style:
-              top: 90%
-              left: 12.5%
+              top: 85.5%
+              left: 41.5%
           - type: state-label
-            entity: sensor.ht_bedroom_humidity
+            entity: sensor.xiaomi_mt0_bedd_relative_humidity
             tap_action:
               action: navigate
               navigation_path: /lovelace/history
             hold_action:
               action: more-info
             style:
-              top: 85%
-              left: 12%
+              top: 83.5%
+              left: 40.6%
+          - type: state-label
+            entity: sensor.xiaomi_mt0_bedd_co2_density
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/history
+            hold_action:
+              action: more-info
+            style:
+              top: 81.5%
+              left: 43%
+          - type: state-icon
+            entity: humidifier.leshow_jsq1_4d84_humidifier
+            hold_action:
+              action: toggle
+            style:
+              top: 75%
+              left: 50%
+          - type: state-label
+            entity: sensor.leshow_jsq1_4d84_water_level
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/history
+            hold_action:
+              action: more-info
+            style:
+              top: 72.3%
+              left: 50.6%
+          - type: state-label
+            entity: sensor.leshow_jsq1_4d84_relative_humidity
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/history
+            hold_action:
+              action: more-info
+            style:
+              top: 70.3%
+              left: 49%
+          - type: state-icon
+            entity: cover.lumi_hmcn01_7c8c_curtain
+            hold_action:
+              action: toggle
+            style:
+              top: 87%
+              left: 32%
+          # secondary bedroom
+          - type: state-icon
+            entity: light.secondary_bedroom
+            hold_action:
+              action: toggle
+            style:
+              top: 23%
+              left: 20.3%
+          # kids room
+          - type: state-icon
+            entity: light.kids_room
+            hold_action:
+              action: toggle
+            style:
+              top: 43%
+              left: 20.3%
+          - type: state-icon
+            entity: climate.xiaomi_mt0_6e25_air_conditioner
+            hold_action:
+              action: toggle
+            style:
+              top: 51%
+              left: 6%
+          - type: state-label
+            entity: sensor.xiaomi_mt0_6e25_temperature
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/history
+            hold_action:
+              action: more-info
+            style:
+              top: 51.5%
+              left: 15%
+          - type: state-label
+            entity: sensor.xiaomi_mt0_6e25_relative_humidity
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/history
+            hold_action:
+              action: more-info
+            style:
+              top: 49.5%
+              left: 13.8%
+          - type: state-label
+            entity: sensor.xiaomi_mt0_6e25_co2_density
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/history
+            hold_action:
+              action: more-info
+            style:
+              top: 53.5%
+              left: 16.3%
+          - type: state-icon
+            entity: cover.lumi_hmcn01_ea01_curtain
+            hold_action:
+              action: toggle
+            style:
+              top: 57%
+              left: 11.3%
           # people
-          - type: state-icon
-            entity: camera.living_room
-            style:
-              top: 90%
-              left: 87%
+          # - type: state-icon
+          #   entity: camera.living_room
+          #   style:
+          #     top: 90%
+          #     left: 87%
           - type: image
             entity: device_tracker.device_1
             image: /local/device_1.jpg
@@ -113,8 +183,8 @@ views:
               not_home: grayscale(100%)
               work: grayscale(100%)
             style:
-              top: 85%
-              left: 95%
+              top: 89%
+              left: 4%
               width: 5%
               border-radius: 50%
           - type: image
@@ -123,21 +193,33 @@ views:
             state_filter:
               not_home: grayscale(100%)
             style:
-              top: 93%
-              left: 95%
+              top: 92.3%
+              left: 4%
               width: 5%
               border-radius: 50%
           # kitchen
           - type: state-icon
-            entity: binary_sensor.smoke_smoke
-            style:
-              top: 44%
-              left: 77%
-          - type: state-icon
             entity: light.kitchen
+            hold_action:
+              action: toggle
             style:
-              top: 50%
-              left: 82%
+              top: 16%
+              left: 71%
+          # bathroom
+          - type: state-icon
+            entity: light.bathroom
+            hold_action:
+              action: toggle
+            style:
+              top: 23%
+              left: 51%
+          - type: state-icon
+            entity: climate.yeelink_v6_af1f_ptc_bath_heater
+            hold_action:
+              action: toggle
+            style:
+              top: 20%
+              left: 45.5%
           # outside
           - type: state-label
             entity: sensor.dark_sky_apparent_temperature
@@ -147,8 +229,8 @@ views:
             hold_action:
               action: more-info
             style:
-              top: 72%
-              left: 90.3%
+              top: 98%
+              left: 6%
           - type: state-label
             entity: sensor.dark_sky_humidity
             tap_action:
@@ -157,53 +239,18 @@ views:
             hold_action:
               action: more-info
             style:
-              top: 67%
-              left: 89.6%
-          - type: state-label
-            entity: !secret air_sensor
-            tap_action:
-              action: navigate
-              navigation_path: /lovelace/history
-            hold_action:
-              action: more-info
-            style:
-              top: 77%
-              left: 89.8%
-
-      - type: custom:glance-card
-        show_name: no
-        show_state: no
-        columns: 8
-        entities:
-          - entity: light.living_room
-            name: Living room
-            tap_action:
-              action: call-service
-              service: switch.toggle
-              service_data:
-                entity_id: switch.light_living_room
-          - entity: light.bedroom
-            tap_action:
-              action: toggle
-          - entity: switch.plug_switch
-            icon: mdi:piano
-            tap_action:
-              action: toggle
-          - entity: switch.water_heater
-            tap_action:
-              action: toggle
-          - entity: climate.bedroom
-            tap_action:
-              action: toggle
-          - entity: media_player.tv
-            tap_action:
-              action: toggle
-          - entity: switch.moonlight_living_room
-            tap_action:
-              action: toggle
-          - entity: switch.moonlight_bedroom
-            tap_action:
-              action: toggle
+              top: 96%
+              left: 6%
+          # - type: state-label
+          #   entity: !secret air_sensor
+          #   tap_action:
+          #     action: navigate
+          #     navigation_path: /lovelace/history
+          #   hold_action:
+          #     action: more-info
+          #   style:
+          #     top: 77%
+          #     left: 89.8%
 
       - type: conditional
         conditions:
