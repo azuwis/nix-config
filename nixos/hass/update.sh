@@ -12,5 +12,6 @@ update_fetchgit() {
   fi
 }
 
-update_fetchgit zhibot.nix
+update_fetchgit aligenie.nix
 update_fetchgit xiaomi_miot.nix
+# update_fetchgit zhibot.nix
