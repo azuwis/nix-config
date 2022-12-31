@@ -4,7 +4,6 @@
   home.packages = with pkgs; [
     (writeScriptBin "bs" ''
       #!${runtimeShell}
-      pushd ~/.config/nixpkgs || exit
       if [ "$1" = "u" ]
       shift
       then
@@ -18,8 +17,7 @@
         nix flake lock ''${args[@]}
         shift
       fi
-      darwin-rebuild switch --flake . "''$@"
-      popd || exit
+      darwin-rebuild switch --flake ~/.config/nixpkgs "''$@"
     '')
     android-file-transfer
     coreutils-full
