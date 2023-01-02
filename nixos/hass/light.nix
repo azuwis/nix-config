@@ -67,7 +67,7 @@
             {{ state_attr(trigger.entity_id, "brightness") < 250 }}
       action:
         service: light.turn_on
-        data_template:
+        data:
           entity_id: >-
             {{ trigger.entity_id }}
           brightness: 255
@@ -87,7 +87,7 @@
             {{ state_attr(trigger.entity_id, "brightness") > 5 }}
       action:
         service: light.turn_on
-        data_template:
+        data:
           entity_id: >-
             {{ trigger.entity_id }}
           brightness: 3
@@ -98,7 +98,7 @@
           at: "07:35:00"
       action:
         service: light.turn_on
-        data_template:
+        data:
           entity_id: >-
             {{ expand(states.light) | selectattr("state", "eq", "on") | map(attribute="entity_id") | list }}
           brightness: 255
@@ -109,7 +109,7 @@
           at: "22:35:00"
       action:
         service: light.turn_on
-        data_template:
+        data:
           entity_id: >-
             {{ expand(states.light) | selectattr("state", "eq", "on") | map(attribute="entity_id") | list }}
           brightness: 3
