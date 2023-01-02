@@ -26,18 +26,25 @@ in
   };
 
   hass.automations = ''
-    - alias: JSQ1 screen brightness
+    - alias: Screen brightness
       trigger:
         - platform: time
           at:
             - "08:30"
             - "21:30"
       action:
-        service: number.set_value
-        data_template:
-          entity_id: >-
-            {{ expand(states.number) | selectattr('entity_id', 'search', '^number\.leshow_jsq1_.*_screen_brightness$') | map(attribute='entity_id') | list }}
-          value: >-
-            {{ (now() > today_at("21:00")) | iif(0, 1) }}
+        - variables:
+            is_night: >-
+              {{ (now() > today_at("21:00")) }}
+        - service: number.set_value
+          data:
+            entity_id: >-
+              {{ expand(states.number) | selectattr('entity_id', 'search', '^number\.leshow_jsq1_.*_screen_brightness$') | map(attribute='entity_id') | list }}
+            value: >-
+              {{ is_night | iif(0, 1) }}
+        - service: light.turn_{{ is_night | iif("off", "on") }}
+          data:
+            entity_id: >-
+              {{ expand(states.light) | selectattr('entity_id', 'search', '^light.xiaomi_mt0_.*_indicator_light$') | map(attribute='entity_id') | list }}
   '';
 }
