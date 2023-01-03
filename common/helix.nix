@@ -7,6 +7,7 @@
     package = with pkgs; runCommand "helix" { buildInputs = [ makeWrapper ]; } ''
       makeWrapper ${helix}/bin/hx $out/bin/hx \
         --suffix PATH : "${lib.makeBinPath [
+          gopls
           nil
           terraform-ls
           yaml-language-server
