@@ -18,6 +18,7 @@ if builtins.hasAttr "hm" lib then
     hide_window_decorations = true;
     macos_option_as_alt = true;
     scrollback_pager_history_size = 1;
+    shell = "/run/current-system/sw/bin/zsh -l -i";
     update_check_interval = 0;
   };
   programs.kitty.theme = "Nord";
