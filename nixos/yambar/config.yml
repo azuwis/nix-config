@@ -21,21 +21,18 @@ bar:
         content:
           "":
             map:
-              tag: state
-              values:
-                focused:   {string: {<<: [*default, *focused]}}
-                unfocused: {string: {<<: *default}}
-                invisible: {string: {<<: *default}}
-                urgent:    {string: {<<: [*default, *urgent]}}
+              default: {string: {<<: *default}}
+              conditions:
+                state == focused: {string: {<<: [*default, *focused]}}
+                state == urgent: {string: {<<: [*default, *urgent]}}
 
   center:
     - foreign-toplevel:
         content:
           map:
-            tag: activated
-            values:
-              false: {empty: {}}
-              true:
+            conditions:
+              ~activated: {empty: {}}
+              activated:
                 - string: {text: "{app-id}"}
 
   right:
@@ -45,10 +42,13 @@ bar:
           - string: {text: "", right-margin: 6}
           - string: {text: "{rate}"}
     - cpu:
-        interval: 10000
+        poll-interval: 10000
         content:
-          - string: {text: "龍", right-margin: 2}
-          - string: {text: "{cpu}%"}
+          map:
+            conditions:
+              id < 0:
+                - string: {text: "龍", right-margin: 2}
+                - string: {text: "{cpu}%"}
     - mem:
         interval: 10000
         content:
@@ -59,11 +59,10 @@ bar:
         mixer: Master
         content:
           - map:
-             tag: muted
-             values:
-               true:
+             conditions:
+               muted:
                  - string: {text: "婢", right-margin: 2}
-               false:
+               ~muted:
                  - string: {text: "墳", right-margin: 2}
           - string: {text: "{percent}"}
     - clock:
