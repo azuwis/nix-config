@@ -15,6 +15,8 @@
       position:
         x: 480
         y: 340
+    selection:
+      save_to_clipboard: true
     colors:
       primary:
         background: '#2e3440'
