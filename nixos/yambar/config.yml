@@ -54,17 +54,15 @@ bar:
         content:
           - string: {text: "", right-margin: 2}
           - string: {text: "{free:gb}G"}
-    - alsa:
-        card: default
-        mixer: Master
+    - pulse:
         content:
           - map:
              conditions:
-               muted:
+               sink_muted:
                  - string: {text: "婢", right-margin: 2}
-               ~muted:
+               ~sink_muted:
                  - string: {text: "墳", right-margin: 2}
-          - string: {text: "{percent}"}
+          - string: {text: "{sink_percent}"}
     - clock:
         date-format: "%a %m-%d"
         content:
