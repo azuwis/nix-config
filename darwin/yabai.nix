@@ -30,7 +30,7 @@
       yabai -m rule --add app="^Mail$" space=3
       yabai -m rule --add app="^网易POPO$" manage=off space=5
       yabai -m space 5 --layout float
-      launchctl unload -F /System/Library/LaunchAgents/com.apple.WindowManager.plist
+      # launchctl unload -F /System/Library/LaunchAgents/com.apple.WindowManager.plist
       wait4path /etc/sudoers.d/yabai
       sudo yabai --load-sa
     '';
