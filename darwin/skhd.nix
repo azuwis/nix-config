@@ -59,6 +59,7 @@ else
       lalt - e : yabai -m space --layout bsp
       lalt - s : yabai -m space --layout float
       lalt - return : open -n -a ${pkgs.kitty}/Applications/kitty.app
+      # lalt - return : open -n -a ${pkgs.alacritty}/Applications/Alacritty.app
     '';
   };
 
