@@ -14,6 +14,7 @@ in
     ./lovelace.nix
     ./mini-media-player.nix
     ./mqtt.nix
+    ./simple-thermostat.nix
     ./theme.nix
     ./weather.nix
     ./xiaomi_miot.nix
