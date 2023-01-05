@@ -22,7 +22,7 @@ in
       type = "module";
     };
   in [
-    (mkModule "glance-card")
-    (mkModule "state-icon")
+    # (mkModule "glance-card")
+    # (mkModule "state-icon")
   ];
 }
