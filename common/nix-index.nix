@@ -3,12 +3,12 @@
 let
   indexCache = {
     darwin = pkgs.fetchurl {
-      url = "https://github.com/Mic92/nix-index-database/releases/download/2022-11-06/index-x86_64-darwin";
-      sha256 = "0wq0f746fqng3d7cj1nk71zmm5rzb302qry5lyly03ffaws08f9n";
+      url = "https://github.com/Mic92/nix-index-database/releases/download/2023-01-01-032240/index-x86_64-darwin";
+      sha256 = "1j9ipl9a43wvrfyqk7v97fsj0rh0ka7l8raigd55j9s6ijr4n8cy";
     };
     linux = pkgs.fetchurl {
-      url = "https://github.com/Mic92/nix-index-database/releases/download/2022-11-06/index-x86_64-linux";
-      sha256 = "0a7sn64hlriah7br4lyjwf3l3n5rnwc9hb79lk870czl2rhdr706";
+      url = "https://github.com/Mic92/nix-index-database/releases/download/2023-01-01-032240/index-x86_64-linux";
+      sha256 = "12nb9qi5qfl8gw9iscayf2204alrllaf98i2x2gwg748vy2c3z44";
     };
   }.${pkgs.stdenv.hostPlatform.parsed.kernel.name};
 in
