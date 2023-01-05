@@ -44,8 +44,8 @@ views:
             hold_action:
               action: toggle
             style:
-              top: 84%
-              left: 50%
+              top: 84.3%
+              left: 51.3%
           - type: state-label
             entity: sensor.xiaomi_mt0_bedd_temperature
             tap_action:
@@ -54,8 +54,8 @@ views:
             hold_action:
               action: more-info
             style:
-              top: 85.5%
-              left: 41.5%
+              top: 83.5%
+              left: 41%
           - type: state-label
             entity: sensor.xiaomi_mt0_bedd_relative_humidity
             tap_action:
@@ -64,8 +64,8 @@ views:
             hold_action:
               action: more-info
             style:
-              top: 83.5%
-              left: 40.6%
+              top: 81.5%
+              left: 40.1%
           - type: state-label
             entity: sensor.xiaomi_mt0_bedd_co2_density
             tap_action:
@@ -74,8 +74,8 @@ views:
             hold_action:
               action: more-info
             style:
-              top: 81.5%
-              left: 43%
+              top: 85.5%
+              left: 40%
           - type: state-icon
             entity: humidifier.leshow_jsq1_4d84_humidifier
             hold_action:
@@ -108,8 +108,8 @@ views:
             hold_action:
               action: toggle
             style:
-              top: 87%
-              left: 32%
+              top: 89.2%
+              left: 33.9%
           # secondary bedroom
           - type: state-icon
             entity: light.secondary_bedroom
@@ -117,6 +117,43 @@ views:
               action: toggle
             style:
               top: 23%
+              left: 20.3%
+          - type: state-icon
+            entity: climate.xiaomi_mt0_cdd0_air_conditioner
+            hold_action:
+              action: toggle
+            style:
+              top: 15.8%
+              left: 8%
+          - type: state-label
+            entity: sensor.xiaomi_mt0_cdd0_temperature
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/history
+            hold_action:
+              action: more-info
+            style:
+              top: 16%
+              left: 19%
+          - type: state-label
+            entity: sensor.xiaomi_mt0_cdd0_relative_humidity
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/history
+            hold_action:
+              action: more-info
+            style:
+              top: 14%
+              left: 18%
+          - type: state-label
+            entity: sensor.xiaomi_mt0_cdd0_co2_density
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/history
+            hold_action:
+              action: more-info
+            style:
+              top: 18%
               left: 20.3%
           # kids room
           - type: state-icon
@@ -142,7 +179,7 @@ views:
               action: more-info
             style:
               top: 51.5%
-              left: 15%
+              left: 17%
           - type: state-label
             entity: sensor.xiaomi_mt0_6e25_relative_humidity
             tap_action:
@@ -152,7 +189,7 @@ views:
               action: more-info
             style:
               top: 49.5%
-              left: 13.8%
+              left: 15.8%
           - type: state-label
             entity: sensor.xiaomi_mt0_6e25_co2_density
             tap_action:
@@ -162,41 +199,14 @@ views:
               action: more-info
             style:
               top: 53.5%
-              left: 16.3%
+              left: 18.3%
           - type: state-icon
             entity: cover.lumi_hmcn01_ea01_curtain
             hold_action:
               action: toggle
             style:
-              top: 57%
+              top: 59%
               left: 11.3%
-          # people
-          # - type: state-icon
-          #   entity: camera.living_room
-          #   style:
-          #     top: 90%
-          #     left: 87%
-          - type: image
-            entity: device_tracker.device_1
-            image: /local/device_1.jpg
-            state_filter:
-              not_home: grayscale(100%)
-              work: grayscale(100%)
-            style:
-              top: 89%
-              left: 4%
-              width: 5%
-              border-radius: 50%
-          - type: image
-            entity: device_tracker.device_2
-            image: /local/device_2.jpg
-            state_filter:
-              not_home: grayscale(100%)
-            style:
-              top: 92.3%
-              left: 4%
-              width: 5%
-              border-radius: 50%
           # kitchen
           - type: state-icon
             entity: light.kitchen
@@ -220,6 +230,28 @@ views:
             style:
               top: 20%
               left: 45.5%
+          # people
+          - type: image
+            entity: device_tracker.device_1
+            image: /local/device_1.jpg
+            state_filter:
+              not_home: grayscale(100%)
+              work: grayscale(100%)
+            style:
+              top: 89%
+              left: 4%
+              width: 5%
+              border-radius: 50%
+          - type: image
+            entity: device_tracker.device_2
+            image: /local/device_2.jpg
+            state_filter:
+              not_home: grayscale(100%)
+            style:
+              top: 92.3%
+              left: 4%
+              width: 5%
+              border-radius: 50%
           # outside
           - type: state-label
             entity: sensor.dark_sky_apparent_temperature
@@ -271,14 +303,13 @@ views:
 
       - type: conditional
         conditions:
-          - entity: climate.bedroom
+          - entity: climate.xiaomi_mt0_bedd_air_conditioner
             state_not: 'off'
-          - entity: climate.bedroom
+          - entity: climate.xiaomi_mt0_bedd_air_conditioner
             state_not: 'unavailable'
         card:
           type: custom:simple-thermostat
-          entity: climate.bedroom
-          step_size: 1
+          entity: climate.xiaomi_mt0_bedd_air_conditioner
           sensors:
             - entity: sensor.ht_bedroom_humidity
               name: Humidity
@@ -299,10 +330,24 @@ views:
       - type: history-graph
         refresh_interval: 60
         entities:
-          - entity: sensor.ht_bedroom_temperature
-            name: Bedroom
-          - entity: sensor.ht_bedroom_humidity
-            name: Bedroom
+          - entity: sensor.xiaomi_mt0_bedd_temperature
+            name: Primary
+          - entity: sensor.xiaomi_mt0_bedd_relative_humidity
+            name: Primary
+          - entity: sensor.xiaomi_mt0_bedd_co2_density
+            name: Primary
+          - entity: sensor.xiaomi_mt0_cdd0_temperature
+            name: Secondary
+          - entity: sensor.xiaomi_mt0_cdd0_relative_humidity
+            name: Secondary
+          - entity: sensor.xiaomi_mt0_cdd0_co2_density
+            name: Secondary
+          - entity: sensor.xiaomi_mt0_6e25_temperature
+            name: Kids
+          - entity: sensor.xiaomi_mt0_6e25_relative_humidity
+            name: Kids
+          - entity: sensor.xiaomi_mt0_6e25_co2_density
+            name: Kids
           - entity: sensor.dark_sky_apparent_temperature
             name: Outside
           - entity: sensor.dark_sky_humidity
