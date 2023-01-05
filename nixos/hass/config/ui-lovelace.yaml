@@ -311,8 +311,40 @@ views:
           type: custom:simple-thermostat
           entity: climate.xiaomi_mt0_bedd_air_conditioner
           sensors:
-            - entity: sensor.ht_bedroom_humidity
+            - entity: sensor.xiaomi_mt0_bedd_relative_humidity
               name: Humidity
+            - entity: sensor.xiaomi_mt0_bedd_co2_density
+              name: Co2
+
+      - type: conditional
+        conditions:
+          - entity: climate.xiaomi_mt0_cdd0_air_conditioner
+            state_not: 'off'
+          - entity: climate.xiaomi_mt0_cdd0_air_conditioner
+            state_not: 'unavailable'
+        card:
+          type: custom:simple-thermostat
+          entity: climate.xiaomi_mt0_cdd0_air_conditioner
+          sensors:
+            - entity: sensor.xiaomi_mt0_cdd0_relative_humidity
+              name: Humidity
+            - entity: sensor.xiaomi_mt0_cdd0_co2_density
+              name: Co2
+
+      - type: conditional
+        conditions:
+          - entity: climate.xiaomi_mt0_6e25_air_conditioner
+            state_not: 'off'
+          - entity: climate.xiaomi_mt0_6e25_air_conditioner
+            state_not: 'unavailable'
+        card:
+          type: custom:simple-thermostat
+          entity: climate.xiaomi_mt0_6e25_air_conditioner
+          sensors:
+            - entity: sensor.xiaomi_mt0_6e25_relative_humidity
+              name: Humidity
+            - entity: sensor.xiaomi_mt0_6e25_co2_density
+              name: Co2
 
       - type: conditional
         conditions:
