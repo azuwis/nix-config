@@ -5,8 +5,8 @@ let
     name = "${owner}-${repo}-${rev}";
     owner = "al-one";
     repo = "hass-xiaomi-miot";
-    rev = "375cf4b0d700fc82444c23b110ebfe4f903ada74";
-    sha256 = "1ivz0klygpbb5pdlyqcz22hb1l9dzzj0wmc1ygl3nrjb0p9fnmi2";
+    rev = "3705aa8568e47c3b9ca4fe26cf68e960a5dc2f35";
+    sha256 = "0w636w44phjvj18jhrc7hvcjvxd4iy27sd1mjd4nksjm3mc04bgw";
   };
 in
 
