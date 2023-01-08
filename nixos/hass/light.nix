@@ -59,7 +59,7 @@
             - light.bathroom
           to: "on"
       variables:
-        brightness: >-
+        brightness: &brightness >-
           {% set now = now() %}
           {% if now > today_at("22:35") %}
             128
@@ -78,27 +78,22 @@
           entity_id: "{{ trigger.entity_id }}"
           brightness: "{{ brightness }}"
 
-    - alias: Lights set brightness once (day)
+    - alias: Lights set brightness once
       trigger:
         - platform: time
-          at: "07:35:00"
+          at: "07:35:01"
+        - platform: time
+          at: "22:35:01"
+        - platform: time
+          at: "00:00:01"
+      variables:
+        brightness: *brightness
       action:
         service: light.turn_on
         data:
           entity_id: >-
             {{ expand(states.light) | selectattr("state", "eq", "on") | map(attribute="entity_id") | list }}
-          brightness: 255
-
-    - alias: Lights set brightness once (night)
-      trigger:
-        - platform: time
-          at: "22:35:00"
-      action:
-        service: light.turn_on
-        data:
-          entity_id: >-
-            {{ expand(states.light) | selectattr("state", "eq", "on") | map(attribute="entity_id") | list }}
-          brightness: 3
+          brightness: "{{ brightness }}"
 
     - alias: Lights sync kitchen off state
       trigger:
