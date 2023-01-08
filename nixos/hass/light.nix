@@ -44,11 +44,11 @@
   };
 
   hass.automations = ''
-    - alias: Lights brightness (day)
+    - alias: Lights brightness
       mode: parallel
       trigger:
         - platform: state
-          entity_id: &all_lights
+          entity_id:
             - light.living_room
             - light.yeelink_fancl5_e358_light
             - light.primary_bedroom
@@ -58,39 +58,25 @@
             - light.kitchen_window
             - light.bathroom
           to: "on"
+      variables:
+        brightness: >-
+          {% set now = now() %}
+          {% if now > today_at("22:35") %}
+            128
+          {% elif now < today_at("7:35") %}
+            3
+          {% else %}
+            255
+          {% endif %}
       condition:
-        - condition: time
-          after: "07:35:00"
-          before: "22:35:00"
         - condition: template
           value_template: >-
-            {{ state_attr(trigger.entity_id, "brightness") < 250 }}
+            {{ state_attr(trigger.entity_id, "brightness") != brightness }}
       action:
         service: light.turn_on
         data:
-          entity_id: >-
-            {{ trigger.entity_id }}
-          brightness: 255
-
-    - alias: Lights brightness (night)
-      mode: parallel
-      trigger:
-        - platform: state
-          entity_id: *all_lights
-          to: "on"
-      condition:
-        - condition: time
-          after: "22:35:00"
-          before: "07:35:00"
-        - condition: template
-          value_template: >-
-            {{ state_attr(trigger.entity_id, "brightness") > 5 }}
-      action:
-        service: light.turn_on
-        data:
-          entity_id: >-
-            {{ trigger.entity_id }}
-          brightness: 3
+          entity_id: "{{ trigger.entity_id }}"
+          brightness: "{{ brightness }}"
 
     - alias: Lights set brightness once (day)
       trigger:
