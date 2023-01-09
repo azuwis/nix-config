@@ -41,7 +41,7 @@
       # Xcode = 497799835;
     };
     extraConfig = ''
-      cask "battle-net", args: { language: "zh-CN" }
+      # cask "battle-net", args: { language: "zh-CN" }
     '';
   };
 }
