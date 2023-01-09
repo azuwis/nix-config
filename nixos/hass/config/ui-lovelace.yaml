@@ -17,6 +17,13 @@ views:
               top: 72.8%
               left: 75.3%
           - type: state-icon
+            entity: light.1660a6874242f000_group
+            hold_action:
+              action: toggle
+            style:
+              top: 72.8%
+              left: 93%
+          - type: state-icon
             entity: media_player.tv
             hold_action:
               action: toggle
@@ -24,6 +31,13 @@ views:
               top: 72.6%
               left: 59%
           # dining room
+          - type: state-icon
+            entity: light.16609ab46d42b000_group
+            hold_action:
+              action: toggle
+            style:
+              top: 43%
+              left: 60%
           - type: state-icon
             entity: light.yeelink_fancl5_e358_light
             hold_action:
