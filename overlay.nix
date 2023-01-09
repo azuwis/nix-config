@@ -40,5 +40,5 @@ self: super: rec {
     };
   };
   python3Packages = python3.pkgs;
-  yabai = super.callPackage ./pkgs/yabai { };
+  # yabai = super.callPackage ./pkgs/yabai { };
 }
