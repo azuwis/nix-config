@@ -24,6 +24,7 @@ in
       advanced = {
         channel = 26;
         last_seen = "ISO_8601_local";
+        legacy_availability_payload = false;
         log_output = [ "console" ];
         timestamp_format = " ";
       };
