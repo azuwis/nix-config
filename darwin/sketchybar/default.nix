@@ -79,7 +79,7 @@ in
         label.padding_right=16 \
       "''${spaces[@]}"
 
-    sketchybar -m --update
+    sketchybar --update
 
     # ram disk
     cache="$HOME/.cache/sketchybar"
