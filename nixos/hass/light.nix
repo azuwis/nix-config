@@ -22,16 +22,21 @@
       };
       "yeelink-light-panel1_mibt8793.lan" = {
         name = "Kitchen door";
-        model = "mono1";
       };
       "yeelink-light-panel1_mibt813A.lan" = {
         name = "Kitchen window";
-        model = "mono1";
       };
       "yeelink-light-panel1_mibt8400.lan" = {
         name = "Bathroom";
-        model = "mono1";
       };
+    };
+    homeassistant.customize = let customize = {
+      supported_color_modes = [ "brightness" ];
+    };
+    in {
+      "light.bathroom" = customize;
+      "light.kitchen_door" = customize;
+      "light.kitchen_window" = customize;
     };
     light = [{
       platform = "group";
