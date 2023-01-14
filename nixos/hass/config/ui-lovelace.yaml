@@ -474,14 +474,6 @@ views:
     icon: mdi:bug
     # panel: yes
     cards:
-      - type: history-graph
-        hours_to_show: 12
-        refresh_interval: 60
-        entities:
-          - sensor.climate_bedroom_mode
-          - sensor.climate_bedroom_temperature_change
-          - sensor.ht_climate_bedroom_temperature
-          - sensor.ht_bedroom_temperature
       - type: "custom:zigbee2mqtt-networkmap"
         entity: sensor.zigbee2mqtt_networkmap
         height: 320
