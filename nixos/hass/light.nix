@@ -85,19 +85,11 @@
                (color_temp and (state_attr(trigger.entity_id, "color_temp_kelvin") != kelvin))
             }}
       action:
-        if:
-          "{{ color_temp }}"
-        then:
-          service: light.turn_on
-          data:
-            entity_id: "{{ trigger.entity_id }}"
-            brightness: "{{ brightness }}"
-            kelvin: "{{ kelvin }}"
-        else:
-          service: light.turn_on
-          data:
-            entity_id: "{{ trigger.entity_id }}"
-            brightness: "{{ brightness }}"
+        service: light.turn_on
+        target:
+          entity_id: "{{ trigger.entity_id }}"
+        data: >-
+          {"brightness": {{ brightness }}{% if color_temp %}, "kelvin": {{ kelvin }}{% endif %}}
 
     - alias: Lights set brightness once
       trigger:
