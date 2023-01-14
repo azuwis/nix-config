@@ -132,5 +132,19 @@
         service: light.turn_off
         data:
           entity_id: light.kitchen
+
+    - alias: Lights fan light on when dining room light on
+      trigger:
+        - platform: state
+          entity_id:
+            - light.16609ab46d42b000_group
+          to: "on"
+      action:
+        - service: homeassistant.update_entity
+          data:
+            entity_id: light.yeelink_fancl5_e358_light
+        - service: light.turn_on
+          data:
+            entity_id: light.yeelink_fancl5_e358_light
   '';
 }
