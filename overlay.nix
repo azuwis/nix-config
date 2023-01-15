@@ -37,6 +37,7 @@ self: super: rec {
   python3 = super.python3.override {
     packageOverrides = python-self: python-super: {
       pysonybraviapsk = python3Packages.callPackage ./pkgs/pysonybraviapsk { };
+      subfinder = python3Packages.callPackage ./pkgs/subfinder { };
     };
   };
   python3Packages = python3.pkgs;
