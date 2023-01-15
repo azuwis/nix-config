@@ -26,6 +26,35 @@ in
   };
 
   hass.automations = ''
+    - alias: Curtain close all before sunrise
+      trigger:
+        - platform: sun
+          event: sunrise
+          offset: "-00:45:00"
+      action:
+        service: cover.close_cover
+        data:
+          entity_id: all
+
+    - alias: Curtain kids room autos
+      trigger:
+        - platform: time
+          at:
+            - "21:30:00"
+            - "08:30:00"
+      variables:
+        position: >-
+          {% if now() > today_at("21:00") %}
+            60
+          {% else %}
+            100
+          {% endif %}
+      action:
+        service: cover.set_cover_position
+        data:
+          entity_id: cover.lumi_hmcn01_ea01_curtain
+          position: "{{ position }}"
+
     - alias: Screen brightness
       trigger:
         - platform: time
