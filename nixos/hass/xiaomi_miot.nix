@@ -40,8 +40,8 @@ in
       trigger:
         - platform: time
           at:
-            - "21:30:00"
             - "08:30:00"
+            - "21:30:00"
       variables:
         position: >-
           {% if now() > today_at("21:00") %}
@@ -59,8 +59,8 @@ in
       trigger:
         - platform: time
           at:
-            - "08:30"
-            - "21:30"
+            - "08:30:00"
+            - "21:30:00"
       action:
         - variables:
             is_night: >-
