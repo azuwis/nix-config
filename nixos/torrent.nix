@@ -16,6 +16,7 @@ in
   };
   users.groups.${user}.gid = 20000;
   users.users.${config.my.user}.extraGroups = [ user ];
+  systemd.services.qbittorrent.serviceConfig.UMask = "0007";
 
   services.qbittorrent.enable = true;
   services.qbittorrent.user = user;
