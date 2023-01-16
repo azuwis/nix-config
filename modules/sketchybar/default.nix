@@ -14,6 +14,11 @@ let
 in
 
 {
+
+  meta.maintainers = [
+    maintainers.azuwis or "azuwis"
+  ];
+
   options = with types; {
     services.sketchybar.enable = mkOption {
       type = bool;
@@ -30,11 +35,12 @@ in
       type = str;
       default = "";
       example = literalExpression ''
-        sketchybar -m --bar height=25
+        sketchybar --bar height=24
+        sketchybar --update
         echo "sketchybar configuration loaded.."
       '';
       description = ''
-        Configuration.
+        Content of configuration file. See <link xlink:href="https://felixkratz.github.io/SketchyBar/">documentation</link> and <link xlink:href="https://github.com/FelixKratz/SketchyBar/blob/master/sketchybarrc">example</link>.
       '';
     };
   };
@@ -44,7 +50,6 @@ in
 
     launchd.user.agents.sketchybar = {
       serviceConfig.ProgramArguments = [ "${cfg.package}/bin/sketchybar" ];
-
       serviceConfig.KeepAlive = true;
       serviceConfig.RunAtLoad = true;
       serviceConfig.EnvironmentVariables = {
