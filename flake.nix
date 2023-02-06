@@ -15,7 +15,8 @@
     wsl.inputs.flake-utils.follows = "flake-utils";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    agenix.url = "github:ryantm/agenix/pull/107/head";
+    agenix.url = "github:ryantm/agenix";
+    agenix.inputs.darwin.follows = "darwin";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
   };
 

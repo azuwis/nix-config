@@ -2,21 +2,23 @@
   "nodes": {
     "agenix": {
       "inputs": {
+        "darwin": [
+          "darwin"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1652747504,
-        "narHash": "sha256-0FnoUBia9EYeDlg/XcPf043Tl/5RneSUaZ6IMsBYreY=",
+        "lastModified": 1675176355,
+        "narHash": "sha256-Qjxh5cmN56siY97mzmBLI1+cdjXSPqmfPVsKxBvHmwI=",
         "owner": "ryantm",
         "repo": "agenix",
-        "rev": "36d70a4a1d0f1aaab60bd70c88c9010d9cc7abe8",
+        "rev": "b7ffcfe77f817d9ee992640ba1f270718d197f28",
         "type": "github"
       },
       "original": {
         "owner": "ryantm",
-        "ref": "pull/107/head",
         "repo": "agenix",
         "type": "github"
       }

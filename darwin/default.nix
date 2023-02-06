@@ -21,7 +21,7 @@
     ./system.nix
     ./wireguard.nix
     ./yabai.nix
-    inputs.agenix.darwinModule
+    inputs.agenix.darwinModules.default
     inputs.home-manager.darwinModules.home-manager
   ];
 
