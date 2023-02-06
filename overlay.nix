@@ -37,9 +37,9 @@ self: super: rec {
     };
   };
   python3Packages = python3.pkgs;
-  sketchybar = super.callPackage ./pkgs/sketchybar {
-    inherit (super.darwin.apple_sdk.frameworks) Carbon Cocoa SkyLight;
-  };
+  # sketchybar = super.callPackage ./pkgs/sketchybar {
+  #   inherit (super.darwin.apple_sdk.frameworks) Carbon Cocoa SkyLight;
+  # };
   # uxplay = super.callPackage ./pkgs/uxplay { };
   # yabai = super.callPackage ./pkgs/yabai { };
 }
