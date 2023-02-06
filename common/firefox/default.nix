@@ -51,7 +51,6 @@ in
   programs.firefox = {
     enable = true;
     package = lib.mkDefault firefox;
-    extensions = [ vimfx ];
     profiles =
       let
         # userChrome = builtins.readFile (builtins.fetchurl {
@@ -139,6 +138,7 @@ in
         default = {
           inherit settings;
           inherit userChrome;
+          extensions = [ vimfx ];
         };
       };
   };
