@@ -17,6 +17,8 @@
     ./theme.nix
   ];
 
+  nix.daemonCPUSchedPolicy = "idle";
+
   hardware.opengl = {
     enable = true;
     extraPackages = with pkgs; [
