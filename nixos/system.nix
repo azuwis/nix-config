@@ -1,6 +1,10 @@
 { config, lib, pkgs, ... }:
 
 {
+  boot.kernel.sysctl = {
+    "net.core.default_qdisc" = "fq";
+    "net.ipv4.tcp_congestion_control" = "bbr";
+  };
   boot.loader.systemd-boot.enable = lib.mkDefault true;
   # explicitly enable nixos docs, system like wsl does not enable this
   documentation.nixos.enable = true;
