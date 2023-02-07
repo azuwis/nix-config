@@ -33,7 +33,7 @@
     };
   };
 
-  security.rtkit.enable = true;
+  security.rtkit.enable = lib.mkDefault config.services.pipewire.enable;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
