@@ -30,7 +30,6 @@
       "native-access"
       "obs"
       "olive"
-      "qbittorrent"
       "reaper"
       "utm"
     ];

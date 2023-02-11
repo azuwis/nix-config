@@ -24,6 +24,7 @@
     daemon
     element-desktop
     hydra-check
+    qbittorrent
     (darwin.iproute2mac.overrideAttrs (o: rec {
       postPatch = "";
     }))
