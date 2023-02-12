@@ -6,10 +6,12 @@
   services.photoprism = {
     enable = true;
     config = {
-      DisableTensorFlow = true;
+      DefaultLocale = "zh";
+      DisablePlaces = true;
+      # DisableTensorFlow = true;
       Experimental = true;
       HttpHost = "127.0.0.1";
-      JpegQuality = 92;
+      # JpegQuality = 92;
       OriginalsLimit = 10000;
       ImportPath = "/srv/photos/import";
       OriginalsPath = "/srv/photos/originals";
