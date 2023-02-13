@@ -12,7 +12,12 @@ update_fetchgit() {
   fi
 }
 
-update_fetchgit aligenie.nix
-update_fetchgit xiaomi_gateway3.nix
-update_fetchgit xiaomi_miot.nix
-# update_fetchgit zhibot.nix
+if [ -n "$1" ]
+then
+  update_fetchgit "$1"
+else
+  update_fetchgit aligenie.nix
+  update_fetchgit xiaomi_gateway3.nix
+  update_fetchgit xiaomi_miot.nix
+  # update_fetchgit zhibot.nix
+fi
