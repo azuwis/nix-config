@@ -26,6 +26,24 @@ in
   };
 
   hass.automations = ''
+    - alias: Climate set fan speed
+      trigger:
+        platform: state
+        entity_id:
+          - climate.xiaomi_mt0_6e25_air_conditioner
+          - climate.xiaomi_mt0_bedd_air_conditioner
+          - climate.xiaomi_mt0_cdd0_air_conditioner
+        from: "off"
+        to:
+          - cool
+          - heat
+      action:
+        service: fan.set_percentage
+        data:
+          entity_id: >-
+            {{ trigger.entity_id | regex_replace(find='^climate', replace='fan') | regex_replace(find='air_conditioner$', replace='air_fresh') }}
+          percentage: 34
+
     - alias: Curtain close all before sunrise
       trigger:
         - platform: sun
