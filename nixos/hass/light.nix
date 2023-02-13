@@ -129,8 +129,7 @@
     - alias: Lights fan light on when dining room light on
       trigger:
         - platform: state
-          entity_id:
-            - light.16609ab46d42b000_group
+          entity_id: light.16609ab46d42b000_group
           to: "on"
       action:
         - service: homeassistant.update_entity
