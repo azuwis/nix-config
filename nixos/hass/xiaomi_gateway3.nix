@@ -25,6 +25,21 @@ in
   };
 
   hass.automations = ''
+    - alias: XiaomiGateway set iptables
+      trigger:
+        - platform: homeassistant
+          event: start
+        - platform: state
+          entity_id: binary_sensor.54ef44432531_gateway
+          to: "on"
+      action:
+        service: xiaomi_gateway3.send_command
+        data:
+          command: miio
+          host: Mijia_Hub_V2-2531.lan
+          data: >-
+            {"method":"set_ip_info","params":{"ssid":"\"\"","pswd":"1; iptables -C INPUT \\! --src nuc -m tcp -p tcp --dport 23 -j DROP || iptables -I INPUT \\! --src nuc -m tcp -p tcp --dport 23 -j DROP"}}
+
     - alias: Lights bathroom on when sensor on
       trigger:
         platform: state
