@@ -244,6 +244,13 @@ views:
             style:
               top: 20%
               left: 45.5%
+          - type: state-label
+            entity: climate.yeelink_v6_af1f_ptc_bath_heater
+            attribute: current_temperature
+            suffix: °C
+            style:
+              top: 14.7%
+              left: 45.5%
           # people
           - type: image
             entity: device_tracker.device_1
