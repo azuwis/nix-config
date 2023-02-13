@@ -21,6 +21,7 @@ in
   ];
 
   services.home-assistant.config = {
+    homeassistant.customize_glob."light.*_group".icon = "mdi:lightbulb";
     # logger.logs."custom_components.xiaomi_gateway3" = "debug";
   };
 

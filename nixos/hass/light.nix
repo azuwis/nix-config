@@ -34,6 +34,7 @@
       supported_color_modes = [ "brightness" ];
     };
     in {
+      "light.kitchen".icon = "mdi:lightbulb";
       "light.bathroom" = customize;
       "light.kitchen_door" = customize;
       "light.kitchen_window" = customize;
