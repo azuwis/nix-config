@@ -2,12 +2,14 @@
 
 set -u
 
-nix_index_tag="$(curl -fsSL https://api.github.com/repos/Mic92/nix-index-database/releases/latest | awk -F'"' '/"tag_name"/ {print $4}')"
-sed -i -e "s|/[0-9-]\{10\}/|/${nix_index_tag}/|" common/nix-index.nix
-
 update_fetchgit() {
   file="$1"
   echo "Update $file"
+  if [ "$file" = "common/nix-index.nix" ]
+  then
+    nix_index_tag="$(curl -fsSL https://api.github.com/repos/Mic92/nix-index-database/releases/latest | awk -F'"' '/"tag_name"/ {print $4}')"
+    sed -i -e "s|/[0-9-]\+/|/${nix_index_tag}/|" common/nix-index.nix
+  fi
   nix run nixpkgs#update-nix-fetchgit -- "$file"
   if git commit -m "update-src: Auto update $file" "$file" 1>/dev/null
   then
@@ -15,8 +17,13 @@ update_fetchgit() {
   fi
 }
 
-update_fetchgit common/neovim/nvchad.nix
-update_fetchgit common/nix-index.nix
-update_fetchgit pkgs/rime-ice/default.nix
-# update_fetchgit pkgs/torrent-ratio/default.nix
-update_fetchgit pkgs/yabai/default.nix
+if [ -n "${1:-}" ]
+then
+  update_fetchgit "$1"
+else
+  update_fetchgit common/neovim/nvchad.nix
+  update_fetchgit common/nix-index.nix
+  update_fetchgit pkgs/rime-ice/default.nix
+  # update_fetchgit pkgs/torrent-ratio/default.nix
+  # update_fetchgit pkgs/yabai/default.nix
+fi
