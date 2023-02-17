@@ -31,8 +31,8 @@ in
       availability = true;
       device_options = {
         humidity_precision = 1;
-        no_occupancy_since = [ 10 600 ];
-        occupancy_timeout = 120;
+        # no_occupancy_since = [ 10 600 ];
+        occupancy_timeout = 6;
         temperature_precision = 1;
       };
       devices = {
