@@ -2,15 +2,23 @@
 
 let
   indexCache = {
-    darwin = pkgs.fetchurl {
-      url = "https://github.com/Mic92/nix-index-database/releases/download/2023-01-01-032240/index-x86_64-darwin";
-      sha256 = "1j9ipl9a43wvrfyqk7v97fsj0rh0ka7l8raigd55j9s6ijr4n8cy";
+    aarch64-darwin = pkgs.fetchurl {
+      url = "https://github.com/Mic92/nix-index-database/releases/download/2023-02-12-032305/index-aarch64-darwin";
+      sha256 = "0206izp6nk3yixah4c77pvyvqiab0i209hpi24z8z9vf9xkcf1km";
     };
-    linux = pkgs.fetchurl {
-      url = "https://github.com/Mic92/nix-index-database/releases/download/2023-01-01-032240/index-x86_64-linux";
-      sha256 = "12nb9qi5qfl8gw9iscayf2204alrllaf98i2x2gwg748vy2c3z44";
+    aarch64-linux = pkgs.fetchurl {
+      url = "https://github.com/Mic92/nix-index-database/releases/download/2023-02-12-032305/index-aarch64-linux";
+      sha256 = "0k3blna0mwvlgxfhxgdswm1fpx0j0r0pwzfki6c05nrymb6rvx1r";
     };
-  }.${pkgs.stdenv.hostPlatform.parsed.kernel.name};
+    x86_64-darwin = pkgs.fetchurl {
+      url = "https://github.com/Mic92/nix-index-database/releases/download/2023-02-12-032305/index-x86_64-darwin";
+      sha256 = "08qz1qmsg0da32h4mlz9w0kcjf7v5yz93fx4n9mxc65aadn3w40f";
+    };
+    x86_64-linux = pkgs.fetchurl {
+      url = "https://github.com/Mic92/nix-index-database/releases/download/2023-02-12-032305/index-x86_64-linux";
+      sha256 = "0l2311jz1acxg1mzrxf6maxzk9gvg68i5jpxlgc3vglg78havkzs";
+    };
+  }.${pkgs.stdenv.system};
 in
 
 {
