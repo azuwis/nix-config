@@ -17,6 +17,10 @@
     ./theme.nix
   ];
 
+  hm.home.packages = with pkgs; [
+    python3Packages.subfinder
+  ];
+
   nix.daemonCPUSchedPolicy = "idle";
 
   hardware.opengl = {
