@@ -24,6 +24,7 @@ else
   update_fetchgit common/neovim/nvchad.nix
   update_fetchgit common/nix-index.nix
   update_fetchgit pkgs/rime-ice/default.nix
+  update_fetchgit pkgs/subfinder/default.nix
   # update_fetchgit pkgs/torrent-ratio/default.nix
   # update_fetchgit pkgs/yabai/default.nix
 fi
