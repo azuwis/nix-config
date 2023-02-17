@@ -12,13 +12,13 @@
 
 buildPythonPackage rec {
   pname = "subfinder";
-  version = "unstable-2022-12-18";
+  version = "unstable-2023-01-26";
 
   src = fetchFromGitHub {
     owner = "ausaki";
     repo = "subfinder";
-    rev = "ebe6e67d9f20083ee10eb945d9a43431cff06b8a";
-    sha256 = "sha256-vgmGA5SDDhC9QkEND08KFaVq2oLZX51Uwhs0fCinbwY=";
+    rev = "165cf98afa23b39f84bb121eb7e9c8e855df0745";
+    sha256 = "11ihlmd99p40frk4x3z2nclp35xn5bk59x81prhn4sh02smyy57z";
   };
 
   propagatedBuildInputs = [ requests lxml beautifulsoup4 gevent rarfile setuptools six ];
