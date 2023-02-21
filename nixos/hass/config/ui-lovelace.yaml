@@ -133,6 +133,13 @@ views:
               top: 23%
               left: 20.3%
           - type: state-icon
+            entity: light.1697cc678402b000_group
+            hold_action:
+              action: toggle
+            style:
+              top: 23%
+              left: 36.5%
+          - type: state-icon
             entity: climate.xiaomi_mt0_cdd0_air_conditioner
             hold_action:
               action: toggle

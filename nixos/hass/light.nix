@@ -58,6 +58,7 @@
             - light.living_room
             - light.1660a6874242f000_group
             - light.16609ab46d42b000_group
+            - light.1697cc678402b000_group
             - light.yeelink_fancl5_e358_light
             - light.primary_bedroom
             - light.secondary_bedroom
