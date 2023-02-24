@@ -107,7 +107,11 @@
         service: light.turn_on
         data:
           entity_id: >-
-            {{ expand(states.light) | selectattr("state", "eq", "on") | map(attribute="entity_id") | list }}
+            {% if brightness == 255 %}
+              {{ expand(states.light) | selectattr("state", "eq", "on") | map(attribute="entity_id") | list }}
+            {% else %}
+              {{ expand(states.light) | selectattr("state", "eq", "on") | selectattr("attributes.brightness", "gt", brightness) | map(attribute="entity_id") | list }}
+            {% endif %}
           brightness: "{{ brightness }}"
 
     - alias: Lights sync kitchen off state
