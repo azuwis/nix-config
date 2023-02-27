@@ -10,6 +10,7 @@ in
     (lib.mkAliasOptionModule [ "hass" "automations" ] [ "home-manager" "users" "hass" "home" "file" "automations.yaml" "text" ])
     ./aligenie.nix
     ./braviatv.nix
+    ./device_tracker.nix
     ./light.nix
     ./lovelace.nix
     ./mini-media-player.nix
