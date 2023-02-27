@@ -143,5 +143,20 @@
         - service: light.turn_on
           data:
             entity_id: light.yeelink_fancl5_e358_light
+
+    - alias: Light min brightness when epson projector on
+      trigger:
+        - platform: state
+          entity_id: device_tracker.epson_projector
+          to: "home"
+      condition:
+        - condition: state
+          entity_id: light.primary_bedroom
+          state: "on"
+      action:
+        - service: light.turn_on
+          data:
+            entity_id: light.primary_bedroom
+            brightness: 3
   '';
 }
