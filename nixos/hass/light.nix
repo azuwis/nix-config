@@ -107,14 +107,11 @@
         service: light.turn_on
         data:
           entity_id: >-
-            {% set lights_on = expand(states.light) | selectattr("state", "eq", "on") %}
-            {% if brightness == 255 %}
-              {% set lights = lights_on | map(attribute="entity_id") | list %}
-            {% else %}
-              {% set lights = lights_on | selectattr("attributes.brightness", "defined") | selectattr("attributes.brightness", "gt", brightness) | map(attribute="entity_id") | list %}
-              {% set lights = lights + (lights_on | selectattr("entity_id", "search", "^light\..*_group$") | map(attribute="entity_id") | list) %}
+            {% set lights = expand(states.light) | selectattr("state", "eq", "on") %}
+            {% if brightness != 255 %}
+              {% set lights = lights | selectattr("attributes.brightness", "defined") | selectattr("attributes.brightness", "gt", brightness) %}
             {% endif %}
-            {{ lights }}
+            {{ lights | map(attribute="entity_id") | list }}
           brightness: "{{ brightness }}"
 
     - alias: Light sync kitchen off state
