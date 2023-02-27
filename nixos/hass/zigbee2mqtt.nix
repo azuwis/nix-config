@@ -75,7 +75,7 @@ in
   };
 
   hass.automations = ''
-    - alias: Lights bathroom on when sensor on
+    - alias: Light bathroom on when sensor on
       trigger:
         platform: state
         entity_id: binary_sensor.motion_bathroom_occupancy

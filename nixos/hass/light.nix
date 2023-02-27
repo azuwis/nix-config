@@ -50,7 +50,7 @@
   };
 
   hass.automations = ''
-    - alias: Lights brightness
+    - alias: Light brightness
       mode: parallel
       trigger:
         - platform: state
@@ -93,7 +93,7 @@
         data: >-
           {"brightness": {{ brightness }}{% if color_temp %}, "kelvin": {{ kelvin }}{% endif %}}
 
-    - alias: Lights set brightness once
+    - alias: Light set brightness once
       trigger:
         - platform: time
           at: "07:35:01"
@@ -114,7 +114,7 @@
             {% endif %}
           brightness: "{{ brightness }}"
 
-    - alias: Lights sync kitchen off state
+    - alias: Light sync kitchen off state
       trigger:
         - platform: state
           entity_id:
@@ -131,7 +131,7 @@
         data:
           entity_id: light.kitchen
 
-    - alias: Lights fan light on when dining room light on
+    - alias: Light fan light on when dining room light on
       trigger:
         - platform: state
           entity_id: light.16609ab46d42b000_group

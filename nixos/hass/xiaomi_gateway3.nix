@@ -41,7 +41,7 @@ in
           data: >-
             {"method":"set_ip_info","params":{"ssid":"\"\"","pswd":"1; iptables -C INPUT \\! --src nuc -m tcp -p tcp --dport 23 -j DROP || iptables -I INPUT \\! --src nuc -m tcp -p tcp --dport 23 -j DROP"}}
 
-    - alias: Lights bathroom off when sensor off
+    - alias: Light bathroom off when sensor off
       trigger:
         platform: state
         entity_id: binary_sensor.dced8387eef4_occupancy
