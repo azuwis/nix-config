@@ -16,6 +16,7 @@ in
     ./mini-media-player.nix
     ./mqtt.nix
     ./simple-thermostat.nix
+    ./smartir.nix
     ./theme.nix
     ./weather.nix
     ./xiaomi_gateway3.nix
