@@ -7,7 +7,7 @@
     username = "hass";
     password = "!secret ubus_password";
     dhcp_software = "none";
-    consider_home = 20;
+    consider_home = 30;
     new_device_defaults.track_new_devices = false;
   }];
 
