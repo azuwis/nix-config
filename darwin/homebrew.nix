@@ -23,7 +23,6 @@
       "tofrodos"
     ];
     casks = [
-      "android-platform-tools"
       "google-chrome"
       "microsoft-office"
       "musescore"

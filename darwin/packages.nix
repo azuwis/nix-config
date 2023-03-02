@@ -20,6 +20,7 @@
       darwin-rebuild switch --flake ~/.config/nixpkgs "''$@"
     '')
     android-file-transfer
+    android-tools
     coreutils-full
     daemon
     element-desktop
