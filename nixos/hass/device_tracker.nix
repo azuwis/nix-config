@@ -26,6 +26,15 @@
               - cover.lumi_hmcn01_7c8c_curtain
               - light.primary_bedroom
         - if:
+          - condition: sun
+            after: sunrise
+            before: sunset
+          then:
+          - service: cover.set_cover_position
+            data:
+              entity_id: cover.lumi_hmcn01_7c8c_curtain
+              position: 20
+        - if:
           - condition: state
             entity_id: light.primary_bedroom
             state: "on"
