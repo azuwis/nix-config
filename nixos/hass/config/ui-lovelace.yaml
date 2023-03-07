@@ -334,6 +334,17 @@ views:
 
       - type: conditional
         conditions:
+          - entity: media_player.edifier_r2000db
+            state: 'on'
+        card:
+          type: custom:mini-media-player
+          entity: media_player.edifier_r2000db
+          volume_stateless: true
+          hide:
+            play_pause: true
+
+      - type: conditional
+        conditions:
           - entity: media_player.tv
             state: 'on'
         card:
