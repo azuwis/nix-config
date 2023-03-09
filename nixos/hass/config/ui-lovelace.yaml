@@ -144,6 +144,13 @@ views:
             style:
               top: 89.2%
               left: 33.9%
+          - type: state-icon
+            entity: media_player.edifier_r2000db
+            hold_action:
+              action: toggle
+            style:
+              top: 66%
+              left: 50%
           # secondary bedroom
           - type: state-icon
             entity: light.secondary_bedroom

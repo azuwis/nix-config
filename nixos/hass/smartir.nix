@@ -29,6 +29,7 @@ in
       device_code = 1500;
       controller_data = "remote.broadlink1";
     }];
+    homeassistant.customize."media_player.edifier_r2000db".icon = "mdi:speaker";
     # logger.logs."custom_components.smartir" = "debug";
   };
 }
