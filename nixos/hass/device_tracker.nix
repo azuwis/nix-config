@@ -59,11 +59,16 @@
           from: "home"
           to: "not_home"
       action:
-        - service: scene.turn_on
-          target:
-            entity_id: scene.primary_bedroom_before
         - service: media_player.turn_off
           data:
             entity_id: media_player.edifier_r2000db
+        - if:
+            - condition: sun
+              after: sunrise
+              before: sunset
+          then:
+            - service: scene.turn_on
+              target:
+                entity_id: scene.primary_bedroom_before
   '';
 }
