@@ -35,9 +35,9 @@
               entity_id: cover.lumi_hmcn01_7c8c_curtain
               position: 20
         - if:
-          - condition: state
-            entity_id: light.primary_bedroom
-            state: "on"
+            - condition: state
+              entity_id: light.primary_bedroom
+              state: "on"
           then:
           - service: light.turn_on
             data:
