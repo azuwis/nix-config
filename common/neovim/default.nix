@@ -15,6 +15,7 @@
   programs.neovim = {
     enable = true;
     extraPackages = with pkgs; [
+      ansible-language-server
       gcc
       nixpkgs-fmt
       rnix-lsp
