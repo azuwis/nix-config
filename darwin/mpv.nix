@@ -9,6 +9,7 @@
     <!DOCTYPE fontconfig SYSTEM "../fonts.dtd">
     <fontconfig>
       <dir>/System/Library/Fonts</dir>
+      <dir>${pkgs.mpvScripts.uosc}/share/fonts</dir>
       <!-- <dir>/Library/Fonts</dir> -->
       <!-- <dir>~/Library/Fonts</dir> -->
 

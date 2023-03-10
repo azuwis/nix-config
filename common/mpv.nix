@@ -42,9 +42,13 @@ in
       slang = "chi";
       sub-auto = "fuzzy";
       sub-codepage = "gbk";
+      # for uosc
+      osc = "no";
+      osd-bar = "no";
+      border = "no";
     };
-    # scripts = with pkgs.mpvScripts; [
-    #   cutter
-    # ];
+    scripts = with pkgs.mpvScripts; [
+      uosc
+    ];
   };
 }
