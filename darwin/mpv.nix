@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }:
 
 {
-  programs.mpv = {
-    bindings.f = "run yabai -m window --toggle native-fullscreen";
-  };
+  # programs.mpv = {
+  #   bindings.f = "run yabai -m window --toggle native-fullscreen";
+  # };
   xdg.configFile."mpv/fonts.conf".text = ''
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE fontconfig SYSTEM "../fonts.dtd">
