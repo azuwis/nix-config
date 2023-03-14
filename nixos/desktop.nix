@@ -10,7 +10,7 @@
 
   hm.imports = [
     ../common/firefox
-    ../common/mpv.nix
+    ../common/mpv
     ./fcitx5
     ./firefox.nix
     ./sway.nix

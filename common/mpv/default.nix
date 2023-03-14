@@ -38,7 +38,7 @@ in
       keep-open-pause = false;
       osd-on-seek = false;
       profile = "gpu-hq";
-      script-opts = "osc-seekbarstyle=knob,osc-deadzonesize=1,osc-minmousemove=1";
+      # script-opts = "osc-seekbarstyle=knob,osc-deadzonesize=1,osc-minmousemove=1";
       slang = "chi";
       sub-auto = "fuzzy";
       sub-codepage = "gbk";
@@ -46,6 +46,7 @@ in
       osc = "no";
       osd-bar = "no";
       border = "no";
+      script-opts = "uosc-timeline_opacity=0.3,uosc-timeline_size_max=30,uosc-timeline_size_max_fullscreen=40";
     };
     scripts = with pkgs.mpvScripts; [
       uosc

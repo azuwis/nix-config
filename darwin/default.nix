@@ -29,7 +29,7 @@
     ../common/alacritty.nix
     ../common/emacs
     ../common/firefox
-    ../common/mpv.nix
+    ../common/mpv
     ../common/rime
     ../common/zsh-ssh-agent.nix
     ./firefox.nix
