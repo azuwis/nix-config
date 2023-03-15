@@ -5,6 +5,7 @@
     (lib.mkAliasOptionModule [ "hm" ] [ "home-manager" "users" config.my.user ])
     ./my.nix
     ./system.nix
+    ./registry.nix
   ];
 
   hm.imports = [

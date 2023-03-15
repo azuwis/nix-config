@@ -1,7 +1,11 @@
-{ nixpkgs }: { config, lib, pkgs, ... }:
+{ config, inputs, lib, pkgs, ... }:
 
 {
-  environment.etc."nix/inputs/nixpkgs".source = nixpkgs;
-  nix.nixPath = [ "nixpkgs=/etc/nix/inputs/nixpkgs" ];
-  nix.registry.nixpkgs.flake = nixpkgs;
+  environment.etc = lib.mapAttrs'
+    (name: value: { name = "nix/inputs/${name}"; value = { source = value.outPath; }; })
+    inputs;
+  nix.nixPath = [ "/etc/nix/inputs" ];
+  nix.registry = builtins.mapAttrs
+    (name: value: { flake = value; })
+    inputs;
 }
