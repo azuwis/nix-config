@@ -23,6 +23,8 @@
   fileSystems."/boot2" = { options = [ "defaults" "nofail" "x-systemd.device-timeout=5s" ]; };
   fileSystems."/boot3" = { options = [ "defaults" "nofail" "x-systemd.device-timeout=5s" ]; };
 
+  networking.hostName = "hyperv";
+
   # ZFS
   boot.supportedFilesystems = [ "zfs" ];
   networking.hostId = "65e3452b";
