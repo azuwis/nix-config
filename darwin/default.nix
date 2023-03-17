@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [
@@ -21,8 +21,6 @@
     ./system.nix
     ./wireguard.nix
     ./yabai.nix
-    inputs.agenix.darwinModules.default
-    inputs.home-manager.darwinModules.home-manager
   ];
 
   hm.imports = [

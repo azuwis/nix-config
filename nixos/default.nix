@@ -1,11 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [
     ./system.nix
     ../modules/photoprism
     ../modules/qbittorrent
-    inputs.home-manager.nixosModules.home-manager
   ];
 
   hm.imports = [
