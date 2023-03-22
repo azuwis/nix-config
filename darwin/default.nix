@@ -9,14 +9,14 @@
     ../modules/shadowsocks
     ../modules/sketchybar
     ./age.nix
-    ./firefox.nix
+    ./firefox
     ./homebrew.nix
     ./hostname.nix
-    ./kitty.nix # sudo keep TERMINFO_DIRS env
+    ./kitty # sudo keep TERMINFO_DIRS env
     ./my.nix
     ./scinet
     ./sketchybar
-    ./skhd.nix
+    ./skhd
     ./sudo.nix
     ./system.nix
     ./wireguard.nix
@@ -30,10 +30,5 @@
     ../common/mpv
     ../common/rime
     ../common/zsh-ssh-agent.nix
-    ./firefox.nix
-    ./kitty.nix
-    ./mpv.nix
-    ./packages.nix
-    ./skhd.nix
-  ];
+  ] ++ lib.my.genModules ./. "home.nix";
 }

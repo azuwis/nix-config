@@ -1,15 +1,5 @@
 { config, lib, pkgs, ... }:
 
-if builtins.hasAttr "hm" lib then
-
-{
-  home.activation.skhd = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    ${pkgs.skhd}/bin/skhd --reload || killall skhd || true
-  '';
-}
-
-else
-
 {
   services.skhd = {
     enable = true;

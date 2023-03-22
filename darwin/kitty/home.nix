@@ -1,7 +1,5 @@
 { config, lib, pkgs, ... }:
 
-if builtins.hasAttr "hm" lib then
-
 {
   programs.kitty.enable = true;
   programs.kitty.darwinLaunchOptions = [
@@ -34,13 +32,5 @@ if builtins.hasAttr "hm" lib then
       kitty-integration
       unfunction kitty-integration
     fi
-  '';
-}
-
-else
-
-{
-  environment.etc."sudoers.d/kitty".text = ''
-    Defaults env_keep += "TERMINFO_DIRS"
   '';
 }
