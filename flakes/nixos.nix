@@ -2,9 +2,9 @@
 
 let
   mkNixos = { system ? "x86_64-linux", modules ? [], desktop ? true }:
-  withSystem system ({ pkgs, system, ... }: inputs.nixpkgs.lib.nixosSystem {
+  withSystem system ({ lib, pkgs, system, ... }: inputs.nixpkgs.lib.nixosSystem {
     inherit system;
-    specialArgs = { inherit inputs pkgs; };
+    specialArgs = { inherit inputs lib pkgs; };
     modules = [
       inputs.home-manager.nixosModules.home-manager
       ../common
