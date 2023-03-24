@@ -4,11 +4,9 @@
   imports = [
     ../common/emacs # emacs-all-the-icons-fonts
     ../common/rime
-    ../modules/scidns
-    ../modules/sciroute
-    ../modules/shadowsocks
-    ../modules/sketchybar
-  ] ++ lib.my.genModules ./. "default.nix";
+  ]
+  ++ lib.my.genModules ./modules "default.nix"
+  ++ lib.my.genModules ./. "default.nix";
 
   hm.imports = [
     ../common/alacritty.nix
