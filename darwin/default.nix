@@ -4,9 +4,7 @@
   imports = [
     ../common/emacs # emacs-all-the-icons-fonts
     ../common/rime
-  ]
-  ++ lib.my.genModules ./modules "default.nix"
-  ++ lib.my.genModules ./. "default.nix";
+  ] ++ lib.my.getModules [ ./modules ./. ];
 
   hm.imports = [
     ../common/alacritty.nix
@@ -15,5 +13,5 @@
     ../common/mpv
     ../common/rime
     ../common/zsh-ssh-agent.nix
-  ] ++ lib.my.genModules ./. "home.nix";
+  ] ++ lib.my.getHmModules [ ./. ];
 }
