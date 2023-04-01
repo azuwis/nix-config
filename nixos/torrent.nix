@@ -35,6 +35,7 @@ in
     Session\Port=8999
     Session\Preallocation=true
     Session\QueueingSystemEnabled=true
+    Session\SSRFMitigation=false
     Session\ValidateHTTPSTrackerCertificate=false
 
     [Network]
