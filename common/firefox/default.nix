@@ -131,6 +131,7 @@ in
           "media.hardware-video-decoding.force-enabled" = true;
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
           "media.autoplay.default" = 0;
+          # "media.default_volume" = 0.02;
           "extensions.VimFx.config_file_directory" = "~/.config/vimfx";
         };
       in
