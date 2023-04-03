@@ -1,13 +1,15 @@
 return {
-  ["neovim/nvim-lspconfig"] = {
+  {
+    "neovim/nvim-lspconfig",
     config = function()
       require "plugins.configs.lspconfig"
-      require "custom.plugins.lspconfig"
+      require "custom.configs.lspconfig"
     end,
   },
 
-  ["nvim-telescope/telescope.nvim"] = {
-    override_options = {
+  {
+    "nvim-telescope/telescope.nvim",
+    opts = {
       pickers = {
         find_files = {
           mappings = {
@@ -32,8 +34,9 @@ return {
     },
   },
 
-  ["nvim-treesitter/nvim-treesitter"] = {
-    override_options = {
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
       ensure_installed = {
         "hcl",
         "lua",
@@ -44,39 +47,28 @@ return {
     },
   },
 
-  ["NvChad/ui"] = {
-    override_options = {
-      tabufline = {
-        overriden_modules = function()
-          return {
-            buttons = function()
-              return ""
-            end,
-          }
-        end,
-      },
-    },
+  {
+    "williamboman/mason.nvim",
+    enabled = false,
   },
 
-  ["lewis6991/impatient.nvim"] = false,
-  ["williamboman/mason.nvim"] = false,
-
-  ["jose-elias-alvarez/null-ls.nvim"] = {
-    after = "nvim-lspconfig",
+  {
+    "jose-elias-alvarez/null-ls.nvim",
     config = function()
       require "custom.plugins.null-ls"
     end,
   },
 
-  ["sindrets/diffview.nvim"] = {
-    requires = "nvim-lua/plenary.nvim",
-    after = "plenary.nvim",
+  {
+    "sindrets/diffview.nvim",
+    dependencies = "nvim-lua/plenary.nvim",
   },
-  ["TimUntersberger/neogit"] = {
+  {
+    "TimUntersberger/neogit",
     cmd = {
       "Neogit",
     },
-    requires = "nvim-lua/plenary.nvim",
+    dependencies = "nvim-lua/plenary.nvim",
     config = function()
       require("neogit").setup {
         disable_commit_confirmation = true,
@@ -93,8 +85,8 @@ return {
     end,
   },
 
-  ["nvim-orgmode/orgmode"] = {
-    after = "nvim-treesitter",
+  {
+    "nvim-orgmode/orgmode",
     config = function()
       -- Load custom tree-sitter grammar for org filetype
       require('orgmode').setup_ts_grammar()

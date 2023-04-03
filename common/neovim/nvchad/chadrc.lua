@@ -2,6 +2,15 @@ local M = {}
 
 M.ui = {
   theme = "nord",
+  tabufline = {
+    overriden_modules = function()
+      return {
+        buttons = function()
+          return ""
+        end,
+      }
+    end,
+  },
 }
 
 M.mappings = {
@@ -16,6 +25,15 @@ M.mappings = {
   },
 }
 
-M.plugins = require "custom.plugins"
+M.lazy_nvim = {
+  performance = {
+    reset_packpath = false,
+    rtp = {
+      reset = false,
+    },
+  },
+}
+
+M.plugins = "custom.plugins"
 
 return M
