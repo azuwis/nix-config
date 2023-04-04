@@ -8,6 +8,11 @@ return {
   },
 
   {
+    "numToStr/Comment.nvim",
+    keys = { "gc", "gb" },
+  },
+
+  {
     "nvim-telescope/telescope.nvim",
     opts = {
       pickers = {
