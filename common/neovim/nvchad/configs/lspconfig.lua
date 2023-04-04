@@ -15,3 +15,11 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   }
 end
+
+lspconfig.yamlls.setup {
+  settings = {
+    yaml = {
+      keyOrdering = false,
+    },
+  },
+}
