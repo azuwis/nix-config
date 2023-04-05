@@ -3,8 +3,7 @@
 {
   imports = [
     ./system.nix
-    ../modules/qbittorrent
-  ];
+  ] ++ lib.my.getModules [ ./modules ];
 
   hm.imports = [
     ./gnupg.nix
