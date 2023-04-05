@@ -3,7 +3,6 @@
 {
   imports = [
     ./system.nix
-    ../modules/photoprism
     ../modules/qbittorrent
   ];
 

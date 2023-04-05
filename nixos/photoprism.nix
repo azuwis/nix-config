@@ -1,20 +1,17 @@
 { config, lib, pkgs, ... }:
 
 {
-  users.users.${config.my.user}.extraGroups = [ "photoprism" ];
-
   services.photoprism = {
     enable = true;
-    config = {
-      DefaultLocale = "zh";
-      DisablePlaces = true;
-      # DisableTensorFlow = true;
-      Experimental = true;
-      HttpHost = "127.0.0.1";
-      # JpegQuality = 92;
-      OriginalsLimit = 10000;
-      ImportPath = "/srv/photos/import";
-      OriginalsPath = "/srv/photos/originals";
+    originalsPath = "/srv/photos/originals";
+    importPath = "/srv/photos/import";
+    settings = {
+      PHOTOPRISM_DEFAULT_LOCALE = "zh";
+      PHOTOPRISM_DISABLE_PLACES = "true";
+      # PHOTOPRISM_DISABLE_TENSORFLOW = "true";
+      PHOTOPRISM_EXPERIMENTAL = "true";
+      # PHOTOPRISM_JPEG_QUALITY = "92";
+      PHOTOPRISM_ORIGINALS_LIMIT = "10000";
     };
   };
 
