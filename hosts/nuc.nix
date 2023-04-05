@@ -11,6 +11,7 @@
     ../nixos/samba.nix
     ../nixos/torrent.nix
     ../nixos/uxplay.nix
+    ../nixos/zramswap.nix
   ];
   hm.imports = [
     ../nixos/uxplay.nix
