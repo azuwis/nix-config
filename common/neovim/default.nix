@@ -4,8 +4,8 @@
   # Clear all caches
   # rm -rf ~/.config/nvim/plugin/packer_compiled.lua ~/.cache/nvim/ ~/.local/share/nvim/site/
   imports = [
-    ./nvchad.nix
-    ./update-nix-fetchgit.nix
+    ./nvchad
+    ./update-nix-fetchgit
   ];
   # workaround for https://github.com/lewis6991/impatient.nvim/issues/42
   # home.activation.neovim = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
