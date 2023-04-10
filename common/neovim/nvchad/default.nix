@@ -23,4 +23,5 @@ in
     vim.cmd [[source ${nvchad}/init.lua]]
   '';
   xdg.configFile."nvim/lua".source = ./lua;
+  xdg.configFile."nvim/ftdetect".source = ./ftdetect;
 }
