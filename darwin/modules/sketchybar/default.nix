@@ -28,6 +28,7 @@ in
 
     services.sketchybar.package = mkOption {
       type = path;
+      default = pkgs.sketchybar;
       description = "The sketchybar package to use.";
     };
 

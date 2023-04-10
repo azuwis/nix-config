@@ -13,7 +13,6 @@ in
   #   StandardOutPath = "/tmp/sketchybar.log";
   # };
   services.sketchybar.enable = true;
-  services.sketchybar.package = pkgs.sketchybar;
   services.sketchybar.config = ''
     #!/bin/bash
 
