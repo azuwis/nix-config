@@ -19,9 +19,7 @@ in
     # plugins = [ nvchad pkgs.vimPlugins.telescope-fzf-native-nvim ];
     plugins = [ nvchad ];
   };
-  xdg.configFile."nvim/init.lua".text = ''
-    vim.cmd [[source ${nvchad}/init.lua]]
-  '';
+  xdg.configFile."nvim/init.lua".source = "${nvchad}/init.lua";
   xdg.configFile."nvim/lua".source = ./lua;
   xdg.configFile."nvim/ftdetect".source = ./ftdetect;
 }
