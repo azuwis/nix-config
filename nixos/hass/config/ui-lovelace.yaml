@@ -117,26 +117,31 @@ views:
             style:
               top: 75%
               left: 50%
-          - type: state-label
-            entity: sensor.leshow_jsq1_4d84_water_level
-            tap_action:
-              action: navigate
-              navigation_path: /lovelace/history
-            hold_action:
-              action: more-info
-            style:
-              top: 72.3%
-              left: 50.6%
-          - type: state-label
-            entity: sensor.leshow_jsq1_4d84_relative_humidity
-            tap_action:
-              action: navigate
-              navigation_path: /lovelace/history
-            hold_action:
-              action: more-info
-            style:
-              top: 70.3%
-              left: 49%
+          - type: conditional
+            conditions:
+              - entity: humidifier.leshow_jsq1_4d84_humidifier
+                state_not: unavailable
+            elements:
+              - type: state-label
+                entity: sensor.leshow_jsq1_4d84_water_level
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/history
+                hold_action:
+                  action: more-info
+                style:
+                  top: 72.3%
+                  left: 50.6%
+              - type: state-label
+                entity: sensor.leshow_jsq1_4d84_relative_humidity
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/history
+                hold_action:
+                  action: more-info
+                style:
+                  top: 70.3%
+                  left: 49%
           - type: state-icon
             entity: cover.lumi_hmcn01_7c8c_curtain
             hold_action:
