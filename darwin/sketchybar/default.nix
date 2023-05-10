@@ -66,7 +66,8 @@ in
       --set battery update_freq=120 script="$scripts/battery.sh" \
       --subscribe battery system_woke power_source_change \
       --add item wifi right \
-      --set wifi click_script="$scripts/click-wifi.sh" \
+      --set wifi script="$scripts/wifi.sh" click_script="$scripts/click-wifi.sh" \
+      --subscribe wifi wifi_change \
       --add item load right \
       --set load icon="􀍽" script="$scripts/window-indicator.sh" \
       --subscribe load space_change \
