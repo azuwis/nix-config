@@ -22,7 +22,7 @@ then
   update_fetchgit "$1"
 else
   update_fetchgit common/neovim/nvchad/default.nix
-  update_fetchgit common/nix-index.nix
+  # update_fetchgit common/nix-index.nix
   update_fetchgit pkgs/rime-ice/default.nix
   update_fetchgit pkgs/subfinder/default.nix
   # update_fetchgit pkgs/torrent-ratio/default.nix

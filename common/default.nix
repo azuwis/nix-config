@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ inputs, config, lib, pkgs, ... }:
 
 {
   imports = [
@@ -9,6 +9,7 @@
   ];
 
   hm.imports = [
+    inputs.nix-index-database.hmModules.nix-index
     ./difftastic.nix
     ./direnv.nix
     ./helix.nix
@@ -18,7 +19,6 @@
     ./my.nix
     ./neovim
     ./nnn
-    ./nix-index.nix
     ./packages.nix
     ./zsh.nix
   ];
