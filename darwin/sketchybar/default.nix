@@ -63,7 +63,8 @@ in
       --add item clock right \
       --set clock update_freq=10 script="$scripts/status.sh" icon.padding_left=2 \
       --add item battery right \
-      --set battery update_freq=60 script="$scripts/battery.sh" \
+      --set battery update_freq=120 script="$scripts/battery.sh" \
+      --subscribe battery system_woke power_source_change \
       --add item wifi right \
       --set wifi click_script="$scripts/click-wifi.sh" \
       --add item load right \
