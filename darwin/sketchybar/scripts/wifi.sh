@@ -9,4 +9,4 @@ else
   WIFI_PADDING=0
 fi
 
-sketchybar --set $NAME icon="$WIFI_ICON" icon.padding_right="$WIFI_PADDING" label="$INFO"
+sketchybar --set wifi icon="$WIFI_ICON" icon.padding_right="$WIFI_PADDING" label="$INFO"

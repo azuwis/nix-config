@@ -7,4 +7,4 @@ then
   LABEL=""
 fi
 
-sketchybar --set "$NAME" label="$LABEL"
+sketchybar --set input label="$LABEL"
