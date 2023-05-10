@@ -16,6 +16,8 @@ in
   services.sketchybar.config = ''
     #!/bin/bash
 
+    scripts="${scripts}"
+
     bar_color=0xff2e3440
     # bar_color=0x30000000
     icon_font="JetBrainsMono Nerd Font:Medium:13.0"
@@ -34,7 +36,7 @@ in
             associated_space=$i \
             icon=$i \
             click_script="yabai -m space --focus $i" \
-            script=${scripts}/space.sh)
+            script="$scripts/space.sh")
     done
 
     sketchybar -m \
@@ -59,19 +61,19 @@ in
       --set title script='sketchybar --set "$NAME" label="$INFO"' \
       --subscribe title front_app_switched \
       --add item clock right \
-      --set clock update_freq=10 script="${scripts}/status.sh" icon.padding_left=2 \
+      --set clock update_freq=10 script="$scripts/status.sh" icon.padding_left=2 \
       --add item battery right \
-      --set battery update_freq=60 script="${scripts}/battery.sh" \
+      --set battery update_freq=60 script="$scripts/battery.sh" \
       --add item wifi right \
-      --set wifi click_script="${scripts}/click-wifi.sh" \
+      --set wifi click_script="$scripts/click-wifi.sh" \
       --add item load right \
-      --set load icon="􀍽" script="${scripts}/window-indicator.sh" \
+      --set load icon="􀍽" script="$scripts/window-indicator.sh" \
       --subscribe load space_change \
       --add item network right \
       --add item input right \
       --add event input_change 'AppleSelectedInputSourcesChangedNotification' \
       --subscribe input input_change \
-      --set input script="${scripts}/input.sh" label.padding_right=-8 \
+      --set input script="$scripts/input.sh" label.padding_right=-8 \
       --default \
         icon.padding_left=0 \
         icon.padding_right=2 \
