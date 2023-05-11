@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+if [ -z "${GIT_COMMITTER_DATE:-}" ]
+then
+  git log --format=%cd --date=unix --max-count=2 | {
+    read this
+    read last
+    new="$(date +%s --date=19:00:00)"
+    for item in "$this" "$last"
+    do
+      if [ "$item" -gt "$new" ]
+      then
+        new="$item"
+      fi
+    done
+    if [ "$new" != "$this" ]
+    then
+      new="$((RANDOM % 600 + 120 + new))"
+      GIT_COMMITTER_DATE="$new" git commit --amend --no-edit --date "$new"
+    fi
+  }
+fi
