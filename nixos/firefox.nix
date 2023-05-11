@@ -15,4 +15,5 @@ if builtins.hasAttr "hm" lib then
 else
 
 {
+  environment.variables.MOZ_USE_XINPUT2 = "1";
 }
