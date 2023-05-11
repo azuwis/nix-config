@@ -39,9 +39,9 @@
       lshift + lalt - 0x29 : yabai -m window --toggle split
       lalt - c : yabai -m window --toggle float && yabai -m window --grid 6:6:1:1:4:4
       lalt - f : yabai -m window --toggle zoom-fullscreen; yabai -m window --grid 1:1:0:0:1:1; \
-                 read -r index fullscreen <<< "$(yabai -m query --windows --window mouse | jq -r '[.space, ."has-fullscreen-zoom"] | @sh')"; \
-                 if [ "$fullscreen" = true ]; then icon="↑"; padding=14; else icon="$index"; padding=16; fi; \
-                 sketchybar -m --set "space$index" icon="$icon" label_padding_right="$padding"
+                 yabai -m query --windows --window mouse | jq -r '[.space, ."has-fullscreen-zoom"] | @sh' | \
+                 { read -r index fullscreen; if [ "$fullscreen" = true ]; then icon="↑"; padding=14; else icon="$index"; padding=16; fi; \
+                 sketchybar -m --set "space$index" icon="$icon" label_padding_right="$padding"; }
       lalt - m : yabai -m window --minimize
       lalt - t : yabai -m window --toggle float
       lalt - tab : yabai -m space --focus recent
@@ -55,7 +55,7 @@
 
   launchd.user.agents.skhd.environment = {
     NIX_SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt";
-    SHELL = "/bin/sh";
+    SHELL = "/bin/bash";
   };
 
   launchd.user.agents.skhd.path = lib.mkForce [ config.my.systemPath ];
