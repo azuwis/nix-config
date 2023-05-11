@@ -19,6 +19,7 @@
 
   hm.home.packages = with pkgs; [
     python3Packages.subfinder
+    chromium
   ];
 
   nix.daemonCPUSchedPolicy = "idle";
