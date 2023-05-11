@@ -15,6 +15,4 @@ if builtins.hasAttr "hm" lib then
 else
 
 {
-  # https://bugzilla.mozilla.org/show_bug.cgi?id=1751363
-  environment.variables.MOZ_DISABLE_RDD_SANDBOX = "1";
 }
