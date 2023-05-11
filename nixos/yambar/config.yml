@@ -47,21 +47,21 @@ bar:
           map:
             conditions:
               id < 0:
-                - string: {text: "龍", right-margin: 2}
+                - string: {text: "󰓅", right-margin: 2}
                 - string: {text: "{cpu}%"}
     - mem:
         interval: 10000
         content:
-          - string: {text: "", right-margin: 2}
+          - string: {text: "󰍛", right-margin: 2}
           - string: {text: "{free:gb}G"}
     - pulse:
         content:
           - map:
              conditions:
                sink_muted:
-                 - string: {text: "婢", right-margin: 2}
+                 - string: {text: "󰖁", right-margin: 2}
                ~sink_muted:
-                 - string: {text: "墳", right-margin: 2}
+                 - string: {text: "󰕾", right-margin: 2}
           - string: {text: "{sink_percent}"}
     - clock:
         date-format: "%a %m-%d"
