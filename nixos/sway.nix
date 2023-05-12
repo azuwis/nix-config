@@ -21,6 +21,8 @@ in
   home.packages = with pkgs; [
     fuzzelWrapped
     pulsemixer
+    swappy
+    sway-contrib.grimshot
   ];
 
   wayland.windowManager.sway = {
@@ -45,6 +47,7 @@ in
         # stop graphical-session.target so services like foot will not try to restart itself
         "${mod}+Shift+e" = "exec swaynag -t warning -m 'Do you really want to exit sway?' -b 'Yes, exit sway' 'systemctl --user stop graphical-session.target; swaymsg exit'";
         "${mod}+c" = "floating enable; move absolute position center";
+        "Print" = "grimshot save - | swappy -f -";
         "XF86AudioRaiseVolume" = "exec pulsemixer --change-volume +3";
         "XF86AudioLowerVolume" = "exec pulsemixer --change-volume -3";
         "XF86AudioMute" = "exec pulsemixer --toggle-mute";
