@@ -28,9 +28,70 @@ let
     meta.homepage = "https://github.com/NvChad/base46/";
   };
 
+  extensions = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    pname = "extensions";
+    version = "unstable-2023-05-06";
+    src = pkgs.fetchFromGitHub {
+      owner = "NvChad";
+      repo = "extensions";
+      rev = "860ff3609f843d70cccd768f24e341566e02939a";
+      sha256 = "1izn7spcnm8dy87l14yg7isfmsmikgb53dw9sgpc2nc97wllhdyg";
+    };
+    meta.homepage = "https://github.com/NvChad/extensions";
+  };
+
+  nvterm = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    pname = "nvterm";
+    version = "unstable-2023-05-05";
+    src = pkgs.fetchFromGitHub {
+      owner = "NvChad";
+      repo = "nvterm";
+      rev = "5ae78fb332e92447121d2af58a6313189a7799fb";
+      sha256 = "0rcj5njhkh1pwaa8d8d15nqqacx1h8j4ijygwhplvszi64kqb9r5";
+    };
+    meta.homepage = "https://github.com/NvChad/nvterm";
+  };
+
+  ui = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    pname = "ui";
+    version = "unstable-2023-05-09";
+    src = pkgs.fetchFromGitHub {
+      owner = "NvChad";
+      repo = "ui";
+      rev = "8895e244dadcc17922aa2362227e60ee3b3504ae";
+      sha256 = "1f32d63jhk1rfswiqgpnni7n8sgg63lr0dgzkr2d20rm75x092d0";
+    };
+    meta.homepage = "https://github.com/NvChad/ui";
+  };
+
   lazyPlugins = pkgs.vimUtils.packDir {myNvchadPackages = {
     start = with pkgs.vimPlugins; [
+      cmp-buffer
+      cmp-nvim-lsp
+      cmp-nvim-lua
+      cmp-path
+      cmp_luasnip
+      comment-nvim
+      diffview-nvim
+      extensions
+      friendly-snippets
+      gitsigns-nvim
+      indent-blankline-nvim
+      luasnip
+      neogit
+      null-ls-nvim
+      nvim-autopairs
+      nvim-cmp
+      nvim-colorizer-lua
+      nvim-lspconfig
+      nvim-tree-lua
       nvim-treesitter
+      nvim-web-devicons
+      nvterm
+      orgmode
+      telescope-nvim
+      ui
+      which-key-nvim
     ];
   };};
 
