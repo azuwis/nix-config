@@ -11,6 +11,21 @@ let
       sha256 = "1i99m7h9vjjrkc891818xa1cjqkw7pfq9wh8c2qd93995qrwvw3d";
     };
     meta.homepage = "https://github.com/NvChad/NvChad/";
+    postPatch = ''
+      sed -i -e 's|^local lazypath =.*|local lazypath = "${pkgs.vimPlugins.lazy-nvim}"|' init.lua
+    '';
+  };
+
+  base46 = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    pname = "base46";
+    version = "unstable-2023-05-06";
+    src = pkgs.fetchFromGitHub {
+      owner = "NvChad";
+      repo = "base46";
+      rev = "bad87b034430b0241d03868c3802c2f1a4e0b4be";
+      sha256 = "1nplnd4f5wzwkbbfw9nnpm3jdy0il4wbqh5gdnbh9xmldb3lf376";
+    };
+    meta.homepage = "https://github.com/NvChad/base46/";
   };
 
   lazyPlugins = pkgs.vimUtils.packDir {myNvchadPackages = {
@@ -36,6 +51,7 @@ in
         p.vim
         p.yaml
       ]))
+      base46
       nvchad
     ];
   };
