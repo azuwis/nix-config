@@ -6,16 +6,18 @@ then
     read this
     read last
     new="$(date +%s --date=19:00:00)"
+    mod=7200
     for item in "$this" "$last"
     do
       if [ "$item" -gt "$new" ]
       then
         new="$item"
+        mod=600
       fi
     done
     if [ "$new" != "$this" ]
     then
-      new="$((RANDOM % 600 + 120 + new))"
+      new="$((RANDOM % mod + 120 + new))"
       GIT_COMMITTER_DATE="$new" git commit --amend --no-edit --date "$new"
     fi
   }
