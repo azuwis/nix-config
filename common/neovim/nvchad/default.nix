@@ -12,14 +12,34 @@ let
     };
     meta.homepage = "https://github.com/NvChad/NvChad/";
   };
+
+  lazyPlugins = pkgs.vimUtils.packDir {myNvchadPackages = {
+    start = with pkgs.vimPlugins; [
+      nvim-treesitter
+    ];
+  };};
+
+  lua = pkgs.runCommand "nvchad-lua" { } ''
+    cp -r ${./lua} $out
+    substituteInPlace $out/custom/chadrc.lua --replace "@plugins@" "${lazyPlugins}"
+  '';
 in
 
 {
   programs.neovim = {
     # plugins = [ nvchad pkgs.vimPlugins.telescope-fzf-native-nvim ];
-    plugins = [ nvchad ];
+    plugins = with pkgs.vimPlugins; [
+      (nvim-treesitter.withPlugins (p: [
+        p.hcl
+        p.lua
+        p.nix
+        p.vim
+        p.yaml
+      ]))
+      nvchad
+    ];
   };
   xdg.configFile."nvim/init.lua".source = "${nvchad}/init.lua";
-  xdg.configFile."nvim/lua".source = ./lua;
+  xdg.configFile."nvim/lua".source = lua;
   xdg.configFile."nvim/ftdetect".source = ./ftdetect;
 }

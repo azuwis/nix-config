@@ -26,6 +26,12 @@ M.mappings = {
 }
 
 M.lazy_nvim = {
+  dev = {
+    path = "@plugins@/pack/myNvchadPackages/start/",
+    patterns = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+  },
   performance = {
     reset_packpath = false,
     rtp = {

@@ -36,15 +36,9 @@ return {
 
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = {
-        "hcl",
-        "lua",
-        "nix",
-        "vim",
-        "yaml",
-      },
-    },
+    opts = function(_, opts)
+      opts.ensure_installed = {}
+    end,
   },
 
   {
