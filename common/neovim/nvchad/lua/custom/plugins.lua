@@ -1,15 +1,5 @@
 return {
   {
-    "numToStr/Comment.nvim",
-    name = "comment.nvim",
-  },
-
-  {
-    "L3MON4D3/LuaSnip",
-    name = "luasnip",
-  },
-
-  {
     "neovim/nvim-lspconfig",
     config = function()
       require "plugins.configs.lspconfig"

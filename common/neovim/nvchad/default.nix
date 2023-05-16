@@ -15,7 +15,9 @@ let
       sed -i -e 's|^local lazypath =.*|local lazypath = "${pkgs.vimPlugins.lazy-nvim}"|' init.lua
       substituteInPlace lua/plugins/init.lua \
         --replace '"NvChad/extensions"' '"NvChad/nvchad-extensions"' \
-        --replace '"NvChad/ui"' '"NvChad/nvchad-ui"'
+        --replace '"NvChad/ui"' '"NvChad/nvchad-ui"' \
+        --replace '"L3MON4D3/LuaSnip"' '"L3MON4D3/luasnip"' \
+        --replace '"numToStr/Comment.nvim"' '"numToStr/comment.nvim"'
     '';
   };
 
