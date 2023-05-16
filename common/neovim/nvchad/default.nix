@@ -13,6 +13,9 @@ let
     meta.homepage = "https://github.com/NvChad/NvChad/";
     postPatch = ''
       sed -i -e 's|^local lazypath =.*|local lazypath = "${pkgs.vimPlugins.lazy-nvim}"|' init.lua
+      substituteInPlace lua/plugins/init.lua \
+        --replace '"NvChad/extensions"' '"NvChad/nvchad-extensions"' \
+        --replace '"NvChad/ui"' '"NvChad/nvchad-ui"'
     '';
   };
 
@@ -28,8 +31,8 @@ let
     meta.homepage = "https://github.com/NvChad/base46/";
   };
 
-  extensions = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    pname = "extensions";
+  nvchad-extensions = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    pname = "nvchad-extensions";
     version = "unstable-2023-05-06";
     src = pkgs.fetchFromGitHub {
       owner = "NvChad";
@@ -52,8 +55,8 @@ let
     meta.homepage = "https://github.com/NvChad/nvterm";
   };
 
-  ui = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    pname = "ui";
+  nvchad-ui = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    pname = "nvchad-ui";
     version = "unstable-2023-05-09";
     src = pkgs.fetchFromGitHub {
       owner = "NvChad";
@@ -73,13 +76,14 @@ let
       cmp_luasnip
       comment-nvim
       diffview-nvim
-      extensions
       friendly-snippets
       gitsigns-nvim
       indent-blankline-nvim
       luasnip
       neogit
       null-ls-nvim
+      nvchad-extensions
+      nvchad-ui
       nvim-autopairs
       nvim-cmp
       nvim-colorizer-lua
@@ -90,7 +94,6 @@ let
       nvterm
       orgmode
       telescope-nvim
-      ui
       which-key-nvim
     ];
   };};
