@@ -35,13 +35,6 @@ return {
   },
 
   {
-    "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      opts.ensure_installed = {}
-    end,
-  },
-
-  {
     "williamboman/mason.nvim",
     enabled = false,
   },

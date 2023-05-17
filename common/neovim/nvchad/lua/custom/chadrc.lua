@@ -25,19 +25,6 @@ M.mappings = {
   },
 }
 
-M.lazy_nvim = {
-  dev = {
-    path = "@plugins@/pack/myNvchadPackages/start/",
-    patterns = { "." },
-  },
-  performance = {
-    reset_packpath = false,
-    rtp = {
-      reset = false,
-    },
-  },
-}
-
 M.plugins = "custom.plugins"
 
 return M
