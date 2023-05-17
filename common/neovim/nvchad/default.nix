@@ -3,12 +3,12 @@
 let
   nvchad = pkgs.vimUtils.buildVimPluginFrom2Nix {
     pname = "nvchad";
-    version = "unstable-2023-05-04";
+    version = "unstable-2023-05-13";
     src = pkgs.fetchFromGitHub {
       owner = "NvChad";
       repo = "NvChad";
-      rev = "3dd0fa6c5b0933d9a395e2492de69c151831c66e";
-      sha256 = "1i99m7h9vjjrkc891818xa1cjqkw7pfq9wh8c2qd93995qrwvw3d";
+      rev = "699aeaa44203b62003da8aacd838a5bdac4c2d46";
+      sha256 = "1ai0502fh97m13r56r2v8adzgh5fvgiz1nx1bblpzfsf4h2nymrf";
     };
     dependencies = [ base46 ];
     patches = [
@@ -42,14 +42,14 @@ let
 
   nvchad-extensions = pkgs.vimUtils.buildVimPluginFrom2Nix {
     pname = "nvchad-extensions";
-    version = "unstable-2023-05-06";
+    version = "unstable-2023-05-14";
     src = pkgs.fetchFromGitHub {
       owner = "NvChad";
       repo = "extensions";
-      rev = "860ff3609f843d70cccd768f24e341566e02939a";
-      sha256 = "1izn7spcnm8dy87l14yg7isfmsmikgb53dw9sgpc2nc97wllhdyg";
+      rev = "6025bdbbac5c14b96ba4734e61eaf28db2742676";
+      sha256 = "1dfj4a3vh8djgylcc4f7bg7hq2mmg8imizglzbqr0my74v4shd1w";
     };
-    meta.homepage = "https://github.com/NvChad/extensions";
+    meta.homepage = "https://github.com/NvChad/extensions/";
   };
 
   nvterm = pkgs.vimUtils.buildVimPluginFrom2Nix {
@@ -61,19 +61,19 @@ let
       rev = "5ae78fb332e92447121d2af58a6313189a7799fb";
       sha256 = "0rcj5njhkh1pwaa8d8d15nqqacx1h8j4ijygwhplvszi64kqb9r5";
     };
-    meta.homepage = "https://github.com/NvChad/nvterm";
+    meta.homepage = "https://github.com/NvChad/nvterm/";
   };
 
   nvchad-ui = pkgs.vimUtils.buildVimPluginFrom2Nix {
     pname = "nvchad-ui";
-    version = "unstable-2023-05-09";
+    version = "unstable-2023-05-17";
     src = pkgs.fetchFromGitHub {
       owner = "NvChad";
       repo = "ui";
-      rev = "8895e244dadcc17922aa2362227e60ee3b3504ae";
-      sha256 = "1f32d63jhk1rfswiqgpnni7n8sgg63lr0dgzkr2d20rm75x092d0";
+      rev = "35c10e2bccbad92d402fdfefd78202539bfdd7a1";
+      sha256 = "0w5wqg8k1ch7a3agjawgz595skwkm6fvbn0v7zxxy2f92yhqnb30";
     };
-    meta.homepage = "https://github.com/NvChad/ui";
+    meta.homepage = "https://github.com/NvChad/ui/";
   };
 
   lazyPlugins = pkgs.vimUtils.packDir {lazyPlugins = {
