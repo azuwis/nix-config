@@ -1,5 +1,4 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p mapcidr
+#!/usr/bin/env bash
 (
 cat <<EOF
 0.0.0.0/8
@@ -18,8 +17,7 @@ cat <<EOF
 224.0.0.0/4
 240.0.0.0/4
 255.255.255.255/32
-64.62.200.2/32
 1.1.1.0/24
 EOF
-curl -s 'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest' | awk -F\| '/CN\|ipv4/ { printf("%s/%d\n", $4, 32-log($5)/log(2)) }'
-) | mapcidr -silent -aggregate | sort -V > pf.direct
+curl -Ls https://github.com/misakaio/chnroutes2/raw/master/chnroutes.txt | grep -v '^#'
+) > pf.direct
