@@ -15,6 +15,7 @@
   ];
   hm.imports = [
     ../nixos/uxplay.nix
+    ../nixos/retroarch.nix
   ];
   powerManagement.cpuFreqGovernor = "schedutil";
   fileSystems."/srv".options = [ "compress=zstd" ];
