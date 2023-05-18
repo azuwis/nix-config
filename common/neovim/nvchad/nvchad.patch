@@ -30,7 +30,7 @@ index cd170bd..20128fc 100644
 @@ -1,4 +1,9 @@
  return {
 +  dev = {
-+    path = "@lazyPlugins@/pack/LazyPlugins/start/",
++    path = "@lazyPlugins@/pack/lazyPlugins/start/",
 +    patterns = { "." },
 +  },
 +
