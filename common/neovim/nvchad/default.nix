@@ -110,12 +110,12 @@ in
   programs.neovim = {
     # plugins = [ nvchad pkgs.vimPlugins.telescope-fzf-native-nvim ];
     plugins = with pkgs.vimPlugins; [
-      (nvim-treesitter.withPlugins (p: [
-        p.hcl
-        p.lua
-        p.nix
-        p.vim
-        p.yaml
+      (nvim-treesitter.withPlugins (plugins: with plugins; [
+        hcl
+        lua
+        nix
+        vim
+        yaml
       ]))
       base46
       lazy-nvim
