@@ -10,7 +10,6 @@ let
       rev = "262a06776aa731ad89369394f73320461d4a7e63";
       sha256 = "1nfa1sikdrmjq8v64jsvbrfgap1dmlx8pvvpspxs4rz3i0y3scfv";
     };
-    dependencies = [ base46 ];
     patches = [
       (pkgs.substituteAll {
         src = ./nvchad.patch;
@@ -118,6 +117,7 @@ in
         p.vim
         p.yaml
       ]))
+      base46
       lazy-nvim
       nvchad
     ];
