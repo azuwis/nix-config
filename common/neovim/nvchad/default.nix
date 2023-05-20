@@ -3,12 +3,12 @@
 let
   nvchad = pkgs.vimUtils.buildVimPluginFrom2Nix {
     pname = "nvchad";
-    version = "unstable-2023-05-13";
+    version = "unstable-2023-05-18";
     src = pkgs.fetchFromGitHub {
       owner = "NvChad";
       repo = "NvChad";
-      rev = "699aeaa44203b62003da8aacd838a5bdac4c2d46";
-      sha256 = "1ai0502fh97m13r56r2v8adzgh5fvgiz1nx1bblpzfsf4h2nymrf";
+      rev = "262a06776aa731ad89369394f73320461d4a7e63";
+      sha256 = "1nfa1sikdrmjq8v64jsvbrfgap1dmlx8pvvpspxs4rz3i0y3scfv";
     };
     dependencies = [ base46 ];
     patches = [
@@ -66,12 +66,12 @@ let
 
   nvchad-ui = pkgs.vimUtils.buildVimPluginFrom2Nix {
     pname = "nvchad-ui";
-    version = "unstable-2023-05-17";
+    version = "unstable-2023-05-18";
     src = pkgs.fetchFromGitHub {
       owner = "NvChad";
       repo = "ui";
-      rev = "35c10e2bccbad92d402fdfefd78202539bfdd7a1";
-      sha256 = "0w5wqg8k1ch7a3agjawgz595skwkm6fvbn0v7zxxy2f92yhqnb30";
+      rev = "168ca134ae186ad977872bff3301378c0af5be71";
+      sha256 = "0xwvgbv7xj1ja7fgw14vnm083hab6q19rihv8nky93wj5v5xjkya";
     };
     meta.homepage = "https://github.com/NvChad/ui/";
   };
