@@ -121,8 +121,10 @@ in
       lazy-nvim
       nvchad
     ];
+    extraLuaConfig = ''
+      dofile("${nvchad}/init.lua")
+    '';
   };
-  xdg.configFile."nvim/init.lua".source = "${nvchad}/init.lua";
   xdg.configFile."nvim/lua".source = ./lua;
   xdg.configFile."nvim/ftdetect".source = ./ftdetect;
 }
