@@ -15,7 +15,6 @@ let
       (pkgs.substituteAll {
         src = ./nvchad.patch;
         inherit lazyPlugins;
-        lazyPath = pkgs.vimPlugins.lazy-nvim;
       })
     ];
     postPatch = ''
@@ -119,6 +118,7 @@ in
         p.vim
         p.yaml
       ]))
+      lazy-nvim
       nvchad
     ];
   };

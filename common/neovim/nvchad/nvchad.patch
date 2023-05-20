@@ -1,30 +1,27 @@
 diff --git a/init.lua b/init.lua
-index 21f0b6f..0149fec 100644
+index 21f0b6f..4a6af80 100644
 --- a/init.lua
 +++ b/init.lua
-@@ -8,7 +8,7 @@ end
+@@ -8,14 +8,10 @@ end
  
  require("core.utils").load_mappings()
  
 -local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
-+local lazypath = "@lazyPath@"
- 
- -- bootstrap lazy.nvim!
- if not vim.loop.fs_stat(lazypath) then
-@@ -16,6 +16,11 @@ if not vim.loop.fs_stat(lazypath) then
-   require("core.bootstrap").lazy(lazypath)
- end
- 
+-
+--- bootstrap lazy.nvim!
+-if not vim.loop.fs_stat(lazypath) then
+-  require("core.bootstrap").gen_chadrc_template()
+-  require("core.bootstrap").lazy(lazypath)
 +-- bootstrap base46
 +if not vim.loop.fs_stat(vim.g.base46_cache) then
 +  require("base46").compile()
-+end
-+
+ end
+ 
  dofile(vim.g.base46_cache .. "defaults")
- vim.opt.rtp:prepend(lazypath)
+-vim.opt.rtp:prepend(lazypath)
  require "plugins"
 diff --git a/lua/plugins/configs/lazy_nvim.lua b/lua/plugins/configs/lazy_nvim.lua
-index cd170bd..20128fc 100644
+index cd170bd..e60fe8c 100644
 --- a/lua/plugins/configs/lazy_nvim.lua
 +++ b/lua/plugins/configs/lazy_nvim.lua
 @@ -1,4 +1,9 @@
