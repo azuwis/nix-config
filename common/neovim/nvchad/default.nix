@@ -15,7 +15,6 @@ let
         --replace '"L3MON4D3/LuaSnip"' '"L3MON4D3/luasnip"' \
         --replace '"numToStr/Comment.nvim"' '"numToStr/comment.nvim"'
     '';
-    meta.homepage = "https://github.com/NvChad/NvChad/";
   });
 
   lazyPlugins = pkgs.vimUtils.packDir {lazyPlugins = {
