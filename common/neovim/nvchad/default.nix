@@ -20,6 +20,7 @@ let
 
   lazyPlugins = pkgs.vimUtils.packDir {lazyPlugins = {
     start = with pkgs.vimPlugins; [
+      base46
       cmp-buffer
       cmp-nvim-lsp
       cmp-nvim-lua

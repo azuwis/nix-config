@@ -21,20 +21,21 @@ index 21f0b6f..4a6af80 100644
 -vim.opt.rtp:prepend(lazypath)
  require "plugins"
 diff --git a/lua/plugins/configs/lazy_nvim.lua b/lua/plugins/configs/lazy_nvim.lua
-index cd170bd..e60fe8c 100644
+index cd170bd..6eed461 100644
 --- a/lua/plugins/configs/lazy_nvim.lua
 +++ b/lua/plugins/configs/lazy_nvim.lua
-@@ -1,4 +1,9 @@
+@@ -1,4 +1,10 @@
  return {
 +  dev = {
 +    path = "@lazyPlugins@/pack/lazyPlugins/start/",
 +    patterns = { "." },
++    fallback = true,
 +  },
 +
    defaults = { lazy = true },
    install = { colorscheme = { "nvchad" } },
  
-@@ -12,6 +17,7 @@ return {
+@@ -12,6 +18,7 @@ return {
    },
  
    performance = {
