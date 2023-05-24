@@ -3,6 +3,7 @@
 {
   # wg-quick up wg0
   environment.systemPackages = with pkgs; [
+    wireguard-go
     wireguard-tools
   ];
   age.secrets.wg0 = {
