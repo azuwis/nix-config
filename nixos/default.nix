@@ -3,7 +3,7 @@
 {
   imports = [
     ./system.nix
-  ] ++ lib.my.getModules [ ./modules ];
+  ] ++ lib.my.getModules [ ../modules/nixos ];
 
   hm.imports = [
     ./gnupg.nix
