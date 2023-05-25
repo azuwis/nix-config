@@ -42,5 +42,5 @@
     command = "sway";
     user = config.my.user;
   };
-  # hardware.bluetooth.enable = true;
+  hardware.bluetooth.enable = true;
 }
