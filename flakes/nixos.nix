@@ -18,6 +18,10 @@ in {
       modules = [ ../hosts/nuc.nix ];
     };
 
+    office = mkNixos {
+      modules = [ ../hosts/office.nix ];
+    };
+
     utm = mkNixos {
       system = "aarch64-linux";
       desktop = false;
