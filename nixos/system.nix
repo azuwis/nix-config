@@ -22,7 +22,11 @@
       passwordAuthentication = false;
     };
   };
-  # run `udevadm trigger` to apply immediately
+  # https://wiki.archlinux.org/title/map_scancodes_to_keycodes
+  # nix shell nixpkgs#evemu nixpkgs#evtest
+  # sudo evemu-describe
+  # sudo evtest | grep EV_MSC
+  # sudo udevadm trigger
   services.udev.extraHwdb = ''
     # General keyboard, swap capslock leftctrl
     evdev:atkbd:dmi:*
@@ -40,6 +44,11 @@
      KEYBOARD_KEY_700e0=capslock
      KEYBOARD_KEY_700e2=leftmeta
      KEYBOARD_KEY_700e3=leftalt
+
+    # Logitech Mechanical keyboard Logitech Mechanical keyboard, swap capslock leftctrl, swap leftmeta leftalt
+    evdev:name:Logitech Mechanical keyboard Logitech Mechanical keyboard:dmi:*
+     KEYBOARD_KEY_70039=leftctrl
+     KEYBOARD_KEY_700e0=capslock
   '';
   # nix profile diff-closures --profile /nix/var/nix/profiles/system
   system.activationScripts.systemDiff = ''
