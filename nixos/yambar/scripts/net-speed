@@ -1,8 +1,9 @@
 #!/bin/sh
 
+shopt -s nullglob
 enable -f "$(dirname "$(readlink -f /bin/sh)")/../lib/bash/sleep" sleep
 
-ifaces=$(ls /sys/class/net | grep -E '^(en|eth|wl)')
+ifaces="$(cd /sys/class/net && echo en* eth* wl*)"
 interval=5
 
 last_rx=0
@@ -33,7 +34,7 @@ update_rate() {
     read tmp_rx < "/sys/class/net/${iface}/statistics/rx_bytes"
     read tmp_tx < "/sys/class/net/${iface}/statistics/tx_bytes"
     if [ $? -ne 0 ]; then
-      ifaces=$(ls /sys/class/net | grep -E '^(en|eth|wl)')
+      ifaces="$(cd /sys/class/net && echo en* eth* wl*)"
       last_rx=0
       last_tx=0
       return
