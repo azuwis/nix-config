@@ -29,6 +29,7 @@ in
   wayland.windowManager.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
+    systemdIntegration = false;
     extraSessionCommands = ''
       export SDL_VIDEODRIVER=wayland
       export QT_QPA_PLATFORM=wayland-egl
