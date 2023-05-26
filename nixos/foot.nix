@@ -3,7 +3,6 @@
 {
   programs.foot = {
     enable = true;
-    server.enable = true;
     settings = {
       main = {
         font = lib.mkDefault "monospace:pixelsize=20";
@@ -15,8 +14,8 @@
     };
   };
 
-  wayland.windowManager.sway.config.terminal = "footclient";
-
-  # hack to avoid sd-switch restart foot service
-  systemd.user.services.foot.Service.ExecStart = lib.mkForce "/etc/profiles/per-user/%u/bin/foot --server --log-level=error";
+  wayland.windowManager.sway.config = {
+    startup = [{ command = "foot --server --log-level=error"; }];
+    terminal = "footclient";
+  };
 }
