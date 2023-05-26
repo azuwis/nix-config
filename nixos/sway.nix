@@ -21,13 +21,20 @@ in
   home.packages = with pkgs; [
     fuzzelWrapped
     pulsemixer
+    qt5.qtwayland
     swappy
     sway-contrib.grimshot
   ];
 
   wayland.windowManager.sway = {
     enable = true;
-    package = null;
+    wrapperFeatures.gtk = true;
+    extraSessionCommands = ''
+      export SDL_VIDEODRIVER=wayland
+      export QT_QPA_PLATFORM=wayland-egl
+      export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+      export _JAVA_AWT_WM_NONREPARENTING=1
+    '';
     config = {
       # Apps
       # swaymsg -t get_tree
@@ -89,16 +96,7 @@ else
 {
   programs.sway = {
     enable = true;
-    wrapperFeatures.gtk = true;
-    extraPackages = with pkgs; [
-      qt5.qtwayland
-    ];
-    extraSessionCommands = ''
-      export SDL_VIDEODRIVER=wayland
-      export QT_QPA_PLATFORM=wayland-egl
-      export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-      export _JAVA_AWT_WM_NONREPARENTING=1
-    '';
+    package = null;
   };
   # services.xserver.desktopManager.runXdgAutostartIfNone = true;
 }
