@@ -72,9 +72,9 @@ in
         };
       };
       output."*".bg = "#2E3440 solid_color";
-      startup = [{
-        command = "systemctl --user start xdg-autostart-if-no-desktop-manager.target";
-      }];
+      # startup = [{
+      #   command = "systemctl --user start xdg-autostart-if-no-desktop-manager.target";
+      # }];
     };
   };
 
