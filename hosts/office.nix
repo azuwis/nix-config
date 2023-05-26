@@ -4,6 +4,7 @@
   imports = [
     # nixos-generate-config --show-hardware-config > hardware-office.nix
     ./hardware-office.nix
+    ../nixos/nvidia.nix
   ];
   hm.imports = [
     ../nixos/retroarch.nix
