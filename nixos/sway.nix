@@ -100,5 +100,5 @@ else
       export _JAVA_AWT_WM_NONREPARENTING=1
     '';
   };
-  services.xserver.desktopManager.runXdgAutostartIfNone = true;
+  # services.xserver.desktopManager.runXdgAutostartIfNone = true;
 }
