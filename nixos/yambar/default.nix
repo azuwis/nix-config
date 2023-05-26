@@ -14,20 +14,25 @@ in
 {
   home.packages = [ pkgs.yambar ];
 
-  systemd.user.services.yambar = {
-    Unit = {
-      PartOf = [ "graphical-session.target" ];
-      After = [ "graphical-session.target" ];
-    };
-
-    Service = {
-      ExecStart = "${pkgs.yambar}/bin/yambar --config=${config} --log-level=error";
-      Environment = "PATH=/run/current-system/sw/bin";
-      Restart = "on-failure";
-    };
-
-    Install = { WantedBy = [ "graphical-session.target" ]; };
+  wayland.windowManager.sway.config = {
+    bars = [];
+    startup = [{
+      command = "yambar --config=${config} --log-level=error";
+    }];
   };
 
-  wayland.windowManager.sway.config.bars = [];
+  # systemd.user.services.yambar = {
+  #   Unit = {
+  #     PartOf = [ "graphical-session.target" ];
+  #     After = [ "graphical-session.target" ];
+  #   };
+  #
+  #   Service = {
+  #     ExecStart = "${pkgs.yambar}/bin/yambar --config=${config} --log-level=error";
+  #     Environment = "PATH=/run/current-system/sw/bin";
+  #     Restart = "on-failure";
+  #   };
+  #
+  #   Install = { WantedBy = [ "graphical-session.target" ]; };
+  # };
 }
