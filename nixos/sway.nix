@@ -72,10 +72,10 @@ in
         };
       };
       output."*".bg = "#2E3440 solid_color";
+      startup = [{
+        command = "systemctl --user start xdg-autostart-if-no-desktop-manager.target";
+      }];
     };
-    extraConfig = ''
-      exec systemctl --user start xdg-autostart-if-no-desktop-manager.target
-    '';
   };
 
   wayland.windowManager.sway.swaynag = {
