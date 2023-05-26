@@ -14,11 +14,11 @@ in
 {
   home.packages = [ pkgs.yambar ];
 
+  xdg.configFile."yambar/config.yml".source = config;
+
   wayland.windowManager.sway.config = {
     bars = [];
-    startup = [{
-      command = "yambar --config=${config} --log-level=error";
-    }];
+    startup = [{ command = "yambar --log-level=error"; }];
   };
 
   # systemd.user.services.yambar = {
