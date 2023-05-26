@@ -83,12 +83,12 @@ in
       #   command = "systemctl --user start xdg-autostart-if-no-desktop-manager.target";
       # }];
     };
+    swaynag = {
+      enable = true;
+      settings."<config>".edge = "bottom";
+    };
   };
 
-  wayland.windowManager.sway.swaynag = {
-    enable = true;
-    settings."<config>".edge = "bottom";
-  };
 }
 
 else
