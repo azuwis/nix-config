@@ -266,6 +266,29 @@
         "type": "gitlab"
       }
     },
+    "nvidia-patch": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "utils": [
+          "flake-utils"
+        ]
+      },
+      "locked": {
+        "lastModified": 1674924491,
+        "narHash": "sha256-EH2h8KS3mxnchOu2J+jq91nOydfkxNldx3GdSDc9Vus=",
+        "owner": "icewind1991",
+        "repo": "nvidia-patch-nixos",
+        "rev": "313883193964b8a5f0803b14fb02c02f8283b44b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "icewind1991",
+        "repo": "nvidia-patch-nixos",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -276,6 +299,7 @@
         "home-manager": "home-manager",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs",
+        "nvidia-patch": "nvidia-patch",
         "wsl": "wsl"
       }
     },

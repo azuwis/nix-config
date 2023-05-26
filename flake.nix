@@ -19,6 +19,9 @@
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.darwin.follows = "darwin";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
+    nvidia-patch.url = "github:icewind1991/nvidia-patch-nixos";
+    nvidia-patch.inputs.nixpkgs.follows = "nixpkgs";
+    nvidia-patch.inputs.utils.follows = "flake-utils";
   };
 
   outputs = inputs@{ flake-parts, ... }:
