@@ -38,6 +38,7 @@
       extraOptions = [ "--loadavg-target" "2.0" ];
     };
   };
+  # to start initial_session again, run `/run/greetd.run; systemctl restart greetd`
   services.greetd.settings.initial_session = {
     command = "sway";
     user = config.my.user;
