@@ -47,8 +47,21 @@ else
 
 {
   hardware.uinput.enable = true;
-  users.users.${config.my.user}.extraGroups = [ "uinput" "seatd" ];
-  services.seatd.enable = true;
+  users.users.${config.my.user}.extraGroups = [ "input" "uinput" ];
+  services.udev.extraRules = ''
+    KERNEL=="tty0", SUBSYSTEM=="tty", OWNER="azuwis"
+  '';
+
+  # services.seatd.enable = true;
+  # users.users.${config.my.user}.extraGroups = [ seatd" ];
+
+  # environment.systemPackages = [ pkgs.seatd ];
+  # security.wrappers.seatd-launch = {
+  #   owner = "root";
+  #   group = "root";
+  #   source = "${pkgs.seatd}/bin/seatd-launch";
+  # };
+
   # loginctl seat-status seat0
   # udevadm info --attribute-walk --path=/sys/device/...
   # services.udev.extraRules = ''
