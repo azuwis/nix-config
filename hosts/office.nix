@@ -5,9 +5,11 @@
     # nixos-generate-config --show-hardware-config > hardware-office.nix
     ./hardware-office.nix
     ../nixos/nvidia.nix
+    ../nixos/sunshine.nix
   ];
   hm.imports = [
     ../nixos/retroarch.nix
+    ../nixos/sunshine.nix
   ];
   powerManagement.cpuFreqGovernor = "schedutil";
   networking.hostName = "office";
