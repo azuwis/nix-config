@@ -80,6 +80,9 @@ in
         };
       };
       output."*".bg = "#2E3440 solid_color";
+      startup = [{
+        command = "swaylock";
+      }];
       # startup = [{
       #   command = "systemctl --user start xdg-autostart-if-no-desktop-manager.target";
       # }];
