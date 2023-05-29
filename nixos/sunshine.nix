@@ -19,8 +19,8 @@ then
         let
           prestart = pkgs.writeShellScriptBin "sunshine-prestart" ''
             {
-              grep -v 'events disabled' ${config.xdg.configHome}/sway/config
-              echo '
+            grep -Ev '(^exec swaylock|events disabled)' ${config.xdg.configHome}/sway/config
+            echo '
             output HEADLESS-1 mode 1920x1080@60Hz
             seat seat0 fallback false
             seat seat0 attach "48879:57005:Keyboard_passthrough"
@@ -70,12 +70,14 @@ else
   #   SUBSYSTEMS=="input", ATTR{id/product}=="dead", ATTR{id/vendor}=="beef", ATTR{name}=="Touchscreen passthrough", TAG+="seat", TAG+="seat-sunshine", ENV{ID_SEAT}="seat-sunshine"
   #   SUBSYSTEMS=="input", ATTR{id/product}=="dead", ATTR{id/vendor}=="beef", ATTR{name}=="Keyboard passthrough", TAG+="seat", TAG+="seat-sunshine", ENV{ID_SEAT}="seat-sunshine"
   # '';
+
   # security.wrappers.sunshine = {
   #   owner = "root";
   #   group = "root";
   #   capabilities = "cap_sys_admin+p";
   #   source = "${pkgs.sunshine}/bin/sunshine";
   # };
+
   networking.firewall = {
     allowedTCPPorts = [ 47984 47989 48010 ];
     allowedUDPPortRanges = [
