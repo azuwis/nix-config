@@ -8,8 +8,7 @@ then
   home.packages = [ pkgs.sunshine ];
 
   systemd.user.services.sunshine = {
-    Unit.After = "network.target";
-    Install.WantedBy = [ "multi-user.target" ];
+    Install.WantedBy = [ "default.target" ];
     Service = {
       Environment = [
         "PATH=/etc/profiles/per-user/%u/bin:/run/current-system/sw/bin"
