@@ -7,6 +7,17 @@ then
 {
   home.packages = [ pkgs.sunshine ];
 
+  xdg.configFile."sunshine/sunshine.conf".text = ''
+    capture = wlr
+    channels = 2
+    fps = [30,60]
+    origin_web_ui_allowed = pc
+    resolutions = [
+        1280x720,
+        1920x1080
+    ]
+  '';
+
   systemd.user.services.sunshine = {
     Install.WantedBy = [ "default.target" ];
     Service = {
