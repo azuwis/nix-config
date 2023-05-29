@@ -11,6 +11,7 @@
     ../nixos/retroarch.nix
     ../nixos/sunshine.nix
   ];
+  boot.supportedFilesystems = [ "ntfs" ];
   powerManagement.cpuFreqGovernor = "schedutil";
   networking.hostName = "office";
   # hardware.bluetooth.enable = true;
