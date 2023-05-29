@@ -8,6 +8,7 @@
     ../nixos/sunshine.nix
   ];
   hm.imports = [
+    ../nixos/nvidia.nix
     ../nixos/retroarch.nix
     ../nixos/sunshine.nix
   ];
