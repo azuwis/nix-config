@@ -49,7 +49,7 @@ else
   hardware.uinput.enable = true;
   users.users.${config.my.user}.extraGroups = [ "input" "uinput" ];
   services.udev.extraRules = ''
-    KERNEL=="tty0", SUBSYSTEM=="tty", OWNER="azuwis"
+    KERNEL=="tty0", SUBSYSTEM=="tty", OWNER="${config.my.user}"
   '';
 
   # services.seatd.enable = true;
