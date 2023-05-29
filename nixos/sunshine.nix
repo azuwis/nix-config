@@ -63,7 +63,8 @@ else
   # };
 
   # loginctl seat-status seat0
-  # udevadm info --attribute-walk --path=/sys/device/...
+  # udevadm info -a [/sys/device/...|/dev/...]
+  # udevadm monitor --environment --property --udev
   # services.udev.extraRules = ''
   #   TAG=="seat", SUBSYSTEMS=="drm", KERNELS=="card0", KERNEL=="card0-HDMI-A-2", ENV{ID_SEAT}="seat-sunshine"
   #   SUBSYSTEMS=="input", ATTR{id/product}=="4038", ATTR{id/vendor}=="046d", ATTR{name}=="Logitech Wireless Mouse PID:4038", TAG+="seat", TAG+="seat-sunshine", ENV{ID_SEAT}="seat-sunshine"
