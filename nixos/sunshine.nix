@@ -27,6 +27,7 @@ then
         "SEATD_VTBOUND=0"
         "WLR_BACKENDS=headless,libinput"
         "WLR_LIBINPUT_NO_DEVICES=1"
+        "DBUS_SESSION_BUS_ADDRESS="
       ];
       ExecStartPre =
         let
