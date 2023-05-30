@@ -23,6 +23,8 @@ then
     Service = {
       Environment = [
         "PATH=/etc/profiles/per-user/%u/bin:/run/current-system/sw/bin"
+        "LIBSEAT_BACKEND=builtin"
+        "SEATD_VTBOUND=0"
         "WLR_BACKENDS=headless,libinput"
         "WLR_LIBINPUT_NO_DEVICES=1"
       ];
@@ -60,7 +62,6 @@ else
   hardware.uinput.enable = true;
   users.users.${config.my.user}.extraGroups = [ "uinput" ];
   services.udev.extraRules = ''
-    KERNEL=="tty0", SUBSYSTEM=="tty", OWNER="${config.my.user}"
     SUBSYSTEMS=="input", ATTRS{id/product}=="4038", ATTRS{id/vendor}=="046d", ATTRS{name}=="Logitech Wireless Mouse PID:4038", OWNER="${config.my.user}"
     SUBSYSTEMS=="input", ATTRS{id/product}=="dead", ATTRS{id/vendor}=="beef", ATTRS{name}=="Touchscreen passthrough", OWNER="${config.my.user}"
     SUBSYSTEMS=="input", ATTRS{id/product}=="dead", ATTRS{id/vendor}=="beef", ATTRS{name}=="Keyboard passthrough", OWNER="${config.my.user}"
