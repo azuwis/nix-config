@@ -82,9 +82,10 @@ in
         };
       };
       output."*".bg = "#2E3440 solid_color";
-      startup = [{
-        command = "swaylock";
-      }];
+      startup = [
+        { command = "swaylock"; }
+        { command = "exec swayidle -w"; }
+      ];
       # startup = [{
       #   command = "systemctl --user start xdg-autostart-if-no-desktop-manager.target";
       # }];
@@ -94,6 +95,13 @@ in
       settings."<config>".edge = "bottom";
     };
   };
+
+  xdg.configFile."swayidle/config".text = ''
+    timeout 300 'swaylock -f'
+    timeout 600 'swaymsg "output * power off"'
+    before-sleep 'swaylock -f'
+    after-resume 'swaymsg "output * power on"'
+  '';
 
   programs.swaylock = {
     enable = true;
