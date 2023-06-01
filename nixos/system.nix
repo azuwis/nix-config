@@ -18,8 +18,8 @@
   services.openssh = {
     enable = true;
     settings = {
-      kbdInteractiveAuthentication = false;
-      passwordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      PasswordAuthentication = false;
     };
   };
   # https://wiki.archlinux.org/title/map_scancodes_to_keycodes
