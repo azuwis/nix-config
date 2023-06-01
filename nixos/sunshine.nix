@@ -33,7 +33,7 @@ then
         let
           prestart = pkgs.writeShellScriptBin "sunshine-prestart" ''
             {
-            grep -Ev '(^exec swaylock|events disabled)' ${config.xdg.configHome}/sway/config
+            grep -Ev '(^exec swaylock|^exec swayidle|events disabled)' ${config.xdg.configHome}/sway/config
             echo '
             output HEADLESS-1 mode 1920x1080@60Hz
             seat seat0 fallback false
