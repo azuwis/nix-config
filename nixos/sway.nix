@@ -58,9 +58,9 @@ in
         "${mod}+c" = "floating enable; move absolute position center";
         "${mod}+Shift+l" = "exec swaylock";
         "Print" = "grimshot save - | swappy -f -";
-        "XF86AudioRaiseVolume" = "exec pulsemixer --change-volume +3";
-        "XF86AudioLowerVolume" = "exec pulsemixer --change-volume -3";
-        "XF86AudioMute" = "exec pulsemixer --toggle-mute";
+        "XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 3%+";
+        "XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 3%-";
+        "XF86AudioMute" = "exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
       };
       # Inputs/outputs
       input = {
