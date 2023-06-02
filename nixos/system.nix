@@ -5,7 +5,17 @@
     "net.core.default_qdisc" = "fq";
     "net.ipv4.tcp_congestion_control" = "bbr";
   };
-  boot.loader.systemd-boot.enable = lib.mkDefault true;
+  boot.loader = {
+    efi.efiSysMountPoint = lib.mkIf
+      (builtins.hasAttr "/boot/efi" config.fileSystems &&
+        config.fileSystems."/boot/efi".fsType == "vfat")
+      "/boot/efi";
+    grub = {
+      device = "nodev";
+      efiInstallAsRemovable = true;
+      efiSupport = true;
+    };
+  };
   # explicitly enable nixos docs, system like wsl does not enable this
   documentation.nixos.enable = true;
   fileSystems."/".options = lib.mkIf (config.fileSystems."/".fsType == "btrfs") [ "compress-force=zstd" ];
