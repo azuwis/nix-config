@@ -7,10 +7,12 @@ then
 lib.mkIf config.wayland.windowManager.sway.enable
 
 {
+  home.packages = [ pkgs.vulkan-validation-layers ];
   wayland.windowManager.sway = {
     extraOptions = [ "--unsupported-gpu" ];
     extraSessionCommands = ''
       export WLR_NO_HARDWARE_CURSORS=1
+      export WLR_RENDERER=vulkan
     '';
   };
 }
@@ -30,10 +32,12 @@ lib.mkMerge [
   })
 
   (lib.mkIf config.programs.sway.enable {
+    environment.systemPackages = [ pkgs.vulkan-validation-layers ];
     programs.sway = {
       extraOptions = [ "--unsupported-gpu" ];
       extraSessionCommands = ''
         export WLR_NO_HARDWARE_CURSORS=1
+        export WLR_RENDERER=vulkan
       '';
     };
   })
