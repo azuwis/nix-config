@@ -6,13 +6,15 @@
     "net.ipv4.tcp_congestion_control" = "bbr";
   };
   boot.loader = {
-    efi.efiSysMountPoint = lib.mkIf
-      (builtins.hasAttr "/boot/efi" config.fileSystems &&
-        config.fileSystems."/boot/efi".fsType == "vfat")
-      "/boot/efi";
+    efi = {
+      canTouchEfiVariables = true;
+      efiSysMountPoint = lib.mkIf
+        (builtins.hasAttr "/boot/efi" config.fileSystems &&
+          config.fileSystems."/boot/efi".fsType == "vfat")
+        "/boot/efi";
+    };
     grub = {
       device = "nodev";
-      efiInstallAsRemovable = true;
       efiSupport = true;
     };
   };
