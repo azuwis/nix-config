@@ -27,9 +27,9 @@ in
   ];
 
   # let my.user read data dir
-  systemd.services.home-assistant.serviceConfig.UMask = lib.mkForce "0027";
-  users.users.${config.my.user}.extraGroups = [ "hass" ];
-  users.users.hass.homeMode = "0750";
+  systemd.tmpfiles.rules = [
+    "a+ ${config.services.home-assistant.configDir} - - - - d:u:${config.my.user}:r-x,u:${config.my.user}:r-x"
+  ];
 
   services.home-assistant = {
     enable = true;
