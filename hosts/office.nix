@@ -20,4 +20,7 @@
     command = "sway";
     user = config.my.user;
   };
+
+  my.sway.enable = true;
+  hm.my.sway.enable = true;
 }

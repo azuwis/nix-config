@@ -8,5 +8,5 @@
   hm.imports = [
     ./gnupg.nix
     ./packages.nix
-  ];
+  ] ++ lib.my.getHmModules [ ../modules/nixos ];
 }
