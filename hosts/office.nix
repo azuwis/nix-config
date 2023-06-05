@@ -16,10 +16,6 @@
   powerManagement.cpuFreqGovernor = "schedutil";
   networking.hostName = "office";
   # hardware.bluetooth.enable = true;
-  services.greetd.settings.initial_session = {
-    command = "sway";
-    user = config.my.user;
-  };
 
   my.desktop.enable = true;
   hm.my.desktop.enable = true;

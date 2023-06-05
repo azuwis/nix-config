@@ -7,6 +7,7 @@ let
 in {
   options.my.sway = {
     enable = mkEnableOption (mdDoc "sway");
+    autologin = mkEnableOption (mdDoc "autologin") // { default = true; };
     xdgAutostart = mkEnableOption (mdDoc "xdgAutostart");
   };
 
@@ -15,6 +16,14 @@ in {
       programs.sway = {
         enable = true;
         package = null;
+      };
+    })
+
+    (mkIf cfg.autologin {
+      # to start initial_session again, run `/run/greetd.run; systemctl restart greetd`
+      services.greetd.settings.initial_session = {
+        command = "sway";
+        user = config.my.user;
       };
     })
 
