@@ -13,7 +13,7 @@ let
 in {
   options.my.sway = {
     enable = mkEnableOption (mdDoc "sway") // { default = osConfig.my.sway.enable; };
-    startupLocked = mkEnableOption (mdDoc "startupLocked") // { default = true; };
+    startupLocked = mkEnableOption (mdDoc "startupLocked") // { default = osConfig.my.sway.autologin; };
     xdgAutostart = mkEnableOption (mdDoc "xdgAutostart");
   };
 
