@@ -15,8 +15,8 @@ in {
     ];
 
     xdg.configFile."swayidle/config".text = ''
-      timeout 300 'swaylock -f'
-      timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"'
+      timeout 1800 'swaylock -f'
+      timeout 2400 'swaymsg "output * power off"' resume 'swaymsg "output * power on"'
       before-sleep 'swaylock -f'
     '';
 
@@ -25,7 +25,7 @@ in {
         keybindings = let mod = config.wayland.windowManager.sway.config.modifier; in lib.mkOptionDefault {
           "${mod}+Shift+l" = "exec pkill -USR1 swayidle";
         };
-        startup = [{ command = "exec swayidle -w"; }];
+        startup = [{ command = "swayidle -w"; }];
       };
     };
 
