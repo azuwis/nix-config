@@ -13,6 +13,7 @@ let
 in {
   options.my.sway = {
     enable = mkEnableOption (mdDoc "sway");
+    startupLocked = mkEnableOption (mdDoc "startupLocked") // { default = true; };
     xdgAutostart = mkEnableOption (mdDoc "xdgAutostart");
   };
 
@@ -87,9 +88,6 @@ in {
             };
           };
           output."*".bg = "#2E3440 solid_color";
-          startup = [
-            { command = "swaylock"; }
-          ];
         };
         swaynag = {
           enable = true;
@@ -109,6 +107,12 @@ in {
         };
       };
 
+    })
+
+    (mkIf cfg.startupLocked {
+      wayland.windowManager.sway.config.startup = [{
+        command = "swaylock";
+      }];
     })
 
     (mkIf cfg.xdgAutostart {
