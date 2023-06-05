@@ -1,6 +1,12 @@
 { config, lib, pkgs, ... }:
 
 {
+  my.desktop.enable = true;
+  hm.my.desktop.enable = true;
+  hm = {
+    my.swayidle.enable = false;
+  };
+
   imports = [
     # nixos-generate-config --show-hardware-config > hardware-nuc.nix
     ./hardware-nuc.nix
