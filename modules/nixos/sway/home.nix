@@ -3,12 +3,6 @@
 let
   inherit (lib) mdDoc mkEnableOption mkDefault mkIf mkMerge;
   cfg = config.my.sway;
-  fuzzelWrapped = with pkgs; runCommand "fuzzel" { buildInputs = [ makeWrapper ]; } ''
-    options="--lines=8 --no-icons --font=monospace:pixelsize=20 --background-color=2E3440FF --text-color=D8DEE9FF --selection-color=4C566AFF --selection-text-color=E8DEE9FF --terminal=footclient --log-level=error"
-    makeWrapper ${fuzzel}/bin/fuzzel $out/bin/fuzzel --add-flags "$options"
-    # for passmenu
-    makeWrapper ${fuzzel}/bin/fuzzel $out/bin/dmenu-wl --add-flags "--dmenu $options"
-  '';
 
 in {
   options.my.sway = {
@@ -25,7 +19,12 @@ in {
       my.yambar.enable = true;
 
       home.packages = with pkgs; [
-        fuzzelWrapped
+        (runCommand "fuzzel" { buildInputs = [ makeWrapper ]; } ''
+          options="--lines=8 --no-icons --font=monospace:pixelsize=20 --background-color=2E3440FF --text-color=D8DEE9FF --selection-color=4C566AFF --selection-text-color=E8DEE9FF --terminal=footclient --log-level=error"
+          makeWrapper ${fuzzel}/bin/fuzzel $out/bin/fuzzel --add-flags "$options"
+          # for passmenu
+          makeWrapper ${fuzzel}/bin/fuzzel $out/bin/dmenu-wl --add-flags "--dmenu $options"
+        '')
         pulsemixer
         qt5.qtwayland
         swappy
