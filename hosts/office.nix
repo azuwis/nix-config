@@ -18,5 +18,4 @@
   # hardware.bluetooth.enable = true;
 
   my.desktop.enable = true;
-  hm.my.desktop.enable = true;
 }

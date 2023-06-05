@@ -3,7 +3,6 @@
 {
   my.desktop.enable = true;
   hm.my = {
-    desktop.enable = true;
     swayidle.enable = false;
   };
 
