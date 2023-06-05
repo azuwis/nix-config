@@ -2,9 +2,9 @@
 
 {
   my.desktop.enable = true;
-  hm.my.desktop.enable = true;
-  hm = {
-    my.swayidle.enable = false;
+  hm.my = {
+    desktop.enable = true;
+    swayidle.enable = false;
   };
 
   imports = [
@@ -15,12 +15,15 @@
     ../nixos/nginx.nix
     ../nixos/photoprism.nix
     ../nixos/samba.nix
+    # ../nixos/sunshine.nix
     ../nixos/torrent.nix
     ../nixos/uxplay.nix
     ../nixos/zramswap.nix
   ];
   hm.imports = [
+    { home.packages = [ pkgs.moonlight-qt ]; }
     ../nixos/uxplay.nix
+    # ../nixos/sunshine.nix
     ../nixos/retroarch.nix
   ];
   powerManagement.cpuFreqGovernor = "schedutil";
