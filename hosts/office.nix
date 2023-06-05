@@ -21,6 +21,6 @@
     user = config.my.user;
   };
 
-  my.sway.enable = true;
-  hm.my.sway.enable = true;
+  my.desktop.enable = true;
+  hm.my.desktop.enable = true;
 }
