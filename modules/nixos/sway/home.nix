@@ -16,11 +16,9 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # imports = [
-    #   ./cliphist.nix
-    #   ./foot.nix
-    #   ./yambar
-    # ];
+    my.cliphist.enable = true;
+    my.foot.enable = true;
+    my.yambar.enable = true;
 
     home.packages = with pkgs; [
       fuzzelWrapped
