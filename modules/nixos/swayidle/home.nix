@@ -16,9 +16,8 @@ in {
 
     xdg.configFile."swayidle/config".text = ''
       timeout 300 'swaylock -f'
-      timeout 600 'swaymsg "output * power off"'
+      timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"'
       before-sleep 'swaylock -f'
-      after-resume 'swaymsg "output * power on"'
     '';
 
     wayland.windowManager.sway = {
