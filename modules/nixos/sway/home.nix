@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mdDoc mkEnableOption mkDefault mkIf;
   cfg = config.my.sway;
   fuzzelWrapped = with pkgs; runCommand "fuzzel" { buildInputs = [ makeWrapper ]; } ''
     options="--lines=8 --no-icons --font=monospace:pixelsize=20 --background-color=2E3440FF --text-color=D8DEE9FF --selection-color=4C566AFF --selection-text-color=E8DEE9FF --terminal=footclient --log-level=error"
@@ -18,6 +18,7 @@ in {
   config = mkIf cfg.enable {
     my.cliphist.enable = true;
     my.foot.enable = true;
+    my.swayidle.enable = mkDefault true;
     my.yambar.enable = true;
 
     home.packages = with pkgs; [
@@ -58,7 +59,7 @@ in {
           "${mod}+Shift+e" = "exec swaynag -t warning -m 'Do you really want to exit sway?' -b 'Yes, exit sway' 'systemctl --user stop graphical-session.target; swaymsg exit'";
           "${mod}+Shift+p" = "exec passmenu";
           "${mod}+c" = "floating enable; move absolute position center";
-          "${mod}+Shift+l" = "exec swaylock";
+          "${mod}+Shift+l" = mkDefault "exec swaylock";
           "Print" = "grimshot save - | swappy -f -";
           "XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 3%+";
           "XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 3%-";
@@ -86,7 +87,6 @@ in {
         output."*".bg = "#2E3440 solid_color";
         startup = [
           { command = "swaylock"; }
-          { command = "exec swayidle -w"; }
         ];
         # startup = [{
         #   command = "systemctl --user start xdg-autostart-if-no-desktop-manager.target";
@@ -97,13 +97,6 @@ in {
         settings."<config>".edge = "bottom";
       };
     };
-
-    xdg.configFile."swayidle/config".text = ''
-      timeout 300 'swaylock -f'
-      timeout 600 'swaymsg "output * power off"'
-      before-sleep 'swaylock -f'
-      after-resume 'swaymsg "output * power on"'
-    '';
 
     programs.swaylock = {
       enable = true;
