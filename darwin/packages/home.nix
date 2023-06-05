@@ -25,7 +25,7 @@
     daemon
     element-desktop
     hydra-check
-    python3Packages.subfinder
+    python3.pkgs.subfinder
     qbittorrent
     (darwin.iproute2mac.overrideAttrs (o: rec {
       postPatch = "";

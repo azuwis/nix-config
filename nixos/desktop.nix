@@ -16,7 +16,7 @@
   ];
 
   hm.home.packages = with pkgs; [
-    python3Packages.subfinder
+    python3.pkgs.subfinder
     chromium
   ];
 

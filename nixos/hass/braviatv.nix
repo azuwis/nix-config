@@ -13,7 +13,7 @@ in
 {
   hass.file."custom_components/braviatv_psk".source = "${component}/custom_components/braviatv_psk";
 
-  services.home-assistant.extraPackages = ps: [ pkgs.python3Packages.pysonybraviapsk ];
+  services.home-assistant.extraPackages = ps: [ pkgs.python3.pkgs.pysonybraviapsk ];
 
   services.home-assistant.config.media_player = [{
     platform = "braviatv_psk";

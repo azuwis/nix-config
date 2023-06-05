@@ -13,7 +13,7 @@ in
 {
   hass.file."custom_components/xiaomi_miio_airconditioningcompanion".source = "${component}/custom_components/xiaomi_miio_airconditioningcompanion";
 
-  services.home-assistant.extraPackages = python3Packages: with python3Packages; [ python-miio ];
+  services.home-assistant.extraPackages = ps: with ps; [ python-miio ];
 
   services.home-assistant.config = {
     climate = [{
