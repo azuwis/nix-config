@@ -10,8 +10,12 @@ in {
   };
 
   config = mkIf cfg.enable {
-    my = {
-      sway.enable = true;
-    };
+    my.sway.enable = true;
+
+    home.packages = with pkgs; [
+      chromium
+      python3.pkgs.subfinder
+    ];
+
   };
 }

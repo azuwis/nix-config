@@ -11,6 +11,8 @@ in {
 
   config = mkIf cfg.enable {
     my.sway.enable = true;
+    
+    hm.my.desktop.enable = true;
 
     nix.daemonCPUSchedPolicy = "idle";
 

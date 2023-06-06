@@ -15,11 +15,6 @@
     ./theme.nix
   ];
 
-  hm.home.packages = with pkgs; [
-    python3.pkgs.subfinder
-    chromium
-  ];
-
   hardware.opengl = {
     enable = true;
     extraPackages = with pkgs; [
