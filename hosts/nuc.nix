@@ -46,5 +46,4 @@
       extraOptions = [ "--loadavg-target" "2.0" ];
     };
   };
-  hardware.bluetooth.enable = true;
 }

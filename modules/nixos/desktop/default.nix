@@ -16,6 +16,7 @@ in {
     
     hm.my.desktop.enable = true;
 
+    hardware.bluetooth.enable = true;
     nix.daemonCPUSchedPolicy = "idle";
 
   };
