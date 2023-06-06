@@ -29,10 +29,6 @@
     ];
   };
 
-  services.greetd = {
-    enable = true;
-  };
-
   security.rtkit.enable = lib.mkDefault config.services.pipewire.enable;
   services.pipewire = {
     enable = true;
