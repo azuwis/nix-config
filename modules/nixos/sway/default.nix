@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf mkMerge;
+  inherit (lib) mdDoc mkDefault mkEnableOption mkIf mkMerge;
   cfg = config.my.sway;
 
 in {
@@ -13,6 +13,8 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     ({
+      hm.my.sway.enable = true;
+
       programs.sway = {
         enable = true;
         package = null;
@@ -20,6 +22,8 @@ in {
     })
 
     (mkIf cfg.autologin {
+      hm.my.sway.startupLocked = mkDefault true;
+
       # to start initial_session again, run `/run/greetd.run; systemctl restart greetd`
       services.greetd.settings.initial_session = {
         command = "sway";

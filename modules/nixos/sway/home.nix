@@ -1,4 +1,4 @@
-{ config, osConfig, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   inherit (lib) mdDoc mkEnableOption mkDefault mkIf mkMerge;
@@ -6,8 +6,8 @@ let
 
 in {
   options.my.sway = {
-    enable = mkEnableOption (mdDoc "sway") // { default = osConfig.my.sway.enable; };
-    startupLocked = mkEnableOption (mdDoc "startupLocked") // { default = osConfig.my.sway.autologin; };
+    enable = mkEnableOption (mdDoc "sway");
+    startupLocked = mkEnableOption (mdDoc "startupLocked");
     xdgAutostart = mkEnableOption (mdDoc "xdgAutostart");
   };
 
