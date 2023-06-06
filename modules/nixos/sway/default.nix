@@ -25,9 +25,14 @@ in {
       hm.my.sway.startupLocked = mkDefault true;
 
       # to start initial_session again, run `/run/greetd.run; systemctl restart greetd`
-      services.greetd.settings.initial_session = {
-        command = "sway";
-        user = config.my.user;
+      services.greetd.settings = {
+        default_session = {
+          command = "${pkgs.greetd.greetd}/bin/agreety --cmd sway";
+        };
+        initial_session = {
+          command = "sway";
+          user = config.my.user;
+        };
       };
     })
 

@@ -31,11 +31,6 @@
 
   services.greetd = {
     enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd.greetd}/bin/agreety --cmd sway";
-      };
-    };
   };
 
   security.rtkit.enable = lib.mkDefault config.services.pipewire.enable;
