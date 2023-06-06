@@ -15,6 +15,11 @@ in {
     ({
       hm.my.sway.enable = true;
 
+      programs.sway = {
+        enable = true;
+        package = null;
+      };
+
       services.greetd = {
         enable = true;
         settings = {
@@ -24,10 +29,13 @@ in {
         };
       };
 
-      programs.sway = {
+      services.pipewire = {
         enable = true;
-        package = null;
+        alsa.enable = true;
+        pulse.enable = true;
       };
+      security.rtkit.enable = lib.mkDefault config.services.pipewire.enable;
+
     })
 
     (mkIf cfg.autologin {

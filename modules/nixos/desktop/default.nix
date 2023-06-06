@@ -10,8 +10,9 @@ in {
   };
 
   config = mkIf cfg.enable {
-    my = {
-      sway.enable = true;
-    };
+    my.sway.enable = true;
+
+    nix.daemonCPUSchedPolicy = "idle";
+
   };
 }
