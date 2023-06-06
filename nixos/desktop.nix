@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./fcitx5
     ./firefox.nix
     ./theme.nix
   ];
@@ -10,7 +9,6 @@
   hm.imports = [
     ../common/firefox
     ../common/mpv
-    ./fcitx5
     ./firefox.nix
     ./theme.nix
   ];

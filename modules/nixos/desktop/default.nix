@@ -10,6 +10,7 @@ in {
   };
 
   config = mkIf cfg.enable {
+    my.fcitx5.enable = true;
     my.sway.enable = true;
     
     hm.my.desktop.enable = true;
