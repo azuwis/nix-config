@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption;
+  inherit (lib) mdDoc mkEnableOption mkIf;
   cfg = config.my.nvidia;
 
 in {
@@ -10,7 +10,7 @@ in {
     nvidia-patch = mkEnableOption (mdDoc "nvidia-patch") // { default = true; };
   };
 
-  config = {
+  config = mkIf cfg.enable {
     home.packages = [ pkgs.vulkan-validation-layers ];
     wayland.windowManager.sway = {
       extraOptions = [ "--unsupported-gpu" ];
