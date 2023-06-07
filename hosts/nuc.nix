@@ -1,15 +1,9 @@
 { config, lib, pkgs, ... }:
 
 {
-  my.desktop.enable = true;
-  hm.my = {
-    swayidle.enable = false;
-  };
-
   imports = [
     # nixos-generate-config --show-hardware-config > hardware-nuc.nix
     ./hardware-nuc.nix
-    ../nixos/android.nix
     ../nixos/hass
     ../nixos/nginx.nix
     ../nixos/photoprism.nix
@@ -46,4 +40,9 @@
       extraOptions = [ "--loadavg-target" "2.0" ];
     };
   };
+
+  my.android.enable = true;
+  my.desktop.enable = true;
+
+  hm.my.swayidle.enable = false;
 }
