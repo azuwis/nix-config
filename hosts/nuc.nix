@@ -40,6 +40,8 @@
 
   my.android.enable = true;
   my.desktop.enable = true;
+  my.dsdrv.enable = true;
+  my.dsdrv.settings.host = "0.0.0.0";
   my.uxplay.enable = true;
   my.zramswap.enable = true;
 
