@@ -20,6 +20,7 @@
     netproc
     nixos-option
     pciutils
+    tcpdump
     usbutils
   ];
 }
