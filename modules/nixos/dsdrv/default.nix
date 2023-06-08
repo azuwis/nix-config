@@ -67,13 +67,12 @@ in {
     '';
 
     systemd.services.dsdrv = {
-      after = [ "network.target" ];
+      after = [ "bluetooth.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         User = "${cfg.user}";
         Group = "${cfg.group}";
-        Type = "simple";
-        Restart = "on-failure";
+        Restart = "on-abort";
         ExecStart = "${cfg.package}/bin/dsdrv --udp --udp-host ${cfg.settings.host} --udp-port ${builtins.toString cfg.settings.port}";
       };
     };
