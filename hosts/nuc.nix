@@ -10,7 +10,6 @@
     ../nixos/samba.nix
     # ../nixos/sunshine.nix
     ../nixos/torrent.nix
-    ../nixos/zramswap.nix
   ];
   hm.imports = [
     { home.packages = [ pkgs.moonlight-qt ]; }
@@ -42,6 +41,7 @@
   my.android.enable = true;
   my.desktop.enable = true;
   my.uxplay.enable = true;
+  my.zramswap.enable = true;
 
   hm.my.swayidle.enable = false;
 }

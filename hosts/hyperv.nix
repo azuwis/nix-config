@@ -4,7 +4,6 @@
   imports = [
     # nixos-generate-config --show-hardware-config > hardware-hyperv.nix
     ./hardware-hyperv.nix
-    ../nixos/zramswap.nix
   ];
 
   # Grub
@@ -38,4 +37,6 @@
   services.udev.extraHwdb = lib.mkForce "";
 
   hm.wayland.windowManager.sway.config.output."*".mode = "1600x900";
+
+  my.zramswap.enable = true;
 }
