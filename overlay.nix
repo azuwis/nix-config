@@ -33,6 +33,7 @@ self: super: rec {
   '';
   python3 = super.python3.override {
     packageOverrides = python-self: python-super: {
+      dsdrv-cemuhook = python3.pkgs.callPackage ./pkgs/dsdrv-cemuhook { };
       pysonybraviapsk = python3.pkgs.callPackage ./pkgs/pysonybraviapsk { };
       subfinder = python3.pkgs.callPackage ./pkgs/subfinder { };
     };
