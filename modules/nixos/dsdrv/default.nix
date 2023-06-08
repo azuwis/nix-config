@@ -34,6 +34,11 @@ in {
           type = types.port;
           default = 26760;
         };
+
+        options.extraArgs = mkOption {
+          type = types.str;
+          default = "--udp-remap-buttons";
+        };
       };
     };
 
@@ -73,7 +78,7 @@ in {
         User = "${cfg.user}";
         Group = "${cfg.group}";
         Restart = "on-abort";
-        ExecStart = "${cfg.package}/bin/dsdrv --udp --udp-host ${cfg.settings.host} --udp-port ${builtins.toString cfg.settings.port}";
+        ExecStart = "${cfg.package}/bin/dsdrv --udp --udp-host ${cfg.settings.host} --udp-port ${builtins.toString cfg.settings.port} ${cfg.settings.extraArgs}";
       };
     };
 
