@@ -7,7 +7,6 @@
 
   hm.imports = [
     ../common/firefox
-    ../common/mpv
     ./firefox.nix
   ];
 

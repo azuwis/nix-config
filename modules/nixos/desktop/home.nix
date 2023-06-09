@@ -10,6 +10,8 @@ in {
   };
 
   config = mkIf cfg.enable {
+    my.mpv.enable = true;
+
     home.packages = with pkgs; [
       chromium
       python3.pkgs.subfinder

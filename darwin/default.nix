@@ -10,8 +10,9 @@
     ../common/alacritty.nix
     ../common/emacs
     ../common/firefox
-    ../common/mpv
     ../common/rime
     ../common/zsh-ssh-agent.nix
   ] ++ lib.my.getHmModules [ ./. ];
+
+  hm.my.mpv.enable = true;
 }
