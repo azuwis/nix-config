@@ -21,7 +21,7 @@
     ./nnn
     ./packages.nix
     ./zsh.nix
-  ] ++ lib.my.getModules [ ../modules/home ];
+  ] ++ lib.my.getHmModules [ ../modules/common ];
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
