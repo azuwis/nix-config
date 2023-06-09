@@ -7,7 +7,6 @@
     ../nixos/hass
     ../nixos/nginx.nix
     ../nixos/photoprism.nix
-    ../nixos/samba.nix
     # ../nixos/sunshine.nix
     ../nixos/torrent.nix
   ];
@@ -42,6 +41,7 @@
   my.desktop.enable = true;
   my.dsdrv.enable = true;
   my.dsdrv.settings.host = "0.0.0.0";
+  my.samba.enable = true;
   my.uxplay.enable = true;
   my.zramswap.enable = true;
 
