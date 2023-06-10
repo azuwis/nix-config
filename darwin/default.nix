@@ -9,10 +9,11 @@
   hm.imports = [
     ../common/alacritty.nix
     ../common/emacs
-    ../common/firefox
     ../common/rime
     ../common/zsh-ssh-agent.nix
   ] ++ lib.my.getHmModules [ ./. ];
+
+  my.firefox.enable = true;
 
   hm.my.mpv.enable = true;
 }

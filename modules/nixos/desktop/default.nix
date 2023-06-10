@@ -11,6 +11,7 @@ in {
 
   config = mkIf cfg.enable {
     my.fcitx5.enable = true;
+    my.firefox.enable = true;
     my.sway.enable = true;
     my.theme.enable = true;
     

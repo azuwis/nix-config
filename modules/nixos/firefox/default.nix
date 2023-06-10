@@ -12,6 +12,8 @@ in {
   config = mkIf cfg.enable {
     hm.my.firefox.enable = true;
 
-    homebrew.casks = [ "firefox" ];
+    environment.sessionVariables = {
+      MOZ_USE_XINPUT2 = "1";
+    };
   };
 }
