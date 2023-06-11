@@ -10,7 +10,10 @@ in {
   };
 
   config = mkIf cfg.enable {
+    # sway/wlroots vulkan need vulkan-validation-layers for now, may remove on later version.
+    # https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/3850
     home.packages = [ pkgs.vulkan-validation-layers ];
+
     wayland.windowManager.sway = {
       extraOptions = [ "--unsupported-gpu" ];
       extraSessionCommands = ''
