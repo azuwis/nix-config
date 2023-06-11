@@ -10,7 +10,9 @@ in {
 
     package = mkPackageOptionMD pkgs [ "python3" "pkgs" "dsdrv-cemuhook" ] { };
 
-    openFirewall = mkEnableOption (mdDoc "openFirewall") // { default = true; };
+    openFirewall = mkEnableOption (mdDoc "openFirewall") // {
+      default = cfg.settings.host != "127.0.0.1";
+    };
 
     user = mkOption {
       type = types.str;
