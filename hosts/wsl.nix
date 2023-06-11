@@ -32,4 +32,6 @@
     fi
   '';
   hm.wayland.windowManager.sway.config.output."*".mode = "1920x1080";
+
+  my.desktop.enable = true;
 }

@@ -38,5 +38,6 @@
 
   hm.wayland.windowManager.sway.config.output."*".mode = "1600x900";
 
+  my.desktop.enable = true;
   my.zramswap.enable = true;
 }
