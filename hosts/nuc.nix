@@ -41,6 +41,7 @@
   my.desktop.enable = true;
   my.dsdrv.enable = true;
   my.dsdrv.settings.host = "0.0.0.0";
+  my.intelGpu.enable = true;
   my.samba.enable = true;
   my.uxplay.enable = true;
   my.zramswap.enable = true;

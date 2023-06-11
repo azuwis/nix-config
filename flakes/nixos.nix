@@ -1,7 +1,7 @@
 { inputs, withSystem, ... }:
 
 let
-  mkNixos = { system ? "x86_64-linux", modules ? [], desktop ? true }:
+  mkNixos = { system ? "x86_64-linux", modules ? [] }:
   withSystem system ({ lib, pkgs, system, ... }: inputs.nixpkgs.lib.nixosSystem {
     inherit system;
     specialArgs = { inherit inputs lib pkgs; };
@@ -9,8 +9,7 @@ let
       inputs.home-manager.nixosModules.home-manager
       ../common
       ../nixos
-    ] ++ lib.optionals desktop [ ../nixos/desktop.nix ]
-    ++ modules ;
+    ] ++ modules ;
   });
 in {
   flake.nixosConfigurations = {
@@ -24,7 +23,6 @@ in {
 
     utm = mkNixos {
       system = "aarch64-linux";
-      desktop = false;
       modules = [ ../hosts/utm.nix ];
     };
 
