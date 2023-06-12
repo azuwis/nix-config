@@ -3,10 +3,9 @@
 {
   imports = [
     (lib.mkAliasOptionModule [ "hm" ] [ "home-manager" "users" config.my.user ])
-    ./my.nix
     ./system.nix
     ./registry.nix
-  ];
+  ] ++ lib.my.getModules [ ../modules/common ];
 
   hm.imports = [
     inputs.nix-index-database.hmModules.nix-index
@@ -16,7 +15,6 @@
     ./git.nix
     ./gitui.nix
     ./gnupg.nix
-    ./my.nix
     ./neovim
     ./nnn
     ./packages.nix
