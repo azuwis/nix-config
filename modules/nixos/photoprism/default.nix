@@ -29,7 +29,7 @@ in
       onlySSL = true;
       useACMEHost = "default";
       extraConfig = ''
-        ssl_client_certificate ${./ca.crt};
+        ssl_client_certificate ${config.my.ca};
         ssl_verify_client on;
       '';
       locations."/" = {

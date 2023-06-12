@@ -10,6 +10,7 @@ with lib;
     uid = mkOption { type = types.int; };
     keys = mkOption { type = types.listOf types.singleLineStr; };
     domain = mkOption { type = types.str; };
+    ca = mkOption { type = types.path; };
   };
   config = {
     my = {
@@ -21,6 +22,7 @@ with lib;
       domain = let domain = "tube.demon.xyz"; in
       concatMapStrings (x: elemAt (stringToCharacters domain) x)
       [ 7 8 13 10 5 12 9 1 4 9 6 0 ];
+      ca = ./ca.crt;
     };
   };
 }
