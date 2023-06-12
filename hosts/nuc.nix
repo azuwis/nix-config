@@ -6,12 +6,10 @@
     ./hardware-nuc.nix
     ../nixos/hass
     ../nixos/nginx.nix
-    # ../nixos/sunshine.nix
     ../nixos/torrent.nix
   ];
   hm.imports = [
     { home.packages = [ pkgs.moonlight-qt ]; }
-    # ../nixos/sunshine.nix
     ../nixos/retroarch.nix
   ];
   powerManagement.cpuFreqGovernor = "schedutil";
