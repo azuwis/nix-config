@@ -11,7 +11,6 @@
   boot.supportedFilesystems = [ "ntfs" ];
   powerManagement.cpuFreqGovernor = "schedutil";
   networking.hostName = "office";
-  # hardware.bluetooth.enable = true;
 
   my.desktop.enable = true;
   my.nvidia.enable = true;
