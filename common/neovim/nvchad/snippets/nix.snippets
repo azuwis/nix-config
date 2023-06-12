@@ -4,8 +4,8 @@ snippet mod Nix module
 	let
 		inherit (lib) mdDoc mkEnableOption mkIf;
 		cfg = config.my.${1};
-
-	in {
+	in 
+	{
 		options.my.${1} = {
 			enable = mkEnableOption (mdDoc "${1}");
 		};
@@ -21,8 +21,8 @@ snippet modm Nix module with mkMerge
 	let
 		inherit (lib) mdDoc mkEnableOption mkIf mkMerge;
 		cfg = config.my.${1};
-
-	in {
+	in
+	{
 		options.my.${1} = {
 			enable = mkEnableOption (mdDoc "${1}");
 			${2} = mkEnableOption (mdDoc "${2}");
