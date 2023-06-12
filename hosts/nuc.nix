@@ -6,7 +6,6 @@
     ./hardware-nuc.nix
     ../nixos/hass
     ../nixos/nginx.nix
-    ../nixos/photoprism.nix
     # ../nixos/sunshine.nix
     ../nixos/torrent.nix
   ];
@@ -41,6 +40,7 @@
   my.dsdrv.enable = true;
   my.dsdrv.settings.host = "0.0.0.0";
   my.intelGpu.enable = true;
+  my.photoprism.enable = true;
   my.samba.enable = true;
   my.uxplay.enable = true;
   my.zramswap.enable = true;
