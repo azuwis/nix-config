@@ -1,0 +1,41 @@
+snippet mod Nix module
+	{ config, lib, pkgs, ... }:
+
+	let
+		inherit (lib) mdDoc mkEnableOption mkIf;
+		cfg = config.my.${1};
+
+	in {
+		options.my.${1} = {
+			enable = mkEnableOption (mdDoc "${1}");
+		};
+
+		config = mkIf cfg.enable {
+			${2}
+		};
+	}
+
+snippet modm Nix module with mkMerge
+	{ config, lib, pkgs, ... }:
+
+	let
+		inherit (lib) mdDoc mkEnableOption mkIf mkMerge;
+		cfg = config.my.${1};
+
+	in {
+		options.my.${1} = {
+			enable = mkEnableOption (mdDoc "${1}");
+			${2} = mkEnableOption (mdDoc "${2}");
+		};
+
+		config = mkIf cfg.enable (mkMerge [
+			({
+				${3}
+			})
+
+			(mkIf cfg.${2} {
+				${4}
+			})
+
+		]);
+	}

@@ -20,4 +20,5 @@
   };
   xdg.configFile."nvim/lua".source = ./lua;
   xdg.configFile."nvim/ftdetect".source = ./ftdetect;
+  xdg.configFile."nvim/snippets".source = ./snippets;
 }
