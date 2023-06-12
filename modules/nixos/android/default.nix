@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf mkMerge;
+  inherit (lib) mdDoc mkEnableOption mkIf;
   cfg = config.my.android;
 
 in {
@@ -14,14 +14,9 @@ in {
     '';
   };
 
-  config = mkIf cfg.enable (mkMerge [
-    ({
-      programs.adb.enable = true;
-      environment.systemPackages = [ pkgs.android-file-transfer ];
-    })
-
-    (mkIf cfg.adbusers{
-      users.users.${config.my.user}.extraGroups = [ "adbusers" ];
-    })
-  ]);
+  config = mkIf cfg.enable {
+    programs.adb.enable = true;
+    environment.systemPackages = [ pkgs.android-file-transfer ];
+    users.users.${config.my.user}.extraGroups = mkIf cfg.adbusers [ "adbusers" ];
+  };
 }
