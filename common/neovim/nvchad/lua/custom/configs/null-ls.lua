@@ -1,20 +1,15 @@
-local present, null_ls = pcall(require, "null-ls")
+local null_ls = require "null-ls"
 
-if not present then
-  return
-end
-
-local b = null_ls.builtins
+local formatting = null_ls.builtins.formatting
+local lint = null_ls.builtins.diagnostics
 
 local sources = {
-  -- Lua
-  b.formatting.stylua,
+   formatting.stylua,
 
-  -- Shell
-  b.diagnostics.shellcheck.with { diagnostics_format = "#{m} [#{c}]" },
+   lint.shellcheck,
 }
 
 null_ls.setup {
-  debug = false,
-  sources = sources,
+   debug = true,
+   sources = sources,
 }
