@@ -5,7 +5,6 @@
     # nixos-generate-config --show-hardware-config > hardware-nuc.nix
     ./hardware-nuc.nix
     ../nixos/hass
-    ../nixos/nginx.nix
     ../nixos/torrent.nix
   ];
   hm.imports = [
@@ -38,6 +37,7 @@
   my.dsdrv.enable = true;
   my.dsdrv.settings.host = "0.0.0.0";
   my.intelGpu.enable = true;
+  my.nginx.enable = true;
   my.photoprism.enable = true;
   my.samba.enable = true;
   my.uxplay.enable = true;
