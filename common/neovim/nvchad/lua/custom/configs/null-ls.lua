@@ -4,6 +4,7 @@ local formatting = null_ls.builtins.formatting
 local lint = null_ls.builtins.diagnostics
 
 local sources = {
+   formatting.nixpkgs_fmt,
    formatting.stylua,
 
    lint.shellcheck,

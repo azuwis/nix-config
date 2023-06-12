@@ -26,7 +26,6 @@
     plugins = with pkgs.vimPlugins; [
       csv-vim
       vim-jsonnet
-      vim-nix
     ];
     withNodeJs = false;
     withRuby = false;
