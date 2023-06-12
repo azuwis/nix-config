@@ -4,6 +4,20 @@ let
   inherit (lib) mdDoc mkEnableOption mkIf mkOption types;
   cfg = config.my.sunshine;
 
+  swayConfig = pkgs.runCommand "sunshine-sway.conf" {} ''
+    {
+    grep -Ev '(^exec swaylock|^exec swayidle|events disabled)' ${config.xdg.configFile."sway/config".source}
+    echo '
+    output HEADLESS-1 mode ${cfg.mode}
+    seat seat0 fallback false
+    seat seat0 attach "48879:57005:Keyboard_passthrough"
+    seat seat0 attach "48879:57005:Touchscreen_passthrough"
+    seat seat0 attach "1133:16440:Logitech_Wireless_Mouse_PID:4038"
+    exec sunshine
+    '
+    } > $out
+  '';
+
 in {
   options.my.sunshine = {
     enable = mkEnableOption (mdDoc "sunshine");
@@ -45,23 +59,7 @@ in {
           "WLR_LIBINPUT_NO_DEVICES=1"
           "DBUS_SESSION_BUS_ADDRESS="
         ];
-        ExecStartPre =
-          let
-            prestart = pkgs.writeShellScriptBin "sunshine-prestart" ''
-              {
-              grep -Ev '(^exec swaylock|^exec swayidle|events disabled)' ${config.xdg.configHome}/sway/config
-              echo '
-              output HEADLESS-1 mode ${cfg.mode}
-              seat seat0 fallback false
-              seat seat0 attach "48879:57005:Keyboard_passthrough"
-              seat seat0 attach "48879:57005:Touchscreen_passthrough"
-              seat seat0 attach "1133:16440:Logitech_Wireless_Mouse_PID:4038"
-              exec sunshine
-              '
-              } > ${config.xdg.cacheHome}/sway-sunshine
-            '';
-          in "${prestart}/bin/sunshine-prestart";
-        ExecStart = "/etc/profiles/per-user/%u/bin/sway -c ${config.xdg.cacheHome}/sway-sunshine";
+        ExecStart = "/etc/profiles/per-user/%u/bin/sway -c ${swayConfig}";
         Restart = "on-failure";
       };
     };
