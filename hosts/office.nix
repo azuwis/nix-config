@@ -10,6 +10,7 @@
   networking.hostName = "office";
 
   my.desktop.enable = true;
+  my.dsdrv.enable = true;
   my.nvidia.enable = true;
   my.sunshine.enable = true;
 
