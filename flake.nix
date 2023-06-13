@@ -23,6 +23,8 @@
     nvidia-patch.url = "github:icewind1991/nvidia-patch-nixos";
     nvidia-patch.inputs.nixpkgs.follows = "nixpkgs";
     nvidia-patch.inputs.utils.follows = "flake-utils";
+    devshell.url = "github:numtide/devshell";
+    devshell.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs@{ flake-parts, ... }:

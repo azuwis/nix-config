@@ -5,5 +5,6 @@ _: {
     ./darwin.nix
     ./nixos.nix
     ./droid.nix
+    ./devshell.nix
   ];
 }
