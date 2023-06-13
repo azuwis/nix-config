@@ -9,7 +9,6 @@
   ];
   hm.imports = [
     { home.packages = [ pkgs.moonlight-qt ]; }
-    ../nixos/retroarch.nix
   ];
   powerManagement.cpuFreqGovernor = "schedutil";
   fileSystems."/srv".options = [ "compress=zstd" ];
@@ -43,5 +42,6 @@
   my.uxplay.enable = true;
   my.zramswap.enable = true;
 
+  hm.my.retroarch.enable = true;
   hm.my.swayidle.enable = false;
 }
