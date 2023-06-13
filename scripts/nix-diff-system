@@ -4,10 +4,10 @@ hostname="$(hostname)"
 
 case "$(uname)" in
   Linux)
-    flake="/etc/nixos#nixosConfigurations.$hostname.config.system.build.toplevel"
+    flake="/etc/nixos#nixosConfigurations.\"$hostname\".config.system.build.toplevel"
     ;;
   Darwin)
-    flake="git+file://$HOME/.config/nixpkgs#darwinConfigurations.$hostname.system"
+    flake="git+file://$HOME/.config/nixpkgs#darwinConfigurations.\"$hostname\".system"
     ;;
   *)
     echo "System not supported"
