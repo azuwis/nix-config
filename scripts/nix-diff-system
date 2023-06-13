@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+hostname="$(hostname)"
+
+case "$(uname)" in
+  Linux)
+    flake="/etc/nixos#nixosConfigurations.$hostname.config.system.build.toplevel"
+    ;;
+  Darwin)
+    flake="git+file://$HOME/.config/nixpkgs#darwinConfigurations.$hostname.system"
+    ;;
+  *)
+    echo "System not supported"
+    exit 1
+    ;;
+esac
+
+built="$(nix build --no-link --print-out-paths "$flake")"
+
+nix-diff --character-oriented /run/current-system/ "$built"
