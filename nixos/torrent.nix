@@ -84,7 +84,7 @@ in
     serviceConfig = {
       User = user;
       Type = "simple";
-      Restart = "always";
+      Restart = "on-failure";
       ExecStart="${pkgs.torrent-ratio}/bin/torrent-ratio -v";
     };
   };
