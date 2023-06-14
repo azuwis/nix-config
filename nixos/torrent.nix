@@ -12,6 +12,7 @@ in
     uid = 20000;
     group = user;
     home = config.services.qbittorrent.dataDir;
+    createHome = true;
     isSystemUser = true;
   };
   users.groups.${user}.gid = 20000;
