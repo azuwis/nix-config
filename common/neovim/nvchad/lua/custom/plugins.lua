@@ -91,4 +91,9 @@ return {
       require("orgmode").setup {}
     end,
   },
+
+  {
+    "google/vim-jsonnet",
+    ft = "jsonnet",
+  },
 }

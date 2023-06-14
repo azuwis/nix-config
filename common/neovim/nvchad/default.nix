@@ -16,6 +16,7 @@
       neogit
       null-ls-nvim
       orgmode
+      vim-jsonnet
     ];
   };
   xdg.configFile."nvim/lua".source = ./lua;
