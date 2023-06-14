@@ -7,10 +7,14 @@ in
 {
   options.my.torrent-ratio = {
     enable = mkEnableOption (mdDoc "torrent-ratio");
-    addr = mkOption {
+    host = mkOption {
       type = types.str;
-      default = "";
-      example = "0.0.0.0:8082";
+      default = "127.0.0.1";
+      example = "0.0.0.0";
+    };
+    port = mkOption {
+      type = types.port;
+      default = 8082;
     };
     conf = mkOption {
       type = types.nullOr types.path;
@@ -32,7 +36,7 @@ in
         DynamicUser = true;
         StateDirectory = "torrent-ratio";
         WorkingDirectory = "/var/lib/torrent-ratio";
-        ExecStart = "${pkgs.torrent-ratio}/bin/torrent-ratio -v -db ${cfg.db} ${optionalString (cfg.addr != "") "-addr ${cfg.addr}"} ${optionalString (cfg.conf != null) "-conf ${cfg.conf}"}";
+        ExecStart = "${pkgs.torrent-ratio}/bin/torrent-ratio -v -addr ${cfg.host}:${builtins.toString cfg.port} -db ${cfg.db} ${optionalString (cfg.conf != null) "-conf ${cfg.conf}"}";
         Restart = "on-failure";
       };
     };

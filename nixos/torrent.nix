@@ -40,7 +40,7 @@ in
     };
     Network = {
       "Proxy.IP" = "127.0.0.1";
-      "Proxy.Port" = 8082;
+      "Proxy.Port" = config.my.torrent-ratio.port;
       "Proxy.Type" = "HTTP";
     };
     Preferences = {
