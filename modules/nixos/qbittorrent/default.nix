@@ -88,27 +88,23 @@ in
       };
     };
 
-    systemd = {
-      services = {
-        qbittorrent = {
-          description = "qBittorrent system service";
-          after = [ "network.target" ];
-          path = [ cfg.package pkgs.bash ];
-          wantedBy = [ "multi-user.target" ];
-          serviceConfig = {
-            User = cfg.user;
-            Group = cfg.group;
-            Type = "simple";
-            Restart = "on-failure";
-            WorkingDirectory = cfg.dataDir;
-            ExecStart = "${cfg.package}/bin/qbittorrent-nox";
-          };
-          preStart = lib.optionalString (cfg.settings != {}) ''
-            mkdir -p "${cfg.dataDir}/.config/qBittorrent"
-            ${pkgs.crudini}/bin/crudini --merge ${cfg.dataDir}/.config/qBittorrent/qBittorrent.conf < ${configFile}
-          '';
-        };
+    systemd.services.qbittorrent = {
+      description = "qBittorrent system service";
+      after = [ "network.target" ];
+      path = [ cfg.package pkgs.bash ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        User = cfg.user;
+        Group = cfg.group;
+        Type = "simple";
+        Restart = "on-failure";
+        WorkingDirectory = cfg.dataDir;
+        ExecStart = "${cfg.package}/bin/qbittorrent-nox";
       };
+      preStart = lib.optionalString (cfg.settings != {}) ''
+        mkdir -p "${cfg.dataDir}/.config/qBittorrent"
+        ${pkgs.crudini}/bin/crudini --merge ${cfg.dataDir}/.config/qBittorrent/qBittorrent.conf < ${configFile}
+      '';
     };
 
     services.qbittorrent.settings.BitTorrent."Session.Port" = 8999;
