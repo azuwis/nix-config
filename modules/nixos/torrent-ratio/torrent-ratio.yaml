@@ -1,0 +1,44 @@
+default: &default
+  uploaded: [0.1, 0.6]
+  downloaded: [0, 0.07]
+  percentmin: 0.2
+  percentmax: 0.5
+  percentstep: 0.02
+  speed: 51200
+  port: 24680
+
+high: &high
+  <<: *default
+  uploaded: [2, 4]
+  downloaded: [0.08, 0.1]
+  percentmin: 0.4
+  percentmax: 0.7
+  percentstep: 0.1
+  speed: 102400
+
+low: &low
+  <<: *default
+  percentmax: 0.2
+  speed: 25600
+
+origin: &origin
+  <<: *default
+  uploaded: [0, 0]
+  downloaded: [0, 0]
+  percentmin: 0
+  percentmax: 0
+  percentstep: 0
+  speed: 0
+
+bt.audionews.org:
+  <<: *low
+  percentmax: 0.1
+  speed: 12800
+
+pt.skyey.win:
+  <<: *default
+  peerid: qB4190
+
+probe.skyey2.com:
+  <<: *default
+  peerid: qB4190

@@ -78,28 +78,4 @@ in
     "valid users" = user;
   };
 
-  systemd.services.torrent-ratio = {
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      User = user;
-      Type = "simple";
-      Restart = "on-failure";
-      ExecStart="${pkgs.torrent-ratio}/bin/torrent-ratio -v";
-    };
-  };
-
-  services.nginx.virtualHosts.torrent-ratio = {
-    serverName = "t.${domain}";
-    onlySSL = true;
-    useACMEHost = "default";
-    extraConfig = ''
-      ssl_client_certificate ${./ca.crt};
-      ssl_verify_client on;
-    '';
-    locations."/" = {
-      proxyPass = "http://127.0.0.1:8082";
-      proxyWebsockets = true;
-    };
-  };
 }
