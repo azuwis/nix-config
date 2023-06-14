@@ -97,14 +97,12 @@ in
             ExecStart = "${cfg.package}/bin/qbittorrent-nox";
           };
           preStart = lib.optionalString (cfg.config != "") ''
+            mkdir -p "${cfg.dataDir}/.config/qBittorrent"
             ${pkgs.crudini}/bin/crudini --merge ${cfg.dataDir}/.config/qBittorrent/qBittorrent.conf < ${configFile}
           '';
         };
       };
 
-      tmpfiles.rules = [
-        "d '${cfg.dataDir}/.config/qBittorrent' 0755 ${cfg.user} ${cfg.group} -"
-      ];
     };
   };
 }
