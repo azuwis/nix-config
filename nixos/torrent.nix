@@ -62,8 +62,8 @@ in
 
   services.nginx.virtualHosts.vuetorrent = let
     vuetorrent = pkgs.fetchzip {
-      url = "https://github.com/WDaan/VueTorrent/releases/download/v0.15.3/vuetorrent.zip";
-      sha256 = "sha256-IcgGL9u+nSIBT/tebXkmqXwvCbb0Q3U1OPtVuHo9a1M=";
+      url = "https://github.com/WDaan/VueTorrent/releases/download/v1.5.10/vuetorrent.zip";
+      sha256 = "sha256-JGsOlq2h0Luq//nQWui6iPUMd2tKUnBTpwe8Xq/PFd8=";
     };
   in {
     serverName = "v.${domain}";
