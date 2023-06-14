@@ -12,6 +12,7 @@
   programs.neovim.nvchad = {
     enable = true;
     extraLazyPlugins = with pkgs.vimPlugins; [
+      csv-vim
       diffview-nvim
       neogit
       null-ls-nvim

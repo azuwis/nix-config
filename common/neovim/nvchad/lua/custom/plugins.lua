@@ -96,4 +96,9 @@ return {
     "google/vim-jsonnet",
     ft = "jsonnet",
   },
+
+  {
+    "chrisbra/csv.vim",
+    ft = "csv",
+  },
 }

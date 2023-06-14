@@ -23,10 +23,6 @@
       tree-sitter
       yaml-language-server
     ] ++ lib.optionals (builtins.hasAttr "stylua" pkgs) [ stylua ];
-    plugins = with pkgs.vimPlugins; [
-      csv-vim
-      vim-jsonnet
-    ];
     withNodeJs = false;
     withRuby = false;
     viAlias = true;
