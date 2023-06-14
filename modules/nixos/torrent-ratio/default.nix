@@ -7,6 +7,7 @@ in
 {
   options.my.torrent-ratio = {
     enable = mkEnableOption (mdDoc "torrent-ratio");
+    nginx = mkEnableOption (mdDoc "nginx") // { default = true; };
     host = mkOption {
       type = types.str;
       default = "127.0.0.1";
@@ -41,7 +42,7 @@ in
       };
     };
 
-    services.nginx.virtualHosts.torrent-ratio = {
+    services.nginx.virtualHosts.torrent-ratio = mkIf cfg.nginx {
       serverName = "t.${config.my.domain}";
       onlySSL = true;
       useACMEHost = "default";
