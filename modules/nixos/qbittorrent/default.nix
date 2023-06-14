@@ -4,7 +4,15 @@ let
   inherit (lib) literalExpression mkEnableOption mkIf mkOption types;
   cfg = config.services.qbittorrent;
 
-  configFile = pkgs.writeText "qBittorrent.conf" cfg.config;
+  toml = pkgs.formats.toml { };
+  generate = name: value: pkgs.callPackage ({ runCommand, remarshal, perl }: runCommand name {
+    nativeBuildInputs = [ remarshal perl ];
+    value = builtins.toJSON value;
+    passAsFile = [ "value" ];
+  } ''
+    json2toml "$valuePath" - | perl -pe 's/(?<=^"[A-Za-z.]{1,128})\./\\/g; s/"//g' > "$out"
+  '') {};
+  configFile = generate "qBittorrent.conf" cfg.settings;
 
 in
 {
@@ -44,23 +52,22 @@ in
       '';
     };
 
-    config = mkOption {
-      type = types.lines;
-      default = "";
-      example = literalExpression ''
-        [BitTorrent]
-        Session\Port=8999
-
-        [Preferences]
-        WebUI\Address=127.0.0.1
-        WebUI\Port=8080
-      '';
+    settings = mkOption {
+      type = toml.type;
+      example = {
+        BitTorrent = {
+          "Session.Port" = 8999;
+        };
+        Preferences = {
+          "WebUI.Address" = "127.0.0.1";
+          "WebUI.Port" = 8080;
+        };
+      };
       description = ''
-        The config to be merged into <filename>$XDG_CONFIG_HOME/qBittorrent/qBittorrent.conf</filename>.
+        The settings to be merged into <filename>$XDG_CONFIG_HOME/qBittorrent/qBittorrent.conf</filename>.
         Beware removing lines from this option will NOT effect qBittorrent.conf, only adding and changing will do.
       '';
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -96,13 +103,16 @@ in
             WorkingDirectory = cfg.dataDir;
             ExecStart = "${cfg.package}/bin/qbittorrent-nox";
           };
-          preStart = lib.optionalString (cfg.config != "") ''
+          preStart = lib.optionalString (cfg.settings != {}) ''
             mkdir -p "${cfg.dataDir}/.config/qBittorrent"
             ${pkgs.crudini}/bin/crudini --merge ${cfg.dataDir}/.config/qBittorrent/qBittorrent.conf < ${configFile}
           '';
         };
       };
-
     };
+
+    services.qbittorrent.settings.BitTorrent."Session.Port" = 8999;
+    networking.firewall.allowedTCPPorts = [ cfg.settings.BitTorrent."Session.Port" ];
+
   };
 }
