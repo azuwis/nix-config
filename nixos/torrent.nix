@@ -16,8 +16,9 @@ in
     isSystemUser = true;
   };
   users.groups.${user}.gid = 20000;
-  users.users.${config.my.user}.extraGroups = [ user ];
-  systemd.services.qbittorrent.serviceConfig.UMask = "0007";
+  systemd.tmpfiles.rules = [
+    "a+ ${config.services.qbittorrent.dataDir} - - - - u:${config.my.user}:r-x"
+  ];
 
   services.qbittorrent.enable = true;
   services.qbittorrent.user = user;
