@@ -1,13 +1,13 @@
-{ config, options, pkgs, lib, ... }:
-
-with lib;
+{ config, lib, pkgs, ... }:
 
 let
-
+  inherit (lib) literalExpression mkEnableOption mkIf mkOption types;
   cfg = config.services.qbittorrent;
+
   configFile = pkgs.writeText "qBittorrent.conf" cfg.config;
 
-in {
+in
+{
   options.services.qbittorrent = {
     enable = mkEnableOption "qbittorrent";
 
@@ -66,7 +66,7 @@ in {
   config = mkIf cfg.enable {
 
     users.groups = mkIf (cfg.group == "qbittorrent") {
-      qbittorrent = {};
+      qbittorrent = { };
     };
 
     users.users = mkIf (cfg.user == "qbittorrent") {
@@ -94,7 +94,7 @@ in {
             Type = "simple";
             Restart = "on-failure";
             WorkingDirectory = cfg.dataDir;
-            ExecStart="${cfg.package}/bin/qbittorrent-nox";
+            ExecStart = "${cfg.package}/bin/qbittorrent-nox";
           };
           preStart = lib.optionalString (cfg.config != "") ''
             ${pkgs.crudini}/bin/crudini --merge ${cfg.dataDir}/.config/qBittorrent/qBittorrent.conf < ${configFile}
