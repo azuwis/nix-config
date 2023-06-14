@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "torrent-ratio";
-  version = "unstable-2022-03-19";
+  version = "unstable-2023-06-14";
 
   src = fetchFromGitHub {
     owner = "azuwis";
     repo = "torrent-ratio";
-    rev = "436d0f6b7825183cc4c3b1ce8a1a842668993233";
-    sha256 = "16bddbrddbbrgzd4gcly72s08rzjidxxn4qrq5f4qjb7ygjf57f8";
+    rev = "63305a40d24a7a85e0d36b2610ae7777f892829f";
+    sha256 = "0izl58xzm07zk7jsh2z8z622hcyi0zx0v1skwdaa75fyxsw8bdpv";
   };
 
   vendorSha256 = "sha256-HH0VHleShuv91QkV1CC8thgBWe5RgoUKhXa706Ked04=";
