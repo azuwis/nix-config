@@ -4,7 +4,6 @@
   imports = [
     # nixos-generate-config --show-hardware-config > hardware-nuc.nix
     ./hardware-nuc.nix
-    ../nixos/hass
   ];
   powerManagement.cpuFreqGovernor = "schedutil";
   fileSystems."/srv".options = [ "compress=zstd" ];
@@ -31,6 +30,7 @@
   my.desktop.enable = true;
   my.dsdrv.enable = true;
   my.dsdrv.settings.host = "0.0.0.0";
+  my.hass.enable = true;
   my.intelGpu.enable = true;
   my.photoprism.enable = true;
   my.torrent.enable = true;
