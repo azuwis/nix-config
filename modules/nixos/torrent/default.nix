@@ -66,7 +66,7 @@ in
       };
       Preferences = {
         "WebUI.Address" = "127.0.0.1";
-        "WebUI.CSRFProtection" = false;
+        "WebUI.CSRFProtection" = !config.my.nginx.enable;
         "WebUI.Port" = 8080;
         "WebUI.SessionTimeout" = 86400;
         "WebUI.UseUPnP" = false;
