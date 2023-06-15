@@ -6,7 +6,6 @@
   hm.imports = [
     inputs.nix-index-database.hmModules.nix-index
     ./difftastic.nix
-    ./direnv.nix
   ] ++ lib.my.getHmModules [ ../modules/common ];
 
   home-manager.useGlobalPkgs = true;
@@ -14,6 +13,7 @@
 
   hm = {
     my = {
+      direnv.enable = true;
       helix.enable = true;
       git.enable = true;
       gitui.enable = true;
