@@ -14,13 +14,16 @@
     ./neovim
     ./nnn
     ./packages.nix
-    ./zsh.nix
   ] ++ lib.my.getHmModules [ ../modules/common ];
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
 
   hm = {
+    my = {
+      zsh.enable = true;
+    };
+
     home.stateVersion = "22.05";
     systemd.user.startServices = "sd-switch";
   };
