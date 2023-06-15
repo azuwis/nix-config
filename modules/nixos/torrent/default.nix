@@ -8,12 +8,9 @@ let
   port = builtins.toString config.services.qbittorrent.settings.Preferences."WebUI.Port";
 in 
 {
-  imports = [
-    ./torrent-ratio.nix
-  ];
-
   options.my.torrent = {
     enable = mkEnableOption (mdDoc "torrent");
+    torrent-ratio = mkEnableOption (mdDoc "torrent-ratio") // { default = true; };
     user = mkOption {
       type = types.str;
       default = "torrent";
@@ -41,6 +38,7 @@ in
       "a+ ${config.services.qbittorrent.dataDir} - - - - u:${config.my.user}:r-x"
     ];
 
+    my.torrent-ratio.enable = cfg.torrent-ratio;
     services.qbittorrent.enable = true;
     services.qbittorrent.user = cfg.user;
     services.qbittorrent.group = cfg.user;
@@ -57,13 +55,13 @@ in
         "Session.MaxActiveUploads" = 150;
         "Session.Preallocation" = true;
         "Session.QueueingSystemEnabled" = true;
-        "Session.SSRFMitigation" = false;
-        "Session.ValidateHTTPSTrackerCertificate" = false;
+        "Session.SSRFMitigation" = ! cfg.torrent-ratio;
+        "Session.ValidateHTTPSTrackerCertificate" = ! cfg.torrent-ratio;
       };
       Network = {
         "Proxy.IP" = "127.0.0.1";
         "Proxy.Port" = config.my.torrent-ratio.port;
-        "Proxy.Type" = "HTTP";
+        "Proxy.Type" = if cfg.torrent-ratio then "HTTP" else "None";
       };
       Preferences = {
         "WebUI.Address" = "127.0.0.1";
