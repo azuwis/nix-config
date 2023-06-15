@@ -3,8 +3,6 @@
 {
   imports = [
     (lib.mkAliasOptionModule [ "hm" ] [ "home-manager" "users" config.my.user ])
-    ./system.nix
-    ./registry.nix
   ] ++ lib.my.getModules [ ../modules/common ];
 
   hm.imports = [
