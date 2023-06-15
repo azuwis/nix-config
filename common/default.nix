@@ -10,7 +10,6 @@
     ./helix.nix
     ./git.nix
     ./gitui.nix
-    ./gnupg.nix
   ] ++ lib.my.getHmModules [ ../modules/common ];
 
   home-manager.useGlobalPkgs = true;
