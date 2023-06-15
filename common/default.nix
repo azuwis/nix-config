@@ -13,7 +13,6 @@
     ./gnupg.nix
     ./neovim
     ./nnn
-    ./packages.nix
   ] ++ lib.my.getHmModules [ ../modules/common ];
 
   home-manager.useGlobalPkgs = true;
