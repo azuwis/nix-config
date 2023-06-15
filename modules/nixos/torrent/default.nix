@@ -6,7 +6,7 @@ let
 
   inherit (config.my) domain;
   port = builtins.toString config.services.qbittorrent.settings.Preferences."WebUI.Port";
-in 
+in
 {
   options.my.torrent = {
     enable = mkEnableOption (mdDoc "torrent");
@@ -81,18 +81,20 @@ in
       locations."/".proxyPass = "http://127.0.0.1:${port}";
     };
 
-    services.nginx.virtualHosts.vuetorrent = let
-      vuetorrent = pkgs.fetchzip {
-        url = "https://github.com/WDaan/VueTorrent/releases/download/v1.5.10/vuetorrent.zip";
-        sha256 = "sha256-JGsOlq2h0Luq//nQWui6iPUMd2tKUnBTpwe8Xq/PFd8=";
+    services.nginx.virtualHosts.vuetorrent =
+      let
+        vuetorrent = pkgs.fetchzip {
+          url = "https://github.com/WDaan/VueTorrent/releases/download/v1.5.10/vuetorrent.zip";
+          sha256 = "sha256-JGsOlq2h0Luq//nQWui6iPUMd2tKUnBTpwe8Xq/PFd8=";
+        };
+      in
+      {
+        serverName = "v.${domain}";
+        onlySSL = true;
+        useACMEHost = "default";
+        root = "${vuetorrent}/public";
+        locations."/api".proxyPass = "http://127.0.0.1:${port}";
       };
-    in {
-      serverName = "v.${domain}";
-      onlySSL = true;
-      useACMEHost = "default";
-      root = "${vuetorrent}/public";
-      locations."/api".proxyPass = "http://127.0.0.1:${port}";
-    };
 
     my.samba.enable = mkDefault true;
     services.samba.shares.torrent = {
