@@ -6,9 +6,6 @@
     ./hardware-nuc.nix
     ../nixos/hass
   ];
-  hm.imports = [
-    { home.packages = [ pkgs.moonlight-qt ]; }
-  ];
   powerManagement.cpuFreqGovernor = "schedutil";
   fileSystems."/srv".options = [ "compress=zstd" ];
   networking.hostName = "nuc";
@@ -42,4 +39,5 @@
 
   hm.my.retroarch.enable = true;
   hm.my.swayidle.enable = false;
+  hm.home.packages = [ pkgs.moonlight-qt ];
 }
