@@ -10,10 +10,10 @@
     ../common/alacritty.nix
     ../common/emacs
     ../common/rime
-    ../common/zsh-ssh-agent.nix
   ] ++ lib.my.getHmModules [ ./. ];
 
   my.firefox.enable = true;
 
   hm.my.mpv.enable = true;
+  hm.my.zsh-ssh-agent.enable = true;
 }
