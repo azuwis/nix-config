@@ -56,8 +56,8 @@ in
         "Session.MaxActiveUploads" = 150;
         "Session.Preallocation" = true;
         "Session.QueueingSystemEnabled" = true;
-        "Session.SSRFMitigation" = ! cfg.torrent-ratio;
-        "Session.ValidateHTTPSTrackerCertificate" = ! cfg.torrent-ratio;
+        "Session.SSRFMitigation" = !cfg.torrent-ratio;
+        "Session.ValidateHTTPSTrackerCertificate" = !cfg.torrent-ratio;
       };
       Network = {
         "Proxy.IP" = "127.0.0.1";
