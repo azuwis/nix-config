@@ -3,8 +3,12 @@
 if [ -z "${GIT_COMMITTER_DATE:-}" ]
 then
   git log --format=%cd --date=unix --max-count=2 | {
-    read this
-    read last
+    read -r this
+    read -r last
+    # if [ "$this" -le "$(date +%s --date=9:00:00)" ]
+    # then
+    #   exit
+    # fi
     new="$(date +%s --date=19:00:00)"
     mod=7200
     for item in "$this" "$last"
