@@ -27,6 +27,8 @@ in
   ];
 
   # let my.user read data dir
+  users.users.hass.homeMode = "0750";
+  systemd.services.home-assistant.serviceConfig.UMask = lib.mkForce "0027";
   systemd.tmpfiles.rules = [
     "a+ ${config.services.home-assistant.configDir} - - - - d:u:${config.my.user}:r-x,u:${config.my.user}:r-x"
   ];
