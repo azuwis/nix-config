@@ -7,7 +7,6 @@
     inputs.nix-index-database.hmModules.nix-index
     ./difftastic.nix
     ./direnv.nix
-    ./helix.nix
   ] ++ lib.my.getHmModules [ ../modules/common ];
 
   home-manager.useGlobalPkgs = true;
@@ -15,6 +14,7 @@
 
   hm = {
     my = {
+      helix.enable = true;
       git.enable = true;
       gitui.enable = true;
       neovim.enable = true;
