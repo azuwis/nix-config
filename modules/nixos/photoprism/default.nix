@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mdDoc mkDefault mkEnableOption mkIf;
   cfg = config.my.photoprism;
 in
 {
@@ -24,6 +24,7 @@ in
       };
     };
 
+    my.nginx.enable = mkDefault true;
     services.nginx.virtualHosts.photoprism = {
       serverName = "p.${config.my.domain}";
       onlySSL = true;
