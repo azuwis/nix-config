@@ -9,7 +9,6 @@
     ./direnv.nix
     ./helix.nix
     ./git.nix
-    ./gitui.nix
   ] ++ lib.my.getHmModules [ ../modules/common ];
 
   home-manager.useGlobalPkgs = true;
@@ -17,6 +16,7 @@
 
   hm = {
     my = {
+      gitui.enable = true;
       neovim.enable = true;
       nnn.enable = true;
       zsh.enable = true;
