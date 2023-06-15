@@ -31,6 +31,7 @@ in
       group = cfg.user;
       home = config.services.qbittorrent.dataDir;
       createHome = true;
+      homeMode = "0750";
       isSystemUser = true;
     };
     users.groups.${cfg.user}.gid = cfg.uid;
