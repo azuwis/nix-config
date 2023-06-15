@@ -16,11 +16,7 @@ in
 
   config = mkIf cfg.enable {
     # Clear all caches
-    # rm -rf ~/.config/nvim/plugin/packer_compiled.lua ~/.cache/nvim/ ~/.local/share/nvim/site/
-    # workaround for https://github.com/lewis6991/impatient.nvim/issues/42
-    # home.activation.neovim = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    #   $DRY_RUN_CMD rm -f $VERBOSE_ARG ~/.cache/nvim/luacache_chunks ~/.cache/nvim/luacache_modpaths
-    # '';
+    # rm -rf ~/.cache/nvim/ ~/.local/share/nvim/lazy/ ~/.local/share/nvim/nvchad/
     home.sessionVariables.EDITOR = "nvim";
     programs.neovim = {
       enable = true;
