@@ -12,7 +12,6 @@
     ./gitui.nix
     ./gnupg.nix
     ./neovim
-    ./nnn
   ] ++ lib.my.getHmModules [ ../modules/common ];
 
   home-manager.useGlobalPkgs = true;
@@ -20,6 +19,7 @@
 
   hm = {
     my = {
+      nnn.enable = true;
       zsh.enable = true;
     };
 
