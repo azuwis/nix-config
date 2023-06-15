@@ -1,9 +1,7 @@
 { inputs, config, lib, pkgs, ... }:
 
 {
-  imports = [
-    (lib.mkAliasOptionModule [ "hm" ] [ "home-manager" "users" config.my.user ])
-  ] ++ lib.my.getModules [ ../modules/common ];
+  imports = lib.my.getModules [ ../modules/common ];
 
   hm.imports = [
     inputs.nix-index-database.hmModules.nix-index
