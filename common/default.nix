@@ -8,7 +8,6 @@
     ./difftastic.nix
     ./direnv.nix
     ./helix.nix
-    ./git.nix
   ] ++ lib.my.getHmModules [ ../modules/common ];
 
   home-manager.useGlobalPkgs = true;
@@ -16,6 +15,7 @@
 
   hm = {
     my = {
+      git.enable = true;
       gitui.enable = true;
       neovim.enable = true;
       nnn.enable = true;
