@@ -4,6 +4,17 @@ self: super: rec {
   evdevhook = super.callPackage ./pkgs/evdevhook { };
   jetbrains-mono-nerdfont = super.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
   legacyfox = super.callPackage ./pkgs/legacyfox { };
+  moonlight-cemuhook = super.moonlight-qt.overrideAttrs (o: rec {
+    pname = "moonlight-cemuhook";
+    src = super.fetchFromGitHub {
+      owner = "happyharryh";
+      repo = "moonlight-qt";
+      rev = "04b3a697730262e36f29b457b18944be6b8daa13";
+      sha256 = "sha256-njvE+wQsgzzjHib5mqiNjs9oOEwKNIoXnqmghNFG9RU=";
+      fetchSubmodules = true;
+    };
+    patches = [ ./patches/moonlight-cemuhook.diff ];
+  });
   nibar = super.callPackage ./pkgs/nibar { };
   redsocks2 = super.callPackage ./pkgs/redsocks2 { };
   rime-ice = super.callPackage ./pkgs/rime-ice { };
