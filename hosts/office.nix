@@ -9,8 +9,8 @@
   powerManagement.cpuFreqGovernor = "schedutil";
   networking.hostName = "office";
 
+  my.cemu.enable = true;
   my.desktop.enable = true;
-  my.dsdrv.enable = true;
   my.nvidia.enable = true;
   my.sunshine.enable = true;
 
