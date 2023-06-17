@@ -3,7 +3,7 @@
 let
   inherit (lib) mdDoc mkEnableOption mkIf;
   cfg = config.my.steam-devices;
-in 
+in
 {
   options.my.steam-devices = {
     enable = mkEnableOption (mdDoc "steam-devices");

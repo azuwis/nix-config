@@ -3,13 +3,13 @@
 let
   inherit (lib) mdDoc mkEnableOption mkIf;
   cfg = config.my.cemu;
-in 
+in
 {
   options.my.cemu = {
     enable = mkEnableOption (mdDoc "cemu");
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ pkgs.cemu ]; 
+    home.packages = [ pkgs.cemu ];
   };
 }
