@@ -28,10 +28,9 @@
   };
 
   my.desktop.enable = true;
-  my.dsdrv.enable = true;
-  my.dsdrv.settings.host = "0.0.0.0";
   my.hass.enable = true;
   my.intelGpu.enable = true;
+  my.moonlight-cemuhook.enable = true;
   my.photoprism.enable = true;
   my.torrent.enable = true;
   my.uxplay.enable = true;
@@ -39,5 +38,4 @@
 
   hm.my.retroarch.enable = true;
   hm.my.swayidle.enable = false;
-  hm.home.packages = [ pkgs.moonlight-qt ];
 }
