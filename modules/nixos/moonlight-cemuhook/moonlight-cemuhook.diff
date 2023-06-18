@@ -1,5 +1,5 @@
 diff --git a/app/streaming/cemuhook.cpp b/app/streaming/cemuhook.cpp
-index 4771faa..94a6b63 100644
+index 4771faa..883b9a6 100644
 --- a/app/streaming/cemuhook.cpp
 +++ b/app/streaming/cemuhook.cpp
 @@ -171,7 +171,7 @@ void Server::handleReceive() {
@@ -7,7 +7,7 @@ index 4771faa..94a6b63 100644
  
                      if (const char* serial = SDL_JoystickGetSerial(joystick)) {
 -                        sscanf_s(serial, "%hhx-%hhx-%hhx-%hhx-%hhx-%hhx",
-+                        sscanf(serial, "%16hhx-%16hhx-%16hhx-%16hhx-%16hhx-%16hhx",
++                        sscanf(serial, "%2hhx-%2hhx-%2hhx-%2hhx-%2hhx-%2hhx",
                                   &response.shared.mac[0], &response.shared.mac[1], &response.shared.mac[2],
                                   &response.shared.mac[3], &response.shared.mac[4], &response.shared.mac[5]);
                      } else {
@@ -16,7 +16,7 @@ index 4771faa..94a6b63 100644
      SDL_Joystick* joystick = SDL_JoystickFromInstanceID(state.jsId);
      if (const char* serial = SDL_JoystickGetSerial(joystick)) {
 -        sscanf_s(serial, "%hhx-%hhx-%hhx-%hhx-%hhx-%hhx",
-+        sscanf(serial, "%16hhx-%16hhx-%16hhx-%16hhx-%16hhx-%16hhx",
++        sscanf(serial, "%2hhx-%2hhx-%2hhx-%2hhx-%2hhx-%2hhx",
                   &response.shared.mac[0], &response.shared.mac[1], &response.shared.mac[2],
                   &response.shared.mac[3], &response.shared.mac[4], &response.shared.mac[5]);
      } else {
