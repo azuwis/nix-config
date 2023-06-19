@@ -14,9 +14,9 @@
     my = {
       difftastic.enable = true;
       direnv.enable = true;
-      helix.enable = true;
+      # helix.enable = true;
       git.enable = true;
-      gitui.enable = true;
+      # gitui.enable = true;
       neovim.enable = true;
       nnn.enable = true;
       zsh.enable = true;
