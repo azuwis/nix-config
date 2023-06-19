@@ -29,6 +29,7 @@ in {
         qt5.qtwayland
         swappy
         sway-contrib.grimshot
+        wev
       ];
 
       wayland.windowManager.sway = {
