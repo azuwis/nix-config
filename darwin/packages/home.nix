@@ -24,7 +24,7 @@
     coreutils-full
     daemon
     # element-desktop
-    hydra-check
+    # hydra-check
     python3.pkgs.subfinder
     qbittorrent
     darwin.iproute2mac
