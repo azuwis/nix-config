@@ -27,9 +27,10 @@
     hydra-check
     python3.pkgs.subfinder
     qbittorrent
-    (darwin.iproute2mac.overrideAttrs (o: rec {
-      postPatch = "";
-    }))
+    darwin.iproute2mac
+    # (darwin.iproute2mac.overrideAttrs (o: rec {
+    #   postPatch = "";
+    # }))
     # losslesscut-bin
   ];
 }
