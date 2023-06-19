@@ -36,8 +36,9 @@ stdenv.mkDerivation rec {
   buildInputs = [
     SDL2
     dbus
-    libdecor
     libnotify
+  ] ++ lib.optionals stdenv.isLinux [
+    libdecor
   ];
 
   postPatch = ''
