@@ -23,7 +23,7 @@
     android-tools
     coreutils-full
     daemon
-    element-desktop
+    # element-desktop
     hydra-check
     python3.pkgs.subfinder
     qbittorrent
