@@ -23,7 +23,7 @@ in {
     wayland.windowManager.sway = {
       config = {
         keybindings = let mod = config.wayland.windowManager.sway.config.modifier; in lib.mkOptionDefault {
-          "${mod}+Shift+l" = ''exec "sleep 1; pkill -x -USR1 swayidle"'';
+          "--release ${mod}+Escape" = "exec pkill -x -USR1 swayidle";
         };
         startup = [{ command = "swayidle -w"; }];
       };

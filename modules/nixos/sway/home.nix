@@ -61,7 +61,7 @@ in {
             "${mod}+Shift+e" = mkIf config.wayland.windowManager.sway.systemdIntegration "exec swaynag -t warning -m 'Do you really want to exit sway?' -b 'Yes, exit sway' 'systemctl --user stop graphical-session.target; swaymsg exit'";
             "${mod}+Shift+p" = "exec passmenu";
             "${mod}+c" = "floating enable; move absolute position center";
-            "${mod}+Shift+l" = mkDefault "exec swaylock";
+            "--release ${mod}+Escape" = mkDefault "exec swaylock";
             "Print" = "grimshot save - | swappy -f -";
             "XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 3%+";
             "XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 3%-";
