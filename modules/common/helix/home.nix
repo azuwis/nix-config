@@ -35,6 +35,7 @@ in
           true-color = true;
         };
         keys.normal = {
+          # space.g = '':sh alacritty --working-directory "$PWD" --command gitui'';
           space.q = ":quit";
           space.space = "file_picker";
         };
