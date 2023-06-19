@@ -14,6 +14,7 @@ self: super: rec {
   sf-symbols-minimal = super.callPackage ./pkgs/sf-symbols { };
   steam-devices = super.callPackage ./pkgs/steam-devices { };
   torrent-ratio = super.callPackage ./pkgs/torrent-ratio { };
+  trigger-control = super.callPackage ./pkgs/trigger-control { };
 
   # override
   fcitx5-configtool = null;
