@@ -28,6 +28,7 @@
     python3.pkgs.subfinder
     qbittorrent
     darwin.iproute2mac
+    gimp
     # (darwin.iproute2mac.overrideAttrs (o: rec {
     #   postPatch = "";
     # }))
