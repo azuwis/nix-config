@@ -13,6 +13,9 @@ let
     seat seat0 attach "48879:57005:Keyboard_passthrough"
     seat seat0 attach "48879:57005:Touchscreen_passthrough"
     seat seat0 attach "1133:16440:Logitech_Wireless_Mouse_PID:4038"
+    default_border normal
+    default_floating_border normal
+    bindsym --release BTN_RIGHT kill
     exec sunshine
     '
     } > $out
