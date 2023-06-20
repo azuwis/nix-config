@@ -18,13 +18,13 @@ in
 
 stdenv.mkDerivation rec {
   pname = "trigger-control";
-  version = "unstable-2023-04-30";
+  version = "unstable-2023-06-18";
 
   src = fetchFromGitHub {
     owner = "Etaash-mathamsetty";
     repo = "trigger-control";
-    rev = "555acff24ffacd70685baf149924bc6a41b6c3bd";
-    hash = "sha256-DVPE/3KYj2bkWPFLmR3+YpmLLCXQtiy6Bf928z2gA0o=";
+    rev = "d457ebd9e0844cfc456bfa4fa4bb694bb8ad982a";
+    hash = "sha256-QWhUQ8xqS8oRVF0KUpEthlrOoXmhcfEkIHauDI1/5a8=";
   };
 
   nativeBuildInputs = [
