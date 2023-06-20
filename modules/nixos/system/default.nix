@@ -62,6 +62,12 @@
     evdev:name:Logitech Mechanical keyboard Logitech Mechanical keyboard:dmi:*
      KEYBOARD_KEY_70039=leftctrl
      KEYBOARD_KEY_700e0=capslock
+
+    # Microsoft All-in-One Media Keyboard, capslock <-> leftctrl, delete -> insert
+    evdev:name:Microsoft Microsoft® Nano Transceiver v2.0:dmi:*
+     KEYBOARD_KEY_70039=leftctrl
+     KEYBOARD_KEY_700e0=capslock
+     KEYBOARD_KEY_7004c=insert
   '';
   # nix profile diff-closures --profile /nix/var/nix/profiles/system
   system.activationScripts.systemDiff = ''
