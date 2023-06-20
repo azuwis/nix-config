@@ -41,24 +41,24 @@
   # sudo evtest | grep EV_MSC
   # sudo udevadm trigger
   services.udev.extraHwdb = ''
-    # General keyboard, swap capslock leftctrl
+    # General keyboard, capslock <-> leftctrl
     evdev:atkbd:dmi:*
      KEYBOARD_KEY_1d=capslock
      KEYBOARD_KEY_3a=leftctrl
     
-    # Dell XPS13, swap leftmeta leftalt
+    # Dell XPS13, leftmeta <-> leftalt
     evdev:atkbd:dmi:bvn*:bvr*:bd*:svnDell*:pnXPS13*:pvr*
      KEYBOARD_KEY_38=leftmeta
      KEYBOARD_KEY_db=leftalt
     
-    # Logitech K400 Plus, swap leftmeta leftalt, swap capslock leftctrl
+    # Logitech K400 Plus, leftmeta <-> leftalt, capslock <-> leftctrl
     evdev:name:Logitech K400 Plus:dmi:*
      KEYBOARD_KEY_70039=leftctrl
      KEYBOARD_KEY_700e0=capslock
      KEYBOARD_KEY_700e2=leftmeta
      KEYBOARD_KEY_700e3=leftalt
 
-    # Logitech Mechanical keyboard Logitech Mechanical keyboard, swap capslock leftctrl, swap leftmeta leftalt
+    # Logitech Mechanical keyboard, capslock <-> leftctrl
     evdev:name:Logitech Mechanical keyboard Logitech Mechanical keyboard:dmi:*
      KEYBOARD_KEY_70039=leftctrl
      KEYBOARD_KEY_700e0=capslock
