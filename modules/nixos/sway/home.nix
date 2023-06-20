@@ -77,9 +77,6 @@ in
           };
           # Inputs/outputs
           input = {
-            "*" = {
-              natural_scroll = "enabled";
-            };
             "type:keyboard" = {
               repeat_delay = "300";
               repeat_rate = "33";
@@ -92,6 +89,7 @@ in
             };
             # "<touchpad>" = {
             #   accel_profile = "adaptive";
+            #   natural_scroll = "enabled";
             #   pointer_accel = "0.28";
             #   scroll_method = "edge";
             # };
