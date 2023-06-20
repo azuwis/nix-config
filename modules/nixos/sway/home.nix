@@ -4,7 +4,8 @@ let
   inherit (lib) mdDoc mkEnableOption mkDefault mkIf mkMerge;
   cfg = config.my.sway;
 
-in {
+in
+{
   options.my.sway = {
     enable = mkEnableOption (mdDoc "sway");
     startupLocked = mkEnableOption (mdDoc "startupLocked");
@@ -44,12 +45,18 @@ in {
         '';
         config = {
           # Apps
-          # swaymsg -t get_tree
+          # swaymsg -t get_tree | less
           assigns = {
             "2" = [{ app_id = "^firefox$"; }];
           };
           floating.criteria = [
             { app_id = "^mpv$"; }
+          ];
+          window.commands = [
+            {
+              command = "inhibit_idle fullscreen";
+              criteria = { app_id = ''^info\.cemu\.Cemu$''; };
+            }
           ];
           # Border
           gaps.smartBorders = "no_gaps";
