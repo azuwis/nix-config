@@ -2,7 +2,7 @@
 , stdenv
 , fetchFromGitHub
 , cmake
-, pkgconfig
+, pkg-config
 , glibmm
 , libevdev
 , nlohmann_json
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     cmake
-    pkgconfig
+    pkg-config
   ];
 
   buildInputs = [

@@ -3,7 +3,7 @@
 , fetchFromGitHub
 , cmake
 , makeWrapper
-, pkgconfig
+, pkg-config
 , SDL2
 , dbus
 , libdecor
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     cmake
     makeWrapper
-    pkgconfig
+    pkg-config
   ];
 
   buildInputs = [
