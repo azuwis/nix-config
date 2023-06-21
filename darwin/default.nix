@@ -1,16 +1,13 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [
-    ../common/rime
-  ] ++ lib.my.getModules [ ../modules/darwin ./. ];
+  imports = lib.my.getModules [ ../modules/darwin ./. ];
 
-  hm.imports = [
-    ../common/rime
-  ] ++ lib.my.getHmModules [ ./. ];
+  hm.imports = lib.my.getHmModules [ ./. ];
 
   my.emacs.enable = true;
   my.firefox.enable = true;
+  my.rime.enable = true;
 
   hm.my.alacritty.enable = true;
   hm.my.mpv.enable = true;
