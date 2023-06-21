@@ -41,6 +41,7 @@ stdenv.mkDerivation rec {
     libdecor
   ];
 
+  # The app crash when fonts dir not found, provide dejavu_fonts for fixing the crash and better looking
   postPatch = ''
     substituteInPlace trigger-control.cpp --replace "/usr/share/fonts/" "${dejavu_fonts}/share/fonts/"
   '';
@@ -48,8 +49,7 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/bin
-    cp trigger-control $out/bin
+    install -D trigger-control $out/bin/trigger-control
 
     runHook postInstall
   '';
