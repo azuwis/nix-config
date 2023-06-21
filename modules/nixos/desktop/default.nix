@@ -11,6 +11,7 @@ in {
 
   config = mkIf cfg.enable {
     my.android.enable = true;
+    my.bluetooth.enable = true;
     my.fcitx5.enable = true;
     my.firefox.enable = true;
     my.sway.enable = true;
@@ -18,8 +19,6 @@ in {
     
     hm.my.desktop.enable = true;
 
-    hardware.bluetooth.enable = true;
     nix.daemonCPUSchedPolicy = "idle";
-
   };
 }
