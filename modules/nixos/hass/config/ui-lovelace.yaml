@@ -313,26 +313,26 @@ views:
               width: 5%
               border-radius: 50%
           # outside
-          - type: state-label
-            entity: sensor.dark_sky_apparent_temperature
-            tap_action:
-              action: navigate
-              navigation_path: /lovelace/history
-            hold_action:
-              action: more-info
-            style:
-              top: 98%
-              left: 6%
-          - type: state-label
-            entity: sensor.dark_sky_humidity
-            tap_action:
-              action: navigate
-              navigation_path: /lovelace/history
-            hold_action:
-              action: more-info
-            style:
-              top: 96%
-              left: 6%
+          # - type: state-label
+          #   entity: sensor.dark_sky_apparent_temperature
+          #   tap_action:
+          #     action: navigate
+          #     navigation_path: /lovelace/history
+          #   hold_action:
+          #     action: more-info
+          #   style:
+          #     top: 98%
+          #     left: 6%
+          # - type: state-label
+          #   entity: sensor.dark_sky_humidity
+          #   tap_action:
+          #     action: navigate
+          #     navigation_path: /lovelace/history
+          #   hold_action:
+          #     action: more-info
+          #   style:
+          #     top: 96%
+          #     left: 6%
           # - type: state-label
           #   entity: !secret air_sensor
           #   tap_action:
@@ -417,13 +417,13 @@ views:
             - entity: sensor.xiaomi_mt0_6e25_co2_density
               name: Co2
 
-      - type: conditional
-        conditions:
-          - entity: weather.hangzhou
-            state_not: dummy
-        card:
-          type: weather-forecast
-          entity: weather.hangzhou
+      # - type: conditional
+      #   conditions:
+      #     - entity: weather.hangzhou
+      #       state_not: dummy
+      #   card:
+      #     type: weather-forecast
+      #     entity: weather.hangzhou
 
   - title: History
     path: history
@@ -451,9 +451,9 @@ views:
             name: Kids
           - entity: sensor.xiaomi_mt0_6e25_co2_density
             name: Kids
-          - entity: sensor.dark_sky_apparent_temperature
-            name: Outside
-          - entity: sensor.dark_sky_humidity
+          # - entity: sensor.dark_sky_apparent_temperature
+          #   name: Outside
+          # - entity: sensor.dark_sky_humidity
             name: Outside
           - entity: !secret air_sensor
             name: !secret air_name

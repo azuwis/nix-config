@@ -18,7 +18,7 @@ in
     ./simple-thermostat.nix
     ./smartir.nix
     ./theme.nix
-    ./weather.nix
+    # ./weather.nix
     ./xiaomi_gateway3.nix
     ./xiaomi_miot.nix
     # ./zhibot.nix
