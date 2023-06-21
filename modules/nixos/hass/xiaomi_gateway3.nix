@@ -62,6 +62,36 @@ in
           service: light.turn_off
           data:
             entity_id: light.bathroom
+
+      - alias: Light kitchen on when sensor on
+        trigger:
+          platform: state
+          entity_id: binary_sensor.649e314c943b_occupancy
+          from: "off"
+          to: "on"
+        condition:
+          condition: state
+          entity_id: light.kitchen
+          state: "off"
+        action:
+          service: light.turn_on
+          data:
+            entity_id: light.kitchen
+
+      - alias: Light kitchen off when sensor off
+        trigger:
+          platform: state
+          entity_id: binary_sensor.649e314c943b_occupancy
+          from: "on"
+          to: "off"
+        condition:
+          condition: state
+          entity_id: light.kitchen
+          state: "on"
+        action:
+          service: light.turn_off
+          data:
+            entity_id: light.kitchen
     '';
   };
 }
