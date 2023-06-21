@@ -8,8 +8,8 @@ let
     name = "${owner}-${repo}-${rev}";
     owner = "AlexxIT";
     repo = "XiaomiGateway3";
-    rev = "7596fc1d6c342fe9ba0e088bcb48aa65f42c31b2";
-    sha256 = "0kbgv2m9pzpvgmncxgswn937nrl8dc3zmsprcw89ip756400mvyz";
+    rev = "27f22a5d5e27117120e62eee17c291af53f3afda";
+    sha256 = "0jivdk28c43ydkjlmblliypnhkmvd8qzg9jnd6v391gnp1r16900";
   };
 in
 {
