@@ -16,6 +16,7 @@
     compsize
     dnsutils
     efibootmgr
+    inetutils
     iotop-c
     netproc
     nixos-option

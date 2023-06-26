@@ -18,7 +18,6 @@
     gzip
     htop
     imagemagick
-    inetutils
     ipcalc
     jq
     less
