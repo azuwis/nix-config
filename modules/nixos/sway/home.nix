@@ -17,7 +17,8 @@ in
       my.cliphist.enable = true;
       my.foot.enable = true;
       my.swayidle.enable = mkDefault true;
-      my.yambar.enable = true;
+      my.waybar.enable = true;
+      # my.yambar.enable = true;
 
       home.packages = with pkgs; [
         (runCommand "fuzzel" { buildInputs = [ makeWrapper ]; } ''
