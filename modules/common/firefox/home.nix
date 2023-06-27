@@ -72,7 +72,7 @@ let
     "security.dialog_enable_delay" = 0;
     "browser.fullscreen.animate" = false;
     "browser.tabs.animate" = false;
-    "toolkit.scrollbox.smoothScroll" = false;
+    "toolkit.scrollbox.smoothScroll" = true;
     "toolkit.scrollbox.verticalScrollDistance" = 5;
     "privacy.donottrackheader.enabled" = true;
     "network.http.referer.userControlPolicy" = 2;
