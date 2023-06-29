@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     libdecor
   ];
 
-  # The app crash when fonts dir not found, provide dejavu_fonts for fixing the crash and better looking
+  # The app crashes without a changed fontdir and upstream recommends dejavu as font
   postPatch = ''
     substituteInPlace trigger-control.cpp --replace "/usr/share/fonts/" "${dejavu_fonts}/share/fonts/"
   '';
@@ -64,5 +64,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Etaash-mathamsetty/trigger-control";
     license = licenses.mit;
     maintainers = with maintainers; [ azuwis ];
+    platforms = platforms.all;
   };
 }
