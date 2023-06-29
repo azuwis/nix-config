@@ -5,7 +5,7 @@ let
   cfg = config.my.torrent;
 
   inherit (config.my) domain;
-  port = builtins.toString config.services.qbittorrent.settings.Preferences."WebUI.Port";
+  port = builtins.toString config.services.qbittorrent.settings.Preferences."WebUI\\Port";
 in
 {
   options.my.torrent = {
@@ -45,31 +45,31 @@ in
     services.qbittorrent.group = cfg.user;
     services.qbittorrent.settings = {
       BitTorrent = {
-        "Session.DefaultSavePath" = cfg.DefaultSavePath;
-        "Session.DisableAutoTMMByDefault" = false;
-        "Session.DisableAutoTMMTriggers.CategorySavePathChanged" = false;
-        "Session.DisableAutoTMMTriggers.DefaultSavePathChanged" = false;
-        "Session.GlobalDLSpeedLimit" = 15000;
-        "Session.GlobalUPSpeedLimit" = 3072;
-        "Session.MaxActiveDownloads" = 5;
-        "Session.MaxActiveTorrents" = 150;
-        "Session.MaxActiveUploads" = 150;
-        "Session.Preallocation" = true;
-        "Session.QueueingSystemEnabled" = true;
-        "Session.SSRFMitigation" = !cfg.torrent-ratio;
-        "Session.ValidateHTTPSTrackerCertificate" = !cfg.torrent-ratio;
+        "Session\\DefaultSavePath" = cfg.DefaultSavePath;
+        "Session\\DisableAutoTMMByDefault" = false;
+        "Session\\DisableAutoTMMTriggers\\CategorySavePathChanged" = false;
+        "Session\\DisableAutoTMMTriggers\\DefaultSavePathChanged" = false;
+        "Session\\GlobalDLSpeedLimit" = 15000;
+        "Session\\GlobalUPSpeedLimit" = 3072;
+        "Session\\MaxActiveDownloads" = 5;
+        "Session\\MaxActiveTorrents" = 150;
+        "Session\\MaxActiveUploads" = 150;
+        "Session\\Preallocation" = true;
+        "Session\\QueueingSystemEnabled" = true;
+        "Session\\SSRFMitigation" = !cfg.torrent-ratio;
+        "Session\\ValidateHTTPSTrackerCertificate" = !cfg.torrent-ratio;
       };
       Network = {
-        "Proxy.IP" = "127.0.0.1";
-        "Proxy.Port" = config.my.torrent-ratio.port;
-        "Proxy.Type" = if cfg.torrent-ratio then "HTTP" else "None";
+        "Proxy\\IP" = "127.0.0.1";
+        "Proxy\\Port" = config.my.torrent-ratio.port;
+        "Proxy\\Type" = if cfg.torrent-ratio then "HTTP" else "None";
       };
       Preferences = {
-        "WebUI.Address" = "127.0.0.1";
-        "WebUI.CSRFProtection" = !config.my.nginx.enable;
-        "WebUI.Port" = 8080;
-        "WebUI.SessionTimeout" = 86400;
-        "WebUI.UseUPnP" = false;
+        "WebUI\\Address" = "127.0.0.1";
+        "WebUI\\CSRFProtection" = !config.my.nginx.enable;
+        "WebUI\\Port" = 8080;
+        "WebUI\\SessionTimeout" = 86400;
+        "WebUI\\UseUPnP" = false;
       };
     };
 

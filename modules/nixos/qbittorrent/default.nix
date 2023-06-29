@@ -4,15 +4,8 @@ let
   inherit (lib) literalExpression mkEnableOption mkIf mkOption types;
   cfg = config.services.qbittorrent;
 
-  toml = pkgs.formats.toml { };
-  generate = name: value: pkgs.callPackage ({ runCommand, remarshal, perl }: runCommand name {
-    nativeBuildInputs = [ remarshal perl ];
-    value = builtins.toJSON value;
-    passAsFile = [ "value" ];
-  } ''
-    json2toml "$valuePath" - | perl -pe 's/(?<=^"[A-Za-z.]{1,128})\./\\/g; s/"//g' > "$out"
-  '') {};
-  configFile = generate "qBittorrent.conf" cfg.settings;
+  ini = pkgs.formats.ini { };
+  configFile = ini.generate "qBittorrent.conf" cfg.settings;
 
 in
 {
@@ -53,14 +46,14 @@ in
     };
 
     settings = mkOption {
-      type = toml.type;
+      type = ini.type;
       example = {
         BitTorrent = {
-          "Session.Port" = 8999;
+          "Session\\Port" = 8999;
         };
         Preferences = {
-          "WebUI.Address" = "127.0.0.1";
-          "WebUI.Port" = 8080;
+          "WebUI\\Address" = "127.0.0.1";
+          "WebUI\\Port" = 8080;
         };
       };
       description = ''
@@ -107,8 +100,8 @@ in
       '';
     };
 
-    services.qbittorrent.settings.BitTorrent."Session.Port" = 8999;
-    networking.firewall.allowedTCPPorts = [ cfg.settings.BitTorrent."Session.Port" ];
+    services.qbittorrent.settings.BitTorrent."Session\\Port" = 8999;
+    networking.firewall.allowedTCPPorts = [ cfg.settings.BitTorrent."Session\\Port" ];
 
   };
 }
