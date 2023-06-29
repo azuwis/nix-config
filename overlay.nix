@@ -1,6 +1,7 @@
 self: super: rec {
   # pkgs
   anime4k = super.callPackage ./pkgs/anime4k { };
+  dualsensectl = super.callPackage ./pkgs/dualsensectl { };
   evdevhook = super.callPackage ./pkgs/evdevhook { };
   jetbrains-mono-nerdfont = super.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
   legacyfox = super.callPackage ./pkgs/legacyfox { };
