@@ -65,6 +65,26 @@ views:
             style:
               top: 44.2%
               left: 77%
+          - type: state-label
+            entity: sensor.1775bcf17c0e_humidity
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/history
+            hold_action:
+              action: more-info
+            style:
+              top: 42.2%
+              left: 47%
+          - type: state-label
+            entity: sensor.1775bcf17c0e_temperature
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/history
+            hold_action:
+              action: more-info
+            style:
+              top: 44.2%
+              left: 47.9%
           # primary bedroom
           - type: state-icon
             entity: light.primary_bedroom
