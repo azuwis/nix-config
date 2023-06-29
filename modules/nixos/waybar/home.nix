@@ -21,7 +21,7 @@ in
         "custom/network"
         "cpu"
         "memory"
-        "wireplumber"
+        "pulseaudio"
         "clock"
       ];
       "sway/window" = {
@@ -36,7 +36,7 @@ in
       memory = {
         format = "󰍛 {percentage}%";
       };
-      wireplumber = {
+      pulseaudio = {
         format = "󰕾 {volume}%";
         format-muted = "󰖁 {volume}%";
       };
@@ -75,7 +75,7 @@ in
       #cpu,
       #custom-network,
       #memory,
-      #wireplumber,
+      #pulseaudio,
       #workspaces {
           padding: 0 6px;
       }
