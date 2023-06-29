@@ -79,21 +79,5 @@ in
       };
     };
 
-    hass.automations = ''
-      - alias: Light bathroom on when sensor on
-        trigger:
-          platform: state
-          entity_id: binary_sensor.motion_bathroom_occupancy
-          from: "off"
-          to: "on"
-        condition:
-          condition: state
-          entity_id: light.bathroom
-          state: "off"
-        action:
-          service: light.turn_on
-          data:
-            entity_id: light.bathroom
-    '';
   };
 }
