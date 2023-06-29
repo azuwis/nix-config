@@ -24,7 +24,7 @@ in {
         enable = true;
         settings = {
           default_session = {
-            command = "${pkgs.greetd.greetd}/bin/agreety --cmd sway";
+            command = "${pkgs.greetd.greetd}/bin/agreety --cmd 'systemd-cat --identifier=sway sway'";
           };
         };
       };
@@ -43,7 +43,7 @@ in {
 
       # to start initial_session again, run `/run/greetd.run; systemctl restart greetd`
       services.greetd.settings.initial_session = {
-        command = "sway";
+        command = "systemd-cat --identifier=sway sway";
         user = config.my.user;
       };
     })
