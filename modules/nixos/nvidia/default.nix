@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf mkMerge;
+  inherit (lib) mdDoc mkDefault mkEnableOption mkIf mkMerge;
   cfg = config.my.nvidia;
 
 in {
@@ -14,6 +14,7 @@ in {
     ({
       hm.my.nvidia.enable = true;
 
+      boot.loader.grub.gfxmodeEfi = mkDefault "1920x1080";
       hardware.nvidia.modesetting.enable = true;
       services.xserver.videoDrivers = [ "nvidia" ];
       programs.sway = {
