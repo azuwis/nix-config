@@ -64,6 +64,7 @@ in {
         ];
         ExecStart = "/etc/profiles/per-user/%u/bin/sway -c ${swayConfig}";
         Restart = "on-failure";
+        SyslogIdentifier = "sunshine";
       };
     };
 
