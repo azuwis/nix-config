@@ -73,12 +73,6 @@ in {
     programs.neovim = let
       nvchad = pkgs.vimPlugins.nvchad.overrideAttrs (old: {
         patches = [
-          (pkgs.fetchpatch {
-            # Fix default mappings not loaded if chadrc.lua does not exist
-            # https://github.com/NvChad/NvChad/pull/2037
-            url = "https://github.com/NvChad/NvChad/commit/583828d1a69d385587f7d214f59c354ba7dd02a1.diff";
-            sha256 = "sha256-gmVmbP1TO3+OAgXft/l3xvoEGj93t/ksmLWsAkJS6Bk=";
-          })
           ./nvchad.patch
         ];
         postPatch = ''
