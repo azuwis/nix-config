@@ -37,7 +37,7 @@ in
       wayland.windowManager.sway = {
         enable = true;
         wrapperFeatures.gtk = true;
-        systemdIntegration = false;
+        systemd.enable = false;
         extraSessionCommands = ''
           export SDL_VIDEODRIVER=wayland
           export QT_QPA_PLATFORM=wayland-egl
@@ -67,7 +67,7 @@ in
           keybindings = let mod = config.wayland.windowManager.sway.config.modifier; in lib.mkOptionDefault {
             "${mod}+Tab" = "workspace back_and_forth";
             # stop graphical-session.target so services like foot will not try to restart itself
-            "${mod}+Shift+e" = mkIf config.wayland.windowManager.sway.systemdIntegration "exec swaynag -t warning -m 'Do you really want to exit sway?' -b 'Yes, exit sway' 'systemctl --user stop graphical-session.target; swaymsg exit'";
+            "${mod}+Shift+e" = mkIf config.wayland.windowManager.sway.systemd.enable "exec swaynag -t warning -m 'Do you really want to exit sway?' -b 'Yes, exit sway' 'systemctl --user stop graphical-session.target; swaymsg exit'";
             "${mod}+Shift+p" = "exec passmenu";
             "${mod}+c" = "floating enable; move absolute position center";
             "--release --no-repeat ${mod}+Escape" = mkDefault "exec swaylock";
