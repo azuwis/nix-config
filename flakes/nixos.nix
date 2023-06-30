@@ -6,8 +6,6 @@ let
     inherit system;
     specialArgs = { inherit inputs lib pkgs; };
     modules = [
-      inputs.home-manager.nixosModules.home-manager
-      ../common
       ../nixos
     ] ++ modules ;
   });

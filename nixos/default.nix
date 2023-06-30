@@ -1,7 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ inputs, config, lib, pkgs, ... }:
 
 {
-  imports = lib.my.getModules [ ./. ];
+  imports = [
+    inputs.home-manager.nixosModules.home-manager
+    ../common
+  ] ++ lib.my.getModules [ ./. ];
 
   hm.imports = lib.my.getHmModules [ ./. ];
 }
