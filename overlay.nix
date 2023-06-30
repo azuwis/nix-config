@@ -15,7 +15,6 @@ self: super: rec {
   sf-symbols-minimal = super.callPackage ./pkgs/sf-symbols { };
   steam-devices = super.callPackage ./pkgs/steam-devices { };
   torrent-ratio = super.callPackage ./pkgs/torrent-ratio { };
-  trigger-control = super.callPackage ./pkgs/trigger-control { };
 
   # override
   fcitx5-configtool = null;
@@ -45,6 +44,7 @@ self: super: rec {
   # sketchybar = super.callPackage ./pkgs/sketchybar {
   #   inherit (super.darwin.apple_sdk.frameworks) Carbon Cocoa SkyLight;
   # };
+  # trigger-control = super.callPackage ./pkgs/trigger-control { };
   # uxplay = super.callPackage ./pkgs/uxplay { };
   # yabai = super.callPackage ./pkgs/yabai { };
 }
