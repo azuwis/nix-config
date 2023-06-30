@@ -1,11 +1,11 @@
 { inputs, config, lib, pkgs, ... }:
 
 {
-  imports = lib.my.getModules [ ../modules/common ];
+  imports = lib.my.getModules [ ./. ];
 
   hm.imports = [
     inputs.nix-index-database.hmModules.nix-index
-  ] ++ lib.my.getHmModules [ ../modules/common ];
+  ] ++ lib.my.getHmModules [ ./. ];
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
