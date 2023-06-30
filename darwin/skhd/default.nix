@@ -30,7 +30,7 @@
       lalt - j : yabai -m window --focus south
       lalt - h : yabai -m window --focus west || yabai -m window --focus stack.prev || yabai -m window --focus stack.last
       lalt - k : yabai -m window --focus north
-      lalt - space : SHELL=/run/current-system/sw/bin/zsh alacritty -o window.dimensions.columns=50 -o window.dimensions.lines=6 -o window.position.x=1000 -o window.position.y=48 --title=Fzf --command appfzf
+      lalt - d : SHELL=/run/current-system/sw/bin/zsh alacritty -o window.dimensions.columns=50 -o window.dimensions.lines=6 -o window.position.x=1000 -o window.position.y=48 --title=Fzf --command appfzf
       lshift + lalt - l : yabai -m window --swap east
       lshift + lalt - j : yabai -m window --swap south
       lshift + lalt - h : yabai -m window --swap west
