@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = lib.my.getModules [ ../modules/nixos ];
+  imports = lib.my.getModules [ ./. ];
 
-  hm.imports = lib.my.getHmModules [ ../modules/nixos ];
+  hm.imports = lib.my.getHmModules [ ./. ];
 }
