@@ -1,9 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [
-    (lib.mkAliasOptionModule [ "hm" ] [ "home-manager" "users" config.my.user ])
-  ];
   nix.settings = {
     auto-optimise-store = lib.mkDefault true;
     extra-experimental-features = [ "flakes" "nix-command" ];
