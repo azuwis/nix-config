@@ -21,14 +21,9 @@ in
     programs.neovim = {
       enable = true;
       extraPackages = with pkgs; [
-        ansible-language-server
-        nil
-        nixpkgs-fmt
         sumneko-lua-language-server
-        terraform-ls
         tree-sitter
-        yaml-language-server
-      ] ++ lib.optionals (builtins.hasAttr "stylua" pkgs) [ stylua ];
+      ];
       withNodeJs = false;
       withRuby = false;
       viAlias = true;

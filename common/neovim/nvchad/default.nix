@@ -2,6 +2,17 @@
 
 {
   config = lib.mkIf config.my.neovim.enable {
+    programs.neovim.extraPackages = with pkgs; [
+      # lua/custom/configs/lspconfig.lua
+      ansible-language-server
+      nil
+      terraform-ls
+      yaml-language-server
+      # lua/custom/configs/null-ls.lua
+      nixpkgs-fmt
+      shellcheck
+      stylua
+    ];
     programs.neovim.plugins = with pkgs.vimPlugins; [
       (nvim-treesitter.withPlugins (plugins: with plugins; [
         hcl
