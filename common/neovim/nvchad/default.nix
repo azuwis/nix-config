@@ -5,6 +5,7 @@
     programs.neovim.extraPackages = with pkgs; [
       # lua/custom/configs/lspconfig.lua
       ansible-language-server
+      lua-language-server
       nil
       terraform-ls
       yaml-language-server
