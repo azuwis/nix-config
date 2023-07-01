@@ -4,7 +4,7 @@ local capabilities = require("plugins.configs.lspconfig").capabilities
 local lspconfig = require("lspconfig")
 local servers = {
   "ansiblels",
-  "rnix",
+  "nil_ls",
   "terraformls",
   "yamlls",
 }

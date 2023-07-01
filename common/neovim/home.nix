@@ -22,8 +22,8 @@ in
       enable = true;
       extraPackages = with pkgs; [
         ansible-language-server
+        nil
         nixpkgs-fmt
-        rnix-lsp
         sumneko-lua-language-server
         terraform-ls
         tree-sitter
