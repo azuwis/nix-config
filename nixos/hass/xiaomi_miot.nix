@@ -75,7 +75,7 @@ in
         trigger:
           - platform: time
             at:
-              - "08:30:00"
+              - "07:45:00"
               - "21:30:00"
         variables:
           position: >-
