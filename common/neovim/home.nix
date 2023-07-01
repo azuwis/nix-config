@@ -20,10 +20,6 @@ in
     home.sessionVariables.EDITOR = "nvim";
     programs.neovim = {
       enable = true;
-      extraPackages = with pkgs; [
-        sumneko-lua-language-server
-        tree-sitter
-      ];
       withNodeJs = false;
       withRuby = false;
       viAlias = true;
