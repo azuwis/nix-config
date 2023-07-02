@@ -24,7 +24,7 @@ views:
               top: 72.8%
               left: 93%
           - type: state-icon
-            entity: media_player.tv
+            entity: media_player.sony_kdl_55w800b
             hold_action:
               action: toggle
             style:
@@ -377,11 +377,11 @@ views:
 
       - type: conditional
         conditions:
-          - entity: media_player.tv
+          - entity: media_player.sony_kdl_55w800b
             state: 'on'
         card:
           type: custom:mini-media-player
-          entity: media_player.tv
+          entity: media_player.sony_kdl_55w800b
           hide_controls: yes
           power_color: yes
           show_source: small

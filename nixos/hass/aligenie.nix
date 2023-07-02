@@ -113,7 +113,7 @@ in
           hagenie_deviceType = "light";
           hagenie_zone = "浴室";
         };
-        "media_player.tv" = {
+        "media_player.sony_kdl_55w800b" = {
           hagenie_deviceName = "电视";
           hagenie_deviceType = "television";
           hagenie_zone = "客厅";

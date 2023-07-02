@@ -39,7 +39,7 @@ in
       "light.kids_room" = { friendly_name = "儿童房灯"; };
       "light.kitchen" = { friendly_name = "厨房灯"; };
       "light.bathroom" = { friendly_name = "浴室灯"; };
-      "media_player.tv" = { friendly_name = "电视"; };
+      "media_player.sony_kdl_55w800b" = { friendly_name = "电视"; };
     };
     logger.logs."custom_components.zhibot" = "debug";
   };
