@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  networking.hostName = "mbp";
   system.activationScripts.hostname.text = ''
     echo >&2 "setting up hostname in /etc/hosts..."
     if grep -q nix-darwin /etc/hosts

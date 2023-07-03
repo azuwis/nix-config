@@ -10,5 +10,9 @@ let
     ] ++ modules ;
   });
 in {
-  flake.darwinConfigurations.mbp = mkDarwin { };
+  flake.darwinConfigurations = {
+    mbp = mkDarwin {
+      modules = [ ../hosts/mbp.nix ];
+    };
+  };
 }
