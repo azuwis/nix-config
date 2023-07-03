@@ -6,5 +6,6 @@
     ./nixos.nix
     ./droid.nix
     ./devshell.nix
+    ./treefmt.nix
   ];
 }
