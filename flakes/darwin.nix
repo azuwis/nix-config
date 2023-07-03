@@ -6,9 +6,6 @@ let
     inherit system;
     specialArgs = { inherit inputs lib pkgs; };
     modules = [
-      inputs.agenix.darwinModules.default
-      inputs.home-manager.darwinModules.home-manager
-      ../common
       ../darwin
     ] ++ modules ;
   });
