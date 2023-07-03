@@ -1,5 +1,13 @@
-{ lib, stdenvNoCC, fetchurl, undmg, xar, cpio, fonts ? true, full ? false
-, app ? false }:
+{ lib
+, stdenvNoCC
+, fetchurl
+, undmg
+, xar
+, cpio
+, fonts ? true
+, full ? false
+, app ? false
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "sf-symbols";
@@ -25,10 +33,11 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = {
-    description = if app then
-      "Tool that provides consistent, highly configurable symbols for apps"
-    else
-      "Fonts from SF Symbols";
+    description =
+      if app then
+        "Tool that provides consistent, highly configurable symbols for apps"
+      else
+        "Fonts from SF Symbols";
     homepage = "https://developer.apple.com/sf-symbols/";
     platforms = if app then lib.platforms.darwin else lib.platforms.all;
   };

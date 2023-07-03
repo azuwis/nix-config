@@ -4,7 +4,8 @@ let
   inherit (lib) mdDoc mkEnableOption mkIf;
   cfg = config.my.zramswap;
 
-in {
+in
+{
   options.my.zramswap = {
     enable = mkEnableOption (mdDoc "zramswap");
   };

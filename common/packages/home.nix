@@ -2,7 +2,7 @@
 
 {
   home.packages = with pkgs; [
-    (pass.withExtensions(ext: [ ext.pass-otp ]))
+    (pass.withExtensions (ext: [ ext.pass-otp ]))
     age
     borgbackup
     bzip2

@@ -4,7 +4,8 @@ let
   inherit (lib) mdDoc mkEnableOption mkIf;
   cfg = config.my.fcitx5;
 
-in {
+in
+{
   options.my.fcitx5 = {
     enable = mkEnableOption (mdDoc "fcitx5");
   };

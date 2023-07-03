@@ -16,7 +16,8 @@ let
     "CTRL+0" = ''no-osd change-list glsl-shaders clr ""; show-text "GLSL shaders cleared"'';
   };
 
-in {
+in
+{
   options.my.mpv = {
     anime4k = mkEnableOption (mdDoc "anime4k") // { default = true; };
   };

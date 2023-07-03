@@ -4,7 +4,8 @@ let
   inherit (lib) mdDoc mkEnableOption mkIf;
   cfg = config.my.theme;
 
-in {
+in
+{
   options.my.theme = {
     enable = mkEnableOption (mdDoc "theme");
   };

@@ -4,7 +4,8 @@ let
   inherit (lib) mkIf;
   cfg = config.my.firefox;
 
-in {
+in
+{
   config = mkIf cfg.enable {
     home.activation.legacyfox = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       ${pkgs.rsync}/bin/rsync -a ${pkgs.legacyfox}/lib/firefox/ /Applications/Firefox.app/Contents/Resources/

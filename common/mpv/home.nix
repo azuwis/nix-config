@@ -4,7 +4,8 @@ let
   inherit (lib) mdDoc mkEnableOption mkIf mkMerge;
   cfg = config.my.mpv;
 
-in {
+in
+{
   imports = [
     ./anime4k.nix
     ./uosc.nix
@@ -23,10 +24,10 @@ in {
     programs.mpv = {
       enable = true;
       bindings = {
-        Y = "add sub-scale +0.1";                # increase subtitle font size
-        G = "add sub-scale -0.1";                # decrease subtitle font size
-        y = "sub_step -1";                       # immediately display next subtitle
-        g = "sub_step +1";                       # previous
+        Y = "add sub-scale +0.1"; # increase subtitle font size
+        G = "add sub-scale -0.1"; # decrease subtitle font size
+        y = "sub_step -1"; # immediately display next subtitle
+        g = "sub_step +1"; # previous
         R = "cycle_values window-scale 2 0.5 1"; # switch between 2x, 1/2, unresized window size
       };
       config = {

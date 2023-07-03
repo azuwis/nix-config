@@ -4,7 +4,8 @@ let
   inherit (lib) mdDoc mkEnableOption mkIf;
   cfg = config.my.nvidia;
 
-in {
+in
+{
   options.my.nvidia = {
     enable = mkEnableOption (mdDoc "nvidia");
   };
@@ -17,8 +18,8 @@ in {
     wayland.windowManager.sway = {
       extraOptions = [ "--unsupported-gpu" ];
       extraSessionCommands = ''
-      export WLR_NO_HARDWARE_CURSORS=1
-      export WLR_RENDERER=vulkan
+        export WLR_NO_HARDWARE_CURSORS=1
+        export WLR_RENDERER=vulkan
       '';
     };
   };

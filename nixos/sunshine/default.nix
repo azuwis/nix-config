@@ -4,7 +4,8 @@ let
   inherit (lib) mdDoc mkEnableOption mkIf mkOption types;
   cfg = config.my.sunshine;
 
-in {
+in
+{
   options.my.sunshine = {
     enable = mkEnableOption (mdDoc "sunshine");
     openFirewall = mkEnableOption (mdDoc "openFirewall") // { default = true; };

@@ -4,7 +4,8 @@ let
   inherit (lib) mdDoc mkEnableOption mkIf;
   cfg = config.my.android;
 
-in {
+in
+{
   options.my.android = {
     enable = mkEnableOption (mdDoc "android");
     adbusers = mkEnableOption ''

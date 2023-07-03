@@ -7,14 +7,15 @@ let
   cfg = config.services.photoprism;
   configFile = pkgs.writeTextFile {
     name = "photoprism.yml";
-    text = generators.toYAML {} ({
+    text = generators.toYAML { } ({
       StoragePath = "${cfg.dataDir}/storage";
       OriginalsPath = "${cfg.dataDir}/originals";
       ImportPath = "${cfg.dataDir}/import";
     } // cfg.config);
   };
 
-in {
+in
+{
   options.services.photoprism = {
     enable = mkEnableOption "photoprism";
 
@@ -53,7 +54,7 @@ in {
 
     config = mkOption {
       type = with types; attrsOf (oneOf [ bool int str path package ]);
-      default = {};
+      default = { };
       example = literalExpression ''
         {
           DisableTensorFlow = true;
@@ -77,7 +78,7 @@ in {
   config = mkIf cfg.enable {
 
     users.groups = mkIf (cfg.group == "photoprism") {
-      photoprism = {};
+      photoprism = { };
     };
 
     users.users = mkIf (cfg.user == "photoprism") {
@@ -105,7 +106,7 @@ in {
             Type = "simple";
             Restart = "on-failure";
             WorkingDirectory = cfg.dataDir;
-            ExecStart="${cfg.package}/bin/photoprism --defaults-yaml ${configFile} start";
+            ExecStart = "${cfg.package}/bin/photoprism --defaults-yaml ${configFile} start";
           };
         };
       };

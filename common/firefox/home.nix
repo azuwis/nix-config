@@ -4,25 +4,33 @@ let
   inherit (lib) mdDoc mkEnableOption mkIf;
   cfg = config.my.firefox;
 
-  buildFirefoxXpiAddon = lib.makeOverridable ({ stdenv ? pkgs.stdenv
-    , fetchurl ? pkgs.fetchurl, pname, version, addonId, url, sha256, meta, ...
-    }:
-    stdenv.mkDerivation {
-      name = "${pname}-${version}";
+  buildFirefoxXpiAddon = lib.makeOverridable
+    ({ stdenv ? pkgs.stdenv
+     , fetchurl ? pkgs.fetchurl
+     , pname
+     , version
+     , addonId
+     , url
+     , sha256
+     , meta
+     , ...
+     }:
+      stdenv.mkDerivation {
+        name = "${pname}-${version}";
 
-      inherit meta;
+        inherit meta;
 
-      src = fetchurl { inherit url sha256; };
+        src = fetchurl { inherit url sha256; };
 
-      preferLocalBuild = true;
-      allowSubstitutes = true;
+        preferLocalBuild = true;
+        allowSubstitutes = true;
 
-      buildCommand = ''
-        dst="$out/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
-        mkdir -p "$dst"
-        install -v -m644 "$src" "$dst/${addonId}.xpi"
-      '';
-    });
+        buildCommand = ''
+          dst="$out/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+          mkdir -p "$dst"
+          install -v -m644 "$src" "$dst/${addonId}.xpi"
+        '';
+      });
 
   vimfx = buildFirefoxXpiAddon rec {
     pname = "vimfx";
@@ -36,7 +44,7 @@ let
     };
   };
 
-  firefox = pkgs.firefox.overrideAttrs(o: {
+  firefox = pkgs.firefox.overrideAttrs (o: {
     buildCommand = o.buildCommand + ''
       # conflict with legacyfox
       rm $out/lib/firefox/defaults/pref/autoconfig.js
@@ -95,7 +103,7 @@ let
     "toolkit.telemetry.server" = "";
     "toolkit.telemetry.unified" = false;
     "toolkit.telemetry.prompted" = 2;
-    "toolkit.telemetry.rejected" = true ;
+    "toolkit.telemetry.rejected" = true;
     "datareporting.healthreport.uploadEnabled" = false;
     "datareporting.policy.dataSubmissionEnabled" = false;
     "media.peerconnection.enabled" = false;
@@ -127,7 +135,8 @@ let
     "extensions.VimFx.config_file_directory" = "~/.config/vimfx";
   };
 
-in {
+in
+{
   options.my.firefox = {
     enable = mkEnableOption (mdDoc "firefox");
   };

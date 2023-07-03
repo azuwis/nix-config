@@ -15,14 +15,16 @@ stdenv.mkDerivation rec {
     sha256 = "03qmwk0qb9wzh6nlk06zb3r1ff6abw3xawdhxbmis98678zwkzh7";
   };
 
-  postPatch = let
-    replace = {
-      aarch64-darwin = ''--replace "-arch x86_64" ""'';
-      x86_64-darwin = ''--replace "-arch arm64e" "" --replace "-arch arm64" ""'';
-    }.${stdenv.system};
-  in ''
-    substituteInPlace makefile ${replace}
-  '';
+  postPatch =
+    let
+      replace = {
+        aarch64-darwin = ''--replace "-arch x86_64" ""'';
+        x86_64-darwin = ''--replace "-arch arm64e" "" --replace "-arch arm64" ""'';
+      }.${stdenv.system};
+    in
+    ''
+      substituteInPlace makefile ${replace}
+    '';
 
   buildPhase = ''
     PATH=/usr/bin:/bin /usr/bin/make install

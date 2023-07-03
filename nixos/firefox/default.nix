@@ -4,7 +4,8 @@ let
   inherit (lib) mdDoc mkEnableOption mkIf;
   cfg = config.my.firefox;
 
-in {
+in
+{
   options.my.firefox = {
     enable = mkEnableOption (mdDoc "firefox");
   };

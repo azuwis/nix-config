@@ -1,15 +1,16 @@
 { inputs, withSystem, ... }:
 
 let
-  mkNixos = { system ? "x86_64-linux", modules ? [] }:
-  withSystem system ({ lib, pkgs, system, ... }: inputs.nixpkgs.lib.nixosSystem {
-    inherit system;
-    specialArgs = { inherit inputs lib pkgs; };
-    modules = [
-      ../nixos
-    ] ++ modules ;
-  });
-in {
+  mkNixos = { system ? "x86_64-linux", modules ? [ ] }:
+    withSystem system ({ lib, pkgs, system, ... }: inputs.nixpkgs.lib.nixosSystem {
+      inherit system;
+      specialArgs = { inherit inputs lib pkgs; };
+      modules = [
+        ../nixos
+      ] ++ modules;
+    });
+in
+{
   flake.nixosConfigurations = {
     nuc = mkNixos {
       modules = [ ../hosts/nuc.nix ];

@@ -60,7 +60,10 @@ in {
 
       launchd.daemons.shadowsocks = {
         serviceConfig.ProgramArguments = [
-          "/bin/sh" "-c" ''/bin/wait4path ${cfg.config} && exec "$@"'' "--"
+          "/bin/sh"
+          "-c"
+          ''/bin/wait4path ${cfg.config} && exec "$@"''
+          "--"
         ] ++ cfg.programArgs;
 
         serviceConfig.UserName = cfg.user;

@@ -4,7 +4,8 @@ let
   inherit (lib) mdDoc mkEnableOption mkIf;
   cfg = config.my.intelGpu;
 
-in {
+in
+{
   options.my.intelGpu = {
     enable = mkEnableOption (mdDoc "intelGpu");
   };

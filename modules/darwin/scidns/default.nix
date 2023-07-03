@@ -5,7 +5,7 @@ with lib;
 let
   cfg = config.services.scidns;
   localDomains = ./local-domains;
-  scidnsConf = pkgs.runCommand "scidns.conf" {} ''
+  scidnsConf = pkgs.runCommand "scidns.conf" { } ''
     sed -e 's,^,server=/,' -e 's,$,/${cfg.local.bind}#${toString cfg.local.port},' ${localDomains} >$out
   '';
   scidnsResolvScript = pkgs.substituteAll {
@@ -78,7 +78,10 @@ in
   config = mkIf cfg.enable {
     launchd.daemons.scidns-local = {
       serviceConfig.ProgramArguments = [
-        "/bin/sh" "-c" ''/bin/wait4path /nix/store && exec "$@"'' "--"
+        "/bin/sh"
+        "-c"
+        ''/bin/wait4path /nix/store && exec "$@"''
+        "--"
         "${cfg.package}/bin/dnsmasq"
         "--keep-in-foreground"
         "--listen-address=${cfg.local.bind}"
@@ -104,7 +107,10 @@ in
 
     launchd.daemons.scidns = {
       serviceConfig.ProgramArguments = [
-        "/bin/sh" "-c" ''/bin/wait4path /nix/store && exec "$@"'' "--"
+        "/bin/sh"
+        "-c"
+        ''/bin/wait4path /nix/store && exec "$@"''
+        "--"
         "${cfg.package}/bin/dnsmasq"
         "--keep-in-foreground"
         "--listen-address=${cfg.bind}"

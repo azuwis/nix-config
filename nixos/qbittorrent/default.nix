@@ -94,7 +94,7 @@ in
         WorkingDirectory = cfg.dataDir;
         ExecStart = "${cfg.package}/bin/qbittorrent-nox";
       };
-      preStart = lib.optionalString (cfg.settings != {}) ''
+      preStart = lib.optionalString (cfg.settings != { }) ''
         mkdir -p "${cfg.dataDir}/.config/qBittorrent"
         ${pkgs.crudini}/bin/crudini --merge ${cfg.dataDir}/.config/qBittorrent/qBittorrent.conf < ${configFile}
       '';

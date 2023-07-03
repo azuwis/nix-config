@@ -4,7 +4,8 @@ let
   inherit (lib) mdDoc mkDefault mkEnableOption mkIf mkMerge;
   cfg = config.my.sway;
 
-in {
+in
+{
   options.my.sway = {
     enable = mkEnableOption (mdDoc "sway");
     autologin = mkEnableOption (mdDoc "autologin") // { default = true; };

@@ -4,7 +4,8 @@ let
   inherit (lib) mdDoc mkEnableOption mkIf mkOption mkPackageOptionMD optionalAttrs types;
   cfg = config.my.dsdrv;
 
-in {
+in
+{
   options.my.dsdrv = {
     enable = mkEnableOption (mdDoc "dsdrv");
 
@@ -25,7 +26,7 @@ in {
     };
 
     settings = mkOption {
-      default = {};
+      default = { };
       type = types.submodule {
         options.host = mkOption {
           type = types.str;

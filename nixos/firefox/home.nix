@@ -4,7 +4,8 @@ let
   inherit (lib) mkIf;
   cfg = config.my.firefox;
 
-in {
+in
+{
   config = mkIf cfg.enable {
     programs.firefox.profiles.default.settings = {
       # https://wiki.archlinux.org/title/firefox#Hardware_video_acceleration

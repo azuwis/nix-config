@@ -4,7 +4,8 @@ let
   inherit (lib) mdDoc mkEnableOption mkIf;
   cfg = config.my.uxplay;
 
-in {
+in
+{
   options.my.uxplay = {
     enable = mkEnableOption (mdDoc "uxplay");
   };

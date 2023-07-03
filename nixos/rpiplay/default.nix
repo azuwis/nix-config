@@ -4,7 +4,8 @@ let
   inherit (lib) mdDoc mkEnableOption mkIf;
   cfg = config.my.rpiplay;
 
-in {
+in
+{
   options.my.rpiplay = {
     enable = mkEnableOption (mdDoc "rpiplay");
   };

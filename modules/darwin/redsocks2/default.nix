@@ -19,7 +19,8 @@ let
     ${cfg.extraConfig}
   '';
 
-in {
+in
+{
   options = {
     services.redsocks2.enable = mkOption {
       type = types.bool;
@@ -71,8 +72,13 @@ in {
 
       launchd.daemons.redsocks2 = {
         serviceConfig.ProgramArguments = [
-          "/bin/sh" "-c" ''/bin/wait4path /nix/store && exec "$@"'' "--"
-          "${cfg.package}/bin/redsocks2" "-c" "${configFile}"
+          "/bin/sh"
+          "-c"
+          ''/bin/wait4path /nix/store && exec "$@"''
+          "--"
+          "${cfg.package}/bin/redsocks2"
+          "-c"
+          "${configFile}"
         ];
         serviceConfig.KeepAlive = true;
         serviceConfig.RunAtLoad = true;
@@ -101,8 +107,14 @@ in {
 
       launchd.daemons.redsocks2-pf = {
         serviceConfig.ProgramArguments = [
-          "/bin/sh" "-c" ''/bin/wait4path /nix/store && exec "$@"'' "--"
-          "/sbin/pfctl" "-e" "-f" "/etc/pf.conf"
+          "/bin/sh"
+          "-c"
+          ''/bin/wait4path /nix/store && exec "$@"''
+          "--"
+          "/sbin/pfctl"
+          "-e"
+          "-f"
+          "/etc/pf.conf"
         ];
         serviceConfig.RunAtLoad = true;
       };

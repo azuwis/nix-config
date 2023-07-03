@@ -4,7 +4,7 @@ let
   inherit (lib) mdDoc mkEnableOption mkIf mkOption types;
   cfg = config.my.sunshine;
 
-  swayConfig = pkgs.runCommand "sunshine-sway.conf" {} ''
+  swayConfig = pkgs.runCommand "sunshine-sway.conf" { } ''
     {
     grep -Ev '(^exec swaylock|^exec swayidle|events disabled)' ${config.xdg.configFile."sway/config".source}
     echo '
@@ -21,7 +21,8 @@ let
     } > $out
   '';
 
-in {
+in
+{
   options.my.sunshine = {
     enable = mkEnableOption (mdDoc "sunshine");
 

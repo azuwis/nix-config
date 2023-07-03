@@ -4,7 +4,8 @@ with lib;
 
 let
   cfg = config.programs.neovim.nvchad;
-in {
+in
+{
   options = {
     programs.neovim.nvchad = {
       enable = mkEnableOption "NvChad";
@@ -68,31 +69,34 @@ in {
     xdg.configFile."nvim/lazyPlugins".source = pkgs.vimUtils.packDir {
       lazyPlugins = {
         start = cfg.lazyPlugins ++ cfg.extraLazyPlugins;
-      };};
-
-    programs.neovim = let
-      nvchad = pkgs.vimPlugins.nvchad.overrideAttrs (old: {
-        patches = [
-          ./nvchad.patch
-        ];
-        postPatch = ''
-          substituteInPlace lua/plugins/init.lua \
-          --replace '"NvChad/extensions"' '"NvChad/nvchad-extensions"' \
-          --replace '"NvChad/ui"' '"NvChad/nvchad-ui"' \
-          --replace '"L3MON4D3/LuaSnip"' '"L3MON4D3/luasnip"' \
-          --replace '"numToStr/Comment.nvim"' '"numToStr/comment.nvim"'
-        '';
-      });
-    in {
-      enable = true;
-      plugins = with pkgs.vimPlugins; [
-        base46
-        lazy-nvim
-        nvchad
-      ];
-      extraLuaConfig = ''
-        dofile("${nvchad}/init.lua")
-      '';
+      };
     };
+
+    programs.neovim =
+      let
+        nvchad = pkgs.vimPlugins.nvchad.overrideAttrs (old: {
+          patches = [
+            ./nvchad.patch
+          ];
+          postPatch = ''
+            substituteInPlace lua/plugins/init.lua \
+            --replace '"NvChad/extensions"' '"NvChad/nvchad-extensions"' \
+            --replace '"NvChad/ui"' '"NvChad/nvchad-ui"' \
+            --replace '"L3MON4D3/LuaSnip"' '"L3MON4D3/luasnip"' \
+            --replace '"numToStr/Comment.nvim"' '"numToStr/comment.nvim"'
+          '';
+        });
+      in
+      {
+        enable = true;
+        plugins = with pkgs.vimPlugins; [
+          base46
+          lazy-nvim
+          nvchad
+        ];
+        extraLuaConfig = ''
+          dofile("${nvchad}/init.lua")
+        '';
+      };
   };
 }

@@ -4,7 +4,8 @@ let
   inherit (lib) mdDoc mkEnableOption mkIf mkMerge mkOption types;
   cfg = config.my.uxplay;
 
-in {
+in
+{
   options.my.uxplay = {
     enable = mkEnableOption (mdDoc "uxplay");
     sway = mkEnableOption (mdDoc "startup with sway");

@@ -4,7 +4,8 @@ let
   inherit (lib) mdDoc mkEnableOption mkIf;
   cfg = config.my.swayidle;
 
-in {
+in
+{
   options.my.swayidle = {
     enable = mkEnableOption (mdDoc "swayidle");
   };

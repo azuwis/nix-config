@@ -12,7 +12,8 @@ let
     scripts = ./scripts;
   };
 
-in {
+in
+{
   options.my.yambar = {
     enable = mkEnableOption (mdDoc "yambar");
   };
@@ -23,7 +24,7 @@ in {
     xdg.configFile."yambar/config.yml".source = configFile;
 
     wayland.windowManager.sway.config = {
-      bars = [];
+      bars = [ ];
       startup = [{ command = "yambar --log-level=error"; }];
     };
 

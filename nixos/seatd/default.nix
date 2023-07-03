@@ -2,13 +2,14 @@
 
 let
   cfg = config.services.seatd;
-in {
+in
+{
   options.services.seatd = {
     enable = lib.mkEnableOption (lib.mdDoc "seatd");
   };
 
   config = lib.mkIf cfg.enable {
-    users.groups.seatd = {};
+    users.groups.seatd = { };
 
     systemd.services.seatd = {
       enable = true;
@@ -19,7 +20,7 @@ in {
         Restart = "always";
         RestartSec = "1";
       };
-      wantedBy = ["multi-user.target"];
+      wantedBy = [ "multi-user.target" ];
     };
   };
 }

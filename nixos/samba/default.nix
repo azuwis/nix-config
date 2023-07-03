@@ -4,7 +4,8 @@ let
   inherit (lib) mdDoc mkEnableOption mkIf;
   cfg = config.my.samba;
 
-in {
+in
+{
   options.my.samba = {
     enable = mkEnableOption (mdDoc "samba");
   };
