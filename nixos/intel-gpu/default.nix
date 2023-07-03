@@ -11,6 +11,8 @@ in
   };
 
   config = mkIf cfg.enable {
+    environment.systemPackages = [ pkgs.intel-gpu-tools ];
+
     hardware.opengl.extraPackages = with pkgs; [
       vaapiIntel
     ];
