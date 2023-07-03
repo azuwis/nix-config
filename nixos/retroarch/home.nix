@@ -11,6 +11,7 @@ in
       type = types.listOf types.package;
       default = with pkgs.libretro; [
         genesis-plus-gx
+        nestopia
       ];
     };
   };
