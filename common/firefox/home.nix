@@ -26,10 +26,10 @@ let
 
   vimfx = buildFirefoxXpiAddon rec {
     pname = "vimfx";
-    version = "0.25.0";
+    version = "0.26.3";
     addonId = "VimFx-unlisted@akhodakivskiy.github.com";
     url = "https://github.com/akhodakivskiy/VimFx/releases/download/v${version}/VimFx.xpi";
-    sha256 = "sha256-W9rdG2J+esMnH318WcrhGplzC2zYfCbaB84nELHF9+8=";
+    sha256 = "sha256-d6ApkCw/IXhabkpk6o9eHQdCxOL3Wayk9S1k1qdofvk=";
     meta = with lib; {
       homepage = "https://github.com/akhodakivskiy/VimFx";
       description = "Vim keyboard shortcuts for Firefox";
