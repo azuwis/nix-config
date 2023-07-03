@@ -25,7 +25,6 @@
     casks = [
       "google-chrome"
       "microsoft-office"
-      "moonlight"
       "musescore"
       "native-access"
       "obs"
