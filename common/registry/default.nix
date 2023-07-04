@@ -1,7 +1,7 @@
-{ config, inputs, lib, pkgs, ... }:
+{ inputs, config, lib, pkgs, ... }:
 
 let
-  flakes = lib.filterAttrs (name: value: name != "self") inputs;
+  flakes = lib.filterAttrs (name: value: name == "nixpkgs") inputs;
 
 in
 {
