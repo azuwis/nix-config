@@ -1,7 +1,7 @@
 local on_attach = require("plugins.configs.lspconfig").on_attach
 local capabilities = require("plugins.configs.lspconfig").capabilities
 
-local lspconfig = require("lspconfig")
+local lspconfig = require "lspconfig"
 local servers = {
   "ansiblels",
   "lua_ls",
@@ -21,7 +21,7 @@ lspconfig.lua_ls.setup {
   settings = {
     Lua = {
       diagnostics = {
-        globals = {'vim'},
+        globals = { "vim" },
       },
       -- workspace = {
       --   library = vim.api.nvim_get_runtime_file("", true),
