@@ -2,7 +2,6 @@
 
 {
   imports = [
-    # nixos-generate-config --show-hardware-config > hardware-nuc.nix
     ./hardware-nuc.nix
   ];
   powerManagement.cpuFreqGovernor = "schedutil";

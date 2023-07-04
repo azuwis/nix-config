@@ -2,7 +2,6 @@
 
 {
   imports = [
-    # nixos-generate-config --show-hardware-config > hardware-hyperv.nix
     ./hardware-hyperv.nix
   ];
 

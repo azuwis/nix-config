@@ -2,7 +2,6 @@
 
 {
   imports = [
-    # nixos-generate-config --show-hardware-config > hardware-office.nix
     ./hardware-office.nix
   ];
   boot.supportedFilesystems = [ "ntfs" ];
