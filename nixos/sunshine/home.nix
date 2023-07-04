@@ -3,6 +3,7 @@
 let
   inherit (lib) mdDoc mkEnableOption mkIf mkOption types;
   cfg = config.my.sunshine;
+  json = pkgs.formats.json { };
 
   swayConfig = pkgs.runCommand "sunshine-sway.conf" { } ''
     {
@@ -45,12 +46,36 @@ in
       default = "1920x1080@60Hz";
     };
 
+    apps = mkOption {
+      type = json.type;
+      default = {
+        # moonlight see no apps if env not set
+        env = { };
+        apps = [
+          {
+            name = "Desktop";
+            image-path = "desktop.png";
+          }
+          {
+            name = "BotW";
+            image-path = "desktop-alt.png";
+            cmd = "cemu -f -g $(HOME)/Games/WiiU/BotW/code/U-King.rpx";
+            prep-cmd = [{
+              do = "${./scripts}/cemu-do.sh";
+              undo = "${./scripts}/cemu-undo.sh";
+            }];
+          }
+        ];
+      };
+    };
+
   };
 
   config = mkIf cfg.enable {
     home.packages = [ pkgs.sunshine ];
 
     xdg.configFile."sunshine/sunshine.conf".text = cfg.conf;
+    xdg.configFile."sunshine/apps.json".source = json.generate "sunshine-apps.json" cfg.apps;
 
     systemd.user.services.sunshine = {
       Install.WantedBy = [ "default.target" ];
