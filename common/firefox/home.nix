@@ -64,7 +64,6 @@ let
     "browser.compactmode.show" = true;
     "browser.tabs.closeWindowWithLastTab" = false;
     "browser.tabs.tabClipWidth" = 50;
-    "browser.ctrlTab.previews" = true;
     "network.proxy.socks_remote_dns" = true;
     "network.http.connection-timeout" = 30;
     "browser.aboutConfig.showWarning" = false;
@@ -78,8 +77,6 @@ let
     "browser.sessionstore.restore_on_demand" = true;
     "browser.sessionstore.interval" = 300000;
     "security.dialog_enable_delay" = 0;
-    "browser.fullscreen.animate" = false;
-    "browser.tabs.animate" = false;
     "toolkit.scrollbox.smoothScroll" = true;
     "toolkit.scrollbox.verticalScrollDistance" = 5;
     "privacy.donottrackheader.enabled" = true;
