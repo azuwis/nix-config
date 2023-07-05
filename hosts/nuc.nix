@@ -37,4 +37,8 @@
 
   hm.my.retroarch.enable = true;
   hm.my.swayidle.enable = false;
+
+  hm.home.packages = with pkgs; [
+    dualsensectl
+  ];
 }
