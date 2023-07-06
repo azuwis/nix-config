@@ -10,8 +10,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    hm.my.bluetooth.enable = true;
-
     hardware.bluetooth.enable = true;
+    environment.systemPackages = [ pkgs.bluetuith ];
   };
 }
