@@ -27,15 +27,6 @@ in
       };
     };
 
-    qt = {
-      enable = true;
-      platformTheme = "gnome";
-      style = {
-        name = "adwaita";
-        package = pkgs.adwaita-qt;
-      };
-    };
-
     wayland.windowManager.sway.config.seat."*".xcursor_theme = config.gtk.cursorTheme.name;
   };
 }
