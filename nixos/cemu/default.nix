@@ -14,6 +14,6 @@ in
     # https://github.com/libsdl-org/SDL/pull/7697 merged, this can be disabled
     my.steam-devices.enable = true;
 
-    hm.my.cemu.enable = true;
+    environment.systemPackages = [ pkgs.cemu ];
   };
 }
