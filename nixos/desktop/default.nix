@@ -14,7 +14,6 @@ in
     my.android.enable = true;
     my.bluetooth.enable = true;
     my.fcitx5.enable = true;
-    my.firefox.enable = true;
     my.sway.enable = true;
     my.theme.enable = true;
 
@@ -28,6 +27,7 @@ in
     nix.daemonCPUSchedPolicy = "idle";
 
     hm = {
+      my.firefox.enable = true;
       my.mpv.enable = true;
     };
 

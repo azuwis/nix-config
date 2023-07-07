@@ -49,6 +49,7 @@ let
       # conflict with legacyfox
       rm $out/lib/firefox/defaults/pref/autoconfig.js
       lndir -silent ${pkgs.legacyfox} $out
+      substituteInPlace $out/bin/firefox --replace "exec -a" "MOZ_USE_XINPUT2=1 exec -a"
     '';
   });
 
