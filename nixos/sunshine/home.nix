@@ -88,7 +88,7 @@ in
           "WLR_LIBINPUT_NO_DEVICES=1"
           "DBUS_SESSION_BUS_ADDRESS="
         ];
-        ExecStart = "/etc/profiles/per-user/%u/bin/sway -c ${swayConfig}";
+        ExecStart = "/run/current-system/sw/bin/sway -c ${swayConfig}";
         Restart = "on-failure";
         SyslogIdentifier = "sunshine";
       };
