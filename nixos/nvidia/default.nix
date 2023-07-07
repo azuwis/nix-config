@@ -13,11 +13,13 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     ({
-      hm.my.nvidia.enable = true;
 
       boot.loader.grub.gfxmodeEfi = mkDefault "1920x1080";
       hardware.nvidia.modesetting.enable = true;
       services.xserver.videoDrivers = [ "nvidia" ];
+      # sway/wlroots vulkan need vulkan-validation-layers for now, may remove on later version.
+      # https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/3850
+      environment.systemPackages = [ pkgs.vulkan-validation-layers ];
       programs.sway = {
         extraOptions = [ "--unsupported-gpu" ];
         extraSessionCommands = ''
