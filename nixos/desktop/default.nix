@@ -18,8 +18,18 @@ in
     my.sway.enable = true;
     my.theme.enable = true;
 
-    hm.my.desktop.enable = true;
+    environment.systemPackages = with pkgs; [
+      evemu
+      evtest
+      chromium
+      python3.pkgs.subfinder
+    ];
 
     nix.daemonCPUSchedPolicy = "idle";
+
+    hm = {
+      my.mpv.enable = true;
+    };
+
   };
 }
