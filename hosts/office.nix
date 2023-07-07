@@ -11,7 +11,7 @@
   my.cemu.enable = true;
   my.desktop.enable = true;
   my.nvidia.enable = true;
+  my.retroarch.enable = true;
   my.sunshine.enable = true;
 
-  hm.my.retroarch.enable = true;
 }

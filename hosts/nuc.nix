@@ -31,11 +31,11 @@
   my.intelGpu.enable = true;
   my.moonlight-cemuhook.enable = true;
   my.photoprism.enable = true;
+  my.retroarch.enable = true;
   my.torrent.enable = true;
   my.uxplay.enable = true;
   my.zramswap.enable = true;
 
-  hm.my.retroarch.enable = true;
   hm.my.swayidle.enable = false;
 
   hm.home.packages = with pkgs; [
