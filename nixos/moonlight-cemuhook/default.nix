@@ -11,7 +11,8 @@ in
 
   config = mkIf cfg.enable {
     my.steam-devices.enable = true;
-    hm.my.moonlight-cemuhook.enable = true;
+
+    environment.systemPackages = [ pkgs.moonlight-cemuhook ];
     networking.firewall.allowedUDPPorts = [ 26760 ];
   };
 }
