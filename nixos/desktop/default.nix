@@ -26,6 +26,8 @@ in
 
     nix.daemonCPUSchedPolicy = "idle";
 
+    programs.gnupg.agent.enable = true;
+
     hm = {
       my.firefox.enable = true;
       my.mpv.enable = true;

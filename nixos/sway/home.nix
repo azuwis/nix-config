@@ -37,7 +37,6 @@ in
       wayland.windowManager.sway = {
         enable = true;
         package = null;
-        systemd.enable = false;
         config = {
           # Apps
           # swaymsg -t get_tree | less
