@@ -30,7 +30,7 @@
   my.hass.enable = true;
   my.intelGpu.enable = true;
   my.moonlight-cemuhook.enable = true;
-  my.moonlight-cemuhook.package = pkgs.moonlight-git;
+  # my.moonlight-cemuhook.package = pkgs.moonlight-git;
   my.photoprism.enable = true;
   my.retroarch.enable = true;
   my.torrent.enable = true;
