@@ -13,5 +13,6 @@
   my.nvidia.enable = true;
   my.retroarch.enable = true;
   my.sunshine.enable = true;
+  hm.my.sunshine.package = pkgs.sunshine-git;
 
 }

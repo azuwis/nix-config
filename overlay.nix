@@ -24,6 +24,15 @@ self: super: rec {
   sf-symbols-full = super.callPackage ./pkgs/sf-symbols { full = true; };
   sf-symbols-minimal = super.callPackage ./pkgs/sf-symbols { };
   steam-devices = super.callPackage ./pkgs/steam-devices { };
+  sunshine-git = super.sunshine.overrideAttrs (o: {
+    src = super.fetchFromGitHub {
+      owner = "LizardByte";
+      repo = "Sunshine";
+      rev = "c5bf78176e0bb70c1dcb43ef062afff3ce3da2e2";
+      sha256 = "sha256-T2kKv28DHIpnUUVwYACYvYflbwdok7bEcMP/zp28SRA=";
+      fetchSubmodules = true;
+    };
+  });
   torrent-ratio = super.callPackage ./pkgs/torrent-ratio { };
 
   # override
