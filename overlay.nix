@@ -15,6 +15,16 @@ self: super: rec {
       fetchSubmodules = true;
     };
   });
+  moonlight-git = super.moonlight-qt.overrideAttrs (o: {
+    src = super.fetchFromGitHub {
+      owner = "moonlight-stream";
+      repo = o.pname;
+      rev = "e287ebcded4ebbd2ddaff5b8ceade3e09946f864";
+      sha256 = "sha256-y2lm5ZU3tIl1qrmOiF5FVt8Nw8VrNPzLOz5ji0vR2RQ=";
+      fetchSubmodules = true;
+    };
+    patches = [ ];
+  });
   nibar = super.callPackage ./pkgs/nibar { };
   redsocks2 = super.callPackage ./pkgs/redsocks2 { };
   rime-ice = super.callPackage ./pkgs/rime-ice { };
