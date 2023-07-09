@@ -30,6 +30,9 @@
   security.sudo = {
     execWheelOnly = true;
     wheelNeedsPassword = false;
+    extraConfig = ''
+      Defaults requiretty
+    '';
   };
   services.openssh = {
     enable = true;
