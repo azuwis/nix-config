@@ -16,6 +16,7 @@ self: super: rec {
     };
   });
   moonlight-git = super.moonlight-qt.overrideAttrs (o: {
+    pname = "moonlight-git";
     src = super.fetchFromGitHub {
       owner = "moonlight-stream";
       repo = o.pname;
@@ -35,6 +36,7 @@ self: super: rec {
   sf-symbols-minimal = super.callPackage ./pkgs/sf-symbols { };
   steam-devices = super.callPackage ./pkgs/steam-devices { };
   sunshine-git = super.sunshine.overrideAttrs (o: {
+    pname = "sunshine-git";
     src = super.fetchFromGitHub {
       owner = "LizardByte";
       repo = "Sunshine";
