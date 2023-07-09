@@ -27,7 +27,10 @@
   systemd.network.wait-online.anyInterface = true;
   # nix.settings.allowed-users = [ config.my.user ];
   programs.ssh.startAgent = true;
-  security.sudo.wheelNeedsPassword = false;
+  security.sudo = {
+    execWheelOnly = true;
+    wheelNeedsPassword = false;
+  };
   services.openssh = {
     enable = true;
     settings = {
