@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf mkOption types;
+  inherit (lib) mdDoc mkEnableOption mkIf mkOption mkPackageOptionMD types;
   cfg = config.my.sunshine;
   json = pkgs.formats.json { };
 
@@ -26,6 +26,8 @@ in
 {
   options.my.sunshine = {
     enable = mkEnableOption (mdDoc "sunshine");
+
+    package = mkPackageOptionMD pkgs "sunshine" { };
 
     conf = mkOption {
       type = types.str;
@@ -72,7 +74,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ pkgs.sunshine ];
+    home.packages = [ cfg.package ];
 
     xdg.configFile."sunshine/sunshine.conf".text = cfg.conf;
     xdg.configFile."sunshine/apps.json".source = json.generate "sunshine-apps.json" cfg.apps;
