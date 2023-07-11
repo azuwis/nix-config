@@ -19,7 +19,10 @@ in
       programs.sway = {
         enable = true;
         wrapperFeatures.gtk = true;
-        extraPackages = [ ];
+        extraPackages = with pkgs; [
+          qt5.qtwayland
+          qt6.qtwayland
+        ];
         extraSessionCommands = ''
           export SDL_VIDEODRIVER=wayland
           export QT_QPA_PLATFORM=wayland-egl

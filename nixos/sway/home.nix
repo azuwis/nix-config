@@ -28,7 +28,6 @@ in
           makeWrapper ${fuzzel}/bin/fuzzel $out/bin/dmenu-wl --add-flags "--dmenu $options"
         '')
         pulsemixer
-        qt5.qtwayland
         swappy
         sway-contrib.grimshot
         wev
