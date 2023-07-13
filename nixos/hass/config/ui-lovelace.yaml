@@ -44,7 +44,14 @@ views:
               action: toggle
             style:
               top: 51.8%
-              left: 77%
+              left: 80%
+          - type: state-icon
+            entity: fan.yeelink_fancl5_e358_fan
+            hold_action:
+              action: toggle
+            style:
+              top: 51.8%
+              left: 75%
           - type: state-label
             entity: sensor.582d34542b9b_humidity
             tap_action:
@@ -99,6 +106,13 @@ views:
               action: toggle
             style:
               top: 84.3%
+              left: 51.3%
+          - type: state-icon
+            entity: fan.xiaomi_mt0_bedd_air_fresh
+            hold_action:
+              action: toggle
+            style:
+              top: 80.3%
               left: 51.3%
           - type: state-label
             entity: sensor.xiaomi_mt0_bedd_temperature
@@ -196,7 +210,14 @@ views:
             hold_action:
               action: toggle
             style:
-              top: 15.8%
+              top: 17.5%
+              left: 8%
+          - type: state-icon
+            entity: fan.xiaomi_mt0_cdd0_air_fresh
+            hold_action:
+              action: toggle
+            style:
+              top: 13.5%
               left: 8%
           - type: state-label
             entity: sensor.xiaomi_mt0_cdd0_temperature
@@ -241,7 +262,14 @@ views:
             hold_action:
               action: toggle
             style:
-              top: 51%
+              top: 52.5%
+              left: 6%
+          - type: state-icon
+            entity: fan.xiaomi_mt0_6e25_air_fresh
+            hold_action:
+              action: toggle
+            style:
+              top: 48.5%
               left: 6%
           - type: state-label
             entity: sensor.xiaomi_mt0_6e25_temperature
