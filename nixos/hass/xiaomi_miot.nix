@@ -110,6 +110,19 @@ in
             data:
               entity_id: >-
                 {{ expand(states.light) | selectattr('entity_id', 'search', '^light.xiaomi_mt0_.*_indicator_light$') | map(attribute='entity_id') | list }}
+
+      - alias: Bath heater auto off
+        trigger:
+          platform: state
+          entity_id: climate.yeelink_v6_af1f_ptc_bath_heater
+          from: "off"
+          to:
+            - ventilate
+          for: "02:00:00"
+        action:
+          - service: climate.turn_off
+            data:
+              entity_id: climate.yeelink_v6_af1f_ptc_bath_heater
     '';
   };
 }
