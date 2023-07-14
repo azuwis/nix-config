@@ -41,23 +41,22 @@ let map = (shortcuts, command, custom=false) => {
 }
 
 let pathSearch = (bin) => {
-    if (OS.Path.split(bin).absolute)
-        return bin
+    let file = Cc['@mozilla.org/file/local;1'].createInstance(Ci.nsIFile)
     let pathListSep = (Services.appinfo.OS == 'WINNT') ? ';' : ':'
     let dirs = nsIEnvironment.get("PATH").split(pathListSep)
-    let file = Cc['@mozilla.org/file/local;1'].createInstance(Ci.nsIFile)
     for (let dir of dirs) {
-        let path = OS.Path.join(dir, bin)
-        file.initWithPath(path)
-        if (file.exists() && file.isFile() && file.isExecutable())
-            return path
+        try {
+            file.initWithPath(dir)
+            file.appendRelativePath(bin)
+            if (file.exists() && file.isFile() && file.isExecutable())
+                return file
+        } catch (e) {}
     }
     return null
 }
 
 let exec = (cmd, args, observer) => {
-    let file = Cc['@mozilla.org/file/local;1'].createInstance(Ci.nsIFile)
-    file.initWithPath(pathSearch(cmd))
+    let file = pathSearch(cmd)
     let process = Cc['@mozilla.org/process/util;1'].createInstance(Ci.nsIProcess)
     process.init(file)
     process.runAsync(args, args.length, observer)
