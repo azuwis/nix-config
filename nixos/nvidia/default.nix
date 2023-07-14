@@ -17,6 +17,8 @@ in
       boot.loader.grub.gfxmodeEfi = mkDefault "1920x1080";
       hardware.nvidia.modesetting.enable = true;
       services.xserver.videoDrivers = [ "nvidia" ];
+
+      # Sway
       # sway/wlroots vulkan need vulkan-validation-layers for now, may remove on later version.
       # https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/3850
       environment.systemPackages = [ pkgs.vulkan-validation-layers ];
@@ -27,6 +29,15 @@ in
           export WLR_RENDERER=vulkan
         '';
       };
+
+      # Firefox
+      # https://github.com/elFarto/nvidia-vaapi-driver
+      hardware.opengl.extraPackages = [ pkgs.nvidia-vaapi-driver ];
+      hm.my.firefox.env = [ "MOZ_DISABLE_RDD_SANDBOX=1" ];
+      hm.programs.firefox.profiles.default.settings = {
+        "widget.dmabuf.force-enabled" = true;
+      };
+
     })
 
     (mkIf cfg.nvidia-patch (
