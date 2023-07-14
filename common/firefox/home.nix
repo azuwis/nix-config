@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mdDoc mkEnableOption mkIf mkOption types;
   cfg = config.my.firefox;
 
   buildFirefoxXpiAddon = lib.makeOverridable
@@ -49,7 +49,7 @@ let
       # conflict with legacyfox
       rm $out/lib/firefox/defaults/pref/autoconfig.js
       lndir -silent ${pkgs.legacyfox} $out
-      substituteInPlace $out/bin/firefox --replace "exec -a" "MOZ_USE_XINPUT2=1 exec -a"
+      substituteInPlace $out/bin/firefox --replace "exec -a" "${lib.concatStringsSep " " cfg.env} exec -a"
     '';
   });
 
@@ -135,12 +135,19 @@ in
 {
   options.my.firefox = {
     enable = mkEnableOption (mdDoc "firefox");
+
+    env = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+    };
   };
 
   config = mkIf cfg.enable {
     home.activation.vimfx = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       ${pkgs.rsync}/bin/rsync -a ${./vimfx}/ ~/.config/vimfx/
     '';
+
+    my.firefox.env = [ "MOZ_USE_XINPUT2=1" ];
 
     programs.firefox = {
       enable = true;
