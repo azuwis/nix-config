@@ -3,7 +3,7 @@
 const {classes: Cc, interfaces: Ci, utils: Cu} = Components
 const nsIEnvironment = Cc["@mozilla.org/process/environment;1"].getService(Ci.nsIEnvironment)
 const nsIWindowWatcher = Cc["@mozilla.org/embedcomp/window-watcher;1"].getService(Ci.nsIWindowWatcher)
-const {OS} = Cu.import('resource://gre/modules/osfile.jsm')
+const ioService = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService);
 
 Cu.import('resource://gre/modules/XPCOMUtils.jsm')
 XPCOMUtils.defineLazyModuleGetter(this, 'AddonManager', 'resource://gre/modules/AddonManager.jsm')
@@ -71,6 +71,12 @@ let isUrl = (window, string) => {
         return false
     }
     return url.protocol === "http:" || url.protocol === "https:"
+}
+
+let getConfigFile = (name) => {
+    let file = ioService.newURI(__dirname, null, null).QueryInterface(Ci.nsIFileURL).file;
+    file.append(name)
+    return file.path
 }
 
 // options
@@ -263,8 +269,9 @@ map(',u', 'ublock_bootstrap', true)
 
 let bootstrap = () => {
     // whitelist frame.js in content sandbox
-    Preferences.set('security.sandbox.content.mac.testing_read_path1', OS.Path.fromFileURI(`${__dirname}/frame.js`))
-    Preferences.set('security.sandbox.content.read_path_whitelist', OS.Path.fromFileURI(`${__dirname}/frame.js`))
+    let file = getConfigFile('frame.js')
+    Preferences.set('security.sandbox.content.mac.testing_read_path1', file)
+    Preferences.set('security.sandbox.content.read_path_whitelist', file)
     // set font for different OSes
     switch (Services.appinfo.OS) {
     case 'Darwin':
@@ -350,7 +357,7 @@ vimfx.addCommand({
 map(',B', 'bootstrap', true)
 
 let bootstrapIfNeeded = () => {
-    let bootstrapFile = OS.Path.fromFileURI(`${__dirname}/config.js`)
+    let bootstrapFile = getConfigFile('config.js')
     let bootstrapPref = "extensions.VimFx.bootstrapTime"
     let file = Cc['@mozilla.org/file/local;1'].createInstance(Ci.nsIFile)
     file.initWithPath(bootstrapFile)
