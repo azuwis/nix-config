@@ -15,4 +15,7 @@
   my.sunshine.enable = true;
   # hm.my.sunshine.package = pkgs.sunshine-git;
 
+  hm.home.packages = with pkgs; [
+    dualsensectl
+  ];
 }
