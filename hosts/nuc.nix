@@ -5,6 +5,7 @@
     ./hardware-nuc.nix
   ];
   powerManagement.cpuFreqGovernor = "schedutil";
+  fileSystems."/".options = [ "compress-force=zstd" ];
   fileSystems."/srv".options = [ "compress=zstd" ];
   networking.hostName = "nuc";
   # networking.useDHCP = false;

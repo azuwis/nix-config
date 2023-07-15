@@ -20,7 +20,6 @@
   };
   # explicitly enable nixos docs, system like wsl does not enable this
   documentation.nixos.enable = true;
-  fileSystems."/".options = lib.mkIf (config.fileSystems."/".fsType == "btrfs") [ "compress-force=zstd" ];
   networking.enableIPv6 = false;
   networking.nftables.enable = true;
   networking.useNetworkd = lib.mkDefault true;
