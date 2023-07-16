@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ inputs, config, lib, pkgs, ... }:
 
 {
   # To make ssh accessable from LAN, run in host powershell:
@@ -16,21 +16,21 @@
   services.greetd.enable = lib.mkForce false;
   services.pipewire.enable = lib.mkForce false;
 
+  networking.hostName = "wsl";
+
   wsl = {
     enable = true;
-    automountPath = "/mnt";
     defaultUser = config.my.user;
     startMenuLaunchers = true;
-    wslConf.network.hostname = "wsl";
   };
 
-  programs.sway.extraSessionCommands = ''
-    # workaround for XWayland refuces to start
-    if [ -L /tmp/.X11-unix ]
-    then
-      sudo rm /tmp/.X11-unix
-    fi
-  '';
+  # programs.sway.extraSessionCommands = ''
+  #   # workaround for XWayland refuces to start
+  #   if [ -L /tmp/.X11-unix ]
+  #   then
+  #     sudo rm /tmp/.X11-unix
+  #   fi
+  # '';
   hm.wayland.windowManager.sway.config.output."*".mode = "1920x1080";
 
   my.desktop.enable = true;
