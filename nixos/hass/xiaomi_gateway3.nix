@@ -85,9 +85,12 @@ in
           from: "off"
           to: "on"
         condition:
-          condition: state
-          entity_id: light.kitchen
-          state: "off"
+          - condition: state
+            entity_id: light.kitchen
+            state: "off"
+          - condition: numeric_state
+            entity_id: sensor.649e314c943b_illuminance
+            below: 1500
         action:
           service: light.turn_on
           data:
