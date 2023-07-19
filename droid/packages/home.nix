@@ -10,7 +10,7 @@
       else
         args=("$@")
       fi
-      nix-on-droid switch --flake "$HOME/.config/nixpkgs/#droid" ''${args[@]}
+      nix-on-droid switch --flake "$HOME/.config/nixpkgs" ''${args[@]}
     '')
     inetutils
     procps

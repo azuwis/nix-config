@@ -11,5 +11,5 @@ let
     });
 in
 {
-  flake.nixOnDroidConfigurations.droid = mkDroid { };
+  flake.nixOnDroidConfigurations.default = mkDroid { };
 }
