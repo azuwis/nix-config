@@ -6,7 +6,6 @@ let
       inherit pkgs;
       extraSpecialArgs = { inherit inputs lib; };
       modules = [
-        ../common
         ../droid
       ] ++ modules;
     });

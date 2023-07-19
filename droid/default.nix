@@ -2,16 +2,10 @@
 
 {
   imports = [
-    ./compat.nix
-    ./sshd.nix
-    ./system.nix
-    ./termux.nix
-  ];
+    ../common
+  ] ++ lib.my.getModules [ ./. ];
 
-  hm.imports = [
-    ./gnupg.nix
-    ./packages.nix
-  ];
+  hm.imports = lib.my.getHmModules [ ./. ];
 
   hm.my.zsh-ssh-agent.enable = true;
 }
