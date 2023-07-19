@@ -8,6 +8,14 @@ with lib;
   ];
 
   options = {
+    fonts.fonts = mkOption {
+      type = types.listOf types.str;
+    };
+    nix.settings = mkOption {
+      type = types.submodule {
+        freeformType = semanticConfType;
+      };
+    };
     programs.zsh.enable = mkOption {
       type = types.bool;
     };

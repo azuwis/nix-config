@@ -1,8 +1,9 @@
 { inputs, withSystem, ... }:
 
 let
-  mkDroid = { system, modules ? [ ] }: withSystem system ({ pkgs, system, ... }: inputs.droid.lib.nixOnDroidConfiguration {
-    inherit pkgs system;
+  mkDroid = { system, modules ? [ ] }: withSystem system ({ lib, pkgs, system, ... }: inputs.droid.lib.nixOnDroidConfiguration {
+    inherit pkgs;
+    extraSpecialArgs = { inherit inputs lib; };
     modules = [
       ../common
       ../droid
