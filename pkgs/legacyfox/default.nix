@@ -2,13 +2,13 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "legacyfox";
-  version = "3.1";
+  version = "3.2";
 
   src = fetchFromGitHub {
     owner = "girst";
     repo = "LegacyFox-mirror-of-git.gir.st";
     rev = "v${version}";
-    sha256 = "sha256-bTKFl7WoysmDSu+cTU3GTTk4Spo6uAgXIi2Fedzt/dY=";
+    sha256 = "sha256-zOc9eHw651yUdXviPOx9bplMKRelfkG7xRL+I4f6j+o=";
   };
 
   installPhase = ''
