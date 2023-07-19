@@ -12,5 +12,7 @@
       fi
       nix-on-droid switch --flake "$HOME/.config/nixpkgs/#droid" ''${args[@]}
     '')
+    inetutils
+    procps
   ];
 }
