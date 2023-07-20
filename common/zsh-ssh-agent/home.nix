@@ -27,10 +27,10 @@ in
               :
             else
               rm "$socket"
-              eval "$(ssh-agent -s -a "$socket")"
+              eval "$(ssh-agent -P "" -s -a "$socket")"
             fi
           else
-            eval "$(ssh-agent -s -a "$socket")"
+            eval "$(ssh-agent -P "" -s -a "$socket")"
           fi
         fi
       }

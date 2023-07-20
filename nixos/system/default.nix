@@ -26,6 +26,8 @@
   systemd.network.wait-online.anyInterface = true;
   # nix.settings.allowed-users = [ config.my.user ];
   programs.ssh.startAgent = true;
+  # CVE-2023-38408
+  programs.ssh.agentPKCS11Whitelist = "''";
   security.sudo = {
     execWheelOnly = true;
     wheelNeedsPassword = false;
