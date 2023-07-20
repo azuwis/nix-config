@@ -21,6 +21,8 @@
   wsl = {
     enable = true;
     defaultUser = config.my.user;
+    # need to disable when generating install/tarball, https://github.com/nix-community/NixOS-WSL/pull/243
+    nativeSystemd = true;
     startMenuLaunchers = true;
   };
 
