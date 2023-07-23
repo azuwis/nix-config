@@ -24,6 +24,13 @@ views:
               top: 72.8%
               left: 93%
           - type: state-icon
+            entity: climate.gree_climate_9424b8123fe900
+            hold_action:
+              action: toggle
+            style:
+              top: 72.6%
+              left: 88%
+          - type: state-icon
             entity: media_player.sony_kdl_55w800b
             hold_action:
               action: toggle
@@ -419,6 +426,19 @@ views:
           #   hide_power: yes
           #   group: yes
           #   show_tts: google
+
+      - type: conditional
+        conditions:
+          - entity: climate.gree_climate_9424b8123fe900
+            state_not: 'off'
+          - entity: climate.gree_climate_9424b8123fe900
+            state_not: 'unavailable'
+        card:
+          type: custom:simple-thermostat
+          entity: climate.gree_climate_9424b8123fe900
+          sensors:
+            - entity: sensor.1775bcf17c0e_humidity
+              name: Humidity
 
       - type: conditional
         conditions:

@@ -83,6 +83,11 @@ in
           hagenie_deviceType = "humidifier";
           hagenie_zone = "主卧";
         };
+        "climate.gree_climate_9424b8123fe900" = {
+          hagenie_deviceName = "空调";
+          hagenie_deviceType = "aircondition";
+          hagenie_zone = "客厅";
+        };
         "light.living_room" = {
           hagenie_deviceName = "灯";
           hagenie_deviceType = "light";
