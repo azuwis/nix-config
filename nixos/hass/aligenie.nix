@@ -1,5 +1,7 @@
 { config, lib, pkgs, ... }:
 
+# https://iap.aligenie.com/home
+
 let
   inherit (lib) mdDoc mkEnableOption mkIf;
   cfg = config.my.hass;
@@ -38,44 +40,14 @@ in
           hagenie_deviceType = "aircondition";
           hagenie_zone = "主卧";
         };
-        "sensor.xiaomi_mt0_bedd_temperature" = {
-          hagenie_deviceName = "温度";
-          hagenie_deviceType = "sensor";
-          hagenie_zone = "主卧";
-        };
-        "sensor.xiaomi_mt0_bedd_relative_humidity" = {
-          hagenie_deviceName = "湿度";
-          hagenie_deviceType = "sensor";
-          hagenie_zone = "主卧";
-        };
         "climate.xiaomi_mt0_cdd0_air_conditioner" = {
           hagenie_deviceName = "空调";
           hagenie_deviceType = "aircondition";
           hagenie_zone = "次卧";
         };
-        "sensor.xiaomi_mt0_cdd0_temperature" = {
-          hagenie_deviceName = "温度";
-          hagenie_deviceType = "sensor";
-          hagenie_zone = "次卧";
-        };
-        "sensor.xiaomi_mt0_cdd0_relative_humidity" = {
-          hagenie_deviceName = "湿度";
-          hagenie_deviceType = "sensor";
-          hagenie_zone = "次卧";
-        };
         "climate.xiaomi_mt0_6e25_air_conditioner" = {
           hagenie_deviceName = "空调";
           hagenie_deviceType = "aircondition";
-          hagenie_zone = "儿童房";
-        };
-        "sensor.xiaomi_mt0_6e25_temperature" = {
-          hagenie_deviceName = "温度";
-          hagenie_deviceType = "sensor";
-          hagenie_zone = "儿童房";
-        };
-        "sensor.xiaomi_mt0_6e25_relative_humidity" = {
-          hagenie_deviceName = "湿度";
-          hagenie_deviceType = "sensor";
           hagenie_zone = "儿童房";
         };
         "humidifier.leshow_jsq1_4d84_humidifier" = {
