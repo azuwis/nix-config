@@ -60,26 +60,6 @@ views:
               top: 51.8%
               left: 75%
           - type: state-label
-            entity: sensor.582d34542b9b_humidity
-            tap_action:
-              action: navigate
-              navigation_path: /lovelace/history
-            hold_action:
-              action: more-info
-            style:
-              top: 42.2%
-              left: 77%
-          - type: state-label
-            entity: sensor.582d34542b9b_temperature
-            tap_action:
-              action: navigate
-              navigation_path: /lovelace/history
-            hold_action:
-              action: more-info
-            style:
-              top: 44.2%
-              left: 77%
-          - type: state-label
             entity: sensor.1775bcf17c0e_humidity
             tap_action:
               action: navigate
