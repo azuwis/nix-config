@@ -29,7 +29,7 @@ in
 
     services.home-assistant.config = {
       ffmpeg = { };
-      # logger.logs."custom_components.xiaomi_miot" = "debug";
+      logger.logs."custom_components.xiaomi_miot" = "critical";
     };
 
     hass.automations = ''
