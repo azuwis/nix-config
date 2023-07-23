@@ -522,9 +522,9 @@ views:
           # - entity: sensor.dark_sky_apparent_temperature
           #   name: Outside
           # - entity: sensor.dark_sky_humidity
-            name: Outside
-          - entity: !secret air_sensor
-            name: !secret air_name
+          #   name: Outside
+          # - entity: !secret air_sensor
+          #   name: !secret air_name
 
   - title: Map
     path: map
