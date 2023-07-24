@@ -10,8 +10,8 @@ let
     name = "${owner}-${repo}-${rev}";
     owner = "azuwis";
     repo = "aligenie";
-    rev = "cf10771673e916d3e2a0d5a195bd5529731aa558";
-    sha256 = "1zxjzb0h2mdcfm78zja5ax2v92g4kqf7afqk3jnh9hj8v4gv8vlp";
+    rev = "626284b3a3e06d1f616e5d55f76ed58008c235c0";
+    sha256 = "sha256-QxmiEP81HLDUX3vsO377+CfkxRki7yXrsbLXY/9AD80=";
   };
 in
 {
