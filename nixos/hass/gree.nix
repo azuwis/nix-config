@@ -8,8 +8,8 @@ let
     name = "${owner}-${repo}-${rev}";
     owner = "RobHofmann";
     repo = "HomeAssistant-GreeClimateComponent";
-    rev = "42e1b14caadc6639690ac5a4d8c3e1c5d7e283a9";
-    sha256 = "sha256-kZlgPMAUkF34rNFq1nOYOvPtSf+1rzDxTzjzZ/0JUMs=";
+    rev = "e267e744a08ccee572376b3f120767dd4bfca21a";
+    sha256 = "sha256-rrOUFSs4gHEXZcCB2aFkP2Vt1lyHvnmp2b60A6oJCvc=";
   };
 in
 {
