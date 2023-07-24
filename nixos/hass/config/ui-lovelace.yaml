@@ -24,7 +24,7 @@ views:
               top: 72.8%
               left: 93%
           - type: state-icon
-            entity: climate.gree_climate_9424b8123fe900
+            entity: climate.living_room
             hold_action:
               action: toggle
             style:
@@ -409,13 +409,13 @@ views:
 
       - type: conditional
         conditions:
-          - entity: climate.gree_climate_9424b8123fe900
+          - entity: climate.living_room
             state_not: 'off'
-          - entity: climate.gree_climate_9424b8123fe900
+          - entity: climate.living_room
             state_not: 'unavailable'
         card:
           type: custom:simple-thermostat
-          entity: climate.gree_climate_9424b8123fe900
+          entity: climate.living_room
           sensors:
             - entity: sensor.1775bcf17c0e_humidity
               name: Humidity
