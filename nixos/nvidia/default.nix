@@ -42,8 +42,8 @@ in
 
     (mkIf cfg.nvidia-patch (
       let
-        rev = "fbf79521a766a86658a1ee6dd69bcb4bb15beae7";
-        hash = "sha256-qto+sp+4irspmNr76Ks90CdyXQw+GrgNeaZsX1E8ztM=";
+        rev = "2d31a42d8da0050a63d4f466ddd1244321e2ef52";
+        hash = "sha256-hrTxSPDIl162rJoI2ID5mrbXilwiz93RhZsRBReONTk=";
         nvidia-patch = pkgs.nvidia-patch rev hash;
         package = config.boot.kernelPackages.nvidiaPackages.stable;
       in
