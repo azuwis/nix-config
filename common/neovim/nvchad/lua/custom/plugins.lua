@@ -54,7 +54,9 @@ return {
       "Neogit",
     },
     dependencies = {
+      "lewis6991/gitsigns.nvim",
       "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
       "sindrets/diffview.nvim",
     },
     config = function()
