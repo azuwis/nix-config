@@ -56,6 +56,7 @@ return {
     dependencies = {
       "lewis6991/gitsigns.nvim",
       "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
       "nvim-treesitter/nvim-treesitter",
       "sindrets/diffview.nvim",
     },
@@ -70,6 +71,7 @@ return {
         },
         integrations = {
           diffview = true,
+          telescope = true,
         },
       }
     end,
