@@ -49,7 +49,7 @@ return {
   },
 
   {
-    "TimUntersberger/neogit",
+    "NeogitOrg/neogit",
     cmd = {
       "Neogit",
     },
