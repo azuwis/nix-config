@@ -11,7 +11,7 @@ let
     owner = "azuwis";
     repo = "aligenie";
     rev = "626284b3a3e06d1f616e5d55f76ed58008c235c0";
-    sha256 = "sha256-QxmiEP81HLDUX3vsO377+CfkxRki7yXrsbLXY/9AD80=";
+    sha256 = "1k8g83zn7mxjn7mjbvr2372y89zqzdz3pv3vbzab071mzw8a46a3";
   };
 in
 {
