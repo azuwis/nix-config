@@ -12,7 +12,7 @@ update_fetchgit() {
   fi
 }
 
-if [ -n "$1" ]
+if [ -n "${1:-}" ]
 then
   update_fetchgit "$1"
 else
