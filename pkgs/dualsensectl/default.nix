@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation rec {
   pname = "dualsensectl";
-  version = "unstable-2022-12-28";
+  version = "0.4";
 
   src = fetchFromGitHub {
-    owner = "shadowwa";
+    owner = "nowrep";
     repo = "dualsensectl";
-    rev = "5a18c27fb13355b4b36a0287baeb320f6db31c31";
-    hash = "sha256-S791dNwM4HLE3ZLRTjXVgM/jywVshKWJk8b0MlCuyKY=";
+    rev = "v${version}";
+    hash = "sha256-DrPVzbaLO2NgjNcEFyCs2W+dlbdpBeRX1ZfFenqz7IY=";
   };
 
   postPatch = ''
