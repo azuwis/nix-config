@@ -65,6 +65,8 @@ let
     "browser.compactmode.show" = true;
     "browser.tabs.closeWindowWithLastTab" = false;
     "browser.tabs.tabClipWidth" = 50;
+    # compact mode
+    "browser.uidensity" = 1;
     "network.proxy.socks_remote_dns" = true;
     "network.http.connection-timeout" = 30;
     "browser.aboutConfig.showWarning" = false;
