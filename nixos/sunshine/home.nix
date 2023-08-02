@@ -61,7 +61,7 @@ in
           {
             name = "BotW";
             image-path = "desktop-alt.png";
-            cmd = "cemu -f -g $(HOME)/Games/WiiU/BotW/code/U-King.rpx";
+            cmd = "cemu --fullscreen --title-id 00050000101c9300";
             prep-cmd = [{
               do = "${./scripts}/cemu-do.sh";
               undo = "${./scripts}/cemu-undo.sh";
