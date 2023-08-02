@@ -29,6 +29,7 @@
 
   my.evdevhook.enable = true;
   my.desktop.enable = true;
+  my.dualsensectl.enable = true;
   my.hass.enable = true;
   my.intelGpu.enable = true;
   # my.moonlight-cemuhook.enable = true;
@@ -42,7 +43,6 @@
   hm.my.swayidle.enable = false;
 
   hm.home.packages = with pkgs; [
-    dualsensectl
     moonlight-qt
   ];
 }

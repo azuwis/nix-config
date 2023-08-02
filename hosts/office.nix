@@ -10,12 +10,9 @@
 
   my.cemu.enable = true;
   my.desktop.enable = true;
+  my.dualsensectl.enable = true;
   my.nvidia.enable = true;
   my.retroarch.enable = true;
   my.sunshine.enable = true;
   # hm.my.sunshine.package = pkgs.sunshine-git;
-
-  hm.home.packages = with pkgs; [
-    dualsensectl
-  ];
 }
