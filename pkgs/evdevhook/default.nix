@@ -10,7 +10,7 @@
 , zlib
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "evdevhook";
   version = "unstable-2021-11-21";
 
@@ -33,6 +33,10 @@ stdenv.mkDerivation rec {
     udev
     zlib
   ];
+
+  postPatch = ''
+    substituteInPlace src/main.cpp --replace create_loopback create_any
+  '';
 
   meta = with lib; {
     description = "Libevdev based DSU/cemuhook joystick server";
