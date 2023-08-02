@@ -35,6 +35,10 @@ in
         };
         devices = [
           {
+            name = "DualSense Wireless Controller Motion Sensors";
+            profile = "Playstation";
+          }
+          {
             name = "Sony Interactive Entertainment DualSense Wireless Controller Motion Sensors";
             profile = "Playstation";
           }
@@ -56,6 +60,7 @@ in
     };
 
     services.udev.extraRules = ''
+      ATTRS{name}=="DualSense Wireless Controller Motion Sensors", OWNER="${cfg.user}"
       ATTRS{name}=="Sony Interactive Entertainment DualSense Wireless Controller Motion Sensors", OWNER="${cfg.user}"
     '';
 
