@@ -42,7 +42,7 @@
 
   hm.my.swayidle.enable = false;
 
-  hm.home.packages = with pkgs; [
+  environment.systemPackages = with pkgs; [
     moonlight-qt
   ];
 }
