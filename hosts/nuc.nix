@@ -27,10 +27,11 @@
     };
   };
 
+  my.evdevhook.enable = true;
   my.desktop.enable = true;
   my.hass.enable = true;
   my.intelGpu.enable = true;
-  my.moonlight-cemuhook.enable = true;
+  # my.moonlight-cemuhook.enable = true;
   # my.moonlight-cemuhook.package = pkgs.moonlight-git;
   my.photoprism.enable = true;
   my.retroarch.enable = true;
@@ -42,5 +43,6 @@
 
   hm.home.packages = with pkgs; [
     dualsensectl
+    moonlight-qt
   ];
 }
