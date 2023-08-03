@@ -27,7 +27,7 @@
   };
 
   # programs.sway.extraSessionCommands = ''
-  #   # workaround for XWayland refuces to start
+  #   # workaround for XWayland refuses to start
   #   if [ -L /tmp/.X11-unix ]
   #   then
   #     sudo rm /tmp/.X11-unix
