@@ -3,6 +3,7 @@ self: super: rec {
   anime4k = super.callPackage ./pkgs/anime4k { };
   dualsensectl = super.callPackage ./pkgs/dualsensectl { };
   evdevhook = super.callPackage ./pkgs/evdevhook { };
+  evdevhook2 = super.callPackage ./pkgs/evdevhook2 { };
   jetbrains-mono-nerdfont = super.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
   legacyfox = super.callPackage ./pkgs/legacyfox { };
   moonlight-cemuhook = super.moonlight-qt.overrideAttrs (o: {
