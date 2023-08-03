@@ -43,5 +43,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/v1993/evdevhook";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ azuwis ];
+    platforms = platforms.linux;
   };
 }
