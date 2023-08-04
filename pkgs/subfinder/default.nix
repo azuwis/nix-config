@@ -1,16 +1,9 @@
 { lib
-, buildPythonPackage
 , fetchFromGitHub
-, requests
-, lxml
-, beautifulsoup4
-, gevent
-, rarfile
-, setuptools
-, six
+, python3
 }:
 
-buildPythonPackage rec {
+python3.pkgs.buildPythonApplication {
   pname = "subfinder";
   version = "unstable-2023-04-19";
 
@@ -21,7 +14,15 @@ buildPythonPackage rec {
     sha256 = "1srvvr3zw4kc5a3s1jagb36pxxx60zlaazs35qmzd1wsppmxhamb";
   };
 
-  propagatedBuildInputs = [ requests lxml beautifulsoup4 gevent rarfile setuptools six ];
+  propagatedBuildInputs = with python3.pkgs; [
+    requests
+    lxml
+    beautifulsoup4
+    gevent
+    rarfile
+    setuptools
+    six
+  ];
 
   doCheck = false;
 

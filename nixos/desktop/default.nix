@@ -21,7 +21,7 @@ in
       evemu
       evtest
       chromium
-      python3.pkgs.subfinder
+      subfinder
     ];
 
     nix.daemonCPUSchedPolicy = "idle";

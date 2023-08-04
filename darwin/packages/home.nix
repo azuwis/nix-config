@@ -25,7 +25,7 @@
     daemon
     # element-desktop
     # hydra-check
-    python3.pkgs.subfinder
+    subfinder
     qbittorrent
     darwin.iproute2mac
     gimp

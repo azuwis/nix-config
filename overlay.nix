@@ -39,6 +39,7 @@ self: super: {
   sf-symbols-full = self.callPackage ./pkgs/sf-symbols { full = true; };
   sf-symbols-minimal = self.callPackage ./pkgs/sf-symbols { };
   steam-devices = self.callPackage ./pkgs/steam-devices { };
+  subfinder = self.callPackage ./pkgs/subfinder { };
   sunshine-git = self.sunshine.overrideAttrs (o: {
     pname = "sunshine-git";
     src = self.fetchFromGitHub {
@@ -74,7 +75,6 @@ self: super: {
     packageOverrides = pyself: pysuper: {
       dsdrv-cemuhook = self.python3.pkgs.callPackage ./pkgs/dsdrv-cemuhook { };
       pysonybraviapsk = self.python3.pkgs.callPackage ./pkgs/pysonybraviapsk { };
-      subfinder = self.python3.pkgs.callPackage ./pkgs/subfinder { };
     };
   };
   python3Packages = self.python3.pkgs;
