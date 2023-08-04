@@ -1,15 +1,17 @@
-self: super: rec {
+# https://discourse.nixos.org/t/in-overlays-when-to-use-self-vs-super/2968/12
+
+self: super: {
   # pkgs
-  anime4k = super.callPackage ./pkgs/anime4k { };
-  dualsensectl = super.callPackage ./pkgs/dualsensectl { };
-  evdevhook = super.callPackage ./pkgs/evdevhook { };
-  evdevhook2 = super.callPackage ./pkgs/evdevhook2 { };
-  jetbrains-mono-nerdfont = super.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
-  jslisten = super.callPackage ./pkgs/jslisten { };
-  legacyfox = super.callPackage ./pkgs/legacyfox { };
-  moonlight-cemuhook = super.moonlight-qt.overrideAttrs (o: {
+  anime4k = self.callPackage ./pkgs/anime4k { };
+  dualsensectl = self.callPackage ./pkgs/dualsensectl { };
+  evdevhook = self.callPackage ./pkgs/evdevhook { };
+  evdevhook2 = self.callPackage ./pkgs/evdevhook2 { };
+  jetbrains-mono-nerdfont = self.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
+  jslisten = self.callPackage ./pkgs/jslisten { };
+  legacyfox = self.callPackage ./pkgs/legacyfox { };
+  moonlight-cemuhook = self.moonlight-qt.overrideAttrs (o: {
     pname = "moonlight-cemuhook";
-    src = super.fetchFromGitHub {
+    src = self.fetchFromGitHub {
       owner = "azuwis";
       repo = "moonlight-qt";
       rev = "4d001f122cb200dc2d668e74a03f22149382b993";
@@ -17,9 +19,9 @@ self: super: rec {
       fetchSubmodules = true;
     };
   });
-  moonlight-git = super.moonlight-qt.overrideAttrs (o: {
+  moonlight-git = self.moonlight-qt.overrideAttrs (o: {
     pname = "moonlight-git";
-    src = super.fetchFromGitHub {
+    src = self.fetchFromGitHub {
       owner = "moonlight-stream";
       repo = o.pname;
       rev = "e287ebcded4ebbd2ddaff5b8ceade3e09946f864";
@@ -28,18 +30,18 @@ self: super: rec {
     };
     patches = [ ];
   });
-  nibar = super.callPackage ./pkgs/nibar { };
-  redsocks2 = super.callPackage ./pkgs/redsocks2 { };
-  rime-ice = super.callPackage ./pkgs/rime-ice { };
-  scripts = super.callPackage ./pkgs/scripts { };
+  nibar = self.callPackage ./pkgs/nibar { };
+  redsocks2 = self.callPackage ./pkgs/redsocks2 { };
+  rime-ice = self.callPackage ./pkgs/rime-ice { };
+  scripts = self.callPackage ./pkgs/scripts { };
   sf-symbols = self.sf-symbols-minimal;
-  sf-symbols-app = super.callPackage ./pkgs/sf-symbols { app = true; fonts = false; };
-  sf-symbols-full = super.callPackage ./pkgs/sf-symbols { full = true; };
-  sf-symbols-minimal = super.callPackage ./pkgs/sf-symbols { };
-  steam-devices = super.callPackage ./pkgs/steam-devices { };
-  sunshine-git = super.sunshine.overrideAttrs (o: {
+  sf-symbols-app = self.callPackage ./pkgs/sf-symbols { app = true; fonts = false; };
+  sf-symbols-full = self.callPackage ./pkgs/sf-symbols { full = true; };
+  sf-symbols-minimal = self.callPackage ./pkgs/sf-symbols { };
+  steam-devices = self.callPackage ./pkgs/steam-devices { };
+  sunshine-git = self.sunshine.overrideAttrs (o: {
     pname = "sunshine-git";
-    src = super.fetchFromGitHub {
+    src = self.fetchFromGitHub {
       owner = "LizardByte";
       repo = "Sunshine";
       rev = "c5bf78176e0bb70c1dcb43ef062afff3ce3da2e2";
@@ -47,13 +49,13 @@ self: super: rec {
       fetchSubmodules = true;
     };
   });
-  torrent-ratio = super.callPackage ./pkgs/torrent-ratio { };
+  torrent-ratio = self.callPackage ./pkgs/torrent-ratio { };
 
   # override
   fcitx5-configtool = null;
   nixos-option =
     let
-      flake-compact = super.fetchFromGitHub {
+      flake-compact = self.fetchFromGitHub {
         owner = "edolstra";
         repo = "flake-compat";
         rev = "12c64ca55c1014cdc1b16ed5a804aa8576601ff2";
@@ -61,7 +63,7 @@ self: super: rec {
       };
       prefix = ''(import ${flake-compact} { src = /etc/nixos; }).defaultNix.nixosConfigurations.\$(hostname)'';
     in
-    super.runCommand "nixos-option" { buildInputs = [ super.makeWrapper ]; } ''
+    self.runCommand "nixos-option" { buildInputs = [ self.makeWrapper ]; } ''
       makeWrapper ${super.nixos-option}/bin/nixos-option $out/bin/nixos-option \
         --add-flags --config_expr \
         --add-flags "\"${prefix}.config\"" \
@@ -69,17 +71,17 @@ self: super: rec {
         --add-flags "\"${prefix}.options\""
     '';
   python3 = super.python3.override {
-    packageOverrides = python-self: python-super: {
-      dsdrv-cemuhook = python3.pkgs.callPackage ./pkgs/dsdrv-cemuhook { };
-      pysonybraviapsk = python3.pkgs.callPackage ./pkgs/pysonybraviapsk { };
-      subfinder = python3.pkgs.callPackage ./pkgs/subfinder { };
+    packageOverrides = pyself: pysuper: {
+      dsdrv-cemuhook = self.python3.pkgs.callPackage ./pkgs/dsdrv-cemuhook { };
+      pysonybraviapsk = self.python3.pkgs.callPackage ./pkgs/pysonybraviapsk { };
+      subfinder = self.python3.pkgs.callPackage ./pkgs/subfinder { };
     };
   };
-  python3Packages = python3.pkgs;
-  # sketchybar = super.callPackage ./pkgs/sketchybar {
-  #   inherit (super.darwin.apple_sdk.frameworks) Carbon Cocoa SkyLight;
+  python3Packages = self.python3.pkgs;
+  # sketchybar = self.callPackage ./pkgs/sketchybar {
+  #   inherit (self.darwin.apple_sdk.frameworks) Carbon Cocoa SkyLight;
   # };
-  # trigger-control = super.callPackage ./pkgs/trigger-control { };
-  # uxplay = super.callPackage ./pkgs/uxplay { };
-  # yabai = super.callPackage ./pkgs/yabai { };
+  # trigger-control = self.callPackage ./pkgs/trigger-control { };
+  # uxplay = self.callPackage ./pkgs/uxplay { };
+  # yabai = self.callPackage ./pkgs/yabai { };
 }
