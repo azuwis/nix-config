@@ -72,12 +72,12 @@ self: super: {
         --add-flags --options_expr \
         --add-flags "\"${prefix}.options\""
     '';
-  python3 = super.python3.override {
-    packageOverrides = pyself: pysuper: {
-      pysonybraviapsk = self.python3.pkgs.callPackage ./pkgs/pysonybraviapsk { };
-    };
-  };
-  python3Packages = self.python3.pkgs;
+  # python3 = super.python3.override {
+  #   packageOverrides = pyself: pysuper: {
+  #     pysonybraviapsk = self.python3.pkgs.callPackage ./pkgs/pysonybraviapsk { };
+  #   };
+  # };
+  # python3Packages = self.python3.pkgs;
   # sketchybar = self.callPackage ./pkgs/sketchybar {
   #   inherit (self.darwin.apple_sdk.frameworks) Carbon Cocoa SkyLight;
   # };
