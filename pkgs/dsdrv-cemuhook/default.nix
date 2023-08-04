@@ -1,12 +1,10 @@
 { lib
-, buildPythonPackage
 , fetchFromGitHub
-, evdev
-, pyudev
 , bluez
+, python3
 }:
 
-buildPythonPackage rec {
+python3.pkgs.buildPythonPackage {
   pname = "dsdrv-cemuhook";
   version = "unstable-2021-08-04";
 
@@ -17,7 +15,10 @@ buildPythonPackage rec {
     sha256 = "0bhh5q6hl1ba7w5b5rm5a4gh7n169v3k6lz7szvzmbs79gpxmb2m";
   };
 
-  propagatedBuildInputs = [ evdev pyudev ];
+  propagatedBuildInputs = with python3.pkgs; [
+    evdev
+    pyudev
+  ];
 
   buildInputs = [ bluez ];
 

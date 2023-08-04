@@ -3,6 +3,7 @@
 self: super: {
   # pkgs
   anime4k = self.callPackage ./pkgs/anime4k { };
+  dsdrv-cemuhook = self.callPackage ./pkgs/dsdrv-cemuhook { };
   dualsensectl = self.callPackage ./pkgs/dualsensectl { };
   evdevhook = self.callPackage ./pkgs/evdevhook { };
   evdevhook2 = self.callPackage ./pkgs/evdevhook2 { };
@@ -73,7 +74,6 @@ self: super: {
     '';
   python3 = super.python3.override {
     packageOverrides = pyself: pysuper: {
-      dsdrv-cemuhook = self.python3.pkgs.callPackage ./pkgs/dsdrv-cemuhook { };
       pysonybraviapsk = self.python3.pkgs.callPackage ./pkgs/pysonybraviapsk { };
     };
   };
