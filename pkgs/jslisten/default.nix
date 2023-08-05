@@ -11,8 +11,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "workinghard";
     repo = "jslisten";
-    rev = "3c84610b7422e06451d454f5eedde4e9e59b78dd";
-    hash = "sha256-ZKxA+Hbk8kkqMzO1wTZtcIhNwaHYylD+qIPgf/MydAk=";
+    rev = "51fb2f5fb3f7420e01a1b0c6b593e9824233e3f4";
+    hash = "sha256-6KAXzO/1Sm0fyeN9hO1OKrMNOZNKzwD/+amrbGMlRFo=";
   };
 
   buildInputs = [
