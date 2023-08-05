@@ -13,7 +13,20 @@ in
 
     settings = mkOption {
       type = ini.type;
-      default = { };
+      default = {
+        # L+PS
+        BackForth = {
+          program = "swaymsg workspace back_and_forth";
+          button1 = 4;
+          button2 = 10;
+        };
+        # △+PS
+        BotW = {
+          program = "${./scripts}/botw";
+          button1 = 2;
+          button2 = 10;
+        };
+      };
     };
   };
 

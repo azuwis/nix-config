@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if command -v cemu >/dev/null
+then
+  swaymsg --quiet '[app_id=^info\.cemu\.Cemu$]' focus || { dualsensectl trigger right feedback 5 8; cemu --fullscreen --title-id 00050000101c9300 & }
+else
+  swaymsg --quiet '[app_id=^com\.moonlight_stream\.Moonlight$]' focus || { dualsensectl trigger right feedback 5 8; moonlight stream office BotW & }
+fi

@@ -41,15 +41,6 @@
   my.zramswap.enable = true;
 
   hm.my.jslisten.enable = true;
-  hm.my.jslisten.settings = {
-    # L+PS
-    BotW = {
-      program = ''sh -c "dualsensectl trigger right feedback 5 8; moonlight stream office BotW"'';
-      button1 = 4;
-      button2 = 10;
-    };
-  };
-
   hm.my.swayidle.enable = false;
 
   environment.systemPackages = with pkgs; [
