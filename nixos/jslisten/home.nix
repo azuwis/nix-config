@@ -36,7 +36,7 @@ in
     home.file.".jslisten".source = configFile;
 
     wayland.windowManager.sway.config = {
-      startup = [{ command = "jslisten"; }];
+      startup = [{ command = "jslisten --loglevel notice"; }];
     };
   };
 }
