@@ -7,7 +7,7 @@ let
 
   swayConfig = pkgs.runCommand "sunshine-sway.conf" { } ''
     {
-    grep -Ev '(^exec swaylock|^exec swayidle|events disabled|dbus-update-activation-environment)' ${config.xdg.configFile."sway/config".source}
+    grep -Ev '(^exec jslisten|^exec swaylock|^exec swayidle|events disabled|dbus-update-activation-environment)' ${config.xdg.configFile."sway/config".source}
     echo '
     output HEADLESS-1 mode ${cfg.mode}
     seat seat0 fallback false
