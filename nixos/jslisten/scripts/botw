@@ -1,12 +1,19 @@
 #!/bin/sh
 
 run() {
-  app_id="$1"
+  app_id=$1
   shift
-  if [ "$(swaymsg -t get_tree | jq -r '.. | select(.type?) | select(.focused==true).app_id')" = "$app_id" ]
+
+  focused=$(swaymsg -t get_tree | jq -r '.. | select(.type?) | select(.focused==true).app_id')
+  if [ "$focused" = "$app_id" ]
   then
     swaymsg --quiet '[app_id=firefox]' focus
+    wtype -k space
   else
+    if [ "$focused" = firefox ]
+    then
+      wtype -k space
+    fi
     swaymsg --quiet "[app_id=$app_id]" focus || {
       dualsensectl trigger right feedback 5 8
       "$@" &
