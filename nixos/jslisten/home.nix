@@ -14,17 +14,29 @@ in
     settings = mkOption {
       type = ini.type;
       default = {
-        # L+PS
-        BackForth = {
-          program = "swaymsg workspace back_and_forth";
-          button1 = 4;
-          button2 = 10;
+        # PS+L
+        Left = {
+          button1 = 10;
+          button2 = 4;
+          program = "wtype -k left";
+        };
+        # PS+R
+        Right = {
+          button1 = 10;
+          button2 = 5;
+          program = "wtype -k right";
+        };
+        # PS+ZR
+        Space = {
+          button1 = 10;
+          button2 = 7;
+          program = "wtype -k space";
         };
         # △+PS
         BotW = {
+          button1 = 10;
+          button2 = 2;
           program = "${./scripts}/botw";
-          button1 = 2;
-          button2 = 10;
         };
       };
     };
@@ -36,7 +48,7 @@ in
     home.file.".jslisten".source = configFile;
 
     wayland.windowManager.sway.config = {
-      startup = [{ command = "jslisten --loglevel notice"; }];
+      startup = [{ command = "jslisten --mode hold --loglevel notice"; }];
     };
   };
 }

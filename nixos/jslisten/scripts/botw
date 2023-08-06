@@ -1,8 +1,22 @@
 #!/bin/sh
 
-if command -v cemu >/dev/null
+run() {
+  app_id="$1"
+  shift
+  if [ "$(swaymsg -t get_tree | jq -r '.. | select(.type?) | select(.focused==true).app_id')" = "$app_id" ]
+  then
+    swaymsg --quiet '[app_id=firefox]' focus
+  else
+    swaymsg --quiet "[app_id=$app_id]" focus || {
+      dualsensectl trigger right feedback 5 8
+      "$@" &
+    }
+  fi
+}
+
+if command -v moonlight >/dev/null
 then
-  swaymsg --quiet '[app_id=^info\.cemu\.Cemu$]' focus || { dualsensectl trigger right feedback 5 8; cemu --fullscreen --title-id 00050000101c9300 & }
+  run com.moonlight_stream.Moonlight moonlight stream office BotW
 else
-  swaymsg --quiet '[app_id=^com\.moonlight_stream\.Moonlight$]' focus || { dualsensectl trigger right feedback 5 8; moonlight stream office BotW & }
+  run info.cemu.Cemu cemu --fullscreen --title-id 00050000101c9300
 fi
