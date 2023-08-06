@@ -31,6 +31,7 @@ in
         swappy
         sway-contrib.grimshot
         wev
+        wtype
       ];
 
       wayland.windowManager.sway = {
