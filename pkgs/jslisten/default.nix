@@ -9,10 +9,10 @@ stdenv.mkDerivation {
   version = "unstable-2021-02-07";
 
   src = fetchFromGitHub {
-    owner = "workinghard";
+    owner = "azuwis";
     repo = "jslisten";
-    rev = "51fb2f5fb3f7420e01a1b0c6b593e9824233e3f4";
-    hash = "sha256-6KAXzO/1Sm0fyeN9hO1OKrMNOZNKzwD/+amrbGMlRFo=";
+    rev = "d79128689746be2fdaa37fa665068c538e3b8099";
+    hash = "sha256-qThNPzdddlBWLd3RTSer3auxQ5E/zHFTCAagSvvRwwM=";
   };
 
   buildInputs = [
