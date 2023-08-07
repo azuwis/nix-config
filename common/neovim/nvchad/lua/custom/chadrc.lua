@@ -3,12 +3,10 @@ local M = {}
 M.ui = {
   theme = "nord",
   tabufline = {
-    overriden_modules = function()
-      return {
-        buttons = function()
-          return ""
-        end,
-      }
+    overriden_modules = function(modules)
+      modules[4] = (function()
+        return ""
+      end)()
     end,
   },
 }
