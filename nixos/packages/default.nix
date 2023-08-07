@@ -18,6 +18,7 @@
     efibootmgr
     inetutils
     iotop-c
+    man-pages
     netproc
     nixos-option
     pciutils
