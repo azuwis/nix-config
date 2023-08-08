@@ -14,7 +14,7 @@ in
     hm.my.theme.enable = true;
 
     fonts = {
-      fonts = with pkgs; [
+      packages = with pkgs; [
         fira
         jetbrains-mono-nerdfont
         noto-fonts-cjk-sans

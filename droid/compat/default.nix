@@ -8,7 +8,7 @@ with lib;
   ];
 
   options = {
-    fonts.fonts = mkOption {
+    fonts.packages = mkOption {
       type = types.listOf types.str;
     };
     nix.settings = mkOption {
