@@ -18,25 +18,25 @@ in
         Left = {
           button1 = 10;
           button2 = 4;
-          program = "wtype -k left";
+          program = "wtype -k left &";
         };
         # PS+R
         Right = {
           button1 = 10;
           button2 = 5;
-          program = "wtype -k right";
+          program = "wtype -k right &";
         };
         # PS+ZR
         Space = {
           button1 = 10;
           button2 = 7;
-          program = "wtype -k space";
+          program = "wtype -k space &";
         };
         # △+PS
         BotW = {
           button1 = 10;
           button2 = 2;
-          program = "${./scripts}/botw";
+          program = "${./scripts}/botw &";
         };
       };
     };

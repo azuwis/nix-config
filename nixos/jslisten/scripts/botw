@@ -16,7 +16,7 @@ run() {
     fi
     swaymsg --quiet "[app_id=$app_id]" focus || {
       dualsensectl trigger right feedback 5 8
-      "$@" &
+      "$@"
     }
   fi
 }
