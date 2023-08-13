@@ -11,7 +11,7 @@ bar:
   left:
     - i3:
         anchors:
-          - string: &default {text: "{name}", margin: 6, on-click: "swaymsg --quiet workspace {name}"}
+          - string: &default {text: "{name}", margin: 6, on-click: "@msgcmd@ --quiet workspace {name}"}
           - focused: &focused
               foreground: EBCB8BFF
           - urgent: &urgent

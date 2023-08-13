@@ -10,6 +10,7 @@ let
     src = ./config.yml;
     name = "yambar.yml";
     scripts = ./scripts;
+    msgcmd = if config.my.sway.enable then "swaymsg" else "i3-msg";
   };
 
 in
@@ -24,6 +25,11 @@ in
     xdg.configFile."yambar/config.yml".source = configFile;
 
     wayland.windowManager.sway.config = {
+      bars = [ ];
+      startup = [{ command = "yambar --log-level=error"; }];
+    };
+
+    xsession.windowManager.i3.config = {
       bars = [ ];
       startup = [{ command = "yambar --log-level=error"; }];
     };
