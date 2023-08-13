@@ -20,6 +20,8 @@ in
 
       services.xserver = {
         enable = true;
+        autoRepeatDelay = 300;
+        autoRepeatInterval = 33;
         displayManager.startx.enable = true;
       };
 
