@@ -16,5 +16,6 @@ in
     # '';
     xdg.configFile.fcitx5.source = ./config;
     wayland.windowManager.sway.config.startup = [{ command = "fcitx5"; }];
+    xsession.windowManager.i3.config.startup = [{ command = "fcitx5"; }];
   };
 }
