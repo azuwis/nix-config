@@ -26,6 +26,21 @@ in
         pulsemixer
       ];
 
+      programs.wezterm = {
+        enable = true;
+        extraConfig = ''
+          local config = {}
+          if wezterm.config_builder then
+            config = wezterm.config_builder()
+          end
+
+          config.color_scheme = 'nord'
+          config.font_size = 14.0
+
+          return config
+        '';
+      };
+
       programs.rofi = {
         enable = true;
         theme = "${pkgs.fetchurl {
@@ -42,6 +57,7 @@ in
         enable = true;
         config = {
           # Apps
+          terminal = "wezterm";
           assigns = {
             "1" = [{ class = "^Firefox$"; }];
           };
