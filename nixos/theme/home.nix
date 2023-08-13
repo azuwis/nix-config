@@ -11,15 +11,19 @@ in
   };
 
   config = mkIf cfg.enable {
+    home.pointerCursor = {
+      name = "Adwaita";
+      size = 16;
+      package = pkgs.gnome.adwaita-icon-theme;
+      gtk.enable = true;
+      x11.enable = true;
+    };
+
     gtk = {
       enable = true;
       iconTheme = {
         name = "Adwaita";
         package = pkgs.gnome.adwaita-icon-theme;
-      };
-      cursorTheme = {
-        name = "Adwaita";
-        size = 16;
       };
       theme = {
         name = "Adwaita";
