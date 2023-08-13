@@ -65,7 +65,7 @@ in
           };
           # Startup
           startup = [
-            { command = "hsetroot -solid #2e3440"; }
+            { command = "hsetroot -solid '#2e3440'"; }
           ];
         };
       };
