@@ -50,7 +50,7 @@ bar:
                 - string: {text: "󰓅", right-margin: 2}
                 - string: {text: "{cpu}%"}
     - mem:
-        interval: 10000
+        poll-interval: 10000
         content:
           - string: {text: "󰍛", right-margin: 2}
           - string: {text: "{free:gb}G"}
