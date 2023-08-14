@@ -22,6 +22,7 @@ in
         enable = true;
         autoRepeatDelay = 300;
         autoRepeatInterval = 33;
+        extraDisplaySettings = "Virtual 1920 1080";
         displayManager.startx.enable = true;
       };
 
