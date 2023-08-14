@@ -6,6 +6,7 @@ let
   ini = pkgs.formats.ini { };
 
   configFile = ini.generate "jslisten.ini" cfg.settings;
+  sway = config.my.sway.enable;
 in
 {
   options.my.jslisten = {
@@ -18,25 +19,25 @@ in
         Left = {
           button1 = 10;
           button2 = 4;
-          program = "wtype -k left &";
+          program = if sway then "wtype -k left &" else "xdotool key Left &";
         };
         # PS+R
         Right = {
           button1 = 10;
           button2 = 5;
-          program = "wtype -k right &";
+          program = if sway then "wtype -k right &" else "xdotool key Right &";
         };
         # PS+ZR
         Space = {
           button1 = 10;
           button2 = 7;
-          program = "wtype -k space &";
+          program = if sway then "wtype -k space &" else "xdotool key space &";
         };
         # △+PS
         BotW = {
           button1 = 10;
           button2 = 2;
-          program = "${./scripts}/botw &";
+          program = if sway then "${./scripts}/sway-botw &" else "${./scripts}/i3-botw &";
         };
       };
     };
