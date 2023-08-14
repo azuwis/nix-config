@@ -24,6 +24,7 @@ in
         hsetroot
         i3lock
         pulsemixer
+        xdotool
       ];
 
       programs.wezterm = {
