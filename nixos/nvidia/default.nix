@@ -49,6 +49,11 @@ in
       in
       {
         hardware.nvidia.package = nvidia-patch.patch-nvenc (nvidia-patch.patch-fbc package);
+
+        hm.my.sunshine.package = pkgs.sunshine.override {
+          cudaSupport = true;
+          stdenv = pkgs.cudaPackages.backendStdenv;
+        };
       }
     ))
 
