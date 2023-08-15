@@ -68,6 +68,11 @@ in
               undo = "${./scripts}/cemu-undo.sh";
             }];
           }
+          {
+            name = "TotK";
+            image-path = "desktop-alt.png";
+            cmd = "QT_QPA_PLATFORM=xcb yuzu -f -g $(HOME)/Games/Switch/TotK.nsp";
+          }
         ];
       };
     };
