@@ -3,6 +3,11 @@
 self: super: {
   # pkgs
   anime4k = self.callPackage ./pkgs/anime4k { };
+  # cemu = super.cemu.overrideAttrs (o: {
+  #   postPatch = ''
+  #     sed -i '/\/\/ already connected\?/,+2 d' src/input/api/DSU/DSUControllerProvider.cpp
+  #   '';
+  # });
   dsdrv-cemuhook = self.callPackage ./pkgs/dsdrv-cemuhook { };
   dualsensectl = self.callPackage ./pkgs/dualsensectl { };
   evdevhook = self.callPackage ./pkgs/evdevhook { };
