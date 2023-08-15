@@ -17,4 +17,8 @@
   # hm.my.sunshine.package = pkgs.sunshine-git;
 
   hm.my.jslisten.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    yuzu-ea
+  ];
 }
