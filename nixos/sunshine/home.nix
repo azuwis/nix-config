@@ -74,6 +74,14 @@ in
             cmd = pkgs.writeShellScript "totk" ''
               QT_QPA_PLATFORM=xcb yuzu --fullscreen --game "$HOME/Games/Switch/TotK.nsp";
             '';
+            prep-cmd = [{
+              do = pkgs.writeShellScript "yuzu-do" ''
+                sed -e '2,$s|^|player_0_|' "$HOME/.config/yuzu/input/Sunshine.ini" | ${pkgs.crudini}/bin/crudini --merge "$HOME/.config/yuzu/qt-config.ini"
+              '';
+              undo = pkgs.writeShellScript "yuzu-undo" ''
+                sed -e '2,$s|^|player_0_|' "$HOME/.config/yuzu/input/Local.ini" | ${pkgs.crudini}/bin/crudini --merge "$HOME/.config/yuzu/qt-config.ini"
+              '';
+            }];
           }
         ];
       };
