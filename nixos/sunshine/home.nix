@@ -32,7 +32,8 @@ in
     conf = mkOption {
       type = types.str;
       default = ''
-        capture = wlr
+        # capture = nvfbc
+        # capture = wlr
         channels = 2
         fps = [30,60]
         origin_web_ui_allowed = pc
