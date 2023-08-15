@@ -1,0 +1,28 @@
+#!/bin/sh
+
+run() {
+  app=$1
+  shift
+
+  focused=$(swaymsg -t get_tree | jq -r '.. | select(.type?) | select(.focused==true) | .app_id // .class')
+  if [ "$focused" = "$app" ]
+  then
+    swaymsg --quiet '[app_id=firefox]' focus
+    wtype -k space
+  else
+    if [ "$focused" = firefox ]
+    then
+      wtype -k space
+    fi
+    swaymsg --quiet "[app_id=$app]" focus || swaymsg --quiet "[class=$app]" focus || {
+      "$@"
+    }
+  fi
+}
+
+if command -v yuzu >/dev/null
+then
+  run yuzu yuzu --fullscreen --game "$HOME/Games/Switch/TotK.nsp"
+else
+  run com.moonlight_stream.Moonlight moonlight stream office TotK
+fi

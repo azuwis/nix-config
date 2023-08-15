@@ -33,10 +33,16 @@ in
           button2 = 7;
           program = if sway then "wtype -k space &" else "xdotool key space &";
         };
-        # △+PS
-        BotW = {
+        # PS+△
+        TotK = {
           button1 = 10;
           button2 = 2;
+          program = if sway then "${./scripts}/sway-totk &" else "${./scripts}/i3-totk &";
+        };
+        # PS+○
+        BotW = {
+          button1 = 10;
+          button2 = 1;
           program = if sway then "${./scripts}/sway-botw &" else "${./scripts}/i3-botw &";
         };
       };
