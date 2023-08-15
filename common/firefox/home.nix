@@ -116,7 +116,7 @@ let
     "browser.search.update" = false;
     "devtools.chrome.enabled" = true;
     "network.IDN_show_punycode" = true;
-    "full-screen-api.warning.timeout" = -1;
+    "full-screen-api.warning.timeout" = 1;
     "browser.urlbar.oneOffSearches" = false;
     "privacy.userContext.enabled" = true;
     "privacy.userContext.ui.enabled" = true;
