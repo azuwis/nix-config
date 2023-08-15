@@ -52,6 +52,12 @@ self: super: {
     };
   });
   torrent-ratio = self.callPackage ./pkgs/torrent-ratio { };
+  # wlroots = super.wlroots.overrideAttrs (old: {
+  #   postPatch =
+  #     (old.postPatch or "") + ''
+  #       substituteInPlace render/gles2/renderer.c --replace "glFlush();" "glFinish();"
+  #     '';
+  # });
 
   # override
   fcitx5-configtool = null;
