@@ -14,6 +14,7 @@
   my.nvidia.enable = true;
   my.retroarch.enable = true;
   my.sunshine.enable = true;
+  my.zramswap.enable = true;
   # hm.my.sunshine.package = pkgs.sunshine-git;
 
   hm.my.jslisten.enable = true;
