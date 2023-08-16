@@ -72,7 +72,7 @@ in
             name = "TotK";
             image-path = "desktop-alt.png";
             cmd = pkgs.writeShellScript "totk" ''
-              QT_QPA_PLATFORM=xcb yuzu --fullscreen --game "$HOME/Games/Switch/TotK.nsp";
+              QT_QPA_PLATFORM=xcb yuzu -f -g "$HOME/Games/Switch/TotK.nsp";
             '';
             prep-cmd = [{
               do = pkgs.writeShellScript "yuzu-do" ''
