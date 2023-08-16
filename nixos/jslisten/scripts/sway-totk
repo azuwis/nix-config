@@ -15,14 +15,14 @@ run() {
       wtype -k space
     fi
     swaymsg --quiet "[app_id=$app]" focus || swaymsg --quiet "[class=$app]" focus || {
-      "$@"
+      QT_QPA_PLATFORM=xcb "$@"
     }
   fi
 }
 
 if command -v yuzu >/dev/null
 then
-  run yuzu QT_QPA_PLATFORM=xcb yuzu -f -g "$HOME/Games/Switch/TotK.nsp"
+  run yuzu yuzu -f -g "$HOME/Games/Switch/TotK.nsp"
 else
   run com.moonlight_stream.Moonlight moonlight stream office TotK
 fi
