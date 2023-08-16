@@ -65,7 +65,9 @@ self: super: {
   # });
 
   # override
-  fcitx5-configtool = null;
+  fcitx5-configtool = self.writeShellScriptBin "fcitx5-config-qt" ''
+    echo "fcitx-config-qt dummy command"
+  '';
   nixos-option =
     let
       flake-compact = self.fetchFromGitHub {
