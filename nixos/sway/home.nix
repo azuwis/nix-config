@@ -51,6 +51,10 @@ in
               command = "inhibit_idle fullscreen";
               criteria = { app_id = ''^info\.cemu\.Cemu$''; };
             }
+            {
+              command = "inhibit_idle fullscreen";
+              criteria = { class = ''^yuzu$''; };
+            }
           ];
           # Border
           floating.titlebar = false;
