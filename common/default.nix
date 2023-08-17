@@ -24,7 +24,7 @@
       zsh.enable = true;
     };
 
-    home.stateVersion = "22.05";
+    home.stateVersion = "23.11";
     systemd.user.startServices = "sd-switch";
   };
 }
