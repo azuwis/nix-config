@@ -5,7 +5,7 @@
     ./darwin.nix
     ./nixos.nix
     ./droid.nix
-    ./devshell.nix
+    # ./devshell.nix
     ./treefmt.nix
   ];
 }

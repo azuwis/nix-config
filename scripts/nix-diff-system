@@ -19,4 +19,4 @@ built="$(nix build --no-link --print-out-paths "$flake")"
 
 nix store diff-closures /run/current-system/ "$built"
 
-nix-diff --character-oriented /run/current-system/ "$built"
+nix run nixpkgs#nix-diff -- --character-oriented /run/current-system/ "$built"
