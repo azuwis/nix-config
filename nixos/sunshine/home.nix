@@ -54,27 +54,13 @@ in
       default = {
         # moonlight see no apps if env not set
         env = { };
-        apps = [
-          {
-            name = "Desktop";
-            image-path = "desktop.png";
-          }
-          {
-            name = "BotW";
-            image-path = "desktop-alt.png";
-            cmd = "cemu --fullscreen --title-id 00050000101c9300";
-            prep-cmd = [{
+        apps =
+          let
+            cemu-prep-cmd = [{
               do = "${./scripts}/cemu-do.sh";
               undo = "${./scripts}/cemu-undo.sh";
             }];
-          }
-          {
-            name = "TotK";
-            image-path = "desktop-alt.png";
-            cmd = pkgs.writeShellScript "totk" ''
-              QT_QPA_PLATFORM=xcb yuzu -f -g "$HOME/Games/Switch/TotK.nsp";
-            '';
-            prep-cmd = [{
+            yuzu-prep-cmd = [{
               do = pkgs.writeShellScript "yuzu-do" ''
                 sed -e '2,$s|^|player_0_|' "$HOME/.config/yuzu/input/Sunshine.ini" | ${pkgs.crudini}/bin/crudini --merge "$HOME/.config/yuzu/qt-config.ini"
               '';
@@ -82,8 +68,27 @@ in
                 sed -e '2,$s|^|player_0_|' "$HOME/.config/yuzu/input/Local.ini" | ${pkgs.crudini}/bin/crudini --merge "$HOME/.config/yuzu/qt-config.ini"
               '';
             }];
-          }
-        ];
+          in
+          [
+            {
+              name = "Desktop";
+              image-path = "desktop.png";
+            }
+            {
+              name = "BotW";
+              image-path = "desktop-alt.png";
+              cmd = "cemu --fullscreen --title-id 00050000101c9300";
+              prep-cmd = cemu-prep-cmd;
+            }
+            {
+              name = "TotK";
+              image-path = "desktop-alt.png";
+              cmd = pkgs.writeShellScript "totk" ''
+                QT_QPA_PLATFORM=xcb yuzu -f -g "$HOME/Games/Switch/TotK.nsp";
+              '';
+              prep-cmd = yuzu-prep-cmd;
+            }
+          ];
       };
     };
 
