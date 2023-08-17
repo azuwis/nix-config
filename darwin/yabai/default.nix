@@ -22,9 +22,10 @@
       window_shadow = "float";
     };
     # https://github.com/koekeishiya/yabai/issues/1297#issuecomment-1318403190
+    # yabai -m query --windows --space
     extraConfig = ''
       yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
-      yabai -m rule --add app="^(Digital Color Meter|Finder|System Information|System Preferences|System Settings|mpv)$" manage=off
+      yabai -m rule --add app="^(Digital Color Meter|Finder|System Information|System Preferences|System Settings|Ryujinx|mpv)$" manage=off
       yabai -m rule --add app="^alacritty$" title="^Fzf$" manage=off
       yabai -m rule --add app="^(Firefox|Google Chrome|Safari)$" space=2
       yabai -m rule --add app="^Mail$" space=3
