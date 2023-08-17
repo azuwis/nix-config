@@ -53,8 +53,10 @@ in
             }
           ];
           # Border
+          floating.titlebar = false;
           gaps.smartBorders = "no_gaps";
           window.hideEdgeBorders = "both";
+          window.titlebar = false;
           # Keybindings
           menu = "fuzzel";
           keybindings = let mod = config.wayland.windowManager.sway.config.modifier; in lib.mkOptionDefault {
