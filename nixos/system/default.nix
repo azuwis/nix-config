@@ -89,7 +89,7 @@
       ${pkgs.nix}/bin/nix store --experimental-features nix-command diff-closures /run/current-system "$systemConfig" || true
     fi
   '';
-  system.stateVersion = "22.05";
+  system.stateVersion = "23.11";
   users.groups.${config.my.user} = {
     gid = config.my.uid;
   };
