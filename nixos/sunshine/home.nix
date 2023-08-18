@@ -88,6 +88,16 @@ in
               '';
               prep-cmd = yuzu-prep-cmd;
             }
+            {
+              name = "Yuzu";
+              image-path = "${pkgs.runCommand "yuzu.png" { } ''
+                ${pkgs.imagemagick}/bin/convert -background none ${pkgs.yuzu-ea}/share/icons/hicolor/scalable/apps/org.yuzu_emu.yuzu.svg $out
+              ''}";
+              cmd = pkgs.writeShellScript "yuzu" ''
+                QT_QPA_PLATFORM=xcb yuzu
+              '';
+              prep-cmd = yuzu-prep-cmd;
+            }
           ];
       };
     };
