@@ -71,18 +71,40 @@ in
           in
           [
             {
-              name = "Desktop";
-              image-path = "desktop.png";
+              name = "Z Desktop";
+              image-path = pkgs.runCommand "desktop.png" { } ''
+                ${pkgs.imagemagick}/bin/convert -density 1200 -resize 500x -background none ${pkgs.gnome.adwaita-icon-theme}/share/icons/Adwaita/scalable/devices/input-keyboard.svg -gravity center -extent 600x800 $out
+              '';
             }
             {
               name = "BotW";
-              image-path = "desktop-alt.png";
+              image-path =
+                let
+                  image = pkgs.fetchurl {
+                    name = "botw.png";
+                    url = "https://static.wikia.nocookie.net/logopedia/images/5/53/763px-BotW_NA_Logo.png/revision/latest/scale-to-width-down/600";
+                    hash = "sha256-8xaJPg5mRSPyrpQay+m/6RpwHV7BT5HSQ1YhCrPkFZQ=";
+                  };
+                in
+                pkgs.runCommand "botw.png" { } ''
+                  ${pkgs.imagemagick}/bin/convert ${image} -background none -gravity center -extent 600x800 $out
+                '';
               cmd = "cemu --fullscreen --title-id 00050000101c9300";
               prep-cmd = cemu-prep-cmd;
             }
             {
               name = "TotK";
-              image-path = "desktop-alt.png";
+              image-path =
+                let
+                  image = pkgs.fetchurl {
+                    name = "totk.png";
+                    url = "https://static.wikia.nocookie.net/zelda_gamepedia_en/images/4/4c/TotK_English_Logo.png/revision/latest/scale-to-width-down/600";
+                    hash = "sha256-nX2UDvm2oSLvnY9gJJluGU3mwsFGwwKAqUZEexj8mCQ=";
+                  };
+                in
+                pkgs.runCommand "totk.png" { } ''
+                  ${pkgs.imagemagick}/bin/convert ${image} -background none -gravity center -extent 600x800 $out
+                '';
               cmd = pkgs.writeShellScript "totk" ''
                 QT_QPA_PLATFORM=xcb yuzu -f -g "$HOME/Games/Switch/TotK.nsp";
               '';
@@ -90,9 +112,9 @@ in
             }
             {
               name = "Yuzu";
-              image-path = "${pkgs.runCommand "yuzu.png" { } ''
-                ${pkgs.imagemagick}/bin/convert -background none ${pkgs.yuzu-ea}/share/icons/hicolor/scalable/apps/org.yuzu_emu.yuzu.svg $out
-              ''}";
+              image-path = pkgs.runCommand "yuzu.png" { } ''
+                ${pkgs.imagemagick}/bin/convert -resize x420 -background none ${pkgs.yuzu-ea}/share/icons/hicolor/scalable/apps/org.yuzu_emu.yuzu.svg -gravity center -extent 600x800 $out
+              '';
               cmd = pkgs.writeShellScript "yuzu" ''
                 QT_QPA_PLATFORM=xcb yuzu
               '';
