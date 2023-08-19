@@ -37,13 +37,13 @@ in
         TotK = {
           button1 = 10;
           button2 = 2;
-          program = if sway then "${./scripts}/sway-totk &" else "${./scripts}/i3-totk &";
+          program = "QT_QPA_PLATFORM=xcb ${./scripts}/sway-run TotK class=yuzu yuzu -f -g $(HOME)/Games/Switch/TotK.nsp &";
         };
         # PS+○
         BotW = {
           button1 = 10;
           button2 = 1;
-          program = if sway then "${./scripts}/sway-botw &" else "${./scripts}/i3-botw &";
+          program = if sway then "${./scripts}/sway-botw BotW app_id=info.cemu.Cemu cemu --fullscreen --title-id 00050000101c9300 &" else "${./scripts}/i3-botw &";
         };
       };
     };
