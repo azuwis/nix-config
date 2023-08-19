@@ -112,9 +112,7 @@ in
                 pkgs.runCommand "totk.png" { } ''
                   ${pkgs.imagemagick}/bin/convert ${image} -background none -gravity center -extent 600x800 $out
                 '';
-              cmd = pkgs.writeShellScript "totk" ''
-                QT_QPA_PLATFORM=xcb yuzu -f -g "$HOME/Games/Switch/TotK.nsp";
-              '';
+              cmd = "yuzu -f -g $(HOME)/Games/Switch/TotK.nsp";
               prep-cmd = yuzu-prep-cmd;
             }
             {
@@ -122,9 +120,7 @@ in
               image-path = pkgs.runCommand "yuzu.png" { } ''
                 ${pkgs.imagemagick}/bin/convert -resize x420 -background none ${pkgs.yuzu-ea}/share/icons/hicolor/scalable/apps/org.yuzu_emu.yuzu.svg -gravity center -extent 600x800 $out
               '';
-              cmd = pkgs.writeShellScript "yuzu" ''
-                QT_QPA_PLATFORM=xcb yuzu
-              '';
+              cmd = "yuzu";
               prep-cmd = yuzu-prep-cmd;
             }
           ];

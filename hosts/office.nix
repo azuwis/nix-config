@@ -20,6 +20,8 @@
   hm.my.jslisten.enable = true;
 
   environment.systemPackages = with pkgs; [
-    yuzu-ea
+    (runCommand "yuzu" { buildInputs = [ makeWrapper ]; } ''
+      makeWrapper ${yuzu-ea}/bin/yuzu $out/bin/yuzu --set QT_QPA_PLATFORM xcb
+    '')
   ];
 }

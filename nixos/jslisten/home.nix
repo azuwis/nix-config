@@ -37,13 +37,13 @@ in
         TotK = {
           button1 = 10;
           button2 = 2;
-          program = "QT_QPA_PLATFORM=xcb ${./scripts}/sway-run TotK class=yuzu yuzu -f -g $(HOME)/Games/Switch/TotK.nsp &";
+          program = "${./scripts}/sway-run TotK class=yuzu yuzu -f -g $(HOME)/Games/Switch/TotK.nsp &";
         };
         # PS+□
         Yuzu = {
           button1 = 10;
           button2 = 3;
-          program = "QT_QPA_PLATFORM=xcb ${./scripts}/sway-run Yuzu class=yuzu yuzu &";
+          program = "${./scripts}/sway-run Yuzu class=yuzu yuzu &";
         };
         # PS+○
         BotW = {
