@@ -91,8 +91,8 @@ in
                 let
                   image = pkgs.fetchurl {
                     name = "botw.png";
-                    url = "https://static.wikia.nocookie.net/logopedia/images/5/53/763px-BotW_NA_Logo.png/revision/latest/scale-to-width-down/600";
-                    hash = "sha256-8xaJPg5mRSPyrpQay+m/6RpwHV7BT5HSQ1YhCrPkFZQ=";
+                    url = "https://assets-prd.ignimgs.com/2022/06/14/zelda-breath-of-the-wild-1655249167687.jpg?width=600";
+                    hash = "sha256-9AhOUgNuztTpqBLuvdTwLcJHEaKHc7F7YM6wzbzRDPk=";
                   };
                 in
                 pkgs.runCommand "botw.png" { } ''
@@ -123,8 +123,8 @@ in
                 let
                   image = pkgs.fetchurl {
                     name = "totk.png";
-                    url = "https://static.wikia.nocookie.net/zelda_gamepedia_en/images/4/4c/TotK_English_Logo.png/revision/latest/scale-to-width-down/600";
-                    hash = "sha256-nX2UDvm2oSLvnY9gJJluGU3mwsFGwwKAqUZEexj8mCQ=";
+                    url = "https://assets-prd.ignimgs.com/2022/09/14/zelda-tears-of-the-kingdom-button-2k-1663127818777.jpg?width=600";
+                    hash = "sha256-z25bcucS1YOT9WRGxNv0fzTbhVaoNItpSLvujqz7CeM=";
                   };
                 in
                 pkgs.runCommand "totk.png" { } ''
