@@ -37,7 +37,7 @@ in
         TotK = {
           button1 = 10;
           button2 = 2;
-          program = "${./scripts}/sway-run TotK class=yuzu yuzu -f -g $(HOME)/Games/Switch/TotK.nsp &";
+          program = "${./scripts}/sway-run TotK class=yuzu yuzu -f -g $HOME/Games/Switch/TotK.nsp &";
         };
         # PS+□
         Yuzu = {
@@ -55,7 +55,7 @@ in
         NieR = {
           button1 = 10;
           button2 = 0;
-          program = "${./scripts}/sway-run NieR class=yuzu yuzu -f -g $(HOME)/Games/Switch/NieR.nsp &";
+          program = "${./scripts}/sway-run NieR class=yuzu yuzu -f -g $HOME/Games/Switch/NieR.nsp &";
         };
       };
     };
