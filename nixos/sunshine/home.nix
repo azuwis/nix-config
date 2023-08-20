@@ -9,16 +9,16 @@ let
     {
     grep -Ev '(^exec jslisten|^exec swaylock|^exec swayidle|events disabled|dbus-update-activation-environment)' ${config.xdg.configFile."sway/config".source}
     echo '
-    # input "1133:16440:Logitech_Wireless_Mouse_PID:4038" accel_profile flat
-    input "1133:16440:Logitech_Wireless_Mouse_PID:4038" pointer_accel -1
-    output HEADLESS-1 mode ${cfg.mode}
+    default_border normal
+    default_floating_border normal
+    bindsym --release BTN_RIGHT kill
     seat seat0 fallback false
     seat seat0 attach "48879:57005:Keyboard_passthrough"
     seat seat0 attach "48879:57005:Touchscreen_passthrough"
     seat seat0 attach "1133:16440:Logitech_Wireless_Mouse_PID:4038"
-    default_border normal
-    default_floating_border normal
-    bindsym --release BTN_RIGHT kill
+    # input "1133:16440:Logitech_Wireless_Mouse_PID:4038" accel_profile flat
+    input "1133:16440:Logitech_Wireless_Mouse_PID:4038" pointer_accel -1
+    output HEADLESS-1 mode ${cfg.mode}
     exec sunshine
     '
     } > $out
