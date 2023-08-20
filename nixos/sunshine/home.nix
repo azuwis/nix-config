@@ -102,6 +102,22 @@ in
               prep-cmd = cemu-prep-cmd;
             }
             {
+              name = "NieR";
+              image-path =
+                let
+                  image = pkgs.fetchurl {
+                    name = "nier.png";
+                    url = "https://assets-prd.ignimgs.com/2021/12/08/nierautomata-1638924135289.jpg?width=600";
+                    hash = "sha256-l3Q5APq27o5wwnB1nikUJVt1P3q1dMxeLx1MadCdwRE=";
+                  };
+                in
+                pkgs.runCommand "nier.png" { } ''
+                  ${pkgs.imagemagick}/bin/convert ${image} -background none -resize 600x -gravity center -extent 600x800 $out
+                '';
+              cmd = "yuzu -f -g $(HOME)/Games/Switch/NieR.nsp";
+              prep-cmd = yuzu-prep-cmd;
+            }
+            {
               name = "TotK";
               image-path =
                 let

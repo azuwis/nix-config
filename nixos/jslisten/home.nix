@@ -51,6 +51,12 @@ in
           button2 = 1;
           program = if sway then "${./scripts}/sway-botw BotW app_id=info.cemu.Cemu cemu --fullscreen --title-id 00050000101c9300 &" else "${./scripts}/i3-botw &";
         };
+        # PS+X
+        NieR = {
+          button1 = 10;
+          button2 = 0;
+          program = "${./scripts}/sway-run NieR class=yuzu yuzu -f -g $(HOME)/Games/Switch/NieR.nsp &";
+        };
       };
     };
   };
