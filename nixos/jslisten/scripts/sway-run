@@ -17,7 +17,7 @@ run() {
       && [ "$(echo "$focused_json" | jq -r '.fullscreen_mode')" = 1 ] \
       && wtype -k space
     swaymsg --quiet "[$criteria]" focus || {
-      "$@" &
+      "$@"
     }
   fi
 }
