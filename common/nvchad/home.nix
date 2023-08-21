@@ -24,7 +24,6 @@ in
           gitsigns-nvim
           indent-blankline-nvim
           luasnip
-          nvchad-extensions
           nvchad-ui
           nvim-autopairs
           nvim-cmp
@@ -80,7 +79,6 @@ in
           ];
           postPatch = ''
             substituteInPlace lua/plugins/init.lua \
-            --replace '"NvChad/extensions"' '"NvChad/nvchad-extensions"' \
             --replace '"NvChad/ui"' '"NvChad/nvchad-ui"' \
             --replace '"L3MON4D3/LuaSnip"' '"L3MON4D3/luasnip"' \
             --replace '"numToStr/Comment.nvim"' '"numToStr/comment.nvim"'
