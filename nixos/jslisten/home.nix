@@ -72,13 +72,29 @@ in
     home.packages = [ pkgs.jslisten ];
 
     home.file.".jslisten".source = configFile;
+    home.file.".jslisten".onChange = "/run/current-system/sw/bin/systemctl --user restart jslisten";
 
-    wayland.windowManager.sway.config = {
-      startup = [{ command = "jslisten --mode hold --loglevel notice"; }];
+    systemd.user.services.jslisten = {
+      Unit = {
+        PartOf = [ "graphical-session.target" ];
+        After = [ "graphical-session.target" ];
+      };
+
+      Service = {
+        ExecStart = "${pkgs.jslisten}/bin/jslisten --mode hold --loglevel notice";
+        Environment = "PATH=/etc/profiles/per-user/%u/bin:/run/current-system/sw/bin";
+        Restart = "on-failure";
+      };
+
+      Install = { WantedBy = [ "graphical-session.target" ]; };
     };
 
-    xsession.windowManager.i3.config = {
-      startup = [{ command = "jslisten --mode hold --loglevel notice"; }];
-    };
+    # wayland.windowManager.sway.config = {
+    #   startup = [{ command = "jslisten --mode hold --loglevel notice"; }];
+    # };
+
+    # xsession.windowManager.i3.config = {
+    #   startup = [{ command = "jslisten --mode hold --loglevel notice"; }];
+    # };
   };
 }
