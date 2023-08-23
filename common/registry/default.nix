@@ -1,7 +1,7 @@
 { inputs, config, lib, pkgs, ... }:
 
 let
-  flakes = lib.filterAttrs (name: value: name == "nixpkgs") inputs;
+  flakes = lib.filterAttrs (name: value: builtins.elem name [ "nixpkgs" "home-manager" ]) inputs;
 
 in
 {
