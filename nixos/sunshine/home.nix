@@ -11,7 +11,7 @@ let
     echo '
     default_border normal
     default_floating_border normal
-    bindsym --release BTN_RIGHT kill
+    bindsym BTN_RIGHT kill
 
     seat seat0 fallback false
     seat seat0 attach "48879:57005:Keyboard_passthrough"
