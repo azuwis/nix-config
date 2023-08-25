@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ osConfig, config, lib, pkgs, ... }:
 
 let
   inherit (lib) mkIf;
@@ -7,6 +7,9 @@ let
 in
 {
   config = mkIf cfg.enable {
+    # https://github.com/NixOS/nixpkgs/issues/238025
+    my.firefox.env = [ "TZ=${osConfig.time.timeZone}" ];
+
     programs.firefox.profiles.default.settings = {
       # https://wiki.archlinux.org/title/firefox#Hardware_video_acceleration
       "media.ffmpeg.vaapi.enabled" = true;
