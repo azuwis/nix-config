@@ -34,6 +34,12 @@ in
             button2 = 5;
             program = if sway then "wtype -k right &" else "xdotool key Right &";
           };
+          # PS+ZL
+          Moonlight = {
+            button1 = 10;
+            button2 = 6;
+            program = sway-run "Dummy app_id=com.moonlight_stream.Moonlight moonlight";
+          };
           # PS+ZR
           Space = {
             button1 = 10;
