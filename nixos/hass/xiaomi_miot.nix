@@ -8,8 +8,8 @@ let
     name = "${owner}-${repo}-${rev}";
     owner = "al-one";
     repo = "hass-xiaomi-miot";
-    rev = "ad6693eb627d4bec10635f1b85c565932aa27266";
-    sha256 = "13vnn22xsjmybflp3pajqi7zhlgigf190jvhyyq0fz0kr49g9bpv";
+    rev = "v0.7.12";
+    hash = "sha256-Oo0U8DM+uR08SXOe7EWLkyjxEjkybs1xkxRhas0JRwY=";
   };
 in
 {
