@@ -15,6 +15,8 @@ in
   config = mkIf cfg.enable (mkMerge [
     ({
       my.cliphist.enable = true;
+      # Hi-Res scroll is better
+      my.firefox.env = [ "GDK_BACKEND=x11" ];
       my.foot.enable = true;
       my.swayidle.enable = mkDefault true;
       my.waybar.enable = true;
@@ -41,7 +43,10 @@ in
           # Apps
           # swaymsg -t get_tree | less
           assigns = {
-            "2" = [{ app_id = "^firefox$"; }];
+            "2" = [
+              { app_id = "^firefox$"; }
+              { class = "^firefox$"; }
+            ];
           };
           floating.criteria = [
             { app_id = "^mpv$"; }
