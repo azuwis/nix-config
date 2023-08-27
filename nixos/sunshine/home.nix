@@ -128,6 +128,15 @@ in
               prep-cmd = yuzu-prep-cmd;
             }
             {
+              name = "XenoChron3";
+              image-path = mkImage {
+                url = "https://assets-prd.ignimgs.com/2022/04/17/xenochron3-1650154074567.jpg?width=600";
+                hash = "sha256-nJHIKkUbuLWilEqx9iR4MWaWLT0cPK3ptSeVhMH/4AE=";
+              };
+              cmd = "yuzu -f -g $(HOME)/Games/Switch/XenoChron3.nsp";
+              prep-cmd = yuzu-prep-cmd;
+            }
+            {
               name = "Yuzu";
               image-path = pkgs.runCommand "yuzu.png" { } ''
                 ${pkgs.imagemagick}/bin/convert -resize x420 -background none ${pkgs.yuzu-ea}/share/icons/hicolor/scalable/apps/org.yuzu_emu.yuzu.svg -gravity center -extent 600x800 $out
