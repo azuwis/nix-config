@@ -71,6 +71,15 @@ in
         env = { };
         apps =
           let
+            mkImage = { url, hash }:
+              let
+                image = pkgs.fetchurl {
+                  inherit url hash;
+                };
+              in
+              pkgs.runCommand "${lib.nameFromURL url "."}.png" { } ''
+                ${pkgs.imagemagick}/bin/convert ${image} -background none -gravity center -extent 600x800 $out
+              '';
             cemu-prep-cmd = [{
               do = "${./scripts}/cemu-do.sh";
               undo = "${./scripts}/cemu-undo.sh";
@@ -93,49 +102,28 @@ in
             }
             {
               name = "BotW";
-              image-path =
-                let
-                  image = pkgs.fetchurl {
-                    name = "botw.png";
-                    url = "https://assets-prd.ignimgs.com/2022/06/14/zelda-breath-of-the-wild-1655249167687.jpg?width=600";
-                    hash = "sha256-9AhOUgNuztTpqBLuvdTwLcJHEaKHc7F7YM6wzbzRDPk=";
-                  };
-                in
-                pkgs.runCommand "botw.png" { } ''
-                  ${pkgs.imagemagick}/bin/convert ${image} -background none -gravity center -extent 600x800 $out
-                '';
+              image-path = mkImage {
+                url = "https://assets-prd.ignimgs.com/2022/06/14/zelda-breath-of-the-wild-1655249167687.jpg";
+                hash = "sha256-9AhOUgNuztTpqBLuvdTwLcJHEaKHc7F7YM6wzbzRDPk=";
+              };
               cmd = "cemu --fullscreen --title-id 00050000101c9300";
               prep-cmd = cemu-prep-cmd;
             }
             {
               name = "NieR";
-              image-path =
-                let
-                  image = pkgs.fetchurl {
-                    name = "nier.png";
-                    url = "https://assets-prd.ignimgs.com/2021/12/08/nierautomata-1638924135289.jpg?width=600";
-                    hash = "sha256-l3Q5APq27o5wwnB1nikUJVt1P3q1dMxeLx1MadCdwRE=";
-                  };
-                in
-                pkgs.runCommand "nier.png" { } ''
-                  ${pkgs.imagemagick}/bin/convert ${image} -background none -resize 600x -gravity center -extent 600x800 $out
-                '';
+              image-path = mkImage {
+                url = "https://assets-prd.ignimgs.com/2021/12/08/nierautomata-1638924135289.jpg?width=600";
+                hash = "sha256-l3Q5APq27o5wwnB1nikUJVt1P3q1dMxeLx1MadCdwRE=";
+              };
               cmd = "yuzu -f -g $(HOME)/Games/Switch/NieR.nsp";
               prep-cmd = yuzu-prep-cmd;
             }
             {
               name = "TotK";
-              image-path =
-                let
-                  image = pkgs.fetchurl {
-                    name = "totk.png";
-                    url = "https://assets-prd.ignimgs.com/2022/09/14/zelda-tears-of-the-kingdom-button-2k-1663127818777.jpg?width=600";
-                    hash = "sha256-z25bcucS1YOT9WRGxNv0fzTbhVaoNItpSLvujqz7CeM=";
-                  };
-                in
-                pkgs.runCommand "totk.png" { } ''
-                  ${pkgs.imagemagick}/bin/convert ${image} -background none -gravity center -extent 600x800 $out
-                '';
+              image-path = mkImage {
+                url = "https://assets-prd.ignimgs.com/2022/09/14/zelda-tears-of-the-kingdom-button-2k-1663127818777.jpg?width=600";
+                hash = "sha256-z25bcucS1YOT9WRGxNv0fzTbhVaoNItpSLvujqz7CeM=";
+              };
               cmd = "yuzu -f -g $(HOME)/Games/Switch/TotK.nsp";
               prep-cmd = yuzu-prep-cmd;
             }
