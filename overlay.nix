@@ -15,24 +15,19 @@ self: super: {
   jetbrains-mono-nerdfont = self.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
   jslisten = self.callPackage ./pkgs/jslisten { };
   legacyfox = self.callPackage ./pkgs/legacyfox { };
-  moonlight-cemuhook = self.moonlight-qt.overrideAttrs (o: {
+  moonlight-cemuhook = self.moonlight-qt.overrideAttrs (old: {
     pname = "moonlight-cemuhook";
-    src = self.fetchFromGitHub {
+    src = old.src.override {
       owner = "azuwis";
-      repo = "moonlight-qt";
       rev = "4d001f122cb200dc2d668e74a03f22149382b993";
       sha256 = "sha256-QDvk8PYL92lKEzSKNsqVk23Yy7LJdCElEfek62rlIkA=";
-      fetchSubmodules = true;
     };
   });
-  moonlight-git = self.moonlight-qt.overrideAttrs (o: {
+  moonlight-git = self.moonlight-qt.overrideAttrs (old: {
     pname = "moonlight-git";
-    src = self.fetchFromGitHub {
-      owner = "moonlight-stream";
-      repo = o.pname;
+    src = old.src.override {
       rev = "e287ebcded4ebbd2ddaff5b8ceade3e09946f864";
       sha256 = "sha256-y2lm5ZU3tIl1qrmOiF5FVt8Nw8VrNPzLOz5ji0vR2RQ=";
-      fetchSubmodules = true;
     };
     patches = [ ];
   });
@@ -46,14 +41,11 @@ self: super: {
   sf-symbols-minimal = self.callPackage ./pkgs/sf-symbols { };
   steam-devices = self.callPackage ./pkgs/steam-devices { };
   subfinder = self.callPackage ./pkgs/subfinder { };
-  sunshine-git = self.sunshine.overrideAttrs (o: {
+  sunshine-git = self.sunshine.overrideAttrs (old: {
     pname = "sunshine-git";
-    src = self.fetchFromGitHub {
-      owner = "LizardByte";
-      repo = "Sunshine";
+    src = old.src.override {
       rev = "c5bf78176e0bb70c1dcb43ef062afff3ce3da2e2";
       sha256 = "sha256-T2kKv28DHIpnUUVwYACYvYflbwdok7bEcMP/zp28SRA=";
-      fetchSubmodules = true;
     };
   });
   torrent-ratio = self.callPackage ./pkgs/torrent-ratio { };
