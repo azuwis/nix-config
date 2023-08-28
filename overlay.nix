@@ -3,8 +3,8 @@
 self: super: {
   # pkgs
   anime4k = self.callPackage ./pkgs/anime4k { };
-  # cemu = super.cemu.overrideAttrs (o: {
-  #   postPatch = ''
+  # cemu = super.cemu.overrideAttrs (old: {
+  #   postPatch = (old.postPatch or "") + ''
   #     sed -i '/\/\/ already connected\?/,+2 d' src/input/api/DSU/DSUControllerProvider.cpp
   #   '';
   # });
