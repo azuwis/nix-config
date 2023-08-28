@@ -9,7 +9,6 @@ self: super: {
   #   '';
   # });
   dsdrv-cemuhook = self.callPackage ./pkgs/dsdrv-cemuhook { };
-  dualsensectl = self.callPackage ./pkgs/dualsensectl { };
   evdevhook = self.callPackage ./pkgs/evdevhook { };
   evdevhook2 = self.callPackage ./pkgs/evdevhook2 { };
   jetbrains-mono-nerdfont = self.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
@@ -59,6 +58,7 @@ self: super: {
   # };
 
   # override
+  # dualsensectl = self.callPackage ./pkgs/dualsensectl { };
   fcitx5-configtool = self.writeShellScriptBin "fcitx5-config-qt" ''
     echo "fcitx-config-qt dummy command"
   '';
