@@ -48,14 +48,6 @@ self: super: {
     };
   });
   torrent-ratio = self.callPackage ./pkgs/torrent-ratio { };
-  # sway-unwrapped = super.sway-unwrapped.override {
-  #   wlroots = self.wlroots_0_16.overrideAttrs (old: {
-  #     postPatch =
-  #       (old.postPatch or "") + ''
-  #         substituteInPlace render/gles2/renderer.c --replace "glFlush();" "glFinish();"
-  #       '';
-  #   });
-  # };
 
   # override
   # dualsensectl = self.callPackage ./pkgs/dualsensectl { };
@@ -87,6 +79,14 @@ self: super: {
   # python3Packages = self.python3.pkgs;
   # sketchybar = self.callPackage ./pkgs/sketchybar {
   #   inherit (self.darwin.apple_sdk.frameworks) Carbon Cocoa SkyLight;
+  # };
+  # sway-unwrapped = super.sway-unwrapped.override {
+  #   wlroots = self.wlroots_0_16.overrideAttrs (old: {
+  #     postPatch =
+  #       (old.postPatch or "") + ''
+  #         substituteInPlace render/gles2/renderer.c --replace "glFlush();" "glFinish();"
+  #       '';
+  #   });
   # };
   # trigger-control = self.callPackage ./pkgs/trigger-control { };
   # uxplay = self.callPackage ./pkgs/uxplay { };
