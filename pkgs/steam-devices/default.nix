@@ -1,6 +1,6 @@
 { lib, stdenvNoCC, fetchgit, bash }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation {
   pname = "steam-devices";
   version = "2023-05-09";
 

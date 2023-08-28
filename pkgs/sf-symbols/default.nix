@@ -9,12 +9,12 @@
 , app ? false
 }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "sf-symbols";
   version = "2.1";
 
   src = fetchurl {
-    url = "https://devimages-cdn.apple.com/design/resources/download/SF-Symbols-${version}.dmg";
+    url = "https://devimages-cdn.apple.com/design/resources/download/SF-Symbols-${finalAttrs.version}.dmg";
     sha256 = "0bn00f1jm48xwl11f0hnmasdl7p6pnwsljgn5krggpbhw3g5dbwp";
   };
 
@@ -41,4 +41,4 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://developer.apple.com/sf-symbols/";
     platforms = if app then lib.platforms.darwin else lib.platforms.all;
   };
-}
+})

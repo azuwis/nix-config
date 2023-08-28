@@ -1,6 +1,6 @@
 { lib, stdenvNoCC, fetchFromGitHub }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation {
   pname = "rime-ice";
   version = "unstable-2023-05-09";
 

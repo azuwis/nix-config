@@ -1,13 +1,13 @@
 { lib, stdenvNoCC, fetchFromGitHub }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "legacyfox";
   version = "3.2";
 
   src = fetchFromGitHub {
     owner = "girst";
     repo = "LegacyFox-mirror-of-git.gir.st";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-zOc9eHw651yUdXviPOx9bplMKRelfkG7xRL+I4f6j+o=";
   };
 
@@ -21,4 +21,4 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://git.gir.st/LegacyFox.git";
     license = licenses.mpl20;
   };
-}
+})
