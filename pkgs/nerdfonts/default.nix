@@ -1,6 +1,6 @@
 { lib, stdenvNoCC, fetchgit, font, sha256 }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation {
   pname = "nerdfonts";
   version = "2022-02-24";
 
