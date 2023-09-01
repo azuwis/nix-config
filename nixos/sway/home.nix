@@ -19,8 +19,8 @@ in
       my.firefox.env = [ "GDK_BACKEND=x11" ];
       my.foot.enable = true;
       my.swayidle.enable = mkDefault true;
-      my.waybar.enable = true;
-      # my.yambar.enable = true;
+      # my.waybar.enable = mkDefault true;
+      my.yambar.enable = mkDefault true;
 
       home.packages = with pkgs; [
         (runCommand "fuzzel" { buildInputs = [ makeWrapper ]; } ''

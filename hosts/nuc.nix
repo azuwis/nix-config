@@ -43,6 +43,10 @@
   hm.my.jslisten.enable = true;
   hm.my.swayidle.enable = false;
 
+  # workaround for yambar crash, https://codeberg.org/dnkl/yambar/issues/300
+  hm.my.waybar.enable = true;
+  hm.my.yambar.enable = false;
+
   environment.systemPackages = with pkgs; [
     moonlight-qt
   ];
