@@ -39,7 +39,6 @@ bar:
     - script:
         path: @scripts@/net-speed
         content:
-          - string: {text: "", right-margin: 6}
           - string: {text: "{rate}"}
     - cpu:
         poll-interval: 10000
@@ -47,24 +46,24 @@ bar:
           map:
             conditions:
               id < 0:
-                - string: {text: "󰓅", right-margin: 2}
+                - string: {text: "󰓅", right-margin: 4}
                 - string: {text: "{cpu}%"}
     - mem:
         poll-interval: 10000
         content:
-          - string: {text: "󰍛", right-margin: 2}
+          - string: {text: "󰍛", right-margin: 4}
           - string: {text: "{free:gb}G"}
     - pulse:
         content:
           - map:
              conditions:
                sink_muted:
-                 - string: {text: "󰖁", right-margin: 2}
+                 - string: {text: "󰖁", right-margin: 4}
                ~sink_muted:
-                 - string: {text: "󰕾", right-margin: 2}
+                 - string: {text: "󰕾", right-margin: 4}
           - string: {text: "{sink_percent}"}
     - clock:
         date-format: "%a %m-%d"
         content:
-          - string: {text: "", right-margin: 2}
+          - string: {text: "", right-margin: 4}
           - string: {text: "{date} {time}"}
