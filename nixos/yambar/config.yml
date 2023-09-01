@@ -37,7 +37,7 @@ bar:
 
   right:
     - script:
-        path: @scripts@/net-speed
+        path: @scripts@/netspeed
         content:
           - string: {text: "{rate}"}
     - cpu:
