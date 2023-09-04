@@ -12,6 +12,13 @@ in
 
   config = mkIf (cfg.enable && cfg.uosc) {
     programs.mpv = {
+      bindings = {
+        "<" = "script-binding uosc/prev";
+        ">" = "script-binding uosc/next";
+        m = "script-binding uosc/menu";
+        o = "script-binding uosc/open-file";
+        p = "script-binding uosc/items";
+      };
       config = {
         osc = "no";
         osd-bar = "no";
