@@ -16,7 +16,7 @@ in
     ({
       my.cliphist.enable = true;
       # Hi-Res scroll is better
-      my.firefox.env = [ "GDK_BACKEND=x11" ];
+      my.firefox.env.GDK_BACKEND = mkDefault "x11";
       my.foot.enable = true;
       my.swayidle.enable = mkDefault true;
       # my.waybar.enable = mkDefault true;

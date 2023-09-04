@@ -33,7 +33,7 @@ in
       # Firefox
       # https://github.com/elFarto/nvidia-vaapi-driver
       hardware.opengl.extraPackages = [ pkgs.nvidia-vaapi-driver ];
-      hm.my.firefox.env = [ "MOZ_DISABLE_RDD_SANDBOX=1" ];
+      hm.my.firefox.env.MOZ_DISABLE_RDD_SANDBOX = "1";
       hm.programs.firefox.profiles.default.settings = {
         "widget.dmabuf.force-enabled" = true;
       };
