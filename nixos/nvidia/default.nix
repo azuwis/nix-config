@@ -21,6 +21,7 @@ in
       # Sway
       # sway/wlroots vulkan need vulkan-validation-layers for now, may remove on later version.
       # https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/3850
+      hm.my.firefox.env.GDK_BACKEND = null;
       environment.systemPackages = [ pkgs.vulkan-validation-layers ];
       programs.sway = {
         extraOptions = [ "--unsupported-gpu" ];
