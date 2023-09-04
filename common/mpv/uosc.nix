@@ -29,6 +29,7 @@ in
       ];
       scriptOpts.osc = { };
       scriptOpts.uosc = {
+        curtain_opacity = 0;
         timeline_opacity = 0.3;
         timeline_size_max = 30;
         timeline_size_max_fullscreen = 40;
