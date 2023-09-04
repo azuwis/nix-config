@@ -39,10 +39,14 @@ in
         keep-open-pause = false;
         osd-on-seek = false;
         profile = "gpu-hq";
-        script-opts = lib.mkDefault "osc-seekbarstyle=knob,osc-deadzonesize=1,osc-minmousemove=1";
         slang = "chi";
         sub-auto = "fuzzy";
         sub-codepage = "gbk";
+      };
+      scriptOpts.osc = lib.mkDefault {
+        seekbarstyle = "knob";
+        deadzonesize = 1;
+        osc-minmousemove = 1;
       };
     };
 
