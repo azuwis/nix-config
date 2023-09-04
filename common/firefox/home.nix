@@ -44,15 +44,19 @@ let
     };
   };
 
-  firefox = pkgs.firefox.overrideAttrs (o: {
-    buildCommand = o.buildCommand + ''
-      # conflict with legacyfox
-      rm $out/lib/firefox/defaults/pref/autoconfig.js
-      lndir -silent ${pkgs.legacyfox} $out
-      substituteInPlace $out/bin/firefox --replace "exec -a" \
-        "${lib.concatStringsSep " " (lib.mapAttrsToList (n: v: "${n}=${lib.escapeShellArg v}") (lib.filterAttrs (n: v: v != null) cfg.env))} exec -a"
-    '';
-  });
+  firefox = pkgs.firefox.overrideAttrs (o:
+    let
+      inherit (lib) concatStringsSep escapeShellArg filterAttrs mapAttrsToList;
+      env = concatStringsSep " " (mapAttrsToList (n: v: "${n}=${escapeShellArg v}") (filterAttrs (n: v: v != null) cfg.env));
+    in
+    {
+      buildCommand = o.buildCommand + ''
+        # conflict with legacyfox
+        rm $out/lib/firefox/defaults/pref/autoconfig.js
+        lndir -silent ${pkgs.legacyfox} $out
+        substituteInPlace $out/bin/firefox --replace "exec -a" "${env} exec -a"
+      '';
+    });
 
   # userChrome = builtins.readFile (builtins.fetchurl {
   #   url = "https://raw.githubusercontent.com/andreasgrafen/cascade/a16181ec77da1872f102e51bcf2739c627b03a1b/userChrome.css";
