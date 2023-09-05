@@ -10,10 +10,11 @@ run() {
   if [ "$(echo "$focused_json" | jq -r ".$attribute")" = "$value" ]
   then
     swaymsg --quiet '[app_id=firefox]' focus \
-      && [ "$(swaymsg -t get_tree | jq -r '.. | select(.type?) | select(.app_id=="firefox").fullscreen_mode')" = 1 ] \
+      || swaymsg --quiet '[class=firefox]' focus \
+      && [ "$(swaymsg -t get_tree | jq -r '.. | select(.type?) | select(.app_id=="firefix" or .window_properties.class=="firefox").fullscreen_mode')" = 1 ] \
       && wtype -k space
   else
-    [ "$(echo "$focused_json" | jq -r '.app_id')" = firefox ] \
+    [ "$(echo "$focused_json" | jq -r '.app_id // .window_properties.class')" = firefox ] \
       && [ "$(echo "$focused_json" | jq -r '.fullscreen_mode')" = 1 ] \
       && wtype -k space
     swaymsg --quiet "[$criteria]" focus || {
