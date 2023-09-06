@@ -76,8 +76,8 @@ in
             "${mod}+c" = "floating toggle; resize set 75 ppt 75 ppt; move absolute position center";
             "--release --no-repeat ${mod}+Escape" = mkDefault "exec swaylock";
             "Print" = "grimshot save - | swappy -f -";
-            "XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 3%+";
-            "XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 3%-";
+            "XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";
+            "XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
             "XF86AudioMute" = "exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
           };
           # Inputs/outputs
