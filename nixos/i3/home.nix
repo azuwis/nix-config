@@ -78,8 +78,8 @@ in
             "${mod}+c" = "floating enable; move absolute position center";
             "--release ${mod}+Escape" = mkDefault "exec i3lock --nofork --ignore-empty-password --color=2e3440";
             # "Print" = "";
-            "XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 3%+";
-            "XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 3%-";
+            "XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";
+            "XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
             "XF86AudioMute" = "exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
           };
           # Startup
