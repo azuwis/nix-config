@@ -48,6 +48,7 @@ self: super: {
     };
   });
   torrent-ratio = self.callPackage ./pkgs/torrent-ratio { };
+  wolf = self.callPackage ./pkgs/wolf { };
 
   # override
   # dualsensectl = self.callPackage ./pkgs/dualsensectl { };
