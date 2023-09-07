@@ -10,6 +10,8 @@ in
   };
 
   config = mkIf cfg.enable {
+    users.users.${config.my.user}.extraGroups = [ "dialout" ];
+
     environment.systemPackages = with pkgs; [
       mfoc-hardnested
     ];
