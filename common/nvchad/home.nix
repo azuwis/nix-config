@@ -87,6 +87,10 @@ in
       in
       {
         enable = true;
+        extraPackages = with pkgs; [
+          # telescope-nvim
+          ripgrep
+        ];
         plugins = with pkgs.vimPlugins; [
           base46
           lazy-nvim
