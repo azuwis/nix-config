@@ -29,12 +29,12 @@
     openssl
     p7zip
     python3
-    ripgrep
     rsync
     scripts
     shellcheck
     tmux
     tree
+    ugrep
     unar
     unzip
     watch
