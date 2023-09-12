@@ -95,12 +95,7 @@ in
       Install = { WantedBy = [ "graphical-session.target" ]; };
     };
 
-    # wayland.windowManager.sway.config = {
-    #   startup = [{ command = "jslisten --mode hold --loglevel notice"; }];
-    # };
-
-    # xsession.windowManager.i3.config = {
-    #   startup = [{ command = "jslisten --mode hold --loglevel notice"; }];
-    # };
+    # wayland.windowManager.sway.config.startup = [{ command = "jslisten --mode hold --loglevel notice"; }];
+    # xsession.windowManager.i3.config.startup = [{ command = "jslisten --mode hold --loglevel notice"; }];
   };
 }
