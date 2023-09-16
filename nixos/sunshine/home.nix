@@ -119,6 +119,15 @@ in
               prep-cmd = yuzu-prep-cmd;
             }
             {
+              name = "REReve";
+              image-path = mkImage {
+                url = "https://assets-prd.ignimgs.com/2021/12/22/resident-evil-revelations-1-button-1640136891229.jpg?width=600";
+                hash = "sha256-5QUB9lirZrUk5X4mI3V/hrDsUsOKkv02ppLNheqW7mo=";
+              };
+              cmd = "yuzu -f -g $(HOME)/Games/Switch/REReve.nsp";
+              prep-cmd = yuzu-prep-cmd;
+            }
+            {
               name = "TotK";
               image-path = mkImage {
                 url = "https://assets-prd.ignimgs.com/2022/09/14/zelda-tears-of-the-kingdom-button-2k-1663127818777.jpg?width=600";
