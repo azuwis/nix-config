@@ -8,7 +8,7 @@ in
 {
   options.my.nvidia = {
     enable = mkEnableOption (mdDoc "nvidia");
-    nvidia-patch = mkEnableOption (mdDoc "nvidia-patch") // { default = true; };
+    nvidia-patch = mkEnableOption (mdDoc "nvidia-patch");
   };
 
   config = mkIf cfg.enable (mkMerge [
