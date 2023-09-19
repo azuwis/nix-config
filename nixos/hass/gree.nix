@@ -34,5 +34,21 @@ in
       # logger.logs."custom_components.gree.climate" = "debug";
     };
 
+    hass.automations = ''
+      - alias: Climate living room off when light living room off
+        trigger:
+          - platform: state
+            entity_id: light.living_room
+            to: "off"
+        condition:
+          - condition: sun
+            after: sunset
+            before: sunrise
+        action:
+          - service: climate.turn_off
+            data:
+              entity_id: climate.living_room
+    '';
+
   };
 }

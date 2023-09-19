@@ -123,6 +123,16 @@ in
           - service: climate.turn_off
             data:
               entity_id: climate.yeelink_v6_af1f_ptc_bath_heater
+
+      - alias: Fan dining room off when fan light dining room off
+        trigger:
+          - platform: state
+            entity_id: light.yeelink_fancl5_e358_light
+            to: "off"
+        action:
+          - service: fan.turn_off
+            data:
+              entity_id: fan.yeelink_fancl5_e358_fan
     '';
   };
 }
