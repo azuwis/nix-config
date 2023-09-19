@@ -25,4 +25,6 @@
       makeWrapper ${yuzu-ea}/bin/yuzu $out/bin/yuzu --set QT_QPA_PLATFORM xcb
     '')
   ];
+  # Fix yuzu fullscreen framerate
+  hm.wayland.windowManager.sway.config.output.HDMI-A-1.max_render_time = "10";
 }
