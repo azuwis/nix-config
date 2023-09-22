@@ -17,12 +17,18 @@
   my.retroarch.enable = true;
   my.sunshine.enable = true;
   my.vfio = {
-    enable = true;
+    enable = lib.mkDefault true;
     platform = "intel";
     vfioIds = [ "10de:1c04" "10de:10f1" ];
   };
   my.zramswap.enable = true;
   # hm.my.sunshine.package = pkgs.sunshine-git;
+
+  specialisation.nvidia.configuration = {
+    system.nixos.tags = [ "nvidia" ];
+    my.nvidia.enable = true;
+    my.vfio.enable = false;
+  };
 
   hm.my.jslisten.enable = true;
 
