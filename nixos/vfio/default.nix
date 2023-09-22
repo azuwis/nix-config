@@ -1,0 +1,55 @@
+{ config, lib, pkgs, ... }:
+
+let
+  inherit (lib) mdDoc mkEnableOption mkIf mkOption types;
+  cfg = config.my.vfio;
+in
+{
+  options.my.vfio = {
+    enable = mkEnableOption (mdDoc "vfio");
+
+    vfioIds = mkOption {
+      type = with types; listOf str;
+      default = [ ];
+    };
+
+    platform = mkOption {
+      type = types.enum [ "amd" "intel" ];
+    };
+
+  };
+
+  config = mkIf cfg.enable {
+    boot = {
+      kernelModules = [
+        "kvm-${cfg.platform}"
+        "vfio"
+        "vfio_iommu_type1"
+        "vfio_pci"
+        "vfio_virqfd"
+      ];
+
+      kernelParams = [
+        "${cfg.platform}_iommu=on"
+        "${cfg.platform}_iommu=pt"
+      ];
+
+      extraModprobeConfig = ''
+        options kvm ignore_msrs=1"
+        options vfio-pci ids=${builtins.concatStringsSep "," cfg.vfioIds}
+      '';
+    };
+
+    virtualisation.libvirtd = {
+      enable = true;
+
+      qemu = {
+        package = pkgs.qemu_kvm;
+        ovmf.enable = true;
+      };
+
+    };
+
+    users.users.${config.my.user}.extraGroups = [ "libvirtd" ];
+  };
+}
