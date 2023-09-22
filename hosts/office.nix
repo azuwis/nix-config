@@ -11,10 +11,16 @@
   my.cemu.enable = true;
   my.desktop.enable = true;
   my.dualsensectl.enable = true;
-  my.nvidia.enable = true;
+  # my.nvidia.enable = true;
+  my.intelGpu.enable = true;
   my.pn532.enable = true;
   my.retroarch.enable = true;
   my.sunshine.enable = true;
+  my.vfio = {
+    enable = true;
+    platform = "intel";
+    vfioIds = [ "10de:1c04" "10de:10f1" ];
+  };
   my.zramswap.enable = true;
   # hm.my.sunshine.package = pkgs.sunshine-git;
 
