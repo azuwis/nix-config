@@ -25,10 +25,10 @@ self: super: {
   moonlight-git = self.moonlight-qt.overrideAttrs (old: {
     pname = "moonlight-git";
     src = old.src.override {
-      rev = "e287ebcded4ebbd2ddaff5b8ceade3e09946f864";
-      sha256 = "sha256-y2lm5ZU3tIl1qrmOiF5FVt8Nw8VrNPzLOz5ji0vR2RQ=";
+      rev = "fee54a9d765d6121c831cdaac90aff490824231f";
+      sha256 = "sha256-iJ5DFfbtkBVHL35lsX1OYhqN+DG7/9g5D2iwN4marjY=";
     };
-    patches = [ ];
+    patches = [ ./patches/moonlight.diff ];
   });
   nibar = self.callPackage ./pkgs/nibar { };
   redsocks2 = self.callPackage ./pkgs/redsocks2 { };
