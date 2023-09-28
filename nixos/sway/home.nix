@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkDefault mkIf mkMerge;
+  inherit (lib) mdDoc mkEnableOption mkDefault mkIf mkMerge mkOption types;
   cfg = config.my.sway;
 
 in
@@ -10,6 +10,11 @@ in
     enable = mkEnableOption (mdDoc "sway");
     startupLocked = mkEnableOption (mdDoc "startupLocked");
     xdgAutostart = mkEnableOption (mdDoc "xdgAutostart");
+
+    tmenu = mkOption {
+      type = types.str;
+      default = "";
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -49,7 +54,7 @@ in
             ];
           };
           floating.criteria = [
-            { app_id = "^mpv$"; }
+            { app_id = "^tmenu|mpv$"; }
           ];
           window.commands = [
             {

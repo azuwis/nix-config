@@ -11,6 +11,8 @@ in
   };
 
   config = mkIf cfg.enable {
+    my.sway.tmenu = "footclient --app-id tmenu --window-size-chars 50x10";
+
     programs.foot = {
       enable = true;
       settings = {
