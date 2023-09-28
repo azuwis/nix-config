@@ -90,7 +90,7 @@ in
             "${mod}+Tab" = "workspace back_and_forth";
             # stop graphical-session.target so services like foot will not try to restart itself
             "${mod}+Shift+e" = mkIf config.wayland.windowManager.sway.systemd.enable "exec swaynag -t warning -m 'Do you really want to exit sway?' -b 'Yes, exit sway' 'systemctl --user stop graphical-session.target; swaymsg exit'";
-            "${mod}+Shift+p" = "exec passmenu";
+            "${mod}+Shift+p" = "exec ${cfg.tmenu} passfzf";
             "${mod}+c" = "floating toggle; resize set 75 ppt 75 ppt; move absolute position center";
             "--release --no-repeat ${mod}+Escape" = mkDefault "exec swaylock";
             "Print" = "grimshot save - | swappy -f -";
