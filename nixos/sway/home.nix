@@ -64,8 +64,21 @@ in
           # Border
           floating.titlebar = false;
           gaps.smartBorders = "no_gaps";
-          window.hideEdgeBorders = "both";
-          window.titlebar = false;
+          window = {
+            border = 1;
+            hideEdgeBorders = "both";
+            titlebar = false;
+          };
+          # Colors
+          colors = {
+            focused = {
+              background = "#285577";
+              border = "#4c7899";
+              childBorder = "#002b36";
+              indicator = "#2e9ef4";
+              text = "#ffffff";
+            };
+          };
           # Keybindings
           menu = "fuzzel";
           keybindings = let mod = config.wayland.windowManager.sway.config.modifier; in lib.mkOptionDefault {
