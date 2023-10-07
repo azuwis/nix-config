@@ -22,7 +22,12 @@ in
           comment-nvim
           friendly-snippets
           gitsigns-nvim
-          indent-blankline-nvim
+          (indent-blankline-nvim.overrideAttrs (old: {
+            src = old.src.override {
+              rev = "9637670896b68805430e2f72cf5d16be5b97a22a";
+              sha256 = "01h49q9j3hh5mi3hxsaipfsc03ypgg14r79fbm6sy63rh8a66jnl";
+            };
+          }))
           luasnip
           nvchad-ui
           nvim-autopairs
