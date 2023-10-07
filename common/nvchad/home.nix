@@ -33,6 +33,7 @@ in
           nvim-treesitter
           nvim-web-devicons
           nvterm
+          telescope-fzf-native-nvim
           telescope-nvim
           which-key-nvim
         ];

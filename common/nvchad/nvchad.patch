@@ -64,6 +64,6 @@ index 2f711af..8251ae1 100644
    {
      "williamboman/mason.nvim",
 +    enabled = false,
-     cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
+     cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
      opts = function()
        return require "plugins.configs.mason"
