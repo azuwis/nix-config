@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  update-nix-fetchgit-vim = pkgs.vimUtils.buildVimPluginFrom2Nix {
+  update-nix-fetchgit-vim = pkgs.vimUtils.buildVimPlugin {
     pname = "update-nix-fetchgit.vim";
     version = "2022-01-25";
     src = ./.;
