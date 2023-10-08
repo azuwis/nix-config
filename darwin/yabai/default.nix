@@ -45,9 +45,12 @@
   #   StandardOutPath = "/tmp/yabai.log";
   # };
 
-  system.activationScripts.postActivation.text = let path = "${pkgs.yabai}/bin/yabai"; in ''
+  system.activationScripts.preActivation.text = ''
     ${pkgs.sqlite}/bin/sqlite3 '/Library/Application Support/com.apple.TCC/TCC.db' \
-      "INSERT or REPLACE INTO access VALUES('kTCCServiceAccessibility','${path}',1,2,4,1,NULL,NULL,0,NULL,NULL,0,NULL);
-      DELETE from access where client_type = 1 and client != '${path}' and client like '%/bin/yabai';"
+      "INSERT or REPLACE INTO access VALUES('kTCCServiceAccessibility','${pkgs.yabai}/bin/yabai',1,2,4,1,NULL,NULL,0,NULL,NULL,0,NULL);"
+  '';
+  system.activationScripts.postActivation.text = ''
+    ${pkgs.sqlite}/bin/sqlite3 '/Library/Application Support/com.apple.TCC/TCC.db' \
+      "DELETE from access where client_type = 1 and client != '${pkgs.yabai}/bin/yabai' and client like '%/bin/yabai';"
   '';
 }
