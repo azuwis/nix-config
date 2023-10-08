@@ -9,14 +9,14 @@ get_battery() {
   BATTERY_HIGHLIGHT="off"
   if [ "$status" = "'AC" ]
   then
-    BATTERY_ICON="􀢋"
+    BATTERY_ICON="󰂄"
   else
     if [ "$BATTERY_LABEL" -le 25 ]
     then
-      BATTERY_ICON="􀛩"
+      BATTERY_ICON="󰁻"
       BATTERY_HIGHLIGHT="on"
     else
-      BATTERY_ICON="􀛨"
+      BATTERY_ICON="󰁹"
     fi
   fi
 }

@@ -71,7 +71,7 @@ in
       --set wifi script="$scripts/wifi.sh" click_script="$scripts/click-wifi.sh" \
       --subscribe wifi wifi_change \
       --add item load right \
-      --set load icon="􀍽" script="$scripts/window-indicator.sh" \
+      --set load icon="󰓅" script="$scripts/window-indicator.sh" \
       --subscribe load space_change \
       --add item network right \
       --add item input right \

@@ -6,11 +6,11 @@ get_wifi() {
   read -r _ _ test WIFI_LABEL <<< "$wifi"
   if [ "$test" = "Network:" ]
   then
-      WIFI_ICON="􀙇"
+      WIFI_ICON="󰖩"
       WIFI_PADDING=6
   else
       WIFI_LABEL=""
-      WIFI_ICON="􀙈"
+      WIFI_ICON="󰖪"
       WIFI_PADDING=0
   fi
 }
