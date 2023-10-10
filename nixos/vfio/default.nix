@@ -24,6 +24,8 @@ in
   };
 
   config = mkIf cfg.enable {
+    my.libvirtd.enable = true;
+
     boot = {
       kernelModules = [
         "kvm-${cfg.platform}"
@@ -44,20 +46,5 @@ in
       '';
     };
 
-    environment.systemPackages = with pkgs; [
-      virt-manager
-    ];
-
-    virtualisation.libvirtd = {
-      enable = true;
-
-      qemu = {
-        package = pkgs.qemu_kvm;
-        ovmf.enable = true;
-      };
-
-    };
-
-    users.users.${config.my.user}.extraGroups = [ "libvirtd" ];
   };
 }
