@@ -67,7 +67,7 @@
 
   system.activationScripts.preActivation.text = ''
     ${pkgs.sqlite}/bin/sqlite3 '/Library/Application Support/com.apple.TCC/TCC.db' \
-      "INSERT or REPLACE INTO access VALUES('kTCCServiceAccessibility','${pkgs.skhd}/bin/skhd',1,2,4,1,NULL,NULL,0,NULL,NULL,0,NULL);"
+      "INSERT or REPLACE INTO access(service,client,client_type,auth_value,auth_reason,auth_version) VALUES('kTCCServiceAccessibility','${pkgs.skhd}/bin/skhd',1,2,4,1);"
   '';
   system.activationScripts.postActivation.text = ''
     ${pkgs.sqlite}/bin/sqlite3 '/Library/Application Support/com.apple.TCC/TCC.db' \
