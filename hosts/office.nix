@@ -13,6 +13,7 @@
   my.dualsensectl.enable = true;
   # my.nvidia.enable = true;
   my.intelGpu.enable = true;
+  my.libvirtd.enable = true;
   my.pn532.enable = true;
   my.retroarch.enable = true;
   my.sunshine.enable = true;
