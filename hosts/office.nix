@@ -5,7 +5,7 @@
     ./hardware-office.nix
   ];
   boot.supportedFilesystems = [ "ntfs" ];
-  powerManagement.cpuFreqGovernor = "schedutil";
+  # powerManagement.cpuFreqGovernor = "performance";
   networking.hostName = "office";
 
   my.cemu.enable = true;
