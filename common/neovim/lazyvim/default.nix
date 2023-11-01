@@ -124,6 +124,6 @@
       in
       "${parsers}/parser";
 
-    # xdg.configFile."nvim/lua".source = ./lua;
+    xdg.configFile."nvim/lua".source = ./lua;
   };
 }
