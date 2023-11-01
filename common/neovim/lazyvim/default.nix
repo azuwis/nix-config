@@ -8,8 +8,9 @@
         ansible-language-server
         lua-language-server
         nil
-        terraform-ls
         yaml-language-server
+        # lazyvim.plugins.extras.lang.terraform
+        terraform-ls
         # lua/plugins/none-ls.lua
         nixpkgs-fmt
         shellcheck
@@ -96,6 +97,7 @@
             },
             spec = {
               { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+              { import = "lazyvim.plugins.extras.lang.terraform" },
               -- { import = "lazyvim.plugins.extras.lang.typescript" },
               -- { import = "lazyvim.plugins.extras.lang.json" },
               -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
