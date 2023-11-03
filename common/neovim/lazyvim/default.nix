@@ -4,9 +4,11 @@
   config = lib.mkIf config.my.neovim.enable {
     programs.neovim = {
       extraPackages = with pkgs; [
+        # LazyVim
+        lua-language-server
+        stylua
         # lua/plugins/lspconfig.lua
         ansible-language-server
-        lua-language-server
         nil
         yaml-language-server
         # lazyvim.plugins.extras.lang.terraform
@@ -14,7 +16,6 @@
         # lua/plugins/none-ls.lua
         nixpkgs-fmt
         shellcheck
-        stylua
         # telescope
         ripgrep
       ];
