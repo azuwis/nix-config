@@ -98,7 +98,7 @@
             },
             spec = {
               { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-              -- The following configs are needed for fixing lazyvim on nix, all other configs shoud be put into lua/plugins/
+              -- The following configs are needed for fixing lazyvim on nix
               -- force enable telescope-fzf-native.nvim
               { "nvim-telescope/telescope-fzf-native.nvim", enabled = true },
               -- disable mason.nvim, use programs.neovim.extraPackages
@@ -106,7 +106,7 @@
               { "williamboman/mason.nvim", enabled = false },
               -- import/override with your plugins
               { import = "plugins" },
-              -- treesitter handled by xdg.configFile."nvim/parser", put this at the end of spec
+              -- treesitter handled by xdg.configFile."nvim/parser", put this line at the end of spec to clear ensure_installed
               { "nvim-treesitter/nvim-treesitter", opts = { ensure_installed = {} } },
             },
           })
