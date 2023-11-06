@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mdDoc mkEnableOption mkIf mkOption;
   cfg = config.my.neovim;
 in
 {
@@ -12,12 +12,17 @@ in
 
   options.my.neovim = {
     enable = mkEnableOption (mdDoc "neovim");
+
+    treesitterParsers = mkOption {
+      type = with lib.types; listOf package;
+    };
   };
 
   config = mkIf cfg.enable {
     # Clear all caches
     # rm -rf ~/.cache/nvim/ ~/.local/share/nvim/lazy/ ~/.local/share/nvim/nvchad/
     home.sessionVariables.EDITOR = "nvim";
+
     programs.neovim = {
       enable = true;
       withNodeJs = false;
@@ -26,5 +31,16 @@ in
       vimAlias = true;
       vimdiffAlias = true;
     };
+
+    # https://github.com/nvim-treesitter/nvim-treesitter#i-get-query-error-invalid-node-type-at-position
+    xdg.configFile."nvim/parser".source =
+      let
+        parsers = pkgs.symlinkJoin {
+          name = "treesitter-parsers";
+          paths = cfg.treesitterParsers;
+        };
+      in
+      "${parsers}/parser";
+
   };
 }
