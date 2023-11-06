@@ -6,7 +6,7 @@
     flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
     darwin.url = "github:lnl7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
-    droid.url = "github:t184256/nix-on-droid";
+    droid.url = "github:nix-community/nix-on-droid";
     droid.inputs.nixpkgs.follows = "nixpkgs";
     droid.inputs.home-manager.follows = "home-manager";
     wsl.url = "github:nix-community/NixOS-WSL";
@@ -14,7 +14,7 @@
     wsl.inputs.flake-utils.follows = "flake-utils";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    nix-index-database.url = "github:Mic92/nix-index-database";
+    nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.darwin.follows = "darwin";
