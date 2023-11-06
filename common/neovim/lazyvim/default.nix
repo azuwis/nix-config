@@ -106,7 +106,7 @@
               { "williamboman/mason.nvim", enabled = false },
               -- import/override with your plugins
               { import = "plugins" },
-              -- treesitter handled by xdg.configFile."nvim/parser", put this line at the end of spec to clear ensure_installed
+              -- treesitter handled by my.neovim.treesitterParsers, put this line at the end of spec to clear ensure_installed
               { "nvim-treesitter/nvim-treesitter", opts = { ensure_installed = {} } },
             },
           })

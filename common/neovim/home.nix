@@ -21,6 +21,9 @@ in
   config = mkIf cfg.enable {
     # Clear all caches
     # rm -rf ~/.cache/nvim/ ~/.local/share/nvim/lazy/ ~/.local/share/nvim/nvchad/
+    # Clear old luac cache
+    # find ~/.cache/nvim/luac -type f -mtime +1 -delete
+
     home.sessionVariables.EDITOR = "nvim";
 
     programs.neovim = {
