@@ -6,7 +6,8 @@ let
 in
 {
   imports = [
-    ./nvchad
+    # ./nvchad
+    ./lazyvim
     ./update-nix-fetchgit
   ];
 
