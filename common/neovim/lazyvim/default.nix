@@ -2,12 +2,6 @@
 
 {
   config = lib.mkIf config.my.neovim.enable {
-    programs.neovim = {
-      extraPackages = with pkgs; [
-        shellcheck
-      ];
-    };
-
     my.lazyvim.enable = true;
     my.lazyvim.ansible.enable = true;
     my.lazyvim.neogit.enable = true;
