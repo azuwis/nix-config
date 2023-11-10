@@ -4,6 +4,7 @@
   imports = [
     ./base
     ./ansible
+    ./neogit
     ./nix
     ./nord
     ./terraform
