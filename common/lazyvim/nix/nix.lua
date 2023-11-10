@@ -3,7 +3,15 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        nil_ls = {},
+        nil_ls = {
+          settings = {
+            ["nil"] = {
+              formatting = {
+                command = { "nixpkgs-fmt" },
+              },
+            },
+          },
+        },
       },
     },
   },

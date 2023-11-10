@@ -4,7 +4,6 @@
   config = lib.mkIf config.my.neovim.enable {
     programs.neovim = {
       extraPackages = with pkgs; [
-        nixpkgs-fmt
         shellcheck
       ];
     };
