@@ -1,4 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, memstreamHook, Carbon, Cocoa, SkyLight }:
+{ lib
+, stdenv
+, fetchFromGitHub
+, AppKit
+, Carbon
+, CoreAudio
+, CoreWLAN
+, CoreVideo
+, DisplayServices
+, IOKit
+, MediaRemote
+, SkyLight
+, testers
+}:
 
 let
   inherit (stdenv.hostPlatform) system;
@@ -7,35 +20,53 @@ let
     "x86_64-darwin" = "x86";
   }.${system} or (throw "Unsupported system: ${system}");
 in
-
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "sketchybar";
-  version = "2.11.1";
+  version = "2.18.0";
 
   src = fetchFromGitHub {
-    owner = "azuwis";
+    owner = "FelixKratz";
     repo = "SketchyBar";
-    rev = "2b6be292a2592fe5f216f38944aa78751f95d062";
-    sha256 = "sha256-3QSsJLYzFUzW6MgkWFCMEDoK6Mt+4slNE/E7j/+iX3g=";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-GeFB+eE/NW9ZopwVSmSfMK3WiJLCJNXOdmQpYc3m8WE=";
   };
 
-  buildInputs = [ Carbon Cocoa SkyLight ]
-    ++ lib.optionals (stdenv.system == "x86_64-darwin") [ memstreamHook ];
+  buildInputs = [
+    AppKit
+    Carbon
+    CoreAudio
+    CoreWLAN
+    CoreVideo
+    DisplayServices
+    IOKit
+    MediaRemote
+    SkyLight
+  ];
 
   makeFlags = [
     target
   ];
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/bin
     cp ./bin/sketchybar $out/bin/sketchybar
+
+    runHook postInstall
   '';
 
-  meta = with lib; {
+  passthru.tests.version = testers.testVersion {
+    package = finalAttrs.finalPackage;
+    version = "sketchybar-v${finalAttrs.version}";
+  };
+
+  meta = {
     description = "A highly customizable macOS status bar replacement";
     homepage = "https://github.com/FelixKratz/SketchyBar";
-    platforms = platforms.darwin;
-    maintainers = [ maintainers.azuwis ];
-    license = licenses.gpl3;
+    license = lib.licenses.gpl3;
+    mainProgram = "sketchybar";
+    maintainers = with lib.maintainers; [ azuwis khaneliman ];
+    platforms = lib.platforms.darwin;
   };
-}
+})

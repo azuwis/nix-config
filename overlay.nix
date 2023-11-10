@@ -78,8 +78,8 @@ self: super: {
   #   };
   # };
   # python3Packages = self.python3.pkgs;
-  # sketchybar = self.callPackage ./pkgs/sketchybar {
-  #   inherit (self.darwin.apple_sdk.frameworks) Carbon Cocoa SkyLight;
+  # sketchybar = self.darwin.apple_sdk_11_0.callPackage ./pkgs/sketchybar {
+  #   inherit (self.darwin.apple_sdk_11_0.frameworks) AppKit Carbon CoreAudio CoreWLAN CoreVideo DisplayServices IOKit MediaRemote SkyLight;
   # };
   # sway-unwrapped = super.sway-unwrapped.override {
   #   wlroots = self.wlroots_0_16.overrideAttrs (old: {
