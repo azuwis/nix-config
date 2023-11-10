@@ -4,7 +4,6 @@ return {
     opts = {
       servers = {
         ansiblels = {},
-        nil_ls = {},
       },
     },
   },
