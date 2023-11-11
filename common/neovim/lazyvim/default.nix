@@ -21,5 +21,8 @@
         },
       },
     '';
+
+    xdg.configFile."nvim/lua/config".source = ./lua/config;
+
   };
 }
