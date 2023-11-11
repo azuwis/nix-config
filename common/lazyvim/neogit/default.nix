@@ -15,6 +15,6 @@ in
       neogit
     ];
 
-    xdg.configFile."nvim/lua/plugins/neogit.lua".source = ./neogit.lua;
+    xdg.configFile."nvim/lua/plugins/neogit.lua".source = ./spec.lua;
   };
 }

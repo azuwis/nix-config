@@ -18,6 +18,6 @@ in
       hcl
     ])).dependencies;
 
-    xdg.configFile."nvim/lua/plugins/terraform.lua".source = ./terraform.lua;
+    xdg.configFile."nvim/lua/plugins/terraform.lua".source = ./spec.lua;
   };
 }

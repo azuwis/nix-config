@@ -18,6 +18,6 @@ in
       yaml
     ])).dependencies;
 
-    xdg.configFile."nvim/lua/plugins/ansible.lua".source = ./ansible.lua;
+    xdg.configFile."nvim/lua/plugins/ansible.lua".source = ./spec.lua;
   };
 }

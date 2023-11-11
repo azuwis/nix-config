@@ -19,6 +19,6 @@ in
       nix
     ])).dependencies;
 
-    xdg.configFile."nvim/lua/plugins/nix.lua".source = ./nix.lua;
+    xdg.configFile."nvim/lua/plugins/nix.lua".source = ./spec.lua;
   };
 }

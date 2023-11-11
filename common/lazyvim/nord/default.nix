@@ -26,6 +26,6 @@ in
       nord-nvim
     ];
 
-    xdg.configFile."nvim/lua/plugins/nord.lua".source = ./nord.lua;
+    xdg.configFile."nvim/lua/plugins/nord.lua".source = ./spec.lua;
   };
 }
