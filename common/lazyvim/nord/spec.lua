@@ -1,6 +1,6 @@
 return {
   {
-    "shaunsingh/nord.nvim",
+    "gbprod/nord.nvim",
   },
   {
     "LazyVim/LazyVim",
