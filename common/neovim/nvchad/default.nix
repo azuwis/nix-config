@@ -14,17 +14,16 @@
       shellcheck
       stylua
     ];
+
     # https://github.com/nvim-treesitter/nvim-treesitter#i-get-query-error-invalid-node-type-at-position
-    xdg.configFile."nvim/parser".source = "${pkgs.symlinkJoin {
-      name = "treesitter-parsers";
-      paths = (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: with plugins; [
-        c
-        hcl
-        lua
-        nix
-        yaml
-      ])).dependencies;
-    }}/parser";
+    my.neovim.treesitterParsers = (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: with plugins; [
+      c
+      hcl
+      lua
+      nix
+      yaml
+    ])).dependencies;
+
     programs.neovim.nvchad = {
       enable = true;
       extraLazyPlugins = with pkgs.vimPlugins; [
