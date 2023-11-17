@@ -1,5 +1,24 @@
 return {
   { "echasnovski/mini.indentscope", enabled = false },
+
+  {
+    "neovim/nvim-lspconfig",
+    optional = true,
+    opts = {
+      servers = {
+        lua_ls = {
+          settings = {
+            Lua = {
+              workspace = {
+                ignoreDir = { ".direnv" },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+
   {
     "nvim-lualine/lualine.nvim",
     opts = {
