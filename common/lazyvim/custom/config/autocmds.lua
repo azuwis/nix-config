@@ -12,3 +12,9 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.spell = true
   end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("auto_insert"),
+  pattern = { "gitcommit", "NeogitCommitMessage" },
+  command = "exec 'norm gg' | startinsert!",
+})
