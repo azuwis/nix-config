@@ -4,6 +4,7 @@
   imports = [
     ./base
     ./ansible
+    ./bash
     ./custom
     ./neogit
     ./nix
