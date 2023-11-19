@@ -94,6 +94,7 @@ in
         # LazyVim
         lua-language-server
         stylua
+        vscode-langservers-extracted
         # telescope
         ripgrep
       ];
@@ -140,7 +141,11 @@ in
 
     my.neovim.treesitterParsers = (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: with plugins; [
       c
+      jsonc
       lua
+      markdown
+      markdown_inline
+      regex
     ])).dependencies;
 
   };
