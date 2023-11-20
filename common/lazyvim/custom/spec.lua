@@ -1,5 +1,13 @@
 return {
-  { "echasnovski/mini.indentscope", enabled = false },
+  {
+    "echasnovski/mini.indentscope",
+    optional = true,
+    opts = {
+      draw = {
+        animation = require("mini.indentscope").gen_animation.none(),
+      },
+    },
+  },
 
   {
     "neovim/nvim-lspconfig",
