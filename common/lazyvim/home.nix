@@ -6,6 +6,7 @@
     ./ansible
     ./bash
     ./custom
+    ./helm
     ./neogit
     ./nix
     ./nord

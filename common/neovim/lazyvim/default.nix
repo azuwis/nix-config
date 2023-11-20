@@ -6,6 +6,7 @@
     my.lazyvim.ansible.enable = true;
     my.lazyvim.bash.enable = true;
     my.lazyvim.custom.enable = true;
+    my.lazyvim.helm.enable = true;
     my.lazyvim.neogit.enable = true;
     my.lazyvim.nix.enable = true;
     my.lazyvim.nord.enable = true;
