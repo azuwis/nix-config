@@ -7,6 +7,9 @@ return {
           underline = true,
           sp = colors.polar_night.brightest,
         }
+        highlights.MiniIndentscopeSymbol = {
+          link = "Comment",
+        }
       end,
     },
   },
