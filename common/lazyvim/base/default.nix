@@ -141,6 +141,7 @@ in
 
     my.neovim.treesitterParsers = (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: with plugins; [
       c
+      csv
       jsonc
       lua
       markdown
