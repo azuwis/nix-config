@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-for i in /nix/var/nix/gcroots/per-user/$USER/*
+for i in "/nix/var/nix/gcroots/per-user/$USER/"*
 do
   if [ ! -e "$i" ]
   then
