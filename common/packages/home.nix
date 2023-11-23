@@ -29,6 +29,7 @@
     openssl
     p7zip
     python3
+    ripgrep
     rsync
     scripts
     shellcheck
