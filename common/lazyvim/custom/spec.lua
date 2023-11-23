@@ -28,6 +28,15 @@ return {
   },
 
   {
+    "rcarriga/nvim-notify",
+    optional = true,
+    opts = {
+      render = "compact",
+      stages = "fade",
+    },
+  },
+
+  {
     "nvim-lualine/lualine.nvim",
     optional = true,
     opts = {
