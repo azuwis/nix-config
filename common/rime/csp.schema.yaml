@@ -40,6 +40,7 @@ engine:
     - fallback_segmentor
   translators:
     - punct_translator
+    - table_translator@custom_phrase
     - reverse_lookup_translator
     - script_translator
   filters:
@@ -409,6 +410,14 @@ speller:
 translator:
   dictionary: rime_ice
   prism: csp
+
+custom_phrase:
+  dictionary: ""
+  user_dict: csp_custom_phrase
+  db_class: stabledb
+  enable_completion: false
+  enable_sentence: false
+  initial_quality: 99
 
 simplifier:
   option_name: zh_simp_s2t

@@ -44,6 +44,7 @@ in
     '';
 
     home.file."${cfg.dir}/csp.schema.yaml".source = ./csp.schema.yaml;
+    home.file."${cfg.dir}/csp_custom_phrase.txt".source = ./csp_custom_phrase.txt;
 
     home.file."${cfg.dir}/grammar.yaml".source = pkgs.fetchurl {
       url = "https://github.com/lotem/rime-octagram-data/raw/master/grammar.yaml";
