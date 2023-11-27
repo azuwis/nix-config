@@ -11,5 +11,6 @@
     ./nix
     ./nord
     ./terraform
+    ./update-nix-fetchgit
   ];
 }
