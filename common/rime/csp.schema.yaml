@@ -243,7 +243,7 @@ speller:
     - xform/^pian$/PW/
     - xform/^miu$/MQ/
     - xform/^ju$/JV/
-    - xform/^nue$/N;/
+    - xform/^nve$/N;/
     - xform/^suo$/SP/
     - xform/^lai$/LH/
     - xform/^lao$/LJ/
@@ -643,7 +643,7 @@ reverse_lookup:
     - xform/pan/PN/
     - xform/pai/PH/
     - xform/nuo/NP/
-    - xform/nue/N;/
+    - xform/nve/N;/
     - xform/nou/NQ/
     - xform/niu/NQ/
     - xform/nin/NT/
