@@ -3,6 +3,10 @@ return {
     "gbprod/nord.nvim",
     opts = {
       on_highlights = function(highlights, colors)
+        -- float window
+        highlights.NormalFloat = {
+          bg = "#292e39",
+        }
         -- mini.indentscope
         highlights.MiniIndentscopeSymbol = {
           link = "Comment",
