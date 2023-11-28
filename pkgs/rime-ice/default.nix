@@ -13,7 +13,8 @@ stdenvNoCC.mkDerivation {
 
   installPhase = ''
     mkdir $out/
-    cp -r cn_dicts/ rime_ice.dict.yaml $out/
+    cp -r cn_dicts/ $out/
+    sed '/^\.\.\.$/q' rime_ice.dict.yaml > $out/rime_ice.dict.yaml
   '';
 
   meta = with lib; {
