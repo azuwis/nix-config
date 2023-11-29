@@ -80,6 +80,11 @@ in
         default = [ ];
       };
 
+      removedPlugins = mkOption {
+        type = pluginsOptionType;
+        default = [ ];
+      };
+
       extraSpec = mkOption {
         type = lib.types.lines;
         default = "";
@@ -110,7 +115,8 @@ in
               { name = "${lib.getName drv}"; path = drv; }
             else
               drv;
-          lazyPath = pkgs.linkFarm "lazy-plugins" (builtins.map mkEntryFromDrv (cfg.plugins ++ cfg.extraPlugins));
+          lazyPath = pkgs.linkFarm "lazy-plugins" (builtins.map mkEntryFromDrv
+            (lib.subtractLists cfg.removedPlugins cfg.plugins ++ cfg.extraPlugins));
         in
         ''
           require("lazy").setup({
