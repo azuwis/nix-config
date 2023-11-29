@@ -7,7 +7,7 @@ snippet mod Nix module
 	in
 	{
 		options.my.${1} = {
-			enable = mkEnableOption (mdDoc "${1}");
+			enable = mkEnableOption "${1}";
 		};
 
 		config = mkIf cfg.enable {
@@ -24,7 +24,7 @@ snippet modm Nix module with mkMerge
 	in
 	{
 		options.my.${1} = {
-			enable = mkEnableOption (mdDoc "${1}");
+			enable = mkEnableOption "${1}";
 			${2} = mkEnableOption (mdDoc "${2}");
 		};
 
