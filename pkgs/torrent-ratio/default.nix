@@ -11,7 +11,7 @@ buildGoModule rec {
     sha256 = "0izl58xzm07zk7jsh2z8z622hcyi0zx0v1skwdaa75fyxsw8bdpv";
   };
 
-  vendorSha256 = "sha256-HH0VHleShuv91QkV1CC8thgBWe5RgoUKhXa706Ked04=";
+  vendorHash = "sha256-HH0VHleShuv91QkV1CC8thgBWe5RgoUKhXa706Ked04=";
 
   buildInputs = [ sqlite ];
 }
