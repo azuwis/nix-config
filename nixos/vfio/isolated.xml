@@ -1,0 +1,8 @@
+<network>
+  <name>isolated</name>
+  <uuid>2f95ea91-0955-4003-80b4-63c9c4705810</uuid>
+  <bridge name='virbr1' stp='on' delay='0'/>
+  <mac address='52:54:00:62:ee:92'/>
+  <ip address='192.168.100.1' netmask='255.255.255.0'>
+  </ip>
+</network>

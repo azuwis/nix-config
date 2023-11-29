@@ -115,6 +115,12 @@
       <model type='virtio'/>
       <address type='pci' domain='0x0000' bus='0x01' slot='0x00' function='0x0'/>
     </interface>
+    <interface type='network'>
+      <mac address='52:54:00:57:75:cc'/>
+      <source network='isolated'/>
+      <model type='virtio'/>
+      <address type='pci' domain='0x0000' bus='0x03' slot='0x00' function='0x0'/>
+    </interface>
     <input type='evdev'>
       <source dev='/dev/input/by-id/usb-Logitech_USB_Optical_Mouse-event-mouse'/>
     </input>
@@ -123,6 +129,9 @@
     </input>
     <input type='mouse' bus='ps2'/>
     <input type='keyboard' bus='ps2'/>
+    <input type='tablet' bus='usb'>
+      <address type='usb' bus='0' port='1'/>
+    </input>
     <audio id='1' type='none'/>
     <hostdev mode='subsystem' type='pci' managed='yes'>
       <source>
