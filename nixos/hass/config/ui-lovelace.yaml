@@ -416,6 +416,9 @@ views:
         card:
           type: custom:simple-thermostat
           entity: climate.living_room
+          layout:
+            mode:
+              headings: false
           sensors:
             - entity: sensor.1775bcf17c0e_humidity
               name: Humidity
@@ -429,6 +432,9 @@ views:
         card:
           type: custom:simple-thermostat
           entity: climate.xiaomi_mt0_bedd_air_conditioner
+          layout:
+            mode:
+              headings: false
           sensors:
             - entity: sensor.xiaomi_mt0_bedd_relative_humidity
               name: Humidity
@@ -444,6 +450,9 @@ views:
         card:
           type: custom:simple-thermostat
           entity: climate.xiaomi_mt0_cdd0_air_conditioner
+          layout:
+            mode:
+              headings: false
           sensors:
             - entity: sensor.xiaomi_mt0_cdd0_relative_humidity
               name: Humidity
@@ -459,6 +468,9 @@ views:
         card:
           type: custom:simple-thermostat
           entity: climate.xiaomi_mt0_6e25_air_conditioner
+          layout:
+            mode:
+              headings: false
           sensors:
             - entity: sensor.xiaomi_mt0_6e25_relative_humidity
               name: Humidity
