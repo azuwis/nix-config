@@ -23,7 +23,7 @@
   networking.enableIPv6 = false;
   networking.nftables.enable = true;
   networking.useNetworkd = lib.mkDefault true;
-  systemd.network.wait-online.anyInterface = true;
+  # systemd.network.wait-online.anyInterface = config.networking.useDHCP;
   nix.gc = {
     automatic = true;
     dates = "weekly";
