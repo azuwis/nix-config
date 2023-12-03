@@ -1,4 +1,15 @@
-import ./lovelace-resource.nix {
-  url = "https://github.com/kalkih/mini-media-player/releases/download/v1.16.2/mini-media-player-bundle.js";
-  sha256 = "sha256-WjxoioDgRcOFd1oZBeOKa5WBjbGxJkUThskZjH2FwB4=";
+{ config, lib, pkgs, ... }:
+
+let
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.my.hass;
+in
+{
+  options.my.hass = {
+    mini-media-player = mkEnableOption "hass" // { default = true; };
+  };
+
+  config = mkIf (cfg.enable && cfg.mini-media-player) {
+    services.home-assistant.customLovelaceModules = [ pkgs.home-assistant-custom-lovelace-modules.mini-media-player ];
+  };
 }
