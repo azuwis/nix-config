@@ -3,14 +3,6 @@
 let
   inherit (lib) mdDoc mkEnableOption mkIf;
   cfg = config.my.hass;
-
-  component = pkgs.fetchFromGitHub rec {
-    name = "${owner}-${repo}-${rev}";
-    owner = "al-one";
-    repo = "hass-xiaomi-miot";
-    rev = "v0.7.13";
-    hash = "sha256-d49KRDwEjdrjIRizUjV1T8SXwK+YInQA6ALzLf7R5K8=";
-  };
 in
 {
   options.my.hass = {
@@ -18,14 +10,7 @@ in
   };
 
   config = mkIf (cfg.enable && cfg.xiaomi_miot) {
-    hass.file."custom_components/xiaomi_miot".source = "${component}/custom_components/xiaomi_miot";
-
-    services.home-assistant.extraPackages = ps: with ps; [
-      hap-python
-      micloud
-      pyqrcode
-      python-miio
-    ];
+    services.home-assistant.customComponents = [ pkgs.hass-xiaomi-miot ];
 
     services.home-assistant.config = {
       ffmpeg = { };
