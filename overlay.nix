@@ -11,6 +11,7 @@ self: super: {
   dsdrv-cemuhook = self.callPackage ./pkgs/dsdrv-cemuhook { };
   evdevhook = self.callPackage ./pkgs/evdevhook { };
   evdevhook2 = self.callPackage ./pkgs/evdevhook2 { };
+  hass-xiaomi-miot = self.callPackage ./pkgs/hass-xiaomi-miot { };
   jetbrains-mono-nerdfont = self.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
   jslisten = self.callPackage ./pkgs/jslisten { };
   legacyfox = self.callPackage ./pkgs/legacyfox { };
