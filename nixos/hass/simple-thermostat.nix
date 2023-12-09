@@ -24,7 +24,7 @@ in
     simple-thermostat = mkEnableOption "hass" // { default = true; };
   };
 
-  config = mkIf (cfg.enable && cfg.mini-media-player) {
+  config = mkIf (cfg.enable && cfg.simple-thermostat) {
     services.home-assistant.customLovelaceModules = [ module ];
   };
 }
