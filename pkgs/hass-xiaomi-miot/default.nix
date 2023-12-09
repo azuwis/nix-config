@@ -5,7 +5,8 @@
 }:
 
 buildHomeAssistantComponent rec {
-  pname = "hass-xiaomi-miot";
+  owner = "al-one";
+  domain = "xiaomi_miot";
   version = "0.7.13";
 
   src = fetchFromGitHub {
