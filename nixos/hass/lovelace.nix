@@ -6,11 +6,9 @@ in
 
 {
   config = lib.mkIf config.my.hass.enable {
-    services.nginx.virtualHosts.hass = {
-      locations."/local/" = {
-        alias = "${www}/";
-      };
-    };
+    systemd.services.home-assistant.preStart = ''
+      ln -fns ${www} ${config.services.home-assistant.configDir}/www/static
+    '';
 
     services.home-assistant.config.lovelace.mode = "yaml";
     services.home-assistant.config.lovelace.resources =
@@ -40,7 +38,7 @@ in
           cards = [
             {
               type = "picture-elements";
-              image = "/local/floorplan.png?v=3";
+              image = "/local/static/floorplan.png?v=3";
               elements = [
                 # living room
                 {
@@ -301,14 +299,14 @@ in
                 {
                   type = "image";
                   entity = "device_tracker.device_1";
-                  image = "/local/device_1.jpg";
+                  image = "/local/static/device_1.jpg";
                   state_filter = { not_home = "grayscale(100%)"; work = "grayscale(100%)"; };
                   style = { top = "89%"; left = "4%"; width = "5%"; border-radius = "50%"; };
                 }
                 {
                   type = "image";
                   entity = "device_tracker.device_2";
-                  image = "/local/device_2.jpg";
+                  image = "/local/static/device_2.jpg";
                   state_filter = { not_home = "grayscale(100%)"; };
                   style = { top = "92.3%"; left = "4%"; width = "5%"; border-radius = "50%"; };
                 }
