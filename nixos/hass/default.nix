@@ -6,7 +6,6 @@ let
 in
 {
   imports = [
-    (lib.mkAliasOptionModule [ "hass" "file" ] [ "home-manager" "users" "hass" "home" "file" ])
     (lib.mkAliasOptionModule [ "hass" "automations" ] [ "environment" "etc" "home-assistant/automations.yaml" "text" ])
     ./aligenie.nix
     ./braviatv.nix
@@ -42,6 +41,7 @@ in
 
     systemd.services.home-assistant.preStart = ''
       cp --no-preserve=mode /etc/home-assistant/automations.yaml ${config.services.home-assistant.configDir}/automations.yaml
+      ln -fns ${./config/packages} ${config.services.home-assistant.configDir}/packages
     '';
 
     services.home-assistant = {
@@ -91,16 +91,5 @@ in
       };
     };
 
-    home-manager.users.hass.home.stateVersion = "23.11";
-    home-manager.users.hass.home.file =
-      let
-        hassConfig = ./config;
-        file = builtins.mapAttrs
-          (name: value: {
-            source = "${hassConfig}/${name}";
-          })
-          (builtins.readDir hassConfig);
-      in
-      file;
   };
 }
