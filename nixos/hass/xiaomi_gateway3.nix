@@ -3,14 +3,6 @@
 let
   inherit (lib) mdDoc mkEnableOption mkIf;
   cfg = config.my.hass;
-
-  component = pkgs.fetchFromGitHub rec {
-    name = "${owner}-${repo}-${rev}";
-    owner = "AlexxIT";
-    repo = "XiaomiGateway3";
-    rev = "v3.3.4";
-    sha256 = "sha256-nU28v9UuZiapNXkvU8uNze5gXxbnu+htn6vj6qFrPVs=";
-  };
 in
 {
   options.my.hass = {
@@ -21,11 +13,7 @@ in
     # Host: Mijia_Hub_V2-2531.lan
     # Open telnet command: {"method":"set_ip_info","params":{"ssid":"\"\"","pswd":"1; passwd -d $USER; iptables -I INPUT \\! --src <hass_ip> -m tcp -p tcp --dport 23 -j DROP; telnetd"}}
 
-    hass.file."custom_components/xiaomi_gateway3".source = "${component}/custom_components/xiaomi_gateway3";
-
-    services.home-assistant.extraPackages = ps: with ps; [
-      zigpy
-    ];
+    services.home-assistant.customComponents = [ pkgs.xiaomi_gateway3 ];
 
     services.home-assistant.config = {
       homeassistant.customize_glob."light.*_group".icon = "mdi:lightbulb";
