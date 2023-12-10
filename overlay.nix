@@ -51,6 +51,7 @@ self: super: {
   wolf = self.callPackage ./pkgs/wolf { };
   # hass
   smartir = self.callPackage ./pkgs/smartir { };
+  xiaomi_gateway3 = self.callPackage ./pkgs/xiaomi_gateway3 { };
   xiaomi_miot = self.callPackage ./pkgs/xiaomi_miot { };
 
   # override
