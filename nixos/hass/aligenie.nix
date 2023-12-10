@@ -5,14 +5,6 @@
 let
   inherit (lib) mdDoc mkEnableOption mkIf;
   cfg = config.my.hass;
-
-  component = pkgs.fetchFromGitHub rec {
-    name = "${owner}-${repo}-${rev}";
-    owner = "azuwis";
-    repo = "aligenie";
-    rev = "626284b3a3e06d1f616e5d55f76ed58008c235c0";
-    sha256 = "1k8g83zn7mxjn7mjbvr2372y89zqzdz3pv3vbzab071mzw8a46a3";
-  };
 in
 {
   options.my.hass = {
@@ -20,7 +12,7 @@ in
   };
 
   config = mkIf (cfg.enable && cfg.aligenie) {
-    hass.file."custom_components/aligenie".source = "${component}/custom_components/aligenie";
+    services.home-assistant.customComponents = [ pkgs.aligenie ];
 
     services.home-assistant.config = {
       aligenie.expire_hours = 9999999;
