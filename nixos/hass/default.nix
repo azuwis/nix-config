@@ -7,7 +7,7 @@ in
 {
   imports = [
     (lib.mkAliasOptionModule [ "hass" "file" ] [ "home-manager" "users" "hass" "home" "file" ])
-    (lib.mkAliasOptionModule [ "hass" "automations" ] [ "home-manager" "users" "hass" "home" "file" "automations.yaml" "text" ])
+    (lib.mkAliasOptionModule [ "hass" "automations" ] [ "environment" "etc" "home-assistant/automations.yaml" "text" ])
     ./aligenie.nix
     ./braviatv.nix
     ./device_tracker.nix
@@ -39,6 +39,10 @@ in
     systemd.tmpfiles.rules = [
       "a+ ${config.services.home-assistant.configDir} - - - - d:u:${config.my.user}:r-x,u:${config.my.user}:r-x"
     ];
+
+    systemd.services.home-assistant.preStart = ''
+      cp --no-preserve=mode /etc/home-assistant/automations.yaml ${config.services.home-assistant.configDir}/automations.yaml
+    '';
 
     services.home-assistant = {
       enable = true;
