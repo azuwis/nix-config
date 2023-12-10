@@ -39,6 +39,7 @@ self: super: {
   sf-symbols-app = self.callPackage ./pkgs/sf-symbols { app = true; fonts = false; };
   sf-symbols-full = self.callPackage ./pkgs/sf-symbols { full = true; };
   sf-symbols-minimal = self.callPackage ./pkgs/sf-symbols { };
+  smartir = self.callPackage ./pkgs/smartir { };
   steam-devices = self.callPackage ./pkgs/steam-devices { };
   subfinder = self.callPackage ./pkgs/subfinder { };
   sunshine-git = self.sunshine.overrideAttrs (old: {
