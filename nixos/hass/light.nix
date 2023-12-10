@@ -113,7 +113,7 @@
             entity_id: >-
               {% set lights = expand(states.light) | selectattr("state", "eq", "on") %}
               {% if brightness != 255 %}
-                {% set lights = lights | selectattr("attributes.brightness", "defined") | selectattr("attributes.brightness", "gt", brightness) %}
+                {% set lights = lights | selectattr("attributes.brightness", "defined") | rejectattr("attributes.brightness", "none") | selectattr("attributes.brightness", "gt", brightness) %}
               {% endif %}
               {{ lights | map(attribute="entity_id") | list }}
             brightness: "{{ brightness }}"
