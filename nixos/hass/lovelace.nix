@@ -11,21 +11,24 @@ in
     '';
 
     services.home-assistant.config.lovelace.mode = "yaml";
-    services.home-assistant.config.lovelace.resources =
-      let
-        mkModule = name:
-          let
-            hash = builtins.hashFile "md5" "${www}/${name}.js";
-          in
-          {
-            url = "/local/${name}.js?v=${hash}";
-            type = "module";
-          };
-      in
-      [
-        # (mkModule "glance-card")
-        # (mkModule "state-icon")
-      ];
+
+    # services.home-assistant.customLovelaceModules conflict with services.home-assistant.config.lovelace.resources
+    # as of github:NixOS/nixpkgs/2873a73123077953f3e6f34964466018876d87c4
+    # services.home-assistant.config.lovelace.resources =
+    #   let
+    #     mkModule = name:
+    #       let
+    #         hash = builtins.hashFile "md5" "${www}/${name}.js";
+    #       in
+    #       {
+    #         url = "/local/${name}.js?v=${hash}";
+    #         type = "module";
+    #       };
+    #   in
+    #   [
+    #     # (mkModule "glance-card")
+    #     # (mkModule "state-icon")
+    #   ];
 
     services.home-assistant.lovelaceConfigWritable = true;
     services.home-assistant.lovelaceConfig = {
