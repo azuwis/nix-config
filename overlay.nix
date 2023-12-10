@@ -11,7 +11,6 @@ self: super: {
   dsdrv-cemuhook = self.callPackage ./pkgs/dsdrv-cemuhook { };
   evdevhook = self.callPackage ./pkgs/evdevhook { };
   evdevhook2 = self.callPackage ./pkgs/evdevhook2 { };
-  hass-xiaomi-miot = self.callPackage ./pkgs/hass-xiaomi-miot { };
   jetbrains-mono-nerdfont = self.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
   jslisten = self.callPackage ./pkgs/jslisten { };
   legacyfox = self.callPackage ./pkgs/legacyfox { };
@@ -39,7 +38,6 @@ self: super: {
   sf-symbols-app = self.callPackage ./pkgs/sf-symbols { app = true; fonts = false; };
   sf-symbols-full = self.callPackage ./pkgs/sf-symbols { full = true; };
   sf-symbols-minimal = self.callPackage ./pkgs/sf-symbols { };
-  smartir = self.callPackage ./pkgs/smartir { };
   steam-devices = self.callPackage ./pkgs/steam-devices { };
   subfinder = self.callPackage ./pkgs/subfinder { };
   sunshine-git = self.sunshine.overrideAttrs (old: {
@@ -51,6 +49,9 @@ self: super: {
   });
   torrent-ratio = self.callPackage ./pkgs/torrent-ratio { };
   wolf = self.callPackage ./pkgs/wolf { };
+  # hass
+  smartir = self.callPackage ./pkgs/smartir { };
+  xiaomi_miot = self.callPackage ./pkgs/xiaomi_miot { };
 
   # override
   # dualsensectl = self.callPackage ./pkgs/dualsensectl { };

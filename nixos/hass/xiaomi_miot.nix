@@ -10,7 +10,7 @@ in
   };
 
   config = mkIf (cfg.enable && cfg.xiaomi_miot) {
-    services.home-assistant.customComponents = [ pkgs.hass-xiaomi-miot ];
+    services.home-assistant.customComponents = [ pkgs.xiaomi_miot ];
 
     services.home-assistant.config = {
       ffmpeg = { };
