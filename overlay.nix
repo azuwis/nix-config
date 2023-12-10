@@ -50,6 +50,7 @@ self: super: {
   torrent-ratio = self.callPackage ./pkgs/torrent-ratio { };
   wolf = self.callPackage ./pkgs/wolf { };
   # hass
+  aligenie = self.callPackage ./pkgs/aligenie { };
   smartir = self.callPackage ./pkgs/smartir { };
   xiaomi_gateway3 = self.callPackage ./pkgs/xiaomi_gateway3 { };
   xiaomi_miot = self.callPackage ./pkgs/xiaomi_miot { };
