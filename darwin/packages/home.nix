@@ -30,6 +30,7 @@
     daemon
     darwin.iproute2mac
     gimp
+    pstree
     qbittorrent
     subfinder
   ];
