@@ -28,15 +28,9 @@
     android-tools
     coreutils-full
     daemon
-    # element-desktop
-    # hydra-check
-    subfinder
-    qbittorrent
     darwin.iproute2mac
     gimp
-    # (darwin.iproute2mac.overrideAttrs (o: rec {
-    #   postPatch = "";
-    # }))
-    # losslesscut-bin
+    qbittorrent
+    subfinder
   ];
 }
