@@ -7,6 +7,10 @@
         inherit system;
         overlays = [ self.overlays.default self.inputs.nvidia-patch.overlay ];
         config.allowUnfree = true;
+        # for home-assistant-chip-core
+        config.permittedInsecurePackages = [
+          "openssl-1.1.1w"
+        ];
       };
     in
     {
