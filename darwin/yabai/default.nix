@@ -45,6 +45,20 @@
   #   StandardOutPath = "/tmp/yabai.log";
   # };
 
+  # https://github.com/koekeishiya/yabai#requirements-and-caveats
+  system.defaults.CustomUserPreferences = {
+    "com.apple.dock" = {
+      # Automatically rearrange Spaces based on most recent use -> [ ]
+      mru-spaces = 0;
+    };
+    "com.apple.WindowManager" = {
+      # Show Items -> On Desktop -> [x]
+      StandardHideDesktopIcons = 0;
+      # Click wallpaper to reveal Desktop -> Only in Stage Manager
+      EnableStandardClickToShowDesktop = 0;
+    };
+  };
+
   system.activationScripts.preActivation.text = ''
     ${pkgs.sqlite}/bin/sqlite3 '/Library/Application Support/com.apple.TCC/TCC.db' \
       "INSERT or REPLACE INTO access(service,client,client_type,auth_value,auth_reason,auth_version) VALUES('kTCCServiceAccessibility','${pkgs.yabai}/bin/yabai',1,2,4,1);"
