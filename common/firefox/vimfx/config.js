@@ -6,9 +6,9 @@ const nsIWindowWatcher = Cc["@mozilla.org/embedcomp/window-watcher;1"].getServic
 const ioService = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService);
 
 Cu.import('resource://gre/modules/XPCOMUtils.jsm')
-XPCOMUtils.defineLazyModuleGetter(this, 'AddonManager', 'resource://gre/modules/AddonManager.jsm')
-XPCOMUtils.defineLazyModuleGetter(this, 'PopupNotifications', 'resource://gre/modules/PopupNotifications.jsm')
-XPCOMUtils.defineLazyModuleGetter(this, 'Preferences', 'resource://gre/modules/Preferences.jsm')
+const {AddonManager} = ChromeUtils.import('resource://gre/modules/AddonManager.jsm');
+const {PopupNotifications} = ChromeUtils.import('resource://gre/modules/PopupNotifications.jsm');
+const {Preferences} = ChromeUtils.import('resource://gre/modules/Preferences.jsm');
 
 // helper functions
 let {commands} = vimfx.modes.normal
