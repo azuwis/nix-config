@@ -17,7 +17,7 @@ in
       media_player = [{
         platform = "smartir";
         name = "Edifier R2000DB";
-        device_code = 1500;
+        device_code = 1461;
         controller_data = "remote.broadlink1";
       }];
       homeassistant.customize."media_player.edifier_r2000db".icon = "mdi:speaker";
