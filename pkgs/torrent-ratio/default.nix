@@ -1,17 +1,20 @@
-{ lib, fetchFromGitHub, buildGoModule, sqlite }:
+{ fetchFromGitHub
+, buildGoModule
+, sqlite
+}:
 
-buildGoModule rec {
+buildGoModule {
   pname = "torrent-ratio";
-  version = "unstable-2023-06-14";
+  version = "unstable-2023-12-25";
 
   src = fetchFromGitHub {
     owner = "azuwis";
     repo = "torrent-ratio";
-    rev = "63305a40d24a7a85e0d36b2610ae7777f892829f";
-    sha256 = "0izl58xzm07zk7jsh2z8z622hcyi0zx0v1skwdaa75fyxsw8bdpv";
+    rev = "ee12d583ab2cfe0cc8810e0b5b44d76f65b0e0e9";
+    sha256 = "sha256-/KM3Mqbe76w0d5NaAkRRA757o8Fsdx2fZiHz0ueBouI=";
   };
 
-  vendorHash = "sha256-HH0VHleShuv91QkV1CC8thgBWe5RgoUKhXa706Ked04=";
+  vendorHash = "sha256-4NAwh2sp1SBVniMmx6loFMN/9gbY3kfWnHV/U0TIgHg=";
 
   buildInputs = [ sqlite ];
 }
