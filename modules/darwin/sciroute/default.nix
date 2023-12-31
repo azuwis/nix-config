@@ -24,7 +24,7 @@ in
 
     services.sciroute.interface = mkOption {
       type = types.str;
-      default = "utun99";
+      default = "utun100";
     };
 
     services.sciroute.script = mkOption {
