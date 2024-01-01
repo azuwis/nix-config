@@ -1,6 +1,5 @@
 { fetchFromGitHub
 , buildGoModule
-, sqlite
 }:
 
 buildGoModule {
@@ -15,6 +14,4 @@ buildGoModule {
   };
 
   vendorHash = "sha256-4NAwh2sp1SBVniMmx6loFMN/9gbY3kfWnHV/U0TIgHg=";
-
-  buildInputs = [ sqlite ];
 }
