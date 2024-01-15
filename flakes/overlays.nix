@@ -5,12 +5,8 @@
     let
       pkgs = import self.inputs.nixpkgs {
         inherit system;
-        overlays = [ self.overlays.default self.inputs.nvidia-patch.overlay ];
         config.allowUnfree = true;
-        # for home-assistant-chip-core
-        config.permittedInsecurePackages = [
-          "openssl-1.1.1w"
-        ];
+        overlays = [ self.overlays.default ];
       };
     in
     {

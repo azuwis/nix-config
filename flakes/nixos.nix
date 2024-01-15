@@ -1,22 +1,44 @@
-{ inputs, withSystem, ... }:
+{ self, withSystem, ... }:
 
 let
-  mkNixos = { system ? "x86_64-linux", modules ? [ ] }:
-    withSystem system ({ lib, pkgs, system, ... }: inputs.nixpkgs.lib.nixosSystem {
-      inherit system;
-      specialArgs = { inherit inputs lib pkgs; };
-      modules = [
-        ../nixos
-      ] ++ modules;
-    });
+  mkNixos = { system ? "x86_64-linux", config ? { }, overlays ? [ ], modules ? [ ] }:
+    withSystem system ({ lib, pkgs, system, ... }:
+      let
+        customPkgs = import self.inputs.nixpkgs (lib.recursiveUpdate
+          {
+            inherit system;
+            overlays = [ self.overlays.default ] ++ overlays;
+            config.allowUnfree = true;
+          }
+          {
+            inherit config;
+          }
+        );
+      in
+      self.inputs.nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = {
+          inherit lib;
+          inputs = self.inputs;
+          pkgs = if (overlays != [ ] || config != { }) then customPkgs else pkgs;
+        };
+        modules = [
+          ../nixos
+        ] ++ modules;
+      });
 in
 {
   flake.nixosConfigurations = {
     nuc = mkNixos {
+      config.permittedInsecurePackages = [
+        # for home-assistant-chip-core
+        "openssl-1.1.1w"
+      ];
       modules = [ ../hosts/nuc.nix ];
     };
 
     office = mkNixos {
+      overlays = [ self.inputs.nvidia-patch.overlay ];
       modules = [ ../hosts/office.nix ];
     };
 
