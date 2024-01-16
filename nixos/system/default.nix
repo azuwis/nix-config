@@ -7,7 +7,7 @@
   };
   boot.loader = {
     efi = {
-      canTouchEfiVariables = true;
+      canTouchEfiVariables = lib.mkDefault true;
       efiSysMountPoint = lib.mkIf
         (builtins.hasAttr "/boot/efi" config.fileSystems &&
           config.fileSystems."/boot/efi".fsType == "vfat")
