@@ -48,6 +48,12 @@ in
       modules = [ ../hosts/office.nix ];
     };
 
+    deck = mkNixos {
+      nixpkgs = self.inputs.deck.inputs.nixpkgs;
+      overlays = [ self.inputs.deck.overlays.default ];
+      modules = [ ../hosts/deck.nix ];
+    };
+
     utm = mkNixos {
       system = "aarch64-linux";
       modules = [ ../hosts/utm.nix ];
