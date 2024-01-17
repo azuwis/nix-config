@@ -11,6 +11,8 @@ in
   };
 
   config = mkIf cfg.enable {
+    # need by home-manager gtk.enable https://github.com/nix-community/home-manager/issues/3113
+    programs.dconf.enable = true;
     hm.my.theme.enable = true;
 
     fonts = {
