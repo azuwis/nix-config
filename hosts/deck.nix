@@ -12,6 +12,9 @@
 
   networking.hostName = "deck";
 
+  my.user = lib.mkForce "deck";
+  hm.my.user = lib.mkForce "deck";
+
   # networkmanager is required to complete the first-time setup process
   networking.networkmanager.enable = true;
   networking.useNetworkd = false;
