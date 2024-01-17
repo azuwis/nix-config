@@ -28,17 +28,6 @@
     user = config.my.user;
   };
 
+  my.nix-builder-client.enable = true;
   my.theme.enable = true;
-
-  nix = {
-    distributedBuilds = true;
-    buildMachines = [{
-      hostName = "builder";
-      systems = [ "i686-linux" "x86_64-linux" ];
-      protocol = "ssh-ng";
-    }];
-    extraOptions = ''
-      builders-use-substitutes = true
-    '';
-  };
 }
