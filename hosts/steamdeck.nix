@@ -18,7 +18,7 @@
   # networkmanager is required to complete the first-time setup process
   networking.networkmanager.enable = true;
   networking.useNetworkd = false;
-  users.users.${config.my.user}.extraGroups = [ "networkmanager" ];
+  users.users.${config.jovian.steam.user}.extraGroups = [ "users" ];
 
   hardware.bluetooth.enable = true;
   jovian.devices.steamdeck.enable = true;
