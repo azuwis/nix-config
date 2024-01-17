@@ -28,6 +28,7 @@ in
         hostName = "builder";
         systems = cfg.systems;
         protocol = "ssh-ng";
+        maxJobs = 12;
       }];
       settings.builders-use-substitutes = true;
     };
