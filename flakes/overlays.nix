@@ -1,6 +1,6 @@
 { self, ... }: {
   flake.overlays.default = import ../overlay.nix;
-  flake.overlays.deck = import ../overlays/deck.nix;
+  flake.overlays.jovian = import ../overlays/jovian.nix;
 
   perSystem = { lib, system, ... }:
     let

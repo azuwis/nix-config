@@ -49,8 +49,8 @@ in
     };
 
     steamdeck = mkNixos {
-      nixpkgs = self.inputs.deck.inputs.nixpkgs;
-      overlays = [ self.inputs.deck.overlays.default self.overlays.deck ];
+      nixpkgs = self.inputs.jovian.inputs.nixpkgs;
+      overlays = [ self.inputs.jovian.overlays.default self.overlays.jovian ];
       modules = [ ../hosts/steamdeck.nix ];
     };
 

@@ -14,8 +14,8 @@
     wsl.url = "github:nix-community/NixOS-WSL";
     wsl.inputs.nixpkgs.follows = "nixpkgs";
     wsl.inputs.flake-utils.follows = "flake-utils";
-    deck.url = "github:Jovian-Experiments/Jovian-NixOS";
-    # deck.inputs.nixpkgs.follows = "nixpkgs";
+    jovian.url = "github:Jovian-Experiments/Jovian-NixOS";
+    # jovian.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nix-index-database.url = "github:nix-community/nix-index-database";

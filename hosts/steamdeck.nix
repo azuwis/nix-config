@@ -2,7 +2,7 @@
 
 {
   imports = [
-    inputs.deck.nixosModules.default
+    inputs.jovian.nixosModules.default
     ./hardware-steamdeck.nix
   ];
 

@@ -49,25 +49,6 @@
         "type": "github"
       }
     },
-    "deck": {
-      "inputs": {
-        "nix-github-actions": "nix-github-actions",
-        "nixpkgs": "nixpkgs"
-      },
-      "locked": {
-        "lastModified": 1705231543,
-        "narHash": "sha256-W8j0A5n2WOpCgdFRqMqwd9adNORcN1r/DpjRVxiFkAw=",
-        "owner": "Jovian-Experiments",
-        "repo": "Jovian-NixOS",
-        "rev": "ab807f9740c533070e8b68b0d86034d4a293b5f1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Jovian-Experiments",
-        "repo": "Jovian-NixOS",
-        "type": "github"
-      }
-    },
     "droid": {
       "inputs": {
         "home-manager": [
@@ -170,6 +151,25 @@
         "type": "github"
       }
     },
+    "jovian": {
+      "inputs": {
+        "nix-github-actions": "nix-github-actions",
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1705487282,
+        "narHash": "sha256-eX/0O2ybmFKD/MzYO8gDlr4tAurekDbJQa7olAFFbRo=",
+        "owner": "Jovian-Experiments",
+        "repo": "Jovian-NixOS",
+        "rev": "a00331e522b9a732f876cf707174ce37ae702762",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Jovian-Experiments",
+        "repo": "Jovian-NixOS",
+        "type": "github"
+      }
+    },
     "nix-formatter-pack": {
       "inputs": {
         "nixpkgs": [
@@ -196,7 +196,7 @@
     "nix-github-actions": {
       "inputs": {
         "nixpkgs": [
-          "deck",
+          "jovian",
           "nixpkgs"
         ]
       },
@@ -358,11 +358,11 @@
       "inputs": {
         "agenix": "agenix",
         "darwin": "darwin",
-        "deck": "deck",
         "droid": "droid",
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
+        "jovian": "jovian",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs_2",
         "nvidia-patch": "nvidia-patch",
