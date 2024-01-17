@@ -48,10 +48,10 @@ in
       modules = [ ../hosts/office.nix ];
     };
 
-    deck = mkNixos {
+    steamdeck = mkNixos {
       nixpkgs = self.inputs.deck.inputs.nixpkgs;
       overlays = [ self.inputs.deck.overlays.default self.overlays.deck ];
-      modules = [ ../hosts/deck.nix ];
+      modules = [ ../hosts/steamdeck.nix ];
     };
 
     utm = mkNixos {

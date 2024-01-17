@@ -3,14 +3,14 @@
 {
   imports = [
     inputs.deck.nixosModules.default
-    ./hardware-deck.nix
+    ./hardware-steamdeck.nix
   ];
 
   # workaround for efi entry reset after reboot
   boot.loader.grub.efiInstallAsRemovable = true;
   boot.loader.efi.canTouchEfiVariables = false;
 
-  networking.hostName = "deck";
+  networking.hostName = "steamdeck";
 
   my.user = lib.mkForce "deck";
   hm.my.user = lib.mkForce "deck";
