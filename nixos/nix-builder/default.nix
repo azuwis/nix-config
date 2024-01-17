@@ -5,6 +5,10 @@ let
   cfg = config.my.nix-builder;
 in
 {
+  imports = [
+    ./client.nix
+  ];
+
   options.my.nix-builder = {
     enable = mkEnableOption "nix-builder";
   };
