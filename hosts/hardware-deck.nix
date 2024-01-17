@@ -23,6 +23,17 @@
       fsType = "vfat";
     };
 
+  fileSystems."/home/steamos" =
+    { device = "/dev/disk/by-uuid/1bb334e6-3c14-46b3-9bae-d50053587d50";
+      fsType = "ext4";
+    };
+
+  fileSystems."/home/deck/.local/share/Steam" =
+    { device = "/home/steamos/deck/.local/share/Steam";
+      fsType = "none";
+      options = [ "bind" ];
+    };
+
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
