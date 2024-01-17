@@ -50,7 +50,7 @@ in
 
     deck = mkNixos {
       nixpkgs = self.inputs.deck.inputs.nixpkgs;
-      overlays = [ self.inputs.deck.overlays.default ];
+      overlays = [ self.inputs.deck.overlays.default self.overlays.deck ];
       modules = [ ../hosts/deck.nix ];
     };
 

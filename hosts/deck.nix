@@ -24,6 +24,9 @@
     user = config.my.user;
   };
 
+  programs.dconf.enable = true;
+  my.theme.enable = true;
+
   nix = {
     distributedBuilds = true;
     buildMachines = [{
