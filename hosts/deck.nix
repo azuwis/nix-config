@@ -20,6 +20,7 @@
   networking.useNetworkd = false;
   users.users.${config.my.user}.extraGroups = [ "networkmanager" ];
 
+  hardware.bluetooth.enable = true;
   jovian.devices.steamdeck.enable = true;
   jovian.steam = {
     enable = true;
