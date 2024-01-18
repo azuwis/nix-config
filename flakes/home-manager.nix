@@ -27,11 +27,9 @@ let
         lib = import (self.inputs.home-manager + "/modules/lib/stdlib-extended.nix") lib;
         inputs = self.inputs;
       };
-      modules = [{
-        imports = lib.my.getHmModules [ ../common ];
-        home.stateVersion = "23.11";
-        programs.home-manager.enable = true;
-      }] ++ modules;
+      modules = [
+        ../common/home.nix
+      ] ++ modules;
     });
 in
 {
