@@ -7,7 +7,7 @@
     ../common
   ] ++ lib.my.getModules [ ../modules/darwin ./. ];
 
-  hm.imports = lib.my.getHmModules [ ./. ];
-
-  hm.my.zsh-ssh-agent.enable = true;
+  hm.imports = [
+    ./home.nix
+  ];
 }
