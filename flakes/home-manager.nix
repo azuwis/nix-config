@@ -57,9 +57,10 @@ in
     };
   };
 
-  perSystem = { system, pkgs, ... }: {
+  perSystem = { self', inputs', pkgs, ... }: {
+    packages.home-manager = inputs'.home-manager.packages.default;
     apps.init-home.program = pkgs.writeShellScriptBin "init-home" ''
-      ${self.inputs.home-manager.packages.${system}.default}/bin/home-manager --extra-experimental-features "nix-command flakes" switch --flake "${self}" "$@"
+      ${self'.packages.home-manager}/bin/home-manager --extra-experimental-features "nix-command flakes" switch --flake "${self}" "$@"
     '';
   };
 }
