@@ -26,7 +26,7 @@ let
       specialArgs = {
         inherit lib;
         inputs = self.inputs;
-        pkgs = if (overlays != [ ] || config != { }) then customPkgs else pkgs;
+        pkgs = if (nixpkgs != self.inputs.nixpkgs || config != { } || overlays != [ ]) then customPkgs else pkgs;
       };
       modules = [
         ../nixos
