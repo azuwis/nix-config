@@ -94,7 +94,8 @@
     gid = config.my.uid;
   };
   users.users.${config.my.user} = {
-    extraGroups = [ "wheel" ];
+    # `users` is the primary group of all normal users in NixOS
+    extraGroups = [ "users" "wheel" ];
     group = config.my.user;
     isNormalUser = true;
     shell = pkgs.zsh;
