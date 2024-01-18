@@ -2,18 +2,18 @@
 
 self: super: {
   # pkgs
-  anime4k = self.callPackage ./pkgs/anime4k { };
+  anime4k = self.callPackage ../pkgs/anime4k { };
   # cemu = super.cemu.overrideAttrs (old: {
   #   postPatch = (old.postPatch or "") + ''
   #     sed -i '/\/\/ already connected\?/,+2 d' src/input/api/DSU/DSUControllerProvider.cpp
   #   '';
   # });
-  dsdrv-cemuhook = self.callPackage ./pkgs/dsdrv-cemuhook { };
-  evdevhook = self.callPackage ./pkgs/evdevhook { };
-  evdevhook2 = self.callPackage ./pkgs/evdevhook2 { };
+  dsdrv-cemuhook = self.callPackage ../pkgs/dsdrv-cemuhook { };
+  evdevhook = self.callPackage ../pkgs/evdevhook { };
+  evdevhook2 = self.callPackage ../pkgs/evdevhook2 { };
   jetbrains-mono-nerdfont = self.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
-  jslisten = self.callPackage ./pkgs/jslisten { };
-  legacyfox = self.callPackage ./pkgs/legacyfox { };
+  jslisten = self.callPackage ../pkgs/jslisten { };
+  legacyfox = self.callPackage ../pkgs/legacyfox { };
   moonlight-cemuhook = self.moonlight-qt.overrideAttrs (old: {
     pname = "moonlight-cemuhook";
     src = old.src.override {
@@ -28,18 +28,18 @@ self: super: {
       rev = "fee54a9d765d6121c831cdaac90aff490824231f";
       sha256 = "sha256-iJ5DFfbtkBVHL35lsX1OYhqN+DG7/9g5D2iwN4marjY=";
     };
-    patches = [ ./patches/moonlight.diff ];
+    patches = [ ../patches/moonlight.diff ];
   });
-  nibar = self.callPackage ./pkgs/nibar { };
-  redsocks2 = self.callPackage ./pkgs/redsocks2 { };
-  rime-ice = self.callPackage ./pkgs/rime-ice { };
-  scripts = self.callPackage ./pkgs/scripts { };
+  nibar = self.callPackage ../pkgs/nibar { };
+  redsocks2 = self.callPackage ../pkgs/redsocks2 { };
+  rime-ice = self.callPackage ../pkgs/rime-ice { };
+  scripts = self.callPackage ../pkgs/scripts { };
   sf-symbols = self.sf-symbols-minimal;
-  sf-symbols-app = self.callPackage ./pkgs/sf-symbols { app = true; fonts = false; };
-  sf-symbols-full = self.callPackage ./pkgs/sf-symbols { full = true; };
-  sf-symbols-minimal = self.callPackage ./pkgs/sf-symbols { };
-  steam-devices = self.callPackage ./pkgs/steam-devices { };
-  subfinder = self.callPackage ./pkgs/subfinder { };
+  sf-symbols-app = self.callPackage ../pkgs/sf-symbols { app = true; fonts = false; };
+  sf-symbols-full = self.callPackage ../pkgs/sf-symbols { full = true; };
+  sf-symbols-minimal = self.callPackage ../pkgs/sf-symbols { };
+  steam-devices = self.callPackage ../pkgs/steam-devices { };
+  subfinder = self.callPackage ../pkgs/subfinder { };
   sunshine-git = self.sunshine.overrideAttrs (old: {
     pname = "sunshine-git";
     src = old.src.override {
@@ -47,17 +47,17 @@ self: super: {
       sha256 = "sha256-T2kKv28DHIpnUUVwYACYvYflbwdok7bEcMP/zp28SRA=";
     };
   });
-  torrent-ratio = self.callPackage ./pkgs/torrent-ratio { };
-  wolf = self.callPackage ./pkgs/wolf { };
+  torrent-ratio = self.callPackage ../pkgs/torrent-ratio { };
+  wolf = self.callPackage ../pkgs/wolf { };
   # hass
-  aligenie = self.callPackage ./pkgs/aligenie { };
-  gree = self.callPackage ./pkgs/gree { };
-  smartir = self.callPackage ./pkgs/smartir { };
-  xiaomi_gateway3 = self.callPackage ./pkgs/xiaomi_gateway3 { };
-  xiaomi_miot = self.callPackage ./pkgs/xiaomi_miot { };
+  aligenie = self.callPackage ../pkgs/aligenie { };
+  gree = self.callPackage ../pkgs/gree { };
+  smartir = self.callPackage ../pkgs/smartir { };
+  xiaomi_gateway3 = self.callPackage ../pkgs/xiaomi_gateway3 { };
+  xiaomi_miot = self.callPackage ../pkgs/xiaomi_miot { };
 
   # override
-  # dualsensectl = self.callPackage ./pkgs/dualsensectl { };
+  # dualsensectl = self.callPackage ../pkgs/dualsensectl { };
   fcitx5-configtool = self.writeShellScriptBin "fcitx5-config-qt" ''
     echo "fcitx-config-qt dummy command"
   '';
@@ -80,11 +80,11 @@ self: super: {
     '';
   # python3 = super.python3.override {
   #   packageOverrides = pyself: pysuper: {
-  #     pysonybraviapsk = self.python3.pkgs.callPackage ./pkgs/pysonybraviapsk { };
+  #     pysonybraviapsk = self.python3.pkgs.callPackage ../pkgs/pysonybraviapsk { };
   #   };
   # };
   # python3Packages = self.python3.pkgs;
-  # sketchybar = self.darwin.apple_sdk_11_0.callPackage ./pkgs/sketchybar {
+  # sketchybar = self.darwin.apple_sdk_11_0.callPackage ../pkgs/sketchybar {
   #   inherit (self.darwin.apple_sdk_11_0.frameworks) AppKit Carbon CoreAudio CoreWLAN CoreVideo DisplayServices IOKit MediaRemote SkyLight;
   # };
   # sway-unwrapped = super.sway-unwrapped.override {
@@ -95,7 +95,7 @@ self: super: {
   #       '';
   #   });
   # };
-  # trigger-control = self.callPackage ./pkgs/trigger-control { };
-  # uxplay = self.callPackage ./pkgs/uxplay { };
-  # yabai = self.callPackage ./pkgs/yabai { };
+  # trigger-control = self.callPackage ../pkgs/trigger-control { };
+  # uxplay = self.callPackage ../pkgs/uxplay { };
+  # yabai = self.callPackage ../pkgs/yabai { };
 }

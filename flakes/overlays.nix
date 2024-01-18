@@ -1,5 +1,5 @@
 { self, ... }: {
-  flake.overlays.default = import ../overlay.nix;
+  flake.overlays.default = import ../overlays/default.nix;
   flake.overlays.jovian = import ../overlays/jovian.nix;
 
   perSystem = { lib, system, ... }:
