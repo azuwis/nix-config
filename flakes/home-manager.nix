@@ -28,6 +28,11 @@ let
         inputs = self.inputs;
       };
       modules = [
+        {
+          news.display = "silent";
+          news.json = lib.mkForce { };
+          news.entries = lib.mkForce [ ];
+        }
         ../common/home.nix
       ] ++ modules;
     });
