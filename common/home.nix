@@ -16,12 +16,10 @@
     zsh.enable = true;
   };
 
-  # for `home-manager switch` command even in nixos/nix-darwin
-  home.packages = lib.mkIf (config.submoduleSupport.enable) [
+  # let standalone home-manager and home-manager in nixos/nix-darwin use the same derivation
+  home.packages = [
     (pkgs.callPackage (inputs.home-manager + /home-manager) { path = inputs.home-manager; })
   ];
-
   home.stateVersion = "23.11";
-  programs.home-manager.enable = true;
   systemd.user.startServices = "sd-switch";
 }
