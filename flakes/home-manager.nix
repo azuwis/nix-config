@@ -65,6 +65,7 @@ in
       modules = [{
         home.username = "deck";
         home.homeDirectory = "/home/deck";
+        my.registry.enable = true;
       }];
     };
   };
