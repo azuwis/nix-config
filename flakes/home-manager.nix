@@ -43,10 +43,17 @@ in
 
     "azuwis@mbp" = mkHome {
       system = "aarch64-darwin";
-      modules = [{
-        home.username = "azuwis";
-        home.homeDirectory = "/Users/azuwis";
-      }];
+      modules = [
+        {
+          home.username = "azuwis";
+          home.homeDirectory = "/Users/azuwis";
+          my.desktop.enable = true;
+          my.firefox.enable = true;
+          my.rime.enable = true;
+          my.emacs.enable = true;
+        }
+        ../darwin/home.nix
+      ];
     };
 
     deck = mkHome {
