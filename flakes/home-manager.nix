@@ -32,6 +32,8 @@ let
           news.display = "silent";
           news.json = lib.mkForce { };
           news.entries = lib.mkForce [ ];
+          # set the same option as home-manager in nixos/nix-darwin, to generate the same derivation
+          nix.package = pkgs.nix;
         }
         ../common/home.nix
       ] ++ modules;
