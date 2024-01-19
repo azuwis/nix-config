@@ -169,7 +169,7 @@ in
       Install.WantedBy = [ "default.target" ];
       Service = {
         Environment = [
-          "PATH=/etc/profiles/per-user/%u/bin:/run/current-system/sw/bin"
+          "PATH=%h/.nix-profile/bin:/etc/profiles/per-user/%u/bin:/run/current-system/sw/bin"
           "LIBSEAT_BACKEND=builtin"
           "SEATD_VTBOUND=0"
           "WLR_BACKENDS=headless,libinput"

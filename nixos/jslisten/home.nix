@@ -88,7 +88,7 @@ in
 
       Service = {
         ExecStart = "${pkgs.jslisten}/bin/jslisten --mode hold --loglevel notice";
-        Environment = "PATH=/etc/profiles/per-user/%u/bin:/run/current-system/sw/bin";
+        Environment = "PATH=%h/.nix-profile/bin:/etc/profiles/per-user/%u/bin:/run/current-system/sw/bin";
         Restart = "on-failure";
       };
 
