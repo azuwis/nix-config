@@ -16,6 +16,7 @@
     compsize
     dnsutils
     efibootmgr
+    git
     inetutils
     iotop-c
     man-pages
