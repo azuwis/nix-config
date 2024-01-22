@@ -34,6 +34,12 @@
       options = [ "bind" ];
     };
 
+  fileSystems."/home/deck/.local/share/Steam/steamapps/shadercache" =
+    { device = "/home/deck/.cache/shadercache";
+      fsType = "none";
+      options = [ "bind" ];
+    };
+
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
