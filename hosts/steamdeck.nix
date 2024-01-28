@@ -12,20 +12,33 @@
 
   networking.hostName = "steamdeck";
 
-  my.user = lib.mkForce "deck";
-  hm.my.user = lib.mkForce "deck";
+  # Proton is not sandboxed, https://github.com/ValveSoftware/Proton/issues/3979
+  # It even mounts the SD card, and expose it to all games.
+  # SteamOS deck user use uid 1000, create another user with different uid,
+  # so at least games do not have read permission of my.user's HOME dir.
+  my.uid = lib.mkForce 2000;
+
+  users.groups.deck = {
+    gid = 1000;
+  };
+  users.users.deck = {
+    extraGroups = [ "users" ];
+    group = "deck";
+    isNormalUser = true;
+    uid = 1000;
+    openssh.authorizedKeys.keys = config.my.keys;
+  };
 
   # networkmanager is required to complete the first-time setup process
   networking.networkmanager.enable = true;
   networking.useNetworkd = false;
-  users.users.${config.jovian.steam.user}.extraGroups = [ "users" ];
 
   hardware.bluetooth.enable = true;
   jovian.devices.steamdeck.enable = true;
   jovian.steam = {
     enable = true;
     autoStart = true;
-    user = config.my.user;
+    user = "deck";
   };
 
   my.nix-builder-client.enable = true;
