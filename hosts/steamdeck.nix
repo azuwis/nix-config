@@ -11,6 +11,8 @@
   boot.loader.efi.canTouchEfiVariables = false;
 
   hardware.bluetooth.enable = true;
+  # Use dualboot for now, let SteamOS handle microcode update
+  hardware.cpu.amd.updateMicrocode = false;
 
   networking.hostName = "steamdeck";
   # networkmanager is required to complete the first-time setup process
