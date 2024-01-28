@@ -101,6 +101,9 @@ return {
     "folke/noice.nvim",
     optional = true,
     opts = {
+      messages = {
+        enabled = false,
+      },
       presets = {
         lsp_doc_border = true,
       },
