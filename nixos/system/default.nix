@@ -18,6 +18,7 @@
       efiSupport = true;
     };
   };
+  environment.systemPackages = lib.optionals (config.boot.loader.grub.enable == true) [ pkgs.grub-reboot-menu ];
   # explicitly enable nixos docs, system like wsl does not enable this
   documentation.nixos.enable = true;
   networking.enableIPv6 = false;
