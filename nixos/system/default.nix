@@ -54,32 +54,28 @@
   # sudo evtest | grep EV_MSC
   # sudo udevadm trigger
   services.udev.extraHwdb = ''
-    # General keyboard, capslock <-> leftctrl
+    # AT keyboard, capslock <-> leftctrl
     evdev:atkbd:dmi:*
      KEYBOARD_KEY_1d=capslock
      KEYBOARD_KEY_3a=leftctrl
-    
+
+    # USB keyboard, capslock <-> leftctrl
+    evdev:input:b0003v*
+     KEYBOARD_KEY_70039=leftctrl
+     KEYBOARD_KEY_700e0=capslock
+
     # Dell XPS13, leftmeta <-> leftalt
     evdev:atkbd:dmi:bvn*:bvr*:bd*:svnDell*:pnXPS13*:pvr*
      KEYBOARD_KEY_38=leftmeta
      KEYBOARD_KEY_db=leftalt
-    
-    # Logitech K400 Plus, leftmeta <-> leftalt, capslock <-> leftctrl
+
+    # Logitech K400 Plus, leftmeta <-> leftalt
     evdev:name:Logitech K400 Plus:dmi:*
-     KEYBOARD_KEY_70039=leftctrl
-     KEYBOARD_KEY_700e0=capslock
      KEYBOARD_KEY_700e2=leftmeta
      KEYBOARD_KEY_700e3=leftalt
 
-    # Logitech Mechanical keyboard, capslock <-> leftctrl
-    evdev:name:Logitech Mechanical keyboard Logitech Mechanical keyboard:dmi:*
-     KEYBOARD_KEY_70039=leftctrl
-     KEYBOARD_KEY_700e0=capslock
-
-    # Microsoft All-in-One Media Keyboard, capslock <-> leftctrl, delete -> insert
+    # Microsoft All-in-One Media Keyboard, delete -> insert
     evdev:name:Microsoft Microsoft® Nano Transceiver v2.0:dmi:*
-     KEYBOARD_KEY_70039=leftctrl
-     KEYBOARD_KEY_700e0=capslock
      KEYBOARD_KEY_7004c=insert
   '';
   # nix profile diff-closures --profile /nix/var/nix/profiles/system
