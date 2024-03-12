@@ -20,9 +20,10 @@ in
         p = "script-binding uosc/items";
       };
       config = {
+        border = "no";
         osc = "no";
         osd-bar = "no";
-        border = "no";
+        osd-font-provider = "fontconfig";
       };
       scripts = with pkgs.mpvScripts; [
         uosc
