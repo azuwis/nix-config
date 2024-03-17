@@ -24,6 +24,9 @@ in
       #   offload.enableOffloadCmd = true;
       # };
       services.xserver.videoDrivers = [ "nvidia" ];
+
+      # Sway complains even nvidia GPU is only used for offload
+      programs.sway.extraOptions = [ "--unsupported-gpu" ];
     }
 
     (mkIf cfg.firefox {
@@ -52,13 +55,10 @@ in
       # sway/wlroots vulkan need vulkan-validation-layers for now, may remove on later version.
       # https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/3850
       environment.systemPackages = [ pkgs.vulkan-validation-layers ];
-      programs.sway = {
-        extraOptions = [ "--unsupported-gpu" ];
-        extraSessionCommands = ''
-          export WLR_NO_HARDWARE_CURSORS=1
-          # export WLR_RENDERER=vulkan
-        '';
-      };
+      programs.sway.extraSessionCommands = ''
+        export WLR_NO_HARDWARE_CURSORS=1
+        # export WLR_RENDERER=vulkan
+      '';
     })
 
   ]);
