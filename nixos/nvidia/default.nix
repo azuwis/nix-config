@@ -8,6 +8,7 @@ in
 {
   options.my.nvidia = {
     enable = mkEnableOption (mdDoc "nvidia");
+    firefox = mkEnableOption (mdDoc "nvidia firefox fix");
     nvidia-patch = mkEnableOption (mdDoc "nvidia-patch");
   };
 
@@ -27,7 +28,6 @@ in
       # Sway
       # sway/wlroots vulkan need vulkan-validation-layers for now, may remove on later version.
       # https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/3850
-      hm.my.firefox.env.GDK_BACKEND = null;
       environment.systemPackages = [ pkgs.vulkan-validation-layers ];
       programs.sway = {
         extraOptions = [ "--unsupported-gpu" ];
@@ -37,14 +37,16 @@ in
         '';
       };
 
-      # Firefox
+    })
+
+    (mkIf cfg.firefox {
       # https://github.com/elFarto/nvidia-vaapi-driver
       hardware.opengl.extraPackages = [ pkgs.nvidia-vaapi-driver ];
+      hm.my.firefox.env.GDK_BACKEND = null;
       hm.my.firefox.env.MOZ_DISABLE_RDD_SANDBOX = "1";
       hm.programs.firefox.profiles.default.settings = {
         "widget.dmabuf.force-enabled" = true;
       };
-
     })
 
     (mkIf cfg.nvidia-patch (
