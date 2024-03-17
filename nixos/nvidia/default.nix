@@ -14,7 +14,7 @@ in
   };
 
   config = mkIf cfg.enable (mkMerge [
-    ({
+    {
       boot.loader.grub.gfxmodeEfi = mkDefault "1920x1080";
       hardware.nvidia.modesetting.enable = true;
       # hardware.nvidia.prime = {
@@ -24,7 +24,7 @@ in
       #   offload.enableOffloadCmd = true;
       # };
       services.xserver.videoDrivers = [ "nvidia" ];
-    })
+    }
 
     (mkIf cfg.firefox {
       # https://github.com/elFarto/nvidia-vaapi-driver
