@@ -10,11 +10,11 @@ in
     enable = mkEnableOption (mdDoc "nvidia");
     firefox = mkEnableOption (mdDoc "nvidia firefox fix");
     nvidia-patch = mkEnableOption (mdDoc "nvidia-patch");
+    sway = mkEnableOption (mdDoc "nvidia sway fix");
   };
 
   config = mkIf cfg.enable (mkMerge [
     ({
-
       boot.loader.grub.gfxmodeEfi = mkDefault "1920x1080";
       hardware.nvidia.modesetting.enable = true;
       # hardware.nvidia.prime = {
@@ -24,19 +24,6 @@ in
       #   offload.enableOffloadCmd = true;
       # };
       services.xserver.videoDrivers = [ "nvidia" ];
-
-      # Sway
-      # sway/wlroots vulkan need vulkan-validation-layers for now, may remove on later version.
-      # https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/3850
-      environment.systemPackages = [ pkgs.vulkan-validation-layers ];
-      programs.sway = {
-        extraOptions = [ "--unsupported-gpu" ];
-        extraSessionCommands = ''
-          export WLR_NO_HARDWARE_CURSORS=1
-          # export WLR_RENDERER=vulkan
-        '';
-      };
-
     })
 
     (mkIf cfg.firefox {
@@ -60,6 +47,19 @@ in
         hardware.nvidia.package = nvidia-patch.patch-nvenc (nvidia-patch.patch-fbc package);
       }
     ))
+
+    (mkIf cfg.sway {
+      # sway/wlroots vulkan need vulkan-validation-layers for now, may remove on later version.
+      # https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/3850
+      environment.systemPackages = [ pkgs.vulkan-validation-layers ];
+      programs.sway = {
+        extraOptions = [ "--unsupported-gpu" ];
+        extraSessionCommands = ''
+          export WLR_NO_HARDWARE_CURSORS=1
+          # export WLR_RENDERER=vulkan
+        '';
+      };
+    })
 
   ]);
 }
