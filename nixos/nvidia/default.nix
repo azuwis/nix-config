@@ -16,6 +16,12 @@ in
 
       boot.loader.grub.gfxmodeEfi = mkDefault "1920x1080";
       hardware.nvidia.modesetting.enable = true;
+      # hardware.nvidia.prime = {
+      #   intelBusId = "PCI:0:2:0";
+      #   nvidiaBusId = "PCI:1:0:0";
+      #   offload.enable = true;
+      #   offload.enableOffloadCmd = true;
+      # };
       services.xserver.videoDrivers = [ "nvidia" ];
 
       # Sway
