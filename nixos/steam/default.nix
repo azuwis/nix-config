@@ -46,6 +46,7 @@ in
             ''--tmpfs /run/user''
             ''--bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus"''
             ''--bind-try "$XDG_RUNTIME_DIR/gamescope-0" "$XDG_RUNTIME_DIR/gamescope-0"''
+            ''--bind-try "$XDG_RUNTIME_DIR/pulse" "$XDG_RUNTIME_DIR/pulse"''
           ];
           extraEnv = {
             MANGOHUD = "1";
