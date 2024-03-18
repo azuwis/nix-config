@@ -20,6 +20,7 @@ in
         enable = true;
         wrapperFeatures.gtk = true;
         extraPackages = with pkgs; [
+          foot
           qt5.qtwayland
           qt6.qtwayland
         ];
