@@ -41,6 +41,7 @@ in
           extraBwrapArgs = [
             ''--unshare-all --share-net''
             ''--bind "$HOME/steam" /home''
+            ''--ro-bind "${pkgs.noto-fonts-cjk-sans}/share/fonts/opentype/noto-cjk" "/home/$USER/.fonts"''
             ''--tmpfs /run/user''
             ''--bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus"''
             ''--bind-try "$XDG_RUNTIME_DIR/gamescope-0" "$XDG_RUNTIME_DIR/gamescope-0"''
