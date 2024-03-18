@@ -8,6 +8,7 @@ in
   options.my.steam = {
     enable = mkEnableOption "steam";
     nvidia-offload = mkEnableOption "nvidia-offload";
+    gamescope-intel-fix = mkEnableOption "gamescope-intel-fix";
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -57,6 +58,13 @@ in
         };
       };
 
+    })
+
+    (mkIf cfg.gamescope-intel-fix {
+      # https://github.com/ValveSoftware/gamescope/issues/1029
+      programs.gamescope.package = pkgs.gamescope.overrideAttrs (old: {
+        patches = old.patches ++ [ ./gamescope.diff ];
+      });
     })
   ]);
 }

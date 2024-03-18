@@ -19,6 +19,7 @@
   my.retroarch.enable = true;
   my.steam.enable = true;
   my.steam.nvidia-offload = true;
+  my.steam.gamescope-intel-fix = true;
   programs.steam.gamescopeSession.args = [ "--fullscreen" "--output-width" "1920" "--output-height" "1080" ];
   my.sunshine.enable = true;
   my.zramswap.enable = true;
