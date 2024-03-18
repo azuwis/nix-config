@@ -22,17 +22,17 @@ in
       programs.gamescope = {
         enable = true;
         capSysNice = true;
-        args = [ "--rt" ];
-        env = {
-          # ENABLE_GAMESCOPE_WSI = "0";
-          # WLR_DRM_DEVICES = "/dev/dri/card0";
-        };
       };
 
       programs.steam = {
         enable = true;
         gamescopeSession = {
           enable = true;
+          args = [ "--rt" ];
+          env = {
+            # ENABLE_GAMESCOPE_WSI = "0";
+            # WLR_DRM_DEVICES = "/dev/dri/card0";
+          };
         };
         package = pkgs.steam.override {
           extraPreBwrapCmds = ''
