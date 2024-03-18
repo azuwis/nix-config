@@ -17,6 +17,9 @@
   my.nix-builder.enable = true;
   my.pn532.enable = true;
   my.retroarch.enable = true;
+  my.steam.enable = true;
+  my.steam.nvidia-offload = true;
+  programs.gamescope.args = [ "--fullscreen" "--output-width" "1920" "--output-height" "1080" ];
   my.sunshine.enable = true;
   my.zramswap.enable = true;
   # hm.my.sunshine.package = pkgs.sunshine-git;
