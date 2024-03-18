@@ -24,7 +24,6 @@ in
         capSysNice = true;
         args = [ "--rt" ];
         env = {
-          MANGOHUD = "1";
           # ENABLE_GAMESCOPE_WSI = "0";
           # WLR_DRM_DEVICES = "/dev/dri/card0";
         };
@@ -46,7 +45,9 @@ in
             ''--bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus"''
             ''--bind-try "$XDG_RUNTIME_DIR/gamescope-0" "$XDG_RUNTIME_DIR/gamescope-0"''
           ];
-          extraEnv = lib.optionalAttrs cfg.nvidia-offload {
+          extraEnv = {
+            MANGOHUD = "1";
+          } // lib.optionalAttrs cfg.nvidia-offload {
             __GLX_VENDOR_LIBRARY_NAME = "nvidia";
             __NV_PRIME_RENDER_OFFLOAD = "1";
             __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";
