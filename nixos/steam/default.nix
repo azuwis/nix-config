@@ -28,7 +28,7 @@ in
         enable = true;
         gamescopeSession = {
           enable = true;
-          args = [ "--rt" ];
+          args = [ "--rt" "--filter" "fsr" ];
           env = {
             # ENABLE_GAMESCOPE_WSI = "0";
             # WLR_DRM_DEVICES = "/dev/dri/card0";
