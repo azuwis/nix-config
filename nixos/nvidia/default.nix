@@ -23,6 +23,7 @@ in
       #   offload.enable = true;
       #   offload.enableOffloadCmd = true;
       # };
+      # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.production;
       services.xserver.videoDrivers = [ "nvidia" ];
 
       # Sway complains even nvidia GPU is only used for offload
