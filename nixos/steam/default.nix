@@ -44,9 +44,9 @@ in
             ''--bind "$HOME/steam" /home''
             ''--ro-bind "${pkgs.noto-fonts-cjk-sans}/share/fonts/opentype/noto-cjk" "/home/$USER/.fonts"''
             ''--tmpfs /run/user''
-            ''--bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus"''
-            ''--bind-try "$XDG_RUNTIME_DIR/gamescope-0" "$XDG_RUNTIME_DIR/gamescope-0"''
-            ''--bind-try "$XDG_RUNTIME_DIR/pulse" "$XDG_RUNTIME_DIR/pulse"''
+            ''--bind-try "/run/user/$UID/bus" "/run/user/$UID/bus"''
+            ''--bind-try "/run/user/$UID/gamescope-0" "/run/user/$UID/gamescope-0"''
+            ''--bind-try "/run/user/$UID/pulse" "/run/user/$UID/pulse"''
           ];
           extraEnv = {
             MANGOHUD = "1";
