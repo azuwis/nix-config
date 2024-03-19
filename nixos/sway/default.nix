@@ -21,6 +21,7 @@ in
         wrapperFeatures.gtk = true;
         extraPackages = with pkgs; [
           foot
+          pulsemixer
           qt5.qtwayland
           qt6.qtwayland
         ];
