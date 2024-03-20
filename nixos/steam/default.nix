@@ -33,11 +33,16 @@ in
           env = {
             # ENABLE_GAMESCOPE_WSI = "0";
             # WLR_DRM_DEVICES = "/dev/dri/card0";
+            MANGOHUD_CONFIGFILE = "/run/user/$UID/steam/mangohud.conf";
+            STEAM_MANGOAPP_PRESETS_SUPPORTED = "1";
+            STEAM_USE_MANGOAPP = "1";
           };
         };
         package = pkgs.steam.override {
           extraPreBwrapCmds = ''
             install -m 0755 -d "$HOME/steam/$USER"
+            install -m 0755 -d "/run/user/$UID/steam"
+            echo "no_display" > /run/user/$UID/steam/mangohud.conf
           '';
           extraBwrapArgs = [
             ''--unshare-all --share-net''
@@ -48,6 +53,7 @@ in
             ''--bind-try "/run/user/$UID/bus" "/run/user/$UID/bus"''
             ''--bind-try "/run/user/$UID/gamescope-0" "/run/user/$UID/gamescope-0"''
             ''--bind-try "/run/user/$UID/pulse" "/run/user/$UID/pulse"''
+            ''--bind-try "/run/user/$UID/steam" "/run/user/$UID/steam"''
           ];
           extraEnv = {
             MANGOHUD = "1";
