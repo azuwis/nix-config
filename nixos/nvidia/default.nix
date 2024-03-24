@@ -8,9 +8,9 @@ in
 {
   options.my.nvidia = {
     enable = mkEnableOption (mdDoc "nvidia");
-    firefox = mkEnableOption (mdDoc "nvidia firefox fix");
+    firefox-fix = mkEnableOption (mdDoc "nvidia firefox fix");
     nvidia-patch = mkEnableOption (mdDoc "nvidia-patch");
-    sway = mkEnableOption (mdDoc "nvidia sway fix");
+    sway-fix = mkEnableOption (mdDoc "nvidia sway fix");
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -30,7 +30,7 @@ in
       programs.sway.extraOptions = [ "--unsupported-gpu" ];
     }
 
-    (mkIf cfg.firefox {
+    (mkIf cfg.firefox-fix {
       # https://github.com/elFarto/nvidia-vaapi-driver
       hardware.opengl.extraPackages = [ pkgs.nvidia-vaapi-driver ];
       hm.my.firefox.env.GDK_BACKEND = null;
@@ -52,7 +52,7 @@ in
       }
     ))
 
-    (mkIf cfg.sway {
+    (mkIf cfg.sway-fix {
       # sway/wlroots vulkan need vulkan-validation-layers for now, may remove on later version.
       # https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/3850
       environment.systemPackages = [ pkgs.vulkan-validation-layers ];
