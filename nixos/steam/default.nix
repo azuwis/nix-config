@@ -9,6 +9,7 @@ in
     enable = mkEnableOption "steam";
     nvidia-offload = mkEnableOption "nvidia-offload";
     gamescope-intel-fix = mkEnableOption "gamescope-intel-fix";
+    gamescope-git = mkEnableOption "gamescope git";
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -29,7 +30,7 @@ in
         enable = true;
         gamescopeSession = {
           enable = true;
-          args = [ "--rt" "--filter" "fsr" ];
+          args = [ "--rt" "--filter" "fsr" ] ++ lib.optionals cfg.gamescope-git [ "--mangoapp" ];
           env = {
             # ENABLE_GAMESCOPE_WSI = "0";
             # WLR_DRM_DEVICES = "/dev/dri/card0";
@@ -55,9 +56,10 @@ in
             ''--bind-try "/run/user/$UID/pulse" "/run/user/$UID/pulse"''
             ''--bind-try "/run/user/$UID/steam" "/run/user/$UID/steam"''
           ];
-          extraEnv = {
-            MANGOHUD = "1";
-          } // lib.optionalAttrs cfg.nvidia-offload {
+          extraEnv = lib.optionalAttrs (!cfg.gamescope-git)
+            {
+              MANGOHUD = "1";
+            } // lib.optionalAttrs cfg.nvidia-offload {
             __GLX_VENDOR_LIBRARY_NAME = "nvidia";
             __NV_PRIME_RENDER_OFFLOAD = "1";
             __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";
@@ -74,5 +76,16 @@ in
         patches = old.patches ++ [ ./gamescope.diff ];
       });
     })
+
+    (mkIf cfg.gamescope-git {
+      programs.gamescope.package = pkgs.gamescope.overrideAttrs (old: {
+        src = old.src.override {
+          rev = "09f632b13f85dad92275c43e721bb62de68fbd4a";
+          hash = "sha256-I7Uj6jBIP3+4vMc7fS9qet9BulZwdQb4cM3zVoVmDfs=";
+        };
+        buildInputs = old.buildInputs ++ [ pkgs.libdecor ];
+      });
+    })
+
   ]);
 }
