@@ -30,7 +30,10 @@ in
         enable = true;
         gamescopeSession = {
           enable = true;
-          args = [ "--rt" "--filter" "fsr" ] ++ lib.optionals cfg.gamescope-git [ "--mangoapp" ];
+          args = [ "--rt" "--filter" "fsr" ] ++ lib.optionals cfg.gamescope-git [ "--mangoapp" ]
+            # hack to add args to steam
+            ++ [ "--" "steam" "-pipewire-dmabuf" "-steamos3" "-gamepadui" ]
+            ++ [ ";" "exit" "$?" ";" "echo" ];
           env = {
             # ENABLE_GAMESCOPE_WSI = "0";
             # WLR_DRM_DEVICES = "/dev/dri/card0";
