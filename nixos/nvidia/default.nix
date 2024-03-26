@@ -58,7 +58,7 @@ in
       environment.systemPackages = [ pkgs.vulkan-validation-layers ];
       programs.sway.extraSessionCommands = ''
         export WLR_NO_HARDWARE_CURSORS=1
-        # export WLR_RENDERER=vulkan
+        export WLR_RENDERER=vulkan
       '';
     })
 
