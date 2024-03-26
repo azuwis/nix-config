@@ -17,13 +17,13 @@ in
     {
       boot.loader.grub.gfxmodeEfi = mkDefault "1920x1080";
       hardware.nvidia.modesetting.enable = true;
+      hardware.nvidia.package = lib.mkDefault config.boot.kernelPackages.nvidiaPackages.production;
       # hardware.nvidia.prime = {
       #   intelBusId = "PCI:0:2:0";
       #   nvidiaBusId = "PCI:1:0:0";
       #   offload.enable = true;
       #   offload.enableOffloadCmd = true;
       # };
-      # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.production;
       services.xserver.videoDrivers = [ "nvidia" ];
 
       # Sway complains even nvidia GPU is only used for offload
