@@ -8,9 +8,9 @@ in
 {
   options.my.nvidia = {
     enable = mkEnableOption (mdDoc "nvidia");
-    firefox-fix = mkEnableOption (mdDoc "nvidia firefox fix");
+    firefox-fix = mkEnableOption (mdDoc "nvidia firefox fix") // { default = true; };
     nvidia-patch = mkEnableOption (mdDoc "nvidia-patch");
-    sway-fix = mkEnableOption (mdDoc "nvidia sway fix");
+    sway-fix = mkEnableOption (mdDoc "nvidia sway fix") // { default = true; };
   };
 
   config = mkIf cfg.enable (mkMerge [
