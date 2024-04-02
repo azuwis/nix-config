@@ -19,7 +19,7 @@ in
     programs.zoxide.enable = true;
     programs.zsh = {
       enable = true;
-      enableAutosuggestions = true;
+      autosuggestion.enable = true;
       enableCompletion = true;
       autocd = true;
       defaultKeymap = "emacs";
