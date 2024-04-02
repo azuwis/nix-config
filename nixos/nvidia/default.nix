@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ inputs, config, lib, pkgs, ... }:
 
 let
   inherit (lib) mdDoc mkDefault mkEnableOption mkIf mkMerge;
@@ -42,13 +42,23 @@ in
 
     (mkIf cfg.nvidia-patch (
       let
-        rev = "1100fc888d41e89759a90fe92eb4148d4a9c506b";
-        hash = "sha256-7M7I5ebT5CW0DK4UkBVSSRnXDmE/sdD1rpAhNnIYLlk=";
-        nvidia-patch = pkgs.nvidia-patch rev hash;
-        package = config.boot.kernelPackages.nvidiaPackages.stable;
+        package = config.boot.kernelPackages.nvidiaPackages.production;
       in
       {
-        hardware.nvidia.package = nvidia-patch.patch-nvenc (nvidia-patch.patch-fbc package);
+        hardware.nvidia.package = package.overrideAttrs (old: {
+          preFixup = (old.preFixup or "") + ''
+            patch_nvidia() {
+              local patch_file patch_sed so_file
+              patch_file=$1
+              so_file=$2
+              patch_sed=$(grep -F '"${old.version}"' "${inputs.nvidia-patch}/$patch_file" | cut -d "'" -f 2)
+              echo "patching $so_file with $patch_sed"
+              sed -i "$patch_sed" "$out/lib/$so_file"
+            }
+            patch_nvidia patch.sh libnvidia-encode.so
+            patch_nvidia patch-fbc.sh libnvidia-fbc.so
+          '';
+        });
       }
     ))
 

@@ -25,9 +25,8 @@
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     agenix.inputs.home-manager.follows = "home-manager";
     agenix.inputs.systems.follows = "systems";
-    nvidia-patch.url = "github:icewind1991/nvidia-patch-nixos";
-    nvidia-patch.inputs.nixpkgs.follows = "nixpkgs";
-    nvidia-patch.inputs.utils.follows = "flake-utils";
+    nvidia-patch.url = "github:keylase/nvidia-patch";
+    nvidia-patch.flake = false;
     # devshell.url = "github:numtide/devshell";
     # devshell.inputs.nixpkgs.follows = "nixpkgs";
     treefmt-nix.url = "github:numtide/treefmt-nix";

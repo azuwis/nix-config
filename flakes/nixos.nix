@@ -44,7 +44,6 @@ in
     };
 
     office = mkNixos {
-      overlays = [ self.inputs.nvidia-patch.overlay ];
       modules = [ ../hosts/office.nix ];
     };
 
