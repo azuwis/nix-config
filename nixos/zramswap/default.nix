@@ -1,13 +1,13 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.zramswap;
 
 in
 {
   options.my.zramswap = {
-    enable = mkEnableOption (mdDoc "zramswap");
+    enable = mkEnableOption "zramswap";
   };
 
   config = mkIf cfg.enable {

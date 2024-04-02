@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.hass;
 in
 {
   options.my.hass = {
-    braviatv = mkEnableOption (mdDoc "braviatv") // { default = true; };
+    braviatv = mkEnableOption "braviatv" // { default = true; };
   };
 
   config = mkIf (cfg.enable && cfg.braviatv) {

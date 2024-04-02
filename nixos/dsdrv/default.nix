@@ -1,17 +1,17 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf mkOption mkPackageOptionMD optionalAttrs types;
+  inherit (lib) mkEnableOption mkIf mkOption mkPackageOptionMD optionalAttrs types;
   cfg = config.my.dsdrv;
 
 in
 {
   options.my.dsdrv = {
-    enable = mkEnableOption (mdDoc "dsdrv");
+    enable = mkEnableOption "dsdrv";
 
     package = mkPackageOptionMD pkgs [ "python3" "pkgs" "dsdrv-cemuhook" ] { };
 
-    openFirewall = mkEnableOption (mdDoc "openFirewall") // {
+    openFirewall = mkEnableOption "openFirewall" // {
       default = cfg.settings.host != "127.0.0.1";
     };
 

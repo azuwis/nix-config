@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.zsh-ssh-agent;
 in
 {
   options.my.zsh-ssh-agent = {
-    enable = mkEnableOption (mdDoc "zsh-ssh-agent");
+    enable = mkEnableOption "zsh-ssh-agent";
   };
 
   config = mkIf cfg.enable {

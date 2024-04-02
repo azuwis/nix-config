@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.emacs;
 in
 {
   options.my.emacs = {
-    enable = mkEnableOption (mdDoc "emacs");
+    enable = mkEnableOption "emacs";
   };
 
   config = mkIf cfg.enable {

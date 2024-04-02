@@ -1,13 +1,13 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.waybar;
 
 in
 {
   options.my.waybar = {
-    enable = mkEnableOption (mdDoc "waybar");
+    enable = mkEnableOption "waybar";
   };
 
   config = mkIf cfg.enable {

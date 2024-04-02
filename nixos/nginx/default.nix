@@ -1,15 +1,15 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.nginx;
 
   inherit (config.my) domain;
 in
 {
   options.my.nginx = {
-    enable = mkEnableOption (mdDoc "nginx");
-    openFirewall = mkEnableOption (mdDoc "openFirewall") // { default = true; };
+    enable = mkEnableOption "nginx";
+    openFirewall = mkEnableOption "openFirewall" // { default = true; };
   };
 
   config = mkIf cfg.enable {

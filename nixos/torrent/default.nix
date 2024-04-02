@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkDefault mkEnableOption mkIf mkOption types;
+  inherit (lib) mkDefault mkEnableOption mkIf mkOption types;
   cfg = config.my.torrent;
 
   inherit (config.my) domain;
@@ -9,8 +9,8 @@ let
 in
 {
   options.my.torrent = {
-    enable = mkEnableOption (mdDoc "torrent");
-    torrent-ratio = mkEnableOption (mdDoc "torrent-ratio") // { default = true; };
+    enable = mkEnableOption "torrent";
+    torrent-ratio = mkEnableOption "torrent-ratio" // { default = true; };
     user = mkOption {
       type = types.str;
       default = "torrent";

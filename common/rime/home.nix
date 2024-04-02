@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf mkOption types;
+  inherit (lib) mkEnableOption mkIf mkOption types;
   cfg = config.my.rime;
 in
 {
   options.my.rime = {
-    enable = mkEnableOption (mdDoc "rime");
+    enable = mkEnableOption "rime";
 
     dir = mkOption {
       type = types.str;

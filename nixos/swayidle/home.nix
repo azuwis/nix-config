@@ -1,13 +1,13 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.swayidle;
 
 in
 {
   options.my.swayidle = {
-    enable = mkEnableOption (mdDoc "swayidle");
+    enable = mkEnableOption "swayidle";
   };
 
   config = mkIf cfg.enable {

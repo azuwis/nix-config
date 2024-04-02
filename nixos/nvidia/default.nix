@@ -1,17 +1,17 @@
 { inputs, config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkDefault mkEnableOption mkIf mkMerge mkPackageOption;
+  inherit (lib) mkDefault mkEnableOption mkIf mkMerge mkPackageOption;
   cfg = config.my.nvidia;
 
 in
 {
   options.my.nvidia = {
-    enable = mkEnableOption (mdDoc "nvidia");
+    enable = mkEnableOption "nvidia";
     package = mkPackageOption config.boot.kernelPackages.nvidiaPackages "production" { };
-    firefox-fix = mkEnableOption (mdDoc "nvidia firefox fix") // { default = true; };
-    nvidia-patch = mkEnableOption (mdDoc "nvidia-patch") // { default = true; };
-    sway-fix = mkEnableOption (mdDoc "nvidia sway fix") // { default = true; };
+    firefox-fix = mkEnableOption "nvidia firefox fix" // { default = true; };
+    nvidia-patch = mkEnableOption "nvidia-patch" // { default = true; };
+    sway-fix = mkEnableOption "nvidia sway fix" // { default = true; };
   };
 
   config = mkIf cfg.enable (mkMerge [

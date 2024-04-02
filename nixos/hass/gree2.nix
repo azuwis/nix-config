@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.hass;
 
   component = pkgs.fetchFromGitHub rec {
@@ -14,7 +14,7 @@ let
 in
 {
   options.my.hass = {
-    gree2 = mkEnableOption (mdDoc "gree2") // { default = true; };
+    gree2 = mkEnableOption "gree2" // { default = true; };
   };
 
   config = mkIf (cfg.enable && cfg.gree2) {

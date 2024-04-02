@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.hass;
 in
 {
   options.my.hass = {
-    smartir = mkEnableOption (mdDoc "smartir") // { default = true; };
+    smartir = mkEnableOption "smartir" // { default = true; };
   };
 
   config = mkIf (cfg.enable && cfg.smartir) {

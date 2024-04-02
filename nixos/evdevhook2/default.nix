@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf mkOption mkPackageOptionMD optionalAttrs optionalString types;
+  inherit (lib) mkEnableOption mkIf mkOption mkPackageOptionMD optionalAttrs optionalString types;
   cfg = config.my.evdevhook2;
   ini = pkgs.formats.ini { };
 
@@ -10,7 +10,7 @@ let
 in
 {
   options.my.evdevhook2 = {
-    enable = mkEnableOption (mdDoc "evdevhook2");
+    enable = mkEnableOption "evdevhook2";
 
     package = mkPackageOptionMD pkgs "evdevhook2" { };
 

@@ -1,13 +1,13 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.rpiplay;
 
 in
 {
   options.my.rpiplay = {
-    enable = mkEnableOption (mdDoc "rpiplay");
+    enable = mkEnableOption "rpiplay";
   };
 
   config = mkIf cfg.enable {

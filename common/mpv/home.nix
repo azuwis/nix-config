@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf mkMerge;
+  inherit (lib) mkEnableOption mkIf mkMerge;
   cfg = config.my.mpv;
 
 in
@@ -12,7 +12,7 @@ in
   ];
 
   options.my.mpv = {
-    enable = mkEnableOption (mdDoc "mpv");
+    enable = mkEnableOption "mpv";
   };
 
   config = mkIf cfg.enable {

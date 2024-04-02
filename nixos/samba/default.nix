@@ -1,13 +1,13 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.samba;
 
 in
 {
   options.my.samba = {
-    enable = mkEnableOption (mdDoc "samba");
+    enable = mkEnableOption "samba";
   };
 
   config = mkIf cfg.enable {

@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.hass;
 in
 {
   options.my.hass = {
-    xiaomi_miot = mkEnableOption (mdDoc "xiaomi_miot") // { default = true; };
+    xiaomi_miot = mkEnableOption "xiaomi_miot" // { default = true; };
   };
 
   config = mkIf (cfg.enable && cfg.xiaomi_miot) {

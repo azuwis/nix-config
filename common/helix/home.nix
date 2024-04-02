@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.helix;
 in
 {
   options.my.helix = {
-    enable = mkEnableOption (mdDoc "helix");
+    enable = mkEnableOption "helix";
   };
 
   config = mkIf cfg.enable {

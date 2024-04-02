@@ -5,12 +5,12 @@
 # https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf mkOption types;
+  inherit (lib) mkEnableOption mkIf mkOption types;
   cfg = config.my.vfio;
 in
 {
   options.my.vfio = {
-    enable = mkEnableOption (mdDoc "vfio");
+    enable = mkEnableOption "vfio";
 
     vfioIds = mkOption {
       type = with types; listOf str;

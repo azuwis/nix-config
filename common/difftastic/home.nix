@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.difftastic;
 in
 {
   options.my.difftastic = {
-    enable = mkEnableOption (mdDoc "difftastic");
+    enable = mkEnableOption "difftastic";
   };
 
   config = mkIf cfg.enable {

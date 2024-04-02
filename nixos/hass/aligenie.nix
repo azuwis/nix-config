@@ -3,12 +3,12 @@
 # https://iap.aligenie.com/home
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.hass;
 in
 {
   options.my.hass = {
-    aligenie = mkEnableOption (mdDoc "aligenie") // { default = true; };
+    aligenie = mkEnableOption "aligenie" // { default = true; };
   };
 
   config = mkIf (cfg.enable && cfg.aligenie) {

@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.alacritty;
 in
 {
   options.my.alacritty = {
-    enable = mkEnableOption (mdDoc "alacritty");
+    enable = mkEnableOption "alacritty";
   };
 
   config = mkIf cfg.enable {

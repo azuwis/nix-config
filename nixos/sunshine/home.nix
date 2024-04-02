@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf mkOption mkPackageOptionMD optionalAttrs types;
+  inherit (lib) mkEnableOption mkIf mkOption mkPackageOptionMD optionalAttrs types;
   cfg = config.my.sunshine;
   json = pkgs.formats.json { };
 
@@ -33,9 +33,9 @@ let
 in
 {
   options.my.sunshine = {
-    enable = mkEnableOption (mdDoc "sunshine");
+    enable = mkEnableOption "sunshine";
 
-    cudaSupport = mkEnableOption (mdDoc "cuda support, only useful in Nvidia+X11 setup");
+    cudaSupport = mkEnableOption "cuda support, only useful in Nvidia+X11 setup";
 
     package = mkPackageOptionMD pkgs "sunshine" { } // (optionalAttrs cfg.cudaSupport {
       default = pkgs.sunshine.override {

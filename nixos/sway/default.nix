@@ -1,15 +1,15 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkDefault mkEnableOption mkIf mkMerge;
+  inherit (lib) mkDefault mkEnableOption mkIf mkMerge;
   cfg = config.my.sway;
 
 in
 {
   options.my.sway = {
-    enable = mkEnableOption (mdDoc "sway");
-    autologin = mkEnableOption (mdDoc "autologin") // { default = true; };
-    xdgAutostart = mkEnableOption (mdDoc "xdgAutostart");
+    enable = mkEnableOption "sway";
+    autologin = mkEnableOption "autologin" // { default = true; };
+    xdgAutostart = mkEnableOption "xdgAutostart";
   };
 
   config = mkIf cfg.enable (mkMerge [

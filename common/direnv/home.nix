@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.direnv;
 in
 {
   options.my.direnv = {
-    enable = mkEnableOption (mdDoc "direnv");
+    enable = mkEnableOption "direnv";
   };
 
   config = mkIf cfg.enable {

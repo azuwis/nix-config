@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.vim;
 in
 {
   options.my.vim = {
-    enable = mkEnableOption (mdDoc "vim");
+    enable = mkEnableOption "vim";
   };
 
   config = mkIf cfg.enable {

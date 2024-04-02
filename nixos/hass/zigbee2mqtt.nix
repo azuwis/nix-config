@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.hass;
 in
 {
   options.my.hass = {
-    zigbee2mqtt = mkEnableOption (mdDoc "zigbee2mqtt") // { default = true; };
+    zigbee2mqtt = mkEnableOption "zigbee2mqtt" // { default = true; };
   };
 
   config = mkIf (cfg.enable && cfg.zigbee2mqtt) {

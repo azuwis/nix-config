@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.rime;
 in
 {
   options.my.rime = {
-    enable = mkEnableOption (mdDoc "rime");
+    enable = mkEnableOption "rime";
   };
 
   config = mkIf cfg.enable {

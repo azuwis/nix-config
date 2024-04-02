@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.zsh;
 in
 {
   options.my.zsh = {
-    enable = mkEnableOption (mdDoc "zsh");
+    enable = mkEnableOption "zsh";
   };
 
   config = mkIf cfg.enable {

@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf mkOption types;
+  inherit (lib) mkEnableOption mkIf mkOption types;
   cfg = config.my.firefox;
 
   buildFirefoxXpiAddon = lib.makeOverridable
@@ -141,7 +141,7 @@ let
 in
 {
   options.my.firefox = {
-    enable = mkEnableOption (mdDoc "firefox");
+    enable = mkEnableOption "firefox";
 
     env = mkOption {
       type = with types; attrsOf (nullOr (oneOf [ str path package ]));

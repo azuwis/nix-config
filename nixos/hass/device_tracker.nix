@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.hass;
 in
 {
   options.my.hass = {
-    device_tracker = mkEnableOption (mdDoc "device_tracker") // { default = true; };
+    device_tracker = mkEnableOption "device_tracker" // { default = true; };
   };
 
   config = mkIf (cfg.enable && cfg.device_tracker) {

@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.bluetooth;
 in
 {
   options.my.bluetooth = {
-    enable = mkEnableOption (mdDoc "bluetooth");
+    enable = mkEnableOption "bluetooth";
   };
 
   config = mkIf cfg.enable {

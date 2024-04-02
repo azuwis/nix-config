@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf mkOption;
+  inherit (lib) mkEnableOption mkIf mkOption;
   cfg = config.my.jslisten;
   ini = pkgs.formats.ini { };
 
@@ -10,7 +10,7 @@ let
 in
 {
   options.my.jslisten = {
-    enable = mkEnableOption (mdDoc "jslisten");
+    enable = mkEnableOption "jslisten";
 
     settings = mkOption {
       type = ini.type;

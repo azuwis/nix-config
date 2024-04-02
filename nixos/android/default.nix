@@ -1,13 +1,13 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.android;
 
 in
 {
   options.my.android = {
-    enable = mkEnableOption (mdDoc "android");
+    enable = mkEnableOption "android";
     adbusers = mkEnableOption ''
       Whether to add my.user to adbusers group.
 

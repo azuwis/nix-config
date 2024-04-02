@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.libvirtd;
 in
 {
   options.my.libvirtd = {
-    enable = mkEnableOption (mdDoc "libvirtd");
+    enable = mkEnableOption "libvirtd";
   };
 
   config = mkIf cfg.enable {

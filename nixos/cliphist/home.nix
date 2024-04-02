@@ -1,13 +1,13 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.cliphist;
 
 in
 {
   options.my.cliphist = {
-    enable = mkEnableOption (mdDoc "cliphist");
+    enable = mkEnableOption "cliphist";
   };
 
   config = mkIf cfg.enable {

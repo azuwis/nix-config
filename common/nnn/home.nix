@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.nnn;
 
   renderSetting = key: value: "${key}:${value}";
@@ -28,7 +28,7 @@ let
 in
 {
   options.my.nnn = {
-    enable = mkEnableOption (mdDoc "nnn");
+    enable = mkEnableOption "nnn";
   };
 
   config = mkIf cfg.enable {

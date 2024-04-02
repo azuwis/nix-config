@@ -1,13 +1,13 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.firefox;
 
 in
 {
   options.my.firefox = {
-    enable = mkEnableOption (mdDoc "firefox");
+    enable = mkEnableOption "firefox";
   };
 
   config = mkIf cfg.enable {

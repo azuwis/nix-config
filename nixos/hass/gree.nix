@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.hass;
 in
 {
   options.my.hass = {
-    gree = mkEnableOption (mdDoc "gree") // { default = true; };
+    gree = mkEnableOption "gree" // { default = true; };
   };
 
   config = mkIf (cfg.enable && cfg.gree) {

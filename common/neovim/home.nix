@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf mkOption;
+  inherit (lib) mkEnableOption mkIf mkOption;
   cfg = config.my.neovim;
 in
 {
@@ -12,7 +12,7 @@ in
   ];
 
   options.my.neovim = {
-    enable = mkEnableOption (mdDoc "neovim");
+    enable = mkEnableOption "neovim";
 
     treesitterParsers = mkOption {
       type = with lib.types; listOf package;

@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkDefault mkEnableOption mkIf;
+  inherit (lib) mkDefault mkEnableOption mkIf;
   cfg = config.my.hass;
 in
 {
@@ -28,7 +28,7 @@ in
   ];
 
   options.my.hass = {
-    enable = mkEnableOption (mdDoc "hass");
+    enable = mkEnableOption "hass";
   };
 
   config = mkIf cfg.enable {

@@ -1,14 +1,14 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.acme;
 
   inherit (config.my) domain;
 in
 {
   options.my.acme = {
-    enable = mkEnableOption (mdDoc "acme");
+    enable = mkEnableOption "acme";
   };
 
   config = mkIf cfg.enable {

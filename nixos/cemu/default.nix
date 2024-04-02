@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.cemu;
 in
 {
   options.my.cemu = {
-    enable = mkEnableOption (mdDoc "cemu");
+    enable = mkEnableOption "cemu";
   };
 
   config = mkIf cfg.enable {

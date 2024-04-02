@@ -1,13 +1,13 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.intelGpu;
 
 in
 {
   options.my.intelGpu = {
-    enable = mkEnableOption (mdDoc "intelGpu");
+    enable = mkEnableOption "intelGpu";
   };
 
   config = mkIf cfg.enable {

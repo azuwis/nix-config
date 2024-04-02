@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.yambar;
   # ifaces = builtins.attrNames config.networking.interfaces;
   # ens = builtins.filter (name: (builtins.match "^e.*" name) != null) ifaces;
@@ -16,7 +16,7 @@ let
 in
 {
   options.my.yambar = {
-    enable = mkEnableOption (mdDoc "yambar");
+    enable = mkEnableOption "yambar";
   };
 
   config = mkIf cfg.enable {

@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf mkPackageOptionMD;
+  inherit (lib) mkEnableOption mkIf mkPackageOptionMD;
   cfg = config.my.dualsensectl;
 in
 {
   options.my.dualsensectl = {
-    enable = mkEnableOption (mdDoc "dualsensectl");
+    enable = mkEnableOption "dualsensectl";
     package = mkPackageOptionMD pkgs "dualsensectl" { };
   };
 

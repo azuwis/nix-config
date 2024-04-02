@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.mpv;
 
   anime4k = pkgs.anime4k;
@@ -19,7 +19,7 @@ let
 in
 {
   options.my.mpv = {
-    anime4k = mkEnableOption (mdDoc "anime4k") // { default = true; };
+    anime4k = mkEnableOption "anime4k" // { default = true; };
   };
 
   config = mkIf (cfg.enable && cfg.anime4k) {

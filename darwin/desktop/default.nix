@@ -1,13 +1,13 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.desktop;
 
 in
 {
   options.my.desktop = {
-    enable = mkEnableOption (mdDoc "desktop");
+    enable = mkEnableOption "desktop";
   };
 
   config = mkIf cfg.enable {

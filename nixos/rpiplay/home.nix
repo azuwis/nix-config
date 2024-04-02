@@ -1,15 +1,15 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf mkMerge mkOption types;
+  inherit (lib) mkEnableOption mkIf mkMerge mkOption types;
   cfg = config.my.rpiplay;
 
 in
 {
   options.my.rpiplay = {
-    enable = mkEnableOption (mdDoc "rpiplay");
-    sway = mkEnableOption (mdDoc "startup with sway");
-    systemd = mkEnableOption (mdDoc "rpiplay systemd user service");
+    enable = mkEnableOption "rpiplay";
+    sway = mkEnableOption "startup with sway";
+    systemd = mkEnableOption "rpiplay systemd user service";
     args = mkOption {
       type = types.str;
       default = "";

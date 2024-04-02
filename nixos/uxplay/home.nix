@@ -1,15 +1,15 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf mkMerge mkOption types;
+  inherit (lib) mkEnableOption mkIf mkMerge mkOption types;
   cfg = config.my.uxplay;
 
 in
 {
   options.my.uxplay = {
-    enable = mkEnableOption (mdDoc "uxplay");
-    sway = mkEnableOption (mdDoc "startup with sway");
-    systemd = mkEnableOption (mdDoc "uxplay systemd user service");
+    enable = mkEnableOption "uxplay";
+    sway = mkEnableOption "startup with sway";
+    systemd = mkEnableOption "uxplay systemd user service";
     args = mkOption {
       type = types.str;
       default = "-nohold -vd vah264dec";

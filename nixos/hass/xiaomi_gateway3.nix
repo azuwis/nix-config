@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.hass;
 in
 {
   options.my.hass = {
-    xiaomi_gateway3 = mkEnableOption (mdDoc "xiaomi_gateway3") // { default = true; };
+    xiaomi_gateway3 = mkEnableOption "xiaomi_gateway3" // { default = true; };
   };
 
   config = mkIf (cfg.enable && cfg.xiaomi_gateway3) {

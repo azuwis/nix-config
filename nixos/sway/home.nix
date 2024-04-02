@@ -1,15 +1,15 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkDefault mkIf mkMerge mkOption types;
+  inherit (lib) mkEnableOption mkDefault mkIf mkMerge mkOption types;
   cfg = config.my.sway;
 
 in
 {
   options.my.sway = {
-    enable = mkEnableOption (mdDoc "sway");
-    startupLocked = mkEnableOption (mdDoc "startupLocked");
-    xdgAutostart = mkEnableOption (mdDoc "xdgAutostart");
+    enable = mkEnableOption "sway";
+    startupLocked = mkEnableOption "startupLocked";
+    xdgAutostart = mkEnableOption "xdgAutostart";
 
     tmenu = mkOption {
       type = types.str;

@@ -1,15 +1,15 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkDefault mkIf mkMerge;
+  inherit (lib) mkEnableOption mkDefault mkIf mkMerge;
   cfg = config.my.i3;
 
 in
 {
   options.my.i3 = {
-    enable = mkEnableOption (mdDoc "i3");
-    startupLocked = mkEnableOption (mdDoc "startupLocked");
-    xdgAutostart = mkEnableOption (mdDoc "xdgAutostart");
+    enable = mkEnableOption "i3";
+    startupLocked = mkEnableOption "startupLocked";
+    xdgAutostart = mkEnableOption "xdgAutostart";
   };
 
   config = mkIf cfg.enable (mkMerge [

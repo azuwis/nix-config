@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkDefault mkEnableOption mkIf;
+  inherit (lib) mkDefault mkEnableOption mkIf;
   cfg = config.my.photoprism;
 in
 {
   options.my.photoprism = {
-    enable = mkEnableOption (mdDoc "photoprism");
+    enable = mkEnableOption "photoprism";
   };
 
   config = mkIf cfg.enable {

@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.hass;
 in
 {
   options.my.hass = {
-    mqtt = mkEnableOption (mdDoc "mqtt") // { default = true; };
+    mqtt = mkEnableOption "mqtt" // { default = true; };
   };
 
   config = mkIf (cfg.enable && cfg.mqtt) {

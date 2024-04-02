@@ -1,13 +1,13 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.uxplay;
 
 in
 {
   options.my.uxplay = {
-    enable = mkEnableOption (mdDoc "uxplay");
+    enable = mkEnableOption "uxplay";
   };
 
   config = mkIf cfg.enable {

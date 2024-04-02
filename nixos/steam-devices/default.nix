@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.steam-devices;
 in
 {
   options.my.steam-devices = {
-    enable = mkEnableOption (mdDoc "steam-devices");
+    enable = mkEnableOption "steam-devices";
   };
 
   config = mkIf cfg.enable {

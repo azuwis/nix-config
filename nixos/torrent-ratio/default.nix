@@ -1,13 +1,13 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf mkOption optionalString types;
+  inherit (lib) mkEnableOption mkIf mkOption optionalString types;
   cfg = config.my.torrent-ratio;
 in
 {
   options.my.torrent-ratio = {
-    enable = mkEnableOption (mdDoc "torrent-ratio");
-    nginx = mkEnableOption (mdDoc "nginx") // { default = true; };
+    enable = mkEnableOption "torrent-ratio";
+    nginx = mkEnableOption "nginx" // { default = true; };
     host = mkOption {
       type = types.str;
       default = "127.0.0.1";

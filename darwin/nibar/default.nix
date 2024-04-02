@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.nibar;
 in
 {
   options.my.nibar = {
-    enable = mkEnableOption (mdDoc "nibar");
+    enable = mkEnableOption "nibar";
   };
 
   config = mkIf cfg.enable {

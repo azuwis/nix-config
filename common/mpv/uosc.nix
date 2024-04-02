@@ -1,13 +1,13 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.mpv;
 
 in
 {
   options.my.mpv = {
-    uosc = mkEnableOption (mdDoc "uosc") // { default = true; };
+    uosc = mkEnableOption "uosc" // { default = true; };
   };
 
   config = mkIf (cfg.enable && cfg.uosc) {
