@@ -1,13 +1,14 @@
 { inputs, config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mdDoc mkDefault mkEnableOption mkIf mkMerge;
+  inherit (lib) mdDoc mkDefault mkEnableOption mkIf mkMerge mkPackageOption;
   cfg = config.my.nvidia;
 
 in
 {
   options.my.nvidia = {
     enable = mkEnableOption (mdDoc "nvidia");
+    package = mkPackageOption config.boot.kernelPackages.nvidiaPackages "production" { };
     firefox-fix = mkEnableOption (mdDoc "nvidia firefox fix") // { default = true; };
     nvidia-patch = mkEnableOption (mdDoc "nvidia-patch");
     sway-fix = mkEnableOption (mdDoc "nvidia sway fix") // { default = true; };
@@ -17,7 +18,7 @@ in
     {
       boot.loader.grub.gfxmodeEfi = mkDefault "1920x1080";
       hardware.nvidia.modesetting.enable = true;
-      hardware.nvidia.package = lib.mkDefault config.boot.kernelPackages.nvidiaPackages.production;
+      hardware.nvidia.package = cfg.package;
       # hardware.nvidia.prime = {
       #   intelBusId = "PCI:0:2:0";
       #   nvidiaBusId = "PCI:1:0:0";
@@ -40,27 +41,23 @@ in
       };
     })
 
-    (mkIf cfg.nvidia-patch (
-      let
-        package = config.boot.kernelPackages.nvidiaPackages.production;
-      in
-      {
-        hardware.nvidia.package = package.overrideAttrs (old: {
-          preFixup = (old.preFixup or "") + ''
-            patch_nvidia() {
-              local patch_file patch_sed so_file
-              patch_file=$1
-              so_file=$2
-              patch_sed=$(grep -F '"${old.version}"' "${inputs.nvidia-patch}/$patch_file" | cut -d "'" -f 2)
-              echo "patching $so_file with $patch_sed"
-              sed -i "$patch_sed" "$out/lib/$so_file"
-            }
-            patch_nvidia patch.sh libnvidia-encode.so
-            patch_nvidia patch-fbc.sh libnvidia-fbc.so
-          '';
-        });
-      }
-    ))
+    (mkIf cfg.nvidia-patch {
+      hardware.nvidia.package = cfg.package.overrideAttrs (old: {
+        preFixup = (old.preFixup or "") + ''
+          patch_nvidia() {
+            local patch_file patch_sed so_file
+            patch_file=$1
+            so_file=$2
+            patch_sed=$(grep -F '"${old.version}"' "${inputs.nvidia-patch}/$patch_file" | cut -d "'" -f 2)
+            echo "patching $so_file with $patch_sed"
+            sed -i "$patch_sed" "$out/lib/$so_file"
+          }
+          patch_nvidia patch.sh libnvidia-encode.so
+          patch_nvidia patch-fbc.sh libnvidia-fbc.so
+        '';
+      });
+    }
+    )
 
     (mkIf cfg.sway-fix {
       # sway/wlroots vulkan need vulkan-validation-layers for now, may remove on later version.
