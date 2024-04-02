@@ -10,7 +10,7 @@ in
     enable = mkEnableOption (mdDoc "nvidia");
     package = mkPackageOption config.boot.kernelPackages.nvidiaPackages "production" { };
     firefox-fix = mkEnableOption (mdDoc "nvidia firefox fix") // { default = true; };
-    nvidia-patch = mkEnableOption (mdDoc "nvidia-patch");
+    nvidia-patch = mkEnableOption (mdDoc "nvidia-patch") // { default = true; };
     sway-fix = mkEnableOption (mdDoc "nvidia sway fix") // { default = true; };
   };
 
