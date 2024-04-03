@@ -63,24 +63,43 @@ in
           data:
             entity_id: all
 
-      - alias: Curtain kids room autos
+      - alias: Curtain kids room half close
         trigger:
           - platform: time
-            at:
-              - "07:45:00"
-              - "21:30:00"
-        variables:
-          position: >-
-            {% if now() > today_at("21:00") %}
-              60
-            {% else %}
-              100
-            {% endif %}
+            at: "21:30:00"
         action:
           service: cover.set_cover_position
           data:
             entity_id: cover.lumi_hmcn01_ea01_curtain
-            position: "{{ position }}"
+            position: 60
+
+      - alias: Curtain kids room open workdays
+        trigger:
+          - platform: time
+            at: "07:45:00"
+        condition:
+          condition: state
+          entity_id: binary_sensor.workday_sensor
+          state: "on"
+        action:
+          service: cover.set_cover_position
+          data:
+            entity_id: cover.lumi_hmcn01_ea01_curtain
+            position: 100
+
+      - alias: Curtain kids room open holidays
+        trigger:
+          - platform: time
+            at: "08:45:00"
+        condition:
+          condition: state
+          entity_id: binary_sensor.workday_sensor
+          state: "off"
+        action:
+          service: cover.set_cover_position
+          data:
+            entity_id: cover.lumi_hmcn01_ea01_curtain
+            position: 100
 
       - alias: Screen brightness
         trigger:
