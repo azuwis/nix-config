@@ -107,7 +107,7 @@
       - alias: Light set brightness once
         trigger:
           - platform: time
-            at: "07:35:01"
+            at: "07:30:01"
           - platform: time
             at: "22:35:01"
           - platform: time
