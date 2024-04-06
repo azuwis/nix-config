@@ -1,13 +1,13 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mkEnableOption mkIf mkPackageOptionMD;
+  inherit (lib) mkEnableOption mkIf mkPackageOption;
   cfg = config.my.moonlight-cemuhook;
 in
 {
   options.my.moonlight-cemuhook = {
     enable = mkEnableOption "moonlight-cemuhook";
-    package = mkPackageOptionMD pkgs "moonlight-cemuhook" { };
+    package = mkPackageOption pkgs "moonlight-cemuhook" { };
   };
 
   config = mkIf cfg.enable {
