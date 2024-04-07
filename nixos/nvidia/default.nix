@@ -48,7 +48,7 @@ in
             local patch_file patch_sed so_file
             patch_file=$1
             so_file=$2
-            patch_sed=$(grep -F '"${old.version}"' "${inputs.nvidia-patch}/$patch_file" | cut -d "'" -f 2)
+            patch_sed=$(grep -m 1 -F '"${old.version}"' "${inputs.nvidia-patch}/$patch_file" | cut -d "'" -f 2)
             echo "patching $so_file with $patch_sed"
             sed -i "$patch_sed" "$out/lib/$so_file"
           }
