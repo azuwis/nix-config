@@ -384,7 +384,8 @@
         "nvidia-patch": "nvidia-patch",
         "systems": "systems",
         "treefmt-nix": "treefmt-nix",
-        "wsl": "wsl"
+        "wsl": "wsl",
+        "yuzu": "yuzu"
       }
     },
     "scss-reset": {
@@ -460,6 +461,26 @@
         "owner": "nix-community",
         "repo": "NixOS-WSL",
         "type": "github"
+      }
+    },
+    "yuzu": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1712517570,
+        "narHash": "sha256-woiSUJWpB4Mg7Cx/ozkruYXjowNgmQMIlahQ0r06LI8=",
+        "ref": "refs/heads/main",
+        "rev": "846e3a1fd117316ed1d0531e95e7b79ff0bd3ea8",
+        "revCount": 5,
+        "type": "git",
+        "url": "https://codeberg.org/K900/yuzu-flake"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://codeberg.org/K900/yuzu-flake"
       }
     }
   },

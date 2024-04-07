@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ inputs, config, lib, pkgs, ... }:
 
 {
   imports = [
@@ -40,7 +40,7 @@
 
   environment.systemPackages = with pkgs; [
     (runCommand "yuzu" { buildInputs = [ makeWrapper ]; } ''
-      makeWrapper ${yuzu-ea}/bin/yuzu $out/bin/yuzu --set QT_QPA_PLATFORM xcb
+      makeWrapper ${inputs.yuzu.packages.${pkgs.system}.early-access}/bin/yuzu $out/bin/yuzu --set QT_QPA_PLATFORM xcb
     '')
   ];
   # Fix yuzu fullscreen framerate
