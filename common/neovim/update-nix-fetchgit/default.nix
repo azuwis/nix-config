@@ -4,7 +4,10 @@ let
   update-nix-fetchgit-vim = pkgs.vimUtils.buildVimPlugin {
     pname = "update-nix-fetchgit.vim";
     version = "2022-01-25";
-    src = ./.;
+    src = lib.fileset.toSource {
+      root = ./.;
+      fileset = ./ftplugin;
+    };
   };
 in
 
