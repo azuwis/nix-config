@@ -1,5 +1,9 @@
-{ self, ... }: {
-  flake.overlays.default = import ../overlays/default.nix;
+{ self, lib, ... }: {
+  flake.overlays.default = lib.composeManyExtensions [
+    self.overlays.packages
+    (import ../overlays/default.nix)
+  ];
+  flake.overlays.packages = import "${self.inputs.nixpkgs}/pkgs/top-level/by-name-overlay.nix" ../pkgs/by-name;
   flake.overlays.jovian = import ../overlays/jovian.nix;
 
   perSystem = { lib, system, ... }:
