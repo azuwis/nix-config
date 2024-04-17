@@ -35,7 +35,6 @@ self: super: {
   });
 
   # override
-  # dualsensectl = self.callPackage ../pkgs/dualsensectl { };
   fcitx5-configtool = self.writeShellScriptBin "fcitx5-config-qt" ''
     echo "fcitx-config-qt dummy command"
   '';
@@ -62,9 +61,6 @@ self: super: {
   #   };
   # };
   # python3Packages = self.python3.pkgs;
-  # sketchybar = self.darwin.apple_sdk_11_0.callPackage ../pkgs/sketchybar {
-  #   inherit (self.darwin.apple_sdk_11_0.frameworks) AppKit Carbon CoreAudio CoreWLAN CoreVideo DisplayServices IOKit MediaRemote SkyLight;
-  # };
   # sway-unwrapped = super.sway-unwrapped.override {
   #   wlroots = self.wlroots_0_16.overrideAttrs (old: {
   #     postPatch =
@@ -73,7 +69,5 @@ self: super: {
   #       '';
   #   });
   # };
-  # trigger-control = self.callPackage ../pkgs/trigger-control { };
-  # uxplay = self.callPackage ../pkgs/uxplay { };
   # yabai = self.callPackage ../pkgs/yabai { };
 }
