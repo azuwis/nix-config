@@ -7,13 +7,13 @@
 buildHomeAssistantComponent rec {
   owner = "smartHomeHub";
   domain = "smartir";
-  version = "1.17.8";
+  version = "1.17.9";
 
   src = fetchFromGitHub {
     owner = "smartHomeHub";
     repo = "SmartIR";
     rev = version;
-    hash = "sha256-HlvWZ12aXZDa3tgaOgKnTcQCnr0l0Pc1GcxWj0oQYpQ=";
+    hash = "sha256-E6TM761cuaeQzlbjA+oZ+wt5HTJAfkF2J3i4P1Wbuic=";
   };
 
   propagatedBuildInputs = with home-assistant.python.pkgs; [
@@ -28,7 +28,8 @@ buildHomeAssistantComponent rec {
   '';
 
   meta = with lib; {
-    description = "Integration for Home Assistant to control climate, TV and fan devices via IR/RF controllers";
+    changelog = "https://github.com/smartHomeHub/SmartIR/releases/tag/v${version}";
+    description = "Integration for Home Assistant to control climate, TV and fan devices via IR/RF controllers (Broadlink, Xiaomi, MQTT, LOOKin, ESPHome)";
     homepage = "https://github.com/smartHomeHub/SmartIR";
     maintainers = with maintainers; [ azuwis ];
     license = licenses.mit;
