@@ -11,11 +11,11 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "sf-symbols";
-  version = "2.1";
+  version = "5.1";
 
   src = fetchurl {
     url = "https://devimages-cdn.apple.com/design/resources/download/SF-Symbols-${finalAttrs.version}.dmg";
-    sha256 = "0bn00f1jm48xwl11f0hnmasdl7p6pnwsljgn5krggpbhw3g5dbwp";
+    hash = "sha256-7HIOlAYpQHzyoMhW2Jtwq2Tor8ojs4mTHjUjfMKKMM4=";
   };
 
   sourceRoot = ".";
