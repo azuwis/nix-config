@@ -18,7 +18,6 @@
       # "homebrew/homebrew-services"
     ];
     brews = [
-      "blueutil"
       "mas"
       "tofrodos"
     ];
