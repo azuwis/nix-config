@@ -19,7 +19,6 @@
     ];
     brews = [
       "mas"
-      "tofrodos"
     ];
     casks = [
       "google-chrome"
