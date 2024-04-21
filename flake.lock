@@ -29,6 +29,22 @@
         "type": "github"
       }
     },
+    "compat-list-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1709566002,
+        "narHash": "sha256-rBnsW8ijDEPCXzIkbfQnyhSFhIv91+jIkNPosVHJ2UY=",
+        "owner": "flathub",
+        "repo": "org.yuzu_emu.yuzu",
+        "rev": "4abf1d239aba843180abfed58fa8541432fece5b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "flathub",
+        "repo": "org.yuzu_emu.yuzu",
+        "type": "github"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -36,11 +52,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1711763326,
-        "narHash": "sha256-sXcesZWKXFlEQ8oyGHnfk4xc9f2Ip0X/+YZOq3sKviI=",
+        "lastModified": 1713543876,
+        "narHash": "sha256-olEWxacm1xZhAtpq+ZkEyQgR4zgfE7ddpNtZNvubi3g=",
         "owner": "lnl7",
         "repo": "nix-darwin",
-        "rev": "36524adc31566655f2f4d55ad6b875fb5c1a4083",
+        "rev": "9e7c20ffd056e406ddd0276ee9d89f09c5e5f4ed",
         "type": "github"
       },
       "original": {
@@ -139,11 +155,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1712093955,
-        "narHash": "sha256-94I0sXz6fiVBvUAk2tg6t3UpM5rOImj4JTSTNFbg64s=",
+        "lastModified": 1713732794,
+        "narHash": "sha256-AYCofb8Zu4Mbc1lHDtju/uxeARawRijmOueAqEMEfMU=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "80546b220e95a575c66c213af1b09fe255299438",
+        "rev": "670d9ecc3e46a6e3265c203c2d136031a3d3548e",
         "type": "github"
       },
       "original": {
@@ -158,11 +174,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1711231487,
-        "narHash": "sha256-dRdFjStMA7GeuD/V4vzKblzuHwxMPgzEboRleVdZlUM=",
+        "lastModified": 1713606448,
+        "narHash": "sha256-JMKo6uoAcUip9N10a3r1T2IoLz+pUStwIFrsVW/R4MA=",
         "owner": "Jovian-Experiments",
         "repo": "Jovian-NixOS",
-        "rev": "1171169117f63f1de9ef2ea36efd8dcf377c6d5a",
+        "rev": "96cbbcd3712a0cb7f128c54b21ec2af0950d88d0",
         "type": "github"
       },
       "original": {
@@ -223,11 +239,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1711854532,
-        "narHash": "sha256-JPStavwlT7TfxxiXHk6Q7sbNxtnXAIjXQJMLO0KB6M0=",
+        "lastModified": 1713668931,
+        "narHash": "sha256-rVlwWQlgFGGK3aPVcKmtYqWgjYnPah5FOIsYAqrMN2w=",
         "owner": "nix-community",
         "repo": "nix-index-database",
-        "rev": "2844b5f3ad3b478468151bd101370b9d8ef8a3a7",
+        "rev": "07ece11b22217b8459df589f858e92212b74f1a1",
         "type": "github"
       },
       "original": {
@@ -238,11 +254,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1708984720,
-        "narHash": "sha256-gJctErLbXx4QZBBbGp78PxtOOzsDaQ+yw1ylNQBuSUY=",
+        "lastModified": 1713248628,
+        "narHash": "sha256-NLznXB5AOnniUtZsyy/aPWOk8ussTuePp2acb9U+ISA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "13aff9b34cc32e59d35c62ac9356e4a41198a538",
+        "rev": "5672bc9dbf9d88246ddab5ac454e82318d094bb8",
         "type": "github"
       },
       "original": {
@@ -286,11 +302,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1712090461,
-        "narHash": "sha256-PAfFp+YEKpkzwz6ruXQMvTa1puO4ySSu2G4Sp/jkCc8=",
+        "lastModified": 1713687659,
+        "narHash": "sha256-Yd8KuOBpZ0Slau/NxFhMPJI0gBxeax0vq/FD0rqKwuQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e976fa8f49c35cf28496301a1ef2aa23ad576b56",
+        "rev": "f2d7a289c5a5ece8521dd082b81ac7e4a57c2c5c",
         "type": "github"
       },
       "original": {
@@ -357,11 +373,11 @@
     "nvidia-patch": {
       "flake": false,
       "locked": {
-        "lastModified": 1711362149,
-        "narHash": "sha256-1gbgqWvbf9wfPXyozGuLbma6GsLSclldh7Kn9pznxao=",
+        "lastModified": 1713421661,
+        "narHash": "sha256-3M492Tj/H+yIjWC4IIzeiIak8OMwdgCNzolB5w+SMaM=",
         "owner": "keylase",
         "repo": "nvidia-patch",
-        "rev": "e416c41eff69dd53b4d98072df68369cf6f34312",
+        "rev": "3193b4b1cea91527bf09ea9b8db5aade6a3f3c0a",
         "type": "github"
       },
       "original": {
@@ -402,6 +418,42 @@
         "owner": "andreymatin",
         "repo": "scss-reset",
         "type": "github"
+      }
+    },
+    "sudachi-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1712915107,
+        "narHash": "sha256-ssg9wystUafrV83Odd2dVmizSwoCHl4AinOSDNftjbA=",
+        "ref": "refs/heads/main",
+        "rev": "0f2a1f3f04c2ca309030cffe70e9108f2f01a502",
+        "revCount": 39,
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/sudachi-emu/sudachi.git"
+      },
+      "original": {
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/sudachi-emu/sudachi.git"
+      }
+    },
+    "suyu-git-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1712927729,
+        "narHash": "sha256-FjxueUTEPKHcqdcFYTcxjeQaae2D5oVVQM5i+8szsCI=",
+        "ref": "refs/heads/dev",
+        "rev": "526e1d7a76b572b694d2e451620ede4a70bff86c",
+        "revCount": 27373,
+        "submodules": true,
+        "type": "git",
+        "url": "https://git.suyu.dev/suyu/suyu.git"
+      },
+      "original": {
+        "submodules": true,
+        "type": "git",
+        "url": "https://git.suyu.dev/suyu/suyu.git"
       }
     },
     "systems": {
@@ -450,11 +502,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1710519878,
-        "narHash": "sha256-0dbc10OBFUVYyXC+C+N6vRUd8xyBSRxkcZ4Egipbx0M=",
+        "lastModified": 1713528946,
+        "narHash": "sha256-IBQta+xrEaI2S5UmYrXcgV7Tu7rGLQu2V3TeJseLPSg=",
         "owner": "nix-community",
         "repo": "NixOS-WSL",
-        "rev": "aef95bdb6800a3a2af7aa7083d6df03067da6592",
+        "rev": "63c1247e12f269396ed2df8cdec3aed1f0f3928c",
         "type": "github"
       },
       "original": {
@@ -465,16 +517,19 @@
     },
     "yuzu": {
       "inputs": {
+        "compat-list-src": "compat-list-src",
         "nixpkgs": [
           "nixpkgs"
-        ]
+        ],
+        "sudachi-src": "sudachi-src",
+        "suyu-git-src": "suyu-git-src"
       },
       "locked": {
-        "lastModified": 1712517570,
-        "narHash": "sha256-woiSUJWpB4Mg7Cx/ozkruYXjowNgmQMIlahQ0r06LI8=",
+        "lastModified": 1712997242,
+        "narHash": "sha256-qOi9tsj7IyR8pgezsBavaVPliqiyRFF61VIYtQHcgbk=",
         "ref": "refs/heads/main",
-        "rev": "846e3a1fd117316ed1d0531e95e7b79ff0bd3ea8",
-        "revCount": 5,
+        "rev": "e5be8adf29a87a4f57b9ca9daa998e45e7a45f50",
+        "revCount": 7,
         "type": "git",
         "url": "https://codeberg.org/K900/yuzu-flake"
       },
