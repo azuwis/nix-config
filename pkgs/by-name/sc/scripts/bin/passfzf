@@ -7,7 +7,7 @@ password_files=( "$prefix"/**/*.gpg )
 password_files=( "${password_files[@]#"$prefix"/}" )
 password_files=( "${password_files[@]%.gpg}" )
 
-password=$(printf '%s\n' "${password_files[@]}" | fzf --reverse --no-info "$@")
+password=$(printf '%s\n' "${password_files[@]}" | fzf --no-separator --reverse --no-info "$@")
 
 [[ -n $password ]] || exit 0;
 
