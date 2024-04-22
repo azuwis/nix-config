@@ -1,4 +1,4 @@
-{ inputs, config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   inherit (lib) mkEnableOption mkIf mkOption mkPackageOption optionalAttrs types;
@@ -148,7 +148,7 @@ in
             {
               name = "Yuzu";
               image-path = pkgs.runCommand "yuzu.png" { } ''
-                ${pkgs.imagemagick}/bin/convert -resize x420 -background none ${inputs.yuzu.packages.${pkgs.system}.early-access}/share/icons/hicolor/scalable/apps/org.yuzu_emu.yuzu.svg -gravity center -extent 600x800 $out
+                ${pkgs.imagemagick}/bin/convert -resize x420 -background none ${pkgs.yuzu-ea}/share/icons/hicolor/scalable/apps/org.yuzu_emu.yuzu.svg -gravity center -extent 600x800 $out
               '';
               cmd = "yuzu";
               prep-cmd = yuzu-prep-cmd;
