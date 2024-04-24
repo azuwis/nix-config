@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    flake-compat.url = "github:edolstra/flake-compat";
     systems.url = "github:nix-systems/default";
     flake-utils.url = "github:numtide/flake-utils";
     flake-utils.inputs.systems.follows = "systems";
@@ -14,6 +15,7 @@
     wsl.url = "github:nix-community/NixOS-WSL";
     wsl.inputs.nixpkgs.follows = "nixpkgs";
     wsl.inputs.flake-utils.follows = "flake-utils";
+    wsl.inputs.flake-compat.follows = "flake-compat";
     jovian.url = "github:Jovian-Experiments/Jovian-NixOS";
     # jovian.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
