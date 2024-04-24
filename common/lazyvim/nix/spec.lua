@@ -1,13 +1,30 @@
+local uv = vim.loop
+
+local dir
+if uv.fs_stat("/etc/nixos") then
+  dir = "/etc/nixos"
+else
+  dir = vim.fn.expand("~/.config/nixpkgs")
+end
+
 return {
   {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        nil_ls = {
+        nixd = {
           settings = {
-            ["nil"] = {
+            nixd = {
               formatting = {
                 command = { "nixfmt" },
+              },
+              options = {
+                nixos = {
+                  expr = string.format("(import %s).nixosConfigurations.%s.options", dir, uv.os_gethostname()),
+                },
+                ["home-manager"] = {
+                  expr = string.format("(import %s).homeConfigurations.%s.options", dir, os.getenv("USER")),
+                },
               },
             },
           },
