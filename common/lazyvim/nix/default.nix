@@ -12,7 +12,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.neovim.extraPackages = with pkgs; [
       nil
-      nixpkgs-fmt
+      nixfmt-rfc-style
     ];
 
     my.neovim.treesitterParsers = (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: with plugins; [
