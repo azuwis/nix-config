@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 # /root/.ssh/config
 # Host builder
@@ -9,7 +14,12 @@
 #   User nix-ssh
 
 let
-  inherit (lib) mkEnableOption mkIf mkOption types;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+    ;
   cfg = config.my.nix-builder-client;
 in
 {
@@ -17,19 +27,24 @@ in
     enable = mkEnableOption "nix-builder-client";
     systems = mkOption {
       type = types.listOf types.str;
-      default = [ "i686-linux" "x86_64-linux" ];
+      default = [
+        "i686-linux"
+        "x86_64-linux"
+      ];
     };
   };
 
   config = mkIf cfg.enable {
     nix = {
       distributedBuilds = true;
-      buildMachines = [{
-        hostName = "builder";
-        systems = cfg.systems;
-        protocol = "ssh-ng";
-        maxJobs = 12;
-      }];
+      buildMachines = [
+        {
+          hostName = "builder";
+          systems = cfg.systems;
+          protocol = "ssh-ng";
+          maxJobs = 12;
+        }
+      ];
       settings.builders-use-substitutes = true;
     };
   };

@@ -1,9 +1,12 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports = [
-    ./hardware-office.nix
-  ];
+  imports = [ ./hardware-office.nix ];
   boot.supportedFilesystems = [ "ntfs" ];
   # powerManagement.cpuFreqGovernor = "performance";
   networking.hostName = "office";
@@ -21,7 +24,13 @@
   # my.steam.gamescope-intel-fix = true;
   # my.steam.gamescope-git = true;
   # my.steam.nvidia-offload = true;
-  programs.steam.gamescopeSession.args = [ "--fullscreen" "--output-width" "1920" "--output-height" "1080" ];
+  programs.steam.gamescopeSession.args = [
+    "--fullscreen"
+    "--output-width"
+    "1920"
+    "--output-height"
+    "1080"
+  ];
   # programs.steam.remotePlay.openFirewall = true;
   my.sunshine.enable = true;
   my.zramswap.enable = true;
@@ -33,7 +42,10 @@
     my.vfio = {
       enable = true;
       platform = "intel";
-      vfioIds = [ "10de:1c04" "10de:10f1" ];
+      vfioIds = [
+        "10de:1c04"
+        "10de:10f1"
+      ];
     };
   };
 

@@ -1,36 +1,48 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) mkEnableOption mkIf mkOption types;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+    ;
   cfg = config.my.firefox;
 
-  buildFirefoxXpiAddon = lib.makeOverridable
-    ({ stdenv ? pkgs.stdenv
-     , fetchurl ? pkgs.fetchurl
-     , pname
-     , version
-     , addonId
-     , url
-     , sha256
-     , meta
-     , ...
-     }:
-      stdenv.mkDerivation {
-        name = "${pname}-${version}";
+  buildFirefoxXpiAddon = lib.makeOverridable (
+    {
+      stdenv ? pkgs.stdenv,
+      fetchurl ? pkgs.fetchurl,
+      pname,
+      version,
+      addonId,
+      url,
+      sha256,
+      meta,
+      ...
+    }:
+    stdenv.mkDerivation {
+      name = "${pname}-${version}";
 
-        inherit meta;
+      inherit meta;
 
-        src = fetchurl { inherit url sha256; };
+      src = fetchurl { inherit url sha256; };
 
-        preferLocalBuild = true;
-        allowSubstitutes = true;
+      preferLocalBuild = true;
+      allowSubstitutes = true;
 
-        buildCommand = ''
-          dst="$out/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
-          mkdir -p "$dst"
-          install -v -m644 "$src" "$dst/${addonId}.xpi"
-        '';
-      });
+      buildCommand = ''
+        dst="$out/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+        mkdir -p "$dst"
+        install -v -m644 "$src" "$dst/${addonId}.xpi"
+      '';
+    }
+  );
 
   vimfx = buildFirefoxXpiAddon rec {
     pname = "vimfx";
@@ -44,19 +56,30 @@ let
     };
   };
 
-  firefox = pkgs.firefox.overrideAttrs (o:
+  firefox = pkgs.firefox.overrideAttrs (
+    o:
     let
-      inherit (lib) concatStringsSep escapeShellArg filterAttrs mapAttrsToList;
-      env = concatStringsSep " " (mapAttrsToList (n: v: "${n}=${escapeShellArg v}") (filterAttrs (n: v: v != null) cfg.env));
+      inherit (lib)
+        concatStringsSep
+        escapeShellArg
+        filterAttrs
+        mapAttrsToList
+        ;
+      env = concatStringsSep " " (
+        mapAttrsToList (n: v: "${n}=${escapeShellArg v}") (filterAttrs (n: v: v != null) cfg.env)
+      );
     in
     {
-      buildCommand = o.buildCommand + ''
-        # conflict with legacyfox
-        rm $out/lib/firefox/defaults/pref/autoconfig.js
-        lndir -silent ${pkgs.legacyfox} $out
-        substituteInPlace $out/bin/firefox --replace "exec -a" "${env} exec -a"
-      '';
-    });
+      buildCommand =
+        o.buildCommand
+        + ''
+          # conflict with legacyfox
+          rm $out/lib/firefox/defaults/pref/autoconfig.js
+          lndir -silent ${pkgs.legacyfox} $out
+          substituteInPlace $out/bin/firefox --replace "exec -a" "${env} exec -a"
+        '';
+    }
+  );
 
   # userChrome = builtins.readFile (builtins.fetchurl {
   #   url = "https://raw.githubusercontent.com/andreasgrafen/cascade/a16181ec77da1872f102e51bcf2739c627b03a1b/userChrome.css";
@@ -137,14 +160,21 @@ let
     # "media.default_volume" = 0.02;
     "extensions.VimFx.config_file_directory" = "~/.config/vimfx";
   };
-
 in
 {
   options.my.firefox = {
     enable = mkEnableOption "firefox";
 
     env = mkOption {
-      type = with types; attrsOf (nullOr (oneOf [ str path package ]));
+      type =
+        with types;
+        attrsOf (
+          nullOr (oneOf [
+            str
+            path
+            package
+          ])
+        );
       default = { };
     };
   };
@@ -167,6 +197,5 @@ in
         };
       };
     };
-
   };
 }

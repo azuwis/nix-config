@@ -1,9 +1,12 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports = [
-    ./hardware-hyperv.nix
-  ];
+  imports = [ ./hardware-hyperv.nix ];
 
   # Grub
   boot.loader.systemd-boot.enable = false;
@@ -12,14 +15,41 @@
     copyKernels = true;
     efiSupport = true;
     mirroredBoots = [
-      { devices = [ "nodev" ]; path = "/boot1"; }
-      { devices = [ "nodev" ]; path = "/boot2"; }
-      { devices = [ "nodev" ]; path = "/boot3"; }
+      {
+        devices = [ "nodev" ];
+        path = "/boot1";
+      }
+      {
+        devices = [ "nodev" ];
+        path = "/boot2";
+      }
+      {
+        devices = [ "nodev" ];
+        path = "/boot3";
+      }
     ];
   };
-  fileSystems."/boot1" = { options = [ "defaults" "nofail" "x-systemd.device-timeout=5s" ]; };
-  fileSystems."/boot2" = { options = [ "defaults" "nofail" "x-systemd.device-timeout=5s" ]; };
-  fileSystems."/boot3" = { options = [ "defaults" "nofail" "x-systemd.device-timeout=5s" ]; };
+  fileSystems."/boot1" = {
+    options = [
+      "defaults"
+      "nofail"
+      "x-systemd.device-timeout=5s"
+    ];
+  };
+  fileSystems."/boot2" = {
+    options = [
+      "defaults"
+      "nofail"
+      "x-systemd.device-timeout=5s"
+    ];
+  };
+  fileSystems."/boot3" = {
+    options = [
+      "defaults"
+      "nofail"
+      "x-systemd.device-timeout=5s"
+    ];
+  };
 
   networking.hostName = "hyperv";
 

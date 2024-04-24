@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf;
@@ -15,7 +20,9 @@ in
     programs.git.extraConfig = {
       diff.tool = "difftastic";
       difftool.prompt = false;
-      difftool.difftastic = { cmd = ''difft "$LOCAL" "$REMOTE"''; };
+      difftool.difftastic = {
+        cmd = ''difft "$LOCAL" "$REMOTE"'';
+      };
       pager.difftool = true;
     };
   };

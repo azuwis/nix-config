@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf mkMerge;
@@ -17,9 +22,7 @@ in
       networking.networkmanager.enable = true;
       networking.useNetworkd = false;
 
-      environment.systemPackages = with pkgs; [
-        mangohud
-      ];
+      environment.systemPackages = with pkgs; [ mangohud ];
 
       programs.gamescope = {
         enable = true;
@@ -30,10 +33,28 @@ in
         enable = true;
         gamescopeSession = {
           enable = true;
-          args = [ "--rt" "--filter" "fsr" "--mangoapp" ]
+          args =
+            [
+              "--rt"
+              "--filter"
+              "fsr"
+              "--mangoapp"
+            ]
             # hack to add args to steam
-            ++ [ "--" "steam" "-pipewire-dmabuf" "-steamos3" "-gamepadui" ]
-            ++ [ ";" "exit" "$?" ";" "echo" ];
+            ++ [
+              "--"
+              "steam"
+              "-pipewire-dmabuf"
+              "-steamos3"
+              "-gamepadui"
+            ]
+            ++ [
+              ";"
+              "exit"
+              "$?"
+              ";"
+              "echo"
+            ];
           env = {
             # ENABLE_GAMESCOPE_WSI = "0";
             # WLR_DRM_DEVICES = "/dev/dri/card0";
@@ -67,7 +88,6 @@ in
           };
         };
       };
-
     })
 
     (mkIf cfg.gamescope-intel-fix {
@@ -85,6 +105,5 @@ in
         };
       });
     })
-
   ]);
 }

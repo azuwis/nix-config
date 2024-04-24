@@ -1,7 +1,8 @@
-{ lib
-, fetchFromGitHub
-, bluez
-, python3
+{
+  lib,
+  fetchFromGitHub,
+  bluez,
+  python3,
 }:
 
 python3.pkgs.buildPythonPackage {

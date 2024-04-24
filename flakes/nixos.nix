@@ -2,36 +2,40 @@
 
 let
   mkNixos =
-    { system ? "x86_64-linux"
-    , nixpkgs ? self.inputs.nixpkgs
-    , config ? { }
-    , overlays ? [ ]
-    , modules ? [ ]
+    {
+      system ? "x86_64-linux",
+      nixpkgs ? self.inputs.nixpkgs,
+      config ? { },
+      overlays ? [ ],
+      modules ? [ ],
     }:
-    withSystem system ({ lib, pkgs, system, ... }:
-    let
-      customPkgs = import nixpkgs (lib.recursiveUpdate
-        {
-          inherit system;
-          overlays = [ self.overlays.default ] ++ overlays;
-          config.allowUnfree = true;
-        }
-        {
-          inherit config;
-        }
-      );
-    in
-    nixpkgs.lib.nixosSystem {
-      inherit system;
-      specialArgs = {
-        inherit lib;
-        inputs = self.inputs;
-        pkgs = if (nixpkgs != self.inputs.nixpkgs || config != { } || overlays != [ ]) then customPkgs else pkgs;
-      };
-      modules = [
-        ../nixos
-      ] ++ modules;
-    });
+    withSystem system (
+      {
+        lib,
+        pkgs,
+        system,
+        ...
+      }:
+      let
+        customPkgs = import nixpkgs (
+          lib.recursiveUpdate {
+            inherit system;
+            overlays = [ self.overlays.default ] ++ overlays;
+            config.allowUnfree = true;
+          } { inherit config; }
+        );
+      in
+      nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = {
+          inherit lib;
+          inputs = self.inputs;
+          pkgs =
+            if (nixpkgs != self.inputs.nixpkgs || config != { } || overlays != [ ]) then customPkgs else pkgs;
+        };
+        modules = [ ../nixos ] ++ modules;
+      }
+    );
 in
 {
   flake.nixosConfigurations = {
@@ -43,13 +47,14 @@ in
       modules = [ ../hosts/nuc.nix ];
     };
 
-    office = mkNixos {
-      modules = [ ../hosts/office.nix ];
-    };
+    office = mkNixos { modules = [ ../hosts/office.nix ]; };
 
     steamdeck = mkNixos {
       nixpkgs = self.inputs.jovian.inputs.nixpkgs;
-      overlays = [ self.inputs.jovian.overlays.default self.overlays.jovian ];
+      overlays = [
+        self.inputs.jovian.overlays.default
+        self.overlays.jovian
+      ];
       modules = [ ../hosts/steamdeck.nix ];
     };
 
@@ -58,12 +63,8 @@ in
       modules = [ ../hosts/utm.nix ];
     };
 
-    hyperv = mkNixos {
-      modules = [ ../hosts/hyperv.nix ];
-    };
+    hyperv = mkNixos { modules = [ ../hosts/hyperv.nix ]; };
 
-    wsl = mkNixos {
-      modules = [ ../hosts/wsl.nix ];
-    };
+    wsl = mkNixos { modules = [ ../hosts/wsl.nix ]; };
   };
 }

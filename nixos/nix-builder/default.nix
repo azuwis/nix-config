@@ -1,13 +1,16 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.my.nix-builder;
 in
 {
-  imports = [
-    ./client.nix
-  ];
+  imports = [ ./client.nix ];
 
   options.my.nix-builder = {
     enable = mkEnableOption "nix-builder";

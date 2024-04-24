@@ -1,9 +1,13 @@
-{ inputs, config, lib, pkgs, ... }:
+{
+  inputs,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports = [
-    inputs.nix-index-database.hmModules.nix-index
-  ] ++ lib.my.getHmModules [ ./. ];
+  imports = [ inputs.nix-index-database.hmModules.nix-index ] ++ lib.my.getHmModules [ ./. ];
 
   my = {
     difftastic.enable = true;

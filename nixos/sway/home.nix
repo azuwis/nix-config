@@ -1,9 +1,20 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) mkEnableOption mkDefault mkIf mkMerge mkOption types;
+  inherit (lib)
+    mkEnableOption
+    mkDefault
+    mkIf
+    mkMerge
+    mkOption
+    types
+    ;
   cfg = config.my.sway;
-
 in
 {
   options.my.sway = {
@@ -52,17 +63,19 @@ in
               { class = "^firefox$"; }
             ];
           };
-          floating.criteria = [
-            { app_id = "^tmenu|mpv$"; }
-          ];
+          floating.criteria = [ { app_id = "^tmenu|mpv$"; } ];
           window.commands = [
             {
               command = "inhibit_idle fullscreen";
-              criteria = { app_id = ''^info\.cemu\.Cemu$''; };
+              criteria = {
+                app_id = ''^info\.cemu\.Cemu$'';
+              };
             }
             {
               command = "inhibit_idle fullscreen";
-              criteria = { class = ''^yuzu$''; };
+              criteria = {
+                class = ''^yuzu$'';
+              };
             }
           ];
           # Border
@@ -85,18 +98,22 @@ in
           };
           # Keybindings
           menu = "fuzzel";
-          keybindings = let mod = config.wayland.windowManager.sway.config.modifier; in lib.mkOptionDefault {
-            "${mod}+Tab" = "workspace back_and_forth";
-            # stop graphical-session.target so services like foot will not try to restart itself
-            "${mod}+Shift+e" = mkIf config.wayland.windowManager.sway.systemd.enable "exec swaynag -t warning -m 'Do you really want to exit sway?' -b 'Yes, exit sway' 'systemctl --user stop graphical-session.target; swaymsg exit'";
-            "${mod}+Shift+p" = "exec ${cfg.tmenu} passfzf";
-            "${mod}+c" = "floating toggle; resize set 75 ppt 75 ppt; move absolute position center";
-            "--release --no-repeat ${mod}+Escape" = mkDefault "exec swaylock";
-            "Print" = "grimshot save - | swappy -f -";
-            "XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";
-            "XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
-            "XF86AudioMute" = "exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
-          };
+          keybindings =
+            let
+              mod = config.wayland.windowManager.sway.config.modifier;
+            in
+            lib.mkOptionDefault {
+              "${mod}+Tab" = "workspace back_and_forth";
+              # stop graphical-session.target so services like foot will not try to restart itself
+              "${mod}+Shift+e" = mkIf config.wayland.windowManager.sway.systemd.enable "exec swaynag -t warning -m 'Do you really want to exit sway?' -b 'Yes, exit sway' 'systemctl --user stop graphical-session.target; swaymsg exit'";
+              "${mod}+Shift+p" = "exec ${cfg.tmenu} passfzf";
+              "${mod}+c" = "floating toggle; resize set 75 ppt 75 ppt; move absolute position center";
+              "--release --no-repeat ${mod}+Escape" = mkDefault "exec swaylock";
+              "Print" = "grimshot save - | swappy -f -";
+              "XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";
+              "XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
+              "XF86AudioMute" = "exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+            };
           # Inputs/outputs
           input = {
             "type:keyboard" = {
@@ -135,20 +152,16 @@ in
           show-failed-attempts = true;
         };
       };
-
     })
 
     (mkIf cfg.startupLocked {
-      wayland.windowManager.sway.config.startup = [{
-        command = "swaylock";
-      }];
+      wayland.windowManager.sway.config.startup = [ { command = "swaylock"; } ];
     })
 
     (mkIf cfg.xdgAutostart {
-      wayland.windowManager.sway.config.startup = [{
-        command = "systemctl --user start xdg-autostart-if-no-desktop-manager.target";
-      }];
+      wayland.windowManager.sway.config.startup = [
+        { command = "systemctl --user start xdg-autostart-if-no-desktop-manager.target"; }
+      ];
     })
-
   ]);
 }

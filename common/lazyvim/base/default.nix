@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkOption;
@@ -7,7 +12,8 @@ in
 {
   options.my.lazyvim =
     let
-      pluginsOptionType = with lib.types;
+      pluginsOptionType =
+        with lib.types;
         listOf (oneOf [
           package
           (submodule {
@@ -64,14 +70,38 @@ in
           vim-illuminate
           vim-startuptime
           which-key-nvim
-          { name = "LuaSnip"; path = luasnip; }
-          { name = "catppuccin"; path = catppuccin-nvim; }
-          { name = "mini.ai"; path = mini-nvim; }
-          { name = "mini.bufremove"; path = mini-nvim; }
-          { name = "mini.comment"; path = mini-nvim; }
-          { name = "mini.indentscope"; path = mini-nvim; }
-          { name = "mini.pairs"; path = mini-nvim; }
-          { name = "mini.surround"; path = mini-nvim; }
+          {
+            name = "LuaSnip";
+            path = luasnip;
+          }
+          {
+            name = "catppuccin";
+            path = catppuccin-nvim;
+          }
+          {
+            name = "mini.ai";
+            path = mini-nvim;
+          }
+          {
+            name = "mini.bufremove";
+            path = mini-nvim;
+          }
+          {
+            name = "mini.comment";
+            path = mini-nvim;
+          }
+          {
+            name = "mini.indentscope";
+            path = mini-nvim;
+          }
+          {
+            name = "mini.pairs";
+            path = mini-nvim;
+          }
+          {
+            name = "mini.surround";
+            path = mini-nvim;
+          }
         ];
       };
 
@@ -89,7 +119,6 @@ in
         type = lib.types.lines;
         default = "";
       };
-
     };
 
   config = lib.mkIf cfg.enable {
@@ -104,19 +133,22 @@ in
         ripgrep
       ];
 
-      plugins = with pkgs.vimPlugins; [
-        lazy-nvim
-      ];
+      plugins = with pkgs.vimPlugins; [ lazy-nvim ];
 
       extraLuaConfig =
         let
-          mkEntryFromDrv = drv:
+          mkEntryFromDrv =
+            drv:
             if lib.isDerivation drv then
-              { name = "${lib.getName drv}"; path = drv; }
+              {
+                name = "${lib.getName drv}";
+                path = drv;
+              }
             else
               drv;
-          lazyPath = pkgs.linkFarm "lazy-plugins" (builtins.map mkEntryFromDrv
-            (lib.subtractLists cfg.removedPlugins cfg.plugins ++ cfg.extraPlugins));
+          lazyPath = pkgs.linkFarm "lazy-plugins" (
+            builtins.map mkEntryFromDrv (lib.subtractLists cfg.removedPlugins cfg.plugins ++ cfg.extraPlugins)
+          );
         in
         ''
           require("lazy").setup({
@@ -145,15 +177,17 @@ in
         '';
     };
 
-    my.neovim.treesitterParsers = (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: with plugins; [
-      c
-      csv
-      jsonc
-      lua
-      markdown
-      markdown_inline
-      regex
-    ])).dependencies;
-
+    my.neovim.treesitterParsers =
+      (pkgs.vimPlugins.nvim-treesitter.withPlugins (
+        plugins: with plugins; [
+          c
+          csv
+          jsonc
+          lua
+          markdown
+          markdown_inline
+          regex
+        ]
+      )).dependencies;
   };
 }

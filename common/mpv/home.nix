@@ -1,9 +1,13 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf mkMerge;
   cfg = config.my.mpv;
-
 in
 {
   imports = [
@@ -49,6 +53,5 @@ in
         osc-minmousemove = 1;
       };
     };
-
   };
 }

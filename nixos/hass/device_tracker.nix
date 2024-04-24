@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf;
@@ -6,19 +11,23 @@ let
 in
 {
   options.my.hass = {
-    device_tracker = mkEnableOption "device_tracker" // { default = true; };
+    device_tracker = mkEnableOption "device_tracker" // {
+      default = true;
+    };
   };
 
   config = mkIf (cfg.enable && cfg.device_tracker) {
-    services.home-assistant.config.device_tracker = [{
-      platform = "ubus";
-      host = "xr500.lan";
-      username = "hass";
-      password = "!secret ubus_password";
-      dhcp_software = "none";
-      consider_home = 60;
-      new_device_defaults.track_new_devices = false;
-    }];
+    services.home-assistant.config.device_tracker = [
+      {
+        platform = "ubus";
+        host = "xr500.lan";
+        username = "hass";
+        password = "!secret ubus_password";
+        dhcp_software = "none";
+        consider_home = 60;
+        new_device_defaults.track_new_devices = false;
+      }
+    ];
 
     hass.automations = ''
       - alias: Primary bedroom movie on

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption;
@@ -15,9 +20,8 @@ in
       nixfmt-rfc-style
     ];
 
-    my.neovim.treesitterParsers = (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: with plugins; [
-      nix
-    ])).dependencies;
+    my.neovim.treesitterParsers =
+      (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: with plugins; [ nix ])).dependencies;
 
     xdg.configFile."nvim/lua/plugins/nix.lua".source = ./spec.lua;
     xdg.configFile."nvim/snippets/nix.snippets".source = ./nix.snippets;

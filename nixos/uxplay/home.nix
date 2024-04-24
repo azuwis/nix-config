@@ -1,9 +1,19 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) mkEnableOption mkIf mkMerge mkOption types;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkMerge
+    mkOption
+    types
+    ;
   cfg = config.my.uxplay;
-
 in
 {
   options.my.uxplay = {
@@ -19,14 +29,18 @@ in
   config = mkIf cfg.enable (mkMerge [
     ({
       home.packages = [ pkgs.uxplay ];
-      wayland.windowManager.sway.config.window.commands = [{
-        criteria = { instance = "^UxPlay@"; };
-        command = "fullscreen enable";
-      }];
+      wayland.windowManager.sway.config.window.commands = [
+        {
+          criteria = {
+            instance = "^UxPlay@";
+          };
+          command = "fullscreen enable";
+        }
+      ];
     })
 
     (mkIf cfg.sway {
-      wayland.windowManager.sway.config.startup = [{ command = "uxplay -p ${cfg.args}"; }];
+      wayland.windowManager.sway.config.startup = [ { command = "uxplay -p ${cfg.args}"; } ];
     })
 
     (mkIf cfg.systemd {
@@ -43,6 +57,5 @@ in
         Install.WantedBy = [ "graphical-session.target" ];
       };
     })
-
   ]);
 }

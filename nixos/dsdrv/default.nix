@@ -1,15 +1,30 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) mkEnableOption mkIf mkOption mkPackageOption optionalAttrs types;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    mkPackageOption
+    optionalAttrs
+    types
+    ;
   cfg = config.my.dsdrv;
-
 in
 {
   options.my.dsdrv = {
     enable = mkEnableOption "dsdrv";
 
-    package = mkPackageOption pkgs [ "python3" "pkgs" "dsdrv-cemuhook" ] { };
+    package = mkPackageOption pkgs [
+      "python3"
+      "pkgs"
+      "dsdrv-cemuhook"
+    ] { };
 
     openFirewall = mkEnableOption "openFirewall" // {
       default = cfg.settings.host != "127.0.0.1";
@@ -44,7 +59,6 @@ in
         };
       };
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -58,9 +72,7 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "dsdrv") {
-      dsdrv = { };
-    };
+    users.groups = optionalAttrs (cfg.group == "dsdrv") { dsdrv = { }; };
 
     services.udev.extraRules = ''
       KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="054c", ATTRS{idProduct}=="05c4", OWNER="${cfg.user}"
@@ -86,7 +98,5 @@ in
     };
 
     networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [ 26760 ];
-
   };
 }
-

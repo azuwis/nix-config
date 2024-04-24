@@ -1,9 +1,13 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.my.waybar;
-
 in
 {
   options.my.waybar = {
@@ -12,38 +16,40 @@ in
 
   config = mkIf cfg.enable {
     programs.waybar.enable = true;
-    programs.waybar.settings = [{
-      layer = "top";
-      height = 26;
-      modules-left = [ "sway/workspaces" ];
-      modules-center = [ "sway/window" ];
-      modules-right = [
-        "custom/network"
-        "cpu"
-        "memory"
-        "pulseaudio"
-        "clock"
-      ];
-      "sway/window" = {
-        format = "{app_id}";
-      };
-      "custom/network" = {
-        exec = "${./netspeed}";
-      };
-      cpu = {
-        format = "󰓅 {usage}%";
-      };
-      memory = {
-        format = "󰍛 {percentage}%";
-      };
-      pulseaudio = {
-        format = "󰕾 {volume}%";
-        format-muted = "󰖁 {volume}%";
-      };
-      clock = {
-        format = " {:%a %m-%d %H:%M}";
-      };
-    }];
+    programs.waybar.settings = [
+      {
+        layer = "top";
+        height = 26;
+        modules-left = [ "sway/workspaces" ];
+        modules-center = [ "sway/window" ];
+        modules-right = [
+          "custom/network"
+          "cpu"
+          "memory"
+          "pulseaudio"
+          "clock"
+        ];
+        "sway/window" = {
+          format = "{app_id}";
+        };
+        "custom/network" = {
+          exec = "${./netspeed}";
+        };
+        cpu = {
+          format = "󰓅 {usage}%";
+        };
+        memory = {
+          format = "󰍛 {percentage}%";
+        };
+        pulseaudio = {
+          format = "󰕾 {volume}%";
+          format-muted = "󰖁 {volume}%";
+        };
+        clock = {
+          format = " {:%a %m-%d %H:%M}";
+        };
+      }
+    ];
     programs.waybar.style = ''
       * {
           border: none;
@@ -83,7 +89,7 @@ in
 
     wayland.windowManager.sway.config = {
       bars = [ ];
-      startup = [{ command = "waybar"; }];
+      startup = [ { command = "waybar"; } ];
     };
   };
 }

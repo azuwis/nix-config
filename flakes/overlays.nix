@@ -1,7 +1,10 @@
-{ self, lib, ... }: {
+{ self, lib, ... }:
+{
   flake.overlays.packages = import "${self.inputs.nixpkgs}/pkgs/top-level/by-name-overlay.nix" ../pkgs/by-name;
   flake.overlays.yuzu = final: prev: {
-    yuzu-ea = lib.optionalAttrs final.stdenv.isLinux self.inputs.yuzu.packages.${final.system}.early-access;
+    yuzu-ea =
+      lib.optionalAttrs final.stdenv.isLinux
+        self.inputs.yuzu.packages.${final.system}.early-access;
   };
   flake.overlays.jovian = import ../overlays/jovian.nix;
 
@@ -11,7 +14,8 @@
     (import ../overlays/default.nix)
   ];
 
-  perSystem = { lib, system, ... }:
+  perSystem =
+    { lib, system, ... }:
     let
       pkgs = import self.inputs.nixpkgs {
         inherit system;
@@ -22,10 +26,8 @@
     {
       _module.args.pkgs = pkgs;
 
-      packages = lib.filterAttrs
-        (_: value: value ? type && value.type == "derivation")
-        (builtins.mapAttrs
-          (name: _: pkgs.${name})
-          (self.overlays.default { } { }));
+      packages = lib.filterAttrs (_: value: value ? type && value.type == "derivation") (
+        builtins.mapAttrs (name: _: pkgs.${name}) (self.overlays.default { } { })
+      );
     };
 }

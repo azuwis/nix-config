@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, glibmm
-, libevdev
-, nlohmann_json
-, udev
-, zlib
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  glibmm,
+  libevdev,
+  nlohmann_json,
+  udev,
+  zlib,
 }:
 
 stdenv.mkDerivation {

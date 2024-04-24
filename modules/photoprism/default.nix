@@ -1,4 +1,10 @@
-{ config, options, pkgs, lib, ... }:
+{
+  config,
+  options,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -7,13 +13,15 @@ let
   cfg = config.services.photoprism;
   configFile = pkgs.writeTextFile {
     name = "photoprism.yml";
-    text = generators.toYAML { } ({
-      StoragePath = "${cfg.dataDir}/storage";
-      OriginalsPath = "${cfg.dataDir}/originals";
-      ImportPath = "${cfg.dataDir}/import";
-    } // cfg.config);
+    text = generators.toYAML { } (
+      {
+        StoragePath = "${cfg.dataDir}/storage";
+        OriginalsPath = "${cfg.dataDir}/originals";
+        ImportPath = "${cfg.dataDir}/import";
+      }
+      // cfg.config
+    );
   };
-
 in
 {
   options.services.photoprism = {
@@ -53,7 +61,15 @@ in
     };
 
     config = mkOption {
-      type = with types; attrsOf (oneOf [ bool int str path package ]);
+      type =
+        with types;
+        attrsOf (oneOf [
+          bool
+          int
+          str
+          path
+          package
+        ]);
       default = { };
       example = literalExpression ''
         {
@@ -72,14 +88,11 @@ in
         Options in https://github.com/photoprism/photoprism/blob/release/internal/config/options.go
       '';
     };
-
   };
 
   config = mkIf cfg.enable {
 
-    users.groups = mkIf (cfg.group == "photoprism") {
-      photoprism = { };
-    };
+    users.groups = mkIf (cfg.group == "photoprism") { photoprism = { }; };
 
     users.users = mkIf (cfg.user == "photoprism") {
       photoprism = {
@@ -98,7 +111,10 @@ in
         photoprism = {
           description = "photoprism system service";
           after = [ "network.target" ];
-          path = [ cfg.package pkgs.bash ];
+          path = [
+            cfg.package
+            pkgs.bash
+          ];
           wantedBy = [ "multi-user.target" ];
           serviceConfig = {
             User = cfg.user;

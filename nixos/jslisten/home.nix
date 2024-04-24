@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf mkOption;
@@ -17,9 +22,13 @@ in
       default =
         let
           # `program` only accept 100 chars, shorten them by wrapping
-          sway-run = args: "${pkgs.writeShellScript (builtins.elemAt (builtins.split " " args) 0) ''
-            exec ${./scripts}/sway-run ${args}
-          ''} &";
+          sway-run =
+            args:
+            "${
+              pkgs.writeShellScript (builtins.elemAt (builtins.split " " args) 0) ''
+                exec ${./scripts}/sway-run ${args}
+              ''
+            } &";
         in
         {
           # PS+L
@@ -62,7 +71,11 @@ in
           BotW = {
             button1 = 10;
             button2 = 1;
-            program = if sway then sway-run "BotW app_id=info.cemu.Cemu cemu --fullscreen --title-id 00050000101c9300" else "${./scripts}/i3-botw &";
+            program =
+              if sway then
+                sway-run "BotW app_id=info.cemu.Cemu cemu --fullscreen --title-id 00050000101c9300"
+              else
+                "${./scripts}/i3-botw &";
           };
           # PS+X
           NieR = {
@@ -92,7 +105,9 @@ in
         Restart = "on-failure";
       };
 
-      Install = { WantedBy = [ "graphical-session.target" ]; };
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
+      };
     };
 
     # wayland.windowManager.sway.config.startup = [{ command = "jslisten --mode hold --loglevel notice"; }];

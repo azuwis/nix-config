@@ -1,14 +1,25 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) mkDefault mkEnableOption mkIf mkMerge;
+  inherit (lib)
+    mkDefault
+    mkEnableOption
+    mkIf
+    mkMerge
+    ;
   cfg = config.my.sway;
-
 in
 {
   options.my.sway = {
     enable = mkEnableOption "sway";
-    autologin = mkEnableOption "autologin" // { default = true; };
+    autologin = mkEnableOption "autologin" // {
+      default = true;
+    };
     xdgAutostart = mkEnableOption "xdgAutostart";
   };
 
@@ -48,7 +59,6 @@ in
         pulse.enable = true;
       };
       security.rtkit.enable = lib.mkDefault config.services.pipewire.enable;
-
     })
 
     (mkIf cfg.autologin {
@@ -61,9 +71,6 @@ in
       };
     })
 
-    (mkIf cfg.xdgAutostart {
-      services.xserver.desktopManager.runXdgAutostartIfNone = true;
-    })
-
+    (mkIf cfg.xdgAutostart { services.xserver.desktopManager.runXdgAutostartIfNone = true; })
   ]);
 }

@@ -1,6 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
 }:
 
 stdenv.mkDerivation {
@@ -17,10 +18,12 @@ stdenv.mkDerivation {
 
   postPatch =
     let
-      replace = {
-        aarch64-darwin = ''--replace "-arch x86_64" ""'';
-        x86_64-darwin = ''--replace "-arch arm64e" "" --replace "-arch arm64" ""'';
-      }.${stdenv.system};
+      replace =
+        {
+          aarch64-darwin = ''--replace "-arch x86_64" ""'';
+          x86_64-darwin = ''--replace "-arch arm64e" "" --replace "-arch arm64" ""'';
+        }
+        .${stdenv.system};
     in
     ''
       substituteInPlace makefile ${replace}
@@ -43,7 +46,10 @@ stdenv.mkDerivation {
     '';
     homepage = "https://github.com/koekeishiya/yabai";
     platforms = platforms.darwin;
-    maintainers = with maintainers; [ cmacrae shardy ];
+    maintainers = with maintainers; [
+      cmacrae
+      shardy
+    ];
     license = licenses.mit;
   };
 }

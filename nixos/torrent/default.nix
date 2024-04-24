@@ -1,7 +1,18 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) mkDefault mkEnableOption mkIf mkOption types;
+  inherit (lib)
+    mkDefault
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+    ;
   cfg = config.my.torrent;
 
   inherit (config.my) domain;
@@ -10,7 +21,9 @@ in
 {
   options.my.torrent = {
     enable = mkEnableOption "torrent";
-    torrent-ratio = mkEnableOption "torrent-ratio" // { default = true; };
+    torrent-ratio = mkEnableOption "torrent-ratio" // {
+      default = true;
+    };
     user = mkOption {
       type = types.str;
       default = "torrent";
@@ -102,6 +115,5 @@ in
       browseable = "no";
       "valid users" = cfg.user;
     };
-
   };
 }

@@ -1,9 +1,13 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.my.foot;
-
 in
 {
   options.my.foot = {
@@ -28,9 +32,8 @@ in
     };
 
     wayland.windowManager.sway.config = {
-      startup = [{ command = "foot --server --log-level=error"; }];
+      startup = [ { command = "foot --server --log-level=error"; } ];
       terminal = "footclient";
     };
-
   };
 }

@@ -1,13 +1,26 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) mkEnableOption mkIf mkOption optionalString types;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    optionalString
+    types
+    ;
   cfg = config.my.torrent-ratio;
 in
 {
   options.my.torrent-ratio = {
     enable = mkEnableOption "torrent-ratio";
-    nginx = mkEnableOption "nginx" // { default = true; };
+    nginx = mkEnableOption "nginx" // {
+      default = true;
+    };
     host = mkOption {
       type = types.str;
       default = "127.0.0.1";
@@ -37,7 +50,9 @@ in
         DynamicUser = true;
         StateDirectory = "torrent-ratio";
         WorkingDirectory = "/var/lib/torrent-ratio";
-        ExecStart = "${pkgs.torrent-ratio}/bin/torrent-ratio -v -addr ${cfg.host}:${builtins.toString cfg.port} -db ${cfg.db} ${optionalString (cfg.conf != null) "-conf ${cfg.conf}"}";
+        ExecStart = "${pkgs.torrent-ratio}/bin/torrent-ratio -v -addr ${cfg.host}:${builtins.toString cfg.port} -db ${cfg.db} ${
+          optionalString (cfg.conf != null) "-conf ${cfg.conf}"
+        }";
         Restart = "on-failure";
       };
     };
@@ -55,6 +70,5 @@ in
         proxyWebsockets = true;
       };
     };
-
   };
 }

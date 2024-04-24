@@ -1,8 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   environment.systemPath = [ "/opt/homebrew/bin" ];
-  environment.variables = { HOMEBREW_NO_ANALYTICS = "1"; };
+  environment.variables = {
+    HOMEBREW_NO_ANALYTICS = "1";
+  };
   homebrew = {
     enable = true;
     onActivation = {
@@ -17,9 +24,7 @@
       "homebrew/cask"
       # "homebrew/homebrew-services"
     ];
-    brews = [
-      "mas"
-    ];
+    brews = [ "mas" ];
     casks = [
       "google-chrome"
       "microsoft-office"

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption;
@@ -20,13 +25,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    my.lazyvim.extraPlugins = [
-      update-nix-fetchgit-vim
-    ];
+    my.lazyvim.extraPlugins = [ update-nix-fetchgit-vim ];
 
-    programs.neovim.extraPackages = with pkgs; [
-      update-nix-fetchgit
-    ];
+    programs.neovim.extraPackages = with pkgs; [ update-nix-fetchgit ];
 
     xdg.configFile."nvim/lua/plugins/update-nix-fetchgit.lua".source = ./spec.lua;
   };

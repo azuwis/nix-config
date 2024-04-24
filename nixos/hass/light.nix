@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   config = lib.mkIf config.my.hass.enable {
@@ -43,14 +48,16 @@
           "light.kitchen_door" = customize;
           "light.kitchen_window" = customize;
         };
-      light = [{
-        platform = "group";
-        name = "Kitchen";
-        entities = [
-          "light.kitchen_door"
-          "light.kitchen_window"
-        ];
-      }];
+      light = [
+        {
+          platform = "group";
+          name = "Kitchen";
+          entities = [
+            "light.kitchen_door"
+            "light.kitchen_window"
+          ];
+        }
+      ];
     };
 
     hass.automations = ''

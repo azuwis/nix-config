@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 # https://iap.aligenie.com/home
 
@@ -8,7 +13,9 @@ let
 in
 {
   options.my.hass = {
-    aligenie = mkEnableOption "aligenie" // { default = true; };
+    aligenie = mkEnableOption "aligenie" // {
+      default = true;
+    };
   };
 
   config = mkIf (cfg.enable && cfg.aligenie) {

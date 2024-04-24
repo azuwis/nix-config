@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf;
@@ -46,9 +51,13 @@ in
           autoupdate = true;
           enabled = true;
         };
-        status = { submoduleSummary = true; };
+        status = {
+          submoduleSummary = true;
+        };
         url = {
-          "ssh://git@github.com:22/" = { pushInsteadOf = "https://github.com/"; };
+          "ssh://git@github.com:22/" = {
+            pushInsteadOf = "https://github.com/";
+          };
         };
       };
     };

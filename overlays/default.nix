@@ -24,7 +24,10 @@ self: super: {
     };
     patches = [ ../patches/moonlight.diff ];
   });
-  sf-symbols-app = self.callPackage ../pkgs/by-name/sf/sf-symbols/package.nix { app = true; fonts = false; };
+  sf-symbols-app = self.callPackage ../pkgs/by-name/sf/sf-symbols/package.nix {
+    app = true;
+    fonts = false;
+  };
   sf-symbols-full = self.callPackage ../pkgs/by-name/sf/sf-symbols/package.nix { full = true; };
   sunshine-git = self.sunshine.overrideAttrs (old: {
     pname = "sunshine-git";

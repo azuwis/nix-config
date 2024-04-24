@@ -1,34 +1,35 @@
-{ lib
-, fetchFromGitHub
+{
+  lib,
+  fetchFromGitHub,
 
-, cacert
-, cargo
-, cmake
-, git
-, ninja
-, pkg-config
-, rustPlatform
-, rustc
-, wrapGAppsHook
+  cacert,
+  cargo,
+  cmake,
+  git,
+  ninja,
+  pkg-config,
+  rustPlatform,
+  rustc,
+  wrapGAppsHook,
 
-, boost
-, curl
-, glib
-, gst_all_1
-, icu
-, libdrm
-, libevdev
-, libinput
-, libpulseaudio
-, libunwind
-, libxkbcommon
-, mesa
-, openssl
-, pciutils
-, pcre2
-, stdenv
-, udev
-, wayland
+  boost,
+  curl,
+  glib,
+  gst_all_1,
+  icu,
+  libdrm,
+  libevdev,
+  libinput,
+  libpulseaudio,
+  libunwind,
+  libxkbcommon,
+  mesa,
+  openssl,
+  pciutils,
+  pcre2,
+  stdenv,
+  udev,
+  wayland,
 }:
 
 stdenv.mkDerivation {

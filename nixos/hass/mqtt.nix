@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf;
@@ -6,18 +11,22 @@ let
 in
 {
   options.my.hass = {
-    mqtt = mkEnableOption "mqtt" // { default = true; };
+    mqtt = mkEnableOption "mqtt" // {
+      default = true;
+    };
   };
 
   config = mkIf (cfg.enable && cfg.mqtt) {
     services.mosquitto = {
       enable = true;
-      listeners = [{
-        acl = [ "pattern readwrite #" ];
-        address = "127.0.0.1";
-        omitPasswordAuth = true;
-        settings.allow_anonymous = true;
-      }];
+      listeners = [
+        {
+          acl = [ "pattern readwrite #" ];
+          address = "127.0.0.1";
+          omitPasswordAuth = true;
+          settings.allow_anonymous = true;
+        }
+      ];
     };
 
     services.home-assistant.config.mqtt = { };

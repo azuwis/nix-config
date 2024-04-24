@@ -1,14 +1,25 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) mkEnableOption mkIf mkOption types;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+    ;
   cfg = config.my.sunshine;
-
 in
 {
   options.my.sunshine = {
     enable = mkEnableOption "sunshine";
-    openFirewall = mkEnableOption "openFirewall" // { default = true; };
+    openFirewall = mkEnableOption "openFirewall" // {
+      default = true;
+    };
     user = mkOption {
       type = types.str;
       default = config.my.user;
@@ -29,10 +40,20 @@ in
     '';
 
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ 47984 47989 48010 ];
+      allowedTCPPorts = [
+        47984
+        47989
+        48010
+      ];
       allowedUDPPortRanges = [
-        { from = 47998; to = 48000; }
-        { from = 48002; to = 48010; }
+        {
+          from = 47998;
+          to = 48000;
+        }
+        {
+          from = 48002;
+          to = 48010;
+        }
       ];
     };
 

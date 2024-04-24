@@ -1,7 +1,8 @@
-{ lib
-, buildHomeAssistantComponent
-, fetchFromGitHub
-, home-assistant
+{
+  lib,
+  buildHomeAssistantComponent,
+  fetchFromGitHub,
+  home-assistant,
 }:
 
 buildHomeAssistantComponent rec {
@@ -16,9 +17,7 @@ buildHomeAssistantComponent rec {
     hash = "sha256-rrOUFSs4gHEXZcCB2aFkP2Vt1lyHvnmp2b60A6oJCvc=";
   };
 
-  propagatedBuildInputs = with home-assistant.python.pkgs; [
-    pycryptodome
-  ];
+  propagatedBuildInputs = with home-assistant.python.pkgs; [ pycryptodome ];
 
   dontBuild = true;
 

@@ -1,8 +1,11 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports = [
-    ./hardware-utm.nix
-  ];
+  imports = [ ./hardware-utm.nix ];
   networking.hostName = "utm";
 }

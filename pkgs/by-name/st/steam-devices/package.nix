@@ -1,4 +1,9 @@
-{ lib, stdenvNoCC, fetchgit, bash }:
+{
+  lib,
+  stdenvNoCC,
+  fetchgit,
+  bash,
+}:
 
 stdenvNoCC.mkDerivation {
   pname = "steam-devices";

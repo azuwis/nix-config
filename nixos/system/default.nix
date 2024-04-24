@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   boot.kernel.sysctl = {
@@ -8,17 +13,18 @@
   boot.loader = {
     efi = {
       canTouchEfiVariables = lib.mkDefault true;
-      efiSysMountPoint = lib.mkIf
-        (builtins.hasAttr "/boot/efi" config.fileSystems &&
-          config.fileSystems."/boot/efi".fsType == "vfat")
-        "/boot/efi";
+      efiSysMountPoint = lib.mkIf (
+        builtins.hasAttr "/boot/efi" config.fileSystems && config.fileSystems."/boot/efi".fsType == "vfat"
+      ) "/boot/efi";
     };
     grub = {
       device = "nodev";
       efiSupport = true;
     };
   };
-  environment.systemPackages = lib.optionals (config.boot.loader.grub.enable == true) [ pkgs.grub-reboot-menu ];
+  environment.systemPackages = lib.optionals (config.boot.loader.grub.enable == true) [
+    pkgs.grub-reboot-menu
+  ];
   # explicitly enable nixos docs, system like wsl does not enable this
   documentation.nixos.enable = true;
   networking.enableIPv6 = false;
@@ -92,7 +98,10 @@
   };
   users.users.${config.my.user} = {
     # `users` is the primary group of all normal users in NixOS
-    extraGroups = [ "users" "wheel" ];
+    extraGroups = [
+      "users"
+      "wheel"
+    ];
     group = config.my.user;
     isNormalUser = true;
     shell = pkgs.zsh;

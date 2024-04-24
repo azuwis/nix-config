@@ -1,9 +1,13 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.my.uxplay;
-
 in
 {
   options.my.uxplay = {
@@ -13,8 +17,16 @@ in
   config = mkIf cfg.enable {
     hm.my.uxplay.enable = true;
 
-    networking.firewall.allowedTCPPorts = [ 7100 7000 7001 ];
-    networking.firewall.allowedUDPPorts = [ 6000 6001 7011 ];
+    networking.firewall.allowedTCPPorts = [
+      7100
+      7000
+      7001
+    ];
+    networking.firewall.allowedUDPPorts = [
+      6000
+      6001
+      7011
+    ];
 
     services.avahi = {
       enable = true;
@@ -22,6 +34,5 @@ in
       publish.enable = true;
       publish.userServices = true;
     };
-
   };
 }

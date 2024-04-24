@@ -1,6 +1,7 @@
-{ writeShellApplication
-, fzf
-, grub2
+{
+  writeShellApplication,
+  fzf,
+  grub2,
 }:
 
 writeShellApplication {

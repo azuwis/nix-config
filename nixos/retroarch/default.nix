@@ -1,7 +1,17 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) mkEnableOption mkIf mkOption types;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+    ;
   cfg = config.my.retroarch;
 in
 {
@@ -17,10 +27,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      (retroarch.override {
-        cores = cfg.cores;
-      })
-    ];
+    environment.systemPackages = with pkgs; [ (retroarch.override { cores = cfg.cores; }) ];
   };
 }

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -32,18 +37,13 @@ in
       default = scirouteScript;
       readOnly = true;
     };
-
   };
 
   config = mkIf cfg.enable {
     launchd.daemons.sciroute = mkIf cfg.enable {
-      serviceConfig.ProgramArguments = [
-        "${scirouteScript}"
-      ];
+      serviceConfig.ProgramArguments = [ "${scirouteScript}" ];
       serviceConfig.ThrottleInterval = 10;
-      serviceConfig.WatchPaths = [
-        "/var/run/resolv.conf"
-      ];
+      serviceConfig.WatchPaths = [ "/var/run/resolv.conf" ];
       # serviceConfig.StandardErrorPath = "/tmp/sciroute.log";
     };
   };

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf;
@@ -6,7 +11,9 @@ let
 in
 {
   options.my.hass = {
-    zigbee2mqtt = mkEnableOption "zigbee2mqtt" // { default = true; };
+    zigbee2mqtt = mkEnableOption "zigbee2mqtt" // {
+      default = true;
+    };
   };
 
   config = mkIf (cfg.enable && cfg.zigbee2mqtt) {
@@ -20,7 +27,10 @@ in
 
     # let my.user read data dir
     systemd.services.zigbee2mqtt.serviceConfig.UMask = lib.mkForce "0027";
-    users.users.${config.my.user}.extraGroups = [ "dialout" "zigbee2mqtt" ];
+    users.users.${config.my.user}.extraGroups = [
+      "dialout"
+      "zigbee2mqtt"
+    ];
     users.users.zigbee2mqtt.homeMode = "0750";
 
     services.zigbee2mqtt = {
@@ -44,14 +54,30 @@ in
           # "0x00158d00023d57a9" = { "friendly_name" = "button_a"; };
           # "0x00158d0001e85323" = { "friendly_name" = "button_b"; };
           # "0x00158d0002b88f11" = { "friendly_name" = "button_c"; };
-          "0x00158d00027a84d7" = { "friendly_name" = "cube"; };
+          "0x00158d00027a84d7" = {
+            "friendly_name" = "cube";
+          };
           # "0x00158d00028f9af8" = { "friendly_name" = "door_bedroom"; };
-          "0x00158d0001e81c40" = { "friendly_name" = "ht_bedroom"; "debounce" = 1; };
-          "0x00158d000215c127" = { "friendly_name" = "ht_climate_bedroom"; "debounce" = 1; };
-          "0x00158d00022b8fdf" = { "friendly_name" = "motion_bathroom"; };
-          "0x00158d00020dfcd8" = { "friendly_name" = "motion_kitchen"; };
-          "0x00158d00024689f1" = { "friendly_name" = "plug"; };
-          "0x00158d000287aa4d" = { "friendly_name" = "smoke"; };
+          "0x00158d0001e81c40" = {
+            "friendly_name" = "ht_bedroom";
+            "debounce" = 1;
+          };
+          "0x00158d000215c127" = {
+            "friendly_name" = "ht_climate_bedroom";
+            "debounce" = 1;
+          };
+          "0x00158d00022b8fdf" = {
+            "friendly_name" = "motion_bathroom";
+          };
+          "0x00158d00020dfcd8" = {
+            "friendly_name" = "motion_kitchen";
+          };
+          "0x00158d00024689f1" = {
+            "friendly_name" = "plug";
+          };
+          "0x00158d000287aa4d" = {
+            "friendly_name" = "smoke";
+          };
         };
         frontend = {
           host = "127.0.0.1";
@@ -78,6 +104,5 @@ in
         proxyWebsockets = true;
       };
     };
-
   };
 }

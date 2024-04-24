@@ -1,9 +1,12 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports = [
-    ./hardware-nuc.nix
-  ];
+  imports = [ ./hardware-nuc.nix ];
   powerManagement.cpuFreqGovernor = "schedutil";
   fileSystems."/".options = [ "compress-force=zstd" ];
   fileSystems."/srv".options = [ "compress=zstd" ];
@@ -23,7 +26,10 @@
       spec = "/";
       hashTableSizeMB = 128;
       verbosity = "info";
-      extraOptions = [ "--loadavg-target" "2.0" ];
+      extraOptions = [
+        "--loadavg-target"
+        "2.0"
+      ];
     };
   };
 
@@ -48,7 +54,5 @@
   hm.my.waybar.enable = true;
   hm.my.yambar.enable = false;
 
-  environment.systemPackages = with pkgs; [
-    moonlight-qt
-  ];
+  environment.systemPackages = with pkgs; [ moonlight-qt ];
 }

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf;
@@ -9,7 +14,9 @@ in
 {
   options.my.nginx = {
     enable = mkEnableOption "nginx";
-    openFirewall = mkEnableOption "openFirewall" // { default = true; };
+    openFirewall = mkEnableOption "openFirewall" // {
+      default = true;
+    };
   };
 
   config = mkIf cfg.enable {

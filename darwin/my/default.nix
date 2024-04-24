@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -8,9 +13,17 @@ with lib;
   };
   config = {
     my = {
-      systemPath = builtins.replaceStrings
-        [ "$HOME" "$USER" ] [ "/Users/${config.my.user}" config.my.user ]
-        config.environment.systemPath;
+      systemPath =
+        builtins.replaceStrings
+          [
+            "$HOME"
+            "$USER"
+          ]
+          [
+            "/Users/${config.my.user}"
+            config.my.user
+          ]
+          config.environment.systemPath;
     };
   };
 }

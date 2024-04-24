@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption;
@@ -22,9 +27,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    my.lazyvim.extraPlugins = [
-      nord-nvim
-    ];
+    my.lazyvim.extraPlugins = [ nord-nvim ];
 
     xdg.configFile."nvim/lua/plugins/nord.lua".source = ./spec.lua;
   };

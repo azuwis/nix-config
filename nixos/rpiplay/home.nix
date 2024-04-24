@@ -1,9 +1,19 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) mkEnableOption mkIf mkMerge mkOption types;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkMerge
+    mkOption
+    types
+    ;
   cfg = config.my.rpiplay;
-
 in
 {
   options.my.rpiplay = {
@@ -19,14 +29,18 @@ in
   config = mkIf cfg.enable (mkMerge [
     ({
       home.packages = [ pkgs.rpiplay ];
-      wayland.windowManager.sway.config.window.commands = [{
-        criteria = { instance = "rpiplay"; };
-        command = "fullscreen enable";
-      }];
+      wayland.windowManager.sway.config.window.commands = [
+        {
+          criteria = {
+            instance = "rpiplay";
+          };
+          command = "fullscreen enable";
+        }
+      ];
     })
 
     (mkIf cfg.sway {
-      wayland.windowManager.sway.config.startup = [{ command = "rpiplay ${cfg.args}"; }];
+      wayland.windowManager.sway.config.startup = [ { command = "rpiplay ${cfg.args}"; } ];
     })
 
     (mkIf cfg.systemd {
@@ -43,6 +57,5 @@ in
         Install.WantedBy = [ "graphical-session.target" ];
       };
     })
-
   ]);
 }

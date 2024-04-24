@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf mkOption;
@@ -14,9 +19,7 @@ in
   options.my.neovim = {
     enable = mkEnableOption "neovim";
 
-    treesitterParsers = mkOption {
-      type = with lib.types; listOf package;
-    };
+    treesitterParsers = mkOption { type = with lib.types; listOf package; };
   };
 
   config = mkIf cfg.enable {
@@ -45,6 +48,5 @@ in
         };
       in
       "${parsers}/parser";
-
   };
 }

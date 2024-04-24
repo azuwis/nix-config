@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cacert, curl, libevent, openssl, darwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cacert,
+  curl,
+  libevent,
+  openssl,
+  darwin,
+}:
 
 stdenv.mkDerivation {
   pname = "redsocks2";
@@ -11,9 +20,18 @@ stdenv.mkDerivation {
     sha256 = "11b71a3n0iljb5nbpdgbxlsa4g94vlgdrrnwgldc5rfc8wcc2ggw";
   };
 
-  buildInputs = [ cacert curl libevent openssl darwin.DarwinTools ];
+  buildInputs = [
+    cacert
+    curl
+    libevent
+    openssl
+    darwin.DarwinTools
+  ];
 
-  makeFlags = [ "DISABLE_SHADOWSOCKS=true" "release" ];
+  makeFlags = [
+    "DISABLE_SHADOWSOCKS=true"
+    "release"
+  ];
 
   installPhase = ''
     install -d 0644 $out/bin

@@ -1,13 +1,19 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.my.mpv;
-
 in
 {
   options.my.mpv = {
-    uosc = mkEnableOption "uosc" // { default = true; };
+    uosc = mkEnableOption "uosc" // {
+      default = true;
+    };
   };
 
   config = mkIf (cfg.enable && cfg.uosc) {
@@ -25,9 +31,7 @@ in
         osd-bar = "no";
         osd-font-provider = "fontconfig";
       };
-      scripts = with pkgs.mpvScripts; [
-        uosc
-      ];
+      scripts = with pkgs.mpvScripts; [ uosc ];
       scriptOpts.osc = { };
       scriptOpts.uosc = {
         opacity = "curtain=0,timeline=0.3";

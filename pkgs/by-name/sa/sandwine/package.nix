@@ -1,8 +1,9 @@
-{ lib
-, fetchFromGitHub
-, python3
-, bubblewrap
-, wine64
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  bubblewrap,
+  wine64,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -17,16 +18,17 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-cP8Hl5Suohn2nnOj8HBOTzx7GIZCOA6kMCLgdcs7dgU=";
   };
 
-  nativeBuildInputs = [
-    python3.pkgs.setuptools
-  ];
+  nativeBuildInputs = [ python3.pkgs.setuptools ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    coloredlogs
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ coloredlogs ];
 
   makeWrapperArgs = [
-    ''--prefix PATH : "${lib.makeBinPath [ bubblewrap wine64 ]}"''
+    ''--prefix PATH : "${
+      lib.makeBinPath [
+        bubblewrap
+        wine64
+      ]
+    }"''
   ];
 
   meta = with lib; {

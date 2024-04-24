@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   home.activation.skhd = lib.hm.dag.entryAfter [ "writeBoundary" ] ''

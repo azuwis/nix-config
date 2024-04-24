@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, meson
-, ninja
-, pkg-config
-, vala
-, glib
-, libevdev
-, libgee
-, udev
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  vala,
+  glib,
+  libevdev,
+  libgee,
+  udev,
 }:
 
 stdenv.mkDerivation {

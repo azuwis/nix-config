@@ -1,13 +1,27 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) mkEnableOption mkIf mkOption mkPackageOption optionalAttrs types;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    mkPackageOption
+    optionalAttrs
+    types
+    ;
   cfg = config.my.sunshine;
   json = pkgs.formats.json { };
 
   swayConfig = pkgs.runCommand "sunshine-sway.conf" { } ''
     {
-    grep -Ev '(^exec jslisten|^exec swaylock|^exec swayidle|events disabled|dbus-update-activation-environment)' ${config.xdg.configFile."sway/config".source}
+    grep -Ev '(^exec jslisten|^exec swaylock|^exec swayidle|events disabled|dbus-update-activation-environment)' ${
+      config.xdg.configFile."sway/config".source
+    }
     echo '
     default_border normal
     default_floating_border normal
@@ -29,7 +43,6 @@ let
     '
     } > $out
   '';
-
 in
 {
   options.my.sunshine = {
@@ -37,12 +50,14 @@ in
 
     cudaSupport = mkEnableOption "cuda support, only useful in Nvidia+X11 setup";
 
-    package = mkPackageOption pkgs "sunshine" { } // (optionalAttrs cfg.cudaSupport {
-      default = pkgs.sunshine.override {
-        cudaSupport = true;
-        stdenv = pkgs.cudaPackages.backendStdenv;
-      };
-    });
+    package =
+      mkPackageOption pkgs "sunshine" { }
+      // (optionalAttrs cfg.cudaSupport {
+        default = pkgs.sunshine.override {
+          cudaSupport = true;
+          stdenv = pkgs.cudaPackages.backendStdenv;
+        };
+      });
 
     conf = mkOption {
       type = types.str;
@@ -71,27 +86,30 @@ in
         env = { };
         apps =
           let
-            mkImage = { url, hash }:
+            mkImage =
+              { url, hash }:
               let
-                image = pkgs.fetchurl {
-                  inherit url hash;
-                };
+                image = pkgs.fetchurl { inherit url hash; };
               in
               pkgs.runCommand "${lib.nameFromURL url "."}.png" { } ''
                 ${pkgs.imagemagick}/bin/convert ${image} -background none -gravity center -extent 600x800 $out
               '';
-            cemu-prep-cmd = [{
-              do = "${./scripts}/cemu-do.sh";
-              undo = "${./scripts}/cemu-undo.sh";
-            }];
-            yuzu-prep-cmd = [{
-              do = pkgs.writeShellScript "yuzu-do" ''
-                sed -e '2,$s|^|player_0_|' "$HOME/.config/yuzu/input/Sunshine.ini" | ${pkgs.crudini}/bin/crudini --merge "$HOME/.config/yuzu/qt-config.ini"
-              '';
-              undo = pkgs.writeShellScript "yuzu-undo" ''
-                sed -e '2,$s|^|player_0_|' "$HOME/.config/yuzu/input/Local.ini" | ${pkgs.crudini}/bin/crudini --merge "$HOME/.config/yuzu/qt-config.ini"
-              '';
-            }];
+            cemu-prep-cmd = [
+              {
+                do = "${./scripts}/cemu-do.sh";
+                undo = "${./scripts}/cemu-undo.sh";
+              }
+            ];
+            yuzu-prep-cmd = [
+              {
+                do = pkgs.writeShellScript "yuzu-do" ''
+                  sed -e '2,$s|^|player_0_|' "$HOME/.config/yuzu/input/Sunshine.ini" | ${pkgs.crudini}/bin/crudini --merge "$HOME/.config/yuzu/qt-config.ini"
+                '';
+                undo = pkgs.writeShellScript "yuzu-undo" ''
+                  sed -e '2,$s|^|player_0_|' "$HOME/.config/yuzu/input/Local.ini" | ${pkgs.crudini}/bin/crudini --merge "$HOME/.config/yuzu/qt-config.ini"
+                '';
+              }
+            ];
           in
           [
             {
@@ -156,7 +174,6 @@ in
           ];
       };
     };
-
   };
 
   config = mkIf cfg.enable {

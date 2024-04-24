@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -72,7 +77,6 @@ in
       default = scidnsResolvScript;
       readOnly = true;
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -95,13 +99,9 @@ in
     };
 
     launchd.daemons.scidns-resolv = mkIf cfg.resolv.enable {
-      serviceConfig.ProgramArguments = [
-        "${scidnsResolvScript}"
-      ];
+      serviceConfig.ProgramArguments = [ "${scidnsResolvScript}" ];
       serviceConfig.ThrottleInterval = 1;
-      serviceConfig.WatchPaths = [
-        "/var/run/resolv.conf"
-      ];
+      serviceConfig.WatchPaths = [ "/var/run/resolv.conf" ];
       # serviceConfig.StandardErrorPath = "/tmp/scidns.log";
     };
 

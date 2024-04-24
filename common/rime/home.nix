@@ -1,7 +1,17 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) mkEnableOption mkIf mkOption types;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+    ;
   cfg = config.my.rime;
 in
 {
@@ -10,21 +20,24 @@ in
 
     dir = mkOption {
       type = types.str;
-      default = {
-        # /Library/Input\ Methods/Squirrel.app/Contents/SharedSupport
-        darwin = "Library/Rime";
-        linux = ".local/share/fcitx5/rime";
-      }.${pkgs.stdenv.hostPlatform.parsed.kernel.name};
+      default =
+        {
+          # /Library/Input\ Methods/Squirrel.app/Contents/SharedSupport
+          darwin = "Library/Rime";
+          linux = ".local/share/fcitx5/rime";
+        }
+        .${pkgs.stdenv.hostPlatform.parsed.kernel.name};
     };
 
     deploy = mkOption {
       type = types.str;
-      default = {
-        darwin = "'/Library/Input Methods/Squirrel.app/Contents/MacOS/Squirrel' --reload";
-        linux = "fcitx-remote -r";
-      }.${pkgs.stdenv.hostPlatform.parsed.kernel.name};
+      default =
+        {
+          darwin = "'/Library/Input Methods/Squirrel.app/Contents/MacOS/Squirrel' --reload";
+          linux = "fcitx-remote -r";
+        }
+        .${pkgs.stdenv.hostPlatform.parsed.kernel.name};
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -73,6 +86,5 @@ in
         preset_color_schemes/purity_of_form/back_color: 0x545554
         preset_color_schemes/purity_of_form/hilited_candidate_back_color: 0xe3e3e3
     '';
-
   };
 }

@@ -1,9 +1,13 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.my.desktop;
-
 in
 {
   options.my.desktop = {
@@ -32,6 +36,5 @@ in
       my.firefox.enable = true;
       my.mpv.enable = true;
     };
-
   };
 }

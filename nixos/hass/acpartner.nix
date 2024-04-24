@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   component = pkgs.fetchFromGitHub rec {
@@ -16,12 +21,14 @@ in
   services.home-assistant.extraPackages = ps: with ps; [ python-miio ];
 
   services.home-assistant.config = {
-    climate = [{
-      platform = "xiaomi_miio_airconditioningcompanion";
-      name = "AC partner";
-      host = "acpartner.lan";
-      token = "!secret ac_partner_token";
-      target_sensor = "sensor.ht_bedroom_temperature";
-    }];
+    climate = [
+      {
+        platform = "xiaomi_miio_airconditioningcompanion";
+        name = "AC partner";
+        host = "acpartner.lan";
+        token = "!secret ac_partner_token";
+        target_sensor = "sensor.ht_bedroom_temperature";
+      }
+    ];
   };
 }

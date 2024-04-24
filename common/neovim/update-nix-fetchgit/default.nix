@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   update-nix-fetchgit-vim = pkgs.vimUtils.buildVimPlugin {

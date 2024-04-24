@@ -1,7 +1,7 @@
 { runCommand, ... }:
 
-let bin = ./bin;
-
+let
+  bin = ./bin;
 in
 
 runCommand "scripts" { } ''

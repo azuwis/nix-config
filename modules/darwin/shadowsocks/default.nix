@@ -1,10 +1,16 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
-let cfg = config.services.shadowsocks;
-
-in {
+let
+  cfg = config.services.shadowsocks;
+in
+{
   options = {
     services.shadowsocks.enable = mkOption {
       type = types.bool;
@@ -28,7 +34,11 @@ in {
 
     services.shadowsocks.programArgs = mkOption {
       type = types.listOf types.str;
-      default = [ "${cfg.package}/bin/${cfg.bin}" "-c" "${cfg.config}" ];
+      default = [
+        "${cfg.package}/bin/${cfg.bin}"
+        "-c"
+        "${cfg.config}"
+      ];
       description = "This option specifies the shadowsocks program and args to use.";
     };
 
@@ -77,7 +87,9 @@ in {
     (mkIf (cfg.enable && cfg.user != "root") {
       users.knownGroups = [ "shadowsocks" ];
       users.knownUsers = [ "shadowsocks" ];
-      users.groups.shadowsocks = { gid = cfg.uid; };
+      users.groups.shadowsocks = {
+        gid = cfg.uid;
+      };
       users.users.shadowsocks = {
         uid = cfg.uid;
         gid = config.users.groups.shadowsocks.gid;

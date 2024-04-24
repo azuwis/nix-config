@@ -1,7 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, udev
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  udev,
 }:
 
 stdenv.mkDerivation {
@@ -15,9 +16,7 @@ stdenv.mkDerivation {
     hash = "sha256-qThNPzdddlBWLd3RTSer3auxQ5E/zHFTCAagSvvRwwM=";
   };
 
-  buildInputs = [
-    udev
-  ];
+  buildInputs = [ udev ];
 
   installPhase = ''
     runHook preInstall

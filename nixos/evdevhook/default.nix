@@ -1,12 +1,23 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) mkEnableOption mkIf mkOption mkPackageOption optionalAttrs types;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    mkPackageOption
+    optionalAttrs
+    types
+    ;
   cfg = config.my.evdevhook;
   json = pkgs.formats.json { };
 
   configFile = json.generate "evdevhook.json" cfg.settings;
-
 in
 {
   options.my.evdevhook = {
@@ -55,9 +66,7 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "evdevhook") {
-      evdevhook = { };
-    };
+    users.groups = optionalAttrs (cfg.group == "evdevhook") { evdevhook = { }; };
 
     services.udev.extraRules = ''
       ATTRS{name}=="DualSense Wireless Controller Motion Sensors", OWNER="${cfg.user}"
@@ -76,6 +85,5 @@ in
     };
 
     networking.firewall.allowedUDPPorts = [ 26760 ];
-
   };
 }

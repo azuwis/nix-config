@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf;
@@ -9,7 +14,5 @@ in
     enable = mkEnableOption "steam-devices";
   };
 
-  config = mkIf cfg.enable {
-    services.udev.packages = [ pkgs.steam-devices ];
-  };
+  config = mkIf cfg.enable { services.udev.packages = [ pkgs.steam-devices ]; };
 }

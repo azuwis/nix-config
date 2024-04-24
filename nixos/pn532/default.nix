@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf;
@@ -12,9 +17,7 @@ in
   config = mkIf cfg.enable {
     users.users.${config.my.user}.extraGroups = [ "dialout" ];
 
-    environment.systemPackages = with pkgs; [
-      mfoc-hardnested
-    ];
+    environment.systemPackages = with pkgs; [ mfoc-hardnested ];
 
     environment.etc."nfc/libnfc.conf".text = ''
       device.name = "pn532"

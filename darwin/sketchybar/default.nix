@@ -1,7 +1,12 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let scripts = ./scripts;
-
+let
+  scripts = ./scripts;
 in
 
 {

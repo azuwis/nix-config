@@ -1,6 +1,4 @@
-{ fetchFromGitHub
-, buildGoModule
-}:
+{ fetchFromGitHub, buildGoModule }:
 
 buildGoModule {
   pname = "torrent-ratio";

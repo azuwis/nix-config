@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf;
@@ -6,21 +11,25 @@ let
 in
 {
   options.my.hass = {
-    gree = mkEnableOption "gree" // { default = true; };
+    gree = mkEnableOption "gree" // {
+      default = true;
+    };
   };
 
   config = mkIf (cfg.enable && cfg.gree) {
     services.home-assistant.customComponents = [ pkgs.gree ];
 
     services.home-assistant.config = {
-      climate = [{
-        name = "Living room";
-        platform = "gree";
-        host = "192.168.2.228";
-        mac = "94:24:b8:12:3f:e9";
-        target_temp_step = 1;
-        temp_sensor = "sensor.1775bcf17c0e_temperature";
-      }];
+      climate = [
+        {
+          name = "Living room";
+          platform = "gree";
+          host = "192.168.2.228";
+          mac = "94:24:b8:12:3f:e9";
+          target_temp_step = 1;
+          temp_sensor = "sensor.1775bcf17c0e_temperature";
+        }
+      ];
 
       # logger.logs."custom_components.gree" = "debug";
       # logger.logs."custom_components.gree.climate" = "debug";
@@ -41,6 +50,5 @@ in
             data:
               entity_id: climate.living_room
     '';
-
   };
 }

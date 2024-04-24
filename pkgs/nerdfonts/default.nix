@@ -1,4 +1,10 @@
-{ lib, stdenvNoCC, fetchgit, font, sha256 }:
+{
+  lib,
+  stdenvNoCC,
+  fetchgit,
+  font,
+  sha256,
+}:
 
 stdenvNoCC.mkDerivation {
   pname = "nerdfonts";

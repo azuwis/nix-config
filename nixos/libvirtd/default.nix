@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf;
@@ -10,9 +15,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      virt-manager
-    ];
+    environment.systemPackages = with pkgs; [ virt-manager ];
 
     virtualisation.libvirtd = {
       enable = true;
@@ -21,7 +24,6 @@ in
         package = pkgs.qemu_kvm;
         ovmf.enable = true;
       };
-
     };
 
     users.users.${config.my.user}.extraGroups = [ "libvirtd" ];

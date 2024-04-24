@@ -1,13 +1,19 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.my.netproc;
-
 in
 {
   options.my.netproc = {
-    enable = mkEnableOption "netproc" // { default = true; };
+    enable = mkEnableOption "netproc" // {
+      default = true;
+    };
   };
 
   config = mkIf cfg.enable {

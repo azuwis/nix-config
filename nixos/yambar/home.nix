@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf;
@@ -12,7 +17,6 @@ let
     scripts = ./scripts;
     msgcmd = if config.my.sway.enable then "swaymsg" else "i3-msg";
   };
-
 in
 {
   options.my.yambar = {
@@ -26,12 +30,12 @@ in
 
     wayland.windowManager.sway.config = {
       bars = [ ];
-      startup = [{ command = "yambar --log-level=error"; }];
+      startup = [ { command = "yambar --log-level=error"; } ];
     };
 
     xsession.windowManager.i3.config = {
       bars = [ ];
-      startup = [{ command = "yambar --log-level=error"; }];
+      startup = [ { command = "yambar --log-level=error"; } ];
     };
 
     # systemd.user.services.yambar = {
@@ -48,6 +52,5 @@ in
     #
     #   Install = { WantedBy = [ "graphical-session.target" ]; };
     # };
-
   };
 }

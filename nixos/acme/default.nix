@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf;
@@ -24,9 +29,7 @@ in
           group = "nginx";
           dnsProvider = "dynu";
           inherit domain;
-          extraDomainNames = [
-            "*.${domain}"
-          ];
+          extraDomainNames = [ "*.${domain}" ];
           dnsPropagationCheck = false;
           reloadServices = [ "nginx" ];
         };

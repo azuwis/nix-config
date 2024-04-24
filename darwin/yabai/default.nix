@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   # csrutil enable --without fs --without debug --without nvram
@@ -37,8 +42,7 @@
     '';
   };
 
-  launchd.user.agents.yabai.serviceConfig.EnvironmentVariables.PATH =
-    lib.mkForce "${config.services.yabai.package}/bin:${config.my.systemPath}";
+  launchd.user.agents.yabai.serviceConfig.EnvironmentVariables.PATH = lib.mkForce "${config.services.yabai.package}/bin:${config.my.systemPath}";
 
   # launchd.user.agents.yabai.serviceConfig = {
   #   StandardErrorPath = "/tmp/yabai.log";

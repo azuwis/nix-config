@@ -1,9 +1,13 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.my.theme;
-
 in
 {
   options.my.theme = {
@@ -44,6 +48,5 @@ in
       platformTheme = "gnome";
       style = "adwaita";
     };
-
   };
 }

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption;
@@ -10,13 +15,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    my.lazyvim.extraPlugins = with pkgs.vimPlugins; [
-      vim-helm
-    ];
+    my.lazyvim.extraPlugins = with pkgs.vimPlugins; [ vim-helm ];
 
-    programs.neovim.extraPackages = with pkgs; [
-      helm-ls
-    ];
+    programs.neovim.extraPackages = with pkgs; [ helm-ls ];
 
     xdg.configFile."nvim/lua/plugins/helm.lua".source = ./spec.lua;
   };

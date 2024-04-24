@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -80,9 +85,7 @@ in
     programs.neovim =
       let
         nvchad = pkgs.vimPlugins.nvchad.overrideAttrs (old: {
-          patches = [
-            ./nvchad.patch
-          ];
+          patches = [ ./nvchad.patch ];
           postPatch = ''
             substituteInPlace lua/plugins/init.lua \
             --replace '"NvChad/ui"' '"NvChad/nvchad-ui"' \

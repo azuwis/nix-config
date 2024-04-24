@@ -1,9 +1,13 @@
-{ config, lib, pkgs, home-manager-path, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  home-manager-path,
+  ...
+}:
 
 {
-  imports = [
-    ../common
-  ] ++ lib.my.getModules [ ./. ];
+  imports = [ ../common ] ++ lib.my.getModules [ ./. ];
 
   hm.imports = lib.my.getHmModules [ ./. ];
 

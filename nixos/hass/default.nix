@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkDefault mkEnableOption mkIf;
@@ -6,7 +11,18 @@ let
 in
 {
   imports = [
-    (lib.mkAliasOptionModule [ "hass" "automations" ] [ "environment" "etc" "home-assistant/automations.yaml" "text" ])
+    (lib.mkAliasOptionModule
+      [
+        "hass"
+        "automations"
+      ]
+      [
+        "environment"
+        "etc"
+        "home-assistant/automations.yaml"
+        "text"
+      ]
+    )
     ./aligenie.nix
     ./braviatv.nix
     ./device_tracker.nix
@@ -90,6 +106,5 @@ in
         proxyWebsockets = true;
       };
     };
-
   };
 }

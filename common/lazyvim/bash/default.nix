@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption;
@@ -15,9 +20,8 @@ in
       shellcheck
     ];
 
-    my.neovim.treesitterParsers = (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: with plugins; [
-      bash
-    ])).dependencies;
+    my.neovim.treesitterParsers =
+      (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: with plugins; [ bash ])).dependencies;
 
     xdg.configFile."nvim/lua/plugins/bash.lua".source = ./spec.lua;
   };

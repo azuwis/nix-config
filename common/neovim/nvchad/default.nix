@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   config = lib.mkIf config.my.neovim.enable {
@@ -16,13 +21,16 @@
     ];
 
     # https://github.com/nvim-treesitter/nvim-treesitter#i-get-query-error-invalid-node-type-at-position
-    my.neovim.treesitterParsers = (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: with plugins; [
-      c
-      hcl
-      lua
-      nix
-      yaml
-    ])).dependencies;
+    my.neovim.treesitterParsers =
+      (pkgs.vimPlugins.nvim-treesitter.withPlugins (
+        plugins: with plugins; [
+          c
+          hcl
+          lua
+          nix
+          yaml
+        ]
+      )).dependencies;
 
     programs.neovim.nvchad = {
       enable = true;

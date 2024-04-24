@@ -1,12 +1,22 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) literalExpression mkEnableOption mkIf mkOption types;
+  inherit (lib)
+    literalExpression
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+    ;
   cfg = config.services.qbittorrent;
 
   ini = pkgs.formats.ini { };
   configFile = ini.generate "qBittorrent.conf" cfg.settings;
-
 in
 {
   options.services.qbittorrent = {
@@ -65,9 +75,7 @@ in
 
   config = mkIf cfg.enable {
 
-    users.groups = mkIf (cfg.group == "qbittorrent") {
-      qbittorrent = { };
-    };
+    users.groups = mkIf (cfg.group == "qbittorrent") { qbittorrent = { }; };
 
     users.users = mkIf (cfg.user == "qbittorrent") {
       qbittorrent = {
@@ -84,7 +92,10 @@ in
     systemd.services.qbittorrent = {
       description = "qBittorrent system service";
       after = [ "network.target" ];
-      path = [ cfg.package pkgs.bash ];
+      path = [
+        cfg.package
+        pkgs.bash
+      ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         User = cfg.user;
@@ -102,6 +113,5 @@ in
 
     services.qbittorrent.settings.BitTorrent."Session\\Port" = 8999;
     networking.firewall.allowedTCPPorts = [ cfg.settings.BitTorrent."Session\\Port" ];
-
   };
 }

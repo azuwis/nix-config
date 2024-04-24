@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf;
@@ -11,12 +16,13 @@ in
 
   config = mkIf cfg.enable {
     my.lazyvim.extraPlugins = with pkgs.vimPlugins; [
-      { name = "mini.files"; path = mini-nvim; }
+      {
+        name = "mini.files";
+        path = mini-nvim;
+      }
     ];
 
-    my.lazyvim.removedPlugins = with pkgs.vimPlugins; [
-      neo-tree-nvim
-    ];
+    my.lazyvim.removedPlugins = with pkgs.vimPlugins; [ neo-tree-nvim ];
 
     xdg.configFile."nvim/lua/plugins/mini-files.lua".source = ./spec.lua;
   };

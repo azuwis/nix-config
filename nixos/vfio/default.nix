@@ -1,11 +1,21 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 # https://astrid.tech/2022/09/22/0/nixos-gpu-vfio/
 # https://kilo.bytesize.xyz/gpu-passthrough-on-nixos
 # https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF
 
 let
-  inherit (lib) mkEnableOption mkIf mkOption types;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+    ;
   cfg = config.my.vfio;
 in
 {
@@ -18,9 +28,11 @@ in
     };
 
     platform = mkOption {
-      type = types.enum [ "amd" "intel" ];
+      type = types.enum [
+        "amd"
+        "intel"
+      ];
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -45,6 +57,5 @@ in
         options vfio-pci ids=${builtins.concatStringsSep "," cfg.vfioIds}
       '';
     };
-
   };
 }
