@@ -7,7 +7,7 @@ return {
       },
     },
     init = function()
-      vim.filetype.add {
+      vim.filetype.add({
         pattern = {
           [".*/playbooks/.*%.yaml"] = "yaml.ansible",
           [".*/playbooks/.*%.yml"] = "yaml.ansible",
@@ -16,7 +16,7 @@ return {
           [".*/roles/.*/handlers/.*%.yaml"] = "yaml.ansible",
           [".*/roles/.*/handlers/.*%.yml"] = "yaml.ansible",
         },
-      }
+      })
     end,
   },
 }

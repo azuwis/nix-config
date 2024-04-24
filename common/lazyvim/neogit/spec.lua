@@ -19,7 +19,7 @@ return {
       },
     },
     config = function()
-      require("neogit").setup {
+      require("neogit").setup({
         disable_commit_confirmation = true,
         integrations = {
           diffview = true,
@@ -30,7 +30,7 @@ return {
           item = { "", "" },
           hunk = { "", "" },
         },
-      }
+      })
     end,
   },
 }
