@@ -45,4 +45,10 @@
   ];
   # Fix yuzu fullscreen framerate
   hm.wayland.windowManager.sway.config.output.HDMI-A-1.max_render_time = "10";
+
+  users.users.steam = {
+    isNormalUser = true;
+    uid = 3000;
+    openssh.authorizedKeys.keys = config.my.keys;
+  };
 }
