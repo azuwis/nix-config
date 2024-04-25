@@ -16,7 +16,7 @@
     git.enable = true;
     # gitui.enable = true;
     neovim.enable = true;
-    nnn.enable = true;
+    yazi.enable = true;
     zsh.enable = true;
   };
 
