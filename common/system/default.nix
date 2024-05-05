@@ -6,8 +6,8 @@
 }:
 
 {
+  nix.optimise.automatic = true;
   nix.settings = {
-    auto-optimise-store = lib.mkDefault true;
     extra-experimental-features = [
       "flakes"
       "nix-command"
