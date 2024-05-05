@@ -6,6 +6,10 @@
 }:
 
 {
+  nix.gc = {
+    automatic = true;
+    options = "--delete-older-than 30d";
+  };
   nix.optimise.automatic = true;
   nix.settings = {
     extra-experimental-features = [
