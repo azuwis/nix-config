@@ -6,7 +6,7 @@
 }:
 
 {
-  home.packages = with pkgs; [
+  environment.packages = with pkgs; [
     (writeScriptBin "bs" ''
       #!${runtimeShell}
       if [ "$1" = "u" ]
