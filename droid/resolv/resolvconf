@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# adb shell pm grant com.termux.nix android.permission.DUMP
+
+re_active='Active default network: ([0-9]+)'
+get_active=false
+get_network=false
+while read -r line
+do
+  if [ "$get_active" = "false" ] && [[ ${line} =~ $re_active ]]
+  then
+    re_network="NetworkAgentInfo\{network\{${BASH_REMATCH[1]}\}.* LinkAddresses: \[.*[ ,]([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)/[^ ]* \] DnsAddresses: \[ [^ ]*/([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)[ ,]"
+    get_active=true
+  elif [ "$get_network" = "false" ] && [ "$get_active" = "true" ] && [[ ${line} =~ $re_network ]] 
+  then
+    ip="${BASH_REMATCH[1]}"
+    nameserver="${BASH_REMATCH[2]}"
+    echo "ip		$ip" 1>&2
+    echo "nameserver	$nameserver" 1>&2
+    echo "nameserver $nameserver" > /etc/resolv.conf
+    get_network=true
+  fi
+done < <(/system/bin/dumpsys connectivity)
