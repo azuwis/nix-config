@@ -9,7 +9,8 @@
     flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
     darwin.url = "github:lnl7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
-    droid.url = "github:nix-community/nix-on-droid";
+    # https://github.com/nix-community/nix-on-droid/pull/353
+    droid.url = "github:nix-community/nix-on-droid/bc25f7c0ba3915907d35943168efc2e88be9b16b";
     droid.inputs.nixpkgs.follows = "nixpkgs";
     droid.inputs.home-manager.follows = "home-manager";
     wsl.url = "github:nix-community/NixOS-WSL";
