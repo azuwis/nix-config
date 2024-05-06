@@ -5,7 +5,16 @@
   ...
 }:
 
-with lib;
+let
+  inherit (lib)
+    mkAliasOptionModule
+    mkIf
+    mkOption
+    semanticConfType
+    types
+    ;
+  dummyOption = mkOption { type = types.submodule { freeformType = semanticConfType; }; };
+in
 
 {
   imports = [
@@ -23,8 +32,10 @@ with lib;
   ];
 
   options = {
-    fonts.fonts = mkOption { type = types.listOf types.str; };
-    nix.settings = mkOption { type = types.submodule { freeformType = semanticConfType; }; };
+    fonts.fonts = dummyOption;
+    nix.gc = dummyOption;
+    nix.optimise = dummyOption;
+    nix.settings = dummyOption;
     programs.zsh.enable = mkOption { type = types.bool; };
   };
 
