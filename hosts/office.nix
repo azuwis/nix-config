@@ -51,11 +51,7 @@
 
   hm.my.jslisten.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    (runCommand "yuzu" { buildInputs = [ makeWrapper ]; } ''
-      makeWrapper ${pkgs.yuzu-ea}/bin/yuzu $out/bin/yuzu --set QT_QPA_PLATFORM xcb
-    '')
-  ];
+  environment.systemPackages = with pkgs; [ yuzu-ea ];
   # Fix yuzu fullscreen framerate
   hm.wayland.windowManager.sway.config.output.HDMI-A-1.max_render_time = "10";
 
