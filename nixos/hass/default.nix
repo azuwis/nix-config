@@ -62,9 +62,7 @@ in
 
     services.home-assistant = {
       enable = true;
-      extraPackages = ps: with ps; [
-        holidays
-      ];
+      extraPackages = ps: with ps; [ holidays ];
       # package = (pkgs.home-assistant.override {
       #   extraComponents = [
       #   ];
