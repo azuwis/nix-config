@@ -19,4 +19,6 @@
     ];
 
   hm.imports = [ ./home.nix ];
+
+  environment.systemPackages = [ inputs.agenix.packages.${pkgs.system}.default ];
 }
