@@ -1,17 +1,10 @@
 {
+  inputs,
   config,
   lib,
   pkgs,
   ...
 }:
-
-# /root/.ssh/config
-# Host builder
-#   HostName <IP>
-#   IdentitiesOnly yes
-#   IdentityFile ~/.ssh/nix-ssh
-#   Port 22
-#   User nix-ssh
 
 let
   inherit (lib)
@@ -35,6 +28,12 @@ in
   };
 
   config = mkIf cfg.enable {
+    age.secrets.nix-ssh = {
+      file = "${inputs.my}/nix-ssh.age";
+      mode = "0440";
+      group = "wheel";
+    };
+
     nix = {
       distributedBuilds = true;
       buildMachines = [
@@ -47,5 +46,14 @@ in
       ];
       settings.builders-use-substitutes = true;
     };
+
+    programs.ssh.extraConfig = ''
+      Host builder
+        HostName ${inputs.my.builder}
+        IdentitiesOnly yes
+        IdentityFile /run/agenix/nix-ssh
+        Port 22
+        User nix-ssh
+    '';
   };
 }
