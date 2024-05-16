@@ -1,10 +1,13 @@
-{ self, lib, ... }:
 {
-  flake.overlays.packages = import "${self.inputs.nixpkgs}/pkgs/top-level/by-name-overlay.nix" ../pkgs/by-name;
+  inputs,
+  self,
+  lib,
+  ...
+}:
+{
+  flake.overlays.packages = import "${inputs.nixpkgs}/pkgs/top-level/by-name-overlay.nix" ../pkgs/by-name;
   flake.overlays.yuzu = final: prev: {
-    yuzu-ea =
-      lib.optionalAttrs final.stdenv.isLinux
-        self.inputs.yuzu.packages.${final.system}.early-access;
+    yuzu-ea = lib.optionalAttrs final.stdenv.isLinux inputs.yuzu.packages.${final.system}.early-access;
   };
   flake.overlays.jovian = import ../overlays/jovian.nix;
 
@@ -17,7 +20,7 @@
   perSystem =
     { lib, system, ... }:
     let
-      pkgs = import self.inputs.nixpkgs {
+      pkgs = import inputs.nixpkgs {
         inherit system;
         config.allowUnfree = true;
         overlays = [ self.overlays.default ];

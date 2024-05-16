@@ -1,10 +1,15 @@
-{ self, withSystem, ... }:
+{
+  inputs,
+  self,
+  withSystem,
+  ...
+}:
 
 let
   mkHome =
     {
       system ? "x86_64-linux",
-      nixpkgs ? self.inputs.nixpkgs,
+      nixpkgs ? inputs.nixpkgs,
       config ? { },
       overlays ? [ ],
       modules ? [ ],
@@ -25,12 +30,11 @@ let
           } { inherit config; }
         );
       in
-      self.inputs.home-manager.lib.homeManagerConfiguration {
-        pkgs =
-          if (nixpkgs != self.inputs.nixpkgs || config != { } || overlays != [ ]) then customPkgs else pkgs;
+      inputs.home-manager.lib.homeManagerConfiguration {
+        pkgs = if (nixpkgs != inputs.nixpkgs || config != { } || overlays != [ ]) then customPkgs else pkgs;
         extraSpecialArgs = {
-          lib = import (self.inputs.home-manager + "/modules/lib/stdlib-extended.nix") lib;
-          inputs = self.inputs;
+          inherit inputs;
+          lib = import (inputs.home-manager + "/modules/lib/stdlib-extended.nix") lib;
         };
         modules = [
           {

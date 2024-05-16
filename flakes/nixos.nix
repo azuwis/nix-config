@@ -1,10 +1,15 @@
-{ self, withSystem, ... }:
+{
+  inputs,
+  self,
+  withSystem,
+  ...
+}:
 
 let
   mkNixos =
     {
       system ? "x86_64-linux",
-      nixpkgs ? self.inputs.nixpkgs,
+      nixpkgs ? inputs.nixpkgs,
       config ? { },
       overlays ? [ ],
       modules ? [ ],
@@ -28,10 +33,8 @@ let
       nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
-          inherit lib;
-          inputs = self.inputs;
-          pkgs =
-            if (nixpkgs != self.inputs.nixpkgs || config != { } || overlays != [ ]) then customPkgs else pkgs;
+          inherit inputs lib;
+          pkgs = if (nixpkgs != inputs.nixpkgs || config != { } || overlays != [ ]) then customPkgs else pkgs;
         };
         modules = [ ../nixos ] ++ modules;
       }
@@ -50,9 +53,9 @@ in
     office = mkNixos { modules = [ ../hosts/office.nix ]; };
 
     steamdeck = mkNixos {
-      nixpkgs = self.inputs.jovian.inputs.nixpkgs;
+      nixpkgs = inputs.jovian.inputs.nixpkgs;
       overlays = [
-        self.inputs.jovian.overlays.default
+        inputs.jovian.overlays.default
         self.overlays.jovian
       ];
       modules = [ ../hosts/steamdeck.nix ];
