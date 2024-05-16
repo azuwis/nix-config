@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   pkgs,
@@ -67,6 +68,13 @@ in
       #   extraComponents = [
       #   ];
       # }).overrideAttrs (o: { doInstallCheck = false; });
+    };
+
+    age.secrets.hass = {
+      file = "${inputs.my}/hass.age";
+      path = "${config.services.home-assistant.configDir}/secrets.yaml";
+      owner = "hass";
+      group = "hass";
     };
 
     services.home-assistant.config = {
