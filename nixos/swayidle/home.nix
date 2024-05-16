@@ -17,26 +17,31 @@ in
   config = mkIf cfg.enable {
     home.packages = with pkgs; [ swayidle ];
 
-    services.swayidle = {
-      enable = true;
-      events = [
-        {
-          event = "before-sleep";
-          command = "${pkgs.swaylock}/bin/swaylock -f";
-        }
-      ];
-      timeouts = [
-        {
-          timeout = 1800;
-          command = "${pkgs.swaylock}/bin/swaylock -f";
-        }
-        {
-          timeout = 2400;
-          command = ''${pkgs.sway}/bin/swaymsg "output * power off"'';
-          resumeCommand = ''${pkgs.sway}/bin/swaymsg "output * power on"'';
-        }
-      ];
-    };
+    services.swayidle =
+      let
+        swaylock = "${lib.getExe pkgs.swaylock} -f";
+        swaymsg = lib.getExe' pkgs.sway "swaymsg";
+      in
+      {
+        enable = true;
+        events = [
+          {
+            event = "before-sleep";
+            command = swaylock;
+          }
+        ];
+        timeouts = [
+          {
+            timeout = 1800;
+            command = swaylock;
+          }
+          {
+            timeout = 2400;
+            command = ''${swaymsg} "output * power off"'';
+            resumeCommand = ''${swaymsg} "output * power on"'';
+          }
+        ];
+      };
 
     wayland.windowManager.sway.config.keybindings =
       let
