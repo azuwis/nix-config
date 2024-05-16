@@ -25,6 +25,10 @@ in
         "x86_64-linux"
       ];
     };
+    supportedFeatures = mkOption {
+      type = types.listOf types.str;
+      default = [ "big-parallel" ];
+    };
   };
 
   config = mkIf cfg.enable {
@@ -38,8 +42,8 @@ in
       distributedBuilds = true;
       buildMachines = [
         {
+          inherit (cfg) systems supportedFeatures;
           hostName = "builder";
-          systems = cfg.systems;
           protocol = "ssh-ng";
           maxJobs = 12;
         }
