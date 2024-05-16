@@ -16,6 +16,7 @@ let
     }:
     withSystem system (
       {
+        inputs',
         lib,
         pkgs,
         system,
@@ -33,7 +34,7 @@ let
       inputs.home-manager.lib.homeManagerConfiguration {
         pkgs = if (nixpkgs != inputs.nixpkgs || config != { } || overlays != [ ]) then customPkgs else pkgs;
         extraSpecialArgs = {
-          inherit inputs;
+          inherit inputs inputs';
           lib = import (inputs.home-manager + "/modules/lib/stdlib-extended.nix") lib;
         };
         modules = [

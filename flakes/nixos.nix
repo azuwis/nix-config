@@ -16,6 +16,7 @@ let
     }:
     withSystem system (
       {
+        inputs',
         lib,
         pkgs,
         system,
@@ -33,7 +34,7 @@ let
       nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
-          inherit inputs lib;
+          inherit inputs inputs' lib;
           pkgs = if (nixpkgs != inputs.nixpkgs || config != { } || overlays != [ ]) then customPkgs else pkgs;
         };
         modules = [ ../nixos ] ++ modules;

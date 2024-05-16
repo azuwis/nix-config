@@ -8,6 +8,7 @@ let
     }:
     withSystem system (
       {
+        inputs',
         lib,
         pkgs,
         system,
@@ -16,7 +17,12 @@ let
       inputs.darwin.lib.darwinSystem {
         inherit system;
         specialArgs = {
-          inherit inputs lib pkgs;
+          inherit
+            inputs
+            inputs'
+            lib
+            pkgs
+            ;
         };
         modules = [ ../darwin ] ++ modules;
       }
