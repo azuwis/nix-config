@@ -1,5 +1,6 @@
 {
   inputs,
+  inputs',
   config,
   lib,
   pkgs,
@@ -20,5 +21,5 @@
 
   hm.imports = [ ./home.nix ];
 
-  environment.systemPackages = [ inputs.agenix.packages.${pkgs.system}.default ];
+  environment.systemPackages = [ inputs'.agenix.packages.default ];
 }
