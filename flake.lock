@@ -174,11 +174,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1715417624,
-        "narHash": "sha256-Wp3vGZRQYVrEveB9UXXZRDvRFrkw6rXXXLxj/6sbg7M=",
+        "lastModified": 1715922002,
+        "narHash": "sha256-FSUrne82MXFzZ7R88ZnJz21kv06GS2TS/Ctsd+RXbP4=",
         "owner": "Jovian-Experiments",
         "repo": "Jovian-NixOS",
-        "rev": "8fef078acb3206be58ae5892a32d6ed75b695647",
+        "rev": "23a55d6bb80f6340d0acdb9feef754646b68f895",
         "type": "github"
       },
       "original": {
@@ -189,11 +189,11 @@
     },
     "my": {
       "locked": {
-        "lastModified": 1715916874,
-        "narHash": "sha256-tNAF3P/2hLAbjY3ULAbEkgf7xN3oBPANchIzlYjuyxY=",
+        "lastModified": 1715934161,
+        "narHash": "sha256-6YUtKmZe+HvMRulCdJvlogabDMlRYKoudSmCAiRc0t0=",
         "ref": "refs/heads/master",
-        "rev": "47e6ff593e83589fde7b49d650af13236fc38847",
-        "revCount": 4,
+        "rev": "8f42663896346acdfcba01bda6780c1c7ec54c0d",
+        "revCount": 5,
         "type": "git",
         "url": "ssh://nuc/~/repo/my"
       },
@@ -269,11 +269,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1714076141,
-        "narHash": "sha256-Drmja/f5MRHZCskS6mvzFqxEaZMeciScCTFxWVLqWEY=",
+        "lastModified": 1715787315,
+        "narHash": "sha256-cYApT0NXJfqBkKcci7D9Kr4CBYZKOQKDYA23q8XNuWg=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "7bb2ccd8cdc44c91edba16c48d2c8f331fb3d856",
+        "rev": "33d1e753c82ffc557b4a585c77de43d4c922ebb5",
         "type": "github"
       },
       "original": {
