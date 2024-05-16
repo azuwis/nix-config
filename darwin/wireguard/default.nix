@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   pkgs,
@@ -12,7 +13,7 @@
     wireguard-tools
   ];
   age.secrets.wg0 = {
-    file = "/etc/age/wg0.age";
+    file = "${inputs.my}/wg0.age";
     path = "/etc/wireguard/wg0.conf";
     symlink = false;
   };

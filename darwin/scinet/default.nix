@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   pkgs,
@@ -19,7 +20,7 @@ in
 {
   environment.systemPackages = [ scinetScript ];
   age.secrets.shadowsocks = {
-    file = "/etc/age/shadowsocks.age";
+    file = "${inputs.my}/shadowsocks.age";
     path = "/etc/shadowsocks/config.json";
     symlink = false;
   };
