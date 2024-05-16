@@ -55,10 +55,7 @@ in
 
     steamdeck = mkNixos {
       nixpkgs = inputs.jovian.inputs.nixpkgs;
-      overlays = [
-        inputs.jovian.overlays.default
-        self.overlays.jovian
-      ];
+      overlays = [ inputs.jovian.overlays.default ];
       modules = [ ../hosts/steamdeck.nix ];
     };
 
