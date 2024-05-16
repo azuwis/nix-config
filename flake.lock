@@ -187,6 +187,21 @@
         "type": "github"
       }
     },
+    "my": {
+      "locked": {
+        "lastModified": 1715915354,
+        "narHash": "sha256-29ui98dbw7xRpFeom+ugekNOkgSqeLnQbZrceNX/ujM=",
+        "ref": "refs/heads/master",
+        "rev": "c20b8de7b4845f80bdcd4f7b7f175f087431318b",
+        "revCount": 3,
+        "type": "git",
+        "url": "ssh://nuc/~/repo/my"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://nuc/~/repo/my"
+      }
+    },
     "nix-formatter-pack": {
       "inputs": {
         "nixpkgs": [
@@ -396,6 +411,7 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "jovian": "jovian",
+        "my": "my",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs_2",
         "nvidia-patch": "nvidia-patch",

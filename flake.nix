@@ -7,6 +7,7 @@
     flake-utils.inputs.systems.follows = "systems";
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
+    my.url = "git+ssh://nuc/~/repo/my";
     darwin.url = "github:lnl7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
     # https://github.com/nix-community/nix-on-droid/pull/353
