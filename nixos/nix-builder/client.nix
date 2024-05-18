@@ -32,10 +32,15 @@ in
   };
 
   config = mkIf cfg.enable {
-    age.secrets.nix-ssh = {
-      file = "${inputs.my}/nix-ssh.age";
-      mode = "0440";
-      group = "wheel";
+    age.secrets = {
+      nix-ssh = {
+        file = "${inputs.my}/nix-ssh.age";
+        mode = "0440";
+        group = "wheel";
+      };
+      nix-ssh-root = {
+        file = "${inputs.my}/nix-ssh.age";
+      };
     };
 
     nix = {
@@ -52,6 +57,9 @@ in
     };
 
     programs.ssh.extraConfig = ''
+      Match originalhost builder localuser root
+        IdentityFile /run/agenix/nix-ssh-root
+
       Host builder
         HostName ${inputs.my.builder}
         IdentitiesOnly yes
