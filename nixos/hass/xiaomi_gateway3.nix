@@ -8,6 +8,20 @@
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.my.hass;
+
+  mijia_hub_init = pkgs.writeScript "mijia_hub_init" ''
+    #!${lib.getExe pkgs.expect} -f
+    spawn ${lib.getExe' pkgs.inetutils "telnet"} Mijia_Hub_V2-2531.lan
+    expect "login:"
+
+    send "root\r"
+    expect "#"
+
+    send "iptables -C INPUT \! --src nuc -m tcp -p tcp --dport 23 -j DROP || iptables -I INPUT \! --src nuc -m tcp -p tcp --dport 23 -j DROP\r"
+    expect "#"
+
+    exit
+  '';
 in
 {
   options.my.hass = {
@@ -17,34 +31,27 @@ in
   };
 
   config = mkIf (cfg.enable && cfg.xiaomi_gateway3) {
-    # Host: Mijia_Hub_V2-2531.lan
-    # Open telnet command: {"method":"set_ip_info","params":{"ssid":"\"\"","pswd":"1; passwd -d $USER; iptables -I INPUT \\! --src <hass_ip> -m tcp -p tcp --dport 23 -j DROP; telnetd"}}
-
     services.home-assistant.customComponents = [
       pkgs.home-assistant-custom-components.xiaomi_gateway3
     ];
 
     services.home-assistant.config = {
       homeassistant.customize_glob."light.*_group".icon = "mdi:lightbulb";
+      shell_command.mijia_hub_init = mijia_hub_init;
       zha = { };
       # logger.logs."custom_components.xiaomi_gateway3" = "debug";
     };
 
     hass.automations = ''
-      # - alias: XiaomiGateway set iptables
-      #   trigger:
-      #     - platform: homeassistant
-      #       event: start
-      #     - platform: state
-      #       entity_id: binary_sensor.54ef44432531_gateway
-      #       to: "on"
-      #   action:
-      #     service: xiaomi_gateway3.send_command
-      #     data:
-      #       command: miio
-      #       host: Mijia_Hub_V2-2531.lan
-      #       data: >-
-      #         {"method":"set_ip_info","params":{"ssid":"\"\"","pswd":"1; iptables -C INPUT \\! --src nuc -m tcp -p tcp --dport 23 -j DROP || iptables -I INPUT \\! --src nuc -m tcp -p tcp --dport 23 -j DROP"}}
+      - alias: XiaomiGateway set iptables
+        trigger:
+          - platform: homeassistant
+            event: start
+          - platform: state
+            entity_id: binary_sensor.54ef44432531_gateway
+            to: "on"
+        action:
+          service: shell_command.mijia_hub_init
 
       - alias: Light bathroom on when sensor on
         trigger:
