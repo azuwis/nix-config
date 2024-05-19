@@ -43,13 +43,7 @@ let
 in
 {
   flake.nixosConfigurations = {
-    nuc = mkNixos {
-      config.permittedInsecurePackages = [
-        # for home-assistant-chip-core
-        "openssl-1.1.1w"
-      ];
-      modules = [ ../hosts/nuc.nix ];
-    };
+    nuc = mkNixos { modules = [ ../hosts/nuc.nix ]; };
 
     office = mkNixos { modules = [ ../hosts/office.nix ]; };
 
