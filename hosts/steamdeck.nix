@@ -43,6 +43,16 @@
     user = "deck";
   };
 
+  services.xserver.enable = true;
+  services.xserver.desktopManager.plasma5.enable = true;
+  services.xserver.displayManager.startx.enable = true;
+  environment.plasma5.excludePackages = with pkgs.libsForQt5; [
+    pkgs.aha
+    plasma-browser-integration
+    oxygen
+  ];
+  jovian.steam.desktopSession = "plasma";
+
   my.nix-builder-client.enable = true;
   my.theme.enable = true;
   # Proton is not sandboxed, https://github.com/ValveSoftware/Proton/issues/3979
