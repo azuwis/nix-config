@@ -43,6 +43,25 @@
     user = "deck";
   };
 
+  # boot.plymouth = {
+  #   enable = true;
+  #   theme = "steamos";
+  #   themePackages = [ pkgs.steamdeck-hw-theme ];
+  # };
+
+  # services.desktopManager.plasma6.enable = true;
+  # environment.plasma6.excludePackages = with pkgs.kdePackages; [
+  #   ark
+  #   elisa
+  #   gwenview
+  #   kate
+  #   khelpcenter
+  #   okular
+  #   plasma-browser-integration
+  #   print-manager
+  # ];
+  # jovian.steam.desktopSession = "plasma";
+
   services.xserver.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
   services.xserver.displayManager.startx.enable = true;
