@@ -36,10 +36,18 @@ bar:
                 - string: {text: "{app-id}"}
 
   right:
-    - script:
-        path: @scripts@/netspeed
+    - network:
+        poll-interval: 10000
         content:
-          - string: {text: "{rate}"}
+          map:
+            conditions:
+              name == eno1 || name == wlo1:
+                map:
+                  default: 
+                    string: {text: "{dl-speed:kib:.0}K↓ {ul-speed:kib:.0}K↑"}
+                  conditions:
+                    dl-speed >= 1048576 || ul-speed >= 1048576:
+                      string: {text: "{dl-speed:mib:.0}M↓ {ul-speed:mib:.0}M↑"}
     - cpu:
         poll-interval: 10000
         content:
