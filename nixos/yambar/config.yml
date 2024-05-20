@@ -42,12 +42,18 @@ bar:
           map:
             conditions:
               name == eno1 || name == wlo1:
-                map:
-                  default: 
-                    string: {text: "{dl-speed:kib:.0}K↓ {ul-speed:kib:.0}K↑"}
-                  conditions:
-                    dl-speed >= 1048576 || ul-speed >= 1048576:
-                      string: {text: "{dl-speed:mib:.0}M↓ {ul-speed:mib:.0}M↑"}
+                - map:
+                    default: 
+                      string: {text: "{dl-speed:kib:.0}K↓"}
+                    conditions:
+                      dl-speed >= 1048576:
+                        string: {text: "{dl-speed:mib:.1}M↓"}
+                - map:
+                    default: 
+                      string: {text: " {ul-speed:kib:.0}K↑"}
+                    conditions:
+                      ul-speed >= 1048576:
+                        string: {text: " {ul-speed:mib:.1}M↑"}
     - cpu:
         poll-interval: 10000
         content:
