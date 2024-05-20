@@ -21,6 +21,13 @@
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/498A-D13D";
       fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
+    };
+
+  fileSystems."/home/deck/Games" =
+    { device = "/home/steamos/deck/Games";
+      fsType = "none";
+      options = [ "bind" ];
     };
 
   fileSystems."/home/steamos" =
