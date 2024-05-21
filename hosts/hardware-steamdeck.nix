@@ -24,12 +24,6 @@
       options = [ "fmask=0022" "dmask=0022" ];
     };
 
-  fileSystems."/home/deck/Games" =
-    { device = "/home/steamos/deck/Games";
-      fsType = "none";
-      options = [ "bind" ];
-    };
-
   fileSystems."/home/steamos" =
     { device = "/dev/disk/by-uuid/1bb334e6-3c14-46b3-9bae-d50053587d50";
       fsType = "ext4";
@@ -41,8 +35,20 @@
       options = [ "bind" ];
     };
 
+  fileSystems."/home/deck/Games" =
+    { device = "/home/steamos/deck/Games";
+      fsType = "none";
+      options = [ "bind" ];
+    };
+
   fileSystems."/home/deck/.local/share/Steam/steamapps/shadercache" =
     { device = "/home/deck/.cache/shadercache";
+      fsType = "none";
+      options = [ "bind" ];
+    };
+
+  fileSystems."/home/deck/Installs" =
+    { device = "/home/steamos/deck/Installs";
       fsType = "none";
       options = [ "bind" ];
     };
