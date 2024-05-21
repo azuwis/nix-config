@@ -51,8 +51,12 @@
   hm.my.swayidle.enable = false;
 
   # workaround for yambar crash, https://codeberg.org/dnkl/yambar/issues/300
-  hm.my.waybar.enable = true;
-  hm.my.yambar.enable = false;
+  hm.my.yambar.package = pkgs.yambar.overrideAttrs (old: {
+    src = old.src.override {
+      rev = "0bea49b75e2cf3fe347bce3447e9dfbaaaaf2c8d";
+      hash = "sha256-hX+qCDhSQ7DKxsiUp5RZoArDE7M/MVckKHIPS5QmVhs=";
+    };
+  });
 
   environment.systemPackages = with pkgs; [ moonlight-qt ];
 }
