@@ -22,13 +22,25 @@ return {
               },
               options = {
                 nixos = {
-                  expr = string.format("(import %s).nixosConfigurations.%s.options", dir, hostname),
+                  expr = string.format(
+                    '(builtins.getFlake "git+file://%s").nixosConfigurations."%s".options',
+                    dir,
+                    hostname
+                  ),
                 },
-                ["nix-darwin"] = {
-                  expr = string.format("(import %s).darwinConfigurations.%s.options", dir, hostname),
+                nix_darwin = {
+                  expr = string.format(
+                    '(builtins.getFlake "git+file://%s").darwinConfigurations."%s".options',
+                    dir,
+                    hostname
+                  ),
                 },
-                ["home-manager"] = {
-                  expr = string.format("(import %s).homeConfigurations.%s.options", dir, os.getenv("USER")),
+                home_manager = {
+                  expr = string.format(
+                    '(builtins.getFlake "git+file://%s").homeConfigurations."%s".options',
+                    dir,
+                    os.getenv("USER")
+                  ),
                 },
               },
             },
