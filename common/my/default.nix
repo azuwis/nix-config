@@ -19,11 +19,12 @@ in
     keys = mkOption { type = types.listOf types.singleLineStr; };
     domain = mkOption { type = types.str; };
     ca = mkOption { type = types.path; };
+    builder = mkOption { type = types.str; };
   };
 
   config = {
     my = {
-      inherit (inputs.my) domain;
+      inherit (inputs.my) builder domain;
       user = "azuwis";
       name = "Zhong Jianxin";
       email = "azuwis@gmail.com";

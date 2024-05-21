@@ -61,7 +61,7 @@ in
         IdentityFile /run/agenix/nix-ssh-root
 
       Host builder
-        HostName ${inputs.my.builder}
+        HostName ${config.my.builder}
         IdentitiesOnly yes
         IdentityFile /run/agenix/nix-ssh
         Port 22
