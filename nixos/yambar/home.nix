@@ -6,7 +6,7 @@
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkPackageOption mkIf;
   cfg = config.my.yambar;
   # ifaces = builtins.attrNames config.networking.interfaces;
   # ens = builtins.filter (name: (builtins.match "^e.*" name) != null) ifaces;
@@ -21,10 +21,11 @@ in
 {
   options.my.yambar = {
     enable = mkEnableOption "yambar";
+    package = mkPackageOption pkgs "yambar" { };
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ pkgs.yambar ];
+    home.packages = [ cfg.package ];
 
     xdg.configFile."yambar/config.yml".source = configFile;
 
