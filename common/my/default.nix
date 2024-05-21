@@ -6,7 +6,9 @@
   ...
 }:
 
-with lib;
+let
+  inherit (lib) mkOption types;
+in
 
 {
   options.my = {
@@ -18,6 +20,7 @@ with lib;
     domain = mkOption { type = types.str; };
     ca = mkOption { type = types.path; };
   };
+
   config = {
     my = {
       inherit (inputs.my) domain;
