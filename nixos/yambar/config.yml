@@ -1,4 +1,8 @@
-underline: &underline {underline: {size: 2, color: 81A1C1FF}}
+anchors:
+  - string: &default {text: "{name}", margin: 6, on-click: "@msgcmd@ --quiet workspace {name}"}
+  - focused: &focused {foreground: EBCB8BFF}
+  - urgent: &urgent {foreground: 000000FF, deco: {stack: [background: {color: BF616AFF}]}}
+  - underline: &underline {underline: {size: 2, color: 81A1C1FF}}
 
 bar:
   location: top
@@ -10,13 +14,6 @@ bar:
 
   left:
     - i3:
-        anchors:
-          - string: &default {text: "{name}", margin: 6, on-click: "@msgcmd@ --quiet workspace {name}"}
-          - focused: &focused
-              foreground: EBCB8BFF
-          - urgent: &urgent
-              foreground: 000000FF
-              deco: {stack: [background: {color: BF616AFF}]}
         sort: ascending
         content:
           "":
@@ -32,8 +29,7 @@ bar:
           map:
             conditions:
               ~activated: {empty: {}}
-              activated:
-                - string: {text: "{app-id}"}
+              activated: {string: {text: "{app-id}"}}
 
   right:
     - network:
@@ -43,17 +39,13 @@ bar:
             conditions:
               name == eno1 || name == wlo1:
                 - map:
-                    default: 
-                      string: {text: "{dl-speed:kib:.0}K↓"}
+                    default: {string: {text: "{dl-speed:kib:.0}K↓"}}
                     conditions:
-                      dl-speed >= 1048576:
-                        string: {text: "{dl-speed:mib:.1}M↓"}
+                      dl-speed >= 1048576: {string: {text: "{dl-speed:mib:.1}M↓"}}
                 - map:
-                    default: 
-                      string: {text: " {ul-speed:kib:.0}K↑"}
+                    default: {string: {text: " {ul-speed:kib:.0}K↑"}}
                     conditions:
-                      ul-speed >= 1048576:
-                        string: {text: " {ul-speed:mib:.1}M↑"}
+                      ul-speed >= 1048576: {string: {text: " {ul-speed:mib:.1}M↑"}}
     - cpu:
         poll-interval: 10000
         content:
@@ -70,11 +62,9 @@ bar:
     - pulse:
         content:
           - map:
-             conditions:
-               sink_muted:
-                 - string: {text: "󰖁", right-margin: 4}
-               ~sink_muted:
-                 - string: {text: "󰕾", right-margin: 4}
+              conditions:
+                sink_muted: {string: {text: "󰖁", right-margin: 4}}
+                ~sink_muted: {string: {text: "󰕾", right-margin: 4}}
           - string: {text: "{sink_percent}"}
     - clock:
         date-format: "%a %m-%d"
