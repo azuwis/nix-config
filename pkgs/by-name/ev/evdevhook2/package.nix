@@ -12,16 +12,25 @@
   udev,
 }:
 
-stdenv.mkDerivation {
+let
+  gcemuhook = fetchFromGitHub {
+    name = "gcemuhook";
+    owner = "v1993";
+    repo = "gcemuhook";
+    rev = "91ef61cca809f5f3b9fa6e5304aba284a56c06dc";
+    hash = "sha256-CPjSuKtoqSDKd+vEBgFy3qh33TkCVbxBEnwiBAkaADs=";
+  };
+in
+
+stdenv.mkDerivation (finalAttrs: {
   pname = "evdevhook2";
-  version = "unstable-2023-08-03";
+  version = "1.0.2";
 
   src = fetchFromGitHub {
     owner = "v1993";
     repo = "evdevhook2";
-    rev = "d9eb1440fd7b024c372858875f171548b3a4b753";
-    hash = "sha256-PEHNfhMI/ERUQDHz+K6uPMM1QhL8XY6PZVKL2laoHtI=";
-    fetchSubmodules = true;
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-6CnUYLgrGUM1ndGpbn/T7wkREUzQ1LsLMpkRRxyUZ50=";
   };
 
   nativeBuildInputs = [
@@ -38,6 +47,10 @@ stdenv.mkDerivation {
     udev
   ];
 
+  postUnpack = ''
+    ln -sf ${gcemuhook} source/subprojects/gcemuhook
+  '';
+
   mesonBuildType = "release";
 
   meta = with lib; {
@@ -47,4 +60,4 @@ stdenv.mkDerivation {
     maintainers = with maintainers; [ azuwis ];
     platforms = platforms.linux;
   };
-}
+})
