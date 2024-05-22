@@ -20,7 +20,10 @@ let
 in
 {
   options.my.registry = {
-    enable = mkEnableOption "registry";
+    enable = mkEnableOption "registry" // {
+      # https://github.com/NixOS/nixpkgs/pull/254405/commits/e456032addae76701eb17e6c03fc515fd78ad74f
+      default = !(config.nixpkgs ? flake && config.nixpkgs.flake.source == null);
+    };
   };
 
   config = mkIf cfg.enable {
