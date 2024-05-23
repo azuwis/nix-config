@@ -115,6 +115,7 @@ return {
 
   {
     "nvim-treesitter/nvim-treesitter-context",
+    optional = true,
     opts = {
       max_lines = 1,
     },
