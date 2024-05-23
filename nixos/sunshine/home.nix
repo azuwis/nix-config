@@ -52,12 +52,7 @@ in
 
     package =
       mkPackageOption pkgs "sunshine" { }
-      // (optionalAttrs cfg.cudaSupport {
-        default = pkgs.sunshine.override {
-          cudaSupport = true;
-          stdenv = pkgs.cudaPackages.backendStdenv;
-        };
-      });
+      // (optionalAttrs cfg.cudaSupport { default = pkgs.sunshine.override { cudaSupport = true; }; });
 
     conf = mkOption {
       type = types.str;
