@@ -24,6 +24,5 @@ in
       (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: with plugins; [ nix ])).dependencies;
 
     xdg.configFile."nvim/lua/plugins/nix.lua".source = ./spec.lua;
-    xdg.configFile."nvim/snippets/nix.snippets".source = ./nix.snippets;
   };
 }

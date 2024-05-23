@@ -17,5 +17,8 @@ in
   config = lib.mkIf cfg.enable {
     xdg.configFile."nvim/lua/plugins/custom.lua".source = ./spec.lua;
     xdg.configFile."nvim/lua/config".source = ./config;
+
+    xdg.configFile."nvim/package.json".source = ./package.json;
+    xdg.configFile."nvim/snippets".source = ./snippets;
   };
 }

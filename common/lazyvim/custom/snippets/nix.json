@@ -1,0 +1,62 @@
+{
+  "module": {
+    "prefix": "mod",
+    "description": "Nix module",
+    "body": [
+      "{",
+      "  config,",
+      "  lib,",
+      "  pkgs,",
+      "  ...",
+      "}:",
+      "",
+      "let",
+      "  inherit (lib) mkEnableOption mkIf;",
+      "  cfg = config.my.$1;",
+      "in",
+      "{",
+      "  options.my.$1 = {",
+      "    enable = mkEnableOption \"$1\";",
+      "  };",
+      "",
+      "  config = mkIf cfg.enable {",
+      "    $0",
+      "  };",
+      "}"
+    ]
+  },
+  "module_mkmerge": {
+    "prefix": "modm",
+    "description": "Nix module with mkMerge",
+    "body": [
+      "{",
+      "  config,",
+      "  lib,",
+      "  pkgs,",
+      "  ...",
+      "}:",
+      "",
+      "let",
+      "  inherit (lib) mkEnableOption mkIf mkMerge;",
+      "  cfg = config.my.$1;",
+      "in",
+      "{",
+      "  options.my.$1 = {",
+      "    enable = mkEnableOption \"$1\";",
+      "    $2 = mkEnableOption \"$2\";",
+      "  };",
+      "",
+      "  config = mkIf cfg.enable (mkMerge [",
+      "    ({",
+      "      $3",
+      "    })",
+      "",
+      "    (mkIf cfg.$2 {",
+      "      $0",
+      "    })",
+      "",
+      "  ]);",
+      "}"
+    ]
+  }
+}
