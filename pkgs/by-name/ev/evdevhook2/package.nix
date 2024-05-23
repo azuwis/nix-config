@@ -10,9 +10,12 @@
   libevdev,
   libgee,
   udev,
+  testers,
+  nix-update-script,
 }:
 
 let
+  # https://github.com/v1993/evdevhook2/blob/main/subprojects/gcemuhook.wrap
   gcemuhook = fetchFromGitHub {
     name = "gcemuhook";
     owner = "v1993";
@@ -53,11 +56,21 @@ stdenv.mkDerivation (finalAttrs: {
 
   mesonBuildType = "release";
 
+  passthru = {
+    tests.version = testers.testVersion {
+      package = finalAttrs.finalPackage;
+      version = "Evdevhook ${finalAttrs.version}";
+    };
+
+    updateScript = nix-update-script { };
+  };
+
   meta = {
     changelog = "https://github.com/v1993/evdevhook2/releases/tag/v${finalAttrs.version}";
     description = "Cemuhook UDP server for devices with modern Linux drivers";
     homepage = "https://github.com/v1993/evdevhook2";
     license = lib.licenses.gpl3Only;
+    mainProgram = "evdevhook2";
     maintainers = with lib.maintainers; [ azuwis ];
     platforms = lib.platforms.linux;
   };
