@@ -53,11 +53,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   mesonBuildType = "release";
 
-  meta = with lib; {
+  meta = {
+    changelog = "https://github.com/v1993/evdevhook2/releases/tag/v${finalAttrs.version}";
     description = "Cemuhook UDP server for devices with modern Linux drivers";
     homepage = "https://github.com/v1993/evdevhook2";
-    license = licenses.gpl3Only;
-    maintainers = with maintainers; [ azuwis ];
-    platforms = platforms.linux;
+    license = lib.licenses.gpl3Only;
+    maintainers = with lib.maintainers; [ azuwis ];
+    platforms = lib.platforms.linux;
   };
 })
