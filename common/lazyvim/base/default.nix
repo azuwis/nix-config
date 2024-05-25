@@ -53,9 +53,9 @@ in
           nvim-lint
           nvim-lspconfig
           nvim-notify
+          nvim-snippets
           nvim-spectre
           nvim-treesitter
-          nvim-treesitter-context
           nvim-treesitter-textobjects
           nvim-ts-autotag
           nvim-ts-context-commentstring
@@ -79,10 +79,6 @@ in
             path = catppuccin-nvim;
           }
           {
-            name = "mini.ai";
-            path = mini-nvim;
-          }
-          {
             name = "mini.bufremove";
             path = mini-nvim;
           }
@@ -91,15 +87,7 @@ in
             path = mini-nvim;
           }
           {
-            name = "mini.indentscope";
-            path = mini-nvim;
-          }
-          {
             name = "mini.pairs";
-            path = mini-nvim;
-          }
-          {
-            name = "mini.surround";
             path = mini-nvim;
           }
         ];
