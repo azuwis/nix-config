@@ -62,12 +62,12 @@ in
 
     programs.ssh.extraConfig = ''
       Match originalhost builder localuser root
-        IdentityFile /run/agenix/nix-ssh-root
+        IdentityFile ${config.age.secrets.nix-ssh-root.path}
 
       Host builder
         HostName ${config.my.builder}
         IdentitiesOnly yes
-        IdentityFile /run/agenix/nix-ssh
+        IdentityFile ${config.age.secrets.nix-ssh.path}
         Port 22
         User nix-ssh
     '';
