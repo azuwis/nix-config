@@ -9,6 +9,7 @@
   flake.overlays.yuzu = final: prev: {
     yuzu-ea = lib.optionalAttrs final.stdenv.isLinux inputs.yuzu.packages.${final.system}.early-access;
   };
+  flake.overlays.jovian = import ../overlays/jovian.nix;
 
   flake.overlays.default = lib.composeManyExtensions [
     self.overlays.packages
