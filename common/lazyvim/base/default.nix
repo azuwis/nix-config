@@ -67,7 +67,6 @@ in
           todo-comments-nvim
           tokyonight-nvim
           trouble-nvim
-          vim-illuminate
           vim-startuptime
           which-key-nvim
           {
@@ -77,6 +76,10 @@ in
           {
             name = "catppuccin";
             path = catppuccin-nvim;
+          }
+          {
+            name = "mini.ai";
+            path = mini-nvim;
           }
           {
             name = "mini.bufremove";
