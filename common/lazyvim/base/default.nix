@@ -101,7 +101,7 @@ in
         default = [ ];
       };
 
-      removedPlugins = mkOption {
+      excludePlugins = mkOption {
         type = pluginsOptionType;
         default = [ ];
       };
@@ -138,7 +138,7 @@ in
             else
               drv;
           lazyPath = pkgs.linkFarm "lazy-plugins" (
-            builtins.map mkEntryFromDrv (lib.subtractLists cfg.removedPlugins cfg.plugins ++ cfg.extraPlugins)
+            builtins.map mkEntryFromDrv (lib.subtractLists cfg.excludePlugins cfg.plugins ++ cfg.extraPlugins)
           );
         in
         ''

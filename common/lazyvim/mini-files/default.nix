@@ -22,7 +22,7 @@ in
       }
     ];
 
-    my.lazyvim.removedPlugins = with pkgs.vimPlugins; [ neo-tree-nvim ];
+    my.lazyvim.excludePlugins = with pkgs.vimPlugins; [ neo-tree-nvim ];
 
     xdg.configFile."nvim/lua/plugins/mini-files.lua".source = ./spec.lua;
   };
