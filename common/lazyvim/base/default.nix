@@ -67,6 +67,7 @@ in
           todo-comments-nvim
           tokyonight-nvim
           trouble-nvim
+          ts-comments-nvim
           vim-startuptime
           which-key-nvim
           {
