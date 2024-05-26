@@ -55,7 +55,7 @@ in
       ];
       settings = {
         builders-use-substitutes = true;
-        substituters = [ "ssh-ng://builder" ];
+        substituters = [ "ssh-ng://builder?compress=true" ];
         trusted-public-keys = [ "builder:FgfOazPpnj8isRyReiBcix6ThpZO8SPo+PrWAKinN48=" ];
       };
     };
