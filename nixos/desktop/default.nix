@@ -31,6 +31,8 @@ in
     nix.daemonCPUSchedPolicy = "idle";
 
     programs.gnupg.agent.enable = true;
+    # Keyboard typing on pinentry-gnome3 stucks
+    programs.gnupg.agent.pinentryPackage = pkgs.pinentry-qt;
 
     hm = {
       my.firefox.enable = true;
