@@ -27,7 +27,12 @@ in
     };
     supportedFeatures = mkOption {
       type = types.listOf types.str;
-      default = [ "big-parallel" ];
+      default = [
+        "nixos-test"
+        "benchmark"
+        "big-parallel"
+        "kvm"
+      ];
     };
   };
 
