@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   pkgs,
@@ -17,7 +18,13 @@ in
   };
 
   config = mkIf cfg.enable {
-    nix.settings.trusted-users = [ "nix-ssh" ];
+    age.secrets.nix-secret-key.file = "${inputs.my}/nix-secret-key.age";
+
+    nix.settings = {
+      secret-key-files = [ config.age.secrets.nix-secret-key.path ];
+      trusted-users = [ "nix-ssh" ];
+    };
+
     nix.sshServe = {
       enable = true;
       write = true;

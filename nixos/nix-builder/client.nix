@@ -53,7 +53,11 @@ in
           maxJobs = 12;
         }
       ];
-      settings.builders-use-substitutes = true;
+      settings = {
+        builders-use-substitutes = true;
+        substituters = [ "ssh-ng://builder" ];
+        trusted-public-keys = [ "builder:FgfOazPpnj8isRyReiBcix6ThpZO8SPo+PrWAKinN48=" ];
+      };
     };
 
     programs.ssh.extraConfig = ''
