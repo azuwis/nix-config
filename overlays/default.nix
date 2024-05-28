@@ -79,17 +79,6 @@ self: super: {
       };
       meta.homepage = "https://github.com/folke/ts-comments.nvim/";
     };
-    neogit = self.vimUtils.buildVimPlugin {
-      pname = "neogit";
-      version = "2024-05-26";
-      src = self.fetchFromGitHub {
-        owner = "NeogitOrg";
-        repo = "neogit";
-        rev = "70ad95be902ee69b56410a5cfc690dd03104edb3";
-        sha256 = "sha256-hkb33SOJJMqPXj8xJ1epZBDyH/OCX+MQom8jVPJEXyw=";
-      };
-      meta.homepage = "https://github.com/NeogitOrg/neogit/";
-    };
   };
   # yabai = self.callPackage ../pkgs/yabai { };
 }
