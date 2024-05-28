@@ -1,32 +1,44 @@
 {
   lib,
   stdenvNoCC,
-  fetchgit,
+  fetchFromGitHub,
   bash,
+  nix-update-script,
 }:
 
 stdenvNoCC.mkDerivation {
   pname = "steam-devices";
-  version = "2023-05-09";
+  version = "1.0.0.61-unstable-2024-05-22";
 
-  src = fetchgit {
-    url = "https://salsa.debian.org/games-team/steam-installer.git";
-    rev = "99a8d1a5d69811d91631276d9ca20b4813a68b8d";
-    sparseCheckout = [ "subprojects/steam-devices" ];
-    hash = "sha256-R7DvCHNIWpbDvKZAdSHudUABXHZlIm9sfQiUgJrc7ZQ=";
+  src = fetchFromGitHub {
+    owner = "ValveSoftware";
+    repo = "steam-devices";
+    rev = "e2971e45063f6b327ccedbf18e168bda6749155c";
+    hash = "sha256-kBqWw3TlCSWS7gJXgza2ghemypQ0AEg7NhWqAFnal04=";
   };
 
   installPhase = ''
     runHook preInstall
+
     mkdir -p $out/lib/udev/rules.d/
-    cp subprojects/steam-devices/*.rules $out/lib/udev/rules.d/
-    substituteInPlace $out/lib/udev/rules.d/*.rules --replace "/bin/sh" "${bash}/bin/sh"
+    cp *.rules $out/lib/udev/rules.d/
+    substituteInPlace $out/lib/udev/rules.d/*.rules --replace-warn "/bin/sh" "${bash}/bin/sh"
+
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
+
   meta = with lib; {
     description = "Udev rules list for gaming devices";
-    homepage = "https://salsa.debian.org/games-team/steam-installer/";
+    homepage = "https://github.com/ValveSoftware/steam-devices";
     license = licenses.mit;
+    platforms = platforms.linux;
+    maintainers = with maintainers; [ azuwis ];
   };
 }
