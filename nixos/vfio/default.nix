@@ -32,6 +32,7 @@ in
         "amd"
         "intel"
       ];
+      default = "intel";
     };
   };
 
