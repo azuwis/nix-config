@@ -7,7 +7,7 @@
 }:
 
 stdenvNoCC.mkDerivation {
-  pname = "steam-devices";
+  pname = "steam-devices-udev-rules";
   version = "1.0.0.61-unstable-2024-05-22";
 
   src = fetchFromGitHub {

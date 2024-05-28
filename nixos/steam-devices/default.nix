@@ -14,5 +14,5 @@ in
     enable = mkEnableOption "steam-devices";
   };
 
-  config = mkIf cfg.enable { services.udev.packages = [ pkgs.steam-devices ]; };
+  config = mkIf cfg.enable { services.udev.packages = [ pkgs.steam-devices-udev-rules ]; };
 }
