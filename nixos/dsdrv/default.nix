@@ -20,11 +20,7 @@ in
   options.my.dsdrv = {
     enable = mkEnableOption "dsdrv";
 
-    package = mkPackageOption pkgs [
-      "python3"
-      "pkgs"
-      "dsdrv-cemuhook"
-    ] { };
+    package = mkPackageOption pkgs "dsdrv-cemuhook" { };
 
     openFirewall = mkEnableOption "openFirewall" // {
       default = cfg.settings.host != "127.0.0.1";
