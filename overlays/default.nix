@@ -43,14 +43,7 @@ self: super: {
   '';
   nixos-option =
     let
-      lock = builtins.fromJSON (builtins.readFile ../flake.lock);
-      flake-compat = fetchTarball {
-        url =
-          lock.nodes.flake-compat.locked.url
-            or "https://github.com/edolstra/flake-compat/archive/${lock.nodes.flake-compat.locked.rev}.tar.gz";
-        sha256 = lock.nodes.flake-compat.locked.narHash;
-      };
-      prefix = ''(import ${flake-compat} { src = /etc/nixos; }).defaultNix.nixosConfigurations.\$(hostname)'';
+      prefix = ''(builtins.getFlake \\\"/etc/nixos\\\").nixosConfigurations.\$(hostname)'';
     in
     self.runCommand "nixos-option" { buildInputs = [ self.makeWrapper ]; } ''
       makeWrapper ${super.nixos-option}/bin/nixos-option $out/bin/nixos-option \
