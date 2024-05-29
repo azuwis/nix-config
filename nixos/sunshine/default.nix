@@ -33,10 +33,14 @@ in
     users.users.${cfg.user}.extraGroups = [ "uinput" ];
 
     services.udev.extraRules = ''
-      SUBSYSTEMS=="input", ATTRS{id/product}=="4038", ATTRS{id/vendor}=="046d", ATTRS{name}=="Logitech Wireless Mouse PID:4038", OWNER="${cfg.user}"
-      SUBSYSTEMS=="input", ATTRS{id/product}=="dead", ATTRS{id/vendor}=="beef", ATTRS{name}=="Touchscreen passthrough", OWNER="${cfg.user}"
-      SUBSYSTEMS=="input", ATTRS{id/product}=="dead", ATTRS{id/vendor}=="beef", ATTRS{name}=="Keyboard passthrough", OWNER="${cfg.user}"
-      SUBSYSTEMS=="input", ATTRS{id/product}=="028e", ATTRS{id/vendor}=="045e", ATTRS{name}=="Microsoft X-Box 360 pad", OWNER="${cfg.user}"
+      SUBSYSTEM=="misc", KERNEL=="uhid", GROUP="uinput", MODE="0660"
+      SUBSYSTEMS=="input", ATTRS{id/vendor}=="045e", ATTRS{id/product}=="028e", ATTRS{name}=="Microsoft X-Box 360 pad", OWNER="${cfg.user}"
+      SUBSYSTEMS=="input", ATTRS{id/vendor}=="045e", ATTRS{id/product}=="02ea", ATTRS{name}=="Wolf X-Box One (virtual) pad", OWNER="${cfg.user}"
+      SUBSYSTEMS=="input", ATTRS{id/vendor}=="046d", ATTRS{id/product}=="4038", ATTRS{name}=="Logitech Wireless Mouse PID:4038", OWNER="${cfg.user}"
+      SUBSYSTEMS=="input", ATTRS{id/vendor}=="054c", ATTRS{id/product}=="0ce6", ATTRS{name}=="Wolf DualSense (virtual) pad", OWNER="${cfg.user}"
+      SUBSYSTEMS=="input", ATTRS{id/vendor}=="057e", ATTRS{id/product}=="2009", ATTRS{name}=="Wolf Nintendo (virtual) pad", OWNER="${cfg.user}"
+      SUBSYSTEMS=="input", ATTRS{id/vendor}=="ab00", ATTRS{id/product}=="ab0*", ATTRS{name}=="Wolf *", OWNER="${cfg.user}"
+      SUBSYSTEMS=="input", ATTRS{id/vendor}=="beef", ATTRS{id/product}=="dead", ATTRS{name}=="* passthrough", OWNER="${cfg.user}"
     '';
 
     networking.firewall = mkIf cfg.openFirewall {

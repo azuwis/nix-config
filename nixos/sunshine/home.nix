@@ -29,9 +29,13 @@ let
     bindsym BTN_RIGHT kill
 
     seat seat0 fallback false
-    seat seat0 attach "48879:57005:Keyboard_passthrough"
-    seat seat0 attach "48879:57005:Touchscreen_passthrough"
     seat seat0 attach "1133:16440:Logitech_Wireless_Mouse_PID:4038"
+    seat seat0 attach "43776:43778:Wolf_mouse_(abs)_virtual_device"
+    seat seat0 attach "48879:57005:Keyboard_passthrough"
+    seat seat0 attach "48879:57005:Mouse_passthrough"
+    seat seat0 attach "48879:57005:Pen_passthrough"
+    seat seat0 attach "48879:57005:Touch_passthrough"
+    seat seat0 attach "48879:57005:Touchscreen_passthrough"
 
     # input "1133:16440:Logitech_Wireless_Mouse_PID:4038" accel_profile flat
     input "1133:16440:Logitech_Wireless_Mouse_PID:4038" pointer_accel -1
@@ -196,9 +200,13 @@ in
     };
 
     wayland.windowManager.sway.extraConfig = ''
-      input "48879:57005:Keyboard_passthrough" events disabled
-      input "48879:57005:Touchscreen_passthrough" events disabled
       input "1133:16440:Logitech_Wireless_Mouse_PID:4038" events disabled
+      input "43776:43778:Wolf_mouse_(abs)_virtual_device" events disabled
+      input "48879:57005:Keyboard_passthrough" events disabled
+      input "48879:57005:Mouse_passthrough" events disabled
+      input "48879:57005:Pen_passthrough" events disabled
+      input "48879:57005:Touch_passthrough" events disabled
+      input "48879:57005:Touchscreen_passthrough" events disabled
     '';
   };
 }
