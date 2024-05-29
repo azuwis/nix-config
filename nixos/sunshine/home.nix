@@ -53,9 +53,7 @@ in
       default = osConfig.my.nvidia.enable;
     };
 
-    package =
-      mkPackageOption pkgs "sunshine" { }
-      // (optionalAttrs cfg.cudaSupport { default = pkgs.sunshine.override { cudaSupport = true; }; });
+    package = mkPackageOption pkgs "sunshine" { };
 
     conf = mkOption {
       type = types.str;
@@ -175,7 +173,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ cfg.package ];
+    home.packages = [ (cfg.package.override { inherit (cfg) cudaSupport; }) ];
 
     xdg.configFile."sunshine/sunshine.conf".text = cfg.conf;
     xdg.configFile."sunshine/apps.json".source = json.generate "sunshine-apps.json" cfg.apps;
