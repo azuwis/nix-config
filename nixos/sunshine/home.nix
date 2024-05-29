@@ -1,4 +1,5 @@
 {
+  osConfig,
   config,
   lib,
   pkgs,
@@ -48,7 +49,9 @@ in
   options.my.sunshine = {
     enable = mkEnableOption "sunshine";
 
-    cudaSupport = mkEnableOption "cuda support, only useful in Nvidia+X11 setup";
+    cudaSupport = mkEnableOption "cuda support" // {
+      default = osConfig.my.nvidia.enable;
+    };
 
     package =
       mkPackageOption pkgs "sunshine" { }

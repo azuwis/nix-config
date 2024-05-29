@@ -33,7 +33,6 @@
   ];
   # programs.steam.remotePlay.openFirewall = true;
   my.sunshine.enable = true;
-  hm.my.sunshine.cudaSupport = true;
   my.zramswap.enable = true;
   # hm.my.sunshine.package = pkgs.sunshine-git;
 
