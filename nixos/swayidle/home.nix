@@ -32,11 +32,11 @@ in
         ];
         timeouts = [
           {
-            timeout = 1800;
+            timeout = 1500;
             command = swaylock;
           }
           {
-            timeout = 2400;
+            timeout = 1800;
             command = ''${swaymsg} "output * power off"'';
             resumeCommand = ''${swaymsg} "output * power on"'';
           }
