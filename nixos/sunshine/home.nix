@@ -30,6 +30,7 @@ let
 
     seat seat0 fallback false
     seat seat0 attach "1133:16440:Logitech_Wireless_Mouse_PID:4038"
+    seat seat0 attach "1356:3302:Sunshine_DualSense_(virtual)_pad_Touchpad"
     seat seat0 attach "43776:43778:Wolf_mouse_(abs)_virtual_device"
     seat seat0 attach "48879:57005:Keyboard_passthrough"
     seat seat0 attach "48879:57005:Mouse_passthrough"
@@ -201,6 +202,7 @@ in
 
     wayland.windowManager.sway.extraConfig = ''
       input "1133:16440:Logitech_Wireless_Mouse_PID:4038" events disabled
+      input "1356:3302:Sunshine_DualSense_(virtual)_pad_Touchpad" events disabled
       input "43776:43778:Wolf_mouse_(abs)_virtual_device" events disabled
       input "48879:57005:Keyboard_passthrough" events disabled
       input "48879:57005:Mouse_passthrough" events disabled
