@@ -33,7 +33,7 @@
     };
   };
 
-  my.evdevhook.enable = true;
+  # my.evdevhook.enable = true;
   my.desktop.enable = true;
   my.dualsensectl.enable = true;
   my.hass.enable = true;
