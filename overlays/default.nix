@@ -32,8 +32,8 @@ self: super: {
   sunshine-git = self.sunshine.overrideAttrs (old: {
     pname = "sunshine-git";
     src = old.src.override {
-      rev = "0c78c68e46fc5bc29ec423a73d948076f5a12f4a";
-      sha256 = "sha256-OOD7Zw/80mEKUhidvzb/HIZwkHImyF9PduphAYYDgmw=";
+      rev = "4855e091d2eae99747b326e610070858e0ef312e";
+      sha256 = "sha256-4/0cX0RksAW8BI5ADfAhZiGH3RxReyegKoOwpxD7AII=";
     };
     buildInputs = old.buildInputs ++ [ self.nodejs ];
   });
