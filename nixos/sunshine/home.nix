@@ -12,11 +12,11 @@ let
     mkIf
     mkOption
     mkPackageOption
-    optionalAttrs
     types
     ;
   cfg = config.my.sunshine;
   json = pkgs.formats.json { };
+  keyValue = pkgs.formats.keyValue { };
 
   swayConfig = pkgs.runCommand "sunshine-sway.conf" { } ''
     {
@@ -64,19 +64,16 @@ in
 
     package = mkPackageOption pkgs "sunshine" { };
 
-    conf = mkOption {
-      type = types.str;
-      default = ''
-        # capture = nvfbc
-        # capture = wlr
-        channels = 2
-        fps = [30,60]
-        origin_web_ui_allowed = pc
-        resolutions = [
-            1280x720,
-            1920x1080
-        ]
-      '';
+    settings = mkOption {
+      type = types.submodule { freeformType = keyValue.type; };
+      default = {
+        # capture = "nvfbc";
+        # capture = "wlr";
+        channels = 2;
+        fps = "[30, 60]";
+        origin_web_ui_allowed = "pc";
+        resolutions = "[1280x720, 1920x1080]";
+      };
     };
 
     mode = mkOption {
@@ -184,7 +181,7 @@ in
   config = mkIf cfg.enable {
     home.packages = [ (cfg.package.override { inherit (cfg) cudaSupport; }) ];
 
-    xdg.configFile."sunshine/sunshine.conf".text = cfg.conf;
+    xdg.configFile."sunshine/sunshine.conf".source = keyValue.generate "sunshine.conf" cfg.settings;
     xdg.configFile."sunshine/apps.json".source = json.generate "sunshine-apps.json" cfg.apps;
 
     systemd.user.services.sunshine = {
