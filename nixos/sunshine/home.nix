@@ -29,17 +29,21 @@ let
     bindsym BTN_RIGHT kill
 
     seat seat0 fallback false
-    seat seat0 attach "1133:16440:Logitech_Wireless_Mouse_PID:4038"
-    seat seat0 attach "1356:3302:Sunshine_DualSense_(virtual)_pad_Touchpad"
-    seat seat0 attach "43776:43778:Wolf_mouse_(abs)_virtual_device"
+    # All mouse like devices are pass through Mouse_passthrough,
+    # add the virtual devices will double the evnets and thus the move speed.
+    # seat seat0 attach "1356:3302:Sunshine_DualSense_(virtual)_pad_Touchpad"
+    # seat seat0 attach "43776:43778:Wolf_mouse_(abs)_virtual_device"
     seat seat0 attach "48879:57005:Keyboard_passthrough"
     seat seat0 attach "48879:57005:Mouse_passthrough"
     seat seat0 attach "48879:57005:Pen_passthrough"
     seat seat0 attach "48879:57005:Touch_passthrough"
+    # Sunshine without inputtino, remove when next release arrives
+    seat seat0 attach "1133:16440:Logitech_Wireless_Mouse_PID:4038"
     seat seat0 attach "48879:57005:Touchscreen_passthrough"
 
     # input "1133:16440:Logitech_Wireless_Mouse_PID:4038" accel_profile flat
     input "1133:16440:Logitech_Wireless_Mouse_PID:4038" pointer_accel -1
+    input "48879:57005:Mouse_passthrough" pointer_accel -1
     output HEADLESS-1 mode ${cfg.mode}
 
     assign [app_id="^sunshine-terminal$"] 9
@@ -201,13 +205,14 @@ in
     };
 
     wayland.windowManager.sway.extraConfig = ''
-      input "1133:16440:Logitech_Wireless_Mouse_PID:4038" events disabled
       input "1356:3302:Sunshine_DualSense_(virtual)_pad_Touchpad" events disabled
       input "43776:43778:Wolf_mouse_(abs)_virtual_device" events disabled
       input "48879:57005:Keyboard_passthrough" events disabled
       input "48879:57005:Mouse_passthrough" events disabled
       input "48879:57005:Pen_passthrough" events disabled
       input "48879:57005:Touch_passthrough" events disabled
+      # Sunshine without inputtino, remove when next release arrives
+      input "1133:16440:Logitech_Wireless_Mouse_PID:4038" events disabled
       input "48879:57005:Touchscreen_passthrough" events disabled
     '';
   };
