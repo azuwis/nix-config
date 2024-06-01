@@ -31,7 +31,6 @@
   networking.nftables.enable = true;
   networking.useNetworkd = lib.mkDefault true;
   # systemd.network.wait-online.anyInterface = config.networking.useDHCP;
-  nix.channel.enable = false;
   # nix.settings.allowed-users = [ config.my.user ];
   programs.ssh.startAgent = true;
   # CVE-2023-38408
