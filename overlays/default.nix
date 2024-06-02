@@ -8,14 +8,6 @@ self: super: {
   #   '';
   # });
   jetbrains-mono-nerdfont = self.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
-  moonlight-cemuhook = self.moonlight-qt.overrideAttrs (old: {
-    pname = "moonlight-cemuhook";
-    src = old.src.override {
-      owner = "azuwis";
-      rev = "4d001f122cb200dc2d668e74a03f22149382b993";
-      sha256 = "sha256-QDvk8PYL92lKEzSKNsqVk23Yy7LJdCElEfek62rlIkA=";
-    };
-  });
   moonlight-git = self.moonlight-qt.overrideAttrs (old: {
     pname = "moonlight-git";
     src = old.src.override {

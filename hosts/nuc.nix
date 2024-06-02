@@ -38,8 +38,6 @@
   my.dualsensectl.enable = true;
   my.hass.enable = true;
   my.intelGpu.enable = true;
-  # my.moonlight-cemuhook.enable = true;
-  # my.moonlight-cemuhook.package = pkgs.moonlight-git;
   my.nix-builder-client.enable = true;
   my.photoprism.enable = true;
   my.retroarch.enable = true;
