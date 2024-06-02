@@ -32,9 +32,6 @@
   networking.useNetworkd = lib.mkDefault true;
   # systemd.network.wait-online.anyInterface = config.networking.useDHCP;
   # nix.settings.allowed-users = [ config.my.user ];
-  # https://discourse.nixos.org/t/24-05-add-flake-to-nix-path/46310
-  nix.channel.enable = false;
-  nix.settings.nix-path = "nixpkgs=flake:nixpkgs";
   programs.ssh.startAgent = true;
   # CVE-2023-38408
   programs.ssh.agentPKCS11Whitelist = "''";
