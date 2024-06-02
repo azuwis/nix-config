@@ -40,8 +40,8 @@ in
     ./xiaomi_gateway3.nix
     ./xiaomi_miot.nix
     # ./zhibot.nix
-    ./zigbee2mqtt.nix
-    ./zigbee2mqtt-networkmap.nix
+    # ./zigbee2mqtt.nix
+    # ./zigbee2mqtt-networkmap.nix
   ];
 
   options.my.hass = {
