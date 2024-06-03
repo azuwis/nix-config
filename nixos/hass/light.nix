@@ -77,6 +77,7 @@
               - light.kitchen_door
               - light.kitchen_window
               - light.bathroom
+            from: "off"
             to: "on"
         variables:
           brightness: &brightness >-
@@ -146,6 +147,7 @@
         trigger:
           - platform: state
             entity_id: light.16609ab46d42b000_group
+            from: "off"
             to: "on"
         action:
           - service: homeassistant.update_entity
