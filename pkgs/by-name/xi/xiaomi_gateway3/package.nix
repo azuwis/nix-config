@@ -8,13 +8,13 @@
 buildHomeAssistantComponent rec {
   owner = "AlexxIT";
   domain = "xiaomi_gateway3";
-  version = "4.0.3";
+  version = "4.0.4";
 
   src = fetchFromGitHub {
     owner = "AlexxIT";
     repo = "XiaomiGateway3";
     rev = "v${version}";
-    hash = "sha256-YGaVQaz3A0yM8AIC02CvMKWMJ3tW3OADYgKY8ViIt5U=";
+    hash = "sha256-MQ/yxxXt2BXUAHEHGOaqansgon22oQ0byCQcUcVZdOQ=";
   };
 
   propagatedBuildInputs = with home-assistant.python.pkgs; [ zigpy ];
