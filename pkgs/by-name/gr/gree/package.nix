@@ -8,13 +8,13 @@
 buildHomeAssistantComponent rec {
   owner = "RobHofmann";
   domain = "gree";
-  version = "2.5.0";
+  version = "2.11.0";
 
   src = fetchFromGitHub {
     owner = "RobHofmann";
     repo = "HomeAssistant-GreeClimateComponent";
     rev = version;
-    hash = "sha256-rrOUFSs4gHEXZcCB2aFkP2Vt1lyHvnmp2b60A6oJCvc=";
+    hash = "sha256-y+ura1EtzIeKAu3Nd5mnlPEgO3AZOSe3pSYoUq9n/aI=";
   };
 
   propagatedBuildInputs = with home-assistant.python.pkgs; [ pycryptodome ];
