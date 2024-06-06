@@ -68,12 +68,14 @@ update() {
   popd
 }
 
+ASK=no
 ACTION="$1"
 if [ -n "$ACTION" ]
 then
   shift
 else
   ACTION="switch"
+  ASK=yes
 fi
 case "$ACTION" in
   b|build)
@@ -87,10 +89,13 @@ case "$ACTION" in
     ;;
   s|switch)
     build
-    read -p "Switch? [Yn]" -r answer
-    if [ -n "$answer" ] && [ "$answer" != "Y" ]
+    if [ "$ASK" = yes ]
     then
-      exit 1
+      read -p "Switch? [Yn]" -r answer
+      if [ -n "$answer" ] && [ "$answer" != "Y" ]
+      then
+        exit 1
+      fi
     fi
     ACTION="switch"
     ;;
