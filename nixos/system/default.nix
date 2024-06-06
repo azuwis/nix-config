@@ -80,13 +80,13 @@
      KEYBOARD_KEY_7004c=insert
   '';
   # nix profile diff-closures --profile /nix/var/nix/profiles/system
-  system.activationScripts.systemDiff = ''
-    # show upgrade diff
-    if [ -e /run/current-system ]
-    then
-      ${pkgs.nix}/bin/nix store --experimental-features nix-command diff-closures /run/current-system "$systemConfig" || true
-    fi
-  '';
+  # system.activationScripts.systemDiff = ''
+  #   # show upgrade diff
+  #   if [ -e /run/current-system ]
+  #   then
+  #     ${pkgs.nix}/bin/nix store --experimental-features nix-command diff-closures /run/current-system "$systemConfig" || true
+  #   fi
+  # '';
   system.stateVersion = "23.11";
   users.groups.${config.my.user} = {
     gid = config.my.uid;
