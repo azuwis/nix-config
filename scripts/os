@@ -27,7 +27,7 @@ case "$(uname -s)" in
 esac
 
 build() {
-  local args hostname profile
+  local args hostname profile system
 
   if [ -n "$1" ]
   then
@@ -35,7 +35,7 @@ build() {
     mkdir -p "$FLAKE/gcroots"
     profile="$FLAKE/gcroots/$hostname"
     args=(--profile "$profile")
-    SYSTEM=$(readlink -f "$profile")
+    system=$(readlink -f "$profile")
   else
     hostname="$(hostname)"
   fi
@@ -43,20 +43,24 @@ build() {
   case "$OS" in
     darwin)
       args+=("$FLAKE#darwinConfigurations.\"$hostname\".system")
-      SYSTEM=${SYSTEM:-/run/current-system}
+      system=${system:-/run/current-system}
       ;;
     droid)
       args+=(--impure "$FLAKE#nixOnDroidConfigurations.default.activationPackage")
-      SYSTEM=${SYSTEM:-/nix/var/nix/profiles/nix-on-droid}
+      system=${system:-/nix/var/nix/profiles/nix-on-droid}
       ;;
     nixos)
       args+=("$FLAKE#nixosConfigurations.\"$hostname\".config.system.build.toplevel")
-      SYSTEM=${SYSTEM:-/run/current-system}
+      system=${system:-/run/current-system}
       ;;
   esac
 
   BUILT=$(nix run nixpkgs#nix-output-monitor -- build --no-link --print-out-paths "${args[@]}")
-  nix run nixpkgs#nvd -- diff "$SYSTEM" "$BUILT"
+  nix run nixpkgs#nvd -- diff "$system" "$BUILT"
+  if [ "$ACTION" = d ] || [ "$ACTION" = diff ]
+  then
+    nix run nixpkgs#nix-diff -- --character-oriented "$system" "$BUILT"
+  fi
 }
 
 droid_switch() {
@@ -108,13 +112,8 @@ else
   ASK=yes
 fi
 case "$ACTION" in
-  b|build)
+  b|build|d|diff)
     build "$@"
-    exit $?
-    ;;
-  d|diff)
-    build
-    nix run nixpkgs#nix-diff -- --character-oriented "$SYSTEM" "$BUILT"
     exit $?
     ;;
   l|list)
