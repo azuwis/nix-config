@@ -1,0 +1,103 @@
+#!/usr/bin/env bash
+
+set -e
+
+hostname="$(hostname)"
+
+case "$(uname -s)" in
+  Darwin)
+    FLAKE="$HOME/.config/nixpkg"
+    ATTR="darwinConfigurations.\"$hostname\".system"
+    CMD=(darwin-rebuild --flake "$FLAKE")
+    SYSTEM=/run/current-system
+    ;;
+  Linux)
+    if [ -d /system/app/ ] && [ -d /system/priv-app ]
+    then
+      FLAKE="$HOME/.config/nixpkg"
+      ATTR="nixOnDroidConfigurations.default.activationPackage"
+      CMD=(nix-on-droid --flake "$FLAKE")
+      SYSTEM=/nix/var/nix/profiles/nix-on-droid
+    else
+      FLAKE="/etc/nixos"
+      ATTR="nixosConfigurations.\"$hostname\".config.system.build.toplevel"
+      CMD=(nixos-rebuild --flake "$FLAKE" --fast --use-remote-sudo)
+      SYSTEM=/run/current-system
+    fi
+    ;;
+  *)
+    exit 1
+    ;;
+esac
+
+build() {
+  BUILT="$(nix run nixpkgs#nix-output-monitor -- build --no-link --print-out-paths "$FLAKE#$ATTR")"
+  nix run nixpkgs#nvd -- diff "$SYSTEM" "$BUILT"
+}
+
+update() {
+  pushd "$FLAKE"
+  local args
+  args=(--recreate-lock-file)
+  if [ -n "$1" ]
+  then
+    input="$1"
+    args=(--update-input "$input")
+    shift
+  fi
+  if [ -n "$1" ]
+  then
+    url=$(nix-instantiate --eval --attr "inputs.$input.url" flake.nix)
+    url=${url#\"}
+    url=${url%\"}
+    slash=${url//[^\/]}
+    if [ "${#slash}" = 1 ]
+    then
+      url="$url/$1"
+    elif [ "${#slash}" = 2 ]
+    then
+      url=${url%/*}
+      url="$url/$1"
+    else
+      url="$1"
+    fi
+    args+=(--override-input "$input" "$url")
+    shift
+  fi
+  nix flake lock "${args[@]}" "$@"
+  popd
+}
+
+ACTION="$1"
+if [ -n "$ACTION" ]
+then
+  shift
+else
+  ACTION="switch"
+fi
+case "$ACTION" in
+  b|build)
+    build
+    exit
+    ;;
+  d|diff)
+    build
+    nix run nixpkgs#nix-diff -- --character-oriented "$SYSTEM" "$BUILT"
+    exit
+    ;;
+  s|switch)
+    build
+    read -p "Switch? [Yn]" -r answer
+    if [ -n "$answer" ] && [ "$answer" != "Y" ]
+    then
+      exit 1
+    fi
+    ACTION="switch"
+    ;;
+  u|update)
+    update "$@"
+    exit
+    ;;
+esac
+
+"${CMD[@]}" "$ACTION" "$@"
