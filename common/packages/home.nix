@@ -29,7 +29,9 @@
     lsof
     man
     netcat-gnu
+    nix-output-monitor
     nix-tree
+    nvd
     openssh
     openssl
     p7zip
