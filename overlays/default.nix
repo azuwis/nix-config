@@ -59,19 +59,5 @@ self: super: {
   #       '';
   #   });
   # };
-  # Remove when they're in nixpkgs
-  vimPlugins = super.vimPlugins // {
-    ts-comments-nvim = self.vimUtils.buildVimPlugin {
-      pname = "ts-comments.nvim";
-      version = "2024-05-26";
-      src = self.fetchFromGitHub {
-        owner = "folke";
-        repo = "ts-comments.nvim";
-        rev = "f7ded340b4c6b317593b867838bf7ace354a67d4";
-        sha256 = "1pajs8xsx65d5wzr6j98b0am52np2qijk8k7nc6dg6ibjfvwssyr";
-      };
-      meta.homepage = "https://github.com/folke/ts-comments.nvim/";
-    };
-  };
   # yabai = self.callPackage ../pkgs/yabai { };
 }
