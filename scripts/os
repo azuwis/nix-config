@@ -6,7 +6,7 @@ hostname="$(hostname)"
 
 case "$(uname -s)" in
   Darwin)
-    FLAKE="$HOME/.config/nixpkg"
+    FLAKE="$HOME/.config/nixpkgs"
     ATTR="darwinConfigurations.\"$hostname\".system"
     CMD=(darwin-rebuild --flake "$FLAKE")
     SYSTEM=/run/current-system
@@ -14,7 +14,7 @@ case "$(uname -s)" in
   Linux)
     if [ -d /system/app/ ] && [ -d /system/priv-app ]
     then
-      FLAKE="$HOME/.config/nixpkg"
+      FLAKE="$HOME/.config/nixpkgs"
       ATTR="nixOnDroidConfigurations.default.activationPackage"
       CMD=(nix-on-droid --flake "$FLAKE")
       SYSTEM=/nix/var/nix/profiles/nix-on-droid
