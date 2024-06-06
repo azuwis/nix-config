@@ -42,6 +42,8 @@
     autoStart = true;
     user = "deck";
   };
+  # Not really work for deck, still need to ln -s ${pkgs.noto-fonts-cjk-sans}/share/fonts/opentype/noto-cjk /home/deck/.fonts
+  programs.steam.fontPackages = with pkgs; [ noto-fonts-cjk-sans ];
 
   # boot.plymouth = {
   #   enable = true;
