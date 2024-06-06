@@ -118,7 +118,17 @@ case "$ACTION" in
     exit $?
     ;;
   l|list)
-    ACTION=list-generations
+    case "$OS" in
+      darwin)
+        ACTION=--list-generations
+        ;;
+      droid)
+        ACTION=generations
+        ;;
+      nixos)
+        ACTION=list-generations
+        ;;
+    esac
     ;;
   s|switch)
     build
