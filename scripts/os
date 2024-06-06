@@ -2,27 +2,23 @@
 
 set -e
 
-hostname="$(hostname)"
+if [ -e /etc/nixos ]
+then
+  FLAKE=/etc/nixos
+else
+  FLAKE="$HOME/.config/nixpkgs"
+fi
 
 case "$(uname -s)" in
   Darwin)
-    FLAKE="$HOME/.config/nixpkgs"
-    CMD=(darwin-rebuild --flake "$FLAKE")
-    BUILD_ARGS=("$FLAKE#darwinConfigurations.\"$hostname\".system")
-    SYSTEM=/run/current-system
+    OS=darwin
     ;;
   Linux)
     if [ -d /system/app/ ] && [ -d /system/priv-app ]
     then
-      FLAKE="$HOME/.config/nixpkgs"
-      CMD=(nix-on-droid --flake "$FLAKE")
-      BUILD_ARGS=(--impure "$FLAKE#nixOnDroidConfigurations.default.activationPackage")
-      SYSTEM=/nix/var/nix/profiles/nix-on-droid
+      OS=droid
     else
-      FLAKE="/etc/nixos"
-      CMD=(nixos-rebuild --flake "$FLAKE" --fast --use-remote-sudo)
-      BUILD_ARGS=("$FLAKE#nixosConfigurations.\"$hostname\".config.system.build.toplevel")
-      SYSTEM=/run/current-system
+      OS=nixos
     fi
     ;;
   *)
@@ -31,8 +27,45 @@ case "$(uname -s)" in
 esac
 
 build() {
-  BUILT=$(nix run nixpkgs#nix-output-monitor -- build --no-link --print-out-paths "${BUILD_ARGS[@]}")
-  nix run nixpkgs#nvd -- diff "$SYSTEM" "$BUILT"
+  local hostname args
+
+  if [ -n "$1" ]
+  then
+    hostname="$1"
+    mkdir -p "$FLAKE/gcroots"
+    args=(--out-link "$FLAKE/gcroots/$hostname")
+  else
+    hostname="$(hostname)"
+    args=(--no-link)
+  fi
+
+  case "$OS" in
+    darwin)
+      args+=("$FLAKE#darwinConfigurations.\"$hostname\".system")
+      SYSTEM=/run/current-system
+      ;;
+    droid)
+      args+=(--impure "$FLAKE#nixOnDroidConfigurations.default.activationPackage")
+      SYSTEM=/nix/var/nix/profiles/nix-on-droid
+      ;;
+    nixos)
+      args+=("$FLAKE#nixosConfigurations.\"$hostname\".config.system.build.toplevel")
+      SYSTEM=/run/current-system
+      ;;
+  esac
+
+  BUILT=$(nix run nixpkgs#nix-output-monitor -- build --print-out-paths "${args[@]}")
+
+  if [ -z "$1" ]
+  then
+    nix run nixpkgs#nvd -- diff "$SYSTEM" "$BUILT"
+  fi
+}
+
+droid_switch() {
+  # It seems nix eval cache does not work on nix-on-droid,
+  # directly call activate script to avoid eval again
+  "$BUILT/activate"
 }
 
 update() {
@@ -79,13 +112,13 @@ else
 fi
 case "$ACTION" in
   b|build)
-    build
-    exit
+    build "$@"
+    exit $?
     ;;
   d|diff)
     build
     nix run nixpkgs#nix-diff -- --character-oriented "$SYSTEM" "$BUILT"
-    exit
+    exit $?
     ;;
   l|list)
     ACTION=list-generations
@@ -100,11 +133,28 @@ case "$ACTION" in
         exit 1
       fi
     fi
+    if [ "$OS" = droid ]
+    then
+      droid_switch
+      exit $?
+    fi
     ACTION="switch"
     ;;
   u|update)
     update "$@"
-    exit
+    exit $?
+    ;;
+esac
+
+case "$OS" in
+  darwin)
+    CMD=(darwin-rebuild --flake "$FLAKE")
+    ;;
+  droid)
+    CMD=(nix-on-droid --flake "$FLAKE")
+    ;;
+  nixos)
+    CMD=(nixos-rebuild --flake "$FLAKE" --fast --use-remote-sudo)
     ;;
 esac
 
