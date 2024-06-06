@@ -48,7 +48,7 @@ in
     office = mkNixos { modules = [ ../hosts/office.nix ]; };
 
     steamdeck = mkNixos {
-      nixpkgs = inputs.jovian.inputs.nixpkgs;
+      # nixpkgs = inputs.jovian.inputs.nixpkgs;
       overlays = [
         inputs.jovian.overlays.default
         self.overlays.jovian
