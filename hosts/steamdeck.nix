@@ -45,6 +45,9 @@
   # Not really work for deck, still need to ln -s ${pkgs.noto-fonts-cjk-sans}/share/fonts/opentype/noto-cjk /home/deck/.fonts
   programs.steam.fontPackages = with pkgs; [ noto-fonts-cjk-sans ];
 
+  i18n.inputMethod.enabled = "ibus";
+  i18n.inputMethod.ibus.engines = [ pkgs.ibus-pinyin ];
+
   # boot.plymouth = {
   #   enable = true;
   #   theme = "steamos";
