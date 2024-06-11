@@ -13,6 +13,7 @@
   lua,
   pyzy,
   sqlite,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation rec {
@@ -42,6 +43,8 @@ stdenv.mkDerivation rec {
     pyzy
     sqlite
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     isIbusEngine = true;

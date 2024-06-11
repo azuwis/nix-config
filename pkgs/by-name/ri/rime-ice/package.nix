@@ -2,17 +2,18 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
+  nix-update-script,
 }:
 
 stdenvNoCC.mkDerivation {
   pname = "rime-ice";
-  version = "unstable-2023-11-25";
+  version = "2024.05.21-unstable-2024-06-09";
 
   src = fetchFromGitHub {
     owner = "iDvel";
     repo = "rime-ice";
-    rev = "b56953bd884c63d5edf0ef017dec64c4192318ef";
-    sha256 = "0nj3qnd9mhnr9qfxqyp24ikx4ywy43gy4vijl9b9xb5d1fpqmn8f";
+    rev = "0b59306d619a29cd345e3277aa5cd0b0d5653eda";
+    sha256 = "sha256-dElBA0baKaMN04sSXvMgfey+I60Zq4b+i+KoYzpxZMQ=";
   };
 
   installPhase = ''
@@ -20,6 +21,13 @@ stdenvNoCC.mkDerivation {
     cp -r cn_dicts/ $out/
     sed '/^\.\.\.$/q' rime_ice.dict.yaml > $out/rime_ice.dict.yaml
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
 
   meta = with lib; {
     description = "Rime pinyin dict from iDvel";

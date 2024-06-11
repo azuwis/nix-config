@@ -1,8 +1,12 @@
-{ fetchFromGitHub, buildGoModule }:
+{
+  fetchFromGitHub,
+  buildGoModule,
+  nix-update-script,
+}:
 
 buildGoModule {
   pname = "torrent-ratio";
-  version = "unstable-2023-12-25";
+  version = "0.7";
 
   src = fetchFromGitHub {
     owner = "azuwis";
@@ -12,4 +16,6 @@ buildGoModule {
   };
 
   vendorHash = "sha256-4NAwh2sp1SBVniMmx6loFMN/9gbY3kfWnHV/U0TIgHg=";
+
+  passthru.updateScript = nix-update-script { };
 }

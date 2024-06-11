@@ -3,6 +3,7 @@
   buildHomeAssistantComponent,
   fetchFromGitHub,
   home-assistant,
+  nix-update-script,
 }:
 
 buildHomeAssistantComponent rec {
@@ -20,6 +21,8 @@ buildHomeAssistantComponent rec {
   propagatedBuildInputs = with home-assistant.python.pkgs; [ pycryptodome ];
 
   dontBuild = true;
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Custom Gree climate component written in Python3 for Home Assistant. Controls AC's supporting the Gree protocol.";

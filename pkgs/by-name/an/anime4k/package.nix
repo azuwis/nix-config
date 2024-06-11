@@ -2,6 +2,7 @@
   lib,
   stdenvNoCC,
   fetchzip,
+  nix-update-script,
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
@@ -18,6 +19,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     mkdir $out
     cp *.glsl $out
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "A High-Quality Real Time Upscaler for Anime Video";

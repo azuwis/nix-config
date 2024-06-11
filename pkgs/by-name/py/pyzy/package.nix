@@ -8,11 +8,12 @@
   glib,
   libuuid,
   sqlite,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation {
   pname = "pyzy";
-  version = "0-unstable-2023-02-28";
+  version = "1.1-unstable-2023-02-28";
 
   src = fetchFromGitHub {
     owner = "openSUSE";
@@ -36,6 +37,13 @@ stdenv.mkDerivation {
   postPatch = ''
     patchShebangs ./data/db/android/create_db.py
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
 
   meta = with lib; {
     description = "The Chinese PinYin and Bopomofo conversion library";

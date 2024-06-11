@@ -2,6 +2,7 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
+  nix-update-script,
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
@@ -19,6 +20,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     mkdir -p $out/lib/firefox
     cp -r defaults/ legacy/ config.js legacy.manifest $out/lib/firefox
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Monkeypatching Firefox Quantum to run VimFx";

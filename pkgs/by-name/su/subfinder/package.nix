@@ -2,17 +2,18 @@
   lib,
   fetchFromGitHub,
   python3,
+  nix-update-script,
 }:
 
 python3.pkgs.buildPythonApplication {
   pname = "subfinder";
-  version = "unstable-2023-04-19";
+  version = "2.2.2-pre-unstable-2024-02-14";
 
   src = fetchFromGitHub {
     owner = "ausaki";
     repo = "subfinder";
-    rev = "885962139e5068154946bf13283ca52c341f01ff";
-    sha256 = "1srvvr3zw4kc5a3s1jagb36pxxx60zlaazs35qmzd1wsppmxhamb";
+    rev = "fe15165d143f4666731fa5246c2e716af6411c36";
+    sha256 = "sha256-SeensfAKYU3HUjGaF3hzrnXZkQYs/15IH3msNEl0iS8=";
   };
 
   propagatedBuildInputs = with python3.pkgs; [
@@ -30,6 +31,13 @@ python3.pkgs.buildPythonApplication {
   postPatch = ''
     substituteInPlace setup.py --replace "bs4" "beautifulsoup4"
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
 
   meta = with lib; {
     description = "Subtitle finder";
