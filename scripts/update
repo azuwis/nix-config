@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+set -e
+
+nixpkgs=$(nix-instantiate --eval --expr '<nixpkgs>')
+root=$(readlink -f "$(dirname "${BASH_SOURCE[0]}")/..")
+
+args=()
+if [ "$1" = all ]
+then
+  args+=(
+    --arg
+    predicate
+    "(
+    let prefix = \"$root\"; len = builtins.stringLength prefix;
+    in (_: package: (builtins.substring 0 len package.meta.position) == prefix)
+    )"
+  )
+  shift
+elif [ "$#" -eq 1 ]
+then
+  args+=(--argstr path)
+fi
+
+nix-shell "$nixpkgs/maintainers/scripts/update.nix" \
+  --arg include-overlays "[(import (<nixpkgs> + \"/pkgs/top-level/by-name-overlay.nix\") \"$root/pkgs/by-name\")]" \
+  "${args[@]}" "$@"
