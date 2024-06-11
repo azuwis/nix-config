@@ -26,6 +26,18 @@ case "$(uname -s)" in
     ;;
 esac
 
+help() {
+  cmd=$(basename "$0")
+  cat <<EOF
+USAGE:
+$cmd b|build [<host>]
+$cmd d|diff [<host>]
+$cmd s|switch
+$cmd u|update [<input>] [<commit>]
+$cmd <darwin-rebuild/nix-on-droid/nixos-rebuild args>
+EOF
+}
+
 build() {
   local args hostname profile system
 
@@ -126,6 +138,10 @@ case "$ACTION" in
         ACTION=list-generations
         ;;
     esac
+    ;;
+  h|help)
+    help
+    exit
     ;;
   s|switch)
     build
