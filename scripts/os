@@ -81,9 +81,7 @@ update() {
   fi
   if [ -n "$1" ]
   then
-    url=$(nix-instantiate --eval --attr "inputs.$input.url" flake.nix)
-    url=${url#\"}
-    url=${url%\"}
+    url=$(nix eval --raw --file flake.nix "inputs.$input.url")
     slash=${url//[^\/]}
     if [ "${#slash}" = 1 ]
     then
