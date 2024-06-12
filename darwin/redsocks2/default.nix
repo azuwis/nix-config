@@ -5,9 +5,13 @@
   ...
 }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkIf
+    mkMerge
+    mkOption
+    types
+    ;
   cfg = config.services.redsocks2;
   configFile = pkgs.writeText "redsocks2.conf" ''
     base {

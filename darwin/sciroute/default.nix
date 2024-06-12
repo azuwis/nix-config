@@ -5,9 +5,8 @@
   ...
 }:
 
-with lib;
-
 let
+  inherit (lib) mkIf mkOption types;
   cfg = config.services.sciroute;
   localCidr = ./local-cidr;
   scirouteScript = pkgs.substituteAll {

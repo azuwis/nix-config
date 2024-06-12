@@ -5,9 +5,8 @@
   ...
 }:
 
-with lib;
-
 let
+  inherit (lib) mkIf mkOption types;
   cfg = config.services.scidns;
   localDomains = ./local-domains;
   scidnsConf = pkgs.runCommand "scidns.conf" { } ''
