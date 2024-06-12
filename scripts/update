@@ -22,7 +22,9 @@ then
   args+=(--argstr path)
 fi
 
+pushd "$root" >/dev/null
 nix-shell "$nixpkgs/maintainers/scripts/update.nix" \
   --arg include-overlays \
   "[ (import (<nixpkgs> + \"/pkgs/top-level/by-name-overlay.nix\") \"$root/pkgs/by-name\") (import \"$root/overlays/default.nix\") ]" \
   "${args[@]}" "$@"
+popd >/dev/null
