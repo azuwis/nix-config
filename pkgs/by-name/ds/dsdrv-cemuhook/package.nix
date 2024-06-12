@@ -3,17 +3,18 @@
   fetchFromGitHub,
   bluez,
   python3,
+  nix-update-script,
 }:
 
 python3.pkgs.buildPythonPackage {
   pname = "dsdrv-cemuhook";
-  version = "unstable-2021-08-04";
+  version = "0.5.1-unstable-2023-08-25";
 
   src = fetchFromGitHub {
     owner = "lirannl";
     repo = "dsdrv-cemuhook";
-    rev = "0a04ecdfa908b29548665ce2dac06c8a6f572378";
-    sha256 = "0bhh5q6hl1ba7w5b5rm5a4gh7n169v3k6lz7szvzmbs79gpxmb2m";
+    rev = "ab61e413dccc6a0d23bb469e587fbda209982ff0";
+    sha256 = "sha256-YSo7PwIlSqYbVhpEZam41SVLzg610G1cgoyL8S7he88=";
   };
 
   propagatedBuildInputs = with python3.pkgs; [
@@ -22,6 +23,13 @@ python3.pkgs.buildPythonPackage {
   ];
 
   buildInputs = [ bluez ];
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
 
   meta = {
     description = "A Sony DualShock 4 and DualSense userspace driver for Linux with basic support of cemuhook's UDP protocol";
