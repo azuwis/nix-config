@@ -23,5 +23,6 @@ then
 fi
 
 nix-shell "$nixpkgs/maintainers/scripts/update.nix" \
-  --arg include-overlays "[(import (<nixpkgs> + \"/pkgs/top-level/by-name-overlay.nix\") \"$root/pkgs/by-name\")]" \
+  --arg include-overlays \
+  "[ (import (<nixpkgs> + \"/pkgs/top-level/by-name-overlay.nix\") \"$root/pkgs/by-name\") (import ./overlays/default.nix) ]" \
   "${args[@]}" "$@"

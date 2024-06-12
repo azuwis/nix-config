@@ -9,7 +9,10 @@ let
   };
   self = import flake-compat { src = ./.; };
   packages = import <nixpkgs> {
-    overlays = [ (import (<nixpkgs> + "/pkgs/top-level/by-name-overlay.nix") ./pkgs/by-name) ];
+    overlays = [
+      (import (<nixpkgs> + "/pkgs/top-level/by-name-overlay.nix") ./pkgs/by-name)
+      (import ./overlays/default.nix)
+    ];
   };
 in
 # nix-update expect nixpkgs-like repo https://discourse.nixos.org/t/25274
