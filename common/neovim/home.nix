@@ -13,7 +13,7 @@ in
   imports = [
     # ./nvchad
     ./lazyvim
-    ./update-nix-fetchgit
+    # ./update-nix-fetchgit
   ];
 
   options.my.neovim = {

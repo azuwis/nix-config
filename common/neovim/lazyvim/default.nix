@@ -17,6 +17,6 @@
     my.lazyvim.nix.enable = true;
     my.lazyvim.nord.enable = true;
     my.lazyvim.terraform.enable = true;
-    my.lazyvim.update-nix-fetchgit.enable = true;
+    # my.lazyvim.update-nix-fetchgit.enable = true;
   };
 }
