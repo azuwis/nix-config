@@ -58,5 +58,12 @@
       "  ]);",
       "}"
     ]
+  },
+  "update_script": {
+    "prefix": "up",
+    "description": "Nix update script",
+    "body": [
+      "passthru.updateScript = nix-update-script { ${0|extraArgs = [ \"--version\" \"branch\" ]; |}};"
+    ]
   }
 }
