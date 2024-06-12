@@ -8,16 +8,11 @@
 }:
 
 {
-  imports =
-    [
-      inputs.agenix.darwinModules.default
-      inputs.home-manager.darwinModules.home-manager
-      ../common
-    ]
-    ++ lib.my.getModules [
-      ../modules/darwin
-      ./.
-    ];
+  imports = [
+    inputs.agenix.darwinModules.default
+    inputs.home-manager.darwinModules.home-manager
+    ../common
+  ] ++ lib.my.getModules [ ./. ];
 
   hm.imports = [ ./home.nix ];
 
