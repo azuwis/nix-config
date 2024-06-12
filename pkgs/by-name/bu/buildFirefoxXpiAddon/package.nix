@@ -13,13 +13,14 @@ lib.makeOverridable (
     addonId,
     url,
     sha256,
+    passthru ? { },
     meta,
     ...
   }:
   stdenv.mkDerivation {
     name = "${pname}-${version}";
 
-    inherit meta;
+    inherit passthru meta;
 
     src = fetchurl { inherit url sha256; };
 

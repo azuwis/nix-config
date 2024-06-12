@@ -3,11 +3,12 @@
   stdenv,
   fetchFromGitHub,
   udev,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation {
   pname = "jslisten";
-  version = "unstable-2021-02-07";
+  version = "0-unstable-2023-08-07";
 
   src = fetchFromGitHub {
     owner = "azuwis";
@@ -25,6 +26,13 @@ stdenv.mkDerivation {
 
     runHook postInstall
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
 
   meta = with lib; {
     description = "Listen to gamepad inputs and trigger a command";

@@ -7,11 +7,12 @@
   libevent,
   openssl,
   darwin,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation {
   pname = "redsocks2";
-  version = "unstable-2021-08-22";
+  version = "release-0.67-unstable-2021-08-22";
 
   src = fetchFromGitHub {
     owner = "azuwis";
@@ -37,6 +38,13 @@ stdenv.mkDerivation {
     install -d 0644 $out/bin
     install -m 0755 redsocks2 $out/bin
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
 
   meta = with lib; {
     description = "Transparent redirector of any TCP/UDP connection to proxy";

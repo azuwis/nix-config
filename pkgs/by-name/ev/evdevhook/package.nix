@@ -9,17 +9,18 @@
   nlohmann_json,
   udev,
   zlib,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation {
   pname = "evdevhook";
-  version = "unstable-2021-11-21";
+  version = "0-unstable-2023-08-03";
 
   src = fetchFromGitHub {
     owner = "v1993";
     repo = "evdevhook";
-    rev = "e82287051ceb78753193a0206c1fff048fe7987f";
-    hash = "sha256-af9B04k8+7nO3rhsYx223N+fpcVjExi9KDXF+b719/8=";
+    rev = "55baeeaf12a1588c9941390b043908ff9fec0dc2";
+    hash = "sha256-oRYR1pbYn+PdBDnkmorjQu+HOmyagYGctOHPOtd8gCI=";
   };
 
   nativeBuildInputs = [
@@ -38,6 +39,13 @@ stdenv.mkDerivation {
   postPatch = ''
     substituteInPlace src/main.cpp --replace create_loopback create_any
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
 
   meta = with lib; {
     description = "Libevdev based DSU/cemuhook joystick server";

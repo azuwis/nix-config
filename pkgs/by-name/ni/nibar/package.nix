@@ -2,11 +2,12 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
+  nix-update-script,
 }:
 
 stdenvNoCC.mkDerivation {
   pname = "nibar";
-  version = "2021-08-21";
+  version = "0-unstable-2021-08-20";
 
   src = fetchFromGitHub {
     owner = "azuwis";
@@ -24,6 +25,13 @@ stdenvNoCC.mkDerivation {
     mkdir $out/
     cp -r *.jsx config.json lib scripts $out/
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
 
   meta = with lib; {
     description = "Simple Übersicht status bar with yabai support";

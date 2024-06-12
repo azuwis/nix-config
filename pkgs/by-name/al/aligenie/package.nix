@@ -2,12 +2,13 @@
   lib,
   buildHomeAssistantComponent,
   fetchFromGitHub,
+  nix-update-script,
 }:
 
 buildHomeAssistantComponent {
   owner = "azuwis";
   domain = "aligenie";
-  version = "unstable-2023-07-23";
+  version = "0-unstable-2023-07-22";
 
   src = fetchFromGitHub {
     owner = "azuwis";
@@ -17,6 +18,13 @@ buildHomeAssistantComponent {
   };
 
   dontBuild = true;
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
 
   meta = with lib; {
     description = "Home assistant custom component for tmall genie";

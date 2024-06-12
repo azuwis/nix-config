@@ -4,6 +4,7 @@
   fetchFromGitHub,
   fetchpatch,
   home-assistant,
+  nix-update-script,
 }:
 
 buildHomeAssistantComponent rec {
@@ -37,6 +38,8 @@ buildHomeAssistantComponent rec {
   postInstall = ''
     cp -r codes $out/custom_components/smartir/
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     changelog = "https://github.com/smartHomeHub/SmartIR/releases/tag/v${version}";
