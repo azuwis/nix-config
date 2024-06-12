@@ -24,6 +24,7 @@ fi
 
 pushd "$root" >/dev/null
 nix-shell "$nixpkgs/maintainers/scripts/update.nix" \
+  --argstr keep-going true \
   --arg include-overlays \
   "[ (import (<nixpkgs> + \"/pkgs/top-level/by-name-overlay.nix\") \"$root/pkgs/by-name\") (import \"$root/overlays/default.nix\") ]" \
   "${args[@]}" "$@"
