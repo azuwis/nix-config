@@ -69,6 +69,13 @@ build() {
   esac
 
   BUILT=$(nix run nixpkgs#nix-output-monitor -- build --no-link --print-out-paths "${args[@]}")
+
+  if [ "$BUILT" = "$(readlink -f "$system")" ]
+  then
+    echo "build-result == current-system"
+    exit
+  fi
+
   nix run nixpkgs#nvd -- diff "$system" "$BUILT"
   if [ "$ACTION" = d ] || [ "$ACTION" = diff ]
   then
