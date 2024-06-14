@@ -40,7 +40,13 @@ EOF
 }
 
 build() {
-  local args hostname profile system
+  local args diff hostname profile system
+
+  if [ "$1" = "--diff" ]
+  then
+    diff=yes
+    shift
+  fi
 
   if [ -n "$1" ]
   then
@@ -77,7 +83,8 @@ build() {
   fi
 
   nix run nixpkgs#nvd -- diff "$system" "$BUILT"
-  if [ "$ACTION" = d ] || [ "$ACTION" = diff ]
+
+  if [ "$diff" = yes ]
   then
     nix run nixpkgs#nix-diff -- --character-oriented "$system" "$BUILT"
   fi
@@ -102,7 +109,7 @@ rebuild() {
       cmd=(nixos-rebuild --flake "$FLAKE" --fast --use-remote-sudo)
       ;;
   esac
-  "${cmd[@]}" "$ACTION" "$@"
+  "${cmd[@]}" "$@"
 }
 
 update() {
@@ -136,39 +143,42 @@ update() {
   popd
 }
 
-ASK=no
-ACTION="$1"
-if [ -n "$ACTION" ]
+ask=no
+action="$1"
+if [ -n "$action" ]
 then
   shift
 else
-  ACTION="switch"
-  ASK=yes
+  action="switch"
+  ask=yes
 fi
-case "$ACTION" in
-  b|build|d|diff)
+case "$action" in
+  b|build)
     build "$@"
+    ;;
+  d|diff)
+    build --diff "$@"
     ;;
   l|list)
     case "$OS" in
       darwin)
-        ACTION=--list-generations
+        action=--list-generations
         ;;
       droid)
-        ACTION=generations
+        action=generations
         ;;
       nixos)
-        ACTION=list-generations
+        action=list-generations
         ;;
     esac
-    rebuild "$@"
+    rebuild "$action" "$@"
     ;;
   h|help)
     help
     ;;
   s|switch)
     build
-    if [ "$ASK" = yes ]
+    if [ "$ask" = yes ]
     then
       read -p "Switch? [Yn]" -r answer
       if [ -n "$answer" ] && [ "$answer" != "Y" ]
@@ -180,13 +190,13 @@ case "$ACTION" in
     then
       droid_switch
     else
-      ACTION="switch"
-      rebuild "$@"
+      action="switch"
+      rebuild "$action" "$@"
     fi
     ;;
   u|update)
     update "$@"
     ;;
   *)
-    rebuild "$@"
+    rebuild "$action" "$@"
 esac
