@@ -27,6 +27,7 @@ case "$(uname -s)" in
 esac
 
 help() {
+  local cmd
   cmd=$(basename "$0")
   cat <<EOF
 USAGE:
@@ -81,6 +82,22 @@ droid_switch() {
   "$BUILT/activate"
 }
 
+rebuild() {
+  local cmd
+  case "$OS" in
+    darwin)
+      cmd=(darwin-rebuild --flake "$FLAKE")
+      ;;
+    droid)
+      cmd=(nix-on-droid --flake "$FLAKE")
+      ;;
+    nixos)
+      cmd=(nixos-rebuild --flake "$FLAKE" --fast --use-remote-sudo)
+      ;;
+  esac
+  "${cmd[@]}" "$ACTION" "$@"
+}
+
 update() {
   pushd "$FLAKE"
   local args
@@ -124,7 +141,6 @@ fi
 case "$ACTION" in
   b|build|d|diff)
     build "$@"
-    exit $?
     ;;
   l|list)
     case "$OS" in
@@ -138,10 +154,10 @@ case "$ACTION" in
         ACTION=list-generations
         ;;
     esac
+    rebuild "$@"
     ;;
   h|help)
     help
-    exit
     ;;
   s|switch)
     build
@@ -156,26 +172,14 @@ case "$ACTION" in
     if [ "$OS" = droid ]
     then
       droid_switch
-      exit $?
+    else
+      ACTION="switch"
+      rebuild "$@"
     fi
-    ACTION="switch"
     ;;
   u|update)
     update "$@"
-    exit $?
     ;;
+  *)
+    rebuild "$@"
 esac
-
-case "$OS" in
-  darwin)
-    CMD=(darwin-rebuild --flake "$FLAKE")
-    ;;
-  droid)
-    CMD=(nix-on-droid --flake "$FLAKE")
-    ;;
-  nixos)
-    CMD=(nixos-rebuild --flake "$FLAKE" --fast --use-remote-sudo)
-    ;;
-esac
-
-"${CMD[@]}" "$ACTION" "$@"
