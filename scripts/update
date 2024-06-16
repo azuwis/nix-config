@@ -12,8 +12,10 @@ then
     --arg
     predicate
     "(
-    let prefix = \"$root\"; len = builtins.stringLength prefix;
-    in (_: package: (builtins.substring 0 len package.meta.position) == prefix)
+    let
+      hasPrefix = pref: str: builtins.substring 0 (builtins.stringLength pref) str == pref;
+      getPosition = package: (builtins.unsafeGetAttrPos \"src\" package).file or package.meta.position;
+    in (_: package: hasPrefix \"$root\" (getPosition package))
     )"
   )
   shift
