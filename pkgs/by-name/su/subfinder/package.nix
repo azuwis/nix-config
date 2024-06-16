@@ -32,12 +32,7 @@ python3.pkgs.buildPythonApplication {
     substituteInPlace setup.py --replace "bs4" "beautifulsoup4"
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
-  };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = with lib; {
     description = "Subtitle finder";

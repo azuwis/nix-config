@@ -40,12 +40,7 @@ stdenv.mkDerivation {
     substituteInPlace src/main.cpp --replace create_loopback create_any
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
-  };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = with lib; {
     description = "Libevdev based DSU/cemuhook joystick server";

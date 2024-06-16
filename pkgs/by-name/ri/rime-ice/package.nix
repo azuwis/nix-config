@@ -22,12 +22,7 @@ stdenvNoCC.mkDerivation {
     sed '/^\.\.\.$/q' rime_ice.dict.yaml > $out/rime_ice.dict.yaml
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
-  };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = with lib; {
     description = "Rime pinyin dict from iDvel";

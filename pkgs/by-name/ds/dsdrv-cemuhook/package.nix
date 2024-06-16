@@ -24,12 +24,7 @@ python3.pkgs.buildPythonPackage {
 
   buildInputs = [ bluez ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
-  };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = {
     description = "A Sony DualShock 4 and DualSense userspace driver for Linux with basic support of cemuhook's UDP protocol";
