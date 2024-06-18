@@ -32,7 +32,7 @@
         "yeelink-light-panel1_mibt813A.lan" = {
           name = "Kitchen window";
         };
-        "yeelink-light-panel1_mibt8400.lan" = {
+        "yeelink-light-panel1_mibt98B7.lan" = {
           name = "Bathroom";
         };
       };
