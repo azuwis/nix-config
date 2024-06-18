@@ -9,6 +9,8 @@
   config = lib.mkIf config.my.hass.enable {
     services.home-assistant.config = {
       logger.logs."homeassistant.components.yeelight" = "critical";
+      # miiocli cloud
+      # miiocli yeelight --ip IP_OF_DEVICE --token TOKEN_OF_DEVICE set_developer_mode 1
       yeelight.devices = {
         "yeelink-light-ceiling12_mibtEA04.lan" = {
           name = "Living room";
