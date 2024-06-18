@@ -502,6 +502,14 @@ in
                     left = "71%";
                   };
                 }
+                {
+                  type = "state-icon";
+                  entity = "binary_sensor.649e314c943b_occupancy";
+                  style = {
+                    top = "9%";
+                    left = "71%";
+                  };
+                }
                 # bathroom
                 {
                   type = "state-icon";
@@ -512,6 +520,14 @@ in
                   style = {
                     top = "23%";
                     left = "51%";
+                  };
+                }
+                {
+                  type = "state-icon";
+                  entity = "binary_sensor.dced8387eef4_occupancy";
+                  style = {
+                    top = "25.5%";
+                    left = "45.5%";
                   };
                 }
                 {
