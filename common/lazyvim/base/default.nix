@@ -78,6 +78,10 @@ in
             path = catppuccin-nvim;
           }
           {
+            name = "lazydev.nvim";
+            path = lazydev-nvim;
+          }
+          {
             name = "mini.ai";
             path = mini-nvim;
           }

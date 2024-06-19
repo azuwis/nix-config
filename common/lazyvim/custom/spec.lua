@@ -27,6 +27,11 @@ return {
   },
 
   {
+    "Bilal2453/luvit-meta",
+    enabled = false,
+  },
+
+  {
     "echasnovski/mini.indentscope",
     optional = true,
     opts = {
