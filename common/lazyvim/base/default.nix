@@ -13,7 +13,15 @@ in
   options.my.lazyvim =
     let
       pluginsOptionType =
-        with lib.types;
+        let
+          inherit (lib.types)
+            listOf
+            oneOf
+            package
+            str
+            submodule
+            ;
+        in
         listOf (oneOf [
           package
           (submodule {
