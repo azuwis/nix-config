@@ -82,19 +82,6 @@ return {
   },
 
   {
-    "folke/neodev.nvim",
-    optional = true,
-    opts = {
-      override = function(root_dir, library)
-        if root_dir:find("/etc/nixos") == 1 or root_dir:find(".config/nixpkgs") then
-          library.enabled = true
-          library.plugins = false
-        end
-      end,
-    },
-  },
-
-  {
     "folke/noice.nvim",
     optional = true,
     opts = {

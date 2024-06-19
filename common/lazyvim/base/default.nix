@@ -35,7 +35,6 @@ in
           cmp-buffer
           cmp-nvim-lsp
           cmp-path
-          cmp_luasnip
           conform-nvim
           dashboard-nvim
           dressing-nvim
@@ -45,8 +44,6 @@ in
           indent-blankline-nvim
           lualine-nvim
           neo-tree-nvim
-          neoconf-nvim
-          neodev-nvim
           noice-nvim
           nui-nvim
           nvim-cmp
@@ -58,7 +55,6 @@ in
           nvim-treesitter
           nvim-treesitter-textobjects
           nvim-ts-autotag
-          nvim-ts-context-commentstring
           nvim-web-devicons
           persistence-nvim
           plenary-nvim
@@ -68,26 +64,13 @@ in
           tokyonight-nvim
           trouble-nvim
           ts-comments-nvim
-          vim-startuptime
           which-key-nvim
-          {
-            name = "LuaSnip";
-            path = luasnip;
-          }
           {
             name = "catppuccin";
             path = catppuccin-nvim;
           }
           {
             name = "mini.ai";
-            path = mini-nvim;
-          }
-          {
-            name = "mini.bufremove";
-            path = mini-nvim;
-          }
-          {
-            name = "mini.comment";
             path = mini-nvim;
           }
           {
@@ -172,12 +155,8 @@ in
     my.neovim.treesitterParsers =
       (pkgs.vimPlugins.nvim-treesitter.withPlugins (
         plugins: with plugins; [
-          c
           csv
           jsonc
-          lua
-          markdown
-          markdown_inline
           regex
         ]
       )).dependencies;
