@@ -10,7 +10,7 @@ let
   self = import flake-compat { src = ./.; };
   packages = import <nixpkgs> {
     overlays = [
-      (import (<nixpkgs> + "/pkgs/top-level/by-name-overlay.nix") ./pkgs/by-name)
+      (import <nixpkgs/pkgs/top-level/by-name-overlay.nix> ./pkgs/by-name)
       (import ./overlays/default.nix)
     ];
   };
