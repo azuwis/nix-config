@@ -1,4 +1,6 @@
 return {
+  { import = "lazyvim.plugins.extras.coding.mini-surround" },
+
   {
     "nvimdev/dashboard-nvim",
     optional = true,

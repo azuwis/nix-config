@@ -15,6 +15,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    my.lazyvim.extraPlugins = with pkgs.vimPlugins; [
+      {
+        name = "mini.surround";
+        path = mini-nvim;
+      }
+    ];
+
     xdg.configFile."nvim/lua/plugins/custom.lua".source = ./spec.lua;
     xdg.configFile."nvim/lua/config".source = ./config;
 
