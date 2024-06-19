@@ -31,6 +31,7 @@ in
 
       programs.steam = {
         enable = true;
+        fontPackages = with pkgs; [ noto-fonts-cjk-sans ];
         gamescopeSession = {
           enable = true;
           args =
@@ -73,7 +74,7 @@ in
             ''--unshare-all --share-net''
             ''--tmpfs /.host-etc/nixos''
             ''--bind "$HOME/steam" /home''
-            ''--ro-bind "${pkgs.noto-fonts-cjk-sans}/share/fonts/opentype/noto-cjk" "/home/$USER/.fonts"''
+            # ''--ro-bind "${pkgs.noto-fonts-cjk-sans}/share/fonts/opentype/noto-cjk" "/home/$USER/.fonts"''
             ''--tmpfs /run/user''
             ''--bind-try "/run/user/$UID/bus" "/run/user/$UID/bus"''
             ''--bind-try "/run/user/$UID/gamescope-0" "/run/user/$UID/gamescope-0"''
