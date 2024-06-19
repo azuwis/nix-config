@@ -116,6 +116,10 @@ let
     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
     "media.autoplay.default" = 0;
     # "media.default_volume" = 0.02;
+    # scroll
+    "apz.gtk.kinetic_scroll.enabled" = false;
+    "general.smoothScroll.mouseWheel.durationMinMS" = 100;
+    "mousewheel.default.delta_multiplier_y" = 90;
     "extensions.VimFx.config_file_directory" = "~/.config/vimfx";
   };
 in
