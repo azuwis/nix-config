@@ -28,6 +28,9 @@ in
       subfinder
     ];
 
+    # Enable chromium native wayland
+    environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
     nix.daemonCPUSchedPolicy = "idle";
 
     programs.gnupg.agent.enable = true;
