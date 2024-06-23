@@ -102,7 +102,7 @@ in
                   };
                   style = {
                     top = "43%";
-                    left = "60%";
+                    left = "63%";
                   };
                 }
                 {
@@ -128,33 +128,43 @@ in
                   };
                 }
                 {
+                  type = "state-icon";
+                  entity = "humidifier.deye_z20_81f8_dehumidifier";
+                  style = {
+                    top = "42.9%";
+                    left = "43.2%";
+                  };
+                }
+                {
                   type = "state-label";
-                  entity = "sensor.1775bcf17c0e_humidity";
-                  tap_action = {
-                    action = "navigate";
-                    navigation_path = "/lovelace/history";
-                  };
-                  hold_action = {
-                    action = "more-info";
-                  };
+                  entity = "sensor.deye_z20_81f8_relative_humidity";
                   style = {
                     top = "42.2%";
-                    left = "47%";
+                    left = "52%";
+                  };
+                }
+                {
+                  type = "state-label";
+                  entity = "sensor.deye_z20_81f8_temperature";
+                  style = {
+                    top = "44.2%";
+                    left = "52.9%";
+                  };
+                }
+                {
+                  type = "state-label";
+                  entity = "sensor.1775bcf17c0e_humidity";
+                  style = {
+                    top = "42.2%";
+                    left = "79%";
                   };
                 }
                 {
                   type = "state-label";
                   entity = "sensor.1775bcf17c0e_temperature";
-                  tap_action = {
-                    action = "navigate";
-                    navigation_path = "/lovelace/history";
-                  };
-                  hold_action = {
-                    action = "more-info";
-                  };
                   style = {
                     top = "44.2%";
-                    left = "47.9%";
+                    left = "79.9%";
                   };
                 }
                 # primary bedroom
