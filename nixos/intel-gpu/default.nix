@@ -25,6 +25,6 @@ in
       capabilities = "cap_perfmon=ep";
     };
 
-    hardware.opengl.extraPackages = [ pkgs.intel-vaapi-driver ];
+    hardware.graphics.extraPackages = [ pkgs.intel-vaapi-driver ];
   };
 }

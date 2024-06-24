@@ -48,7 +48,7 @@ in
 
     (mkIf cfg.firefox-fix {
       # https://github.com/elFarto/nvidia-vaapi-driver
-      hardware.opengl.extraPackages = [ pkgs.nvidia-vaapi-driver ];
+      hardware.graphics.extraPackages = [ pkgs.nvidia-vaapi-driver ];
       hm.my.firefox.env.GDK_BACKEND = null;
       hm.my.firefox.env.MOZ_DISABLE_RDD_SANDBOX = "1";
       hm.programs.firefox.profiles.default.settings = {
