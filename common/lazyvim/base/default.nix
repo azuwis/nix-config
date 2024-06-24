@@ -50,6 +50,7 @@ in
           friendly-snippets
           gitsigns-nvim
           indent-blankline-nvim
+          lazydev-nvim
           lualine-nvim
           neo-tree-nvim
           noice-nvim
@@ -76,10 +77,6 @@ in
           {
             name = "catppuccin";
             path = catppuccin-nvim;
-          }
-          {
-            name = "lazydev.nvim";
-            path = lazydev-nvim;
           }
           {
             name = "mini.ai";
