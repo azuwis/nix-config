@@ -25,6 +25,8 @@
   environment.systemPackages = lib.optionals (config.boot.loader.grub.enable == true) [
     pkgs.grub-reboot-menu
   ];
+  # https://github.com/orgs/NixOS/projects/66
+  # boot.initrd.systemd.enable = true;
   # explicitly enable nixos docs, system like wsl does not enable this
   documentation.nixos.enable = true;
   networking.enableIPv6 = false;
