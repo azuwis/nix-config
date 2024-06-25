@@ -36,7 +36,10 @@
     openssh.authorizedKeys.keys = config.my.keys;
   };
 
-  jovian.devices.steamdeck.enable = true;
+  jovian.devices.steamdeck = {
+    enable = true;
+    autoUpdate = true;
+  };
   jovian.steam = {
     enable = true;
     autoStart = true;
