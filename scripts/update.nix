@@ -13,7 +13,7 @@ let
   hasPrefix = prefix: str: builtins.substring 0 (builtins.stringLength prefix) str == prefix;
   getPosition = package: (builtins.unsafeGetAttrPos "src" package).file or package.meta.position;
 in
-import <nixpkgs/maintainers/scripts/update.nix> {
+(import <nixpkgs/maintainers/scripts/update.nix> {
   inherit
     commit
     maintainer
@@ -28,4 +28,11 @@ import <nixpkgs/maintainers/scripts/update.nix> {
   keep-going = true;
   predicate =
     if prefix != null then (_: package: hasPrefix prefix (getPosition package)) else predicate;
-}
+}).overrideAttrs
+  (old: {
+    shellHook =
+      ''
+        unset TZ
+      ''
+      + old.shellHook;
+  })
