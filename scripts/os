@@ -56,7 +56,7 @@ build() {
     mkdir -p "$FLAKE/gcroots"
     profile="$FLAKE/gcroots/$hostname"
     args=(--profile "$profile")
-    system=$(readlink -f "$profile")
+    system=$(readlink -f "$profile" || true)
     shift
   else
     hostname="$(hostname)"
@@ -79,7 +79,7 @@ build() {
 
   BUILT=$("${nix[@]}" build --no-link --print-out-paths "${args[@]}" "$@")
 
-  if [ "$BUILT" = "$(readlink -f "$system")" ]
+  if [ "$BUILT" = "$(readlink -f "$system" || true)" ]
   then
     echo "build-result == current-system"
     exit
