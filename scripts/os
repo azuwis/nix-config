@@ -35,7 +35,14 @@ EOF
 }
 
 build() {
-  local args diff hostname profile system
+  local args diff hostname nix profile system
+
+  nix=(nix run nixpkgs#nix-output-monitor --)
+  if [ "$1" = "--no-nom" ]
+  then
+    nix=(nix --print-build-logs)
+    shift
+  fi
 
   if [ "$1" = "--diff" ]
   then
@@ -50,6 +57,7 @@ build() {
     profile="$FLAKE/gcroots/$hostname"
     args=(--profile "$profile")
     system=$(readlink -f "$profile")
+    shift
   else
     hostname="$(hostname)"
   fi
@@ -69,7 +77,7 @@ build() {
       ;;
   esac
 
-  BUILT=$(nix run nixpkgs#nix-output-monitor -- build --no-link --print-out-paths "${args[@]}")
+  BUILT=$("${nix[@]}" build --no-link --print-out-paths "${args[@]}" "$@")
 
   if [ "$BUILT" = "$(readlink -f "$system")" ]
   then
@@ -150,6 +158,9 @@ fi
 case "$action" in
   b|build)
     build "$@"
+    ;;
+  ci)
+    build --no-nom "$@" --override-input my "path:$FLAKE/test"
     ;;
   d|diff)
     build --diff "$@"
