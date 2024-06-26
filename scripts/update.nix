@@ -30,6 +30,7 @@ in
     if prefix != null then (_: package: hasPrefix prefix (getPosition package)) else predicate;
 }).overrideAttrs
   (old: {
+    # Retain git commit timezone
     shellHook =
       ''
         unset TZ
