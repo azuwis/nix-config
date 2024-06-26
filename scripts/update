@@ -2,22 +2,12 @@
 
 set -e
 
-nixpkgs=$(nix-instantiate --eval --expr '<nixpkgs>')
 root=$(readlink -f "$(dirname "${BASH_SOURCE[0]}")/..")
 
 args=()
 if [ "$1" = all ]
 then
-  args+=(
-    --arg
-    predicate
-    "(
-    let
-      hasPrefix = pref: str: builtins.substring 0 (builtins.stringLength pref) str == pref;
-      getPosition = package: (builtins.unsafeGetAttrPos \"src\" package).file or package.meta.position;
-    in (_: package: hasPrefix \"$root\" (getPosition package))
-    )"
-  )
+  args+=(--argstr all true)
   shift
 elif [ "$#" -eq 1 ]
 then
@@ -25,9 +15,5 @@ then
 fi
 
 pushd "$root" >/dev/null
-nix-shell "$nixpkgs/maintainers/scripts/update.nix" \
-  --argstr keep-going true \
-  --arg include-overlays \
-  "[ (import <nixpkgs/pkgs/top-level/by-name-overlay.nix> \"$root/pkgs/by-name\") (import \"$root/overlays/default.nix\") ]" \
-  "${args[@]}" "$@"
+nix-shell "$root/scripts/update.nix" "${args[@]}" "$@"
 popd >/dev/null
