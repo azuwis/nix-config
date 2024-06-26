@@ -13,16 +13,19 @@
 }).overrideAttrs
   (old: {
     pname = "sunshine-git";
-    version = "2024.617.2357-unstable-2024-06-17";
+    version = "2024.621.193854-unstable-2024-06-26";
 
     src = old.src.override {
-      rev = "0c0b4c46107b0203d9412bfbca5e72dca6c0211e";
-      sha256 = "sha256-GsZnW31MO5nXW9GBGLwS8gJFcUGojPV4iCM3GjM7GVE=";
+      rev = "49b6efcdfddd28a0893da52be9f395f46bb1ffdf";
+      sha256 = "sha256-H+uhJvV7b7CMx2NG5BjfvVPMwcTKWYlkOYbIUxopwM0=";
     };
 
-    buildInputs = old.buildInputs ++ [ nodejs ];
+    nativeBuildInputs = old.nativeBuildInputs ++ [ nodejs ];
 
-    cmakeFlags = old.cmakeFlags ++ [ (lib.cmakeFeature "BOOST_USE_STATIC" "OFF") ];
+    cmakeFlags = old.cmakeFlags ++ [
+      (lib.cmakeFeature "BOOST_USE_STATIC" "OFF")
+      (lib.cmakeFeature "BUILD_DOCS" "OFF")
+    ];
 
     passthru.updateScript = nix-update-script {
       extraArgs = [
