@@ -79,17 +79,20 @@ build() {
 
   BUILT=$("${nix[@]}" build --no-link --print-out-paths "${args[@]}" "$@")
 
-  if [ "$BUILT" = "$(readlink -f "$system" || true)" ]
+  if [ -e "$system" ]
   then
-    echo "build-result == current-system"
-    exit
-  fi
+    if [ "$BUILT" = "$(readlink -f "$system")" ]
+    then
+      echo "build-result == current-system"
+      exit
+    fi
 
-  nix run nixpkgs#nvd -- diff "$system" "$BUILT"
+    nix run nixpkgs#nvd -- diff "$system" "$BUILT"
 
-  if [ "$diff" = yes ]
-  then
-    nix run nixpkgs#nix-diff -- --character-oriented "$system" "$BUILT"
+    if [ "$diff" = yes ]
+    then
+      nix run nixpkgs#nix-diff -- --character-oriented "$system" "$BUILT"
+    fi
   fi
 }
 
