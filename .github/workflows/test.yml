@@ -1,0 +1,48 @@
+name: Test
+permissions: {}
+on:
+  pull_request:
+    paths-ignore:
+    - 'scripts/**'
+  push:
+    paths-ignore:
+    - 'scripts/**'
+  workflow_dispatch:
+    inputs:
+      debug:
+        description: Enable debug
+        type: boolean
+        required: false
+        default: false
+      os:
+        description: Debug OS
+        required: true
+        type: choice
+        options: [ubuntu-latest, macos-12, all]
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        host: [nuc]
+        include:
+        - {os: macos-12, host: mbp}
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Skip debug
+      if: >-
+        ${{ github.event_name == 'workflow_dispatch' && inputs.debug && !
+            ((inputs.os == 'all' || inputs.os == matrix.os) && (matrix.host == 'nuc' || matrix.host == 'mbp'))
+        }}
+      run: exit 1
+    - uses: actions/checkout@v3
+    - uses: azuwis/actions/nix@main
+      with:
+        key: nix-${{ matrix.host }}
+        debug: ${{ github.event_name == 'workflow_dispatch' && inputs.debug }}
+    - name: Test
+      run: |
+        rm -rf /opt/hostedtoolcache || true
+        ./scripts/os ci ${{ matrix.host }}
+    - uses: azuwis/actions/nix/post@main
