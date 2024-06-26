@@ -27,7 +27,7 @@ while getopts ":achm:p:w:-:" opt; do
     a) args+=(--argstr all true) ;;
     c) args+=(--argstr commit true) ;;
     m) args+=(--argstr maintainer "$OPTARG") ;;
-    p) args+=(--argstr prefix "$OPTARG") ;;
+    p) args+=(--argstr prefix "$(readlink -f "$OPTARG")") ;;
     w) args+=(--argstr max-workers "$OPTARG") ;;
     -) ;;
     h|*) usage ;;
