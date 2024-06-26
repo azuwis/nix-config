@@ -2,18 +2,46 @@
 
 set -e
 
-root=$(readlink -f "$(dirname "${BASH_SOURCE[0]}")/..")
+usage(){
+  local name
+  name=$(basename "$0")
+  cat <<EOF
+Usage:
+  $name -h                         Display usage
+  $name [options] -a               Update all packages
+  $name [options] -m <maintainer>  Update packages of maintainer <maintainer>
+  $name [options] -p <prefix>      Update packages matching given prefix <prefix>
+  $name [options] <path>           Update package under attribute path <path>
+  $name [options] -- <args>        Args to update.nix
+
+options:
+  -c Commit automatically
+  -w <jobs> Number of jobs in parallel
+EOF
+exit
+}
 
 args=()
-if [ "$1" = all ]
-then
-  args+=(--argstr all true)
-  shift
-elif [ "$#" -eq 1 ]
+while getopts ":achm:p:w:-:" opt; do
+  case "$opt" in
+    a) args+=(--argstr all true) ;;
+    c) args+=(--argstr commit true) ;;
+    m) args+=(--argstr maintainer "$OPTARG") ;;
+    p) args+=(--argstr prefix "$OPTARG") ;;
+    w) args+=(--argstr max-workers "$OPTARG") ;;
+    -) ;;
+    h|*) usage ;;
+  esac
+done
+shift $((OPTIND-1))
+
+if [ "$#" -eq 1 ]
 then
   args+=(--argstr path)
 fi
 
+root=$(readlink -f "$(dirname "${BASH_SOURCE[0]}")/..")
 pushd "$root" >/dev/null
+echo nix-shell "$root/scripts/update.nix" "${args[@]}" "$@"
 nix-shell "$root/scripts/update.nix" "${args[@]}" "$@"
 popd >/dev/null
