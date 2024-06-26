@@ -27,13 +27,13 @@ jobs:
         os: [ubuntu-latest]
         host: [nuc]
         include:
-        - {os: macos-12, host: mbp}
+        - {os: macos-12, host: test}
     runs-on: ${{ matrix.os }}
     steps:
     - name: Skip debug
       if: >-
         ${{ github.event_name == 'workflow_dispatch' && inputs.debug && !
-            ((inputs.os == 'all' || inputs.os == matrix.os) && (matrix.host == 'nuc' || matrix.host == 'mbp'))
+            ((inputs.os == 'all' || inputs.os == matrix.os) && (matrix.host == 'nuc' || matrix.host == 'test'))
         }}
       run: exit 1
     - uses: actions/checkout@v3
