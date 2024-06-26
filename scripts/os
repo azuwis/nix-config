@@ -2,12 +2,7 @@
 
 set -e
 
-if [ -e /etc/nixos ]
-then
-  FLAKE=/etc/nixos
-else
-  FLAKE="$HOME/.config/nixpkgs"
-fi
+FLAKE=$(readlink -f "$(dirname "${BASH_SOURCE[0]}")/..")
 
 case "$(uname -s)" in
   Darwin)
