@@ -17,6 +17,6 @@ in
   config = mkIf cfg.enable {
     hm.my.emacs.enable = true;
 
-    fonts.fonts = [ pkgs.emacs-all-the-icons-fonts ];
+    fonts.packages = [ pkgs.emacs-all-the-icons-fonts ];
   };
 }
