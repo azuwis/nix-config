@@ -1,12 +1,9 @@
 name: Test
 permissions: {}
 on:
-  pull_request:
-    paths-ignore:
-    - 'scripts/**'
   push:
-    paths-ignore:
-    - 'scripts/**'
+    paths:
+    - flake.lock
   workflow_dispatch:
     inputs:
       debug:
@@ -25,7 +22,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        host: [nuc]
+        host: [nuc, steamdeck]
         # include:
         # - {os: macos-12, host: test}
     runs-on: ${{ matrix.os }}
