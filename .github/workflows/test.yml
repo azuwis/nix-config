@@ -36,7 +36,7 @@ jobs:
             ((inputs.os == 'all' || inputs.os == matrix.os) && (matrix.host == 'nuc' || matrix.host == 'test'))
         }}
       run: exit 1
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: azuwis/actions/nix@main
       with:
         key: nix-${{ matrix.host }}
