@@ -37,6 +37,7 @@ jobs:
     - uses: azuwis/actions/nix@main
       with:
         key: nix-${{ matrix.host }}
+        clean: true
         debug: ${{ github.event_name == 'workflow_dispatch' && inputs.debug }}
     - uses: cachix/cachix-action@v15
       with:
