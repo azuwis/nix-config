@@ -6,7 +6,7 @@ usage(){
   local name
   name=$(basename "$0")
   cat <<EOF
-Usage:
+USAGE:
   $name -h                         Display usage
   $name [options] -a               Update all packages
   $name [options] -m <maintainer>  Update packages of maintainer <maintainer>

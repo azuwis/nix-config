@@ -21,16 +21,16 @@ case "$(uname -s)" in
     ;;
 esac
 
-help() {
+usage() {
   local cmd
   cmd=$(basename "$0")
   cat <<EOF
 USAGE:
-$cmd b|build [<host>]
-$cmd d|diff [<host>]
-$cmd s|switch
-$cmd u|update [<input>] [<commit>]
-$cmd <darwin-rebuild/nix-on-droid/nixos-rebuild args>
+  $cmd b|build [<host>]
+  $cmd d|diff [<host>]
+  $cmd s|switch
+  $cmd u|update [<input>] [<commit>]
+  $cmd <darwin-rebuild/nix-on-droid/nixos-rebuild args>
 EOF
 }
 
@@ -177,7 +177,7 @@ case "$action" in
     rebuild "$action" "$@"
     ;;
   h|help)
-    help
+    usage
     ;;
   s|switch)
     build
