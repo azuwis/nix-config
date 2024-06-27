@@ -53,8 +53,7 @@ build() {
   if [ -n "$1" ]
   then
     hostname="$1"
-    mkdir -p "$FLAKE/gcroots"
-    profile="$FLAKE/gcroots/$hostname"
+    profile="$HOME/.local/state/nix/profiles/$hostname"
     args=(--profile "$profile")
     system=$(readlink -f "$profile" || true)
     shift
