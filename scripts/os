@@ -35,7 +35,7 @@ EOF
 }
 
 build() {
-  local args diff hostname nix profile system
+  local args diff hostname nix profile
 
   nix=(nix run nixpkgs#nix-output-monitor --)
   if [ "$1" = "--no-nom" ]
@@ -55,42 +55,37 @@ build() {
     hostname="$1"
     profile="$HOME/.local/state/nix/profiles/$hostname"
     args=(--profile "$profile")
-    system=$(readlink -f "$profile" || true)
+    SYSTEM=$(readlink -f "$profile" || true)
     shift
   else
     hostname="$(hostname)"
+    case "$OS" in
+      darwin) SYSTEM=$(readlink -f /run/current-system || true) ;;
+      droid) SYSTEM=$(readlink -f /nix/var/nix/profiles/nix-on-droid || true) ;;
+      nixos) SYSTEM=$(readlink -f /run/current-system || true) ;;
+    esac
   fi
 
   case "$OS" in
-    darwin)
-      args+=("$FLAKE#darwinConfigurations.\"$hostname\".system")
-      system=${system:-/run/current-system}
-      ;;
-    droid)
-      args+=(--impure "$FLAKE#nixOnDroidConfigurations.default.activationPackage")
-      system=${system:-/nix/var/nix/profiles/nix-on-droid}
-      ;;
-    nixos)
-      args+=("$FLAKE#nixosConfigurations.\"$hostname\".config.system.build.toplevel")
-      system=${system:-/run/current-system}
-      ;;
+    darwin) args+=("$FLAKE#darwinConfigurations.\"$hostname\".system") ;;
+    droid) args+=(--impure "$FLAKE#nixOnDroidConfigurations.default.activationPackage") ;;
+    nixos) args+=("$FLAKE#nixosConfigurations.\"$hostname\".config.system.build.toplevel") ;;
   esac
 
   BUILT=$("${nix[@]}" build --no-link --print-out-paths "${args[@]}" "$@")
 
-  if [ -e "$system" ]
+  if [ -e "$SYSTEM" ]
   then
-    if [ "$BUILT" = "$(readlink -f "$system")" ]
+    if [ "$SYSTEM" = "$BUILT" ]
     then
       echo "build-result == current-system"
-      exit
-    fi
+    else
+      nix run nixpkgs#nvd -- diff "$SYSTEM" "$BUILT"
 
-    nix run nixpkgs#nvd -- diff "$system" "$BUILT"
-
-    if [ "$diff" = yes ]
-    then
-      nix run nixpkgs#nix-diff -- --character-oriented "$system" "$BUILT"
+      if [ "$diff" = yes ]
+      then
+        nix run nixpkgs#nix-diff -- --character-oriented "$SYSTEM" "$BUILT"
+      fi
     fi
   fi
 }
@@ -188,6 +183,11 @@ case "$action" in
     build
     if [ "$ask" = yes ]
     then
+      if [ "$SYSTEM" = "$BUILT" ]
+      then
+        echo "Skip switch"
+        exit
+      fi
       read -p "Switch? [Yn]" -r answer
       if [ -n "$answer" ] && [ "$answer" != "Y" ]
       then
