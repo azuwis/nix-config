@@ -44,7 +44,5 @@ jobs:
         name: azuwis
         authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
     - name: Test
-      run: |
-        rm -rf /opt/hostedtoolcache || true
-        ./scripts/os ci ${{ matrix.host }}
+      run: ./scripts/os ci ${{ matrix.host }}
     - uses: azuwis/actions/nix/post@main
