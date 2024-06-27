@@ -86,7 +86,7 @@
             {% set now = now() %}
             {% if now > today_at("22:35") %}
               128
-            {% elif now < today_at("7:35") %}
+            {% elif now < today_at("7:30") %}
               3
             {% else %}
               255
