@@ -27,8 +27,8 @@ in
     ./aligenie.nix
     ./braviatv.nix
     ./device_tracker.nix
-    ./gree.nix
-    # ./gree2.nix
+    # ./gree.nix
+    ./gree2.nix
     ./light.nix
     ./lovelace.nix
     ./mini-media-player.nix

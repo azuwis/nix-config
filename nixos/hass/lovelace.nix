@@ -73,7 +73,7 @@ in
                 }
                 {
                   type = "state-icon";
-                  entity = "climate.living_room";
+                  entity = "climate.gree_climate_9424b8123fe900";
                   hold_action = {
                     action = "toggle";
                   };
@@ -630,17 +630,17 @@ in
               type = "conditional";
               conditions = [
                 {
-                  entity = "climate.living_room";
+                  entity = "climate.gree_climate_9424b8123fe900";
                   state_not = "off";
                 }
                 {
-                  entity = "climate.living_room";
+                  entity = "climate.gree_climate_9424b8123fe900";
                   state_not = "unavailable";
                 }
               ];
               card = {
                 type = "custom:simple-thermostat";
-                entity = "climate.living_room";
+                entity = "climate.gree_climate_9424b8123fe900";
                 layout = {
                   mode = {
                     headings = false;
