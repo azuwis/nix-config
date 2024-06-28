@@ -29,6 +29,7 @@ in
           host = "192.168.2.228";
           scan_interval = 20;
           fake_server = "0.0.0.0";
+          temp_step = 0.5;
           temp_sensor."9424b8123fe900" = "sensor.1775bcf17c0e_temperature";
         }
       ];
