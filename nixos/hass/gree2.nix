@@ -10,6 +10,9 @@ let
   cfg = config.my.hass;
 in
 {
+  # OpenWRT: /etc/config/dhcp
+  # config dnsmasq
+  #   list address '/dis.gree.com/<ip_of_hass>'
   options.my.hass = {
     gree2 = mkEnableOption "gree2" // {
       default = true;
