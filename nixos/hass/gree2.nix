@@ -8,14 +8,6 @@
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.my.hass;
-
-  component = pkgs.fetchFromGitHub rec {
-    name = "${owner}-${repo}-${rev}";
-    owner = "xcy1231";
-    repo = "Ha-GreeCentralClimate";
-    rev = "4186c286787dbee2bdfc1c5d0415a84e8910b4ca";
-    sha256 = "sha256-KZWq715ZfH4pufVXI/1uI8RFBs3CWYcMD96c9nsLbmU=";
-  };
 in
 {
   options.my.hass = {
@@ -25,7 +17,7 @@ in
   };
 
   config = mkIf (cfg.enable && cfg.gree2) {
-    hass.file."custom_components/gree2".source = "${component}/custom_components/gree2";
+    services.home-assistant.customComponents = [ pkgs.gree2 ];
 
     services.home-assistant.config = {
       climate = [
