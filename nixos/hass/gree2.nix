@@ -40,6 +40,21 @@ in
 
     networking.firewall.allowedTCPPorts = [ 1812 ];
 
-    hass.automations = '''';
+    hass.automations = ''
+      - alias: Climate living room off when light living room off
+        trigger:
+          - platform: state
+            entity_id: light.living_room
+            from: "on"
+            to: "off"
+        condition:
+          - condition: sun
+            after: sunset
+            before: sunrise
+        action:
+          - service: climate.turn_off
+            data:
+              entity_id: climate.gree_climate_9424b8123fe900
+    '';
   };
 }
