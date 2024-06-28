@@ -28,6 +28,7 @@ in
           mac = "94:24:b8:12:3f:e9";
           target_temp_step = 1;
           temp_sensor = "sensor.1775bcf17c0e_temperature";
+          max_online_attempts = 5;
         }
       ];
 
