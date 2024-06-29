@@ -20,6 +20,10 @@
     grub = {
       device = "nodev";
       efiSupport = true;
+      theme = pkgs.sleek-grub-theme.override {
+        withBanner = "NixOS";
+        withStyle = "dark";
+      };
     };
   };
   environment.systemPackages = lib.optionals (config.boot.loader.grub.enable == true) [
