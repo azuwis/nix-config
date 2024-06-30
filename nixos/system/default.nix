@@ -22,10 +22,7 @@
       efiSupport = true;
       backgroundColor = "#000000";
       splashImage = null;
-      theme = pkgs.sleek-grub-theme.override {
-        withBanner = "NixOS";
-        withStyle = "dark";
-      };
+      theme = pkgs.minimal-grub-theme;
     };
   };
   environment.systemPackages = lib.optionals (config.boot.loader.grub.enable == true) [
