@@ -20,6 +20,8 @@
     grub = {
       device = "nodev";
       efiSupport = true;
+      backgroundColor = "#000000";
+      splashImage = null;
       theme = pkgs.sleek-grub-theme.override {
         withBanner = "NixOS";
         withStyle = "dark";
