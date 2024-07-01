@@ -13,11 +13,11 @@
 }).overrideAttrs
   (old: {
     pname = "sunshine-git";
-    version = "2024.621.193854-unstable-2024-06-26";
+    version = "2024.629.13903-unstable-2024-07-01";
 
     src = old.src.override {
-      rev = "49b6efcdfddd28a0893da52be9f395f46bb1ffdf";
-      sha256 = "sha256-H+uhJvV7b7CMx2NG5BjfvVPMwcTKWYlkOYbIUxopwM0=";
+      rev = "a940cdb394055139ca6a964289f414da562452e3";
+      sha256 = "sha256-BblRbxQsMfMRNLdfChMHGpYDFXUd8LjsTGVtVeCcMPo=";
     };
 
     nativeBuildInputs = old.nativeBuildInputs ++ [ nodejs ];
