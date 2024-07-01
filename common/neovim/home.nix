@@ -8,6 +8,7 @@
 let
   inherit (lib)
     attrVals
+    literalExpression
     mkEnableOption
     mkIf
     mkOption
@@ -24,7 +25,18 @@ in
   options.my.neovim = {
     enable = mkEnableOption "neovim";
 
-    treesitterParsers = mkOption { type = with lib.types; listOf str; };
+    treesitterParsers = mkOption {
+      default = [ ];
+      example = literalExpression ''
+        [ "nix" pkgs.vimPlugins.nvim-treesitter-parsers.yaml ]
+      '';
+      type =
+        with lib.types;
+        listOf (oneOf [
+          str
+          package
+        ]);
+    };
   };
 
   config = mkIf cfg.enable {
@@ -47,11 +59,14 @@ in
     # https://github.com/nvim-treesitter/nvim-treesitter#i-get-query-error-invalid-node-type-at-position
     xdg.configFile."nvim/parser".source =
       let
+        parserStrings = builtins.filter builtins.isString cfg.treesitterParsers;
+        parserPackages = builtins.filter lib.isDerivation cfg.treesitterParsers;
         parsers = pkgs.symlinkJoin {
           name = "treesitter-parsers";
           paths =
-            (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: attrVals cfg.treesitterParsers plugins))
-            .dependencies;
+            (pkgs.vimPlugins.nvim-treesitter.withPlugins (
+              plugins: attrVals parserStrings plugins ++ parserPackages
+            )).dependencies;
         };
       in
       "${parsers}/parser";
