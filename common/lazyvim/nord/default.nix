@@ -22,6 +22,14 @@ in
       }
     ];
 
+    my.lazyvim.excludePlugins = with pkgs.vimPlugins; [
+      {
+        name = "catppuccin";
+        path = catppuccin-nvim;
+      }
+      tokyonight-nvim
+    ];
+
     xdg.configFile."nvim/lua/plugins/nord.lua".source = ./spec.lua;
   };
 }
