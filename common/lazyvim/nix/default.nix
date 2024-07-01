@@ -20,8 +20,7 @@ in
       nixfmt-rfc-style
     ];
 
-    my.neovim.treesitterParsers =
-      (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: with plugins; [ nix ])).dependencies;
+    my.neovim.treesitterParsers = [ "nix" ];
 
     xdg.configFile."nvim/lua/plugins/nix.lua".source = ./spec.lua;
   };

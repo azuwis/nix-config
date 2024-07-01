@@ -161,15 +161,12 @@ in
         '';
     };
 
-    my.neovim.treesitterParsers =
-      (pkgs.vimPlugins.nvim-treesitter.withPlugins (
-        plugins: with plugins; [
-          csv
-          jsonc
-          regex
-          # builtin `vimdoc` has error: vimdoc(highlights): .../query.lua:252: Query error at 2:4. Invalid node type "delimiter":
-          vimdoc
-        ]
-      )).dependencies;
+    my.neovim.treesitterParsers = [
+      "csv"
+      "jsonc"
+      "regex"
+      # builtin `vimdoc` has error: vimdoc(highlights): .../query.lua:252: Query error at 2:4. Invalid node type "delimiter":
+      "vimdoc"
+    ];
   };
 }

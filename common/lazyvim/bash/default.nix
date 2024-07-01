@@ -20,8 +20,7 @@ in
       shellcheck
     ];
 
-    my.neovim.treesitterParsers =
-      (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: with plugins; [ bash ])).dependencies;
+    my.neovim.treesitterParsers = [ "bash" ];
 
     xdg.configFile."nvim/lua/plugins/bash.lua".source = ./spec.lua;
   };

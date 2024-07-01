@@ -6,7 +6,12 @@
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf mkOption;
+  inherit (lib)
+    attrVals
+    mkEnableOption
+    mkIf
+    mkOption
+    ;
   cfg = config.my.neovim;
 in
 {
@@ -19,7 +24,7 @@ in
   options.my.neovim = {
     enable = mkEnableOption "neovim";
 
-    treesitterParsers = mkOption { type = with lib.types; listOf package; };
+    treesitterParsers = mkOption { type = with lib.types; listOf str; };
   };
 
   config = mkIf cfg.enable {
@@ -44,7 +49,9 @@ in
       let
         parsers = pkgs.symlinkJoin {
           name = "treesitter-parsers";
-          paths = cfg.treesitterParsers;
+          paths =
+            (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: attrVals cfg.treesitterParsers plugins))
+            .dependencies;
         };
       in
       "${parsers}/parser";
