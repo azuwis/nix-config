@@ -641,6 +641,7 @@ in
               card = {
                 type = "custom:simple-thermostat";
                 entity = "climate.gree_climate_9424b8123fe900";
+                control = [ "hvac" ];
                 layout = {
                   mode = {
                     headings = false;
