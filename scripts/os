@@ -27,6 +27,7 @@ usage() {
   cat <<EOF
 USAGE:
   $cmd b|build [<host>]
+  $cmd c|clean
   $cmd d|diff [<host>]
   $cmd s|switch
   $cmd u|update [<input>] [<commit>]
@@ -88,6 +89,18 @@ build() {
       fi
     fi
   fi
+}
+
+clean() {
+  # Clean up gcroots symlinks
+  shopt -s nullglob
+  for i in "/nix/var/nix/gcroots/per-user/$USER/"*
+  do
+    if [ ! -e "$i" ]
+    then
+      rm -v "$i"
+    fi
+  done
 }
 
 droid_switch() {
@@ -155,6 +168,9 @@ fi
 case "$action" in
   b|build)
     build "$@"
+    ;;
+  c|clean)
+    clean "$@"
     ;;
   ci)
     build --no-nom "$@" --override-input my "path:$FLAKE/test"
