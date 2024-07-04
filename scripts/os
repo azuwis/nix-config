@@ -29,6 +29,7 @@ USAGE:
   $cmd b|build [<host>]
   $cmd c|clean
   $cmd d|diff [<host>]
+  $cmd hardware
   $cmd s|switch
   $cmd u|update [<input>] [<commit>]
   $cmd <darwin-rebuild/nix-on-droid/nixos-rebuild args>
@@ -107,6 +108,12 @@ droid_switch() {
   # It seems nix eval cache does not work on nix-on-droid,
   # directly call activate script to avoid eval again
   "$BUILT/activate"
+}
+
+hardware() {
+  test -e /etc/NIXOS || exit
+  # shellcheck disable=SC2024
+  sudo nixos-generate-config --show-hardware-config > "$FLAKE/hosts/hardware-$(hostname).nix"
 }
 
 rebuild() {
@@ -191,6 +198,9 @@ case "$action" in
         ;;
     esac
     rebuild "$action" "$@"
+    ;;
+  hardware)
+    hardware
     ;;
   h|help)
     usage
