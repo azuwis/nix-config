@@ -652,6 +652,11 @@ in
                     entity = "sensor.1775bcf17c0e_humidity";
                     name = "Humidity";
                   }
+                  {
+                    entity = "climate.gree_climate_9424b8123fe900";
+                    name = "Fan";
+                    attribute = "fan_mode";
+                  }
                 ];
               };
             }
@@ -683,6 +688,11 @@ in
                   {
                     entity = "sensor.xiaomi_mt0_bedd_co2_density";
                     name = "Co2";
+                  }
+                  {
+                    entity = "climate.xiaomi_mt0_bedd_air_conditioner";
+                    name = "Fan";
+                    attribute = "fan_mode";
                   }
                 ];
               };
@@ -716,6 +726,11 @@ in
                     entity = "sensor.xiaomi_mt0_cdd0_co2_density";
                     name = "Co2";
                   }
+                  {
+                    entity = "climate.xiaomi_mt0_cdd0_air_conditioner";
+                    name = "Fan";
+                    attribute = "fan_mode";
+                  }
                 ];
               };
             }
@@ -747,6 +762,11 @@ in
                   {
                     entity = "sensor.xiaomi_mt0_6e25_co2_density";
                     name = "Co2";
+                  }
+                  {
+                    entity = "climate.xiaomi_mt0_6e25_air_conditioner";
+                    name = "Fan";
+                    attribute = "fan_mode";
                   }
                 ];
               };
