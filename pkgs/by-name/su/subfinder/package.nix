@@ -29,7 +29,7 @@ python3.pkgs.buildPythonApplication {
   doCheck = false;
 
   postPatch = ''
-    substituteInPlace setup.py --replace "bs4" "beautifulsoup4"
+    substituteInPlace setup.py --replace-fail "bs4" "beautifulsoup4"
   '';
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };

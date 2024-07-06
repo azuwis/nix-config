@@ -47,7 +47,7 @@ self: super: {
   #   wlroots = self.wlroots_0_16.overrideAttrs (old: {
   #     postPatch =
   #       (old.postPatch or "") + ''
-  #         substituteInPlace render/gles2/renderer.c --replace "glFlush();" "glFinish();"
+  #         substituteInPlace render/gles2/renderer.c --replace-fail "glFlush();" "glFinish();"
   #       '';
   #   });
   # };

@@ -37,7 +37,7 @@ stdenv.mkDerivation {
   ];
 
   postPatch = ''
-    substituteInPlace src/main.cpp --replace create_loopback create_any
+    substituteInPlace src/main.cpp --replace-fail create_loopback create_any
   '';
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };

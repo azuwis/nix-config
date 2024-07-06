@@ -93,9 +93,9 @@ in
           patches = [ ./nvchad.patch ];
           postPatch = ''
             substituteInPlace lua/plugins/init.lua \
-            --replace '"NvChad/ui"' '"NvChad/nvchad-ui"' \
-            --replace '"L3MON4D3/LuaSnip"' '"L3MON4D3/luasnip"' \
-            --replace '"numToStr/Comment.nvim"' '"numToStr/comment.nvim"'
+            --replace-fail '"NvChad/ui"' '"NvChad/nvchad-ui"' \
+            --replace-fail '"L3MON4D3/LuaSnip"' '"L3MON4D3/luasnip"' \
+            --replace-fail '"numToStr/Comment.nvim"' '"numToStr/comment.nvim"'
           '';
         });
       in

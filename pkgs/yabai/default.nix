@@ -20,8 +20,8 @@ stdenv.mkDerivation {
     let
       replace =
         {
-          aarch64-darwin = ''--replace "-arch x86_64" ""'';
-          x86_64-darwin = ''--replace "-arch arm64e" "" --replace "-arch arm64" ""'';
+          aarch64-darwin = ''--replace-fail "-arch x86_64" ""'';
+          x86_64-darwin = ''--replace-fail "-arch arm64e" "" --replace-fail "-arch arm64" ""'';
         }
         .${stdenv.system};
     in

@@ -34,7 +34,7 @@ let
           # conflict with legacyfox
           rm $out/lib/firefox/defaults/pref/autoconfig.js
           lndir -silent ${pkgs.legacyfox} $out
-          substituteInPlace $out/bin/firefox --replace "exec -a" "${env} exec -a"
+          substituteInPlace $out/bin/firefox --replace-fail "exec -a" "${env} exec -a"
         '';
     }
   );
