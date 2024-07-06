@@ -8,14 +8,6 @@ self: super: {
   #   '';
   # });
   jetbrains-mono-nerdfont = self.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
-  moonlight-git = self.moonlight-qt.overrideAttrs (old: {
-    pname = "moonlight-git";
-    src = old.src.override {
-      rev = "fee54a9d765d6121c831cdaac90aff490824231f";
-      sha256 = "sha256-iJ5DFfbtkBVHL35lsX1OYhqN+DG7/9g5D2iwN4marjY=";
-    };
-    patches = [ ../patches/moonlight.diff ];
-  });
   sf-symbols-app = self.callPackage ../pkgs/by-name/sf/sf-symbols/package.nix {
     app = true;
     fonts = false;
