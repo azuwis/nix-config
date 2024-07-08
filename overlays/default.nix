@@ -7,11 +7,6 @@ self: super: {
   #     sed -i '/\/\/ already connected\?/,+2 d' src/input/api/DSU/DSUControllerProvider.cpp
   #   '';
   # });
-  sf-symbols-app = self.callPackage ../pkgs/by-name/sf/sf-symbols/package.nix {
-    app = true;
-    fonts = false;
-  };
-  sf-symbols-full = self.callPackage ../pkgs/by-name/sf/sf-symbols/package.nix { full = true; };
 
   # override
   fcitx5-configtool = self.writeShellScriptBin "fcitx5-config-qt" ''
