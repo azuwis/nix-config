@@ -7,7 +7,6 @@ self: super: {
   #     sed -i '/\/\/ already connected\?/,+2 d' src/input/api/DSU/DSUControllerProvider.cpp
   #   '';
   # });
-  jetbrains-mono-nerdfont = self.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
   sf-symbols-app = self.callPackage ../pkgs/by-name/sf/sf-symbols/package.nix {
     app = true;
     fonts = false;
