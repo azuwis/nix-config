@@ -26,7 +26,7 @@ self: super: {
         let
           CommandLineTools = "/Library/Developer/CommandLineTools";
         in
-        super.stdenv.mkDerivation {
+        self.stdenv.mkDerivation {
           name = "swift-CommandLineTools-0.0.0";
           phases = [
             "installPhase"
@@ -53,7 +53,7 @@ self: super: {
                 export SWIFT=swift
                 export SWIFT_LIB_DYNAMIC=@out@/lib/swift/macosx
                 export MACOS_SDK_VERSION=$(sw_vers -productVersion | awk -F. '{print $1}')
-                export MACOS_SDK=@out@/SDKs/MacOSX$MACOS_SDK_VERSION.sdk
+                export MACOS_SDK="@out@/SDKs/MacOSX$MACOS_SDK_VERSION.sdk"
             }
 
             prePhases+=" addCommandLineTools"
@@ -63,7 +63,7 @@ self: super: {
         };
     }).overrideAttrs
       (old: {
-        preConfigure = "";
+        preConfigure = if self.stdenv.isDarwin then "" else old.preConfigure;
       });
   nixos-option =
     let
