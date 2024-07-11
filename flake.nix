@@ -37,6 +37,8 @@
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
     yuzu.url = "git+https://codeberg.org/K900/yuzu-flake";
     yuzu.inputs.nixpkgs.follows = "nixpkgs";
+    openwrt-imagebuilder.url = "github:astro/nix-openwrt-imagebuilder";
+    openwrt-imagebuilder.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =

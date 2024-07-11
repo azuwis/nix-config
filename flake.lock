@@ -401,6 +401,26 @@
         "type": "github"
       }
     },
+    "openwrt-imagebuilder": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1720603595,
+        "narHash": "sha256-uIdBDnU0W+ztmZBmWcFYhPQbpSgzEZDD8HSR4nbU0wg=",
+        "owner": "astro",
+        "repo": "nix-openwrt-imagebuilder",
+        "rev": "87a44c140567144b760a01e1cfb429daf8600d31",
+        "type": "github"
+      },
+      "original": {
+        "owner": "astro",
+        "repo": "nix-openwrt-imagebuilder",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -415,6 +435,7 @@
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs_2",
         "nvidia-patch": "nvidia-patch",
+        "openwrt-imagebuilder": "openwrt-imagebuilder",
         "systems": "systems",
         "treefmt-nix": "treefmt-nix",
         "wsl": "wsl",
