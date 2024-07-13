@@ -135,11 +135,16 @@ rebuild() {
 update() {
   pushd "$FLAKE"
   local args
-  args=(--recreate-lock-file)
+  args=(update)
   if [ -n "$1" ]
   then
     input="$1"
-    args=(--update-input "$input")
+    if nix --version | grep -qF Lix
+    then
+      args=(update "$input")
+    else
+      args=(lock --update-input "$input")
+    fi
     shift
   fi
   if [ -n "$1" ]
@@ -159,7 +164,7 @@ update() {
     args+=(--override-input "$input" "$url")
     shift
   fi
-  nix flake lock "${args[@]}" "$@"
+  nix flake "${args[@]}" "$@"
   popd
 }
 
