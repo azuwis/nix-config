@@ -20,6 +20,8 @@
       sha256 = "sha256-BblRbxQsMfMRNLdfChMHGpYDFXUd8LjsTGVtVeCcMPo=";
     };
 
+    patches = [ ];
+
     nativeBuildInputs = old.nativeBuildInputs ++ [ nodejs ];
 
     cmakeFlags = old.cmakeFlags ++ [
