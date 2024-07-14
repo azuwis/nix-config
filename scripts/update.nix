@@ -25,7 +25,7 @@ in
     (import <nixpkgs/pkgs/top-level/by-name-overlay.nix> ../pkgs/by-name)
     (import ../overlays/default.nix)
   ];
-  keep-going = true;
+  keep-going = "true";
   predicate =
     if prefix != null then (_: package: hasPrefix prefix (getPosition package)) else predicate;
 }).overrideAttrs
