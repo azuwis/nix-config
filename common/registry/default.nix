@@ -18,7 +18,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    # <nixpkgs>/nixos/modules/misc/nixpkgs-flake.nix
+    # ${nixpkgs}/nixos/modules/misc/nixpkgs-flake.nix
     nix.nixPath = [ "nixpkgs=flake:nixpkgs" ];
     nix.registry.nixpkgs.to = {
       type = "path";
