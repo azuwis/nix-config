@@ -9,5 +9,6 @@ home-assistant-custom-components.xiaomi_gateway3.overrideAttrs (old: rec {
     hash = "sha256-MQ/yxxXt2BXUAHEHGOaqansgon22oQ0byCQcUcVZdOQ=";
   };
 
-  passthru.updateScript = "true";
+  # Skip from update.nix
+  passthru = { };
 })
