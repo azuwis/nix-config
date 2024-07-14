@@ -49,7 +49,7 @@
   programs.steam.fontPackages = with pkgs; [ noto-fonts-cjk-sans ];
 
   i18n.inputMethod.enabled = "ibus";
-  i18n.inputMethod.ibus.engines = [ pkgs.ibus-pinyin ];
+  i18n.inputMethod.ibus.engines = [ pkgs.ibus-engines.pinyin ];
 
   # boot.plymouth = {
   #   enable = true;
