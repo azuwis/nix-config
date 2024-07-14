@@ -16,4 +16,7 @@ moonlight-qt.overrideAttrs (old: {
   patches = [ ];
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+
+  # Workaround for nix-update 1.4.0, https://github.com/Mic92/nix-update/pull/247
+  meta.position = null;
 })
