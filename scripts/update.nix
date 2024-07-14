@@ -29,6 +29,7 @@ in
   keep-going = "true";
   predicate =
     if prefix != null then (_: package: hasPrefix prefix (getPosition package)) else predicate;
+  skip-prompt = "true";
 }).overrideAttrs
   (old: {
     # Retain git commit timezone
