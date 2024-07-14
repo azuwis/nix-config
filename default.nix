@@ -8,9 +8,10 @@ let
     sha256 = lock.nodes.flake-compat.locked.narHash;
   };
   self = import flake-compat { src = ./.; };
-  packages = import <nixpkgs> {
+  nixpkgs = self.defaultNix.inputs.nixpkgs.outPath;
+  packages = import nixpkgs {
     overlays = [
-      (import <nixpkgs/pkgs/top-level/by-name-overlay.nix> ./pkgs/by-name)
+      (import "${nixpkgs}/pkgs/top-level/by-name-overlay.nix" ./pkgs/by-name)
       (import ./overlays/default.nix)
     ];
   };
