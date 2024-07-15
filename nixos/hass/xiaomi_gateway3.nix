@@ -12,15 +12,17 @@ let
   mijia_hub_init = pkgs.writeScript "mijia_hub_init" ''
     #!${lib.getExe pkgs.expect} -f
     spawn ${lib.getExe' pkgs.inetutils "telnet"} Mijia_Hub_V2-2531.lan
+
     expect "login:"
-
     send "root\r"
-    expect "#"
 
+    expect "#"
     send "iptables -C INPUT \! --src nuc -m tcp -p tcp --dport 23 -j DROP || iptables -I INPUT \! --src nuc -m tcp -p tcp --dport 23 -j DROP\r"
-    expect "#"
 
-    exit
+    expect "#"
+    send "exit\r"
+
+    close
   '';
 in
 {
