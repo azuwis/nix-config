@@ -1,4 +1,4 @@
-{ home-assistant-custom-components }:
+{ lib, home-assistant-custom-components }:
 
 home-assistant-custom-components.xiaomi_gateway3.overrideAttrs (old: rec {
   name = builtins.replaceStrings [ old.version ] [ version ] old.name;
@@ -10,5 +10,5 @@ home-assistant-custom-components.xiaomi_gateway3.overrideAttrs (old: rec {
   };
 
   # Skip from update.nix
-  passthru = { };
+  passthru = lib.filterAttrs (name: _: name != "updateScript") old.passthru;
 })
