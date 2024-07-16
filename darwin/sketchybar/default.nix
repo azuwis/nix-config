@@ -82,7 +82,7 @@ in
       --add item input right \
       --add event input_change 'AppleSelectedInputSourcesChangedNotification' \
       --subscribe input input_change \
-      --set input script="$scripts/input.sh" label.padding_right=-8 \
+      --set input script="$scripts/input.sh" label.padding_right=0 \
       --default \
         icon.padding_left=0 \
         icon.padding_right=2 \
