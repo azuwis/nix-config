@@ -11,9 +11,7 @@ let
 in
 {
   options.my.hass = {
-    zigbee2mqtt-networkmap = mkEnableOption "hass" // {
-      default = true;
-    };
+    zigbee2mqtt-networkmap = mkEnableOption "hass";
   };
 
   config = mkIf (cfg.enable && cfg.zigbee2mqtt-networkmap) {

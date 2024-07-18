@@ -11,9 +11,7 @@ let
 in
 {
   options.my.hass = {
-    device_tracker = mkEnableOption "device_tracker" // {
-      default = true;
-    };
+    device_tracker = mkEnableOption "device_tracker";
   };
 
   config = mkIf (cfg.enable && cfg.device_tracker) {

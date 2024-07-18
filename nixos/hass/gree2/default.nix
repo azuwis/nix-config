@@ -14,9 +14,7 @@ in
   # config dnsmasq
   #   list address '/dis.gree.com/<ip_of_hass>'
   options.my.hass = {
-    gree2 = mkEnableOption "gree2" // {
-      default = true;
-    };
+    gree2 = mkEnableOption "gree2";
   };
 
   config = mkIf (cfg.enable && cfg.gree2) {

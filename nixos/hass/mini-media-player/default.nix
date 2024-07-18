@@ -11,9 +11,7 @@ let
 in
 {
   options.my.hass = {
-    mini-media-player = mkEnableOption "hass" // {
-      default = true;
-    };
+    mini-media-player = mkEnableOption "hass";
   };
 
   config = mkIf (cfg.enable && cfg.mini-media-player) {

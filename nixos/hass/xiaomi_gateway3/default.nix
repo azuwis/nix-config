@@ -27,9 +27,7 @@ let
 in
 {
   options.my.hass = {
-    xiaomi_gateway3 = mkEnableOption "xiaomi_gateway3" // {
-      default = true;
-    };
+    xiaomi_gateway3 = mkEnableOption "xiaomi_gateway3";
   };
 
   config = mkIf (cfg.enable && cfg.xiaomi_gateway3) {

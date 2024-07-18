@@ -11,9 +11,7 @@ let
 in
 {
   options.my.hass = {
-    smartir = mkEnableOption "smartir" // {
-      default = true;
-    };
+    smartir = mkEnableOption "smartir";
   };
 
   config = mkIf (cfg.enable && cfg.smartir) {

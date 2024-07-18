@@ -11,9 +11,7 @@ let
 in
 {
   options.my.hass = {
-    gree = mkEnableOption "gree" // {
-      default = true;
-    };
+    gree = mkEnableOption "gree";
   };
 
   config = mkIf (cfg.enable && cfg.gree) {

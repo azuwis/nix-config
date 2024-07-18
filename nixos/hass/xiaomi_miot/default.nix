@@ -11,9 +11,7 @@ let
 in
 {
   options.my.hass = {
-    xiaomi_miot = mkEnableOption "xiaomi_miot" // {
-      default = true;
-    };
+    xiaomi_miot = mkEnableOption "xiaomi_miot";
   };
 
   config = mkIf (cfg.enable && cfg.xiaomi_miot) {

@@ -11,9 +11,7 @@ let
 in
 {
   options.my.hass = {
-    braviatv = mkEnableOption "braviatv" // {
-      default = true;
-    };
+    braviatv = mkEnableOption "braviatv";
   };
 
   config = mkIf (cfg.enable && cfg.braviatv) {

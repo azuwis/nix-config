@@ -11,9 +11,7 @@ let
 in
 {
   options.my.hass = {
-    mqtt = mkEnableOption "mqtt" // {
-      default = true;
-    };
+    mqtt = mkEnableOption "mqtt";
   };
 
   config = mkIf (cfg.enable && cfg.mqtt) {

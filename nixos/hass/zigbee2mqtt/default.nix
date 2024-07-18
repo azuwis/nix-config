@@ -11,9 +11,7 @@ let
 in
 {
   options.my.hass = {
-    zigbee2mqtt = mkEnableOption "zigbee2mqtt" // {
-      default = true;
-    };
+    zigbee2mqtt = mkEnableOption "zigbee2mqtt";
   };
 
   config = mkIf (cfg.enable && cfg.zigbee2mqtt) {

@@ -24,31 +24,31 @@ in
         "text"
       ]
     )
-    ./aligenie.nix
-    ./braviatv.nix
-    ./device_tracker.nix
-    # ./gree.nix
-    ./gree2.nix
-    ./light.nix
-    ./lovelace.nix
-    ./mini-media-player.nix
-    ./mqtt.nix
-    ./simple-thermostat.nix
-    ./smartir.nix
-    ./theme.nix
-    # ./weather.nix
-    ./xiaomi_gateway3.nix
-    ./xiaomi_miot.nix
-    # ./zhibot.nix
-    # ./zigbee2mqtt.nix
-    # ./zigbee2mqtt-networkmap.nix
-  ];
+  ] ++ lib.my.getModules [ ./. ];
 
   options.my.hass = {
     enable = mkEnableOption "hass";
   };
 
   config = mkIf cfg.enable {
+    my.hass = {
+      aligenie = true;
+      braviatv = true;
+      device_tracker = true;
+      # gree = true;
+      gree2 = true;
+      mini-media-player = true;
+      mqtt = true;
+      simple-thermostat = true;
+      smartir = true;
+      # weather = true;
+      xiaomi_gateway3 = true;
+      xiaomi_miot = true;
+      # zhibot = true;
+      # zigbee2mqtt = true;
+      # zigbee2mqtt-networkmap = true;
+    };
+
     # let my.user read data dir
     users.users.hass.homeMode = "0750";
     systemd.services.home-assistant.serviceConfig.UMask = lib.mkForce "0027";

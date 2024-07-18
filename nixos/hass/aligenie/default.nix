@@ -13,9 +13,7 @@ let
 in
 {
   options.my.hass = {
-    aligenie = mkEnableOption "aligenie" // {
-      default = true;
-    };
+    aligenie = mkEnableOption "aligenie";
   };
 
   config = mkIf (cfg.enable && cfg.aligenie) {

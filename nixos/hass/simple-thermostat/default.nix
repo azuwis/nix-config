@@ -28,9 +28,7 @@ let
 in
 {
   options.my.hass = {
-    simple-thermostat = mkEnableOption "hass" // {
-      default = true;
-    };
+    simple-thermostat = mkEnableOption "hass";
   };
 
   config = mkIf (cfg.enable && cfg.simple-thermostat) {
