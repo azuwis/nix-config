@@ -6,29 +6,27 @@
 }:
 
 let
-  component = pkgs.fetchFromGitHub rec {
-    name = "${repo}-${rev}";
-    owner = "syssi";
-    repo = "xiaomi_airconditioningcompanion";
-    rev = "2022.3.3.0";
-    sha256 = "099nmhlw7qz9vllqrq547rzv7ls8qbxiaksj8xxl33fvpyllmrq9";
-  };
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.my.hass;
 in
-
 {
-  hass.file."custom_components/xiaomi_miio_airconditioningcompanion".source = "${component}/custom_components/xiaomi_miio_airconditioningcompanion";
+  options.my.hass = {
+    acpartner = mkEnableOption "acpartner";
+  };
 
-  services.home-assistant.extraPackages = ps: with ps; [ python-miio ];
+  config = mkIf (cfg.enable && cfg.acpartner) {
+    services.home-assistant.customComponents = [ pkgs.xiaomi_miio_airconditioningcompanion ];
 
-  services.home-assistant.config = {
-    climate = [
-      {
-        platform = "xiaomi_miio_airconditioningcompanion";
-        name = "AC partner";
-        host = "acpartner.lan";
-        token = "!secret ac_partner_token";
-        target_sensor = "sensor.ht_bedroom_temperature";
-      }
-    ];
+    services.home-assistant.config = {
+      climate = [
+        {
+          platform = "xiaomi_miio_airconditioningcompanion";
+          name = "AC partner";
+          host = "acpartner.lan";
+          token = "!secret ac_partner_token";
+          target_sensor = "sensor.ht_bedroom_temperature";
+        }
+      ];
+    };
   };
 }
