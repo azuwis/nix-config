@@ -65,6 +65,22 @@
         "type": "github"
       }
     },
+    "dewclaw": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1696797188,
+        "narHash": "sha256-L80V6vqTjWINQN3GOft2DKhuFzhX8gx/NZPiMvqFffM=",
+        "ref": "refs/heads/main",
+        "rev": "7820d7632d94bec3c65ccdca6e45b868d5899dce",
+        "revCount": 9,
+        "type": "git",
+        "url": "https://git.eno.space/dewclaw.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.eno.space/dewclaw.git"
+      }
+    },
     "droid": {
       "inputs": {
         "home-manager": [
@@ -408,11 +424,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1720946458,
-        "narHash": "sha256-TBZfMLGVyLoFVrBE7YpmG7x2+Wm3wbJUhfiDjQpHwFQ=",
+        "lastModified": 1721378452,
+        "narHash": "sha256-QfNNGQ9QQ1N7oVE8+LVqcQoENBapkU86eS5ULTIfNWc=",
         "owner": "astro",
         "repo": "nix-openwrt-imagebuilder",
-        "rev": "f5de324c656d5437b7299ac64776955b6079ae8c",
+        "rev": "10a88c589e32e04dd717d5588b5ebacf83f25629",
         "type": "github"
       },
       "original": {
@@ -425,6 +441,7 @@
       "inputs": {
         "agenix": "agenix",
         "darwin": "darwin",
+        "dewclaw": "dewclaw",
         "droid": "droid",
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",

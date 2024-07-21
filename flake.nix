@@ -39,6 +39,8 @@
     yuzu.inputs.nixpkgs.follows = "nixpkgs";
     openwrt-imagebuilder.url = "github:astro/nix-openwrt-imagebuilder";
     openwrt-imagebuilder.inputs.nixpkgs.follows = "nixpkgs";
+    dewclaw.url = "git+https://git.eno.space/dewclaw.git";
+    dewclaw.flake = false;
   };
 
   outputs =

@@ -18,4 +18,18 @@ in
   flake.packages.x86_64-linux = {
     xr500 = mkOpenwrt { profile = "netgear_xr500"; };
   };
+
+  perSystem =
+    {
+      self',
+      inputs',
+      pkgs,
+      ...
+    }:
+    {
+      packages.dewclaw = import inputs.dewclaw {
+        inherit pkgs;
+        configuration = ../hosts/dewclaw.nix;
+      };
+    };
 }
