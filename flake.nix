@@ -10,8 +10,7 @@
     my.url = "git+ssh://nuc/~/repo/my";
     darwin.url = "github:lnl7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
-    # https://github.com/nix-community/nix-on-droid/pull/353
-    droid.url = "github:nix-community/nix-on-droid/bc25f7c0ba3915907d35943168efc2e88be9b16b";
+    droid.url = "github:nix-community/nix-on-droid";
     droid.inputs.nixpkgs.follows = "nixpkgs";
     droid.inputs.home-manager.follows = "home-manager";
     wsl.url = "github:nix-community/NixOS-WSL";
