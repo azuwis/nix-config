@@ -1,7 +1,6 @@
 { lib, home-assistant-custom-components }:
 
-home-assistant-custom-components.xiaomi_gateway3.overrideAttrs (old: rec {
-  name = builtins.replaceStrings [ old.version ] [ version ] old.name;
+home-assistant-custom-components.xiaomi_gateway3.overridePythonAttrs (old: rec {
   version = "4.0.4";
 
   src = old.src.override {
