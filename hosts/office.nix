@@ -15,7 +15,7 @@
   my.desktop.enable = true;
   my.dualsensectl.enable = true;
   my.nvidia.enable = lib.mkDefault true;
-  my.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
+  # my.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
   my.intelGpu.enable = true;
   my.libvirtd.enable = true;
   my.nix-builder.enable = true;
