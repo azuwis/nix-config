@@ -41,13 +41,20 @@
     };
     jovian = {
       url = "github:Jovian-Experiments/Jovian-NixOS";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nix-github-actions.follows = "nix-github-actions";
+        # nixpkgs.follows = "nixpkgs";
+      };
     };
     my = {
       url = "git+ssh://nuc/~/repo/my";
     };
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-github-actions = {
+      url = "github:nix-community/nix-github-actions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs = {
@@ -64,6 +71,7 @@
         };
         nix-eval-jobs.inputs = {
           flake-parts.follows = "flake-parts";
+          nix-github-actions.follows = "nix-github-actions";
           nixpkgs.follows = "nixpkgs";
           treefmt-nix.follows = "treefmt-nix";
         };
