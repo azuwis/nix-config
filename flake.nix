@@ -1,43 +1,58 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    flake-compat.url = "github:edolstra/flake-compat";
-    systems.url = "github:nix-systems/default";
-    flake-utils.url = "github:numtide/flake-utils";
-    flake-utils.inputs.systems.follows = "systems";
-    flake-parts.url = "github:hercules-ci/flake-parts";
-    flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
-    my.url = "git+ssh://nuc/~/repo/my";
-    darwin.url = "github:lnl7/nix-darwin";
-    darwin.inputs.nixpkgs.follows = "nixpkgs";
-    droid.url = "github:nix-community/nix-on-droid";
-    droid.inputs.nixpkgs.follows = "nixpkgs";
-    droid.inputs.home-manager.follows = "home-manager";
-    wsl.url = "github:nix-community/NixOS-WSL";
-    wsl.inputs.nixpkgs.follows = "nixpkgs";
-    wsl.inputs.flake-utils.follows = "flake-utils";
-    wsl.inputs.flake-compat.follows = "flake-compat";
-    jovian.url = "github:Jovian-Experiments/Jovian-NixOS";
-    # jovian.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    nix-index-database.url = "github:nix-community/nix-index-database";
-    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
-    agenix.url = "github:ryantm/agenix";
-    agenix.inputs.darwin.follows = "darwin";
-    agenix.inputs.nixpkgs.follows = "nixpkgs";
-    agenix.inputs.home-manager.follows = "home-manager";
-    agenix.inputs.systems.follows = "systems";
-    nvidia-patch.url = "github:keylase/nvidia-patch";
-    nvidia-patch.flake = false;
-    # devshell.url = "github:numtide/devshell";
-    # devshell.inputs.nixpkgs.follows = "nixpkgs";
-    treefmt-nix.url = "github:numtide/treefmt-nix";
-    treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
-    yuzu.url = "git+https://codeberg.org/K900/yuzu-flake";
-    yuzu.inputs.nixpkgs.follows = "nixpkgs";
-    openwrt-imagebuilder.url = "github:astro/nix-openwrt-imagebuilder";
-    openwrt-imagebuilder.inputs.nixpkgs.follows = "nixpkgs";
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs = {
+        darwin.follows = "darwin";
+        home-manager.follows = "home-manager";
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
+    darwin = {
+      url = "github:lnl7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    # devshell = {
+    #   url = "github:numtide/devshell";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+    droid = {
+      url = "github:nix-community/nix-on-droid";
+      inputs = {
+        home-manager.follows = "home-manager";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+    flake-compat = {
+      url = "github:edolstra/flake-compat";
+    };
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
+    };
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    jovian = {
+      url = "github:Jovian-Experiments/Jovian-NixOS";
+      # inputs.nixpkgs.follows = "nixpkgs";
+    };
+    my = {
+      url = "git+ssh://nuc/~/repo/my";
+    };
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixpkgs = {
+      url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    };
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
       inputs = {
@@ -53,6 +68,33 @@
           treefmt-nix.follows = "treefmt-nix";
         };
       };
+    };
+    nvidia-patch = {
+      url = "github:keylase/nvidia-patch";
+      flake = false;
+    };
+    openwrt-imagebuilder = {
+      url = "github:astro/nix-openwrt-imagebuilder";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    systems = {
+      url = "github:nix-systems/default";
+    };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    wsl = {
+      url = "github:nix-community/NixOS-WSL";
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+    yuzu = {
+      url = "git+https://codeberg.org/K900/yuzu-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
