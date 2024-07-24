@@ -45,7 +45,10 @@ in
   flake.nixosConfigurations = {
     nuc = mkNixos { modules = [ ../hosts/nuc.nix ]; };
 
-    office = mkNixos { modules = [ ../hosts/office.nix ]; };
+    office = mkNixos {
+      overlays = [ inputs.nixpkgs-wayland.overlay ];
+      modules = [ ../hosts/office.nix ];
+    };
 
     steamdeck = mkNixos {
       # nixpkgs = inputs.jovian.inputs.nixpkgs;

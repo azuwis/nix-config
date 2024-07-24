@@ -38,6 +38,22 @@
     yuzu.inputs.nixpkgs.follows = "nixpkgs";
     openwrt-imagebuilder.url = "github:astro/nix-openwrt-imagebuilder";
     openwrt-imagebuilder.inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs-wayland = {
+      url = "github:nix-community/nixpkgs-wayland";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+        lib-aggregate.inputs = {
+          flake-utils.follows = "flake-utils";
+          nixpkgs-lib.follows = "nixpkgs";
+        };
+        nix-eval-jobs.inputs = {
+          flake-parts.follows = "flake-parts";
+          nixpkgs.follows = "nixpkgs";
+          treefmt-nix.follows = "treefmt-nix";
+        };
+      };
+    };
   };
 
   outputs =
