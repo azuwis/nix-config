@@ -6,11 +6,11 @@
 
 moonlight-qt.overrideAttrs (old: {
   pname = "moonlight-git";
-  version = "6.0.1-unstable-2024-07-13";
+  version = "6.0.1-unstable-2024-07-25";
 
   src = old.src.override {
-    rev = "3580286807a09d9737d9a95160d3d96f3a6aa5d6";
-    sha256 = "sha256-+6YKxVRjna8/4jyatr1NtGiFIFhXE3urxAmXxmCtuRo=";
+    rev = "da0244c5387cab3ccd682d8de24085720d6f6501";
+    hash = "sha256-GKFRkG02EK6VVGHl4oFfiwlh5gpmi9BJjpOxS6O7ts8=";
   };
 
   patches = [ ];
