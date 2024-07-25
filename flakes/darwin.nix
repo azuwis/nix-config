@@ -1,9 +1,17 @@
-{ inputs, withSystem, ... }:
+{
+  inputs,
+  self,
+  withSystem,
+  ...
+}:
 
 let
   mkDarwin =
     {
       system ? "aarch64-darwin",
+      nixpkgs ? inputs.nixpkgs,
+      config ? { },
+      overlays ? [ ],
       modules ? [ ],
     }:
     withSystem system (
@@ -14,15 +22,20 @@ let
         system,
         ...
       }:
+      let
+        customPkgs = import nixpkgs (
+          lib.recursiveUpdate {
+            inherit system;
+            overlays = [ self.overlays.default ] ++ overlays;
+            config.allowUnfree = true;
+          } { inherit config; }
+        );
+      in
       inputs.darwin.lib.darwinSystem {
         inherit system;
         specialArgs = {
-          inherit
-            inputs
-            inputs'
-            lib
-            pkgs
-            ;
+          inherit inputs inputs' lib;
+          pkgs = if (nixpkgs != inputs.nixpkgs || config != { } || overlays != [ ]) then customPkgs else pkgs;
         };
         modules = [ ../darwin ] ++ modules;
       }
