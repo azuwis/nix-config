@@ -6,7 +6,7 @@
   package ? null,
   path ? null,
   predicate ? null,
-  prefix ? if all == "true" then builtins.toString ../. else null,
+  prefix ? null,
 }:
 
 let
@@ -28,7 +28,15 @@ in
   ];
   keep-going = "true";
   predicate =
-    if prefix != null then (_: package: hasPrefix prefix (getPosition package)) else predicate;
+    if all == "true" then
+      (
+        _: package:
+        hasPrefix (builtins.toString ../.) (getPosition package) && package.updateScript != "echo"
+      )
+    else if prefix != null then
+      (_: package: hasPrefix prefix (getPosition package))
+    else
+      predicate;
   skip-prompt = "true";
 }).overrideAttrs
   (old: {
