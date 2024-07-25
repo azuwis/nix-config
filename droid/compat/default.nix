@@ -32,7 +32,7 @@ in
   ];
 
   options = {
-    fonts.fonts = dummyOption;
+    fonts.packages = dummyOption;
     nix.gc = dummyOption;
     nix.optimise = dummyOption;
     nix.settings = dummyOption;
