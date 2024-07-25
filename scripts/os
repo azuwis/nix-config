@@ -63,14 +63,14 @@ build() {
     hostname="$(hostname)"
     case "$OS" in
       darwin) SYSTEM=$(readlink -f /run/current-system || true) ;;
-      droid) SYSTEM=$(readlink -f /nix/var/nix/profiles/nix-on-droid || true) ;;
+      droid) SYSTEM=$(readlink -f /nix/var/nix/profiles/nix-on-droid || true); hostname=default ;;
       nixos) SYSTEM=$(readlink -f /run/current-system || true) ;;
     esac
   fi
 
   case "$OS" in
     darwin) args+=("$FLAKE#darwinConfigurations.\"$hostname\".system") ;;
-    droid) args+=(--impure "$FLAKE#nixOnDroidConfigurations.default.activationPackage") ;;
+    droid) args+=(--impure "$FLAKE#nixOnDroidConfigurations.\"$hostname\".activationPackage") ;;
     nixos) args+=("$FLAKE#nixosConfigurations.\"$hostname\".config.system.build.toplevel") ;;
   esac
 
@@ -185,6 +185,13 @@ case "$action" in
     clean "$@"
     ;;
   ci)
+    if [ "$1" = droid ]
+    then
+      nix eval --impure --option extra-substituters https://nix-on-droid.cachix.org \
+        --option extra-trusted-public-keys "nix-on-droid.cachix.org-1:56snoMJTXmDRC1Ei24CmKoUqvHJ9XCp+nidK7qkMQrU=" \
+        .#nixOnDroidConfigurations.droid.config.environment.files.prootStatic.outPath
+      OS=droid
+    fi
     build --no-nom "$@" --override-input my "path:$FLAKE/test"
     ;;
   d|diff)

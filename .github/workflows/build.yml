@@ -22,7 +22,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        host: [nuc, steamdeck]
+        host: [droid, nuc, steamdeck]
         # include:
         # - {os: macos-12, host: test}
     runs-on: ${{ matrix.os }}
