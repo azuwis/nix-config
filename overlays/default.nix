@@ -9,9 +9,11 @@ self: super: {
   # });
 
   # override
-  fcitx5-configtool = self.writeShellScriptBin "fcitx5-config-qt" ''
-    echo "fcitx-config-qt dummy command"
-  '';
+  libsForQt5 = super.libsForQt5.overrideScope (
+    _: scopeSuper: {
+      fcitx5-with-addons = scopeSuper.fcitx5-with-addons.override { withConfigtool = false; };
+    }
+  );
   # https://github.com/NixOS/nixpkgs/issues/320900
   # https://github.com/NixOS/nixpkgs/pull/79344
   mpv-unwrapped =
