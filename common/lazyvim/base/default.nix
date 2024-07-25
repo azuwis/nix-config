@@ -64,7 +64,6 @@ in
           nvim-treesitter
           nvim-treesitter-textobjects
           nvim-ts-autotag
-          nvim-web-devicons
           persistence-nvim
           plenary-nvim
           telescope-fzf-native-nvim
@@ -80,6 +79,10 @@ in
           }
           {
             name = "mini.ai";
+            path = mini-nvim;
+          }
+          {
+            name = "mini.icons";
             path = mini-nvim;
           }
           {
