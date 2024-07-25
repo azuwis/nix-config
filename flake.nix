@@ -46,8 +46,24 @@
         # nixpkgs.follows = "nixpkgs";
       };
     };
+    lib-aggregate = {
+      url = "github:nix-community/lib-aggregate";
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs-lib.follows = "nixpkgs";
+      };
+    };
     my = {
       url = "git+ssh://nuc/~/repo/my";
+    };
+    nix-eval-jobs = {
+      url = "github:nix-community/nix-eval-jobs";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nix-github-actions.follows = "nix-github-actions";
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
     };
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
@@ -65,16 +81,8 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "flake-compat";
-        lib-aggregate.inputs = {
-          flake-utils.follows = "flake-utils";
-          nixpkgs-lib.follows = "nixpkgs";
-        };
-        nix-eval-jobs.inputs = {
-          flake-parts.follows = "flake-parts";
-          nix-github-actions.follows = "nix-github-actions";
-          nixpkgs.follows = "nixpkgs";
-          treefmt-nix.follows = "treefmt-nix";
-        };
+        lib-aggregate.follows = "lib-aggregate";
+        nix-eval-jobs.follows = "nix-eval-jobs";
       };
     };
     nvidia-patch = {

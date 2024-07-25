@@ -374,8 +374,12 @@
         "flake-compat": [
           "flake-compat"
         ],
-        "lib-aggregate": "lib-aggregate",
-        "nix-eval-jobs": "nix-eval-jobs",
+        "lib-aggregate": [
+          "lib-aggregate"
+        ],
+        "nix-eval-jobs": [
+          "nix-eval-jobs"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ]
@@ -494,7 +498,9 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "jovian": "jovian",
+        "lib-aggregate": "lib-aggregate",
         "my": "my",
+        "nix-eval-jobs": "nix-eval-jobs",
         "nix-github-actions": "nix-github-actions",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs_2",
