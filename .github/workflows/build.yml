@@ -23,8 +23,8 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         host: [droid, nuc, steamdeck]
-        # include:
-        # - {os: macos-12, host: test}
+        include:
+        - {os: macos-12, host: test}
     runs-on: ${{ matrix.os }}
     steps:
     - name: Skip debug
