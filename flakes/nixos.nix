@@ -51,6 +51,7 @@ in
     };
 
     steamdeck = mkNixos {
+      # Use same nixpkgs as jovian, comment `inputs.jovian.inputs.nixpkgs.follows` in flake.nix if enable
       # nixpkgs = inputs.jovian.inputs.nixpkgs;
       overlays = [
         inputs.jovian.overlays.default

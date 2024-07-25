@@ -48,7 +48,7 @@
       url = "github:Jovian-Experiments/Jovian-NixOS";
       inputs = {
         nix-github-actions.follows = "dummy";
-        # nixpkgs.follows = "nixpkgs";
+        nixpkgs.follows = "nixpkgs";
       };
     };
     lib-aggregate = {
