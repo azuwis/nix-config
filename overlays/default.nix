@@ -9,6 +9,16 @@ self: super: {
   # });
 
   # override
+  # https://github.com/NixOS/nixpkgs/issues/267536
+  borgbackup = super.borgbackup.overrideAttrs (
+    old:
+    self.lib.optionalAttrs (self.stdenv.isDarwin && self.stdenv.isx86_64) {
+      disabledTests = (old.disabledTests or [ ]) ++ [
+        "test_overwrite"
+        "test_sparse_file"
+      ];
+    }
+  );
   # disable fcitx5-configtool
   libsForQt5 = super.libsForQt5.overrideScope (
     _: scopeSuper: {
