@@ -9,6 +9,7 @@ self: super: {
   # });
 
   # override
+  # disable fcitx5-configtool
   libsForQt5 = super.libsForQt5.overrideScope (
     _: scopeSuper: {
       fcitx5-with-addons = scopeSuper.fcitx5-with-addons.override { withConfigtool = false; };
