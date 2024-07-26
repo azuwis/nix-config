@@ -25,5 +25,6 @@ in
 {
   flake.nixOnDroidConfigurations.default = mkDroid { };
 
+  # for CI
   flake.nixOnDroidConfigurations.droid = mkDroid { system = "x86_64-linux"; };
 }
