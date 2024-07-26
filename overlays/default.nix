@@ -59,8 +59,7 @@ self: super: {
                 export NIX_LDFLAGS+=" -L@out@/lib/swift/macosx"
                 export SWIFT=swift
                 export SWIFT_LIB_DYNAMIC=@out@/lib/swift/macosx
-                export MACOS_SDK_VERSION=$(sw_vers -productVersion | awk -F. '{print $1}')
-                export MACOS_SDK="@out@/SDKs/MacOSX$MACOS_SDK_VERSION.sdk"
+                export MACOS_SDK="@out@/SDKs/MacOSX.sdk"
             }
 
             prePhases+=" addCommandLineTools"
