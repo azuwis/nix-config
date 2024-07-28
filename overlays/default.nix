@@ -71,17 +71,17 @@ self: super: {
       (old: {
         preConfigure = if self.stdenv.isDarwin then "" else old.preConfigure;
       });
-  nixos-option =
-    let
-      prefix = ''(builtins.getFlake \\\"/etc/nixos\\\").nixosConfigurations.\$(hostname)'';
-    in
-    self.runCommand "nixos-option" { buildInputs = [ self.makeWrapper ]; } ''
-      makeWrapper ${super.nixos-option}/bin/nixos-option $out/bin/nixos-option \
-        --add-flags --config_expr \
-        --add-flags "\"${prefix}.config\"" \
-        --add-flags --options_expr \
-        --add-flags "\"${prefix}.options\""
-    '';
+  # https://github.com/NixOS/nixpkgs/pull/315654
+  nixos-option = self.callPackage "${
+    self.fetchFromGitHub {
+      owner = "NixOS";
+      repo = "nixpkgs";
+      rev = "1bd0fb37624cc63976e8421a7d2102807f15b366";
+      hash = "sha256-QJszuTlTbYYFaFqdU61ePUhhJII+a4HOTfwUKFri130=";
+      sparseCheckout = [ "pkgs/tools/nix/nixos-option/" ];
+      nonConeMode = true;
+    }
+  }/pkgs/tools/nix/nixos-option" { };
   # python3 = super.python3.override {
   #   packageOverrides = pyself: pysuper: {
   #     pysonybraviapsk = self.python3.pkgs.callPackage ../pkgs/pysonybraviapsk { };
