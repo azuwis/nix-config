@@ -8,6 +8,7 @@ usage(){
   cat <<EOF
 USAGE:
   $name -h                         Display usage
+  $name [options] -P               Prompt before update
   $name [options] -a               Update all packages
   $name [options] -m <maintainer>  Update packages of maintainer <maintainer>
   $name [options] -p <prefix>      Update packages matching given prefix <prefix>
@@ -22,8 +23,9 @@ exit
 }
 
 args=()
-while getopts ":achm:p:w:-:" opt; do
+while getopts ":Pachm:p:w:-:" opt; do
   case "$opt" in
+    P) args+=(--argstr skip-prompt false) ;;
     a) args+=(--argstr all true) ;;
     c) args+=(--argstr commit true) ;;
     m) args+=(--argstr maintainer "$OPTARG") ;;
