@@ -11,9 +11,10 @@
 }:
 
 let
-  hasPrefix = prefix: str: builtins.substring 0 (builtins.stringLength prefix) str == prefix;
-  getPosition = package: (builtins.unsafeGetAttrPos "src" package).file or package.meta.position;
   nixpkgs = (import ../default.nix { }).inputs.nixpkgs.outPath;
+  getPosition = package: (builtins.unsafeGetAttrPos "src" package).file or package.meta.position;
+  hasPrefix = prefix: str: builtins.substring 0 (builtins.stringLength prefix) str == prefix;
+  pkgHasPrefix = prefix: package: hasPrefix prefix (getPosition package);
 in
 (import "${nixpkgs}/maintainers/scripts/update.nix" {
   inherit
@@ -31,12 +32,9 @@ in
   keep-going = "true";
   predicate =
     if all == "true" then
-      (
-        _: package:
-        hasPrefix (builtins.toString ../.) (getPosition package) && package.updateScript != "echo"
-      )
+      (_: package: pkgHasPrefix (builtins.toString ../.) package && package.updateScript != "echo")
     else if prefix != null then
-      (_: package: hasPrefix prefix (getPosition package))
+      (_: package: pkgHasPrefix prefix package)
     else
       predicate;
 }).overrideAttrs
