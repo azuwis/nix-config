@@ -7,6 +7,7 @@
   path ? null,
   predicate ? null,
   prefix ? null,
+  skip-prompt ? "true",
 }:
 
 let
@@ -21,6 +22,7 @@ in
     max-workers
     package
     path
+    skip-prompt
     ;
   include-overlays = [
     (import "${nixpkgs}/pkgs/top-level/by-name-overlay.nix" ../pkgs/by-name)
@@ -37,7 +39,6 @@ in
       (_: package: hasPrefix prefix (getPosition package))
     else
       predicate;
-  skip-prompt = "true";
 }).overrideAttrs
   (old: {
     # Retain git commit timezone
