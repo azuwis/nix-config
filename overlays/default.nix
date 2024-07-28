@@ -103,5 +103,4 @@ self: super: {
   #       '';
   #   });
   # };
-  # yabai = self.callPackage ../pkgs/yabai { };
 }
