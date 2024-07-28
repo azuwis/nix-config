@@ -91,7 +91,7 @@ self: super: {
   }/pkgs/tools/nix/nixos-option" { };
   # python3 = super.python3.override {
   #   packageOverrides = pyself: pysuper: {
-  #     pysonybraviapsk = self.python3.pkgs.callPackage ../pkgs/pysonybraviapsk { };
+  #     pysonybraviapsk = self.python3.pkgs.callPackage ../pkgs/python/pysonybraviapsk { };
   #   };
   # };
   # python3Packages = self.python3.pkgs;
