@@ -71,6 +71,13 @@ self: super: {
       (old: {
         preConfigure = if self.stdenv.isDarwin then "" else old.preConfigure;
       });
+  # https://github.com/nix-community/nix-zsh-completions/pull/52
+  nix-zsh-completions = super.nix-zsh-completions.overrideAttrs (old: {
+    src = old.src.override {
+      rev = "496b2e66aa10bdcb6f033bf8118f1972203ee7b0";
+      hash = "sha256-OncfatdtdEavVF5Y5hLITgx9wz1Z29bX4P/uxmojvDI=";
+    };
+  });
   # https://github.com/NixOS/nixpkgs/pull/315654
   nixos-option = self.callPackage "${
     self.fetchFromGitHub {
