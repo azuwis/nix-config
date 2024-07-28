@@ -30,6 +30,7 @@ USAGE:
   $cmd c|clean
   $cmd d|diff [<host>]
   $cmd hardware
+  $cmd l|list
   $cmd s|switch
   $cmd u|update [<input>] [<commit>]
   $cmd <darwin-rebuild/nix-on-droid/nixos-rebuild args>
