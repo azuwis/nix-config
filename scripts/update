@@ -2,14 +2,17 @@
 
 set -e
 
+root=$(readlink -f "$(dirname "${BASH_SOURCE[0]}")/..")
+
 usage(){
   local name
   name=$(basename "$0")
   cat <<EOF
 USAGE:
-  $name -h                         Display usage
+  $name                            Display usage from update.nix
+  $name -h                         Display this usage
   $name [options] -P               Prompt before update
-  $name [options] -a               Update all packages
+  $name [options] -a               Update all packages in $root
   $name [options] -m <maintainer>  Update packages of maintainer <maintainer>
   $name [options] -p <prefix>      Update packages matching given prefix <prefix>
   $name [options] <path>           Update package under attribute path <path>
@@ -42,7 +45,6 @@ then
   args+=(--argstr path)
 fi
 
-root=$(readlink -f "$(dirname "${BASH_SOURCE[0]}")/..")
 pushd "$root" >/dev/null
 echo nix-shell "$root/scripts/update.nix" "${args[@]}" "$@"
 nix-shell "$root/scripts/update.nix" "${args[@]}" "$@"
