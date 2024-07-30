@@ -12,6 +12,7 @@ in
 {
   imports = [
     ./anime4k.nix
+    ./manga-reader.nix
     ./uosc.nix
   ];
 
