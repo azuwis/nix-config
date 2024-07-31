@@ -24,6 +24,7 @@ buildHomeAssistantComponent rec {
 
   dontCheckManifest = true;
 
+  passthru.updateScript = "echo";
   # passthru.updateScript = nix-update-script { };
 
   meta = {
