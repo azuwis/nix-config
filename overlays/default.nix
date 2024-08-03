@@ -25,6 +25,14 @@ final: prev: {
       fcitx5-with-addons = qt5prev.fcitx5-with-addons.override { withConfigtool = false; };
     }
   );
+
+  lua = prev.lua.override {
+    packageOverrides = luafinal: luaprev: {
+      sbarlua = final.lua.pkgs.callPackage ../pkgs/lua/sbarlua { };
+    };
+  };
+  luaPackages = final.lua.pkgs;
+
   # https://github.com/NixOS/nixpkgs/issues/320900
   # https://github.com/NixOS/nixpkgs/pull/79344
   mpv-unwrapped =
