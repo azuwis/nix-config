@@ -1,13 +1,6 @@
 # https://discourse.nixos.org/t/in-overlays-when-to-use-self-vs-super/2968/12
 
 final: prev: {
-  # pkgs
-  # cemu = prev.cemu.overrideAttrs (old: {
-  #   postPatch = (old.postPatch or "") + ''
-  #     sed -i '/\/\/ already connected\?/,+2 d' src/input/api/DSU/DSUControllerProvider.cpp
-  #   '';
-  # });
-
   # override
   # https://github.com/NixOS/nixpkgs/issues/267536
   borgbackup = prev.borgbackup.overrideAttrs (
@@ -19,6 +12,13 @@ final: prev: {
       ];
     }
   );
+
+  # cemu = prev.cemu.overrideAttrs (old: {
+  #   postPatch = (old.postPatch or "") + ''
+  #     sed -i '/\/\/ already connected\?/,+2 d' src/input/api/DSU/DSUControllerProvider.cpp
+  #   '';
+  # });
+
   # disable fcitx5-configtool
   libsForQt5 = prev.libsForQt5.overrideScope (
     qt5final: qt5prev: {
@@ -79,6 +79,7 @@ final: prev: {
       (old: {
         preConfigure = if final.stdenv.isDarwin then "" else old.preConfigure;
       });
+
   # https://github.com/nix-community/nix-zsh-completions/pull/52
   nix-zsh-completions = prev.nix-zsh-completions.overrideAttrs (old: {
     src = old.src.override {
@@ -86,6 +87,7 @@ final: prev: {
       hash = "sha256-OncfatdtdEavVF5Y5hLITgx9wz1Z29bX4P/uxmojvDI=";
     };
   });
+
   # https://github.com/NixOS/nixpkgs/pull/313497
   nixos-option = final.callPackage "${
     final.fetchFromGitHub {
@@ -97,12 +99,14 @@ final: prev: {
       nonConeMode = true;
     }
   }/pkgs/tools/nix/nixos-option" { };
+
   # python3 = prev.python3.override {
   #   packageOverrides = pyfinal: pyprev: {
   #     pysonybraviapsk = final.python3.pkgs.callPackage ../pkgs/python/pysonybraviapsk { };
   #   };
   # };
   # python3Packages = final.python3.pkgs;
+
   # sway-unwrapped = prev.sway-unwrapped.override {
   #   wlroots = final.wlroots_0_16.overrideAttrs (old: {
   #     postPatch =
