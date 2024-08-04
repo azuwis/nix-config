@@ -33,7 +33,6 @@
       "obs"
       "olive"
       "reaper"
-      "utm"
     ];
     masApps = {
       "Microsoft Remote Desktop" = 1295203466;
