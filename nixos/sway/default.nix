@@ -57,6 +57,9 @@ in
         enable = true;
         alsa.enable = true;
         pulse.enable = true;
+        extraConfig.pipewire = {
+          "99-disable-bell"."context.properties"."module.x11.bell" = false;
+        };
       };
       security.rtkit.enable = lib.mkDefault config.services.pipewire.enable;
     })
