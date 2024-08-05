@@ -95,7 +95,7 @@ in
     })
 
     (mkIf (cfg.enable && cfg.pf.enable) {
-      environment.etc."pf.direct".source = ./pf.direct;
+      environment.etc."pf.direct".source = pkgs.chnroutes2;
 
       system.patches = [
         (pkgs.writeText "pf-conf.patch" ''
