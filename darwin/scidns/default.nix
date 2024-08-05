@@ -8,7 +8,7 @@
 let
   inherit (lib) mkIf mkOption types;
   cfg = config.services.scidns;
-  localDomains = ./local-domains;
+  localDomains = pkgs.chndomains;
   scidnsConf = pkgs.runCommand "scidns.conf" { } ''
     sed -e 's,^,server=/,' -e 's,$,/${cfg.local.bind}#${toString cfg.local.port},' ${localDomains} >$out
   '';
