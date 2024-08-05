@@ -3,7 +3,7 @@
 scidns_resolv_script="@scidns_resolv_script@"
 sciroute_script="@sciroute_script@"
 is_on() {
-    iface="$(route -n get 0.0.0.0/1 | awk '/interface:/ {print $2}')"
+    iface="$(route -n get 0.0.0.0/1 2>/dev/null | awk '/interface:/ {print $2}')"
     test "${iface:0:4}" = "utun"
 }
 on() {
