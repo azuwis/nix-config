@@ -8,10 +8,9 @@
 let
   inherit (lib) mkIf mkOption types;
   cfg = config.services.sciroute;
-  localCidr = ./local-cidr;
   scirouteScript = pkgs.substituteAll {
     inherit (cfg) interface;
-    inherit localCidr;
+    localCidr = pkgs.chnroutes2;
     src = ./sciroute.sh;
     isExecutable = true;
     launchdLabel = config.launchd.daemons.sciroute.serviceConfig.Label;
