@@ -16,6 +16,7 @@
       "flakes"
       "nix-command"
     ];
+    flake-registry = "";
     keep-outputs = true;
     log-lines = 25;
     tarball-ttl = 43200;
