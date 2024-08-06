@@ -20,9 +20,15 @@ in
   config = mkIf cfg.enable {
     # ${nixpkgs}/nixos/modules/misc/nixpkgs-flake.nix
     nix.nixPath = [ "nixpkgs=flake:nixpkgs" ];
-    nix.registry.nixpkgs.to = {
-      type = "path";
-      path = inputs.nixpkgs.outPath;
+    nix.registry = {
+      n.to = {
+        id = "nixpkgs";
+        type = "indirect";
+      };
+      nixpkgs.to = {
+        type = "path";
+        path = inputs.nixpkgs.outPath;
+      };
     };
   };
 }
