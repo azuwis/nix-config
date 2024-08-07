@@ -89,6 +89,8 @@ final: prev: {
   });
 
   # https://github.com/NixOS/nixpkgs/pull/313497
+  # This IFD breaks `nix flake show`, need to run `nix --option allow-import-from-derivation true flake show`.
+  # Be ware of the eval cache, may need `--option eval-cache false`.
   nixos-option = final.callPackage "${
     final.fetchFromGitHub {
       owner = "NixOS";
