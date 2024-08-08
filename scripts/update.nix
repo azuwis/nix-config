@@ -3,6 +3,7 @@
   commit ? null,
   maintainer ? null,
   max-workers ? null,
+  output-json ? null,
   package ? null,
   path ? null,
   predicate ? null,
@@ -39,10 +40,22 @@ in
       predicate;
 }).overrideAttrs
   (old: {
-    # Retain git commit timezone
     shellHook =
-      ''
-        unset TZ
-      ''
+      (
+        if output-json == "true" then
+          ''
+            json_file=$(echo "$shellHook" | grep -o '/nix/store/[0-9a-z]\+-packages.json')
+            if [ -e "$json_file" ]
+            then
+              cat "$json_file"
+            fi
+            exit
+          ''
+        else
+          # Retain git commit timezone
+          ''
+            unset TZ
+          ''
+      )
       + old.shellHook;
   })
