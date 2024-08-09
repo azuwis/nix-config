@@ -12,10 +12,11 @@
 }:
 
 let
-  nixpkgs = (import ../default.nix { }).inputs.nixpkgs.outPath;
+  inherit (pkgs) lib;
+  pkgs = import ../default.nix { };
+  nixpkgs = pkgs.inputs.nixpkgs.outPath;
   getPosition = package: (builtins.unsafeGetAttrPos "src" package).file or package.meta.position;
-  hasPrefix = prefix: str: builtins.substring 0 (builtins.stringLength prefix) str == prefix;
-  pkgHasPrefix = prefix: package: hasPrefix prefix (getPosition package);
+  pkgHasPrefix = prefix: package: lib.hasPrefix prefix (getPosition package);
 in
 (import "${nixpkgs}/maintainers/scripts/update.nix" {
   inherit
@@ -44,21 +45,17 @@ in
 }).overrideAttrs
   (old: {
     shellHook =
-      (
-        if output-json == "true" then
-          ''
-            json_file=$(echo "$shellHook" | grep -o '/nix/store/[0-9a-z]\+-packages.json')
-            if [ -e "$json_file" ]
-            then
-              cat "$json_file"
-            fi
-            exit
-          ''
-        else
-          # Retain git commit timezone
-          ''
-            unset TZ
-          ''
-      )
+      # Retain git commit timezone
+      ''
+        unset TZ
+      ''
+      + lib.optionalString (output-json == "true") ''
+        json_file=$(echo "$shellHook" | grep -o '/nix/store/[0-9a-z]\+-packages.json')
+        if [ -e "$json_file" ]
+        then
+          cat "$json_file"
+        fi
+        exit
+      ''
       + old.shellHook;
   })
