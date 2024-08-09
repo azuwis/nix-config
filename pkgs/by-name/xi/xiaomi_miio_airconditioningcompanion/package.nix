@@ -24,8 +24,8 @@ buildHomeAssistantComponent rec {
 
   dontCheckManifest = true;
 
-  passthru.updateScript = "echo";
-  # passthru.updateScript = nix-update-script { };
+  passthru.skipUpdate = true;
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     changelog = "https://github.com/syssi/xiaomi_airconditioningcompanion/releases/tag/${version}";

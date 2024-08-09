@@ -33,7 +33,10 @@ in
   keep-going = "true";
   predicate =
     if all == "true" then
-      (_: package: pkgHasPrefix (builtins.toString ../.) package && package.updateScript != "echo")
+      (
+        _: package:
+        pkgHasPrefix (builtins.toString ../.) package && !(package ? skipUpdate && package.skipUpdate)
+      )
     else if prefix != null then
       (_: package: pkgHasPrefix prefix package)
     else

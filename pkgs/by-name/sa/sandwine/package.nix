@@ -32,8 +32,8 @@ python3.pkgs.buildPythonApplication rec {
     }"''
   ];
 
-  passthru.updateScript = "echo";
-  # passthru.updateScript = nix-update-script { };
+  passthru.skipUpdate = true;
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Command-line tool to run Windows apps with Wine and bwrap/bubblewrap isolation";

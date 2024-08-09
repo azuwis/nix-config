@@ -8,5 +8,5 @@ home-assistant-custom-components.xiaomi_gateway3.overridePythonAttrs (old: rec {
     hash = "sha256-MQ/yxxXt2BXUAHEHGOaqansgon22oQ0byCQcUcVZdOQ=";
   };
 
-  passthru.updateScript = "echo";
+  passthru.skipUpdate = true;
 })
