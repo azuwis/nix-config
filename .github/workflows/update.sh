@@ -7,6 +7,8 @@ update_package() {
   package="$1"
   update_branch="update/$package"
 
+  echo "::group::Update $package"
+
   if [ "$(gh pr list --head "$update_branch" | wc -l)" -gt 0 ]
   then
     # PR exists
@@ -42,6 +44,8 @@ update_package() {
       gh pr create --fill
     fi
   fi
+
+  echo "::endgroup::"
 }
 
 ./scripts/update -a -j | jq -r '.[].attrPath' | while read -r package
