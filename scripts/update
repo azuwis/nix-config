@@ -27,12 +27,13 @@ exit
 }
 
 command=(nix-shell "$root/scripts/update.nix")
-while getopts ":Pacjhm:p:w:-:" opt; do
+while getopts ":Paci:jhm:p:w:-:" opt; do
   case "$opt" in
     P) command+=(--argstr skip-prompt false) ;;
     a) command+=(--argstr all true) ;;
     c) command+=(--argstr commit true) ;;
-    j) command+=(--argstr output-json true); output_json=true;;
+    i) info="$OPTARG" ;;
+    j) command+=(--argstr output-json true); output_json=true ;;
     m) command+=(--argstr maintainer "$OPTARG") ;;
     p) command+=(--argstr prefix "$(readlink -f "$OPTARG")") ;;
     w) command+=(--argstr max-workers "$OPTARG") ;;
@@ -41,6 +42,12 @@ while getopts ":Pacjhm:p:w:-:" opt; do
   esac
 done
 shift $((OPTIND-1))
+
+if [ -n "$info" ]
+then
+  nix eval --raw --apply "f: f { path = \"$info\";}" --file "$root/scripts/info.nix"
+  exit
+fi
 
 if [ "$#" -eq 1 ]
 then
