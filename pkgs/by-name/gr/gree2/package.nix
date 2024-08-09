@@ -8,13 +8,13 @@
 buildHomeAssistantComponent {
   owner = "xcy1231";
   domain = "gree2";
-  version = "0-unstable-2024-06-26";
+  version = "0-unstable-2024-08-06";
 
   src = fetchFromGitHub {
     owner = "xcy1231";
     repo = "Ha-GreeCentralClimate";
-    rev = "6c3f3e906f5832adaf8b41062717bd3085dd84f0";
-    hash = "sha256-dbzevANt7ZvvICnmop97k+JLGynog94aIYIJTAGJm0w=";
+    rev = "c657ec7e89a3bd5cc6333ee6789c1ec2e10efb7b";
+    hash = "sha256-rsAe7tPevLMes+HKxuzQR6NtPXaKEeIklDi94sgVYrs=";
   };
 
   dontBuild = true;
