@@ -7,13 +7,13 @@
 
 buildGoModule {
   pname = "nix-search";
-  version = "0.3.1-unstable-2024-07-15";
+  version = "0.3.1-unstable-2024-07-29";
 
   src = fetchFromGitHub {
     owner = "diamondburned";
     repo = "nix-search";
-    rev = "ab75c61cd01e3afe1f5dd4fc9e9e25f459aeb976";
-    hash = "sha256-fsOEYRFeZjvLwedmUtkm9LbeTUox4cQc540oiikpJTc=";
+    rev = "607da43a32cfeb6a4e33ee76a0e166202fa85281";
+    hash = "sha256-JQ+BMg2e7BLej+P2CDVSAX5AzADg+4LYFmd+r2Yae9E=";
   };
 
   vendorHash = "sha256-gdqTTc1YsO3feN+OBeBh6inrHfZvp/dio/TUC/Aaol0=";
