@@ -28,7 +28,7 @@ update_package() {
       if ./scripts/update -c "$package"
       then
         # Update success, update the PR
-        gh pr edit "$update_branch" --title "$(git show -s --format=%B)"
+        gh pr edit "$update_branch" --title "$(git show -s --format=%B)" --body "$(./scripts/update -i "$package")"
       fi
     fi
     git push --force origin "$update_branch"
@@ -41,7 +41,7 @@ update_package() {
     then
       # Update success, create PR
       git push --force origin "$update_branch"
-      gh pr create --fill
+      gh pr create --title "$(git show -s --format=%B)" --body "$(./scripts/update -i "$package")"
     fi
   fi
 
