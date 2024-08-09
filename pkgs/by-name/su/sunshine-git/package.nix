@@ -39,5 +39,5 @@
     };
 
     # Workaround for nix-update 1.4.0, https://github.com/Mic92/nix-update/pull/247
-    meta.position = null;
+    meta.homepage = old.meta.homepage;
   })
