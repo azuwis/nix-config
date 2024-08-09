@@ -26,16 +26,16 @@ EOF
 exit
 }
 
-args=()
+command=(nix-shell "$root/scripts/update.nix")
 while getopts ":Pacjhm:p:w:-:" opt; do
   case "$opt" in
-    P) args+=(--argstr skip-prompt false) ;;
-    a) args+=(--argstr all true) ;;
-    c) args+=(--argstr commit true) ;;
-    j) output_json=true;;
-    m) args+=(--argstr maintainer "$OPTARG") ;;
-    p) args+=(--argstr prefix "$(readlink -f "$OPTARG")") ;;
-    w) args+=(--argstr max-workers "$OPTARG") ;;
+    P) command+=(--argstr skip-prompt false) ;;
+    a) command+=(--argstr all true) ;;
+    c) command+=(--argstr commit true) ;;
+    j) command+=(--argstr output-json true); output_json=true;;
+    m) command+=(--argstr maintainer "$OPTARG") ;;
+    p) command+=(--argstr prefix "$(readlink -f "$OPTARG")") ;;
+    w) command+=(--argstr max-workers "$OPTARG") ;;
     -) ;;
     h|*) usage ;;
   esac
@@ -44,15 +44,17 @@ shift $((OPTIND-1))
 
 if [ "$#" -eq 1 ]
 then
-  args+=(--argstr path)
+  command+=(--argstr path)
 fi
+
+command+=("$@")
 
 if [ "$output_json" = "true" ]
 then
-  nix-shell "$root/scripts/update.nix" --argstr output-json true "${args[@]}" "$@" 2>/dev/null
+  "${command[@]}" 2>/dev/null
 else
   pushd "$root" >/dev/null
-  >&2 echo nix-shell "$root/scripts/update.nix" "${args[@]}" "$@"
-  nix-shell "$root/scripts/update.nix" "${args[@]}" "$@"
+  >&2 echo "${command[@]}"
+  "${command[@]}"
   popd >/dev/null
 fi
