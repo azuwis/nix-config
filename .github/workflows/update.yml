@@ -43,5 +43,7 @@ jobs:
         git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
     - uses: azuwis/actions/nix@main
       with:
+        key: update
         debug: ${{ github.event_name == 'workflow_dispatch' && inputs.debug }}
     - run: ./.github/workflows/update.sh
+    - uses: azuwis/actions/nix/post@main
