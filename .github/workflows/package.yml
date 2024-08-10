@@ -18,6 +18,7 @@ on:
         options: [ubuntu-latest, macos-latest, all]
 jobs:
   package:
+    if: startsWith(github.head_ref, 'update/')
     strategy:
       fail-fast: false
       matrix:
