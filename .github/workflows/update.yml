@@ -1,6 +1,10 @@
+# Note: The PRs will not trigger `on: pull_request`
+# https://github.com/peter-evans/create-pull-request/blob/main/docs/concepts-guidelines.md#triggering-further-workflow-runs
+# Use deploy keys workaround
+# https://github.com/peter-evans/create-pull-request/blob/main/docs/concepts-guidelines.md#push-using-ssh-deploy-keys
+
 name: Update
 permissions:
-  contents: write
   pull-requests: write
 on:
   schedule:
@@ -34,6 +38,7 @@ jobs:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
+        ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
     - name: Prepare
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
