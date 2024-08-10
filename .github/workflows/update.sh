@@ -3,6 +3,12 @@
 git remote set-head origin --auto
 default_branch=$(git rev-parse --abbrev-ref origin/HEAD)
 
+generate_body() {
+  package="$1"
+  compare=$(git show | awk -F'"' 'BEGIN {i=0} /^(-|+) +rev = "[0-9a-z]{40}"/ {a[i]=$2; i++} END {print a[0] "..." a[1]}')
+  ./scripts/update -i "$package" | sed "/^Git: / s|\.git$|/compare/$compare|"
+}
+
 update_package() {
   package="$1"
   update_branch="update/$package"
@@ -28,7 +34,7 @@ update_package() {
       if ./scripts/update -c "$package"
       then
         echo "Update success, update the PR"
-        gh pr edit "$update_branch" --title "$(git show -s --format=%B)" --body "$(./scripts/update -i "$package")"
+        gh pr edit "$update_branch" --title "$(git show -s --format=%B)" --body "$(generate_body "$package")"
       fi
     fi
     git push --force origin "$update_branch"
@@ -41,7 +47,7 @@ update_package() {
     then
       echo "Update success, create PR"
       git push --force origin "$update_branch"
-      gh pr create --title "$(git show -s --format=%B)" --body "$(./scripts/update -i "$package")"
+      gh pr create --title "$(git show -s --format=%B)" --body "$(generate_body "$package")"
     fi
   fi
 
