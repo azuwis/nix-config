@@ -4,17 +4,21 @@ let
   pkgs = import ../default.nix { };
   package = lib.attrByPath (lib.splitString "." path) null pkgs;
   render =
-    meta:
+    package:
     let
-      entry = name: lib.optional (builtins.hasAttr name meta) "${name}: ${meta.${name}}";
+      inherit (package) meta;
+      entry =
+        cond: heading: value:
+        lib.optional cond "${heading}: ${value}";
     in
     lib.concatStringsSep "\n" (
       lib.concatLists [
-        (entry "homepage")
-        (entry "description")
-        (entry "changelog")
+        (entry (meta ? homepage) "Homepage" meta.homepage)
+        (entry (meta ? description) "Description" meta.description)
+        (entry (meta ? changelog) "Changelog" meta.changelog)
+        (entry (package.src ? gitRepoUrl) "Git" package.src.gitRepoUrl)
       ]
     );
-  info = render package.meta;
+  info = render package;
 in
 info
