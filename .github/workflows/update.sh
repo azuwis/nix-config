@@ -9,6 +9,13 @@ generate_body() {
   ./scripts/update -i "$package" | sed "/^Git: / s|\.git$|/compare/$compare|"
 }
 
+try_update() {
+  package="$1"
+  saved_commit=$(git rev-parse HEAD)
+  ./scripts/update -c "$package" || true
+  test "$(git rev-parse HEAD)" != "$saved_commit"
+}
+
 update_package() {
   package="$1"
   update_branch="update/$package"
@@ -25,13 +32,11 @@ update_package() {
       git reset --hard "$default_branch"
       git cherry-pick "origin/$update_branch"
     fi
-    saved_commit=$(git rev-parse HEAD)
-    ./scripts/update -c "$package" || true
-    if [ "$(git rev-parse HEAD)" != "$saved_commit" ]
+    if try_update "$package"
     then
       echo "Upstream newer than the PR, reset the branch and update again"
       git reset --hard "$default_branch"
-      if ./scripts/update -c "$package"
+      if try_update "$package"
       then
         echo "Update success, update the PR"
         gh pr edit "$update_branch" --title "$(git show -s --format=%B)" --body "$(generate_body "$package")"
@@ -42,8 +47,7 @@ update_package() {
     echo "PR not exists"
     git checkout -B "$update_branch" "$default_branch"
     git clean -df
-    ./scripts/update -c "$package" || true
-    if [ "$(git rev-list --count "${default_branch}..")" -gt 0 ]
+    if try_update "$package"
     then
       echo "Update success, create PR"
       git push --force origin "$update_branch"
