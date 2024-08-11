@@ -4,7 +4,7 @@
 
   perSystem.treefmt = {
     projectRootFile = "flake.nix";
-    programs.nixfmt-rfc-style.enable = true;
+    programs.nixfmt.enable = true;
     programs.stylua.enable = true;
   };
 }
