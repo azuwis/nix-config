@@ -17,7 +17,7 @@ permissions:
   pull-requests: write
 on:
   schedule:
-  - cron: '0 11 * * 5'
+    - cron: '0 11 * * 5'
   workflow_dispatch:
     inputs:
       debug:
@@ -38,26 +38,26 @@ jobs:
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
-    - name: Skip debug
-      if: >-
-        ${{ github.event_name == 'workflow_dispatch' && inputs.debug && !
-            (inputs.os == matrix.os || inputs.os == 'all')
-        }}
-      run: exit 1
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-        ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
-    - name: Prepare
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        echo "GH_TOKEN=$GH_TOKEN" >> "$GITHUB_ENV"
-        git config --global user.name 'github-actions[bot]'
-        git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
-    - uses: azuwis/actions/nix@main
-      with:
-        key: update
-        debug: ${{ github.event_name == 'workflow_dispatch' && inputs.debug }}
-    - run: ./.github/workflows/update.sh
-    - uses: azuwis/actions/nix/post@main
+      - name: Skip debug
+        if: >-
+          ${{ github.event_name == 'workflow_dispatch' && inputs.debug && !
+              (inputs.os == matrix.os || inputs.os == 'all')
+          }}
+        run: exit 1
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Prepare
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "GH_TOKEN=$GH_TOKEN" >> "$GITHUB_ENV"
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
+      - uses: azuwis/actions/nix@main
+        with:
+          key: update
+          debug: ${{ github.event_name == 'workflow_dispatch' && inputs.debug }}
+      - run: ./.github/workflows/update.sh
+      - uses: azuwis/actions/nix/post@main

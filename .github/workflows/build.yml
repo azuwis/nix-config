@@ -3,7 +3,7 @@ permissions: {}
 on:
   push:
     paths:
-    - flake.lock
+      - flake.lock
   workflow_dispatch:
     inputs:
       debug:
@@ -24,25 +24,25 @@ jobs:
         os: [ubuntu-latest]
         host: [droid, nuc, steamdeck]
         include:
-        - {os: macos-12, host: test}
+          - {os: macos-12, host: test}
     runs-on: ${{ matrix.os }}
     steps:
-    - name: Skip debug
-      if: >-
-        ${{ github.event_name == 'workflow_dispatch' && inputs.debug && !
-            ((inputs.os == 'all' || inputs.os == matrix.os) && (matrix.host == 'nuc' || matrix.host == 'test'))
-        }}
-      run: exit 1
-    - uses: actions/checkout@v4
-    - uses: azuwis/actions/nix@main
-      with:
-        key: nix-${{ matrix.host }}
-        clean: true
-        debug: ${{ github.event_name == 'workflow_dispatch' && inputs.debug }}
-    - uses: cachix/cachix-action@v15
-      with:
-        name: azuwis
-        authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-    - name: Build
-      run: ./scripts/os ci ${{ matrix.host }}
-    - uses: azuwis/actions/nix/post@main
+      - name: Skip debug
+        if: >-
+          ${{ github.event_name == 'workflow_dispatch' && inputs.debug && !
+              ((inputs.os == 'all' || inputs.os == matrix.os) && (matrix.host == 'nuc' || matrix.host == 'test'))
+          }}
+        run: exit 1
+      - uses: actions/checkout@v4
+      - uses: azuwis/actions/nix@main
+        with:
+          key: nix-${{ matrix.host }}
+          clean: true
+          debug: ${{ github.event_name == 'workflow_dispatch' && inputs.debug }}
+      - uses: cachix/cachix-action@v15
+        with:
+          name: azuwis
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+      - name: Build
+        run: ./scripts/os ci ${{ matrix.host }}
+      - uses: azuwis/actions/nix/post@main

@@ -99,7 +99,7 @@ mqtt:
         {{ now().strftime('%Y-%m-%d %H:%M:%S') }}
       # again, if you change base_topic of Zigbee2mqtt, change json_attributes_topic accordingly
       json_attributes_topic: zigbee2mqtt/bridge/networkmap/raw
-    
+
   # Switch for enabling joining
   switch:
     - name: "Zigbee2MQTT Main join"
@@ -163,7 +163,4 @@ automation:
       - service: persistent_notification.create
         data_template:
           title: Device joined the Zigbee2MQTT network
-          message: "Name: {{trigger.payload_json.data.friendly_name}},
-                    Vendor: {{trigger.payload_json.data.definition.vendor}},
-                    Model: {{trigger.payload_json.data.definition.model}},
-                    Description: {{trigger.payload_json.data.definition.description}}"
+          message: "Name: {{trigger.payload_json.data.friendly_name}}, Vendor: {{trigger.payload_json.data.definition.vendor}}, Model: {{trigger.payload_json.data.definition.model}}, Description: {{trigger.payload_json.data.definition.description}}"
