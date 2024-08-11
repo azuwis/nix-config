@@ -2,6 +2,15 @@
 # https://github.com/peter-evans/create-pull-request/blob/main/docs/concepts-guidelines.md#triggering-further-workflow-runs
 # Use deploy keys workaround
 # https://github.com/peter-evans/create-pull-request/blob/main/docs/concepts-guidelines.md#push-using-ssh-deploy-keys
+#
+# Settings
+# General -> Pull Requests -> Always suggest updating pull request branches
+#                          -> Automatically delete head branches
+# Rules -> Rulesets -> create rule restrict creations/updates/deletions of default branch
+# Actions -> General -> Fork pull request workflows from outside collaborators -> Require approval for all outside collaborators
+# `ssh-keygen -t ed25519 -f deploy`
+# Deploy keys -> Add deploy key -> Allow write access
+# Secrets and variables -> Actions -> New repository secret
 
 name: Update
 permissions:
