@@ -5,8 +5,23 @@ default_branch=$(git rev-parse --abbrev-ref origin/HEAD)
 
 generate_body() {
   package="$1"
-  compare=$(git show | awk -F'"' 'BEGIN {i=0} /^(-|+) +rev = "[0-9a-z]{40}"/ {a[i]=$2; i++} END {print a[0] "..." a[1]}')
-  ./scripts/update -i "$package" | sed "/^Git: / s|\.git$|/compare/$compare|"
+  re_from='^- +rev = "([0-9a-f]{40})"'
+  re_to='^\+ +rev = "([0-9a-f]{40})"'
+  while read -r line
+  do
+    if [[ "$line" =~ $re_from ]]
+    then
+      from=${BASH_REMATCH[1]}
+    elif [[ "$line" =~ $re_to ]]
+    then
+      to=${BASH_REMATCH[1]}
+    fi
+  done < <(git diff --unified=0 HEAD..HEAD^)
+  if [ -n "$from" ] && [ -n "$to" ]
+  then
+    compare="/compare/${from}...${to}"
+  fi
+  ./scripts/update -i "$package" | sed "/^Git: / s|\.git$|$compare|"
 }
 
 try_update() {
