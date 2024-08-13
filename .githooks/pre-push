@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+# shellcheck disable=SC2317
+git_amend() {
+  mapfile -t < <(git log --format=%cd --date=unix --max-count=2)
+  this=${MAPFILE[0]}
+  last=${MAPFILE[1]}
+
+  night="$(date +%s --date=19:00:00)"
+  if [ "$this" -gt "$night" ]
+  then
+    exit
+  fi
+
+  new="$((night - 86400))"
+  mod=7200
+  if [ "$last" -gt "$new" ] && [ "$last" -le "$((night - 68400))" ]
+  then
+    new="$last"
+    mod=600
+  fi
+
+  new="$((RANDOM % mod + 120 + new))"
+  GIT_COMMITTER_DATE="$new" git commit --amend --no-edit --date "$new"
+}
+export -f git_amend
+
+remote=$1
+url=$2
+
+if ! [[ "$url" =~ ^(https://|ssh://git@)github\.com ]]
+then
+  exit
+fi
+
+read -r local_ref local_hash remote_ref remote_hash
+
+if [ -z "$local_hash" ] || [ -z "$remote_hash" ]
+then
+  exit
+fi
+
+while read -r hour hash
+do
+  if [ "$hour" -lt 19 ]
+  then
+    rebase_hash="${hash}^"
+    break
+  fi
+done < <(git log --reverse --format='%cd %H' --date='format:%-H' "${remote_hash}..${local_hash}")
+
+if [ -n "$rebase_hash" ]
+then
+  git rebase "$rebase_hash" --exec 'bash -c git_amend'
+  command=(git push "${force[@]}" --no-verify "$remote" "${local_ref}:${remote_ref}")
+  if ! git merge-base --is-ancestor "$remote_hash" HEAD
+  then
+    command+=(--force)
+  fi
+  echo
+  echo "Executing: ${command[*]}"
+  if "${command[@]}"
+  then
+    echo
+    echo "==== Ignore following error ===="
+  fi
+  exit 1
+fi
