@@ -3,16 +3,15 @@
 shopt -s nullglob globstar
 
 prefix=${PASSWORD_STORE_DIR-~/.password-store}
-password_files=( "$prefix"/**/*.gpg )
-password_files=( "${password_files[@]#"$prefix"/}" )
-password_files=( "${password_files[@]%.gpg}" )
+password_files=("$prefix"/**/*.gpg)
+password_files=("${password_files[@]#"$prefix"/}")
+password_files=("${password_files[@]%.gpg}")
 
 password=$(printf '%s\n' "${password_files[@]}" | fzf --no-separator --reverse --no-info "$@")
 
-[[ -n $password ]] || exit 0;
+[[ -n $password ]] || exit 0
 
-if [[ $password == otp/* ]]
-then
+if [[ $password == otp/* ]]; then
   pass="pass otp"
 else
   pass="pass"

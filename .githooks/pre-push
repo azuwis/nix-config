@@ -7,15 +7,13 @@ git_amend() {
   last=${MAPFILE[1]}
 
   night="$(date +%s --date=19:00:00)"
-  if [ "$this" -gt "$night" ]
-  then
+  if [ "$this" -gt "$night" ]; then
     exit
   fi
 
   new="$((night - 86400))"
   mod=7200
-  if [ "$last" -gt "$new" ] && [ "$last" -le "$((night - 68400))" ]
-  then
+  if [ "$last" -gt "$new" ] && [ "$last" -le "$((night - 68400))" ]; then
     new="$last"
     mod=600
   fi
@@ -28,39 +26,32 @@ export -f git_amend
 remote=$1
 url=$2
 
-if ! [[ "$url" =~ ^(https://|ssh://git@)github\.com ]]
-then
+if ! [[ $url =~ ^(https://|ssh://git@)github\.com ]]; then
   exit
 fi
 
 read -r local_ref local_hash remote_ref remote_hash
 
-if [ -z "$local_hash" ] || [ -z "$remote_hash" ]
-then
+if [ -z "$local_hash" ] || [ -z "$remote_hash" ]; then
   exit
 fi
 
-while read -r hour hash
-do
-  if [ "$hour" -lt 19 ]
-  then
+while read -r hour hash; do
+  if [ "$hour" -lt 19 ]; then
     rebase_hash="${hash}^"
     break
   fi
 done < <(git log --reverse --format='%cd %H' --date='format:%-H' "${remote_hash}..${local_hash}")
 
-if [ -n "$rebase_hash" ]
-then
+if [ -n "$rebase_hash" ]; then
   git rebase "$rebase_hash" "${local_ref#refs/heads/}" --exec 'bash -c git_amend'
   command=(git push "${force[@]}" --no-verify "$remote" "${local_ref}:${remote_ref}")
-  if ! git merge-base --is-ancestor "$remote_hash" HEAD
-  then
+  if ! git merge-base --is-ancestor "$remote_hash" HEAD; then
     command+=(--force)
   fi
   echo
   echo "Executing: ${command[*]}"
-  if "${command[@]}"
-  then
+  if "${command[@]}"; then
     echo
     echo "==== Ignore following error ===="
   fi

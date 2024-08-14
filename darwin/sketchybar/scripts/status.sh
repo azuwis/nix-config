@@ -4,12 +4,12 @@ STATUS="$HOME/.cache/sketchybar/status"
 
 readable() {
   local bytes=$1
-  local kib=$(( bytes >> 10 ))
+  local kib=$((bytes >> 10))
   if [ "$kib" -lt 0 ]; then
     printf "?K"
   elif [ "$kib" -gt 1024 ]; then
-    local mib_int=$(( kib >> 10 ))
-    local mib_dec=$(( kib % 1024 * 976 / 10000 ))
+    local mib_int=$((kib >> 10))
+    local mib_dec=$((kib % 1024 * 976 / 10000))
     if [ "$mib_dec" -lt 10 ]; then
       mib_dec="0${mib_dec}"
     fi
@@ -22,10 +22,9 @@ readable() {
 get_load() {
   local load
   load=$(sysctl -n vm.loadavg)
-  read -r _ load _ _ <<< "$load"
+  read -r _ load _ _ <<<"$load"
   LOAD_LABEL="$load"
-  if [ "${load%.*}" -ge 4 ]
-  then
+  if [ "${load%.*}" -ge 4 ]; then
     LOAD_HIGHLIGHT="on"
   else
     LOAD_HIGHLIGHT="off"
@@ -36,16 +35,15 @@ get_network() {
   local network ibytes obytes last_ibytes last_obytes
   network=$(netstat -ibn -I en0)
   network="${network##*en0}"
-  read -r _ _ _ _ _ ibytes _ _ obytes _ <<< "${network}"
+  read -r _ _ _ _ _ ibytes _ _ obytes _ <<<"${network}"
   ISPEED="-1"
   OSPEED="-1"
-  if [ -e "$STATUS" ]
-  then
-    read -r last_ibytes last_obytes < "$STATUS"
-    ISPEED=$(( (ibytes - last_ibytes) / 10 ))
-    OSPEED=$(( (obytes - last_obytes) / 10 ))
+  if [ -e "$STATUS" ]; then
+    read -r last_ibytes last_obytes <"$STATUS"
+    ISPEED=$(((ibytes - last_ibytes) / 10))
+    OSPEED=$(((obytes - last_obytes) / 10))
   fi
-  echo "$ibytes $obytes" > "$STATUS"
+  echo "$ibytes $obytes" >"$STATUS"
 }
 
 get_load

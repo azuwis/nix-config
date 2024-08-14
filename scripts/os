@@ -5,20 +5,19 @@ set -e
 FLAKE=$(readlink -f "$(dirname "${BASH_SOURCE[0]}")/..")
 
 case "$(uname -s)" in
-  Darwin)
-    OS=darwin
-    ;;
-  Linux)
-    if [ -d /system/app/ ] && [ -d /system/priv-app ]
-    then
-      OS=droid
-    else
-      OS=nixos
-    fi
-    ;;
-  *)
-    exit 1
-    ;;
+Darwin)
+  OS=darwin
+  ;;
+Linux)
+  if [ -d /system/app/ ] && [ -d /system/priv-app ]; then
+    OS=droid
+  else
+    OS=nixos
+  fi
+  ;;
+*)
+  exit 1
+  ;;
 esac
 
 usage() {
@@ -41,20 +40,17 @@ build() {
   local args diff hostname nix profile
 
   nix=(nix run nixpkgs#nix-output-monitor --)
-  if [ "$1" = "--no-nom" ]
-  then
+  if [ "$1" = "--no-nom" ]; then
     nix=(nix --print-build-logs)
     shift
   fi
 
-  if [ "$1" = "--diff" ]
-  then
+  if [ "$1" = "--diff" ]; then
     diff=yes
     shift
   fi
 
-  if [ -n "$1" ]
-  then
+  if [ -n "$1" ]; then
     hostname="$1"
     profile="$HOME/.local/state/nix/profiles/$hostname"
     args=(--profile "$profile")
@@ -63,30 +59,30 @@ build() {
   else
     hostname="$(hostname)"
     case "$OS" in
-      darwin) SYSTEM=$(readlink -f /run/current-system || true) ;;
-      droid) SYSTEM=$(readlink -f /nix/var/nix/profiles/nix-on-droid || true); hostname=default ;;
-      nixos) SYSTEM=$(readlink -f /run/current-system || true) ;;
+    darwin) SYSTEM=$(readlink -f /run/current-system || true) ;;
+    droid)
+      SYSTEM=$(readlink -f /nix/var/nix/profiles/nix-on-droid || true)
+      hostname=default
+      ;;
+    nixos) SYSTEM=$(readlink -f /run/current-system || true) ;;
     esac
   fi
 
   case "$OS" in
-    darwin) args+=("$FLAKE#darwinConfigurations.\"$hostname\".system") ;;
-    droid) args+=(--impure "$FLAKE#nixOnDroidConfigurations.\"$hostname\".activationPackage") ;;
-    nixos) args+=("$FLAKE#nixosConfigurations.\"$hostname\".config.system.build.toplevel") ;;
+  darwin) args+=("$FLAKE#darwinConfigurations.\"$hostname\".system") ;;
+  droid) args+=(--impure "$FLAKE#nixOnDroidConfigurations.\"$hostname\".activationPackage") ;;
+  nixos) args+=("$FLAKE#nixosConfigurations.\"$hostname\".config.system.build.toplevel") ;;
   esac
 
   BUILT=$("${nix[@]}" build --no-link --print-out-paths "${args[@]}" "$@")
 
-  if [ -e "$SYSTEM" ]
-  then
-    if [ "$SYSTEM" = "$BUILT" ]
-    then
+  if [ -e "$SYSTEM" ]; then
+    if [ "$SYSTEM" = "$BUILT" ]; then
       echo "build-result == current-system"
     else
       nix run nixpkgs#nvd -- diff "$SYSTEM" "$BUILT"
 
-      if [ "$diff" = yes ]
-      then
+      if [ "$diff" = yes ]; then
         nix run nixpkgs#nix-diff -- --character-oriented "$SYSTEM" "$BUILT"
       fi
     fi
@@ -96,10 +92,8 @@ build() {
 clean() {
   # Clean up gcroots symlinks
   shopt -s nullglob
-  for i in "/nix/var/nix/gcroots/per-user/$USER/"*
-  do
-    if [ ! -e "$i" ]
-    then
+  for i in "/nix/var/nix/gcroots/per-user/$USER/"*; do
+    if [ ! -e "$i" ]; then
       rm -v "$i"
     fi
   done
@@ -114,21 +108,21 @@ droid_switch() {
 hardware() {
   test -e /etc/NIXOS || exit
   # shellcheck disable=SC2024
-  sudo nixos-generate-config --show-hardware-config > "$FLAKE/hosts/hardware-$(hostname).nix"
+  sudo nixos-generate-config --show-hardware-config >"$FLAKE/hosts/hardware-$(hostname).nix"
 }
 
 rebuild() {
   local cmd
   case "$OS" in
-    darwin)
-      cmd=(darwin-rebuild --flake "$FLAKE")
-      ;;
-    droid)
-      cmd=(nix-on-droid --flake "$FLAKE")
-      ;;
-    nixos)
-      cmd=(nixos-rebuild --flake "$FLAKE" --fast --use-remote-sudo)
-      ;;
+  darwin)
+    cmd=(darwin-rebuild --flake "$FLAKE")
+    ;;
+  droid)
+    cmd=(nix-on-droid --flake "$FLAKE")
+    ;;
+  nixos)
+    cmd=(nixos-rebuild --flake "$FLAKE" --fast --use-remote-sudo)
+    ;;
   esac
   "${cmd[@]}" "$@"
 }
@@ -137,26 +131,21 @@ update() {
   pushd "$FLAKE"
   local args
   args=(update)
-  if [ -n "$1" ]
-  then
+  if [ -n "$1" ]; then
     input="$1"
-    if nix --version | grep -qF Lix
-    then
+    if nix --version | grep -qF Lix; then
       args=(update "$input")
     else
       args=(lock --update-input "$input")
     fi
     shift
   fi
-  if [ -n "$1" ]
-  then
+  if [ -n "$1" ]; then
     url=$(nix eval --raw --file flake.nix "inputs.$input.url")
-    slash=${url//[^\/]}
-    if [ "${#slash}" = 1 ]
-    then
+    slash=${url//[^\/]/}
+    if [ "${#slash}" = 1 ]; then
       url="$url/$1"
-    elif [ "${#slash}" = 2 ]
-    then
+    elif [ "${#slash}" = 2 ]; then
       url=${url%/*}
       url="$url/$1"
     else
@@ -171,79 +160,74 @@ update() {
 
 ask=no
 action="$1"
-if [ -n "$action" ]
-then
+if [ -n "$action" ]; then
   shift
 else
   action="switch"
   ask=yes
 fi
 case "$action" in
-  b|build)
-    build "$@"
+b | build)
+  build "$@"
+  ;;
+c | clean)
+  clean "$@"
+  ;;
+ci)
+  if [ "$1" = droid ]; then
+    nix eval --impure --option extra-substituters https://nix-on-droid.cachix.org \
+      --option extra-trusted-public-keys "nix-on-droid.cachix.org-1:56snoMJTXmDRC1Ei24CmKoUqvHJ9XCp+nidK7qkMQrU=" \
+      .#nixOnDroidConfigurations.droid.config.environment.files.prootStatic.outPath
+    OS=droid
+  fi
+  build --no-nom "$@" --override-input my "path:$FLAKE/test"
+  ;;
+d | diff)
+  build --diff "$@"
+  ;;
+l | list)
+  case "$OS" in
+  darwin)
+    action=--list-generations
     ;;
-  c|clean)
-    clean "$@"
+  droid)
+    action=generations
     ;;
-  ci)
-    if [ "$1" = droid ]
-    then
-      nix eval --impure --option extra-substituters https://nix-on-droid.cachix.org \
-        --option extra-trusted-public-keys "nix-on-droid.cachix.org-1:56snoMJTXmDRC1Ei24CmKoUqvHJ9XCp+nidK7qkMQrU=" \
-        .#nixOnDroidConfigurations.droid.config.environment.files.prootStatic.outPath
-      OS=droid
+  nixos)
+    action=list-generations
+    ;;
+  esac
+  rebuild "$action" "$@"
+  ;;
+hardware)
+  hardware
+  ;;
+h | help)
+  usage
+  ;;
+s | switch)
+  build
+  if [ "$ask" = yes ]; then
+    if [ "$SYSTEM" = "$BUILT" ]; then
+      echo "Skip switch"
+      exit
     fi
-    build --no-nom "$@" --override-input my "path:$FLAKE/test"
-    ;;
-  d|diff)
-    build --diff "$@"
-    ;;
-  l|list)
-    case "$OS" in
-      darwin)
-        action=--list-generations
-        ;;
-      droid)
-        action=generations
-        ;;
-      nixos)
-        action=list-generations
-        ;;
-    esac
+    read -p "Switch? [Yn]" -r answer
+    if [ -n "$answer" ] && [ "$answer" != "Y" ]; then
+      exit 1
+    fi
+  fi
+  if [ "$OS" = droid ]; then
+    droid_switch
+  else
+    action="switch"
     rebuild "$action" "$@"
-    ;;
-  hardware)
-    hardware
-    ;;
-  h|help)
-    usage
-    ;;
-  s|switch)
-    build
-    if [ "$ask" = yes ]
-    then
-      if [ "$SYSTEM" = "$BUILT" ]
-      then
-        echo "Skip switch"
-        exit
-      fi
-      read -p "Switch? [Yn]" -r answer
-      if [ -n "$answer" ] && [ "$answer" != "Y" ]
-      then
-        exit 1
-      fi
-    fi
-    if [ "$OS" = droid ]
-    then
-      droid_switch
-    else
-      action="switch"
-      rebuild "$action" "$@"
-    fi
-    ;;
-  u|update)
-    update "$@"
-    ;;
-  *)
-    rebuild "$action" "$@"
+  fi
+  ;;
+u | update)
+  update "$@"
+  ;;
+*)
+  rebuild "$action" "$@"
+  ;;
 esac

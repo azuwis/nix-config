@@ -7,28 +7,24 @@ launchd_plist="/Library/LaunchDaemons/$launchd_label.plist"
 each_cidr() {
   action="$1"
   shift
-  for cidr in 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 1.1.1.0/24
-  do
+  for cidr in 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 1.1.1.0/24; do
     route -q -n "$action" "$cidr" "$@" 1>/dev/null 2>/dev/null
   done
-  while read -r cidr
-  do
+  while read -r cidr; do
     route -q -n "$action" "$cidr" "$@" 1>/dev/null 2>/dev/null
-  done < "$local_cidr"
+  done <"$local_cidr"
 }
 
 start() {
   echo "Start sciroute"
   gateway="$(route -n get default 2>/dev/null | awk '/gateway/ {print $2}')"
   test -z "$gateway" && exit
-  if [ "$(netstat -rnf inet | wc -l)" -lt 1000 ]
-  then
+  if [ "$(netstat -rnf inet | wc -l)" -lt 1000 ]; then
     echo "Set local cidr gateway to $gateway"
     each_cidr add "$gateway"
   else
     old_gateway="$(route -n get "$(head -n 1 "$local_cidr")" 2>/dev/null | awk '/gateway/ {print $2}')"
-    if [ "$gateway" != "$old_gateway" ]
-    then
+    if [ "$gateway" != "$old_gateway" ]; then
       echo "Change local cidr gateway to $gateway"
       each_cidr change "$gateway"
     fi
@@ -48,21 +44,20 @@ stop() {
 action="$1"
 
 case "$action" in
-  enable)
+enable)
+  start
+  launchctl load -w "$launchd_plist"
+  ;;
+disable)
+  stop
+  launchctl unload "$launchd_plist"
+  each_cidr delete
+  ;;
+*)
+  if grep -q '^nameserver ' /var/run/resolv.conf; then
     start
-    launchctl load -w "$launchd_plist"
-    ;;
-  disable)
+  else
     stop
-    launchctl unload "$launchd_plist"
-    each_cidr delete
-    ;;
-  *)
-    if grep -q '^nameserver ' /var/run/resolv.conf
-    then
-      start
-    else
-      stop
-    fi
-    ;;
+  fi
+  ;;
 esac

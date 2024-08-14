@@ -7,18 +7,14 @@ generate_body() {
   package="$1"
   re_from='^- +rev = "([0-9a-f]{40})"'
   re_to='^\+ +rev = "([0-9a-f]{40})"'
-  while read -r line
-  do
-    if [[ "$line" =~ $re_from ]]
-    then
+  while read -r line; do
+    if [[ $line =~ $re_from ]]; then
       from=${BASH_REMATCH[1]}
-    elif [[ "$line" =~ $re_to ]]
-    then
+    elif [[ $line =~ $re_to ]]; then
       to=${BASH_REMATCH[1]}
     fi
   done < <(git diff --unified=0 HEAD..HEAD^)
-  if [ -n "$from" ] && [ -n "$to" ]
-  then
+  if [ -n "$from" ] && [ -n "$to" ]; then
     compare="/compare/${from}...${to}"
   fi
   ./scripts/update -i "$package" | sed "/^Git: / s|\.git$|$compare|"
@@ -37,22 +33,18 @@ update_package() {
 
   echo "::group::Update $package"
 
-  if [ "$(gh pr list --head "$update_branch" | wc -l)" -gt 0 ]
-  then
+  if [ "$(gh pr list --head "$update_branch" | wc -l)" -gt 0 ]; then
     echo "PR exists"
     git checkout "$update_branch"
     git clean -df
-    if ! git merge-base --is-ancestor "$default_branch" "$update_branch"
-    then
+    if ! git merge-base --is-ancestor "$default_branch" "$update_branch"; then
       git reset --hard "$default_branch"
       git cherry-pick "origin/$update_branch"
     fi
-    if try_update "$package"
-    then
+    if try_update "$package"; then
       echo "Upstream newer than the PR, reset the branch and update again"
       git reset --hard "$default_branch"
-      if try_update "$package"
-      then
+      if try_update "$package"; then
         echo "Update success, update the PR"
         gh pr edit "$update_branch" --title "$(git show -s --format=%B)" --body "$(generate_body "$package")"
       fi
@@ -62,8 +54,7 @@ update_package() {
     echo "PR not exists"
     git checkout -B "$update_branch" "$default_branch"
     git clean -df
-    if try_update "$package"
-    then
+    if try_update "$package"; then
       echo "Update success, create PR"
       git push --force origin "$update_branch"
       gh pr create --title "$(git show -s --format=%B)" --body "$(generate_body "$package")"
@@ -73,7 +64,6 @@ update_package() {
   echo "::endgroup::"
 }
 
-./scripts/update -a -j | jq -r '.[].attrPath' | while read -r package
-do
+./scripts/update -a -j | jq -r '.[].attrPath' | while read -r package; do
   update_package "$package"
 done

@@ -2,8 +2,7 @@
 
 LABEL=ABC
 
-if defaults read ~/Library/Preferences/com.apple.HIToolbox.plist AppleSelectedInputSources | grep -qF im.rime.inputmethod.Squirrel
-then
+if defaults read ~/Library/Preferences/com.apple.HIToolbox.plist AppleSelectedInputSources | grep -qF im.rime.inputmethod.Squirrel; then
   LABEL=""
 fi
 

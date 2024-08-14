@@ -5,13 +5,11 @@ run() {
   shift
 
   focused=$(i3-msg -t get_tree | jq -r '.. | select(.type?) | select(.focused==true).window_properties.class')
-  if [ "$focused" = "$class" ]
-  then
+  if [ "$focused" = "$class" ]; then
     i3-msg --quiet '[class=firefox]' focus
     xdotool key space
   else
-    if [ "$focused" = firefox ]
-    then
+    if [ "$focused" = firefox ]; then
       xdotool key space
     fi
     i3-msg --quiet "[class=$class]" focus || {
@@ -21,8 +19,7 @@ run() {
   fi
 }
 
-if command -v moonlight >/dev/null
-then
+if command -v moonlight >/dev/null; then
   run Moonlight moonlight stream office BotW
 else
   run Cemu cemu --fullscreen --title-id 00050000101c9300
