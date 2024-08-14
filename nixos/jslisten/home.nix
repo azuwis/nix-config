@@ -26,7 +26,7 @@ in
             args:
             "${
               pkgs.writeShellScript (builtins.elemAt (builtins.split " " args) 0) ''
-                exec ${./scripts}/sway-run ${args}
+                exec ${./scripts}/sway-run.sh ${args}
               ''
             } &";
         in
@@ -75,7 +75,7 @@ in
               if sway then
                 sway-run "BotW app_id=info.cemu.Cemu cemu --fullscreen --title-id 00050000101c9300"
               else
-                "${./scripts}/i3-botw &";
+                "${./scripts}/i3-botw.sh &";
           };
           # PS+X
           NieR = {

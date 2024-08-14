@@ -33,7 +33,7 @@ in
           format = "{app_id}";
         };
         "custom/network" = {
-          exec = "${./netspeed}";
+          exec = "${./netspeed.sh}";
         };
         cpu = {
           format = "󰓅 {usage}%";
