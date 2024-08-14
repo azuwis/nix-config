@@ -25,7 +25,11 @@ export -f git_amend
 
 from_hash=$1
 if [ -z "$from_hash" ]; then
-  from_hash="HEAD^"
+  ref=$(git rev-parse --abbrev-ref --symbolic-full-name '@{u}')
+  read -r from_hash _ < <(git ls-remote "${ref%/*}" "refs/heads/${ref#*/}")
+  if [ -z "$from_hash" ]; then
+    from_hash="HEAD^"
+  fi
 fi
 
 to_branch=$2
