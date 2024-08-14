@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+# shellcheck disable=SC2317
+git_amend() {
+  mapfile -t < <(git log --format=%cd --date=unix --max-count=2)
+  this=${MAPFILE[0]}
+  last=${MAPFILE[1]}
+
+  night="$(date +%s --date=19:00:00)"
+  if [ "$this" -gt "$night" ]
+  then
+    exit
+  fi
+
+  new="$((night - 86400))"
+  mod=7200
+  if [ "$last" -gt "$new" ] && [ "$last" -le "$((night - 68400))" ]
+  then
+    new="$last"
+    mod=600
+  fi
+
+  new="$((RANDOM % mod + 120 + new))"
+  GIT_COMMITTER_DATE="$new" git commit --amend --no-edit --date "$new"
+}
+export -f git_amend
+
+from_hash=$1
+if [ -z "$from_hash" ]
+then
+  from_hash="HEAD^"
+fi
+
+to_branch=$2
+if [ -z "$to_branch" ]
+then
+  to_branch=$(git rev-parse --abbrev-ref HEAD)
+fi
+
+while read -r hour hash
+do
+  if [ "$hour" -lt 19 ]
+  then
+    rebase_hash="${hash}^"
+    break
+  fi
+done < <(git log --reverse --format='%cd %H' --date='format:%-H' "${from_hash}..${to_branch}")
+
+if [ -n "$rebase_hash" ]
+then
+  git rebase "$rebase_hash" "$to_branch" --exec 'bash -c git_amend'
+fi
