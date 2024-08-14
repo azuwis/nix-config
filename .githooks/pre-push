@@ -51,7 +51,7 @@ done < <(git log --reverse --format='%cd %H' --date='format:%-H' "${remote_hash}
 
 if [ -n "$rebase_hash" ]
 then
-  git rebase "$rebase_hash" --exec 'bash -c git_amend'
+  git rebase "$rebase_hash" "${local_ref#refs/heads/}" --exec 'bash -c git_amend'
   command=(git push "${force[@]}" --no-verify "$remote" "${local_ref}:${remote_ref}")
   if ! git merge-base --is-ancestor "$remote_hash" HEAD
   then
