@@ -7,7 +7,8 @@ indent_size = 2
 max_line_length = 120
 sort_requires = true
 
-[{*.sh,.githooks/*,scripts/*}]
+# man shfmt
+[[shell]]
 indent_style = space
 indent_size = 2
 max_line_length = 120

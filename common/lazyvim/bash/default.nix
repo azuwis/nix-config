@@ -18,6 +18,7 @@ in
     programs.neovim.extraPackages = with pkgs; [
       nodePackages.bash-language-server
       shellcheck
+      shfmt
     ];
 
     xdg.configFile."nvim/lua/plugins/bash.lua".source = ./spec.lua;
