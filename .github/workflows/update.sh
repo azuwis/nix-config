@@ -58,6 +58,9 @@ update_package() {
       echo "Update success, create PR"
       git push --force origin "$update_branch"
       gh pr create --title "$(git show -s --format=%B)" --body "$(generate_body "$package")"
+      echo "Force push to trigger 'on pull_requst'"
+      git commit --amend --no-edit
+      git push --force origin "$update_branch"
     fi
   fi
 
