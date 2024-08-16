@@ -13,7 +13,7 @@ generate_body() {
     elif [[ $line =~ $re_to ]]; then
       to=${BASH_REMATCH[1]}
     fi
-  done < <(git diff --unified=0 HEAD..HEAD^)
+  done < <(git diff --unified=0 HEAD^..HEAD)
   if [ -n "$from" ] && [ -n "$to" ]; then
     compare="/compare/${from}...${to}"
   fi
