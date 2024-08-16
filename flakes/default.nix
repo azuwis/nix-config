@@ -12,5 +12,6 @@
     ./home-manager.nix
     ./openwrt.nix
     ./treefmt.nix
+    ./android.nix
   ];
 }
