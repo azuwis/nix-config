@@ -13,10 +13,10 @@
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # devshell = {
-    #   url = "github:numtide/devshell";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    devshell = {
+      url = "github:numtide/devshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     droid = {
       url = "github:nix-community/nix-on-droid";
       inputs = {
