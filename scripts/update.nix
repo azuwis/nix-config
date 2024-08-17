@@ -1,13 +1,9 @@
 {
   all ? null,
   commit ? null,
-  maintainer ? null,
   max-workers ? null,
   output-json ? null,
   package ? null,
-  path ? null,
-  predicate ? null,
-  prefix ? null,
   skip-prompt ? "true",
 }:
 
@@ -15,47 +11,83 @@ let
   inherit (pkgs) lib;
   pkgs = import ../default.nix { };
   nixpkgs = pkgs.inputs.nixpkgs.outPath;
+
   getPosition = package: (builtins.unsafeGetAttrPos "src" package).file or package.meta.position;
   pkgHasPrefix = prefix: package: lib.hasPrefix prefix (getPosition package);
-in
-(import "${nixpkgs}/maintainers/scripts/update.nix" {
-  inherit
-    commit
-    maintainer
-    max-workers
-    package
-    path
-    skip-prompt
-    ;
-  include-overlays = [
-    (import "${nixpkgs}/pkgs/top-level/by-name-overlay.nix" ../pkgs/by-name)
-    (import ../overlays/default.nix)
-  ];
-  keep-going = "true";
-  predicate =
-    if all == "true" then
+
+  allPackages =
+    lib.filterAttrs
       (
-        _: package:
-        pkgHasPrefix (builtins.toString ../.) package && !(package ? skipUpdate && package.skipUpdate)
+        _: value:
+        value ? type
+        && value.type == "derivation"
+        && value ? updateScript
+        && pkgHasPrefix (builtins.toString ../.) value
       )
-    else if prefix != null then
-      (_: package: pkgHasPrefix prefix package)
+      (
+        builtins.mapAttrs (name: _: pkgs.${name}) (
+          import "${nixpkgs}/pkgs/top-level/by-name-overlay.nix" ../pkgs/by-name { } { }
+        )
+      );
+
+  packageByName =
+    path: pkgs:
+    let
+      package = lib.attrByPath (lib.splitString "." path) null pkgs;
+    in
+    if package == null then
+      builtins.throw "Package with an attribute name `${path}` does not exist."
     else
-      predicate;
-}).overrideAttrs
-  (old: {
-    shellHook =
-      # Retain git commit timezone
-      ''
-        unset TZ
-      ''
-      + lib.optionalString (output-json == "true") ''
-        json_file=$(echo "$shellHook" | grep -o '/nix/store/[0-9a-z]\+-packages.json')
-        if [ -e "$json_file" ]
-        then
-          cat "$json_file"
-        fi
-        exit
-      ''
-      + old.shellHook;
-  })
+      {
+        attrPath = path;
+        inherit package;
+      };
+
+  packages =
+    if all == "true" then
+      lib.mapAttrsToList (attrPath: package: { inherit attrPath package; }) (
+        lib.filterAttrs (_: value: !(value ? skipUpdate && value.skipUpdate)) allPackages
+      )
+    else if package != null then
+      [ (packageByName package allPackages) ]
+    else
+      builtins.throw "No arguments provided.";
+
+  packageData =
+    { package, attrPath }:
+    {
+      name = package.name;
+      pname = lib.getName package;
+      oldVersion = lib.getVersion package;
+      updateScript = map builtins.toString (
+        lib.toList (package.updateScript.command or package.updateScript)
+      );
+      supportedFeatures = package.updateScript.supportedFeatures or [ ];
+      attrPath = package.updateScript.attrPath or attrPath;
+    };
+
+  packagesJson = pkgs.writeText "packages.json" (builtins.toJSON (map packageData packages));
+
+  optionalArgs =
+    [ "--keep-going" ]
+    ++ lib.optional (max-workers != null) "--max-workers=${max-workers}"
+    ++ lib.optional (commit == "true") "--commit"
+    ++ lib.optional (skip-prompt == "true") "--skip-prompt";
+
+  args = [ packagesJson ] ++ optionalArgs;
+
+in
+pkgs.stdenv.mkDerivation {
+  name = "update-script";
+  shellHook =
+    ''
+      unset TZ # Retain git commit timezone
+      unset shellHook # do not contaminate nested shells
+    ''
+    + lib.optionalString (output-json == "true") ''
+      exec cat "${packagesJson}"
+    ''
+    + ''
+      exec ${pkgs.python3.interpreter} "${nixpkgs}/maintainers/scripts/update.py" ${builtins.concatStringsSep " " args}
+    '';
+}

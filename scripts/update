@@ -11,11 +11,9 @@ usage() {
 USAGE:
   $name                            Display usage from update.nix
   $name -h                         Display this usage
-  $name [options] -P               Prompt before update
+  $name [options] -p               Prompt before update
   $name [options] -a               Update all packages in $root
-  $name [options] -m <maintainer>  Update packages of maintainer <maintainer>
-  $name [options] -p <prefix>      Update packages matching given prefix <prefix>
-  $name [options] <path>           Update package under attribute path <path>
+  $name [options] <package>        Update package named <package>
   $name [options] -- <args>        Args to update.nix
 
 options:
@@ -27,9 +25,8 @@ EOF
 }
 
 command=(nix-shell "$root/scripts/update.nix")
-while getopts ":Paci:jhm:p:w:-:" opt; do
+while getopts ":aci:jhpw:-:" opt; do
   case "$opt" in
-  P) command+=(--argstr skip-prompt false) ;;
   a) command+=(--argstr all true) ;;
   c) command+=(--argstr commit true) ;;
   i) info="$OPTARG" ;;
@@ -37,8 +34,7 @@ while getopts ":Paci:jhm:p:w:-:" opt; do
     command+=(--argstr output-json true)
     output_json=true
     ;;
-  m) command+=(--argstr maintainer "$OPTARG") ;;
-  p) command+=(--argstr prefix "$(readlink -f "$OPTARG")") ;;
+  p) command+=(--argstr skip-prompt false) ;;
   w) command+=(--argstr max-workers "$OPTARG") ;;
   -) ;;
   h | *) usage ;;
@@ -52,7 +48,7 @@ if [ -n "$info" ]; then
 fi
 
 if [ "$#" -eq 1 ]; then
-  command+=(--argstr path)
+  command+=(--argstr package)
 fi
 
 command+=("$@")
