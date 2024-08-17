@@ -81,13 +81,17 @@ pkgs.stdenv.mkDerivation {
   name = "update-script";
   shellHook =
     ''
-      unset TZ # Retain git commit timezone
       unset shellHook # do not contaminate nested shells
+      unset TZ # retain git commit timezone
     ''
-    + lib.optionalString (output-json == "true") ''
-      exec cat "${packagesJson}"
-    ''
-    + ''
-      exec ${pkgs.python3.interpreter} "${nixpkgs}/maintainers/scripts/update.py" ${builtins.concatStringsSep " " args}
-    '';
+    + (
+      if (output-json == "true") then
+        ''
+          exec cat "${packagesJson}"
+        ''
+      else
+        ''
+          exec ${pkgs.python3.interpreter} "${nixpkgs}/maintainers/scripts/update.py" ${builtins.concatStringsSep " " args}
+        ''
+    );
 }
