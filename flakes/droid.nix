@@ -1,26 +1,24 @@
-{ inputs, withSystem, ... }:
+{
+  inputs,
+  self,
+  withSystem,
+  ...
+}:
 
 let
-  mkDroid =
-    {
-      system ? "aarch64-linux",
-      modules ? [ ],
-    }:
-    withSystem system (
-      {
-        lib,
-        pkgs,
-        system,
-        ...
-      }:
-      inputs.droid.lib.nixOnDroidConfiguration {
-        inherit pkgs;
+  mkDroid = import ./mk-system.nix {
+    inherit inputs self withSystem;
+    defaultSystem = "aarch64-linux";
+    defaultModules = [ ../droid ];
+    applyFunction =
+      args@{ ... }:
+      args.inputs.droid.lib.nixOnDroidConfiguration {
+        inherit (args) pkgs modules;
         extraSpecialArgs = {
-          inherit inputs lib;
+          inherit (args) inputs inputs' lib;
         };
-        modules = [ ../droid ] ++ modules;
-      }
-    );
+      };
+  };
 in
 {
   flake.nixOnDroidConfigurations.default = mkDroid { };

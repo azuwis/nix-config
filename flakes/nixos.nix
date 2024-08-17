@@ -6,40 +6,24 @@
 }:
 
 let
-  mkNixos =
-    {
-      system ? "x86_64-linux",
-      nixpkgs ? inputs.nixpkgs,
-      config ? { },
-      overlays ? [ ],
-      modules ? [ ],
-    }:
-    withSystem system (
-      {
-        inputs',
-        lib,
-        pkgs,
-        system,
-        ...
-      }:
-      let
-        customPkgs = import nixpkgs (
-          lib.recursiveUpdate {
-            inherit system;
-            overlays = [ self.overlays.default ] ++ overlays;
-            config.allowUnfree = true;
-          } { inherit config; }
-        );
-      in
-      nixpkgs.lib.nixosSystem {
-        inherit system;
+  mkNixos = import ./mk-system.nix {
+    inherit inputs self withSystem;
+    defaultSystem = "x86_64-linux";
+    defaultModules = [ ../nixos ];
+    applyFunction =
+      args@{ ... }:
+      args.nixpkgs.lib.nixosSystem {
+        inherit (args) system modules;
         specialArgs = {
-          inherit inputs inputs' lib;
-          pkgs = if (nixpkgs != inputs.nixpkgs || config != { } || overlays != [ ]) then customPkgs else pkgs;
+          inherit (args)
+            inputs
+            inputs'
+            lib
+            pkgs
+            ;
         };
-        modules = [ ../nixos ] ++ modules;
-      }
-    );
+      };
+  };
 in
 {
   flake.nixosConfigurations = {

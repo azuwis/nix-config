@@ -6,40 +6,24 @@
 }:
 
 let
-  mkDarwin =
-    {
-      system ? "aarch64-darwin",
-      nixpkgs ? inputs.nixpkgs,
-      config ? { },
-      overlays ? [ ],
-      modules ? [ ],
-    }:
-    withSystem system (
-      {
-        inputs',
-        lib,
-        pkgs,
-        system,
-        ...
-      }:
-      let
-        customPkgs = import nixpkgs (
-          lib.recursiveUpdate {
-            inherit system;
-            overlays = [ self.overlays.default ] ++ overlays;
-            config.allowUnfree = true;
-          } { inherit config; }
-        );
-      in
-      inputs.darwin.lib.darwinSystem {
-        inherit system;
+  mkDarwin = import ./mk-system.nix {
+    inherit inputs self withSystem;
+    defaultSystem = "aarch64-darwin";
+    defaultModules = [ ../darwin ];
+    aplyFunction =
+      args@{ ... }:
+      args.inputs.darwin.lib.darwinSystem {
+        inherit (args) system modules;
         specialArgs = {
-          inherit inputs inputs' lib;
-          pkgs = if (nixpkgs != inputs.nixpkgs || config != { } || overlays != [ ]) then customPkgs else pkgs;
+          inherit (args)
+            inputs
+            inputs'
+            lib
+            pkgs
+            ;
         };
-        modules = [ ../darwin ] ++ modules;
-      }
-    );
+      };
+  };
 in
 {
   flake.darwinConfigurations = {

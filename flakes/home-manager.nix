@@ -6,49 +6,32 @@
 }:
 
 let
-  mkHome =
-    {
-      system ? "x86_64-linux",
-      nixpkgs ? inputs.nixpkgs,
-      config ? { },
-      overlays ? [ ],
-      modules ? [ ],
-    }:
-    withSystem system (
-      {
-        inputs',
-        lib,
-        pkgs,
-        system,
-        ...
-      }:
-      let
-        customPkgs = import nixpkgs (
-          lib.recursiveUpdate {
-            inherit system;
-            overlays = [ self.overlays.default ] ++ overlays;
-            config.allowUnfree = true;
-          } { inherit config; }
-        );
-      in
-      inputs.home-manager.lib.homeManagerConfiguration {
-        pkgs = if (nixpkgs != inputs.nixpkgs || config != { } || overlays != [ ]) then customPkgs else pkgs;
+  mkHome = import ./mk-system.nix {
+    inherit inputs self withSystem;
+    defaultSystem = "x86_64-linux";
+    defaultModules = [
+      (
+        { lib, pkgs, ... }:
+        {
+          news.display = "silent";
+          news.json = lib.mkForce { };
+          news.entries = lib.mkForce [ ];
+          # set the same option as home-manager in nixos/nix-darwin, to generate the same derivation
+          nix.package = pkgs.nix;
+        }
+      )
+      ../common/home.nix
+    ];
+    applyFunction =
+      args@{ ... }:
+      args.inputs.home-manager.lib.homeManagerConfiguration {
+        inherit (args) pkgs modules;
         extraSpecialArgs = {
-          inherit inputs inputs';
-          lib = import (inputs.home-manager + "/modules/lib/stdlib-extended.nix") lib;
+          inherit (args) inputs inputs';
+          lib = import (args.inputs.home-manager + "/modules/lib/stdlib-extended.nix") args.lib;
         };
-        modules = [
-          {
-            news.display = "silent";
-            news.json = lib.mkForce { };
-            news.entries = lib.mkForce [ ];
-            # set the same option as home-manager in nixos/nix-darwin, to generate the same derivation
-            nix.package = pkgs.nix;
-          }
-          ../common/home.nix
-        ] ++ modules;
-      }
-    );
+      };
+  };
 in
 {
   flake.homeConfigurations = {
