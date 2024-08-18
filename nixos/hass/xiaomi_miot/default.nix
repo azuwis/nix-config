@@ -41,10 +41,28 @@ in
               {{ trigger.entity_id | regex_replace(find='^climate', replace='fan') | regex_replace(find='air_conditioner$', replace='air_fresh') }}
             percentage: 34
 
-      - alias: Climate close all at morning
+      - alias: Climate close all at morning workdays
         trigger:
           - platform: time
             at: "08:30:00"
+        condition:
+          condition: state
+          entity_id: binary_sensor.workday_sensor
+          state: "on"
+        action:
+          - service: climate.turn_off
+            data:
+              entity_id: >-
+                {{ expand(states.climate) | selectattr('entity_id', 'search', '^climate\.xiaomi_mt0_.*_air_conditioner$') | map(attribute='entity_id') | list }}
+
+      - alias: Climate close all at morning holidays
+        trigger:
+          - platform: time
+            at: "09:00:00"
+        condition:
+          condition: state
+          entity_id: binary_sensor.workday_sensor
+          state: "off"
         action:
           - service: climate.turn_off
             data:
