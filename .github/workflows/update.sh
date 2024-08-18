@@ -67,6 +67,6 @@ update_package() {
   echo "::endgroup::"
 }
 
-./scripts/update -a -j | jq -r '.[].attrPath' | while read -r package; do
+./scripts/update -la | while read -r package; do
   update_package "$package"
 done
