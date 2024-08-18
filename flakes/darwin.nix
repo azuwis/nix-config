@@ -10,7 +10,7 @@ let
     inherit inputs self withSystem;
     defaultSystem = "aarch64-darwin";
     defaultModules = [ ../darwin ];
-    aplyFunction =
+    applyFunction =
       args@{ ... }:
       args.inputs.darwin.lib.darwinSystem {
         inherit (args) system modules;
