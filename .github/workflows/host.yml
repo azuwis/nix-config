@@ -18,7 +18,7 @@ on:
         description: Debug OS
         required: true
         type: choice
-        options: [ubuntu-latest, macos-latest, all]
+        options: [ubuntu-latest, macos-12, all]
 jobs:
   build:
     strategy:
@@ -27,7 +27,7 @@ jobs:
         os: [ubuntu-latest]
         host: [droid, nuc, steamdeck]
         include:
-          - {os: macos-latest, host: mbp}
+          - {os: macos-12, host: test}
     runs-on: ${{ matrix.os }}
     steps:
       - name: Skip debug
