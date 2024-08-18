@@ -2,6 +2,9 @@ name: Build
 permissions: {}
 on:
   push:
+    # Only include top-level branches, ignore branches like update/*
+    branches:
+      - '*'
     paths:
       - flake.lock
   workflow_dispatch:
