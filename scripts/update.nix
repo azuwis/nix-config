@@ -1,6 +1,7 @@
 {
   all ? null,
   commit ? null,
+  list-package ? null,
   max-workers ? null,
   output-json ? null,
   package ? null,
@@ -88,6 +89,10 @@ pkgs.stdenv.mkDerivation {
       if (output-json == "true") then
         ''
           exec cat "${packagesJson}"
+        ''
+      else if (list-package == "true") then
+        ''
+          exec ${pkgs.jq}/bin/jq -r '.[].attrPath' "${packagesJson}"
         ''
       else
         ''

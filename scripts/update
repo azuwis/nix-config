@@ -19,13 +19,14 @@ USAGE:
 options:
   -c Commit automatically
   -j Output packages to update in JSON format
+  -l List packages to update
   -w <jobs> Number of jobs in parallel
 EOF
   exit
 }
 
 command=(nix-shell "$root/scripts/update.nix")
-while getopts ":aci:jhpw:-:" opt; do
+while getopts ":aci:jhlpw:-:" opt; do
   case "$opt" in
   a) command+=(--argstr all true) ;;
   c) command+=(--argstr commit true) ;;
@@ -33,6 +34,10 @@ while getopts ":aci:jhpw:-:" opt; do
   j)
     command+=(--argstr output-json true)
     output_json=true
+    ;;
+  l)
+    command+=(--argstr list-package true)
+    list_package=true
     ;;
   p) command+=(--argstr skip-prompt false) ;;
   w) command+=(--argstr max-workers "$OPTARG") ;;
@@ -53,7 +58,7 @@ fi
 
 command+=("$@")
 
-if [ "$output_json" = "true" ]; then
+if [ "$output_json" = "true" ] || [ "$list_package" = "true" ]; then
   "${command[@]}" 2>/dev/null
 else
   pushd "$root" >/dev/null
