@@ -36,6 +36,10 @@ if [ -z "$local_hash" ] || [ -z "$remote_hash" ]; then
   exit
 fi
 
+if [ "$local_hash" = "0000000000000000000000000000000000000000" ] || [ "$remote_hash" = "0000000000000000000000000000000000000000" ]; then
+  exit
+fi
+
 while read -r hour hash; do
   if [ "$hour" -lt 19 ]; then
     rebase_hash="${hash}^"
