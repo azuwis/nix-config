@@ -12,7 +12,7 @@
 # Deploy keys -> Add deploy key -> Allow write access
 # Secrets and variables -> Actions -> New repository secret
 
-name: Update
+name: Update packages
 permissions:
   pull-requests: write
 on:
