@@ -7,7 +7,8 @@
 
 {
   environment.systemPackages = with pkgs; [
-    compsize
+    # Failed to build against btrfs-progs v6.10.1
+    # compsize
     dnsutils
     efibootmgr
     git
