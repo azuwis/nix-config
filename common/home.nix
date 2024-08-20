@@ -12,6 +12,7 @@
   my = {
     difftastic.enable = true;
     direnv.enable = true;
+    editorconfig.enable = true;
     # helix.enable = true;
     git.enable = true;
     # gitui.enable = true;
