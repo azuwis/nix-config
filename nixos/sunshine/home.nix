@@ -117,7 +117,7 @@ in
             {
               name = "Z Desktop";
               image-path = pkgs.runCommand "desktop.png" { } ''
-                ${pkgs.imagemagick}/bin/convert -density 1200 -resize 500x -background none ${pkgs.gnome.adwaita-icon-theme}/share/icons/Adwaita/scalable/devices/input-keyboard.svg -gravity center -extent 600x800 $out
+                ${pkgs.imagemagick}/bin/convert -density 1200 -resize 500x -background none ${pkgs.adwaita-icon-theme}/share/icons/Adwaita/scalable/devices/input-keyboard.svg -gravity center -extent 600x800 $out
               '';
             }
             {

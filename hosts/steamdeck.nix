@@ -48,7 +48,8 @@
   # Not really work for deck, still need overlays/jovian.nix
   programs.steam.fontPackages = with pkgs; [ noto-fonts-cjk-sans ];
 
-  i18n.inputMethod.enabled = "ibus";
+  i18n.inputMethod.enable = true;
+  i18n.inputMethod.type = "ibus";
   i18n.inputMethod.ibus.engines = [ pkgs.ibus-engines.pinyin ];
 
   # boot.plymouth = {
