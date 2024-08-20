@@ -49,6 +49,7 @@ in
           flash-nvim
           friendly-snippets
           gitsigns-nvim
+          grug-far-nvim
           indent-blankline-nvim
           lazydev-nvim
           lualine-nvim
@@ -60,7 +61,6 @@ in
           nvim-lspconfig
           nvim-notify
           nvim-snippets
-          nvim-spectre
           nvim-treesitter
           nvim-treesitter-textobjects
           nvim-ts-autotag
