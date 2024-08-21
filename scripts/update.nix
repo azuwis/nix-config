@@ -21,10 +21,7 @@ let
     lib.filterAttrs
       (
         _: value:
-        value ? type
-        && value.type == "derivation"
-        && value ? updateScript
-        && pkgHasPrefix (builtins.toString ../.) value
+        lib.isDerivation value && value ? updateScript && pkgHasPrefix (builtins.toString ../.) value
       )
       (
         builtins.mapAttrs (
