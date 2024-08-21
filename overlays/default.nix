@@ -106,9 +106,12 @@ final: prev: {
   }/pkgs/tools/nix/nixos-option" { };
 
   # python3 = prev.python3.override {
-  #   packageOverrides = pyfinal: pyprev: {
-  #     pysonybraviapsk = final.python3.pkgs.callPackage ../pkgs/python/pysonybraviapsk { };
-  #   };
+  #   packageOverrides =
+  #     pyfinal: pyprev:
+  #     final.lib.packagesFromDirectoryRecursive {
+  #       inherit (final.python3.pkgs) callPackage;
+  #       directory = ../pkgs/python;
+  #     };
   # };
   # python3Packages = final.python3.pkgs;
 
