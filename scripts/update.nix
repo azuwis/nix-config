@@ -12,6 +12,7 @@ let
   inherit (pkgs) lib;
   pkgs = import ../default.nix { };
   nixpkgs = pkgs.inputs.nixpkgs.outPath;
+  pkgsWithoutOverlay = import nixpkgs { };
 
   getPosition = package: (builtins.unsafeGetAttrPos "src" package).file or package.meta.position;
   pkgHasPrefix = prefix: package: lib.hasPrefix prefix (getPosition package);
@@ -26,9 +27,12 @@ let
         && pkgHasPrefix (builtins.toString ../.) value
       )
       (
-        builtins.mapAttrs (name: _: pkgs.${name}) (
-          import "${nixpkgs}/pkgs/top-level/by-name-overlay.nix" ../pkgs/by-name { } { }
-        )
+        builtins.mapAttrs (
+          name: _:
+          lib.warnIf (
+            builtins.hasAttr name pkgsWithoutOverlay && name != "_internalCallByNamePackageFile"
+          ) "${name} already exists in nixpkgs" pkgs.${name}
+        ) (import "${nixpkgs}/pkgs/top-level/by-name-overlay.nix" ../pkgs/by-name { } { })
       );
 
   packageByName =
