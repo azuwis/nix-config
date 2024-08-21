@@ -21,6 +21,5 @@
     gimp
     pstree
     qbittorrent
-    subfinder
   ];
 }

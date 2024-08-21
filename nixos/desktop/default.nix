@@ -25,7 +25,6 @@ in
       evemu
       evtest
       chromium
-      subfinder
     ];
 
     # Enable chromium native wayland
