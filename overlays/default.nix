@@ -27,9 +27,12 @@ final: prev: {
   );
 
   lua = prev.lua.override {
-    packageOverrides = luafinal: luaprev: {
-      sbarlua = final.lua.pkgs.callPackage ../pkgs/lua/sbarlua { };
-    };
+    packageOverrides =
+      luafinal: luaprev:
+      final.lib.packagesFromDirectoryRecursive {
+        inherit (final.lua.pkgs) callPackage;
+        directory = ../pkgs/lua;
+      };
   };
   luaPackages = final.lua.pkgs;
 
