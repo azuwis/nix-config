@@ -61,6 +61,7 @@ return {
 
   {
     "rcarriga/nvim-notify",
+    enabled = false,
     optional = true,
     opts = {
       render = "compact",
@@ -91,7 +92,7 @@ return {
     optional = true,
     opts = {
       messages = {
-        enabled = false,
+        enabled = true,
       },
       presets = {
         lsp_doc_border = true,
