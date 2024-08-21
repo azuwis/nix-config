@@ -58,6 +58,9 @@ in
           "ssh://git@github.com:22/" = {
             pushInsteadOf = "https://github.com/";
           };
+          "ssh://git@codeberg.org:22/" = {
+            pushInsteadOf = "https://codeberg.org/";
+          };
         };
       };
     };
