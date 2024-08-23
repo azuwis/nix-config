@@ -48,5 +48,10 @@
   hm.my.jslisten.enable = true;
   hm.my.swayidle.enable = false;
 
+  # workaround for yambar sway module not getting updates
+  hm.wayland.windowManager.sway.config.startup = [
+    { command = ''swaymsg -t subscribe '["output"]' && sleep 5 && pkill yambar && yambar''; }
+  ];
+
   environment.systemPackages = with pkgs; [ moonlight-qt ];
 }
