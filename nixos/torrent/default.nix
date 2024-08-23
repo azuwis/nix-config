@@ -91,7 +91,12 @@ in
       serverName = "q.${domain}";
       onlySSL = true;
       useACMEHost = "default";
-      locations."/".proxyPass = "http://127.0.0.1:${port}";
+      locations."/" = {
+        proxyPass = "http://127.0.0.1:${port}";
+        extraConfig = ''
+          client_max_body_size 10M;
+        '';
+      };
     };
 
     services.nginx.virtualHosts.vuetorrent = {
@@ -99,7 +104,12 @@ in
       onlySSL = true;
       useACMEHost = "default";
       root = "${pkgs.vuetorrent}/share/public";
-      locations."/api".proxyPass = "http://127.0.0.1:${port}";
+      locations."/api" = {
+        proxyPass = "http://127.0.0.1:${port}";
+        extraConfig = ''
+          client_max_body_size 10M;
+        '';
+      };
     };
 
     my.samba.enable = mkDefault true;
