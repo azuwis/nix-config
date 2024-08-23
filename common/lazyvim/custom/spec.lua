@@ -107,6 +107,11 @@ return {
           opts = { skip = true },
         },
       },
+      views = {
+        mini = {
+          timeout = 3500,
+        },
+      },
     },
   },
 
