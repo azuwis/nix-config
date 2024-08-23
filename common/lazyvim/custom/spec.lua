@@ -97,6 +97,16 @@ return {
       presets = {
         lsp_doc_border = true,
       },
+      routes = {
+        {
+          filter = {
+            event = "notify",
+            error = true,
+            find = "nixd: %-32001:",
+          },
+          opts = { skip = true },
+        },
+      },
     },
   },
 
