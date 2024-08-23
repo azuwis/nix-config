@@ -66,6 +66,7 @@ return {
     opts = {
       render = "compact",
       stages = "static",
+      top_down = false,
       on_open = function(win)
         vim.api.nvim_win_set_config(win, { focusable = false, zindex = 100 })
       end,
