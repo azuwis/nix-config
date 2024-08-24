@@ -43,6 +43,10 @@ jobs:
       - name: Build
         run: |
           package=${GITHUB_HEAD_REF#update/}
-          echo "Build $package"
+          echo "::group::Build $package"
           nix -L build ".#$package"
+          echo "::endgroup::"
+          echo "::group::List files of $package"
+          tree -a result/
+          echo "::endgroup::"
       - uses: azuwis/actions/nix/post@main
