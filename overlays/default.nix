@@ -40,6 +40,8 @@ final: prev: {
   # https://github.com/NixOS/nixpkgs/pull/79344
   mpv-unwrapped =
     (prev.mpv-unwrapped.override {
+      # For `--vo=gpu-next` on macOS, useful for DobbyVision 10Bit videos
+      vulkanSupport = true;
       swift =
         let
           CommandLineTools = "/Library/Developer/CommandLineTools";
