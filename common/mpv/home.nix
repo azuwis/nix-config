@@ -47,6 +47,8 @@ in
         slang = "chi";
         sub-auto = "fuzzy";
         sub-codepage = "gbk";
+        # Useful for DobbyVision 10bit video
+        vo = "gpu-next";
       };
       scriptOpts.osc = lib.mkDefault {
         seekbarstyle = "knob";
