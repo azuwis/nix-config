@@ -39,7 +39,7 @@ update_package() {
     git clean -df
     if ! git merge-base --is-ancestor "$default_branch" "$update_branch"; then
       git reset --hard "$default_branch"
-      git cherry-pick "origin/$update_branch"
+      git cherry-pick "origin/$update_branch" || git cherry-pick --abort
     fi
     if try_update "$package"; then
       echo "Upstream newer than the PR, reset the branch and update again"
@@ -49,7 +49,12 @@ update_package() {
         gh pr edit "$update_branch" --title "$(git show -s --format=%B)" --body "$(generate_body "$package")"
       fi
     fi
-    git push --force origin "$update_branch"
+    if [ "$(git rev-parse HEAD)" = "$(git rev-parse "$default_branch")" ]; then
+      echo "PR seems cherry-picked in $default_branch, delete $update_branch"
+      git push --delete origin "$update_branch"
+    else
+      git push --force origin "$update_branch"
+    fi
   else
     echo "PR not exists"
     git checkout -B "$update_branch" "$default_branch"
