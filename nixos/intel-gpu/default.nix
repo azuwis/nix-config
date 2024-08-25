@@ -25,6 +25,9 @@ in
       capabilities = "cap_perfmon=ep";
     };
 
-    hardware.graphics.extraPackages = [ pkgs.intel-vaapi-driver ];
+    hardware.graphics.extraPackages = [
+      pkgs.intel-vaapi-driver
+      # pkgs.intel-media-driver
+    ];
   };
 }
