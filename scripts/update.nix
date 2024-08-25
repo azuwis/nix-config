@@ -27,9 +27,11 @@ let
         builtins.mapAttrs (
           name: _:
           lib.warnIf (
-            builtins.hasAttr name pkgsWithoutOverlay && name != "_internalCallByNamePackageFile"
+            builtins.hasAttr name pkgsWithoutOverlay
+            && builtins.hasAttr name (pkgs.overlays.packages { } { })
+            && name != "_internalCallByNamePackageFile"
           ) "${name} already exists in nixpkgs" pkgs.${name}
-        ) (import "${nixpkgs}/pkgs/top-level/by-name-overlay.nix" ../pkgs/by-name { } { })
+        ) (pkgs.overlays.default { } { })
       );
 
   packageByName =
