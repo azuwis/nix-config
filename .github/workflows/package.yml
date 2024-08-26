@@ -45,7 +45,7 @@ jobs:
         run: |
           package=${GITHUB_HEAD_REF#update/}
           echo "::group::Build $package"
-          nix -L build ".#$package"
+          nix -L build -f . "$package"
           echo "::endgroup::"
           echo "::group::Install 'tree'"
           nix-env -f '<nixpkgs>' -iA tree
