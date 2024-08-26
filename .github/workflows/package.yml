@@ -23,7 +23,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, macos-12]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Skip debug
@@ -44,6 +44,17 @@ jobs:
       - name: Build
         run: |
           package=${GITHUB_HEAD_REF#update/}
+          if [ "$(nix eval --impure --json --expr "
+          let
+            pkgs = import ./default.nix { };
+            meta = pkgs.$package.meta;
+          in
+          (meta ? platforms && builtins.elem builtins.currentSystem meta.platforms)
+            || !(meta ? platforms)
+          ")" = false ]; then
+            echo "Skip build, wrong platform"
+            exit
+          fi
           echo "::group::Build $package"
           nix -L build -f . "$package"
           echo "::endgroup::"
