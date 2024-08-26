@@ -58,7 +58,7 @@ let
   packageByName =
     path: pkgs:
     let
-      package = pkgs.${path};
+      package = if builtins.hasAttr path pkgs then pkgs.${path} else null;
     in
     if package == null then
       builtins.throw "Package with an attribute name `${path}` does not exist."
