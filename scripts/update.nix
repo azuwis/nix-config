@@ -12,32 +12,53 @@ let
   inherit (pkgs) lib;
   pkgs = import ../default.nix { };
   nixpkgs = pkgs.inputs.nixpkgs.outPath;
-  pkgsWithoutOverlay = import nixpkgs { };
 
   getPosition = package: (builtins.unsafeGetAttrPos "src" package).file or package.meta.position;
   pkgHasPrefix = prefix: package: lib.hasPrefix prefix (getPosition package);
 
   allPackages =
+    let
+      pkgsWithoutOverlay = import nixpkgs { };
+      byNameAttrs = pkgs.overlays.packages null null;
+      topLevelAttrs = pkgs.overlays.default null null;
+      luaAttrs =
+        (pkgs.overlays.default pkgs { lua.override = { packageOverrides }: packageOverrides; }).lua null
+          null;
+      python3Attrs = (
+        (pkgs.overlays.default pkgs { python3.override = { packageOverrides }: packageOverrides; }).python3
+          null
+          null
+      );
+      topLevelPackages = builtins.mapAttrs (
+        name: _:
+        lib.warnIf (
+          builtins.hasAttr name pkgsWithoutOverlay
+          && builtins.hasAttr name byNameAttrs
+          && name != "_internalCallByNamePackageFile"
+        ) "${name} already exists in nixpkgs" pkgs.${name}
+      ) topLevelAttrs;
+      luaPackages = lib.mapAttrs' (
+        name: _: lib.nameValuePair ("luaPackages." + name) pkgs.luaPackages.${name}
+      ) luaAttrs;
+      python3Packages = lib.mapAttrs' (
+        name: _: lib.nameValuePair ("python3Packages." + name) pkgs.python3Packages.${name}
+      ) python3Attrs;
+    in
     lib.filterAttrs
       (
         _: value:
         lib.isDerivation value && value ? updateScript && pkgHasPrefix (builtins.toString ../.) value
       )
       (
-        builtins.mapAttrs (
-          name: _:
-          lib.warnIf (
-            builtins.hasAttr name pkgsWithoutOverlay
-            && builtins.hasAttr name (pkgs.overlays.packages { } { })
-            && name != "_internalCallByNamePackageFile"
-          ) "${name} already exists in nixpkgs" pkgs.${name}
-        ) (pkgs.overlays.default { } { })
+        topLevelPackages
+        // lib.optionalAttrs (topLevelAttrs ? lua) luaPackages
+        // lib.optionalAttrs (topLevelAttrs ? python3) python3Packages
       );
 
   packageByName =
     path: pkgs:
     let
-      package = lib.attrByPath (lib.splitString "." path) null pkgs;
+      package = pkgs.${path};
     in
     if package == null then
       builtins.throw "Package with an attribute name `${path}` does not exist."
