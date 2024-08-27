@@ -28,11 +28,5 @@ in
 {
   flake.darwinConfigurations = {
     mbp = mkDarwin { modules = [ ../hosts/mbp.nix ]; };
-
-    # For CI
-    test = mkDarwin {
-      system = "x86_64-darwin";
-      modules = [ ../hosts/mbp.nix ];
-    };
   };
 }
