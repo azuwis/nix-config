@@ -52,7 +52,7 @@ jobs:
           (meta ? platforms && builtins.elem builtins.currentSystem meta.platforms)
             || !(meta ? platforms)
           ")" = false ]; then
-            echo "Skip build, wrong platform"
+            echo "::notice::Skip build, wrong platform"
             exit
           fi
           echo "::group::Build $package"

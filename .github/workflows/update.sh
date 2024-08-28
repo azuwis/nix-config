@@ -45,12 +45,12 @@ update_package() {
       echo "Upstream newer than the PR, reset the branch and update again"
       git reset --hard "$default_branch"
       if try_update "$package"; then
-        echo "Update success, update the PR"
+        echo "::notice::Update $package success, update the PR"
         gh pr edit "$update_branch" --title "$(git show -s --format=%B)" --body "$(generate_body "$package")"
       fi
     fi
     if [ "$(git rev-parse HEAD)" = "$(git rev-parse "$default_branch")" ]; then
-      echo "PR seems cherry-picked in $default_branch, delete $update_branch"
+      echo "::notice::PR seems cherry-picked in $default_branch, close the PR and delete $update_branch"
       git push --delete origin "$update_branch"
     else
       git push --force origin "$update_branch"
@@ -60,7 +60,7 @@ update_package() {
     git checkout -B "$update_branch" "$default_branch"
     git clean -df
     if try_update "$package"; then
-      echo "Update success, create PR"
+      echo "::notice::Update $package success, create PR"
       git push --force origin "$update_branch"
       gh pr create --title "$(git show -s --format=%B)" --body "$(generate_body "$package")"
       echo "Force push to trigger 'on pull_requst'"
