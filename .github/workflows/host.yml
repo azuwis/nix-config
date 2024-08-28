@@ -40,7 +40,7 @@ jobs:
       - uses: azuwis/actions/nix@main
         with:
           key: host-${{ matrix.host }}
-          clean: true
+          clean: ${{ matrix.host == 'steamdeck' }}
           debug: ${{ github.event_name == 'workflow_dispatch' && inputs.debug }}
       - uses: cachix/cachix-action@v15
         with:
