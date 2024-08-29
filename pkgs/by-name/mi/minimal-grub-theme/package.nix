@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "minimal-grub-theme";
-  version = "0.1.0";
+  version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "tomdewildt";
     repo = "minimal-grub-theme";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-HQOP4g8oJXfo0HcTLzdHPDZakOokpy22+4v33PqH7To=";
+    hash = "sha256-7FKJSWO02lIhA1HojtYmJ2EDVqDkDq7R3nwkRblNu6E=";
   };
 
   dontBuild = true;
