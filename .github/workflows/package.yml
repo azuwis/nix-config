@@ -32,36 +32,18 @@ jobs:
               (inputs.os == matrix.os || inputs.os == 'all')
           }}
         run: exit 1
+      - uses: actions/cache/restore@v4
+        id: skip
+        with:
+          key: package-skip-build-${{ github.head_ref }}-${{ runner.os }}-${{ runner.arch }}
+          path:
+            ~/package-skip-build
+      - run: echo "::notice::Early skip build from cache"
+        if: ${{ steps.skip.outputs.cache-hit == 'true' }}
       - uses: actions/checkout@v4
-      - uses: azuwis/actions/nix@main
+        if: ${{ steps.skip.outputs.cache-hit != 'true' }}
+      - uses: ./.github/workflows/package
+        if: ${{ steps.skip.outputs.cache-hit != 'true' }}
         with:
-          key: package-${{ github.head_ref }}
-          debug: ${{ github.event_name == 'workflow_dispatch' && inputs.debug }}
-      - uses: cachix/cachix-action@v15
-        with:
-          name: azuwis
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-      - name: Build
-        run: |
-          package=${GITHUB_HEAD_REF#update/}
-          if [ "$(nix eval --impure --json --expr "
-          let
-            pkgs = import ./default.nix { };
-            meta = pkgs.$package.meta;
-          in
-          (meta ? platforms && builtins.elem builtins.currentSystem meta.platforms)
-            || !(meta ? platforms)
-          ")" = false ]; then
-            echo "::notice::Skip build, wrong platform"
-            exit
-          fi
-          echo "::group::Build $package"
-          nix -L build -f . "$package"
-          echo "::endgroup::"
-          echo "::group::Install 'tree'"
-          nix-env -f '<nixpkgs>' -iA tree
-          echo "::endgroup::"
-          echo "::group::List files of $package"
-          tree -a result
-          echo "::endgroup::"
-      - uses: azuwis/actions/nix/post@main
+          debug: ${{ inputs.debug }}
+          cachix_auth_token: ${{ secrets.CACHIX_AUTH_TOKEN }}

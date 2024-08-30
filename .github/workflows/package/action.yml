@@ -1,0 +1,53 @@
+name: Build package
+inputs:
+  cachix_auth_token:
+    description: authToken pass to cachix/cachix-action
+    required: true
+  debug:
+    description: Enable debug
+    required: false
+    default: false
+runs:
+  using: composite
+  steps:
+    - uses: azuwis/actions/nix@main
+      with:
+        key: package-${{ github.head_ref }}
+        debug: ${{ github.event_name == 'workflow_dispatch' && inputs.debug }}
+    - uses: cachix/cachix-action@v15
+      with:
+        name: azuwis
+        authToken: ${{ inputs.cachix_auth_token }}
+    - name: Build
+      shell: bash
+      run: |
+        package=${GITHUB_HEAD_REF#update/}
+        if [ "$(nix eval --impure --json --expr "
+        let
+          pkgs = import ./default.nix { };
+          meta = pkgs.$package.meta;
+        in
+        (meta ? platforms && builtins.elem builtins.currentSystem meta.platforms)
+          || !(meta ? platforms)
+        ")" = false ]; then
+          echo "::notice::Skip build, wrong platform"
+          echo "CACHE_NEED_UPDATE=no" >>"$GITHUB_ENV"
+          touch ~/package-skip-build
+          exit
+        fi
+        echo "::group::Build $package"
+        nix -L build -f . "$package"
+        echo "::endgroup::"
+        echo "::group::Install 'tree'"
+        nix-env -f '<nixpkgs>' -iA tree
+        echo "::endgroup::"
+        echo "::group::List files of $package"
+        tree -a result
+        echo "::endgroup::"
+    - uses: azuwis/actions/nix/post@main
+    - uses: actions/cache/save@v4
+      if: ${{ env.CACHE_NEED_UPDATE == 'no' }}
+      with:
+        key: package-skip-build-${{ github.head_ref }}-${{ runner.os }}-${{ runner.arch }}
+        path:
+          ~/package-skip-build
