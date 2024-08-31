@@ -33,11 +33,11 @@ while getopts ":aci:jhlpw:-:" opt; do
   i) info="$OPTARG" ;;
   j)
     command+=(--argstr output-json true)
-    output_json=true
+    drop_stderr=true
     ;;
   l)
     command+=(--argstr list-package true)
-    list_package=true
+    drop_stderr=true
     ;;
   p) command+=(--argstr skip-prompt false) ;;
   w) command+=(--argstr max-workers "$OPTARG") ;;
@@ -58,7 +58,7 @@ fi
 
 command+=("$@")
 
-if [ "$output_json" = "true" ] || [ "$list_package" = "true" ]; then
+if [ "$drop_stderr" = "true" ]; then
   "${command[@]}" 2>/dev/null
 else
   pushd "$root" >/dev/null
