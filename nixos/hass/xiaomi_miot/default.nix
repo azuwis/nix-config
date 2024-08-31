@@ -27,8 +27,8 @@ in
         trigger:
           platform: state
           entity_id:
-            - climate.xiaomi_mt0_6e25_air_conditioner
-            - climate.xiaomi_mt0_bedd_air_conditioner
+            # - climate.xiaomi_mt0_6e25_air_conditioner
+            # - climate.xiaomi_mt0_bedd_air_conditioner
             - climate.xiaomi_mt0_cdd0_air_conditioner
           from: "off"
           to:
@@ -39,7 +39,7 @@ in
           data:
             entity_id: >-
               {{ trigger.entity_id | regex_replace(find='^climate', replace='fan') | regex_replace(find='air_conditioner$', replace='air_fresh') }}
-            percentage: 34
+            percentage: 16
 
       - alias: Climate close all at morning workdays
         trigger:
