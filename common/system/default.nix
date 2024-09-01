@@ -12,6 +12,9 @@
   # };
   nix.optimise.automatic = true;
   nix.settings = {
+    # https://docs.lix.systems/manual/lix/stable/release-notes/rl-2.91.html
+    # Reject options set by flakes by default
+    accept-flake-config = false;
     extra-experimental-features = [
       "flakes"
       "nix-command"
