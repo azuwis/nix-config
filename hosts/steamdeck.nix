@@ -25,6 +25,11 @@
   networking.networkmanager.enable = true;
   networking.useNetworkd = false;
 
+  nix = {
+    daemonCPUSchedPolicy = "idle";
+    daemonIOSchedClass = "idle";
+  };
+
   users.groups.deck = {
     gid = 1000;
   };
