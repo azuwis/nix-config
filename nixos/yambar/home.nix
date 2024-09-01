@@ -83,8 +83,8 @@ in
               }
               {
                 map = {
-                  default.string.text = "{dl-speed:kiB:.0}K";
-                  conditions."dl-speed >= 8388608".string.text = "{dl-speed:miB:.1}M";
+                  default.string.text = "{dl-speed:/8192:.0}K";
+                  conditions."dl-speed >= 8388608".string.text = "{dl-speed:/8388608:.1}M";
                 };
               }
               {
@@ -96,8 +96,8 @@ in
               }
               {
                 map = {
-                  default.string.text = "{ul-speed:kiB:.0}K";
-                  conditions."ul-speed >= 8388608".string.text = "{ul-speed:miB:.1}M";
+                  default.string.text = "{ul-speed:/8192:.0}K";
+                  conditions."ul-speed >= 8388608".string.text = "{ul-speed:/8388608:.1}M";
                 };
               }
             ];
