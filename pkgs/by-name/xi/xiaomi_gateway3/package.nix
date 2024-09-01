@@ -1,14 +1,11 @@
-{ home-assistant-custom-components, nix-update-script }:
+{ home-assistant-custom-components, fetchpatch }:
 
 home-assistant-custom-components.xiaomi_gateway3.overridePythonAttrs (old: {
-  version = "4.0.5-unstable-2024-09-01";
-
-  src = old.src.override {
-    rev = "b5c40bd96fdc60023ea8e69af740814f8a42549d";
-    hash = "sha256-BkylAqIqI22jHeq5CnZxgIepK7Al9ABgvJOqutceD9k=";
-  };
-
-  passthru.isHomeAssistantComponent = true;
-  # https://github.com/AlexxIT/XiaomiGateway3/pull/1436
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch=pull/1436/head" ]; };
+  patches = (old.patches or [ ]) ++ [
+    (fetchpatch {
+      # https://github.com/AlexxIT/XiaomiGateway3/issues/1351
+      url = "https://github.com/azuwis/XiaomiGateway3/commit/4cef7f381af88ee0f2e8d6a3bf42cfe507187ea5.patch";
+      hash = "sha256-lGHGUHL+T2QYBqYYAlRRdRa8ZVUvyGxHVhfwfWbD6iU=";
+    })
+  ];
 })
