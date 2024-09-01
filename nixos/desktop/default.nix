@@ -30,7 +30,10 @@ in
     # Enable chromium native wayland
     # environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-    nix.daemonCPUSchedPolicy = "idle";
+    nix = {
+      daemonCPUSchedPolicy = "idle";
+      daemonIOSchedClass = "idle";
+    };
 
     programs.gnupg.agent.enable = true;
     # Keyboard typing on pinentry-gnome3 stucks
