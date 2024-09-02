@@ -3,14 +3,9 @@
 # shellcheck disable=SC2317
 git_amend() {
   mapfile -t < <(git log --format=%cd --date=unix --max-count=2)
-  this=${MAPFILE[0]}
   last=${MAPFILE[1]}
 
   night="$(date +%s --date=19:00:00)"
-  if [ "$this" -gt "$night" ]; then
-    exit
-  fi
-
   new="$((night - 86400))"
   mod=7200
   if [ "$last" -gt "$new" ] && [ "$last" -le "$((night - 68400))" ]; then
