@@ -46,7 +46,13 @@
   my.zramswap.enable = true;
 
   hm.my.jslisten.enable = true;
+  hm.my.sway.startupLocked = false;
   hm.my.swayidle.enable = false;
+
+  hm.wayland.windowManager.sway.config.keybindings = lib.mkOptionDefault {
+    XF86HomePage = "exec ~/bin/xf86homepage";
+    XF86Tools = "exec ~/bin/xf86tools";
+  };
 
   # workaround for yambar sway module not getting updates
   hm.wayland.windowManager.sway.config.startup = [
