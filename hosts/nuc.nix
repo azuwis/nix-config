@@ -21,17 +21,17 @@
   #   addresses = [{ address = "192.168.20.250"; prefixLength = 24; }];
   #   routes = [{ address = "240.0.0.0"; prefixLength = 4; }];
   # };
-  services.beesd.filesystems = {
-    nixos = {
-      spec = "/";
-      hashTableSizeMB = 128;
-      verbosity = "info";
-      extraOptions = [
-        "--loadavg-target"
-        "2.0"
-      ];
-    };
-  };
+  # services.beesd.filesystems = {
+  #   nixos = {
+  #     spec = "/";
+  #     hashTableSizeMB = 128;
+  #     verbosity = "info";
+  #     extraOptions = [
+  #       "--loadavg-target"
+  #       "2.0"
+  #     ];
+  #   };
+  # };
 
   # my.evdevhook.enable = true;
   my.desktop.enable = true;
