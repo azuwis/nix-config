@@ -19,7 +19,9 @@ in
   options.my.uxplay = {
     enable = mkEnableOption "uxplay";
     sway = mkEnableOption "startup with sway";
-    systemd = mkEnableOption "uxplay systemd user service";
+    systemd = mkEnableOption "uxplay systemd user service" // {
+      default = true;
+    };
     args = mkOption {
       type = types.str;
       default = "-nohold -vd vah264dec";
@@ -27,7 +29,7 @@ in
   };
 
   config = mkIf cfg.enable (mkMerge [
-    ({
+    {
       home.packages = [ pkgs.uxplay ];
       wayland.windowManager.sway.config.window.commands = [
         {
@@ -37,7 +39,7 @@ in
           command = "fullscreen enable";
         }
       ];
-    })
+    }
 
     (mkIf cfg.sway {
       wayland.windowManager.sway.config.startup = [ { command = "uxplay -p ${cfg.args}"; } ];
