@@ -6,7 +6,7 @@
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf mkMerge;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.my.mpv;
 in
 {
@@ -22,7 +22,8 @@ in
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      ffmpeg-full
+      # vid.stab only available on ffmpeg-full, but the closure is much bigger
+      ffmpeg
       yt-dlp
     ];
 
