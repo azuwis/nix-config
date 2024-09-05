@@ -96,14 +96,14 @@ final: prev: {
       });
 
   # https://github.com/Mic92/nix-update/pull/269
-  nix-update = prev.nix-update.overridePythonAttrs (old: {
-    version = "1.5.0-unstable-2024-08-21";
-    src = old.src.override {
-      rev = "737121eccb67542e8c004c64da833fede2e80c64";
-      hash = "sha256-xn0dC4M3mfItxP+s3/v3Hz/CSKp74VH/gMfufKxl9/4=";
-    };
-    passthru.updateScript = final.nix-update-script { extraArgs = [ "--version=branch" ]; };
-  });
+  # nix-update = prev.nix-update.overridePythonAttrs (old: {
+  #   version = "1.5.0-unstable-2024-08-21";
+  #   src = old.src.override {
+  #     rev = "737121eccb67542e8c004c64da833fede2e80c64";
+  #     hash = "sha256-xn0dC4M3mfItxP+s3/v3Hz/CSKp74VH/gMfufKxl9/4=";
+  #   };
+  #   passthru.updateScript = final.nix-update-script { extraArgs = [ "--version=branch" ]; };
+  # });
 
   # https://github.com/nix-community/nix-zsh-completions/pull/52
   nix-zsh-completions = prev.nix-zsh-completions.overrideAttrs (old: {
