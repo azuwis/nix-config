@@ -49,5 +49,4 @@ runs:
       if: ${{ env.CACHE_NEED_UPDATE == 'no' }}
       with:
         key: package-skip-build-${{ github.head_ref }}-${{ runner.os }}-${{ runner.arch }}
-        path:
-          ~/package-skip-build
+        path: ~/package-skip-build
