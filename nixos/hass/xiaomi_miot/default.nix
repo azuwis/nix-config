@@ -87,7 +87,7 @@ in
           service: cover.set_cover_position
           data:
             entity_id: cover.lumi_hmcn01_ea01_curtain
-            position: 60
+            position: 35
 
       - alias: Curtain kids room open workdays
         trigger:
