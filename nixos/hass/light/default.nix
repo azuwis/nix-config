@@ -86,7 +86,7 @@
             {% set now = now() %}
             {% if now > today_at("22:35") %}
               128
-            {% elif now < today_at("7:30") %}
+            {% elif now < today_at("7:10") %}
               3
             {% else %}
               255
@@ -110,7 +110,7 @@
       - alias: Light set brightness once
         trigger:
           - platform: time
-            at: "07:30:01"
+            at: "07:10:01"
           - platform: time
             at: "22:35:01"
           - platform: time
