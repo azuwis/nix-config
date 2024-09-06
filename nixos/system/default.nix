@@ -54,29 +54,28 @@
       PasswordAuthentication = false;
     };
   };
+  # Switch leftmeta and leftalt, as the window manager global modifier, meta is more often used then alt
   # https://wiki.archlinux.org/title/map_scancodes_to_keycodes
   # nix shell nixpkgs#evemu nixpkgs#evtest
   # sudo evemu-describe
   # sudo evtest | grep EV_MSC
   # sudo udevadm trigger
+  # Dell XPS13
+  # evdev:atkbd:dmi:bvn*:bvr*:bd*:svnDell*:pnXPS13*:pvr*
+  # Logitech K400 Plus
+  # evdev:name:Logitech K400 Plus:dmi:*
   services.udev.extraHwdb = ''
-    # AT keyboard, capslock <-> leftctrl
+    # AT keyboard, capslock <-> leftctrl, leftmeta <-> leftalt
     evdev:atkbd:dmi:*
      KEYBOARD_KEY_1d=capslock
      KEYBOARD_KEY_3a=leftctrl
-
-    # USB keyboard, capslock <-> leftctrl
-    evdev:input:b0003v*
-     KEYBOARD_KEY_70039=leftctrl
-     KEYBOARD_KEY_700e0=capslock
-
-    # Dell XPS13, leftmeta <-> leftalt
-    evdev:atkbd:dmi:bvn*:bvr*:bd*:svnDell*:pnXPS13*:pvr*
      KEYBOARD_KEY_38=leftmeta
      KEYBOARD_KEY_db=leftalt
 
-    # Logitech K400 Plus, leftmeta <-> leftalt
-    evdev:name:Logitech K400 Plus:dmi:*
+    # USB keyboard, capslock <-> leftctrl, leftmeta <-> leftalt
+    evdev:input:b0003v*
+     KEYBOARD_KEY_70039=leftctrl
+     KEYBOARD_KEY_700e0=capslock
      KEYBOARD_KEY_700e2=leftmeta
      KEYBOARD_KEY_700e3=leftalt
 
