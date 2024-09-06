@@ -7,6 +7,7 @@
 
 let
   inherit (lib)
+    literalExpression
     mkEnableOption
     mkIf
     mkOption
@@ -19,14 +20,11 @@ let
     let
       inherit (lib)
         concatStringsSep
-        escapeShellArg
         filterAttrs
         mapAttrsToList
         ;
       env = concatStringsSep "\n" (
-        mapAttrsToList (n: v: "export ${n}=\${${n}:-${escapeShellArg v}}") (
-          filterAttrs (n: v: v != null) cfg.env
-        )
+        mapAttrsToList (n: v: ''export ${n}="${v}"'') (filterAttrs (n: v: v != null) cfg.env)
       );
     in
     {
@@ -149,6 +147,7 @@ in
       ${pkgs.rsync}/bin/rsync -a ${./vimfx}/ ~/.config/vimfx/
     '';
 
+    # my.firefox.env.GDK_BACKEND = "\${GDK_BACKEND:-x11}";
     my.firefox.env.MOZ_USE_XINPUT2 = "1";
 
     programs.firefox = {
