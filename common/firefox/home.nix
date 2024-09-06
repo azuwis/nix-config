@@ -23,8 +23,10 @@ let
         filterAttrs
         mapAttrsToList
         ;
-      env = concatStringsSep " " (
-        mapAttrsToList (n: v: "${n}=${escapeShellArg v}") (filterAttrs (n: v: v != null) cfg.env)
+      env = concatStringsSep "\n" (
+        mapAttrsToList (n: v: "export ${n}=\${${n}:-${escapeShellArg v}}") (
+          filterAttrs (n: v: v != null) cfg.env
+        )
       );
     in
     {
@@ -34,7 +36,8 @@ let
           # conflict with legacyfox
           rm $out/lib/firefox/defaults/pref/autoconfig.js
           lndir -silent ${pkgs.legacyfox} $out
-          substituteInPlace $out/bin/firefox --replace-fail "exec -a" "${env} exec -a"
+          substituteInPlace $out/bin/firefox --replace-fail "exec -a" '${env}
+          exec -a'
         '';
     }
   );
