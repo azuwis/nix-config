@@ -98,6 +98,7 @@ in
           };
           # Keybindings
           menu = "fuzzel";
+          modifier = "Mod4";
           keybindings =
             let
               mod = config.wayland.windowManager.sway.config.modifier;
