@@ -147,7 +147,9 @@ in
       ${pkgs.rsync}/bin/rsync -a ${./vimfx}/ ~/.config/vimfx/
     '';
 
+    # example how to set default env, but allow exported env var to override
     # my.firefox.env.GDK_BACKEND = "\${GDK_BACKEND:-x11}";
+
     my.firefox.env.MOZ_USE_XINPUT2 = "1";
 
     programs.firefox = {
