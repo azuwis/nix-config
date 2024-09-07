@@ -24,7 +24,7 @@ in
   };
 
   config = mkIf cfg.enable (mkMerge [
-    ({
+    {
       hm.my.sway.enable = true;
 
       programs.sway = {
@@ -38,8 +38,6 @@ in
         ];
         extraSessionCommands = ''
           export SDL_VIDEODRIVER=wayland
-          export QT_QPA_PLATFORM=wayland-egl
-          export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
           export _JAVA_AWT_WM_NONREPARENTING=1
         '';
       };
@@ -62,7 +60,7 @@ in
         };
       };
       security.rtkit.enable = lib.mkDefault config.services.pipewire.enable;
-    })
+    }
 
     (mkIf cfg.autologin {
       hm.my.sway.startupLocked = mkDefault true;
