@@ -50,6 +50,7 @@ in
         qt6.qtwayland
         wev
         wtype
+        xdg-utils
       ];
 
       services.greetd = {

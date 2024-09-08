@@ -18,7 +18,6 @@ in
     home.packages = with pkgs; [
       cliphist
       wl-clipboard
-      xdg-utils
     ];
 
     wayland.windowManager.sway = {
