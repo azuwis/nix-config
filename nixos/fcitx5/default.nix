@@ -22,5 +22,6 @@ in
       fcitx5-chinese-addons
       fcitx5-fluent
     ];
+    i18n.inputMethod.fcitx5.waylandFrontend = lib.mkDefault true;
   };
 }

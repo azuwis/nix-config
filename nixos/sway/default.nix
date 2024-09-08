@@ -31,5 +31,8 @@ in
       # override default extraPackages, packages needed are already setted in my.wayland
       extraPackages = [ ];
     };
+
+    # https://github.com/swaywm/sway/pull/7226 not yet release
+    i18n.inputMethod.fcitx5.waylandFrontend = false;
   };
 }
