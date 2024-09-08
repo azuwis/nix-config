@@ -29,6 +29,8 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     {
+      hm.my.wayland.enable = true;
+
       # https://github.com/swaywm/sway/wiki/Running-programs-natively-under-Wayland
       environment.sessionVariables = {
         SDL_VIDEODRIVER = "wayland";
