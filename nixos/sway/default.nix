@@ -32,7 +32,7 @@ in
       extraPackages = [ ];
     };
 
-    # https://github.com/swaywm/sway/pull/7226 not yet release
-    i18n.inputMethod.fcitx5.waylandFrontend = false;
+    # https://github.com/swaywm/sway/pull/7226 not yet release, only enable waylandFrontend for sway from nixpkgs-wayland
+    i18n.inputMethod.fcitx5.waylandFrontend = lib.hasPrefix "+" config.programs.sway.package.version;
   };
 }
