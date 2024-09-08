@@ -29,7 +29,7 @@ in
   };
 
   config = mkIf cfg.enable (mkMerge [
-    ({
+    {
       my.cliphist.enable = true;
       my.foot.enable = true;
       my.swayidle.enable = mkDefault true;
@@ -37,16 +37,8 @@ in
       my.yambar.enable = mkDefault true;
 
       home.packages = with pkgs; [
-        (runCommand "fuzzel" { buildInputs = [ makeWrapper ]; } ''
-          options="--lines=8 --no-icons --font=monospace:pixelsize=20 --background-color=2E3440FF --text-color=D8DEE9FF --selection-color=4C566AFF --selection-text-color=E8DEE9FF --terminal=footclient --log-level=error"
-          makeWrapper ${fuzzel}/bin/fuzzel $out/bin/fuzzel --add-flags "$options"
-          # for passmenu
-          makeWrapper ${fuzzel}/bin/fuzzel $out/bin/dmenu-wl --add-flags "--dmenu $options"
-        '')
         swappy
         sway-contrib.grimshot
-        wev
-        wtype
       ];
 
       wayland.windowManager.sway = {
@@ -149,7 +141,7 @@ in
           show-failed-attempts = true;
         };
       };
-    })
+    }
 
     (mkIf cfg.startupLocked {
       wayland.windowManager.sway.config.startup = [ { command = "swaylock"; } ];
