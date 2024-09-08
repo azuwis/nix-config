@@ -15,6 +15,24 @@ in
   };
 
   config = mkIf cfg.enable {
+    programs.fuzzel = {
+      enable = true;
+      settings = {
+        main = {
+          font = "monospace:pixelsize=20";
+          icons-enabled = false;
+          lines = 8;
+          terminal = "footclient";
+        };
+        colors = {
+          background = "2e3440ff";
+          text = "d8dee9ff";
+          selection = "4c566aff";
+          selection-text = "e8dee9ff";
+        };
+      };
+    };
+
     programs.swaylock = {
       enable = true;
       settings = {
