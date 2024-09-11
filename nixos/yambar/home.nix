@@ -167,12 +167,12 @@ in
 
     wayland.windowManager.sway.config = {
       bars = [ ];
-      startup = [ { command = "yambar --log-level=error"; } ];
+      startup = [ { command = "yambar"; } ];
     };
 
     xsession.windowManager.i3.config = {
       bars = [ ];
-      startup = [ { command = "yambar --log-level=error"; } ];
+      startup = [ { command = "yambar"; } ];
     };
 
     # systemd.user.services.yambar = {
@@ -182,7 +182,7 @@ in
     #   };
     #
     #   Service = {
-    #     ExecStart = "${pkgs.yambar}/bin/yambar --config=${config} --log-level=error";
+    #     ExecStart = "${pkgs.yambar}/bin/yambar --config=${config}";
     #     Environment = "PATH=/run/current-system/sw/bin";
     #     Restart = "on-failure";
     #   };

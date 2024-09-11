@@ -38,7 +38,7 @@ in
 
     (mkIf config.my.sway.enable {
       wayland.windowManager.sway.config = {
-        startup = [ { command = "foot --server --log-level=error"; } ];
+        startup = [ { command = "foot --server"; } ];
       };
     })
   ]);
