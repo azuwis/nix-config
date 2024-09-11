@@ -40,6 +40,7 @@ in
         enable = true;
         package = null;
         config = {
+          terminal = config.my.wayland.terminal;
           # Apps
           # swaymsg -t get_tree | less
           assigns = {

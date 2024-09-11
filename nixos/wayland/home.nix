@@ -6,12 +6,21 @@
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+    ;
   cfg = config.my.wayland;
 in
 {
   options.my.wayland = {
     enable = mkEnableOption "wayland";
+
+    terminal = mkOption {
+      type = types.str;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -22,7 +31,7 @@ in
           font = "monospace:pixelsize=20";
           icons-enabled = false;
           lines = 8;
-          terminal = "footclient";
+          terminal = cfg.terminal;
         };
         colors = {
           background = "2e3440ff";
