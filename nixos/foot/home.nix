@@ -16,6 +16,12 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     {
+      home.packages = [
+        (pkgs.writeScriptBin "tmenu" ''
+          ${config.programs.foot.package}/bin/foot --app-id tmenu --window-size-chars 50x10 "$@"
+        '')
+      ];
+
       programs.foot = {
         enable = true;
         settings = {
@@ -29,8 +35,6 @@ in
     }
 
     (mkIf config.my.sway.enable {
-      my.sway.tmenu = "footclient --app-id tmenu --window-size-chars 50x10";
-
       wayland.windowManager.sway.config = {
         startup = [ { command = "foot --server --log-level=error"; } ];
         terminal = "footclient";

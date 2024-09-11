@@ -21,11 +21,6 @@ in
     enable = mkEnableOption "sway";
     startupLocked = mkEnableOption "startupLocked";
     xdgAutostart = mkEnableOption "xdgAutostart";
-
-    tmenu = mkOption {
-      type = types.str;
-      default = "";
-    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -95,7 +90,7 @@ in
             in
             lib.mkOptionDefault {
               "${mod}+Tab" = "workspace back_and_forth";
-              "${mod}+Shift+p" = "exec ${cfg.tmenu} passfzf";
+              "${mod}+Shift+p" = "exec tmenu passfzf";
               "${mod}+c" = "floating toggle; resize set 75 ppt 75 ppt; move absolute position center";
               "--release --no-repeat ${mod}+Escape" = mkDefault "exec swaylock";
               "Print" = "grimshot save - | swappy -f -";
