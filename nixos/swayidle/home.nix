@@ -6,7 +6,7 @@
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf mkMerge;
   cfg = config.my.swayidle;
 in
 {
@@ -14,41 +14,46 @@ in
     enable = mkEnableOption "swayidle";
   };
 
-  config = mkIf cfg.enable {
-    home.packages = with pkgs; [ swayidle ];
+  config = mkIf cfg.enable (mkMerge [
+    {
+      home.packages = with pkgs; [ swayidle ];
 
-    services.swayidle =
-      let
-        swaylock = "${lib.getExe pkgs.swaylock} -f";
-        swaymsg = lib.getExe' pkgs.sway "swaymsg";
-      in
-      {
-        enable = true;
-        events = [
-          {
-            event = "before-sleep";
-            command = swaylock;
-          }
-        ];
-        timeouts = [
-          {
-            timeout = 1500;
-            command = swaylock;
-          }
-          {
-            timeout = 1800;
-            command = ''${swaymsg} "output * power off"'';
-            resumeCommand = ''${swaymsg} "output * power on"'';
-          }
-        ];
-      };
+      services.swayidle =
+        let
+          swaylock = "${lib.getExe pkgs.swaylock} -f";
+          swaymsg = lib.getExe' pkgs.sway "swaymsg";
+        in
+        {
+          enable = true;
+          events = [
+            {
+              event = "before-sleep";
+              command = swaylock;
+            }
+          ];
+          timeouts = [
+            {
+              timeout = 1500;
+              command = swaylock;
+            }
+            {
+              timeout = 1800;
+              command = ''${swaymsg} "output * power off"'';
+              resumeCommand = ''${swaymsg} "output * power on"'';
+            }
+          ];
+        };
 
-    wayland.windowManager.sway.config.keybindings =
-      let
-        mod = config.wayland.windowManager.sway.config.modifier;
-      in
-      lib.mkOptionDefault { "--release --no-repeat ${mod}+Escape" = "exec pkill -x -USR1 swayidle"; };
+    }
 
-    # wayland.windowManager.sway.config.startup = [{ command = "swayidle -w"; }];
-  };
+    (mkIf config.my.sway.enable {
+      wayland.windowManager.sway.config.keybindings =
+        let
+          mod = config.wayland.windowManager.sway.config.modifier;
+        in
+        lib.mkOptionDefault { "--release --no-repeat ${mod}+Escape" = "exec pkill -x -USR1 swayidle"; };
+
+      # wayland.windowManager.sway.config.startup = [{ command = "swayidle -w"; }];
+    })
+  ]);
 }
