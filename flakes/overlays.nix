@@ -7,7 +7,17 @@
 {
   flake.overlays.packages = import "${inputs.nixpkgs}/pkgs/top-level/by-name-overlay.nix" ../pkgs/by-name;
   flake.overlays.yuzu = final: prev: {
-    yuzu-ea = lib.optionalAttrs final.stdenv.isLinux inputs.yuzu.packages.${final.system}.early-access;
+    # error: 'VK_DRIVER_ID_MESA_AGXV' was not declared in this scope
+    yuzu-ea = lib.optionalAttrs final.stdenv.isLinux (
+      inputs.yuzu.packages.${final.system}.early-access.overrideAttrs (old: {
+        postPatch =
+          (old.postPatch or "")
+          + ''
+            rm -r externals/Vulkan-Utility-Libraries
+            ln -s ${final.vulkan-utility-libraries.src} externals/Vulkan-Utility-Libraries
+          '';
+      })
+    );
   };
   flake.overlays.jovian = import ../overlays/jovian.nix;
 
