@@ -11,7 +11,8 @@
     "--single-instance"
     "--directory=~"
   ];
-  programs.kitty.font.name = "JetBrainsMono Nerd Font";
+  # Use `kitten choose_fonts` to get font names
+  programs.kitty.font.name = "JetBrainsMono Nerd Font Mono";
   programs.kitty.font.size = 15;
   programs.kitty.settings = {
     # background_opacity = "0.85";
