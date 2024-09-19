@@ -630,6 +630,41 @@ in
               type = "conditional";
               conditions = [
                 {
+                  entity = "climate.yeelink_v6_af1f_ptc_bath_heater";
+                  state_not = "off";
+                }
+                {
+                  entity = "climate.yeelink_v6_af1f_ptc_bath_heater";
+                  state_not = "unavailable";
+                }
+              ];
+              card = {
+                type = "custom:simple-thermostat";
+                entity = "climate.yeelink_v6_af1f_ptc_bath_heater";
+                hide.state = true;
+                layout.mode.headings = false;
+                sensors = [
+                  {
+                    entity = "climate.yeelink_v6_af1f_ptc_bath_heater";
+                    name = "State";
+                  }
+                  {
+                    entity = "climate.yeelink_v6_af1f_ptc_bath_heater";
+                    name = "Fan";
+                    attribute = "fan_mode";
+                  }
+                  {
+                    entity = "climate.yeelink_v6_af1f_ptc_bath_heater";
+                    name = "Fan level";
+                    attribute = "ptc_bath_heater.fan_level";
+                  }
+                ];
+              };
+            }
+            {
+              type = "conditional";
+              conditions = [
+                {
                   entity = "climate.gree_climate_9424b8123fe900";
                   state_not = "off";
                 }
