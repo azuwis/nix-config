@@ -42,10 +42,17 @@ in
       };
     };
 
-    home.packages = [
-      (pkgs.writeShellScriptBin "swaylockx" ''
-        pkill -x -USR1 swayidle || swaylock
+    home.packages = with pkgs; [
+      (writeShellScriptBin "blurlock" ''
+        image=''${XDG_RUNTIME_DIR:-$HOME/.cache}/blurlock.png
+        grim - | magick - -scale 10% -scale 1000% "$image"
+        swaylock --daemonize --image "$image"
+        rm "$image"
       '')
+      (writeShellScriptBin "swaylockx" ''
+        pkill -x -USR1 swayidle || blurlock
+      '')
+      grim
     ];
 
     programs.swaylock = {

@@ -25,7 +25,7 @@ in
 
       services.swayidle =
         let
-          swaylock = "swaylock -f";
+          lockCommand = "blurlock";
           timeoutCommand = builtins.toString (
             pkgs.writeShellScript "swayidle-timeout-command" ''
               swaymsg "output * power off"
@@ -42,13 +42,13 @@ in
           events = [
             {
               event = "before-sleep";
-              command = swaylock;
+              command = lockCommand;
             }
           ];
           timeouts = [
             {
               timeout = 1500;
-              command = swaylock;
+              command = lockCommand;
             }
             {
               timeout = 1800;
