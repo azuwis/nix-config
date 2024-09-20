@@ -49,6 +49,7 @@ let
     assign [app_id="^sunshine-terminal$"] 9
     exec foot --app-id=sunshine-terminal
 
+    exec yambar
     exec sunshine
     '
     } > $out

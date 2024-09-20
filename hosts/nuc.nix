@@ -56,7 +56,7 @@
 
   # workaround for yambar sway module not getting updates
   hm.wayland.windowManager.sway.config.startup = [
-    { command = ''swaymsg -t subscribe '["output"]' && sleep 5 && pkill yambar && yambar''; }
+    { command = ''swaymsg -t subscribe '["output"]' && sleep 5 && pkill yambar''; }
   ];
 
   environment.systemPackages = with pkgs; [ moonlight-qt ];

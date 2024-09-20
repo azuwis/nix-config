@@ -165,29 +165,24 @@ in
       ];
     };
 
-    wayland.windowManager.sway.config = {
-      bars = [ ];
-      startup = [ { command = "yambar"; } ];
-    };
+    wayland.windowManager.sway.config.bars = [ ];
 
-    xsession.windowManager.i3.config = {
-      bars = [ ];
-      startup = [ { command = "yambar"; } ];
-    };
+    xsession.windowManager.i3.config.bars = [ ];
 
-    # systemd.user.services.yambar = {
-    #   Unit = {
-    #     PartOf = [ "graphical-session.target" ];
-    #     After = [ "graphical-session.target" ];
-    #   };
-    #
-    #   Service = {
-    #     ExecStart = "${pkgs.yambar}/bin/yambar --config=${config}";
-    #     Environment = "PATH=/run/current-system/sw/bin";
-    #     Restart = "on-failure";
-    #   };
-    #
-    #   Install = { WantedBy = [ "graphical-session.target" ]; };
-    # };
+    systemd.user.services.yambar = {
+      Unit = {
+        PartOf = [ "graphical-session.target" ];
+        After = [ "graphical-session.target" ];
+      };
+
+      Service = {
+        ExecStart = "${config.programs.yambar.package}/bin/yambar";
+        Restart = "on-failure";
+      };
+
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
+      };
+    };
   };
 }
