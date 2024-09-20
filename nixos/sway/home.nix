@@ -93,7 +93,7 @@ in
               "${mod}+Tab" = "workspace back_and_forth";
               "${mod}+Shift+p" = "exec tmenu passfzf";
               "${mod}+c" = "floating toggle; resize set 75 ppt 75 ppt; move absolute position center";
-              "--release --no-repeat ${mod}+Escape" = mkDefault "exec swaylock";
+              "--release --no-repeat ${mod}+Escape" = mkDefault "exec swaylockx";
               "Print" = "grimshot save - | swappy -f -";
               "XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";
               "XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";

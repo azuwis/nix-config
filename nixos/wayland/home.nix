@@ -42,6 +42,12 @@ in
       };
     };
 
+    home.packages = [
+      (pkgs.writeShellScriptBin "swaylockx" ''
+        pkill -x -USR1 swayidle || swaylock
+      '')
+    ];
+
     programs.swaylock = {
       enable = true;
       settings = {

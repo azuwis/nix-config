@@ -47,12 +47,6 @@ in
     }
 
     (mkIf config.my.sway.enable {
-      wayland.windowManager.sway.config.keybindings =
-        let
-          mod = config.wayland.windowManager.sway.config.modifier;
-        in
-        lib.mkOptionDefault { "--release --no-repeat ${mod}+Escape" = "exec pkill -x -USR1 swayidle"; };
-
       # wayland.windowManager.sway.config.startup = [{ command = "swayidle -w"; }];
     })
   ]);
