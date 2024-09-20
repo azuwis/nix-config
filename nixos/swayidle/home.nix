@@ -6,7 +6,12 @@
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf mkMerge;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkForce
+    mkMerge
+    ;
   cfg = config.my.swayidle;
 in
 {
@@ -20,8 +25,17 @@ in
 
       services.swayidle =
         let
-          swaylock = "${lib.getExe pkgs.swaylock} -f";
-          swaymsg = lib.getExe' pkgs.sway "swaymsg";
+          swaylock = "swaylock -f";
+          timeoutCommand = builtins.toString (
+            pkgs.writeShellScript "swayidle-timeout-command" ''
+              swaymsg "output * power off"
+            ''
+          );
+          resumeCommand = builtins.toString (
+            pkgs.writeShellScript "swayidle-resume-command" ''
+              swaymsg "output * power on"
+            ''
+          );
         in
         {
           enable = true;
@@ -38,11 +52,17 @@ in
             }
             {
               timeout = 1800;
-              command = ''${swaymsg} "output * power off"'';
-              resumeCommand = ''${swaymsg} "output * power on"'';
+              command = timeoutCommand;
+              resumeCommand = resumeCommand;
             }
           ];
         };
+
+      systemd.user.services.swayidle = {
+        Service = {
+          Environment = mkForce "PATH=%h/.nix-profile/bin:/etc/profiles/per-user/%u/bin:/run/current-system/sw/bin";
+        };
+      };
 
     }
 
