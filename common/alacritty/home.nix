@@ -19,7 +19,7 @@ in
     programs.alacritty.settings = {
       import = [ "${pkgs.alacritty-theme}/nord.toml" ];
       font = {
-        normal.family = "JetBrainsMono Nerd Font Mono";
+        normal.family = "JetBrainsMono Nerd Font";
         size = 15;
       };
       window = {

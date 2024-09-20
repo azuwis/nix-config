@@ -30,7 +30,7 @@
       (run-at-time "1 sec" nil #'toggle-frame-fullscreen)
       ))
 
-(setq doom-font (font-spec :family "JetBrainsMono Nerd Font Mono" :size 15 :weight 'light))
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 15 :weight 'light))
 (setq doom-unicode-font (font-spec :family "SF Pro" :size 15 :weight 'light))
 (setq doom-theme 'doom-nord)
 (setq projectile-project-search-path '("~/src/"))
