@@ -26,6 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
+    changelog = "https://github.com/VueTorrent/VueTorrent/releases/tag/v${finalAttrs.version}";
     description = "The sleekest looking WEBUI for qBittorrent made with Vuejs";
     homepage = "https://github.com/VueTorrent/VueTorrent";
     license = lib.licenses.gpl3Only;
