@@ -7,6 +7,7 @@
 
 let
   inherit (lib)
+    mkDefault
     mkEnableOption
     mkIf
     mkOption
@@ -24,6 +25,11 @@ in
   };
 
   config = mkIf cfg.enable {
+    my.foot.enable = true;
+    my.swayidle.enable = mkDefault true;
+    # my.waybar.enable = mkDefault true;
+    my.yambar.enable = mkDefault true;
+
     programs.fuzzel = {
       enable = true;
       settings = {

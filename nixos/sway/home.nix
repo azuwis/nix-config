@@ -26,10 +26,6 @@ in
   config = mkIf cfg.enable (mkMerge [
     {
       my.cliphist.enable = true;
-      my.foot.enable = true;
-      my.swayidle.enable = mkDefault true;
-      # my.waybar.enable = mkDefault true;
-      my.yambar.enable = mkDefault true;
 
       home.packages = with pkgs; [
         swappy
