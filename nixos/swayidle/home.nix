@@ -28,12 +28,17 @@ in
           lockCommand = "blurlock";
           timeoutCommand = builtins.toString (
             pkgs.writeShellScript "swayidle-timeout-command" ''
-              swaymsg "output * power off"
+              case "$XDG_CURRENT_DESKTOP" in
+              niri) niri msg action power-off-monitors ;;
+              sway) swaymsg "output * power off" ;;
+              esac
             ''
           );
           resumeCommand = builtins.toString (
             pkgs.writeShellScript "swayidle-resume-command" ''
-              swaymsg "output * power on"
+              case "$XDG_CURRENT_DESKTOP" in
+              sway) swaymsg "output * power on" ;;
+              esac
             ''
           );
         in

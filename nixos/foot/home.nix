@@ -36,6 +36,12 @@ in
       };
     }
 
+    (mkIf config.my.niri.enable {
+      my.niri.extraConfig = ''
+        spawn-at-startup "foot" "--server"
+      '';
+    })
+
     (mkIf config.my.sway.enable {
       wayland.windowManager.sway.config = {
         startup = [ { command = "foot --server"; } ];

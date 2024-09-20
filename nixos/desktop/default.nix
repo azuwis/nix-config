@@ -18,6 +18,7 @@ in
     my.android.enable = true;
     my.bluetooth.enable = true;
     my.fcitx5.enable = true;
+    my.niri.enable = true;
     my.sway.enable = true;
     my.theme.enable = true;
 
