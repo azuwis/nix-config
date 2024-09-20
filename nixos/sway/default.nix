@@ -18,10 +18,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    my.wayland = {
-      enable = true;
-      session = "sway";
-    };
+    my.wayland.enable = true;
 
     hm.my.sway.enable = true;
 

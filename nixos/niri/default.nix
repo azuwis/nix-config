@@ -28,7 +28,6 @@ in
 
     {
       hm.my.niri.enable = true;
-      # my.wayland.session = "niri-session";
 
       environment.systemPackages = with pkgs; [
         niri
