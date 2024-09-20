@@ -145,4 +145,13 @@ final: prev: {
   #       '';
   #   });
   # };
+
+  wallpapers =
+    final.lib.packagesFromDirectoryRecursive {
+      inherit (final) callPackage;
+      directory = ../pkgs/wallpapers;
+    }
+    // {
+      default = final.wallpapers.lake;
+    };
 }
