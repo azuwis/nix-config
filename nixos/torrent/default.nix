@@ -113,7 +113,7 @@ in
     };
 
     my.samba.enable = mkDefault true;
-    services.samba.shares.torrent = {
+    services.samba.settings.torrent = {
       path = cfg.DefaultSavePath;
       browseable = "no";
       "valid users" = cfg.user;

@@ -17,8 +17,8 @@ in
   config = mkIf cfg.enable {
     services.samba = {
       enable = true;
-      enableNmbd = false;
-      enableWinbindd = false;
+      nmbd.enable = false;
+      winbindd.enable = false;
       openFirewall = true;
     };
   };
