@@ -58,6 +58,18 @@ in
         action:
           service: shell_command.mijia_hub_init
 
+      - alias: Button a single
+        trigger:
+          platform: state
+          entity_id:
+            - sensor.0x00158d00023d57a9_action
+          to:
+            - single
+        action:
+          service: light.toggle
+          data:
+            entity_id: light.yeelink_fancl5_e358_light
+
       - alias: Light bathroom on when sensor on
         trigger:
           platform: state
