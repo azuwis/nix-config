@@ -10,7 +10,7 @@
   pkg-config,
   rustPlatform,
   rustc,
-  wrapGAppsHook,
+  wrapGAppsHook3,
 
   boost,
   curl,
@@ -63,7 +63,7 @@ stdenv.mkDerivation {
     pkg-config
     rustPlatform.cargoSetupHook
     rustc
-    wrapGAppsHook
+    wrapGAppsHook3
   ];
 
   buildInputs = [

@@ -16,7 +16,7 @@ in
 
   config = lib.mkIf cfg.enable {
     programs.neovim.extraPackages = with pkgs; [
-      nodePackages.bash-language-server
+      bash-language-server
       shellcheck
       shfmt
     ];

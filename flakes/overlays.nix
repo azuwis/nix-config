@@ -9,7 +9,7 @@
   flake.overlays.yuzu = final: prev: {
     # error: 'VK_DRIVER_ID_MESA_AGXV' was not declared in this scope
     yuzu-ea = lib.optionalAttrs final.stdenv.isLinux (
-      inputs.yuzu.packages.${final.system}.early-access.overrideAttrs (old: {
+      inputs.yuzu.packages.${final.stdenv.system}.early-access.overrideAttrs (old: {
         postPatch =
           (old.postPatch or "")
           + ''
