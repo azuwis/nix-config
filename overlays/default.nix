@@ -30,9 +30,9 @@ final: prev: {
   });
 
   # disable fcitx5-configtool
-  libsForQt5 = prev.libsForQt5.overrideScope (
-    qt5final: qt5prev: {
-      fcitx5-with-addons = qt5prev.fcitx5-with-addons.override { withConfigtool = false; };
+  qt6Packages = prev.qt6Packages.overrideScope (
+    qt6final: qt6prev: {
+      fcitx5-with-addons = qt6prev.fcitx5-with-addons.override { withConfigtool = false; };
     }
   );
 
