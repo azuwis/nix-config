@@ -124,7 +124,7 @@ in
     }
 
     (mkIf cfg.startupLocked {
-      wayland.windowManager.sway.config.startup = [ { command = "swaylock"; } ];
+      wayland.windowManager.sway.config.startup = [ { command = "blurlock"; } ];
     })
 
     (mkIf cfg.xdgAutostart {
