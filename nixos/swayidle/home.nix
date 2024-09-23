@@ -64,6 +64,9 @@ in
         };
 
       systemd.user.services.swayidle = {
+        # WAYLAND_DISPLAY not set without this
+        Unit.After = [ "graphical-session.target" ];
+
         Service = {
           Environment = mkForce "PATH=%h/.nix-profile/bin:/etc/profiles/per-user/%u/bin:/run/current-system/sw/bin";
         };
