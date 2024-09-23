@@ -30,6 +30,11 @@ in
     # my.waybar.enable = mkDefault true;
     my.yambar.enable = mkDefault true;
 
+    programs.chromium.commandLineArgs = [
+      "--enable-wayland-ime"
+      "--wayland-text-input-version=3"
+    ];
+
     programs.fuzzel = {
       enable = true;
       settings = {

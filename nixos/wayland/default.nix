@@ -33,6 +33,8 @@ in
 
       # https://github.com/swaywm/sway/wiki/Running-programs-natively-under-Wayland
       environment.sessionVariables = {
+        # Enable chromium native wayland
+        NIXOS_OZONE_WL = "1";
         SDL_VIDEODRIVER = "wayland";
         _JAVA_AWT_WM_NONREPARENTING = "1";
       };

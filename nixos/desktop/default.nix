@@ -29,9 +29,6 @@ in
       evtest
     ];
 
-    # Enable chromium native wayland
-    # environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
     nix = {
       daemonCPUSchedPolicy = "idle";
       daemonIOSchedClass = "idle";
