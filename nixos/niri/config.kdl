@@ -174,15 +174,20 @@ binds {
   Mod+F { maximize-column; }
   Mod+Shift+F { fullscreen-window; }
   Mod+C { center-column; }
+
   Mod+Minus { set-column-width "-10%"; }
   Mod+Equal { set-column-width "+10%"; }
+
   Mod+Shift+Minus { set-window-height "-10%"; }
   Mod+Shift+Equal { set-window-height "+10%"; }
+
   Print { screenshot; }
   Ctrl+Print { screenshot-screen; }
   Alt+Print { screenshot-window; }
+
   Mod+Shift+E { quit; }
-  Mod+Shift+P { power-off-monitors; }
+
+  Mod+Shift+P { spawn "tmenu" "passfzf"; }
 }
 
 hotkey-overlay {
