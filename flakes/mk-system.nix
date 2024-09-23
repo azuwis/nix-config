@@ -28,7 +28,11 @@ withSystem system (
       lib.recursiveUpdate {
         inherit system;
         overlays = [ self.overlays.default ] ++ overlays;
-        config.allowUnfree = true;
+        config = {
+          allowAliases = false;
+          allowUnfree = true;
+          android_sdk.accept_license = true;
+        };
       } { inherit config; }
     );
   in
