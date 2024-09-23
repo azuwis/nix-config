@@ -79,6 +79,7 @@ in
     }
 
     (mkIf cfg.autologin {
+      hm.my.niri.startupLocked = mkDefault true;
       hm.my.sway.startupLocked = mkDefault true;
 
       # to start initial_session again, run `rm /run/greetd.run; systemctl restart greetd`

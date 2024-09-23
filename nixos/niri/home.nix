@@ -23,6 +23,8 @@ in
       type = types.lines;
       default = "";
     };
+
+    startupLocked = mkEnableOption "startupLocked";
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -33,5 +35,11 @@ in
         wallpaper = pkgs.wallpapers.default;
       };
     }
+
+    (mkIf cfg.startupLocked {
+      my.niri.extraConfig = ''
+        spawn-at-startup "blurlock"
+      '';
+    })
   ]);
 }
