@@ -27,7 +27,6 @@ in
     environment.systemPackages = with pkgs; [
       evemu
       evtest
-      chromium
     ];
 
     # Enable chromium native wayland
@@ -45,6 +44,8 @@ in
     hm = {
       my.firefox.enable = true;
       my.mpv.enable = true;
+
+      programs.chromium.enable = true;
     };
   };
 }
