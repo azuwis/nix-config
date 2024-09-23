@@ -33,6 +33,7 @@
       pkgs = import inputs.nixpkgs {
         inherit system;
         config = {
+          allowAliases = false;
           allowUnfree = true;
           android_sdk.accept_license = true;
         };
