@@ -22,13 +22,17 @@ let
       byNameAttrs = pkgs.overlays.packages null null;
       topLevelAttrs = pkgs.overlays.default null null;
       luaAttrs =
-        (pkgs.overlays.default pkgs { lua.override = { packageOverrides }: packageOverrides; }).lua null
+        (pkgs.overlays.default pkgs {
+          lua.override = { packageOverrides }: packageOverrides;
+        }).lua
+          null
           null;
-      python3Attrs = (
-        (pkgs.overlays.default pkgs { python3.override = { packageOverrides }: packageOverrides; }).python3
+      python3Attrs =
+        (pkgs.overlays.default pkgs {
+          python3.override = { packageOverrides }: packageOverrides;
+        }).python3
           null
-          null
-      );
+          null;
       topLevelPackages = builtins.mapAttrs (
         name: _:
         lib.warnIf (
