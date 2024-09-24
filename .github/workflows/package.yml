@@ -41,7 +41,7 @@ jobs:
         if: ${{ steps.skip.outputs.cache-hit == 'true' }}
       - uses: actions/checkout@v4
         if: ${{ steps.skip.outputs.cache-hit != 'true' }}
-      - uses: ./.github/workflows/package
+      - uses: ./.github/actions/package
         if: ${{ steps.skip.outputs.cache-hit != 'true' }}
         with:
           debug: ${{ inputs.debug }}
