@@ -19,7 +19,7 @@ in
 {
   options.my.sway = {
     enable = mkEnableOption "sway";
-    startupLocked = mkEnableOption "startupLocked";
+    initlock = mkEnableOption "initlock";
     xdgAutostart = mkEnableOption "xdgAutostart";
   };
 
@@ -123,8 +123,8 @@ in
       };
     }
 
-    (mkIf cfg.startupLocked {
-      wayland.windowManager.sway.config.startup = [ { command = "startuplock"; } ];
+    (mkIf cfg.initlock {
+      wayland.windowManager.sway.config.startup = [ { command = "initlock"; } ];
     })
 
     (mkIf cfg.xdgAutostart {

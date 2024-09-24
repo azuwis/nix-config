@@ -17,7 +17,7 @@ in
 {
   options.my.i3 = {
     enable = mkEnableOption "i3";
-    startupLocked = mkEnableOption "startupLocked";
+    initlock = mkEnableOption "initlock";
     xdgAutostart = mkEnableOption "xdgAutostart";
   };
 
@@ -99,7 +99,7 @@ in
       };
     })
 
-    (mkIf cfg.startupLocked {
+    (mkIf cfg.initlock {
       xsession.windowManager.i3.config.startup = [
         { command = "i3lock --nofork --ignore-empty-password --color=2e3440"; }
       ];

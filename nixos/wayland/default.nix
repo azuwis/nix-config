@@ -49,7 +49,7 @@ in
           swaylock --daemonize --image "$image"
           rm "$image"
         '')
-        (writeShellScriptBin "startuplock" ''
+        (writeShellScriptBin "initlock" ''
           if [ -e /run/greetd.run ]; then
             now=$(date +%s)
             startup=$(stat -c %Y /run/greetd.run)
@@ -94,8 +94,8 @@ in
     }
 
     (mkIf cfg.autologin {
-      hm.my.niri.startupLocked = mkDefault true;
-      hm.my.sway.startupLocked = mkDefault true;
+      hm.my.niri.initlock = mkDefault true;
+      hm.my.sway.initlock = mkDefault true;
 
       # to start initial_session again, run `rm /run/greetd.run; systemctl restart greetd`
       services.greetd.settings.initial_session = {
@@ -105,8 +105,8 @@ in
     })
 
     (mkIf cfg.initlock {
-      hm.my.niri.startupLocked = true;
-      hm.my.sway.startupLocked = true;
+      hm.my.niri.initlock = true;
+      hm.my.sway.initlock = true;
     })
 
     (mkIf cfg.xdgAutostart { services.xserver.desktopManager.runXdgAutostartIfNone = true; })

@@ -55,7 +55,7 @@ in
     })
 
     (mkIf cfg.autologin {
-      hm.my.i3.startupLocked = mkDefault true;
+      hm.my.i3.initlock = mkDefault true;
 
       # to start initial_session again, run `/run/greetd.run; systemctl restart greetd`
       services.greetd.settings.initial_session = {

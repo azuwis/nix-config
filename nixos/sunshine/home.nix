@@ -20,7 +20,7 @@ let
 
   swayConfig = pkgs.runCommand "sunshine-sway.conf" { } ''
     {
-    grep -Ev '(^exec jslisten|^exec startuplock|^exec swayidle|events disabled|dbus-update-activation-environment)' ${
+    grep -Ev '(^exec jslisten|^exec initlock|^exec swayidle|events disabled|dbus-update-activation-environment)' ${
       config.xdg.configFile."sway/config".source
     }
     echo '

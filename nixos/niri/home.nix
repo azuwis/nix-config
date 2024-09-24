@@ -24,7 +24,7 @@ in
       default = "";
     };
 
-    startupLocked = mkEnableOption "startupLocked";
+    initlock = mkEnableOption "initlock";
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -36,9 +36,9 @@ in
       };
     }
 
-    (mkIf cfg.startupLocked {
+    (mkIf cfg.initlock {
       my.niri.extraConfig = ''
-        spawn-at-startup "startuplock"
+        spawn-at-startup "initlock"
       '';
     })
   ]);
