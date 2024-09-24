@@ -17,8 +17,9 @@ input {
 
 layout {
   gaps 8
-  center-focused-column "on-overflow"
-  always-center-single-column
+  // center-focused-column "on-overflow"
+  // always-center-single-column
+  default-column-width { proportion 0.66667; }
   focus-ring {
     off
   }
@@ -42,6 +43,11 @@ window-rule {
 }
 
 window-rule {
+  match app-id=r#"^(chromium-browser|firefox)$"#
+  open-maximized true
+}
+
+window-rule {
   match app-id=r#"^foot(client)?$"#
   border {
     on
@@ -49,6 +55,11 @@ window-rule {
     active-color "#2e3440"
     inactive-color "#2e3440"
   }
+}
+
+window-rule {
+  match app-id=r#"^(tmenu)$"#
+  default-column-width { proportion 0.33333; }
 }
 
 // Work around WezTerm's initial configure bug
