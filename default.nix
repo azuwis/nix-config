@@ -11,7 +11,7 @@ let
   nixpkgs = self.defaultNix.inputs.nixpkgs.outPath;
   packages = import nixpkgs {
     overlays = [
-      # Update this if `flakes.overlays.default` changed in `flakes/overlay.nix`.
+      # Update this if `flake.overlays.default` changed in `flakes/overlay.nix`.
       # For `builtins.unsafeGetAttrPos "src"` to work in update.nix,
       # `self.defaultNix.overlays.default` can not be used here.
       (import "${nixpkgs}/pkgs/top-level/by-name-overlay.nix" ./pkgs/by-name)
