@@ -162,6 +162,8 @@ binds {
   Mod+Ctrl+8 { move-column-to-workspace 8; }
   Mod+Ctrl+9 { move-column-to-workspace 9; }
 
+  Mod+Tab { focus-workspace-previous; }
+
   Mod+Comma  { consume-window-into-column; }
   Mod+Period { expel-window-from-column; }
 
