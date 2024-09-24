@@ -38,7 +38,7 @@ in
 
     (mkIf cfg.startupLocked {
       my.niri.extraConfig = ''
-        spawn-at-startup "blurlock"
+        spawn-at-startup "startuplock"
       '';
     })
   ]);

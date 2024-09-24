@@ -46,6 +46,16 @@ in
           swaylock --daemonize --image "$image"
           rm "$image"
         '')
+        (writeShellScriptBin "startuplock" ''
+          if [ -e /run/greetd.run ]; then
+            now=$(date +%s)
+            startup=$(stat -c %Y /run/greetd.run)
+            if [ "$((now - startup))" -gt 10 ]; then
+              exit
+            fi
+          fi
+          blurlock
+        '')
         (writeShellScriptBin "swaylockx" ''
           pkill -x -USR1 swayidle || blurlock
         '')
