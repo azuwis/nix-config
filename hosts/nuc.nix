@@ -43,10 +43,10 @@
   my.retroarch.enable = true;
   my.torrent.enable = true;
   my.uxplay.enable = true;
+  my.wayland.initlock = false;
   my.zramswap.enable = true;
 
   hm.my.jslisten.enable = true;
-  hm.my.sway.startupLocked = false;
   hm.my.swayidle.enable = false;
 
   hm.wayland.windowManager.sway.config.keybindings = lib.mkOptionDefault {

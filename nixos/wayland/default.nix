@@ -23,6 +23,9 @@ in
     autologin = mkEnableOption "autologin" // {
       default = true;
     };
+    initlock = mkEnableOption "initlock" // {
+      default = cfg.autologin;
+    };
     session = mkOption { type = types.str; };
     xdgAutostart = mkEnableOption "xdgAutostart";
   };
@@ -99,6 +102,11 @@ in
         command = "systemd-cat --identifier=${sessionName} ${cfg.session}";
         user = config.my.user;
       };
+    })
+
+    (mkIf cfg.initlock {
+      hm.my.niri.startupLocked = true;
+      hm.my.sway.startupLocked = true;
     })
 
     (mkIf cfg.xdgAutostart { services.xserver.desktopManager.runXdgAutostartIfNone = true; })
