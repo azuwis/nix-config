@@ -83,6 +83,7 @@
   system.keyboard = {
     enableKeyMapping = true;
     remapCapsLockToControl = true;
+    swapLeftCommandAndLeftAlt = true;
   };
   system.stateVersion = 4;
 }
