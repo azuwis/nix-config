@@ -58,9 +58,12 @@
     '';
   };
 
-  launchd.user.agents.skhd.environment = {
-    NIX_SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt";
-    SHELL = "/bin/bash";
+  launchd.user.agents.skhd = {
+    environment = {
+      NIX_SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt";
+      SHELL = "/bin/bash";
+    };
+    serviceConfig.WorkingDirectory = config.users.users.${config.my.user}.home;
   };
 
   launchd.user.agents.skhd.path = lib.mkForce [ config.my.systemPath ];
