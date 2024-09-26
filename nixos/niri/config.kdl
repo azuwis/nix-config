@@ -19,7 +19,7 @@ layout {
   gaps 8
   // center-focused-column "on-overflow"
   // always-center-single-column
-  default-column-width { proportion 0.66667; }
+  default-column-width { proportion 0.5; }
   focus-ring {
     off
   }
@@ -44,7 +44,8 @@ window-rule {
 
 window-rule {
   match app-id=r#"^(chromium-browser|firefox)$"#
-  open-maximized true
+  exclude title=r#"^(Library|Open File)$"#
+  default-column-width { proportion 1.0; }
 }
 
 window-rule {
@@ -55,6 +56,7 @@ window-rule {
     active-color "#2e3440"
     inactive-color "#2e3440"
   }
+  default-column-width { proportion 0.66667; }
 }
 
 window-rule {
