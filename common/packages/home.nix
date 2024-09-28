@@ -25,7 +25,6 @@
     imagemagick
     ipcalc
     jq
-    less
     lsof
     man
     netcat-gnu

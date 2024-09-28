@@ -16,6 +16,7 @@
     # helix.enable = true;
     git.enable = true;
     # gitui.enable = true;
+    less.enable = true;
     neovim.enable = true;
     yazi.enable = true;
     zsh.enable = true;
