@@ -21,14 +21,13 @@
       url = "github:nix-community/nix-on-droid";
       inputs = {
         home-manager.follows = "home-manager";
-        nix-formatter-pack.follows = "dummy";
-        nixpkgs-docs.follows = "dummy";
-        nixpkgs-for-bootstrap.follows = "dummy";
+        nix-formatter-pack.follows = "";
+        nixpkgs-docs.follows = "";
+        nixpkgs-for-bootstrap.follows = "";
         nixpkgs.follows = "nixpkgs";
-        nmd.follows = "dummy";
+        nmd.follows = "";
       };
     };
-    dummy.follows = "systems";
     flake-compat = {
       url = "github:edolstra/flake-compat";
     };
@@ -47,7 +46,7 @@
     jovian = {
       url = "github:Jovian-Experiments/Jovian-NixOS";
       inputs = {
-        nix-github-actions.follows = "dummy";
+        nix-github-actions.follows = "";
         nixpkgs.follows = "nixpkgs";
       };
     };
@@ -74,7 +73,7 @@
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "flake-compat";
         lib-aggregate.follows = "lib-aggregate";
-        nix-eval-jobs.follows = "dummy";
+        nix-eval-jobs.follows = "";
       };
     };
     nvidia-patch = {

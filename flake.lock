@@ -90,21 +90,13 @@
         "home-manager": [
           "home-manager"
         ],
-        "nix-formatter-pack": [
-          "dummy"
-        ],
+        "nix-formatter-pack": [],
         "nixpkgs": [
           "nixpkgs"
         ],
-        "nixpkgs-docs": [
-          "dummy"
-        ],
-        "nixpkgs-for-bootstrap": [
-          "dummy"
-        ],
-        "nmd": [
-          "dummy"
-        ]
+        "nixpkgs-docs": [],
+        "nixpkgs-for-bootstrap": [],
+        "nmd": []
       },
       "locked": {
         "lastModified": 1725658585,
@@ -197,9 +189,7 @@
     },
     "jovian": {
       "inputs": {
-        "nix-github-actions": [
-          "dummy"
-        ],
+        "nix-github-actions": [],
         "nixpkgs": [
           "nixpkgs"
         ]
@@ -300,9 +290,7 @@
         "lib-aggregate": [
           "lib-aggregate"
         ],
-        "nix-eval-jobs": [
-          "dummy"
-        ],
+        "nix-eval-jobs": [],
         "nixpkgs": [
           "nixpkgs"
         ]
@@ -363,9 +351,6 @@
         "darwin": "darwin",
         "devshell": "devshell",
         "droid": "droid",
-        "dummy": [
-          "systems"
-        ],
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
