@@ -61,6 +61,25 @@ in
               };
           };
         }
+        {
+          niri-workspaces = {
+            content.map =
+              let
+                default = {
+                  margin = 6;
+                  text = "{id}";
+                };
+              in
+              {
+                conditions = {
+                  active.string = default // {
+                    foreground = "EBCB8BFF";
+                  };
+                  "~empty".string = default;
+                };
+              };
+          };
+        }
       ];
       center = [
         {
