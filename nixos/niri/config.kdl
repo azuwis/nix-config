@@ -37,6 +37,14 @@ prefer-no-csd
 
 screenshot-path "~/Screenshots/Screenshot-%Y-%m-%d-%H-%M-%S.png"
 
+animations {
+  // slowdown 0.7
+
+  workspace-switch {
+    off
+  }
+}
+
 window-rule {
   geometry-corner-radius 6
   clip-to-geometry true
