@@ -25,6 +25,7 @@ in
     programs.yambar.package = pkgs.yambar-git;
 
     programs.yambar.settings.bar = {
+      layer = "top";
       location = "top";
       height = 26;
       background = "2E3440FF";
