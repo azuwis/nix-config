@@ -7,7 +7,7 @@
 
 python3.pkgs.buildPythonApplication {
   pname = "subfinder";
-  version = "2.2.1-unstable-2024-02-14";
+  version = "2.2.2-pre-unstable-2024-02-14";
 
   src = fetchFromGitHub {
     owner = "ausaki";
