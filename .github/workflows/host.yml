@@ -1,4 +1,4 @@
-name: Build host
+name: Build hosts
 permissions: {}
 on:
   push:
