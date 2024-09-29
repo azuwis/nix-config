@@ -19,7 +19,7 @@ in
       enable = true;
       keys = ''
         #env
-        LESS = -FRX
+        LESS = --RAW-CONTROL-CHARS --no-init --quit-if-one-screen --shift 5
       '';
     };
   };
