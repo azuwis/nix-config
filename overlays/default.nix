@@ -53,47 +53,35 @@ final: prev: {
       # For `--vo=gpu-next` on macOS, useful for DobbyVision 10Bit videos
       vulkanSupport = true;
       swift =
-        let
-          CommandLineTools = "/Library/Developer/CommandLineTools";
-        in
-        final.stdenv.mkDerivation {
-          name = "swift-CommandLineTools-0.0.0";
-          phases = [
-            "installPhase"
-            "fixupPhase"
-          ];
-
-          propagatedBuildInputs = [ final.darwin.DarwinTools ];
-
-          installPhase = ''
-            mkdir -p $out/bin $out/lib
-            ln -s ${CommandLineTools}/usr/bin/swift $out/bin
-            ln -s ${CommandLineTools}/usr/lib/swift $out/lib
-            ln -s ${CommandLineTools}/SDKs $out
-          '';
-
-          setupHook = builtins.toFile "hook" ''
-            addCommandLineTools() {
-                echo >&2
-                echo "WARNING: this is impure and unreliable, make sure the CommandLineTools are installed!" >&2
-                echo "  $ xcode-select --install" >&2
-                echo >&2
-                [ -d ${CommandLineTools} ]
-                export NIX_LDFLAGS+=" -L@out@/lib/swift/macosx"
-                export SWIFT=swift
-                export SWIFT_LIB_DYNAMIC=@out@/lib/swift/macosx
-                export MACOS_SDK="@out@/SDKs/MacOSX.sdk"
-            }
-
-            prePhases+=" addCommandLineTools"
-          '';
-
-          __impureHostDeps = [ CommandLineTools ];
-        };
+        (import
+          (builtins.fetchTarball {
+            # nixpkgs-24.05-darwin
+            url = "https://github.com/NixOS/nixpkgs/archive/ced0da1e7e7d50f1352bc6bdd25af8ae55eb3934.tar.gz";
+            sha256 = "01wqw1jsngicri7b09npg70xdzyrfq787kka9xx1q1h3p1jwnsag";
+          })
+          {
+            inherit (final.stdenv) system;
+          }
+        ).swift;
     }).overrideAttrs
-      (old: {
-        preConfigure = if final.stdenv.isDarwin then "" else old.preConfigure;
-      });
+      (
+        old:
+        final.lib.optionalAttrs final.stdenv.isDarwin {
+          patches = (old.patches or [ ]) ++ [ ../patches/mpv-darwin.patch ];
+          postInstall = ''
+            # Use a standard font
+            mkdir -p $out/share/mpv
+            ln -s ${final.freefont_ttf}/share/fonts/truetype/FreeSans.ttf $out/share/mpv/subfont.ttf
+
+            pushd ../TOOLS
+            cp mpv_identify.sh umpv $out/bin/
+            popd
+
+            mkdir -p $out/Applications
+            cp -r mpv.app $out/Applications
+          '';
+        }
+      );
 
   # https://github.com/Mic92/nix-update/pull/269
   # nix-update = prev.nix-update.overridePythonAttrs (old: {
