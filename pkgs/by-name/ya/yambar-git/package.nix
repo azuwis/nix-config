@@ -2,7 +2,7 @@
 
 yambar.overrideAttrs (old: {
   pname = "yambar-git";
-  version = "1.11.0-unstable-2024-09-25";
+  version = "1.11.0-unstable-2024-09-29";
 
   # yambar crash, https://codeberg.org/dnkl/yambar/issues/300
   # tag: add '/N' formatter, https://codeberg.org/dnkl/yambar/pulls/403
