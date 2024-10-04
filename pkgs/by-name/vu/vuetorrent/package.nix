@@ -7,11 +7,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "vuetorrent";
-  version = "2.13.1";
+  version = "2.13.3";
 
   src = fetchzip {
     url = "https://github.com/WDaan/VueTorrent/releases/download/v${finalAttrs.version}/vuetorrent.zip";
-    sha256 = "sha256-V9cxpgZGC6hq9utZsACGVEmM7SCf26B+CL1XAZzdoZs=";
+    sha256 = "sha256-pKdXeY1JYW4lyjzycqThNyNr4K10UWGQDOLfnnFSZMs=";
   };
 
   installPhase = ''
