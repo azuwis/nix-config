@@ -1,7 +1,7 @@
 {
   lib,
   sunshine,
-  boost185,
+  boost186,
   nodejs,
   cudaSupport ? false,
   nix-update-script,
@@ -9,7 +9,7 @@
 
 (sunshine.override {
   inherit cudaSupport;
-  boost = boost185;
+  boost = boost186;
 }).overrideAttrs
   (old: {
     pname = "sunshine-git";
