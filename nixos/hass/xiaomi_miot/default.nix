@@ -145,7 +145,7 @@ in
           from: "off"
           to:
             - ventilate
-          for: "01:30:00"
+          for: "01:00:00"
         action:
           - service: climate.turn_off
             data:
