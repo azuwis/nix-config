@@ -16,13 +16,13 @@ let
       ${pkgs.imagemagick}/bin/magick -background transparent -fill "#ff9800" -font ${font} -size 128x128 -gravity center label:"''${i^^}" "$out/$i.png"
     done
   '';
-  www = ./www;
+  static = ./static;
 in
 
 {
   config = lib.mkIf config.my.hass.enable {
     systemd.services.home-assistant.preStart = ''
-      ln -fns ${www} ${config.services.home-assistant.configDir}/www/static
+      ln -fns ${static} ${config.services.home-assistant.configDir}/www/static
       ln -fns ${generated} ${config.services.home-assistant.configDir}/www/generated
     '';
 
