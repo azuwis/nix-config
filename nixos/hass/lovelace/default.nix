@@ -6,6 +6,16 @@
 }:
 
 let
+  font = pkgs.fetchurl {
+    url = "https://github.com/google/fonts/raw/refs/heads/main/ofl/fascinateinline/FascinateInline-Regular.ttf";
+    hash = "sha256-QTEBgQ/kIFIBIogEBNH46JImnmpq+i4A6YD2XvYy7js=";
+  };
+  generated = pkgs.runCommand "lovelace-generated" { } ''
+    mkdir $out
+    for i in az tf yq; do
+      ${pkgs.imagemagick}/bin/magick -background transparent -fill "#ff9800" -font ${font} -size 128x128 -gravity center label:"''${i^^}" "$out/$i.png"
+    done
+  '';
   www = ./www;
 in
 
@@ -13,6 +23,7 @@ in
   config = lib.mkIf config.my.hass.enable {
     systemd.services.home-assistant.preStart = ''
       ln -fns ${www} ${config.services.home-assistant.configDir}/www/static
+      ln -fns ${generated} ${config.services.home-assistant.configDir}/www/generated
     '';
 
     services.home-assistant.config.lovelace.mode = "yaml";
@@ -564,8 +575,8 @@ in
                 # people
                 {
                   type = "image";
-                  entity = "device_tracker.device_1";
-                  image = "/local/static/device_1.jpg";
+                  entity = "device_tracker.az";
+                  image = "/local/generated/az.png";
                   state_filter = {
                     not_home = "grayscale(100%)";
                     work = "grayscale(100%)";
@@ -574,13 +585,12 @@ in
                     top = "89%";
                     left = "4%";
                     width = "5%";
-                    border-radius = "50%";
                   };
                 }
                 {
                   type = "image";
-                  entity = "device_tracker.device_2";
-                  image = "/local/static/device_2.jpg";
+                  entity = "device_tracker.tf";
+                  image = "/local/generated/tf.png";
                   state_filter = {
                     not_home = "grayscale(100%)";
                   };
@@ -588,7 +598,19 @@ in
                     top = "92.3%";
                     left = "4%";
                     width = "5%";
-                    border-radius = "50%";
+                  };
+                }
+                {
+                  type = "image";
+                  entity = "device_tracker.yq";
+                  image = "/local/generated/yq.png";
+                  state_filter = {
+                    not_home = "grayscale(100%)";
+                  };
+                  style = {
+                    top = "95.6%";
+                    left = "4%";
+                    width = "5%";
                   };
                 }
               ];
@@ -867,8 +889,8 @@ in
             {
               type = "map";
               entities = [
-                "device_tracker.device_1"
-                "device_tracker.device_2"
+                "device_tracker.az"
+                "device_tracker.tf"
                 "zone.home"
                 "zone.work"
               ];
