@@ -95,7 +95,7 @@ in
                 image = pkgs.fetchurl { inherit url hash; };
               in
               pkgs.runCommand "${lib.nameFromURL url "."}.png" { } ''
-                ${pkgs.imagemagick}/bin/convert ${image} -background none -gravity center -extent 600x800 $out
+                ${pkgs.imagemagick}/bin/magick ${image} -background none -gravity center -extent 600x800 $out
               '';
             cemu-prep-cmd = [
               {
@@ -118,7 +118,7 @@ in
             {
               name = "Z Desktop";
               image-path = pkgs.runCommand "desktop.png" { } ''
-                ${pkgs.imagemagick}/bin/convert -density 1200 -resize 500x -background none ${pkgs.adwaita-icon-theme}/share/icons/Adwaita/scalable/devices/input-keyboard.svg -gravity center -extent 600x800 $out
+                ${pkgs.imagemagick}/bin/magick -density 1200 -resize 500x -background none ${pkgs.adwaita-icon-theme}/share/icons/Adwaita/scalable/devices/input-keyboard.svg -gravity center -extent 600x800 $out
               '';
             }
             {
@@ -169,7 +169,7 @@ in
             {
               name = "Yuzu";
               image-path = pkgs.runCommand "yuzu.png" { } ''
-                ${pkgs.imagemagick}/bin/convert -resize x420 -background none ${pkgs.yuzu-ea}/share/icons/hicolor/scalable/apps/org.yuzu_emu.yuzu.svg -gravity center -extent 600x800 $out
+                ${pkgs.imagemagick}/bin/magick -resize x420 -background none ${pkgs.yuzu-ea}/share/icons/hicolor/scalable/apps/org.yuzu_emu.yuzu.svg -gravity center -extent 600x800 $out
               '';
               cmd = "yuzu";
               prep-cmd = yuzu-prep-cmd;
