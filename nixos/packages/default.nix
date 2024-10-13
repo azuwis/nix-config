@@ -15,7 +15,7 @@
     inetutils
     iotop-c
     man-pages
-    nixos-option
+    nixos-option-git
     pciutils
     psmisc
     tcpdump

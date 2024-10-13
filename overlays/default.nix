@@ -85,20 +85,6 @@ final: prev: {
     };
   });
 
-  # https://github.com/NixOS/nixpkgs/pull/313497
-  # This IFD breaks `nix flake show`, need to run `nix --option allow-import-from-derivation true flake show`.
-  # Be ware of the eval cache, may need `--option eval-cache false`.
-  nixos-option = final.callPackage "${
-    final.fetchFromGitHub {
-      owner = "NixOS";
-      repo = "nixpkgs";
-      rev = "172f04cac31ef53e7e6c1a96e0db5514993f7208";
-      hash = "sha256-v0o+LZ8kAWHOVAfLNV3du6kwXVZdNQH8McsVM9rNmVQ=";
-      sparseCheckout = [ "pkgs/tools/nix/nixos-option/" ];
-      nonConeMode = true;
-    }
-  }/pkgs/tools/nix/nixos-option" { };
-
   # python3 = prev.python3.override {
   #   packageOverrides =
   #     pyfinal: pyprev:
