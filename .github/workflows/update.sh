@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -o pipefail
+
 git remote set-head origin --auto
 default_branch=$(git rev-parse --abbrev-ref origin/HEAD)
 
