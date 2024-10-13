@@ -26,7 +26,7 @@ in
             underline = false;
           };
         };
-        ui.default-command = "status";
+        ui.default-command = "log";
         user = {
           inherit (config.my) email name;
         };
