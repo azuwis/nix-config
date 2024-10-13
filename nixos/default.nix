@@ -1,6 +1,5 @@
 {
   inputs,
-  inputs',
   config,
   lib,
   pkgs,
@@ -16,5 +15,5 @@
 
   hm.imports = lib.my.getHmModules [ ./. ];
 
-  environment.systemPackages = [ inputs'.agenix.packages.default ];
+  environment.systemPackages = [ pkgs.agenix ];
 }

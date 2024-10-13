@@ -22,6 +22,7 @@
   flake.overlays.jovian = import ../overlays/jovian.nix;
 
   flake.overlays.default = lib.composeManyExtensions [
+    inputs.agenix.overlays.default
     self.overlays.packages
     self.overlays.yuzu
     (import ../overlays/default.nix)
