@@ -26,6 +26,7 @@
     self.overlays.packages
     self.overlays.yuzu
     (import ../overlays/default.nix)
+    (import ../overlays/lix.nix)
   ];
 
   perSystem =
