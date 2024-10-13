@@ -63,16 +63,21 @@
   #   themePackages = [ pkgs.steamdeck-hw-theme ];
   # };
 
+  # See `nixos/modules/services/desktop-managers/plasma6.nix` optionalPackages for excludePackages
   # services.desktopManager.plasma6.enable = true;
   # environment.plasma6.excludePackages = with pkgs.kdePackages; [
+  #   plasma-browser-integration
   #   ark
   #   elisa
   #   gwenview
-  #   kate
-  #   khelpcenter
   #   okular
-  #   plasma-browser-integration
-  #   print-manager
+  #   khelpcenter
+  #   baloo-widgets
+  #   dolphin-plugins
+  #   spectacle
+  #   ffmpegthumbs
+  #   krdp
+  #   xwaylandvideobridge
   # ];
   # jovian.steam.desktopSession = "plasma";
 
