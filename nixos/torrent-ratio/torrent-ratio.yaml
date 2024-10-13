@@ -6,6 +6,8 @@ default: &default
   percentstep: 0.02
   speed: 51200
   port: 24680
+  peerid: qB4650
+  useragent: qBittorrent/4.6.5
 
 high: &high
   <<: *default
@@ -38,7 +40,9 @@ bt.audionews.org:
 pt.skyey.win:
   <<: *default
   peerid: qB4190
+  useragent: qBittorrent/4.1.9
 
 probe.skyey2.com:
   <<: *default
   peerid: qB4190
+  useragent: qBittorrent/4.1.9
