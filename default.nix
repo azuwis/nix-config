@@ -11,12 +11,14 @@ let
   nixpkgs = self.defaultNix.inputs.nixpkgs.outPath;
   packages = import nixpkgs {
     overlays = [
-      # Update this if `flake.overlays.default` changed in `flakes/overlay.nix`.
-      # For `builtins.unsafeGetAttrPos "src"` to work in update.nix,
+      # For `builtins.unsafeGetAttrPos "src"` to work in scripts/update.nix,
       # `self.defaultNix.overlays.default` can not be used here.
+      # Update this if `flake.overlays.default` changed in `flakes/overlay.nix`.
+      self.defaultNix.inputs.agenix.overlays.default
       (import "${nixpkgs}/pkgs/top-level/by-name-overlay.nix" ./pkgs/by-name)
       self.defaultNix.overlays.yuzu
       (import ./overlays/default.nix)
+      (import ./overlays/lix.nix)
     ];
   };
 in
