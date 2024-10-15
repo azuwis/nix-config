@@ -13,12 +13,19 @@ if [ -z "$to" ]; then
   to="@-"
 fi
 
-night=$(date +%s --date=19:00:00)
-new=$((RANDOM % 7200 + 120 + night - 86400))
+last=$(jj log --color never --no-graph --limit 1 --template 'committer.timestamp().format("%s")' --revisions "roots(${from}..${to})-")
+
+night="$(date +%s --date=19:00:00)"
+new="$((night - 86400))"
+mod=7200
+if [ -n "$last" ] && [ "$last" -gt "$new" ] && [ "$last" -le "$((night - 68400))" ]; then
+  new="$last"
+  mod=600
+fi
 
 while read -r rev; do
+  new="$((RANDOM % mod + 120 + new))"
   JJ_TIMESTAMP="$(date -Iseconds --date=@"$new")" jj describe --reset-author --no-edit "$rev"
-  new="$((RANDOM % 600 + 120 + new))"
 done < <(jj log --no-graph --reversed --template 'change_id ++ "\n"' --revisions "${from}..${to}")
 
 echo
