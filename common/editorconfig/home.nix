@@ -26,9 +26,9 @@ in
       };
     };
     # `toINIWithGlobalSection` will escape `[shell]` to `\[shell\]`, use home.file.<name>.txt here
-    # man shfmt
     home.file.".editorconfig".text = ''
-      [shell]
+      # man shfmt
+      [[shell]]
       indent_style = space
       indent_size = 2
       max_line_length = 120
