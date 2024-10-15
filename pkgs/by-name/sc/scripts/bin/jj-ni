@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+jj op log --limit 1
+echo
+
 from=$1
 if [ -z "$from" ]; then
   from="immutable_heads()"
