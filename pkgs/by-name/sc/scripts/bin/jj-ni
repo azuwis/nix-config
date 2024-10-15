@@ -2,7 +2,7 @@
 
 from=$1
 if [ -z "$from" ]; then
-  from="immutable_heads()+"
+  from="immutable_heads()"
 fi
 
 to=$2
@@ -16,7 +16,7 @@ new=$((RANDOM % 7200 + 120 + night - 86400))
 while read -r rev; do
   JJ_TIMESTAMP="$(date -Iseconds --date=@"$new")" jj describe --reset-author --no-edit "$rev"
   new="$((RANDOM % 600 + 120 + new))"
-done < <(jj log --no-graph --reversed --template 'change_id ++ "\n"' --revisions "${from}::${to}")
+done < <(jj log --no-graph --reversed --template 'change_id ++ "\n"' --revisions "${from}..${to}")
 
 echo
-jj log --revisions "${from}-::${to}"
+jj log --revisions "${from}-..${to}"
