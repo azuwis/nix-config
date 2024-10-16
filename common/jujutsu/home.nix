@@ -15,6 +15,8 @@ in
   };
 
   config = mkIf cfg.enable {
+    my.lazyvim.jujutsu.enable = true;
+
     programs.jujutsu = {
       enable = true;
       settings = {
@@ -75,7 +77,14 @@ in
         templates = {
           log = "log_custom";
         };
-        ui.default-command = "log";
+        ui = {
+          default-command = "log";
+          diff-editor = [
+            "nvim"
+            "-c"
+            "DiffEditor $left $right $output"
+          ];
+        };
         user = {
           inherit (config.my) email name;
         };
