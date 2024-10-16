@@ -47,6 +47,12 @@ let
       python3Packages = lib.mapAttrs' (
         name: _: lib.nameValuePair ("python3Packages." + name) pkgs.python3Packages.${name}
       ) python3Attrs;
+      vimPackages = lib.mapAttrs' (name: value: lib.nameValuePair ("vimPlugins." + name) value) (
+        lib.packagesFromDirectoryRecursive {
+          inherit (pkgs) callPackage;
+          directory = ../pkgs/vim;
+        }
+      );
     in
     lib.filterAttrs
       (
@@ -57,6 +63,7 @@ let
         topLevelPackages
         // lib.optionalAttrs (topLevelAttrs ? lua) luaPackages
         // lib.optionalAttrs (topLevelAttrs ? python3) python3Packages
+        // lib.optionalAttrs (topLevelAttrs ? vimPlugins) vimPackages
       );
 
   packageByName =
