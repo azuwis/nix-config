@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+finish() {
+  echo
+  jj log --revisions "${from}-..${to}"
+  exit
+}
+
 jj op log --limit 1
 echo
 
@@ -11,6 +17,21 @@ fi
 to=$2
 if [ -z "$to" ]; then
   to="@-"
+fi
+
+if [ -z "$1" ]; then
+  new_from=""
+  while read -r hour rev; do
+    if [ "$hour" -lt 19 ]; then
+      new_from="${rev}-"
+      break
+    fi
+  done < <(jj log --no-graph --reversed --template 'committer.timestamp().format("%-H") ++ " " ++ change_id ++ "\n"' --revisions "${from}..${to}")
+  if [ -n "$new_from" ]; then
+    from="$new_from"
+  else
+    finish
+  fi
 fi
 
 last=$(jj log --color never --no-graph --limit 1 --template 'committer.timestamp().format("%s")' --revisions "roots(${from}..${to})-")
@@ -29,5 +50,4 @@ while read -r rev; do
   mod=600
 done < <(jj log --no-graph --reversed --template 'change_id ++ "\n"' --revisions "${from}..${to}")
 
-echo
-jj log --revisions "${from}-..${to}"
+finish
