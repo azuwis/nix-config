@@ -26,6 +26,7 @@ fi
 while read -r rev; do
   new="$((RANDOM % mod + 120 + new))"
   JJ_TIMESTAMP="$(date -Iseconds --date=@"$new")" jj describe --reset-author --no-edit "$rev"
+  mod=600
 done < <(jj log --no-graph --reversed --template 'change_id ++ "\n"' --revisions "${from}..${to}")
 
 echo
