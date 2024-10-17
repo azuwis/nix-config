@@ -54,7 +54,6 @@
   };
 
   hm.my.jslisten.enable = true;
-  hm.my.jujutsu.enable = true;
 
   environment.systemPackages = with pkgs; [
     (runCommand "yuzu" { buildInputs = [ makeWrapper ]; } ''
