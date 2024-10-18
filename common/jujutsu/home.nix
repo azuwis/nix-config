@@ -23,8 +23,9 @@ in
         aliases = {
           ld = [
             "log"
+            "--stat"
             "--template"
-            "log_detailed"
+            "builtin_log_detailed"
           ];
           ls = [
             "log"
@@ -71,7 +72,6 @@ in
               )
             )
           '';
-          log_detailed = ''concat(builtin_log_detailed, diff.stat(120), "\n")'';
           log_stat = "concat(builtin_log_compact, diff.summary())";
         };
         templates = {
