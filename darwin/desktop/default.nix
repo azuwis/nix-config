@@ -19,6 +19,7 @@ in
 
     # my.emacs.enable = true;
     my.firefox.enable = true;
+    # my.hammerspoon.enable = true;
     my.rime.enable = true;
   };
 }
