@@ -27,6 +27,7 @@
     cmakeFlags = old.cmakeFlags ++ [
       (lib.cmakeFeature "BOOST_USE_STATIC" "OFF")
       (lib.cmakeFeature "BUILD_DOCS" "OFF")
+      (lib.cmakeFeature "CUDA_FAIL_ON_MISSING" "OFF")
     ];
 
     passthru.updateScript = nix-update-script {
