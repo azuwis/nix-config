@@ -16,7 +16,7 @@ fi
 
 to=$2
 if [ -z "$to" ]; then
-  to="@-"
+  to="@"
 fi
 
 if [ -z "$1" ]; then
