@@ -21,38 +21,34 @@ let
       pkgsWithoutOverlay = import nixpkgs { };
       byNameAttrs = pkgs.overlays.packages null null;
       topLevelAttrs = pkgs.overlays.default null null;
-      luaAttrs =
-        (pkgs.overlays.default pkgs {
-          lua.override = { packageOverrides }: packageOverrides;
-        }).lua
-          null
-          null;
-      python3Attrs =
-        (pkgs.overlays.default pkgs {
-          python3.override = { packageOverrides }: packageOverrides;
-        }).python3
-          null
-          null;
       topLevelPackages = builtins.mapAttrs (
         name: _:
         lib.warnIf (
           builtins.hasAttr name pkgsWithoutOverlay
           && builtins.hasAttr name byNameAttrs
           && name != "_internalCallByNamePackageFile"
-        ) "${name} already exists in nixpkgs" pkgs.${name}
+        ) "pkgs.${name} already" pkgs.${name}
       ) topLevelAttrs;
-      luaPackages = lib.mapAttrs' (
-        name: _: lib.nameValuePair ("luaPackages." + name) pkgs.luaPackages.${name}
-      ) luaAttrs;
-      python3Packages = lib.mapAttrs' (
-        name: _: lib.nameValuePair ("python3Packages." + name) pkgs.python3Packages.${name}
-      ) python3Attrs;
-      vimPackages = lib.mapAttrs' (name: value: lib.nameValuePair ("vimPlugins." + name) value) (
-        lib.packagesFromDirectoryRecursive {
-          inherit (pkgs) callPackage;
-          directory = ../pkgs/vim;
-        }
-      );
+      mkPkgSet =
+        pkgSetName: directory:
+        lib.mapAttrs'
+          (
+            name: value:
+            lib.nameValuePair ("${pkgSetName}." + name) (
+              lib.warnIf (builtins.hasAttr name
+                pkgsWithoutOverlay.${pkgSetName}
+              ) "pkgs.${pkgSetName}.${name} already exists" pkgs.${pkgSetName}.${name}
+            )
+          )
+          (
+            lib.packagesFromDirectoryRecursive {
+              callPackage = null;
+              inherit directory;
+            }
+          );
+      luaPackages = mkPkgSet "luaPackages" ../pkgs/lua;
+      python3Packages = mkPkgSet "python3Packages" ../pkgs/python;
+      vimPackages = mkPkgSet "vimPlugins" ../pkgs/vim;
     in
     lib.filterAttrs
       (
