@@ -2,17 +2,17 @@
 
 yambar.overrideAttrs (old: {
   pname = "yambar-git";
-  version = "1.11.0-unstable-2024-09-30";
+  version = "1.11.0-unstable-2024-10-24";
 
   # yambar crash, https://codeberg.org/dnkl/yambar/issues/300
   # tag: add '/N' formatter, https://codeberg.org/dnkl/yambar/pulls/403
   # Add niri-workspaces and niri-language modules https://codeberg.org/dnkl/yambar/pulls/405
   src = old.src.override {
-    rev = "b9b82d3876ca9b740affe20191cd84801181e9c0";
-    hash = "sha256-tOjlRzQKg+rAso/COqiLTyLmLbhzffRBfSgJLLdW+gc=";
+    rev = "0a698558526d60997ae615b640826c003b5e95ce";
+    hash = "sha256-IHJgblYwCfhqSzM9C/PalK4xNmV0usWgGaHGDIQUVAg=";
   };
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch=b9b82d3876ca9b740affe20191cd84801181e9c0" ];
+    extraArgs = [ "--version=branch=pull/405/head" ];
   };
 })
