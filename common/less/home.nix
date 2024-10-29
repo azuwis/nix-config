@@ -15,12 +15,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    programs.less = {
-      enable = true;
-      keys = ''
-        #env
-        LESS = --RAW-CONTROL-CHARS --no-init --quit-if-one-screen --shift 5
-      '';
-    };
+    home.sessionVariables.LESS = "-RX#5";
   };
 }
