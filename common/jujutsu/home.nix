@@ -84,6 +84,7 @@ in
             "-c"
             "DiffEditor $left $right $output"
           ];
+          diff-instructions = false;
           pager = "less -FRX";
         };
         user = {
