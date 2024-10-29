@@ -66,7 +66,7 @@ in
                       description.first_line(),
                       if(empty, label("empty", description_placeholder), diff.summary()),
                     ),
-                  ) ++ if(description, "\n"),
+                  ),
                 ),
               )
             )
