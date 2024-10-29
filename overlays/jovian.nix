@@ -1,13 +1,9 @@
 final: prev: {
   # https://github.com/Jovian-Experiments/Jovian-NixOS/pull/376
-  steamPackages = prev.steamPackages.overrideScope (
-    steamfinal: steamprev: {
-      steam-fhsenv = steamprev.steam-fhsenv.override (old: {
-        extraPkgs =
-          pkgs: (if old ? extraPkgs then old.extraPkgs pkgs else [ ]) ++ [ pkgs.noto-fonts-cjk-sans ];
-      });
-    }
-  );
+  steam = prev.steam.override (old: {
+    extraPkgs =
+      pkgs: (if old ? extraPkgs then old.extraPkgs pkgs else [ ]) ++ [ pkgs.noto-fonts-cjk-sans ];
+  });
 
   # Workaround for vimPlugins.* not in jovia/nixpkgs yet.
   # Remove it when jovian upgrades next time.
