@@ -208,29 +208,6 @@
         "type": "github"
       }
     },
-    "lib-aggregate": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs-lib": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1730031145,
-        "narHash": "sha256-GZz0LGkeduajnF7zUuPu5evNyoOATcSsRZCkG1OqiwY=",
-        "owner": "nix-community",
-        "repo": "lib-aggregate",
-        "rev": "7d235f23a84b54c39b1579b68b13e1ff83f5b1ad",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "lib-aggregate",
-        "type": "github"
-      }
-    },
     "my": {
       "locked": {
         "lastModified": 1724575839,
@@ -282,33 +259,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-wayland": {
-      "inputs": {
-        "flake-compat": [
-          "flake-compat"
-        ],
-        "lib-aggregate": [
-          "lib-aggregate"
-        ],
-        "nix-eval-jobs": [],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1730229503,
-        "narHash": "sha256-SYFUfTXsDeIK3q7fy6SrZ1v+lVQrEmZaKc1fpp4wuBQ=",
-        "owner": "nix-community",
-        "repo": "nixpkgs-wayland",
-        "rev": "d3bb51e62dd4a31c7cfea0f1ad511e53774a79fe",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "nixpkgs-wayland",
-        "type": "github"
-      }
-    },
     "nvidia-patch": {
       "flake": false,
       "locked": {
@@ -356,11 +306,9 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "jovian": "jovian",
-        "lib-aggregate": "lib-aggregate",
         "my": "my",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-wayland": "nixpkgs-wayland",
         "nvidia-patch": "nvidia-patch",
         "openwrt-imagebuilder": "openwrt-imagebuilder",
         "systems": "systems",

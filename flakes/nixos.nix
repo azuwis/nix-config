@@ -30,7 +30,6 @@ in
     nuc = mkNixos { modules = [ ../hosts/nuc.nix ]; };
 
     office = mkNixos {
-      overlays = [ inputs.nixpkgs-wayland.overlay ];
       modules = [ ../hosts/office.nix ];
     };
 

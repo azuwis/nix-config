@@ -50,13 +50,6 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-    lib-aggregate = {
-      url = "github:nix-community/lib-aggregate";
-      inputs = {
-        flake-utils.follows = "flake-utils";
-        nixpkgs-lib.follows = "nixpkgs";
-      };
-    };
     my = {
       url = "git+ssh://nuc/~/repo/my";
     };
@@ -66,15 +59,6 @@
     };
     nixpkgs = {
       url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    };
-    nixpkgs-wayland = {
-      url = "github:nix-community/nixpkgs-wayland";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "flake-compat";
-        lib-aggregate.follows = "lib-aggregate";
-        nix-eval-jobs.follows = "";
-      };
     };
     nvidia-patch = {
       url = "github:keylase/nvidia-patch";
