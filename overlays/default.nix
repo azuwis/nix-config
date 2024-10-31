@@ -3,15 +3,15 @@
 final: prev: {
   # override
   # https://github.com/NixOS/nixpkgs/issues/267536
-  borgbackup = prev.borgbackup.overrideAttrs (
-    old:
-    final.lib.optionalAttrs (final.stdenv.isDarwin && final.stdenv.isx86_64) {
-      disabledTests = (old.disabledTests or [ ]) ++ [
-        "test_overwrite"
-        "test_sparse_file"
-      ];
-    }
-  );
+  # borgbackup = prev.borgbackup.overrideAttrs (
+  #   old:
+  #   final.lib.optionalAttrs (final.stdenv.isDarwin && final.stdenv.isx86_64) {
+  #     disabledTests = (old.disabledTests or [ ]) ++ [
+  #       "test_overwrite"
+  #       "test_sparse_file"
+  #     ];
+  #   }
+  # );
 
   # cemu = prev.cemu.overrideAttrs (old: {
   #   postPatch = (old.postPatch or "") + ''
