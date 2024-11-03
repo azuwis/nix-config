@@ -85,7 +85,6 @@ in
             "DiffEditor $left $right $output"
           ];
           diff-instructions = false;
-          pager = "less -FRX";
         };
         user = {
           inherit (config.my) email name;
