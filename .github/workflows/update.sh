@@ -40,20 +40,23 @@ update_package() {
     git checkout "$update_branch"
     git clean -df
     if ! git merge-base --is-ancestor "$default_branch" "$update_branch"; then
+      echo "New commits in $default_branch, reset and try to cherry-pick the PR"
       git reset --hard "$default_branch"
       git cherry-pick "origin/$update_branch" || git cherry-pick --abort
     fi
     if try_update "$package"; then
-      echo "Upstream newer than the PR, reset the branch and update again"
+      echo "Upstream package is newer than the PR, reset to $default_branch and update again"
       git reset --hard "$default_branch"
       if try_update "$package"; then
-        echo "::notice::Update $package success, update the PR"
+        echo "::notice::$package: Update package succeeded, update the PR"
         gh pr edit "$update_branch" --title "$(git show -s --format=%B)" --body "$(generate_body "$package")"
+        gh pr comment "$update_branch" --body "Update package succeeded."
       fi
     fi
     if [ "$(git rev-parse HEAD)" = "$(git rev-parse "$default_branch")" ]; then
-      echo "::notice::PR seems cherry-picked in $default_branch, close the PR and delete $update_branch"
+      echo "::notice::$package: Close the PR, seems cherry-picked in $default_branch."
       git push --delete origin "$update_branch"
+      gh pr comment "$update_branch" --body "Close, seems cherry-picked in $default_branch."
     else
       git push --force origin "$update_branch"
     fi
@@ -62,12 +65,13 @@ update_package() {
     git checkout -B "$update_branch" "$default_branch"
     git clean -df
     if try_update "$package"; then
-      echo "::notice::Update $package success, create PR"
+      echo "::notice::$package: Update package succeeded, create PR"
       git push --force origin "$update_branch"
       gh pr create --title "$(git show -s --format=%B)" --body "$(generate_body "$package")"
-      echo "Force push to trigger 'on pull_requst'"
+      echo "Force push to trigger CI"
       git commit --amend --no-edit
       git push --force origin "$update_branch"
+      gh pr comment "$update_branch" --body "Force push to trigger CI."
     fi
   fi
 
