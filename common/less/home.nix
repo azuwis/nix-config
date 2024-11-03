@@ -16,5 +16,6 @@ in
 
   config = mkIf cfg.enable {
     home.sessionVariables.LESS = "-RX#5";
+    home.sessionVariables.PAGER = "less -FRX#5";
   };
 }
