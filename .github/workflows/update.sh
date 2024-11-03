@@ -49,16 +49,17 @@ update_package() {
       git reset --hard "$default_branch"
       if try_update "$package"; then
         echo "::notice::$package: Update package succeeded, update the PR"
+        git push --force origin "$update_branch"
         gh pr edit "$update_branch" --title "$(git show -s --format=%B)" --body "$(generate_body "$package")"
         gh pr comment "$update_branch" --body "Update package succeeded."
       fi
-    fi
-    if [ "$(git rev-parse HEAD)" = "$(git rev-parse "$default_branch")" ]; then
+    elif [ "$(git rev-parse HEAD)" = "$(git rev-parse "$default_branch")" ]; then
       echo "::notice::$package: Close the PR, seems cherry-picked in $default_branch."
       git push --delete origin "$update_branch"
       gh pr comment "$update_branch" --body "Close, seems cherry-picked in $default_branch."
-    else
+    elif [ "$(git rev-parse HEAD)" != "$(git rev-parse "origin/$update_branch")" ]; then
       git push --force origin "$update_branch"
+      echo "PR cherry-picked to current $default_branch"
     fi
   else
     echo "PR not exists"
