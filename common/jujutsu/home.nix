@@ -85,6 +85,7 @@ in
             "DiffEditor $left $right $output"
           ];
           diff-instructions = false;
+          diff.format = "git";
         };
         user = {
           inherit (config.my) email name;
