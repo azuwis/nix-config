@@ -27,7 +27,7 @@ let
           builtins.hasAttr name pkgsWithoutOverlay
           && builtins.hasAttr name byNameAttrs
           && name != "_internalCallByNamePackageFile"
-        ) "pkgs.${name} already" pkgs.${name}
+        ) "pkgs.${name} already exists" pkgs.${name}
       ) topLevelAttrs;
       mkPkgSet =
         pkgSetName: directory:
