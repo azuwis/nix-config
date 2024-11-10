@@ -10,28 +10,29 @@ on:
       debug:
         description: Enable debug
         type: boolean
-        required: false
         default: false
       os:
-        description: Debug OS
-        required: true
+        description: OS to run
         type: choice
-        options: [ubuntu-latest, macos-latest, all]
+        options: 
+          - linux
+          - darwin
+          - all
+        default: linux
 jobs:
   build:
     if: startsWith(github.head_ref, 'update/')
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: >-
+          ${{ fromJSON(
+            inputs.os == 'linux' && '["ubuntu-latest"]' || (
+            inputs.os == 'darwin' && '["macos-latest"]' || (
+            '["ubuntu-latest", "macos-latest"]'
+          ))) }}
     runs-on: ${{ matrix.os }}
     steps:
-      - name: Skip debug
-        if: >-
-          ${{ github.event_name == 'workflow_dispatch' && inputs.debug && !
-              (inputs.os == matrix.os || inputs.os == 'all')
-          }}
-        run: exit 1
       - uses: actions/cache/restore@v4
         id: skip
         with:

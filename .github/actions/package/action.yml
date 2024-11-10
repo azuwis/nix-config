@@ -5,7 +5,6 @@ inputs:
     required: true
   debug:
     description: Enable debug
-    required: false
     default: false
 runs:
   using: composite
