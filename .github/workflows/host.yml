@@ -51,6 +51,7 @@ jobs:
             '["nuc", "steamdeck", "droid", "mbp"]'
           ))))) }}
         exclude:
+          - {os: ubuntu-latest, host: mbp}
           - {os: macos-latest, host: nuc}
           - {os: macos-latest, host: steamdeck}
           - {os: macos-latest, host: droid}
