@@ -12,30 +12,50 @@ on:
       debug:
         description: Enable debug
         type: boolean
-        required: false
         default: false
       os:
-        description: Debug OS
-        required: true
+        description: OS to run
         type: choice
-        options: [ubuntu-latest, macos-latest, all]
+        options: 
+          - linux
+          - darwin
+          - all
+        default: linux
+      host:
+        description: Host to build
+        type: choice
+        options: 
+          - nuc
+          - steamdeck
+          - droid
+          - mbp
+          - all
+        default: nuc
 jobs:
   build:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest]
-        host: [droid, nuc, steamdeck]
-        include:
-          - {os: macos-latest, host: mbp}
+        os: >-
+          ${{ fromJSON(
+            inputs.os == 'linux' && '["ubuntu-latest"]' || (
+            inputs.os == 'darwin' && '["macos-latest"]' || (
+            '["ubuntu-latest", "macos-latest"]'
+          ))) }}
+        host: >-
+          ${{ fromJSON(
+            inputs.host == 'nuc' && '["nuc"]' || (
+            inputs.host == 'steamdeck' && '["steamdeck"]' || (
+            inputs.host == 'droid' && '["droid"]' || (
+            inputs.host == 'mbp' && '["mbp"]' || (
+            '["nuc", "steamdeck", "droid", "mbp"]'
+          ))))) }}
+        exclude:
+          - {os: macos-latest, host: nuc}
+          - {os: macos-latest, host: steamdeck}
+          - {os: macos-latest, host: droid}
     runs-on: ${{ matrix.os }}
     steps:
-      - name: Skip debug
-        if: >-
-          ${{ github.event_name == 'workflow_dispatch' && inputs.debug && !
-              ((inputs.os == 'all' || inputs.os == matrix.os) && (matrix.host == 'nuc' || matrix.host == 'test'))
-          }}
-        run: exit 1
       - uses: actions/checkout@v4
       - uses: azuwis/actions/nix@main
         with:
