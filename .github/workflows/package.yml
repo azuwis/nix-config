@@ -19,9 +19,13 @@ on:
           - darwin
           - all
         default: linux
+      package:
+        description: Package to build
+        type: string
+        required: false
 jobs:
   build:
-    if: startsWith(github.head_ref, 'update/')
+    if: ${{ startsWith(github.head_ref, 'update/') || inputs.package }}
     strategy:
       fail-fast: false
       matrix:
@@ -33,10 +37,14 @@ jobs:
           ))) }}
     runs-on: ${{ matrix.os }}
     steps:
+      - id: package
+        env:
+          PACKAGE: ${{ inputs.package }}
+        run: echo "package=${PACKAGE:-${GITHUB_HEAD_REF#update/}}" >> "$GITHUB_OUTPUT"
       - uses: actions/cache/restore@v4
         id: skip
         with:
-          key: package-skip-build-${{ github.head_ref }}-${{ runner.os }}-${{ runner.arch }}
+          key: package-skip-build-${{ steps.package.outputs.package }}-${{ runner.os }}-${{ runner.arch }}
           path: ~/package-skip-build
       - run: echo "::notice::Early skip build from cache"
         if: ${{ steps.skip.outputs.cache-hit == 'true' }}
@@ -45,5 +53,6 @@ jobs:
       - uses: ./.github/actions/package
         if: ${{ steps.skip.outputs.cache-hit != 'true' }}
         with:
-          debug: ${{ inputs.debug }}
           cachix_auth_token: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          debug: ${{ inputs.debug }}
+          package: ${{ steps.package.outputs.package }}
