@@ -23,13 +23,7 @@ on:
       debug:
         description: Enable debug
         type: boolean
-        required: false
         default: false
-      os:
-        description: Debug OS
-        required: true
-        type: choice
-        options: [ubuntu-latest, all]
 jobs:
   update:
     strategy:
@@ -38,12 +32,6 @@ jobs:
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - name: Skip debug
-        if: >-
-          ${{ github.event_name == 'workflow_dispatch' && inputs.debug && !
-              (inputs.os == matrix.os || inputs.os == 'all')
-          }}
-        run: exit 1
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
