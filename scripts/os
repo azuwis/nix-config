@@ -31,7 +31,7 @@ USAGE:
   $cmd hardware
   $cmd l|list
   $cmd s|switch
-  $cmd u|update [<input>] [<commit>]
+  $cmd u|update [-a] [<input>] [<commit>]
   $cmd <darwin-rebuild/nix-on-droid/nixos-rebuild args>
 EOF
 }
@@ -133,12 +133,20 @@ update() {
   args=(update)
   if [ -n "$1" ]; then
     input="$1"
-    if nix --version | grep -qF Lix; then
-      args=(update "$input")
+    if [ "$input" = "-a" ]; then
+      shift
+      if [ -n "$1" ]; then
+        input="$1"
+        shift
+      fi
     else
-      args=(lock --update-input "$input")
+      if nix --version | grep -qF Lix; then
+        args=(update "$input")
+      else
+        args=(lock --update-input "$input")
+      fi
+      shift
     fi
-    shift
   fi
   if [ -n "$1" ]; then
     url=$(nix eval --raw --file flake.nix "inputs.$input.url")
