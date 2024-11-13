@@ -36,6 +36,11 @@ USAGE:
 EOF
 }
 
+run() {
+  >&2 echo "$ $*"
+  "$@"
+}
+
 build() {
   local args diff hostname nix profile
 
@@ -74,16 +79,16 @@ build() {
   nixos) args+=("$FLAKE#nixosConfigurations.\"$hostname\".config.system.build.toplevel") ;;
   esac
 
-  BUILT=$("${nix[@]}" build --no-link --print-out-paths "${args[@]}" "$@")
+  BUILT=$(run "${nix[@]}" build --no-link --print-out-paths "${args[@]}" "$@")
 
   if [ -e "$SYSTEM" ]; then
     if [ "$SYSTEM" = "$BUILT" ]; then
       echo "build-result == current-system"
     else
-      nix run nixpkgs#nvd -- diff "$SYSTEM" "$BUILT"
+      run nix run nixpkgs#nvd -- diff "$SYSTEM" "$BUILT"
 
       if [ "$diff" = yes ]; then
-        nix run nixpkgs#nix-diff -- --character-oriented "$SYSTEM" "$BUILT"
+        run nix run nixpkgs#nix-diff -- --character-oriented "$SYSTEM" "$BUILT"
       fi
     fi
   fi
@@ -102,13 +107,13 @@ clean() {
 droid_switch() {
   # It seems nix eval cache does not work on nix-on-droid,
   # directly call activate script to avoid eval again
-  "$BUILT/activate"
+  run "$BUILT/activate"
 }
 
 hardware() {
   test -e /etc/NIXOS || exit
   # shellcheck disable=SC2024
-  sudo nixos-generate-config --show-hardware-config >"$FLAKE/hosts/hardware-$(hostname).nix"
+  run sudo nixos-generate-config --show-hardware-config >"$FLAKE/hosts/hardware-$(hostname).nix"
 }
 
 rebuild() {
@@ -124,7 +129,7 @@ rebuild() {
     cmd=(nixos-rebuild --flake "$FLAKE" --fast --use-remote-sudo)
     ;;
   esac
-  "${cmd[@]}" "$@"
+  run "${cmd[@]}" "$@"
 }
 
 update() {
@@ -162,7 +167,7 @@ update() {
     args+=(--override-input "$input" "$url")
     shift
   fi
-  nix flake "${args[@]}" "$@"
+  run nix flake "${args[@]}" "$@"
   popd
 }
 
