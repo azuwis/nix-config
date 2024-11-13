@@ -133,7 +133,7 @@ rebuild() {
 }
 
 update() {
-  pushd "$FLAKE"
+  pushd "$FLAKE" >/dev/null
   local args
   args=(update)
   if [ -n "$1" ]; then
@@ -168,7 +168,7 @@ update() {
     shift
   fi
   run nix flake "${args[@]}" "$@"
-  popd
+  popd >/dev/null
 }
 
 ask=no
