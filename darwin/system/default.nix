@@ -15,6 +15,7 @@
   nix.settings = {
     allowed-users = [ config.my.user ];
     extra-platforms = [ "x86_64-darwin" ];
+    sandbox = "relaxed";
   };
   launchd.daemons.activate-system.script = lib.mkOrder 0 ''
     wait4path /nix/store
