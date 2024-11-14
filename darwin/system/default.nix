@@ -12,10 +12,10 @@
     LC_ALL = "en_US.UTF-8";
   };
   fonts.packages = with pkgs; [ jetbrains-mono-nerdfont ];
-  nix.settings.allowed-users = [ config.my.user ];
-  nix.extraOptions = ''
-    extra-platforms = x86_64-darwin
-  '';
+  nix.settings = {
+    allowed-users = [ config.my.user ];
+    extra-platforms = [ "x86_64-darwin" ];
+  };
   launchd.daemons.activate-system.script = lib.mkOrder 0 ''
     wait4path /nix/store
   '';
