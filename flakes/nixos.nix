@@ -29,8 +29,8 @@ in
   flake.nixosConfigurations = {
     nuc = mkNixos { modules = [ ../hosts/nuc.nix ]; };
 
-    office = mkNixos {
-      modules = [ ../hosts/office.nix ];
+    tuf = mkNixos {
+      modules = [ ../hosts/tuf.nix ];
     };
 
     steamdeck = mkNixos {

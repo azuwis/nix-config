@@ -6,10 +6,10 @@
 }:
 
 {
-  imports = [ ./hardware-office.nix ];
+  imports = [ ./hardware-tuf.nix ];
   boot.supportedFilesystems = [ "ntfs" ];
   # powerManagement.cpuFreqGovernor = "performance";
-  networking.hostName = "office";
+  networking.hostName = "tuf";
 
   my.cemu.enable = true;
   my.desktop.enable = true;

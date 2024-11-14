@@ -20,7 +20,7 @@ run() {
 }
 
 if command -v moonlight >/dev/null; then
-  run Moonlight moonlight stream office BotW
+  run Moonlight moonlight stream tuf BotW
 else
   run Cemu cemu --fullscreen --title-id 00050000101c9300
 fi
