@@ -9,7 +9,7 @@
   # csrutil enable --without fs --without debug --without nvram
   # nvram boot-args=-arm64e_preview_abi
   environment.etc."sudoers.d/yabai".text = ''
-    ${config.my.user} ALL = (root) NOPASSWD: ${pkgs.yabai}/bin/yabai --load-sa
+    ${config.my.user} ALL = (root) NOPASSWD: ${config.services.yabai.package}/bin/yabai --load-sa
   '';
 
   services.yabai = {
@@ -65,10 +65,10 @@
 
   system.activationScripts.preActivation.text = ''
     ${pkgs.sqlite}/bin/sqlite3 '/Library/Application Support/com.apple.TCC/TCC.db' \
-      "INSERT or REPLACE INTO access(service,client,client_type,auth_value,auth_reason,auth_version) VALUES('kTCCServiceAccessibility','${pkgs.yabai}/bin/yabai',1,2,4,1);"
+      "INSERT or REPLACE INTO access(service,client,client_type,auth_value,auth_reason,auth_version) VALUES('kTCCServiceAccessibility','${config.services.yabai.package}/bin/yabai',1,2,4,1);"
   '';
   system.activationScripts.postActivation.text = ''
     ${pkgs.sqlite}/bin/sqlite3 '/Library/Application Support/com.apple.TCC/TCC.db' \
-      "DELETE from access where client_type = 1 and client != '${pkgs.yabai}/bin/yabai' and client like '%/bin/yabai';"
+      "DELETE from access where client_type = 1 and client != '${config.services.yabai.package}/bin/yabai' and client like '%/bin/yabai';"
   '';
 }
