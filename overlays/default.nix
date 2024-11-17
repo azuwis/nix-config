@@ -46,26 +46,22 @@ final: prev: {
   };
   luaPackages = final.lua.pkgs;
 
-  # https://github.com/NixOS/nixpkgs/issues/320900
-  # https://github.com/NixOS/nixpkgs/issues/327836
   # https://github.com/NixOS/nixpkgs/pull/79344
-  mpv-unwrapped = prev.mpv-unwrapped.override {
-    # For `--vo=gpu-next` on macOS, useful for DobbyVision 10bit videos
-    vulkanSupport = true;
-    inherit
-      (import
-        (builtins.fetchTarball {
-          # nixpkgs-24.05-darwin
-          url = "https://github.com/NixOS/nixpkgs/archive/ced0da1e7e7d50f1352bc6bdd25af8ae55eb3934.tar.gz";
-          sha256 = "01wqw1jsngicri7b09npg70xdzyrfq787kka9xx1q1h3p1jwnsag";
-        })
-        {
-          inherit (final.stdenv) system;
-        }
-      )
-      swift
-      ;
-  };
+  # mpv-unwrapped = prev.mpv-unwrapped.override {
+  #   inherit
+  #     (import
+  #       (builtins.fetchTarball {
+  #         # nixpkgs-24.05-darwin
+  #         url = "https://github.com/NixOS/nixpkgs/archive/ced0da1e7e7d50f1352bc6bdd25af8ae55eb3934.tar.gz";
+  #         sha256 = "01wqw1jsngicri7b09npg70xdzyrfq787kka9xx1q1h3p1jwnsag";
+  #       })
+  #       {
+  #         inherit (final.stdenv) system;
+  #       }
+  #     )
+  #     swift
+  #     ;
+  # };
 
   # https://github.com/Mic92/nix-update/pull/269
   # nix-update = prev.nix-update.overridePythonAttrs (old: {
