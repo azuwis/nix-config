@@ -172,8 +172,6 @@ in
       "csv"
       "jsonc"
       "regex"
-      # builtin `vimdoc` has error: vimdoc(highlights): .../query.lua:252: Query error at 2:4. Invalid node type "delimiter":
-      "vimdoc"
     ];
   };
 }
