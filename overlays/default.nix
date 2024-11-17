@@ -20,14 +20,14 @@ final: prev: {
   # });
 
   # https://github.com/intel/intel-vaapi-driver/pull/566
-  intel-vaapi-driver = prev.intel-vaapi-driver.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [
-      (final.fetchpatch {
-        url = "https://github.com/intel/intel-vaapi-driver/commit/4206d0e15363d188f30f2f3dbcc212fef206fc1d.patch";
-        hash = "sha256-unCnAGM36sRcW4inaN21IqVOhHY9YB+iJYGgdFCxWQ0=";
-      })
-    ];
-  });
+  # intel-vaapi-driver = prev.intel-vaapi-driver.overrideAttrs (old: {
+  #   patches = (old.patches or [ ]) ++ [
+  #     (final.fetchpatch {
+  #       url = "https://github.com/intel/intel-vaapi-driver/commit/4206d0e15363d188f30f2f3dbcc212fef206fc1d.patch";
+  #       hash = "sha256-unCnAGM36sRcW4inaN21IqVOhHY9YB+iJYGgdFCxWQ0=";
+  #     })
+  #   ];
+  # });
 
   # disable fcitx5-configtool
   qt6Packages = prev.qt6Packages.overrideScope (
