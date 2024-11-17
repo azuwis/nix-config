@@ -21,6 +21,8 @@ in
       shfmt
     ];
 
+    my.neovim.treesitterParsers = [ "bash" ];
+
     xdg.configFile."nvim/lua/plugins/bash.lua".source = ./spec.lua;
   };
 }
