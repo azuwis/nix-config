@@ -129,7 +129,7 @@ vimfx.addCommand({
     name: 'goto_addons',
     description: 'Addons',
 }, ({vim}) => {
-    vim.window.BrowserOpenAddonsMgr()
+    vim.window.switchToTabHavingURI('about:addons', true)
 })
 map(',a', 'goto_addons', true)
 
