@@ -30,6 +30,7 @@
     # yabai -m query --windows --space
     extraConfig = ''
       yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+      yabai -m signal --add event=system_woke action="pkill -x skhd"
       yabai -m rule --add app="^(Digital Color Meter|Finder|System Information|System Preferences|System Settings|Ryujinx|mpv)$" manage=off
       yabai -m rule --add app="^alacritty$" title="^Fzf$" manage=off
       yabai -m rule --add app="^(Firefox|Google Chrome|Safari)$" space=2
