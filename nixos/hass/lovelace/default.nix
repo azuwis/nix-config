@@ -563,13 +563,24 @@ in
                   };
                 }
                 {
+                  type = "state-icon";
+                  entity = "binary_sensor.0x00158d00028f9af8_contact";
+                  style = {
+                    top = "14.7%";
+                    left = "45.5%";
+                    # Reverse on/off color
+                    "--state-binary_sensor-active-color" = "var(--state-icon-color)";
+                    "--paper-item-icon-color" = "var(--amber-color)";
+                  };
+                }
+                {
                   type = "state-label";
                   entity = "climate.yeelink_v6_af1f_ptc_bath_heater";
                   attribute = "current_temperature";
                   suffix = "°C";
                   style = {
                     top = "14.7%";
-                    left = "45.5%";
+                    left = "53.5%";
                   };
                 }
                 # people
