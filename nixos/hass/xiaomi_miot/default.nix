@@ -17,6 +17,9 @@ in
   config = mkIf (cfg.enable && cfg.xiaomi_miot) {
     services.home-assistant.customComponents = [ pkgs.xiaomi_miot ];
 
+    # `"after_dependencies": ["homekit"]` in manifest.json
+    services.home-assistant.extraComponents = [ "homekit" ];
+
     services.home-assistant.config = {
       ffmpeg = { };
       logger.logs."custom_components.xiaomi_miot" = "critical";
