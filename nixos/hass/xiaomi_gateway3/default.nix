@@ -41,7 +41,6 @@ in
         "light.*_group".icon = "mdi:lightbulb";
       };
       shell_command.mijia_hub_init = mijia_hub_init;
-      zha = { };
       # logger.logs."custom_components.xiaomi_gateway3" = "debug";
     };
 
