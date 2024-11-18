@@ -63,6 +63,8 @@ in
 
     services.home-assistant = {
       enable = true;
+      # Override default value [ "default_config" "met" "esphome" ], may cause problem for onboarding
+      extraComponents = [ "default_config" ];
       extraPackages = ps: with ps; [ holidays ];
       # package = (pkgs.home-assistant.override {
       #   extraComponents = [
