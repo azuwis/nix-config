@@ -150,7 +150,7 @@ in
           from: "off"
           to:
             - ventilate
-          for: "01:00:00"
+          for: "00:30:00"
         action:
           - service: climate.turn_off
             data:
@@ -165,6 +165,46 @@ in
           - service: fan.turn_off
             data:
               entity_id: fan.yeelink_fancl5_e358_fan
+
+      - alias: Enable ventilate auto when door close
+        trigger:
+          platform: state
+          entity_id: binary_sensor.0x00158d00028f9af8_contact
+          from: "on"
+          to: "off"
+          for: "00:02:00"
+        action:
+          - service: automation.turn_on
+            data:
+              entity_id: automation.ventilate
+
+      - alias: Enable ventilate auto when approach
+        trigger:
+          platform: state
+          entity_id: sensor.dced8387eef4_action
+          attribute: action
+          from: "away"
+          to: "approach"
+          for: "00:05:00"
+        action:
+          - service: automation.turn_on
+            data:
+              entity_id: automation.ventilate
+
+      - alias: Ventilate
+        trigger:
+          platform: state
+          entity_id: binary_sensor.dced8387eef4_occupancy
+          from: "on"
+          to: "off"
+        action:
+          - service: climate.set_preset_mode
+            data:
+              entity_id: climate.yeelink_v6_af1f_ptc_bath_heater
+              preset_mode: Ventilate
+          - service: automation.turn_off
+            data:
+              entity_id: automation.ventilate
     '';
   };
 }
