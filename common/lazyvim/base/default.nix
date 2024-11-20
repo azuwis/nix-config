@@ -145,7 +145,7 @@ in
             },
             dev = {
               path = "${lazyPath}",
-              patterns = { "." },
+              patterns = { "" },
               fallback = true,
             },
             rocks = {
