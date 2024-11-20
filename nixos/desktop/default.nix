@@ -21,7 +21,7 @@ in
     my.niri.enable = true;
     my.sway.enable = true;
     my.theme.enable = true;
-    my.wayland.session = "niri-session";
+    my.wayland.session = "niri-session-custom";
     # my.wayland.session = "sway";
 
     environment.systemPackages = with pkgs; [
