@@ -191,13 +191,15 @@ in
 
     systemd.user.services.yambar = {
       Unit = {
-        PartOf = [ "graphical-session.target" ];
         After = [ "graphical-session.target" ];
+        ConditionEnvironment = [ "WAYLAND_DISPLAY" ];
+        PartOf = [ "graphical-session.target" ];
       };
 
       Service = {
         ExecStart = "${config.programs.yambar.package}/bin/yambar";
         Restart = "on-failure";
+        RestartSec = "1s";
       };
 
       Install = {
