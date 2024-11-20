@@ -27,9 +27,7 @@ in
   '';
 
   environment.packages = [
-    (pkgs.writeScriptBin "sshd-start" ''
-      #!${pkgs.runtimeShell}
-
+    (pkgs.writeShellScriptBin "sshd-start" ''
       echo "Starting sshd on port ${toString port}"
       ${pkgs.openssh}/bin/sshd
     '')
