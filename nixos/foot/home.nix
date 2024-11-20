@@ -19,7 +19,7 @@ in
       my.wayland.terminal = "footclient";
 
       home.packages = [
-        (pkgs.writeScriptBin "tmenu" ''
+        (pkgs.writeShellScriptBin "tmenu" ''
           ${config.programs.foot.package}/bin/foot --app-id tmenu --window-size-chars 50x10 "$@"
         '')
       ];
