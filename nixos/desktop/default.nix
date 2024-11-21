@@ -6,7 +6,7 @@
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf;
+  inherit (lib) mkDefault mkEnableOption mkIf;
   cfg = config.my.desktop;
 in
 {
@@ -21,7 +21,7 @@ in
     my.niri.enable = true;
     my.sway.enable = true;
     my.theme.enable = true;
-    my.wayland.session = "niri-session-custom";
+    my.wayland.session = mkDefault "niri-session-custom";
     # my.wayland.session = "sway";
 
     environment.systemPackages = with pkgs; [
