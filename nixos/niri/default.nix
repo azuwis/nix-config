@@ -16,7 +16,7 @@ let
   cfg = config.my.niri;
 
   # Modify from https://github.com/YaLTeR/niri/blob/main/resources/niri-session
-  # The original `systemctl --user --wait start niri.service` cause problem:
+  # The original `systemctl --user --wait start niri.service` cause problem with `my.sunshine.enable`:
   # ```
   # niri::backend::tty: using as the render node: "/dev/dri/renderD128"
   # niri::backend::tty: device added: 57857 "/dev/dri/card1"
