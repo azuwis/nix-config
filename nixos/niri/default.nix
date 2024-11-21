@@ -24,7 +24,7 @@ let
   # ```
   niri-session-custom = pkgs.writeShellScriptBin "niri-session-custom" ''
     systemctl --user reset-failed
-    /run/current-system/sw/bin/niri --session
+    niri --session
     systemctl --user stop niri-session.target
     systemctl --user unset-environment WAYLAND_DISPLAY XDG_SESSION_TYPE XDG_CURRENT_DESKTOP NIRI_SOCKET
   '';
