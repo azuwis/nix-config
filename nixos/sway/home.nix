@@ -114,7 +114,7 @@ in
             #   scroll_method = "edge";
             # };
           };
-          output."*".bg = "#2E3440 solid_color";
+          output."*".background = "${pkgs.wallpapers.default} fill #2E3440";
         };
         swaynag = {
           enable = true;
