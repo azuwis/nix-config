@@ -36,6 +36,7 @@ in
         enable = true;
         package = null;
         config = {
+          defaultWorkspace = "workspace number 1";
           terminal = config.my.wayland.terminal;
           # Apps
           # swaymsg -t get_tree | less
