@@ -37,8 +37,8 @@ in
   options.my.niri = {
     enable = mkEnableOption "niri";
     package = mkPackageOption pkgs "niri" { };
-    session = mkEnableOption "niri custom session" // {
-      default = true;
+    custom-session = mkEnableOption "niri custom session" // {
+      default = config.my.wayland.session == "niri-session-custom";
     };
   };
 
@@ -65,7 +65,7 @@ in
       };
     }
 
-    (mkIf cfg.session {
+    (mkIf cfg.custom-session {
       hm.my.niri.extraConfig = ''
         spawn-at-startup "systemctl" "--user" "start" "niri-session.target"
       '';
