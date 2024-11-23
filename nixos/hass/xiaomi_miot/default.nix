@@ -148,6 +148,7 @@ in
           platform: state
           entity_id: climate.yeelink_v6_af1f_ptc_bath_heater
           to:
+            - heat
             - ventilate
           for: "00:30:00"
         action:
