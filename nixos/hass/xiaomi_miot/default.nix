@@ -147,7 +147,6 @@ in
         trigger:
           platform: state
           entity_id: climate.yeelink_v6_af1f_ptc_bath_heater
-          from: "off"
           to:
             - ventilate
           for: "00:30:00"
@@ -170,7 +169,6 @@ in
         trigger:
           platform: state
           entity_id: binary_sensor.0x00158d00028f9af8_contact
-          from: "on"
           to: "off"
           for: "00:02:00"
         action:
@@ -183,7 +181,6 @@ in
           platform: state
           entity_id: sensor.dced8387eef4_action
           attribute: action
-          from: "away"
           to: "approach"
           for: "00:05:00"
         action:
