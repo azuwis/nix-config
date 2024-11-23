@@ -42,9 +42,20 @@
     #navigator-toolbox:focus-within > .browser-toolbar,
     #nav-bar:hover { margin: 0 0 0 0 !important; }
 
+    /* remove outline and shadow of main window */
     #tabbrowser-tabbox {
       outline: inherit !important;
       box-shadow: inherit !important;
+    }
+
+    /* remove new tab button */
+    #vertical-tabs-newtab-button {
+      display: none !important;
+    }
+
+    /* remove tabs from other deivces button */
+    moz-button[view="viewTabsSidebar"] {
+      display: none !important;
     }
   }
 }
