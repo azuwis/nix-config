@@ -15,8 +15,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    my.lazyvim.excludePlugins = with pkgs.vimPlugins; [ nvim-notify ];
-
     my.lazyvim.extraPlugins = with pkgs.vimPlugins; [
       {
         name = "mini.surround";

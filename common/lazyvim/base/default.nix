@@ -58,7 +58,6 @@ in
           nvim-cmp
           nvim-lint
           nvim-lspconfig
-          nvim-notify
           nvim-snippets
           nvim-treesitter
           nvim-treesitter-textobjects

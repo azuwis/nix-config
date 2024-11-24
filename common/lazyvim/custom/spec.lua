@@ -52,20 +52,6 @@ return {
   },
 
   {
-    "rcarriga/nvim-notify",
-    enabled = false,
-    optional = true,
-    opts = {
-      render = "compact",
-      stages = "static",
-      top_down = false,
-      on_open = function(win)
-        vim.api.nvim_win_set_config(win, { focusable = false, zindex = 100 })
-      end,
-    },
-  },
-
-  {
     "nvim-lualine/lualine.nvim",
     optional = true,
     opts = {
