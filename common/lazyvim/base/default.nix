@@ -44,7 +44,6 @@ in
           cmp-nvim-lsp
           cmp-path
           conform-nvim
-          dashboard-nvim
           dressing-nvim
           flash-nvim
           friendly-snippets
