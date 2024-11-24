@@ -91,6 +91,12 @@
   ];
   jovian.steam.desktopSession = "plasma";
 
+  # Fix permission of `/`, SteamOS may modify dir permission of the SD card
+  # mount point, and make SSHD refuce any user to login.
+  systemd.tmpfiles.rules = [
+    "z / 0755 root root"
+  ];
+
   my.nix-builder-client.enable = true;
   my.theme.enable = true;
   # Proton is not sandboxed, https://github.com/ValveSoftware/Proton/issues/3979
