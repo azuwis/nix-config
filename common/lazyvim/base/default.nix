@@ -52,6 +52,7 @@ in
           indent-blankline-nvim
           lazydev-nvim
           lualine-nvim
+          luvit-meta
           neo-tree-nvim
           noice-nvim
           nui-nvim
