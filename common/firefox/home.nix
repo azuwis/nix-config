@@ -121,6 +121,10 @@ let
     "apz.gtk.kinetic_scroll.enabled" = false;
     "general.smoothScroll.mouseWheel.durationMinMS" = 100;
     "mousewheel.default.delta_multiplier_y" = 90;
+    # vertical tabs
+    "sidebar.revamp" = true;
+    "sidebar.verticalTabs" = true;
+    # vimfx
     "extensions.VimFx.config_file_directory" = "~/.config/vimfx";
   };
 in
