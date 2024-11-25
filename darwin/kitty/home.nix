@@ -19,7 +19,7 @@
     copy_on_select = true;
     cursor_blink_interval = 0;
     editor = "vim";
-    hide_window_decorations = true;
+    hide_window_decorations = "titlebar-only";
     macos_option_as_alt = true;
     scrollback_pager_history_size = 1;
     shell = "/run/current-system/sw/bin/zsh -l -i";
