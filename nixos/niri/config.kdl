@@ -52,7 +52,7 @@ window-rule {
 
 window-rule {
   match app-id=r#"^(chromium-browser|firefox)$"#
-  exclude title=r#"^(Library|Open File)$"#
+  exclude title=r#"^(Incoming Connection|Library|Open File|)$"#
   default-column-width { proportion 1.0; }
 }
 
