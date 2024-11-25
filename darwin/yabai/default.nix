@@ -26,18 +26,28 @@
       window_gap = 2;
       window_shadow = "float";
     };
-    # https://github.com/koekeishiya/yabai/issues/1297#issuecomment-1318403190
     # yabai -m query --windows --space
+    # https://github.com/koekeishiya/yabai/issues/1297#issuecomment-1318403190
+    # launchctl unload -F /System/Library/LaunchAgents/com.apple.WindowManager.plist
     extraConfig = ''
+      gap=6
+      yabai -m config top_padding "$gap"
+      yabai -m config bottom_padding "$gap"
+      yabai -m config left_padding "$gap"
+      yabai -m config right_padding "$gap"
+      yabai -m config window_gap "$gap"
+
       yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
       yabai -m signal --add event=system_woke action="sleep 60; pkill -x skhd"
+
       yabai -m rule --add app="^(Digital Color Meter|Finder|System Information|System Preferences|System Settings|Ryujinx|mpv)$" manage=off
       yabai -m rule --add app="^alacritty$" title="^Fzf$" manage=off
       yabai -m rule --add app="^(Firefox|Google Chrome|Safari)$" space=2
       yabai -m rule --add app="^Mail$" space=3
       yabai -m rule --add app="^网易POPO$" manage=off space=5
+
       yabai -m space 5 --layout float
-      # launchctl unload -F /System/Library/LaunchAgents/com.apple.WindowManager.plist
+
       wait4path /etc/sudoers.d/yabai
       sudo yabai --load-sa
     '';
