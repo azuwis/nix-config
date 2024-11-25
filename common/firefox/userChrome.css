@@ -49,7 +49,7 @@
     }
 
     /* remove new tab button */
-    #vertical-tabs-newtab-button {
+    #vertical-tabs-newtab-button, #tabbrowser-arrowscrollbox-periphery {
       display: none !important;
     }
 
