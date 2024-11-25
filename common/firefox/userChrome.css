@@ -63,5 +63,10 @@
     moz-button[view="viewTabsSidebar"] {
       display: none !important;
     }
+
+    /* remove decoration bar, mainly for macOS */
+    #TabsToolbar {
+      display: none !important;
+    }
   }
 }
