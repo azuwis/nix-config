@@ -126,6 +126,9 @@ let
     "sidebar.verticalTabs" = true;
     # vimfx
     "extensions.VimFx.config_file_directory" = "~/.config/vimfx";
+    # https://github.com/akhodakivskiy/VimFx/blob/master/documentation/known-bugs.md
+    "fission.bfcacheInParent" = false;
+    # "fission.autostart" = false;
   };
 in
 {
