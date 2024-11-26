@@ -151,7 +151,7 @@ in
 
   config = mkIf cfg.enable {
     home.activation.vimfx = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      ${pkgs.rsync}/bin/rsync -a ${./vimfx}/ ~/.config/vimfx/
+      $DRY_RUN_CMD ${pkgs.rsync}/bin/rsync -a ${./vimfx}/ ~/.config/vimfx/
     '';
 
     # example how to set default env, but allow exported env var to override

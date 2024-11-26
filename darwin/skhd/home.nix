@@ -7,6 +7,6 @@
 
 {
   home.activation.skhd = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    ${pkgs.skhd}/bin/skhd --reload || /usr/bin/killall skhd || true
+    $DRY_RUN_CMD ${pkgs.skhd}/bin/skhd --reload || $DRY_RUN_CMD /usr/bin/killall skhd || true
   '';
 }
