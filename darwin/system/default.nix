@@ -11,7 +11,7 @@
     LANG = "en_US.UTF-8";
     LC_ALL = "en_US.UTF-8";
   };
-  fonts.packages = with pkgs; [ jetbrains-mono-nerdfont ];
+  fonts.packages = with pkgs; [ nerd-fonts.jetbrains-mono ];
   nix.settings = {
     allowed-users = [ config.my.user ];
     extra-platforms = [ "x86_64-darwin" ];

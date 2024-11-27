@@ -22,7 +22,7 @@ in
     fonts = {
       packages = with pkgs; [
         fira
-        jetbrains-mono-nerdfont
+        nerd-fonts.jetbrains-mono
         noto-fonts-cjk-sans
         noto-fonts-cjk-serif
         poly

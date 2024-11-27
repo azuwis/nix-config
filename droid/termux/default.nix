@@ -18,5 +18,5 @@ in
     $DRY_RUN_CMD echo "${termuxConfig}" > "${config.user.home}/.termux/termux.properties"
   '';
 
-  terminal.font = "${pkgs.jetbrains-mono-nerdfont}/share/fonts/truetype/NerdFonts/JetBrainsMonoNerdFont-Regular.ttf";
+  terminal.font = "${pkgs.nerd-fonts.jetbrains-mono}/share/fonts/truetype/NerdFonts/JetBrainsMono/JetBrainsMonoNerdFont-Regular.ttf";
 }
