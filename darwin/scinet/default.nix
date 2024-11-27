@@ -33,4 +33,11 @@ in
   };
   services.scidns.enable = true;
   services.sciroute.enable = true;
+  # Set `Disabled` should prevent `darwin-rebuild switch` from starting up the services again,
+  # useful when `scinet off`
+  # launchd.daemons.scidns-resolv.serviceConfig.Disabled = true;
+  # launchd.daemons.sciroute.serviceConfig.Disabled = true;
+  # Set `KeepAlive.AfterInitialDemand` should prevent the services start up when login, but it does not work
+  # launchd.daemons.scidns-resolv.serviceConfig.KeepAlive.AfterInitialDemand = true;
+  # launchd.daemons.sciroute.serviceConfig.KeepAlive.AfterInitialDemand = true;
 }
