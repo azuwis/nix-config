@@ -37,14 +37,24 @@ EOF
 }
 
 run() {
-  >&2 printf '\033[0;33m$ %s\033[0m\n' "$*"
-  "$@"
+  full_command=("$@")
+  command=$1
+  case "$command" in
+  nom) package="nix-output-monitor" ;;
+  nix-diff | nvd) package="$command" ;;
+  esac
+  if [ -n "$package" ] && ! command -v "$command" &>/dev/null; then
+    shift
+    full_command=(nix run nixpkgs#"$package" -- "$@")
+  fi
+  >&2 printf '\033[0;33m$ %s\033[0m\n' "${full_command[*]}"
+  "${full_command[@]}"
 }
 
 build() {
   local args diff hostname nix profile
 
-  nix=(nix run nixpkgs#nix-output-monitor --)
+  nix=(nom)
   if [ "$1" = "--no-nom" ]; then
     nix=(nix --print-build-logs)
     shift
@@ -85,10 +95,10 @@ build() {
     if [ "$SYSTEM" = "$BUILT" ]; then
       echo "build-result == current-system"
     else
-      run nix run nixpkgs#nvd -- diff "$SYSTEM" "$BUILT"
+      run nvd diff "$SYSTEM" "$BUILT"
 
       if [ "$diff" = yes ]; then
-        run nix run nixpkgs#nix-diff -- --character-oriented "$SYSTEM" "$BUILT"
+        run nix-diff --character-oriented "$SYSTEM" "$BUILT"
       fi
     fi
   fi
