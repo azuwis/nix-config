@@ -22,8 +22,7 @@ in
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      # vid.stab only available on ffmpeg-full, but the closure is much bigger
-      ffmpeg
+      ffmpeg-headless
       yt-dlp
     ];
 
