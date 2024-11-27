@@ -7,6 +7,7 @@
 
 let
   inherit (lib)
+    attrVals
     mkEnableOption
     mkIf
     mkOption
@@ -18,15 +19,17 @@ in
   options.my.retroarch = {
     enable = mkEnableOption "retroarch";
     cores = mkOption {
-      type = types.listOf types.package;
-      default = with pkgs.libretro; [
-        genesis-plus-gx
-        nestopia
+      type = types.listOf types.str;
+      default = [
+        "genesis-plus-gx"
+        "nestopia"
       ];
     };
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ (retroarch.override { cores = cfg.cores; }) ];
+    environment.systemPackages = [
+      (pkgs.retroarch.withCores (cores: attrVals cfg.cores cores))
+    ];
   };
 }
