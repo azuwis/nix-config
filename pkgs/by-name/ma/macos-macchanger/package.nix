@@ -35,7 +35,6 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    changelog = "https://github.com/toy/blueutil/blob/main/CHANGELOG.md";
     description = "macchanger for macOS - Spoof / Fake MAC address";
     homepage = "https://github.com/shilch/macchanger";
     mainProgram = "macchanger";
