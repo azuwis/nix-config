@@ -57,7 +57,7 @@ in
               exit
             fi
           fi
-          blurlock
+          swaylock --daemonize --image "${pkgs.wallpapers.default}"
         '')
         (writeShellScriptBin "swaylockx" ''
           pkill -x -USR1 swayidle || blurlock
