@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -eu
+
+pr=${1##*/}
+
+git fetch origin "pull/$pr/head:review/$pr"
+jj new "review/$pr"
+#jj bookmark delete "review/$pr"
