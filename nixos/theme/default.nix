@@ -20,12 +20,16 @@ in
     hm.my.theme.enable = true;
 
     fonts = {
+      enableDefaultPackages = false;
       packages = with pkgs; [
         fira
         nerd-fonts.jetbrains-mono
         noto-fonts-cjk-sans
         noto-fonts-cjk-serif
+        noto-fonts-color-emoji
         poly
+        # for symbol like https://github.com/maralorn/nix-output-monitor
+        unifont
       ];
       fontconfig.defaultFonts = {
         sansSerif = [
