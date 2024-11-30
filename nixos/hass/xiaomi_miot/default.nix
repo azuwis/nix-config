@@ -195,6 +195,24 @@ in
           - service: automation.turn_off
             data:
               entity_id: automation.ventilate
+
+      - alias: Ventilate close when door close and cold
+        trigger:
+          - platform: state
+            entity_id: binary_sensor.0x00158d00028f9af8_contact
+            to: "off"
+        conditions:
+          - condition: numeric_state
+            entity_id: climate.yeelink_v6_af1f_ptc_bath_heater
+            attribute: current_temperature
+            below: 23
+          - condition: state
+            entity_id: climate.yeelink_v6_af1f_ptc_bath_heater
+            state: ventilate
+        action:
+          - service: climate.turn_off
+            data:
+              entity_id: climate.yeelink_v6_af1f_ptc_bath_heater
     '';
   };
 }
