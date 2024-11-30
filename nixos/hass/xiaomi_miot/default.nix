@@ -166,24 +166,17 @@ in
             data:
               entity_id: fan.yeelink_fancl5_e358_fan
 
-      - alias: Enable ventilate auto when door close
+      - alias: Enable ventilate auto when approach or door close
         trigger:
-          platform: state
-          entity_id: binary_sensor.0x00158d00028f9af8_contact
-          to: "off"
-          for: "00:02:00"
-        action:
-          - service: automation.turn_on
-            data:
-              entity_id: automation.ventilate
-
-      - alias: Enable ventilate auto when approach
-        trigger:
-          platform: state
-          entity_id: sensor.dced8387eef4_action
-          attribute: action
-          to: "approach"
-          for: "00:05:00"
+          - platform: state
+            entity_id: sensor.dced8387eef4_action
+            attribute: action
+            to: "approach"
+            for: "00:10:00"
+          - platform: state
+            entity_id: binary_sensor.0x00158d00028f9af8_contact
+            to: "off"
+            for: "00:02:00"
         action:
           - service: automation.turn_on
             data:
@@ -192,9 +185,8 @@ in
       - alias: Ventilate
         trigger:
           platform: state
-          entity_id: binary_sensor.dced8387eef4_occupancy
+          entity_id: light.bathroom
           from: "on"
-          to: "off"
         action:
           - service: climate.set_preset_mode
             data:
