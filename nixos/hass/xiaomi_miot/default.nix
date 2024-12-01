@@ -192,6 +192,10 @@ in
           - trigger: state
             entity_id: light.bathroom
             from: "on"
+        conditions:
+          - condition: state
+            entity_id: climate.yeelink_v6_af1f_ptc_bath_heater
+            state: "off"
         actions:
           - action: climate.set_preset_mode
             target:
