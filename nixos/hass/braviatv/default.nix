@@ -19,22 +19,22 @@ in
 
     hass.automations = ''
       - alias: TV living room off when light living room off
-        trigger:
-          - platform: state
+        triggers:
+          - trigger: state
             entity_id: light.living_room
             from: "on"
             to: "off"
-          - platform: state
+          - trigger: state
             entity_id: light.living_room_nightlight
             from: "on"
             to: "off"
-        condition:
+        conditions:
           - condition: sun
             after: sunset
             before: sunrise
-        action:
-          - service: homeassistant.update_entity
-            data:
+        actions:
+          - action: homeassistant.update_entity
+            target:
               entity_id:
                 - light.living_room
                 - light.living_room_nightlight
@@ -44,8 +44,8 @@ in
           - condition: state
             entity_id: light.living_room_nightlight
             state: "off"
-          - service: media_player.turn_off
-            data:
+          - action: media_player.turn_off
+            target:
               entity_id: media_player.sony_kdl_55w800b
     '';
   };

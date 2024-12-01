@@ -46,89 +46,87 @@ in
 
     hass.automations = ''
       - alias: XiaomiGateway set iptables
-        trigger:
-          - platform: homeassistant
+        triggers:
+          - trigger: homeassistant
             event: start
-          - platform: state
+          - trigger: state
             entity_id: binary_sensor.54ef44432531_gateway
             to: "on"
-        action:
-          service: shell_command.mijia_hub_init
+        actions:
+          - action: shell_command.mijia_hub_init
 
       - alias: Button a single
-        trigger:
-          platform: state
-          entity_id:
-            - sensor.0x00158d00023d57a9_action
-          to:
-            - single
-        action:
-          service: light.toggle
-          data:
-            entity_id: light.yeelink_fancl5_e358_light
+        triggers:
+          - trigger: state
+            entity_id: sensor.0x00158d00023d57a9_action
+            to: single
+        actions:
+          - action: light.toggle
+            target:
+              entity_id: light.yeelink_fancl5_e358_light
 
       - alias: Light bathroom on when sensor on
-        trigger:
-          platform: state
-          entity_id: binary_sensor.dced8387eef4_occupancy
-          from: "off"
-          to: "on"
-        condition:
-          condition: state
-          entity_id: light.bathroom
-          state: "off"
-        action:
-          service: light.turn_on
-          data:
+        triggers:
+          - trigger: state
+            entity_id: binary_sensor.dced8387eef4_occupancy
+            from: "off"
+            to: "on"
+        conditions:
+          - condition: state
             entity_id: light.bathroom
+            state: "off"
+        actions:
+          - action: light.turn_on
+            target:
+              entity_id: light.bathroom
 
       - alias: Light bathroom off when sensor off
-        trigger:
-          platform: state
-          entity_id: binary_sensor.dced8387eef4_occupancy
-          from: "on"
-          to: "off"
-        condition:
-          condition: state
-          entity_id: light.bathroom
-          state: "on"
-        action:
-          service: light.turn_off
-          data:
+        triggers:
+          - trigger: state
+            entity_id: binary_sensor.dced8387eef4_occupancy
+            from: "on"
+            to: "off"
+        conditions:
+          - condition: state
             entity_id: light.bathroom
+            state: "on"
+        actions:
+          - action: light.turn_off
+            target:
+              entity_id: light.bathroom
 
       - alias: Light kitchen on when sensor on
-        trigger:
-          platform: state
-          entity_id: binary_sensor.649e314c943b_occupancy
-          from: "off"
-          to: "on"
-        condition:
+        triggers:
+          - trigger: state
+            entity_id: binary_sensor.649e314c943b_occupancy
+            from: "off"
+            to: "on"
+        conditions:
           - condition: state
             entity_id: light.kitchen
             state: "off"
           - condition: numeric_state
             entity_id: sensor.649e314c943b_illuminance
             below: 1500
-        action:
-          service: light.turn_on
-          data:
-            entity_id: light.kitchen
+        actions:
+          - action: light.turn_on
+            target:
+              entity_id: light.kitchen
 
       - alias: Light kitchen off when sensor off
-        trigger:
-          platform: state
-          entity_id: binary_sensor.649e314c943b_occupancy
-          from: "on"
-          to: "off"
-        condition:
-          condition: state
-          entity_id: light.kitchen
-          state: "on"
-        action:
-          service: light.turn_off
-          data:
+        triggers:
+          - trigger: state
+            entity_id: binary_sensor.649e314c943b_occupancy
+            from: "on"
+            to: "off"
+        conditions:
+          - condition: state
             entity_id: light.kitchen
+            state: "on"
+        actions:
+          - action: light.turn_off
+            target:
+              entity_id: light.kitchen
     '';
   };
 }

@@ -15,13 +15,13 @@
     };
     hass.automations = ''
       - alias: Set theme
-        trigger:
-          - event: start
-            platform: homeassistant
-        action:
-          service: frontend.set_theme
-          data:
-            name: custom
+        triggers:
+          - trigger: homeassistant
+            event: start
+        actions:
+          - action: frontend.set_theme
+            data:
+              name: custom
     '';
   };
 }

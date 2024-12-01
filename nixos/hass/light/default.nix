@@ -65,8 +65,8 @@
     hass.automations = ''
       - alias: Light brightness
         mode: parallel
-        trigger:
-          - platform: state
+        triggers:
+          - trigger: state
             entity_id:
               - light.living_room
               - light.1660a6874242f000_group
@@ -94,69 +94,69 @@
           color_temp: >-
             {{ "color_temp" in state_attr(trigger.entity_id, "supported_color_modes") }}
           kelvin: 5235
-        condition:
+        conditions:
           - condition: template
             value_template: >-
               {{ (state_attr(trigger.entity_id, "brightness") != brightness) or
                  (color_temp and (state_attr(trigger.entity_id, "color_temp_kelvin") != kelvin))
               }}
-        action:
-          service: light.turn_on
-          target:
-            entity_id: "{{ trigger.entity_id }}"
-          data: >-
-            {"brightness": {{ brightness }}{% if color_temp %}, "kelvin": {{ kelvin }}{% endif %}}
+        actions:
+          - action: light.turn_on
+            target:
+              entity_id: "{{ trigger.entity_id }}"
+            data: >-
+              {"brightness": {{ brightness }}{% if color_temp %}, "kelvin": {{ kelvin }}{% endif %}}
 
       - alias: Light set brightness once
-        trigger:
-          - platform: time
-            at: "07:10:01"
-          - platform: time
-            at: "22:35:01"
-          - platform: time
-            at: "00:00:01"
+        triggers:
+          - trigger: time
+            at:
+              - "07:10:01"
+              - "22:35:01"
+              - "00:00:01"
         variables:
           brightness: *brightness
-        action:
-          service: light.turn_on
-          data:
-            entity_id: >-
-              {% set lights = expand(states.light) | selectattr("state", "eq", "on") %}
-              {% if brightness != 255 %}
-                {% set lights = lights | selectattr("attributes.brightness", "defined") | rejectattr("attributes.brightness", "none") | selectattr("attributes.brightness", "gt", brightness) %}
-              {% endif %}
-              {{ lights | map(attribute="entity_id") | list }}
-            brightness: "{{ brightness }}"
+        actions:
+          - action: light.turn_on
+            target:
+              entity_id: >-
+                {% set lights = expand(states.light) | selectattr("state", "eq", "on") %}
+                {% if brightness != 255 %}
+                  {% set lights = lights | selectattr("attributes.brightness", "defined") | rejectattr("attributes.brightness", "none") | selectattr("attributes.brightness", "gt", brightness) %}
+                {% endif %}
+                {{ lights | map(attribute="entity_id") | list }}
+            data:
+              brightness: "{{ brightness }}"
 
       - alias: Light sync kitchen off state
-        trigger:
-          - platform: state
+        triggers:
+          - trigger: state
             entity_id:
               - light.kitchen_door
               - light.kitchen_window
             to: "off"
             for: "00:00:01"
-        condition:
-          condition: state
-          entity_id: light.kitchen
-          state: "on"
-        action:
-          service: light.turn_off
-          data:
+        conditions:
+          - condition: state
             entity_id: light.kitchen
+            state: "on"
+        actions:
+          - action: light.turn_off
+            target:
+              entity_id: light.kitchen
 
       - alias: Light fan light on when dining room light on
-        trigger:
-          - platform: state
+        triggers:
+          - trigger: state
             entity_id: light.16609ab46d42b000_group
             from: "off"
             to: "on"
-        action:
-          - service: homeassistant.update_entity
-            data:
+        actions:
+          - action: homeassistant.update_entity
+            target:
               entity_id: light.yeelink_fancl5_e358_light
-          - service: light.turn_on
-            data:
+          - action: light.turn_on
+            target:
               entity_id: light.yeelink_fancl5_e358_light
     '';
   };

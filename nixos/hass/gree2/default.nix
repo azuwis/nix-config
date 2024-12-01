@@ -44,18 +44,18 @@ in
 
     hass.automations = ''
       - alias: Climate living room off when light living room off
-        trigger:
-          - platform: state
+        triggers:
+          - trigger: state
             entity_id: light.living_room
             from: "on"
             to: "off"
-        condition:
+        conditions:
           - condition: sun
             after: sunset
             before: sunrise
-        action:
-          - service: climate.turn_off
-            data:
+        actions:
+          - action: climate.turn_off
+            target:
               entity_id: climate.gree_climate_9424b8123fe900
     '';
   };
