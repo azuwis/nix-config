@@ -37,6 +37,7 @@
   networking.useNetworkd = lib.mkDefault true;
   # systemd.network.wait-online.anyInterface = config.networking.useDHCP;
   # nix.settings.allowed-users = [ config.my.user ];
+  nix.channel.enable = false;
   programs.ssh.startAgent = true;
   # CVE-2023-38408
   programs.ssh.agentPKCS11Whitelist = "''";
