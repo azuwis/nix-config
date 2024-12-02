@@ -33,6 +33,7 @@ in
         fork = "!f() { url=$(git remote get-url origin); git remote add \"$USER\" \"\${url%/*/*}/$USER/\${url##*/}\"; git remote show -n \"$USER\"; }; f";
         gch = "!git reflog expire --expire=now --all && git gc --prune=now --aggressive";
         lg = "log --abbrev-commit --graph --date=relative --pretty=format:'%C(yellow)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset'";
+        pfork = "!f() { url=$(git remote get-url origin); git push \"\${url%/*/*}/\${1%%:*}/\${url##*/}\" HEAD:\"\${1#*:}\"; }; f";
         st = "status";
         rewind = "!f() { git update-ref refs/heads/$1 \${2:-HEAD}; }; f";
       };
