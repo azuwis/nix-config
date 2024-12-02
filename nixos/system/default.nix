@@ -93,6 +93,7 @@
   #   fi
   # '';
   system.stateVersion = "23.11";
+  systemd.enableStrictShellChecks = true;
   users.groups.${config.my.user} = {
     gid = config.my.uid;
   };
