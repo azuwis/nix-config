@@ -23,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     mkdir -p $out/
 
-    cp -r minimal/theme.txt minimal/*.png $out/
+    cp -r minimal/icons minimal/theme.txt minimal/*.png $out/
 
     runHook postInstall
   '';
