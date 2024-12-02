@@ -23,6 +23,9 @@
       backgroundColor = "#000000";
       splashImage = null;
       theme = pkgs.minimal-grub-theme;
+      # Remove `--class nixos` to disable icon
+      entryOptions = "--unrestricted";
+      subEntryOptions = "";
     };
   };
   environment.systemPackages = lib.optionals (config.boot.loader.grub.enable == true) [
