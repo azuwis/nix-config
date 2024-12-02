@@ -190,8 +190,8 @@ in
       - alias: Ventilate
         triggers:
           - trigger: state
-            entity_id: light.bathroom
-            from: "on"
+            entity_id: binary_sensor.dced8387eef4_occupancy
+            to: "off"
         conditions:
           - condition: state
             entity_id: climate.yeelink_v6_af1f_ptc_bath_heater
