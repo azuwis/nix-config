@@ -17,6 +17,7 @@ let
         (entry (meta ? description) "Description" meta.description)
         (entry (meta ? changelog) "Changelog" meta.changelog)
         (entry (package.src ? gitRepoUrl) "Git" package.src.gitRepoUrl)
+        [ "" ]
       ]
     );
   info = render package;
