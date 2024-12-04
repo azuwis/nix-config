@@ -1,4 +1,8 @@
-{ ... }:
+{
+  # Required by nixpkgs-hammering
+  overlays ? [ ],
+  ...
+}:
 
 let
   flake-compat =
@@ -29,8 +33,10 @@ let
       flake.defaultNix.overlays.yuzu
       (import ./overlays/default.nix)
       (import ./overlays/lix.nix)
-    ];
+    ] ++ overlays;
   };
 in
-# nix-update expect nixpkgs-like repo https://discourse.nixos.org/t/25274
+# nix-update expect nixpkgs-like repo
+# https://discourse.nixos.org/t/25274
+# https://github.com/jtojnar/nixfiles/blob/master/default.nix
 packages // flake.defaultNix
