@@ -48,16 +48,16 @@ update_package() {
       echo "Upstream package is newer than the PR, reset to $default_branch and update again"
       git reset --hard "$default_branch"
       if try_update "$package"; then
-        echo "::notice::$package: Update package succeeded, update the PR"
+        echo "::notice::$package: Update package succeeded, update PR"
         gh pr edit "$update_branch" --title "$(git show -s --format=%B)" --body "$(generate_body "$package")"
         git push --force origin "$update_branch"
       fi
     elif [ "$(git rev-parse HEAD)" = "$(git rev-parse "$default_branch")" ]; then
-      echo "::notice::$package: Close the PR, seems cherry-picked in $default_branch."
+      echo "::notice::$package: Close, package already updated in $default_branch."
       git push --delete origin "$update_branch"
     elif [ "$(git rev-parse HEAD)" != "$(git rev-parse "origin/$update_branch")" ]; then
+      echo "::notice::$package: Rebase to current $default_branch"
       git push --force origin "$update_branch"
-      echo "PR cherry-picked to current $default_branch"
     fi
   else
     echo "PR not exists"
@@ -67,7 +67,7 @@ update_package() {
       echo "::notice::$package: Update package succeeded, create PR"
       git push --force origin "$update_branch"
       gh pr create --title "$(git show -s --format=%B)" --body "$(generate_body "$package")"
-      echo "Force push to trigger CI"
+      echo "::notice::$package: Force push to trigger CI"
       git commit --amend --no-edit
       git push --force origin "$update_branch"
     fi
