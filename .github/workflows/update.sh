@@ -20,6 +20,7 @@ generate_body() {
     compare="/compare/${from}...${to}"
   fi
   ./scripts/update -i "$package" | sed "/^Git: / s|\.git$|$compare|"
+  echo "Log: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
 }
 
 try_update() {
