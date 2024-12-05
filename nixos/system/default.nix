@@ -96,7 +96,7 @@
   #   fi
   # '';
   system.stateVersion = "23.11";
-  systemd.enableStrictShellChecks = true;
+  systemd.enableStrictShellChecks = lib.mkDefault true;
   users.groups.${config.my.user} = {
     gid = config.my.uid;
   };

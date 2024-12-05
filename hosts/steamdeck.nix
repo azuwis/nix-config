@@ -90,6 +90,8 @@
     oxygen
   ];
   jovian.steam.desktopSession = "plasma";
+  # TODO: plasma5 break it, remove when fixed
+  systemd.enableStrictShellChecks = false;
 
   # Fix permission of `/`, SteamOS may modify dir permission of the SD card
   # mount point, and make SSHD refuce any user to login.
