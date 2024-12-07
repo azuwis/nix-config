@@ -568,9 +568,9 @@ in
                   style = {
                     top = "14.7%";
                     left = "45.5%";
-                    # Reverse on/off color
-                    "--state-binary_sensor-active-color" = "var(--state-icon-color)";
-                    "--paper-item-icon-color" = "var(--amber-color)";
+                    # Reverse on/off color, https://www.home-assistant.io/integrations/frontend/#state-color
+                    "--state-binary_sensor-door-on-color" = "var(--state-icon-color)";
+                    "--state-binary_sensor-door-off-color" = "var(--amber-color)";
                   };
                 }
                 {
