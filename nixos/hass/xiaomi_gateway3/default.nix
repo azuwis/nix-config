@@ -45,7 +45,7 @@ in
     };
 
     hass.automations = ''
-      - alias: XiaomiGateway set iptables
+      - alias: XiaomiGateway set iptables when start
         triggers:
           - trigger: homeassistant
             event: start
@@ -55,7 +55,7 @@ in
         actions:
           - action: shell_command.mijia_hub_init
 
-      - alias: Button a single
+      - alias: Button A single click
         triggers:
           - trigger: state
             entity_id: sensor.0x00158d00023d57a9_action

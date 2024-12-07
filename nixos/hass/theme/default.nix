@@ -14,7 +14,7 @@
       };
     };
     hass.automations = ''
-      - alias: Set theme
+      - alias: Theme set to custom when start
         triggers:
           - trigger: homeassistant
             event: start

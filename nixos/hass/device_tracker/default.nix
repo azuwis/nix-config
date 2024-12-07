@@ -28,7 +28,7 @@ in
     ];
 
     hass.automations = ''
-      - alias: Primary bedroom movie on
+      - alias: Scene primary bedroom movie on
         triggers:
           - trigger: state
             entity_id: device_tracker.epson_projector
@@ -71,7 +71,7 @@ in
             data:
               source: Bluetooth
 
-      - alias: Primary bedroom movie off
+      - alias: Scene primary bedroom movie off
         triggers:
           - trigger: state
             entity_id: device_tracker.epson_projector

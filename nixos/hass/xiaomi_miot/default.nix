@@ -28,7 +28,7 @@ in
     };
 
     hass.automations = ''
-      - alias: Climate set fan speed
+      - alias: Climate set fan speed when on
         triggers:
           - trigger: state
             entity_id:
@@ -171,7 +171,7 @@ in
             target:
               entity_id: fan.yeelink_fancl5_e358_fan
 
-      - alias: Enable ventilate auto when approach or door close
+      - alias: Auto ventilate on when approach or door close
         triggers:
           - trigger: state
             entity_id: sensor.dced8387eef4_action
@@ -206,7 +206,7 @@ in
             target:
               entity_id: automation.ventilate
 
-      - alias: Ventilate close when door close and cold
+      - alias: Ventilate off when door close and cold
         triggers:
           - trigger: state
             entity_id: binary_sensor.0x00158d00028f9af8_contact
