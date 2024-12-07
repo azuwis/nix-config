@@ -6,6 +6,7 @@
 }:
 
 let
+  inherit (pkgs.home-assistant-custom-lovelace-modules) card-mod;
   font = pkgs.fetchurl {
     url = "https://github.com/google/fonts/raw/refs/heads/main/ofl/fascinateinline/FascinateInline-Regular.ttf";
     hash = "sha256-QTEBgQ/kIFIBIogEBNH46JImnmpq+i4A6YD2XvYy7js=";
@@ -15,6 +16,7 @@ let
     for i in az tf yq; do
       ${pkgs.imagemagick}/bin/magick -background transparent -fill "#ff9800" -font ${font} -size 128x128 -gravity center label:"''${i^^}" "$out/$i.png"
     done
+    ln -fns ${card-mod}/${card-mod.entrypoint} $out/
   '';
   static = ./static;
 in
@@ -25,6 +27,10 @@ in
       ln -fns ${static} ${config.services.home-assistant.configDir}/www/static
       ln -fns ${generated} ${config.services.home-assistant.configDir}/www/generated
     '';
+
+    services.home-assistant.config.frontend.extra_module_url = [
+      "/local/generated/${card-mod.entrypoint}?${card-mod.version}"
+    ];
 
     services.home-assistant.config.lovelace.mode = "yaml";
 
@@ -561,6 +567,11 @@ in
                     top = "20%";
                     left = "45.5%";
                   };
+                  card_mod.style."state-badge $ ha-state-icon" = ''
+                    ha-state-icon[data-state="ventilate"] {
+                      color: var(--state-climate-cool-color) !important;
+                    }
+                  '';
                 }
                 {
                   type = "state-icon";
