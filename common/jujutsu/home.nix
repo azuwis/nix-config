@@ -8,6 +8,7 @@
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.my.jujutsu;
+  scripts = ./scripts;
 in
 {
   options.my.jujutsu = {
@@ -30,6 +31,18 @@ in
             "log"
             "--template"
             "log_stat"
+          ];
+          ni = [
+            "util"
+            "exec"
+            "--"
+            "${scripts}/ni"
+          ];
+          pr = [
+            "util"
+            "exec"
+            "--"
+            "${scripts}/pr"
           ];
         };
         colors = {
