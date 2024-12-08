@@ -89,6 +89,11 @@ in
         triggers:
           - trigger: time
             at: "21:30:00"
+        conditions:
+          - condition: numeric_state
+            entity_id: cover.lumi_hmcn01_ea01_curtain
+            attribute: curtain.current_position
+            above: 35
         actions:
           - action: cover.set_cover_position
             target:
@@ -125,6 +130,22 @@ in
               entity_id: cover.lumi_hmcn01_ea01_curtain
             data:
               position: 100
+
+      - alias: Curtain primary bedroom half close
+        triggers:
+          - trigger: time
+            at: "23:00:00"
+        conditions:
+          - condition: numeric_state
+            entity_id: cover.lumi_hmcn01_7c8c_curtain
+            attribute: curtain.current_position
+            above: 20
+        actions:
+          - action: cover.set_cover_position
+            target:
+              entity_id: cover.lumi_hmcn01_7c8c_curtain
+            data:
+              position: 20
 
       - alias: Screen brightness
         triggers:
@@ -205,6 +226,23 @@ in
           - action: automation.turn_off
             target:
               entity_id: automation.ventilate
+
+      - alias: Ventilate on at morning
+        triggers:
+          - trigger: time
+            at:
+              - "06:50:00"
+              - "07:21:00"
+        conditions:
+          - condition: numeric_state
+            entity_id: sensor.xiaomi_mt0_cdd0_co2_density
+            above: 800
+        actions:
+          - action: climate.set_preset_mode
+            target:
+              entity_id: climate.yeelink_v6_af1f_ptc_bath_heater
+            data:
+              preset_mode: Ventilate
 
       - alias: Ventilate off when door close and cold
         triggers:
