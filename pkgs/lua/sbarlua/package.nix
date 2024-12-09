@@ -2,14 +2,9 @@
   lib,
   buildLuaPackage,
   fetchFromGitHub,
-  darwin,
   lua,
   nix-update-script,
 }:
-
-let
-  inherit (darwin.apple_sdk.frameworks) CoreFoundation;
-in
 
 buildLuaPackage {
   pname = "sbarlua";
@@ -25,8 +20,6 @@ buildLuaPackage {
   postPatch = ''
     substituteInPlace makefile --replace-fail " bin/liblua.a" ""
   '';
-
-  buildInputs = [ CoreFoundation ];
 
   preBuild = ''
     makeFlagsArray+=(
