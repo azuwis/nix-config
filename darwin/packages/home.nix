@@ -17,8 +17,8 @@
     blueutil
     coreutils-full
     daemon
-    darwin.iproute2mac
     gimp
+    iproute2mac
     pstree
     qbittorrent
   ];
