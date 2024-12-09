@@ -64,34 +64,35 @@
   # };
 
   # See `nixos/modules/services/desktop-managers/plasma6.nix` optionalPackages for excludePackages
-  # services.desktopManager.plasma6.enable = true;
-  # environment.plasma6.excludePackages = with pkgs.kdePackages; [
-  #   plasma-browser-integration
-  #   ark
-  #   elisa
-  #   gwenview
-  #   okular
-  #   khelpcenter
-  #   baloo-widgets
-  #   dolphin-plugins
-  #   spectacle
-  #   ffmpegthumbs
-  #   krdp
-  #   xwaylandvideobridge
-  # ];
-  # jovian.steam.desktopSession = "plasma";
-
-  services.xserver.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
-  services.xserver.displayManager.startx.enable = true;
-  environment.plasma5.excludePackages = with pkgs.libsForQt5; [
-    pkgs.aha
+  # Package included: konsole kate dolphin
+  services.desktopManager.plasma6.enable = true;
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
     plasma-browser-integration
-    oxygen
+    ark
+    elisa
+    gwenview
+    okular
+    khelpcenter
+    baloo-widgets
+    dolphin-plugins
+    spectacle
+    ffmpegthumbs
+    krdp
+    xwaylandvideobridge
   ];
   jovian.steam.desktopSession = "plasma";
-  # TODO: plasma5 break it, remove when fixed
-  systemd.enableStrictShellChecks = false;
+
+  # services.xserver.enable = true;
+  # services.xserver.desktopManager.plasma5.enable = true;
+  # services.xserver.displayManager.startx.enable = true;
+  # environment.plasma5.excludePackages = with pkgs.libsForQt5; [
+  #   pkgs.aha
+  #   plasma-browser-integration
+  #   oxygen
+  # ];
+  # jovian.steam.desktopSession = "plasma";
+  # # TODO: plasma5 break it, remove when fixed
+  # systemd.enableStrictShellChecks = false;
 
   # Fix permission of `/`, SteamOS may modify dir permission of the SD card
   # mount point, and make SSHD refuce any user to login.
