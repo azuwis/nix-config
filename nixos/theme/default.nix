@@ -47,10 +47,18 @@ in
       };
     };
 
-    qt = {
-      enable = true;
-      platformTheme = "gnome";
-      style = "adwaita";
-    };
+    qt =
+      {
+        enable = true;
+      }
+      // lib.optionalAttrs
+        (
+          !config.services.desktopManager.plasma6.enable
+          && !config.services.xserver.desktopManager.plasma5.enable
+        )
+        {
+          platformTheme = "gnome";
+          style = "adwaita";
+        };
   };
 }
