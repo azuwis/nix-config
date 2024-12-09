@@ -231,8 +231,9 @@ in
         triggers:
           - trigger: time
             at:
-              - "06:50:00"
-              - "07:21:00"
+              - "06:25:00"
+              - "06:56:00"
+              - "07:27:00"
         conditions:
           - condition: numeric_state
             entity_id: sensor.xiaomi_mt0_cdd0_co2_density
