@@ -66,6 +66,7 @@
   # See `nixos/modules/services/desktop-managers/plasma6.nix` optionalPackages for excludePackages
   # Package included: konsole kate dolphin
   services.desktopManager.plasma6.enable = true;
+  services.desktopManager.plasma6.enableQt5Integration = false;
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     plasma-browser-integration
     ark
