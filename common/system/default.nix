@@ -10,7 +10,7 @@
   #   automatic = true;
   #   options = "--delete-older-than 30d";
   # };
-  nix.optimise.automatic = true;
+  nix.optimise.automatic = lib.mkDefault true;
   nix.settings = {
     # https://docs.lix.systems/manual/lix/stable/release-notes/rl-2.91.html
     # Reject options set by flakes by default

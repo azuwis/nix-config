@@ -28,6 +28,7 @@
   nix = {
     daemonCPUSchedPolicy = "idle";
     daemonIOSchedClass = "idle";
+    optimise.automatic = false;
   };
 
   users.groups.deck = {
