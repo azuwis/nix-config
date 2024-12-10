@@ -67,6 +67,8 @@
   # Package included: konsole kate dolphin
   services.desktopManager.plasma6.enable = true;
   services.desktopManager.plasma6.enableQt5Integration = false;
+  services.xserver.displayManager.startx.enable = true;
+  services.xserver.enable = true;
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     plasma-browser-integration
     ark
@@ -81,7 +83,7 @@
     krdp
     xwaylandvideobridge
   ];
-  jovian.steam.desktopSession = "plasma";
+  jovian.steam.desktopSession = "plasmax11";
 
   # services.xserver.enable = true;
   # services.xserver.desktopManager.plasma5.enable = true;
