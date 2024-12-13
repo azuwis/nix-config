@@ -2,6 +2,7 @@
   lib,
   sunshine,
   boost186,
+  nlohmann_json,
   nodejs,
   cudaSupport ? false,
   nix-update-script,
@@ -21,6 +22,8 @@
     };
 
     patches = [ ];
+
+    buildInputs = old.buildInputs ++ [ nlohmann_json ];
 
     nativeBuildInputs = old.nativeBuildInputs ++ [ nodejs ];
 
