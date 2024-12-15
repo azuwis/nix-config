@@ -32,7 +32,8 @@ in
 
   config = mkIf (cfg.enable && cfg.xiaomi_gateway3) {
     services.home-assistant.customComponents = [
-      pkgs.home-assistant-custom-components.xiaomi_gateway3
+      # pkgs.home-assistant-custom-components.xiaomi_gateway3
+      pkgs.xiaomi_gateway3
     ];
 
     services.home-assistant.config = {
