@@ -99,7 +99,7 @@ in
       - alias: Light kitchen on when sensor on
         triggers:
           - trigger: state
-            entity_id: binary_sensor.649e314c943b_occupancy
+            entity_id: binary_sensor.a4c138694c34_occupancy
             from: "off"
             to: "on"
         conditions:
@@ -107,7 +107,7 @@ in
             entity_id: light.kitchen
             state: "off"
           - condition: numeric_state
-            entity_id: sensor.649e314c943b_illuminance
+            entity_id: sensor.a4c138694c34_illuminance
             below: 1500
         actions:
           - action: light.turn_on
@@ -117,7 +117,7 @@ in
       - alias: Light kitchen off when sensor off
         triggers:
           - trigger: state
-            entity_id: binary_sensor.649e314c943b_occupancy
+            entity_id: binary_sensor.a4c138694c34_occupancy
             from: "on"
             to: "off"
         conditions:

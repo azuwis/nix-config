@@ -531,7 +531,7 @@ in
                 }
                 {
                   type = "state-icon";
-                  entity = "binary_sensor.649e314c943b_occupancy";
+                  entity = "binary_sensor.a4c138694c34_occupancy";
                   style = {
                     top = "9%";
                     left = "71%";
