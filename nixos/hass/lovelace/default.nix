@@ -184,6 +184,14 @@ in
                     left = "79.9%";
                   };
                 }
+                {
+                  type = "state-icon";
+                  entity = "binary_sensor.649e314c943b_occupancy";
+                  style = {
+                    top = "50.8%";
+                    left = "55%";
+                  };
+                }
                 # primary bedroom
                 {
                   type = "state-icon";
@@ -504,6 +512,22 @@ in
                   style = {
                     top = "53.5%";
                     left = "18.3%";
+                  };
+                }
+                {
+                  type = "state-label";
+                  entity = "sensor.a4c138008ef3_humidity";
+                  style = {
+                    top = "41.9%";
+                    left = "7.9%";
+                  };
+                }
+                {
+                  type = "state-label";
+                  entity = "sensor.a4c138008ef3_temperature";
+                  style = {
+                    top = "43.9%";
+                    left = "10%";
                   };
                 }
                 {
