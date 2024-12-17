@@ -524,7 +524,7 @@ in
                 }
                 {
                   type = "state-label";
-                  entity = "sensor.a4c138008ef3_temperature";
+                  entity = "sensor.kids_room_temperature";
                   style = {
                     top = "43.9%";
                     left = "10%";

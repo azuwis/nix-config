@@ -42,6 +42,19 @@ in
         "light.*_group".icon = "mdi:lightbulb";
       };
       shell_command.mijia_hub_init = mijia_hub_init;
+      template = [
+        {
+          sensor = [
+            {
+              device_class = "temperature";
+              name = "Kids room temperature";
+              state = "{{ states('sensor.a4c138008ef3_temperature') | round(1) }}";
+              state_class = "measurement";
+              unit_of_measurement = "°C";
+            }
+          ];
+        }
+      ];
       # logger.logs."custom_components.xiaomi_gateway3" = "debug";
     };
 
