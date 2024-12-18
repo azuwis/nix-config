@@ -169,6 +169,15 @@ in
               entity_id: >-
                 {{ expand(states.light) | selectattr('entity_id', 'search', '^light.xiaomi_mt0_.*_indicator_light$') | map(attribute='entity_id') | list }}
 
+      - alias: Screen brightness climate secondary bedroom early on
+        triggers:
+          - trigger: time
+            at: "06:30:00"
+        actions:
+          - action: light.turn_on
+            target:
+              entity_id: light.xiaomi_mt0_cdd0_indicator_light
+
       - alias: Bath heater auto off
         triggers:
           - trigger: state
