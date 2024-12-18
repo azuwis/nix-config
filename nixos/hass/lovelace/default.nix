@@ -1006,19 +1006,6 @@ in
             }
           ];
         }
-        {
-          title = "Debug";
-          path = "debug";
-          icon = "mdi:bug";
-          cards = [
-            {
-              type = "custom:zigbee2mqtt-networkmap";
-              entity = "sensor.zigbee2mqtt_networkmap";
-              height = 320;
-              force = 2000;
-            }
-          ];
-        }
       ];
     };
   };

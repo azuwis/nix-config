@@ -28,5 +28,21 @@ in
     services.home-assistant.customLovelaceModules = [
       pkgs.home-assistant-custom-lovelace-modules.zigbee2mqtt-networkmap
     ];
+
+    services.home-assistant.lovelaceConfig.views = [
+      {
+        title = "Debug";
+        path = "debug";
+        icon = "mdi:bug";
+        cards = [
+          {
+            type = "custom:zigbee2mqtt-networkmap";
+            entity = "sensor.zigbee2mqtt_networkmap";
+            height = 320;
+            force = 2000;
+          }
+        ];
+      }
+    ];
   };
 }
