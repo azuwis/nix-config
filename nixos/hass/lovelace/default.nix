@@ -954,22 +954,6 @@ in
               entities = [
                 {
                   type = "call-service";
-                  name = "Hass reload groups";
-                  icon = "mdi:home-assistant";
-                  action_name = "Groups";
-                  service = "group.reload";
-                  service_data = { };
-                }
-                {
-                  type = "call-service";
-                  name = "Hass reload scripts";
-                  icon = "mdi:home-assistant";
-                  action_name = "Scripts";
-                  service = "script.reload";
-                  service_data = { };
-                }
-                {
-                  type = "call-service";
                   name = "Hass reload automations";
                   icon = "mdi:home-assistant";
                   action_name = "Autos";
@@ -982,6 +966,22 @@ in
                   icon = "mdi:home-assistant";
                   action_name = "Core";
                   service = "homeassistant.reload_core_config";
+                  service_data = { };
+                }
+                {
+                  type = "call-service";
+                  name = "Hass reload groups";
+                  icon = "mdi:home-assistant";
+                  action_name = "Groups";
+                  service = "group.reload";
+                  service_data = { };
+                }
+                {
+                  type = "call-service";
+                  name = "Hass reload scripts";
+                  icon = "mdi:home-assistant";
+                  action_name = "Scripts";
+                  service = "script.reload";
                   service_data = { };
                 }
                 {
