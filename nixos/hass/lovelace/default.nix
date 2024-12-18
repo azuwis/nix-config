@@ -144,6 +144,7 @@ let
       type = "custom:mini-media-player";
     };
   };
+  player' = entity: card: recursiveUpdate (player entity) { inherit card; };
 in
 
 {
@@ -278,18 +279,14 @@ in
                 (people "yq" "95.6")
               ];
             }
-            (recursiveUpdate (player "media_player.edifier_r2000db") {
-              card = {
-                hide.play_pause = true;
-                volume_stateless = true;
-              };
+            (player' "media_player.edifier_r2000db" {
+              hide.play_pause = true;
+              volume_stateless = true;
             })
-            (recursiveUpdate (player "media_player.sony_kdl_55w800b") {
-              card = {
-                hide_controls = "yes";
-                power_color = "yes";
-                show_source = "small";
-              };
+            (player' "media_player.sony_kdl_55w800b" {
+              hide_controls = "yes";
+              power_color = "yes";
+              show_source = "small";
             })
             (recursiveUpdate (climate "climate.yeelink_v6_af1f_ptc_bath_heater") {
               card.hide.state = true;
