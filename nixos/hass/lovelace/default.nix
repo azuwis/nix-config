@@ -43,6 +43,21 @@ let
         action = "toggle";
       };
     };
+
+  people = id: top: {
+    type = "image";
+    entity = "device_tracker.${id}";
+    image = "/local/generated/${id}.png";
+    # https://angel-rs.github.io/css-color-filter-generator/
+    state_filter = {
+      not_home = "brightness(0) saturate(100%) invert(44%) sepia(11%) saturate(1915%) hue-rotate(167deg) brightness(93%) contrast(95%)";
+    };
+    style = {
+      left = "4%";
+      top = "${top}%";
+      width = "5%";
+    };
+  };
 in
 
 {
@@ -172,46 +187,9 @@ in
                   suffix = "°C";
                 })
                 # people
-                # https://angel-rs.github.io/css-color-filter-generator/
-                {
-                  type = "image";
-                  entity = "device_tracker.az";
-                  image = "/local/generated/az.png";
-                  state_filter = {
-                    not_home = "brightness(0) saturate(100%) invert(44%) sepia(11%) saturate(1915%) hue-rotate(167deg) brightness(93%) contrast(95%)";
-                  };
-                  style = {
-                    top = "89%";
-                    left = "4%";
-                    width = "5%";
-                  };
-                }
-                {
-                  type = "image";
-                  entity = "device_tracker.tf";
-                  image = "/local/generated/tf.png";
-                  state_filter = {
-                    not_home = "brightness(0) saturate(100%) invert(44%) sepia(11%) saturate(1915%) hue-rotate(167deg) brightness(93%) contrast(95%)";
-                  };
-                  style = {
-                    top = "92.3%";
-                    left = "4%";
-                    width = "5%";
-                  };
-                }
-                {
-                  type = "image";
-                  entity = "device_tracker.yq";
-                  image = "/local/generated/yq.png";
-                  state_filter = {
-                    not_home = "brightness(0) saturate(100%) invert(44%) sepia(11%) saturate(1915%) hue-rotate(167deg) brightness(93%) contrast(95%)";
-                  };
-                  style = {
-                    top = "95.6%";
-                    left = "4%";
-                    width = "5%";
-                  };
-                }
+                (people "az" "89")
+                (people "tf" "92.3")
+                (people "yq" "95.6")
               ];
             }
             {
