@@ -23,6 +23,35 @@ in
     # python3 -m zigpy_znp.tools.flash_read -o firmware_backup.bin /dev/ttyACM0
     # python3 -m zigpy_znp.tools.flash_write -i CC2531ZNP-Prod.bin /dev/ttyACM0
 
+    systemd.services.home-assistant.preStart = ''
+      mkdir ${config.services.home-assistant.configDir}/packages
+      ln -fns ${./zigbee2mqtt.yaml} ${config.services.home-assistant.configDir}/packages/zigbee2mqtt.yaml
+    '';
+
+    services.home-assistant.lovelaceConfig.views = [
+      {
+        title = "Settings";
+        path = "settings";
+        icon = "mdi:cog";
+        cards = [
+          {
+            type = "entities";
+            show_header_toggle = false;
+            entities = [
+              { entity = "sensor.zigbee2mqtt_bridge_state"; }
+              { entity = "sensor.zigbee2mqtt_version"; }
+              { entity = "sensor.zigbee2mqtt_coordinator_version"; }
+              { entity = "input_select.zigbee2mqtt_log_level"; }
+              { type = "divider"; }
+              { entity = "switch.zigbee2mqtt_main_join"; }
+              { entity = "input_number.zigbee2mqtt_join_minutes"; }
+              { entity = "timer.zigbee_permit_join"; }
+            ];
+          }
+        ];
+      }
+    ];
+
     # let my.user read data dir
     systemd.services.zigbee2mqtt.serviceConfig.UMask = lib.mkForce "0027";
     users.users.${config.my.user}.extraGroups = [

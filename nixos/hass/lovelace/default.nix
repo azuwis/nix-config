@@ -1004,20 +1004,6 @@ in
                 }
               ];
             }
-            {
-              type = "entities";
-              show_header_toggle = false;
-              entities = [
-                { entity = "sensor.zigbee2mqtt_bridge_state"; }
-                { entity = "sensor.zigbee2mqtt_version"; }
-                { entity = "sensor.zigbee2mqtt_coordinator_version"; }
-                { entity = "input_select.zigbee2mqtt_log_level"; }
-                { type = "divider"; }
-                { entity = "switch.zigbee2mqtt_main_join"; }
-                { entity = "input_number.zigbee2mqtt_join_minutes"; }
-                { entity = "timer.zigbee_permit_join"; }
-              ];
-            }
           ];
         }
         {

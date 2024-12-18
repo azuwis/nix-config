@@ -56,10 +56,6 @@ in
       "a+ ${config.services.home-assistant.configDir} - - - - d:u:${config.my.user}:r-x,u:${config.my.user}:r-x"
     ];
 
-    systemd.services.home-assistant.preStart = ''
-      ln -fns ${./config/packages} ${config.services.home-assistant.configDir}/packages
-    '';
-
     services.home-assistant = {
       enable = true;
       # Override default value [ "default_config" "met" "esphome" ], may cause problem for onboarding
