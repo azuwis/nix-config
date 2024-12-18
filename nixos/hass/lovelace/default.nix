@@ -230,13 +230,6 @@ in
                 {
                   type = "state-label";
                   entity = "sensor.xiaomi_mt0_bedd_temperature";
-                  tap_action = {
-                    action = "navigate";
-                    navigation_path = "/lovelace/history";
-                  };
-                  hold_action = {
-                    action = "more-info";
-                  };
                   style = {
                     top = "83.5%";
                     left = "41%";
@@ -245,13 +238,6 @@ in
                 {
                   type = "state-label";
                   entity = "sensor.xiaomi_mt0_bedd_relative_humidity";
-                  tap_action = {
-                    action = "navigate";
-                    navigation_path = "/lovelace/history";
-                  };
-                  hold_action = {
-                    action = "more-info";
-                  };
                   style = {
                     top = "81.5%";
                     left = "40.1%";
@@ -260,13 +246,6 @@ in
                 {
                   type = "state-label";
                   entity = "sensor.xiaomi_mt0_bedd_co2_density";
-                  tap_action = {
-                    action = "navigate";
-                    navigation_path = "/lovelace/history";
-                  };
-                  hold_action = {
-                    action = "more-info";
-                  };
                   style = {
                     top = "85.5%";
                     left = "40%";
@@ -295,13 +274,6 @@ in
                     {
                       type = "state-label";
                       entity = "sensor.leshow_jsq1_4d84_water_level";
-                      tap_action = {
-                        action = "navigate";
-                        navigation_path = "/lovelace/history";
-                      };
-                      hold_action = {
-                        action = "more-info";
-                      };
                       style = {
                         top = "72.3%";
                         left = "50.6%";
@@ -310,13 +282,6 @@ in
                     {
                       type = "state-label";
                       entity = "sensor.leshow_jsq1_4d84_relative_humidity";
-                      tap_action = {
-                        action = "navigate";
-                        navigation_path = "/lovelace/history";
-                      };
-                      hold_action = {
-                        action = "more-info";
-                      };
                       style = {
                         top = "70.3%";
                         left = "49%";
@@ -394,13 +359,6 @@ in
                 {
                   type = "state-label";
                   entity = "sensor.xiaomi_mt0_cdd0_temperature";
-                  tap_action = {
-                    action = "navigate";
-                    navigation_path = "/lovelace/history";
-                  };
-                  hold_action = {
-                    action = "more-info";
-                  };
                   style = {
                     top = "16%";
                     left = "19%";
@@ -409,13 +367,6 @@ in
                 {
                   type = "state-label";
                   entity = "sensor.xiaomi_mt0_cdd0_relative_humidity";
-                  tap_action = {
-                    action = "navigate";
-                    navigation_path = "/lovelace/history";
-                  };
-                  hold_action = {
-                    action = "more-info";
-                  };
                   style = {
                     top = "14%";
                     left = "18%";
@@ -424,13 +375,6 @@ in
                 {
                   type = "state-label";
                   entity = "sensor.xiaomi_mt0_cdd0_co2_density";
-                  tap_action = {
-                    action = "navigate";
-                    navigation_path = "/lovelace/history";
-                  };
-                  hold_action = {
-                    action = "more-info";
-                  };
                   style = {
                     top = "18%";
                     left = "20.3%";
@@ -473,13 +417,6 @@ in
                 {
                   type = "state-label";
                   entity = "sensor.xiaomi_mt0_6e25_temperature";
-                  tap_action = {
-                    action = "navigate";
-                    navigation_path = "/lovelace/history";
-                  };
-                  hold_action = {
-                    action = "more-info";
-                  };
                   style = {
                     top = "51.5%";
                     left = "17%";
@@ -488,13 +425,6 @@ in
                 {
                   type = "state-label";
                   entity = "sensor.xiaomi_mt0_6e25_relative_humidity";
-                  tap_action = {
-                    action = "navigate";
-                    navigation_path = "/lovelace/history";
-                  };
-                  hold_action = {
-                    action = "more-info";
-                  };
                   style = {
                     top = "49.5%";
                     left = "15.8%";
@@ -503,13 +433,6 @@ in
                 {
                   type = "state-label";
                   entity = "sensor.xiaomi_mt0_6e25_co2_density";
-                  tap_action = {
-                    action = "navigate";
-                    navigation_path = "/lovelace/history";
-                  };
-                  hold_action = {
-                    action = "more-info";
-                  };
                   style = {
                     top = "53.5%";
                     left = "18.3%";
