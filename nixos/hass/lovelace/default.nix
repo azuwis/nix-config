@@ -6,11 +6,14 @@
 }:
 
 let
+  inherit (lib) recursiveUpdate;
   inherit (pkgs.home-assistant-custom-lovelace-modules) card-mod;
+
   font = pkgs.fetchurl {
     url = "https://github.com/google/fonts/raw/refs/heads/main/ofl/fascinateinline/FascinateInline-Regular.ttf";
     hash = "sha256-QTEBgQ/kIFIBIogEBNH46JImnmpq+i4A6YD2XvYy7js=";
   };
+
   generated = pkgs.runCommand "lovelace-generated" { } ''
     mkdir $out
     for i in az tf yq; do
@@ -18,7 +21,28 @@ let
     done
     ln -fns ${card-mod}/${card-mod.entrypoint} $out/
   '';
+
   static = ./static;
+
+  state =
+    entity: left: top:
+    let
+      isBinarySensor = lib.hasPrefix "binary_sensor." entity;
+      isSensor = lib.hasPrefix "sensor." entity;
+    in
+    {
+      inherit entity;
+      style = {
+        left = "${left}%";
+        top = "${top}%";
+      };
+      type = if isSensor then "state-label" else "state-icon";
+    }
+    // lib.optionalAttrs (!isSensor && !isBinarySensor) {
+      hold_action = {
+        action = "toggle";
+      };
+    };
 in
 
 {
@@ -67,201 +91,28 @@ in
               image = "/local/static/floorplan.png?v=3";
               elements = [
                 # living room
-                {
-                  type = "state-icon";
-                  entity = "light.living_room";
-                  hold_action = {
-                    action = "toggle";
-                  };
-                  style = {
-                    top = "72.8%";
-                    left = "75.3%";
-                  };
-                }
-                {
-                  type = "state-icon";
-                  entity = "light.1660a6874242f000_group";
-                  hold_action = {
-                    action = "toggle";
-                  };
-                  style = {
-                    top = "72.8%";
-                    left = "93%";
-                  };
-                }
-                {
-                  type = "state-icon";
-                  entity = "climate.gree_climate_9424b8123fe900";
-                  hold_action = {
-                    action = "toggle";
-                  };
-                  style = {
-                    top = "72.6%";
-                    left = "88%";
-                  };
-                }
-                {
-                  type = "state-icon";
-                  entity = "media_player.sony_kdl_55w800b";
-                  hold_action = {
-                    action = "toggle";
-                  };
-                  style = {
-                    top = "72.6%";
-                    left = "59%";
-                  };
-                }
+                (state "light.living_room" "75.3" "72.8")
+                (state "light.1660a6874242f000_group" "93" "72.8")
+                (state "climate.gree_climate_9424b8123fe900" "88" "72.6")
+                (state "media_player.sony_kdl_55w800b" "59" "72.6")
                 # dining room
-                {
-                  type = "state-icon";
-                  entity = "light.16609ab46d42b000_group";
-                  hold_action = {
-                    action = "toggle";
-                  };
-                  style = {
-                    top = "43%";
-                    left = "63%";
-                  };
-                }
-                {
-                  type = "state-icon";
-                  entity = "light.yeelink_fancl5_e358_light";
-                  hold_action = {
-                    action = "toggle";
-                  };
-                  style = {
-                    top = "51.8%";
-                    left = "80%";
-                  };
-                }
-                {
-                  type = "state-icon";
-                  entity = "fan.yeelink_fancl5_e358_fan";
-                  hold_action = {
-                    action = "toggle";
-                  };
-                  style = {
-                    top = "51.8%";
-                    left = "75%";
-                  };
-                }
-                {
-                  type = "state-icon";
-                  entity = "humidifier.deye_z20_81f8_dehumidifier";
-                  style = {
-                    top = "42.9%";
-                    left = "43.2%";
-                  };
-                }
-                {
-                  type = "state-label";
-                  entity = "sensor.deye_z20_81f8_relative_humidity";
-                  style = {
-                    top = "42.2%";
-                    left = "52%";
-                  };
-                }
-                {
-                  type = "state-label";
-                  entity = "sensor.deye_z20_81f8_temperature";
-                  style = {
-                    top = "44.2%";
-                    left = "52.9%";
-                  };
-                }
-                {
-                  type = "state-label";
-                  entity = "sensor.1775bcf17c0e_humidity";
-                  style = {
-                    top = "42.2%";
-                    left = "79%";
-                  };
-                }
-                {
-                  type = "state-label";
-                  entity = "sensor.1775bcf17c0e_temperature";
-                  style = {
-                    top = "44.2%";
-                    left = "79.9%";
-                  };
-                }
-                {
-                  type = "state-icon";
-                  entity = "binary_sensor.649e314c943b_occupancy";
-                  style = {
-                    top = "50.8%";
-                    left = "55%";
-                  };
-                }
+                (state "light.16609ab46d42b000_group" "63" "43")
+                (state "light.yeelink_fancl5_e358_light" "80" "51.8")
+                (state "fan.yeelink_fancl5_e358_fan" "75" "51.8")
+                (state "humidifier.deye_z20_81f8_dehumidifier" "43.2" "42.9")
+                (state "sensor.deye_z20_81f8_relative_humidity" "52" "42.2")
+                (state "sensor.deye_z20_81f8_temperature" "52.9" "44.2")
+                (state "sensor.1775bcf17c0e_humidity" "79" "42.2")
+                (state "sensor.1775bcf17c0e_temperature" "79.9" "44.2")
+                (state "binary_sensor.649e314c943b_occupancy" "55" "50.8")
                 # primary bedroom
-                {
-                  type = "state-icon";
-                  entity = "light.primary_bedroom";
-                  hold_action = {
-                    action = "toggle";
-                  };
-                  style = {
-                    top = "72%";
-                    left = "31%";
-                  };
-                }
-                {
-                  type = "state-icon";
-                  entity = "climate.xiaomi_mt0_bedd_air_conditioner";
-                  hold_action = {
-                    action = "toggle";
-                  };
-                  style = {
-                    top = "84.3%";
-                    left = "51.3%";
-                  };
-                }
-                {
-                  type = "state-icon";
-                  entity = "fan.xiaomi_mt0_bedd_air_fresh";
-                  hold_action = {
-                    action = "toggle";
-                  };
-                  style = {
-                    top = "80.3%";
-                    left = "51.3%";
-                  };
-                }
-                {
-                  type = "state-label";
-                  entity = "sensor.xiaomi_mt0_bedd_temperature";
-                  style = {
-                    top = "83.5%";
-                    left = "41%";
-                  };
-                }
-                {
-                  type = "state-label";
-                  entity = "sensor.xiaomi_mt0_bedd_relative_humidity";
-                  style = {
-                    top = "81.5%";
-                    left = "40.1%";
-                  };
-                }
-                {
-                  type = "state-label";
-                  entity = "sensor.xiaomi_mt0_bedd_co2_density";
-                  style = {
-                    top = "85.5%";
-                    left = "40%";
-                  };
-                }
-                {
-                  type = "state-icon";
-                  entity = "humidifier.leshow_jsq1_4d84_humidifier";
-                  hold_action = {
-                    action = "toggle";
-                  };
-                  style = {
-                    top = "75%";
-                    left = "50%";
-                  };
-                }
+                (state "light.primary_bedroom" "31" "72")
+                (state "climate.xiaomi_mt0_bedd_air_conditioner" "51.3" "84.3")
+                (state "fan.xiaomi_mt0_bedd_air_fresh" "51.3" "80.3")
+                (state "sensor.xiaomi_mt0_bedd_temperature" "41" "83.5")
+                (state "sensor.xiaomi_mt0_bedd_relative_humidity" "40.1" "81.5")
+                (state "sensor.xiaomi_mt0_bedd_co2_density" "40" "85.5")
+                (state "humidifier.leshow_jsq1_4d84_humidifier" "50" "75")
                 {
                   type = "conditional";
                   conditions = [
@@ -271,277 +122,55 @@ in
                     }
                   ];
                   elements = [
-                    {
-                      type = "state-label";
-                      entity = "sensor.leshow_jsq1_4d84_water_level";
-                      style = {
-                        top = "72.3%";
-                        left = "50.6%";
-                      };
-                    }
-                    {
-                      type = "state-label";
-                      entity = "sensor.leshow_jsq1_4d84_relative_humidity";
-                      style = {
-                        top = "70.3%";
-                        left = "49%";
-                      };
-                    }
+                    (state "sensor.leshow_jsq1_4d84_water_level" "50.6" "72.3")
+                    (state "sensor.leshow_jsq1_4d84_relative_humidity" "49" "70.3")
                   ];
                 }
-                {
-                  type = "state-icon";
-                  entity = "cover.lumi_hmcn01_7c8c_curtain";
-                  hold_action = {
-                    action = "toggle";
-                  };
-                  style = {
-                    top = "89.2%";
-                    left = "33.9%";
-                  };
-                }
-                {
-                  type = "state-icon";
-                  entity = "media_player.edifier_r2000db";
-                  hold_action = {
-                    action = "toggle";
-                  };
-                  style = {
-                    top = "66%";
-                    left = "50%";
-                  };
-                }
+                (state "cover.lumi_hmcn01_7c8c_curtain" "33.9" "89.2")
+                (state "media_player.edifier_r2000db" "50" "66")
                 # secondary bedroom
-                {
-                  type = "state-icon";
-                  entity = "light.secondary_bedroom";
-                  hold_action = {
-                    action = "toggle";
-                  };
-                  style = {
-                    top = "23%";
-                    left = "20.3%";
-                  };
-                }
-                {
-                  type = "state-icon";
-                  entity = "light.1697cc678402b000_group";
-                  hold_action = {
-                    action = "toggle";
-                  };
-                  style = {
-                    top = "23%";
-                    left = "36.5%";
-                  };
-                }
-                {
-                  type = "state-icon";
-                  entity = "climate.xiaomi_mt0_cdd0_air_conditioner";
-                  hold_action = {
-                    action = "toggle";
-                  };
-                  style = {
-                    top = "17.5%";
-                    left = "8%";
-                  };
-                }
-                {
-                  type = "state-icon";
-                  entity = "fan.xiaomi_mt0_cdd0_air_fresh";
-                  hold_action = {
-                    action = "toggle";
-                  };
-                  style = {
-                    top = "13.5%";
-                    left = "8%";
-                  };
-                }
-                {
-                  type = "state-label";
-                  entity = "sensor.xiaomi_mt0_cdd0_temperature";
-                  style = {
-                    top = "16%";
-                    left = "19%";
-                  };
-                }
-                {
-                  type = "state-label";
-                  entity = "sensor.xiaomi_mt0_cdd0_relative_humidity";
-                  style = {
-                    top = "14%";
-                    left = "18%";
-                  };
-                }
-                {
-                  type = "state-label";
-                  entity = "sensor.xiaomi_mt0_cdd0_co2_density";
-                  style = {
-                    top = "18%";
-                    left = "20.3%";
-                  };
-                }
+                (state "light.secondary_bedroom" "20.3" "23")
+                (state "light.1697cc678402b000_group" "36.5" "23")
+                (state "climate.xiaomi_mt0_cdd0_air_conditioner" "8" "17.5")
+                (state "fan.xiaomi_mt0_cdd0_air_fresh" "8" "13.5")
+                (state "sensor.xiaomi_mt0_cdd0_temperature" "19" "16")
+                (state "sensor.xiaomi_mt0_cdd0_relative_humidity" "18" "14")
+                (state "sensor.xiaomi_mt0_cdd0_co2_density" "20.3" "18")
                 # kids room
-                {
-                  type = "state-icon";
-                  entity = "light.kids_room";
-                  hold_action = {
-                    action = "toggle";
-                  };
-                  style = {
-                    top = "43%";
-                    left = "20.3%";
-                  };
-                }
-                {
-                  type = "state-icon";
-                  entity = "climate.xiaomi_mt0_6e25_air_conditioner";
-                  hold_action = {
-                    action = "toggle";
-                  };
-                  style = {
-                    top = "52.5%";
-                    left = "6%";
-                  };
-                }
-                {
-                  type = "state-icon";
-                  entity = "fan.xiaomi_mt0_6e25_air_fresh";
-                  hold_action = {
-                    action = "toggle";
-                  };
-                  style = {
-                    top = "48.5%";
-                    left = "6%";
-                  };
-                }
-                {
-                  type = "state-label";
-                  entity = "sensor.xiaomi_mt0_6e25_temperature";
-                  style = {
-                    top = "51.5%";
-                    left = "17%";
-                  };
-                }
-                {
-                  type = "state-label";
-                  entity = "sensor.xiaomi_mt0_6e25_relative_humidity";
-                  style = {
-                    top = "49.5%";
-                    left = "15.8%";
-                  };
-                }
-                {
-                  type = "state-label";
-                  entity = "sensor.xiaomi_mt0_6e25_co2_density";
-                  style = {
-                    top = "53.5%";
-                    left = "18.3%";
-                  };
-                }
-                {
-                  type = "state-label";
-                  entity = "sensor.a4c138008ef3_humidity";
-                  style = {
-                    top = "41.9%";
-                    left = "7.9%";
-                  };
-                }
-                {
-                  type = "state-label";
-                  entity = "sensor.kids_room_temperature";
-                  style = {
-                    top = "43.9%";
-                    left = "10%";
-                  };
-                }
-                {
-                  type = "state-icon";
-                  entity = "cover.lumi_hmcn01_ea01_curtain";
-                  hold_action = {
-                    action = "toggle";
-                  };
-                  style = {
-                    top = "59%";
-                    left = "11.3%";
-                  };
-                }
+                (state "light.kids_room" "20.3" "43")
+                (state "climate.xiaomi_mt0_6e25_air_conditioner" "6" "52.5")
+                (state "fan.xiaomi_mt0_6e25_air_fresh" "6" "48.5")
+                (state "sensor.xiaomi_mt0_6e25_temperature" "17" "51.5")
+                (state "sensor.xiaomi_mt0_6e25_relative_humidity" "15.8" "49.5")
+                (state "sensor.xiaomi_mt0_6e25_co2_density" "18.3" "53.5")
+                (state "sensor.a4c138008ef3_humidity" "7.9" "41.9")
+                (state "sensor.kids_room_temperature" "10" "43.9")
+                (state "cover.lumi_hmcn01_ea01_curtain" "11.3" "59")
                 # kitchen
-                {
-                  type = "state-icon";
-                  entity = "light.kitchen";
-                  hold_action = {
-                    action = "toggle";
-                  };
-                  style = {
-                    top = "16%";
-                    left = "71%";
-                  };
-                }
-                {
-                  type = "state-icon";
-                  entity = "binary_sensor.a4c138694c34_occupancy";
-                  style = {
-                    top = "9%";
-                    left = "71%";
-                  };
-                }
+                (state "light.kitchen" "71" "16")
+                (state "binary_sensor.a4c138694c34_occupancy" "71" "9")
                 # bathroom
-                {
-                  type = "state-icon";
-                  entity = "light.bathroom";
-                  hold_action = {
-                    action = "toggle";
-                  };
-                  style = {
-                    top = "23%";
-                    left = "51%";
-                  };
-                }
-                {
-                  type = "state-icon";
-                  entity = "binary_sensor.dced8387eef4_occupancy";
-                  style = {
-                    top = "25.5%";
-                    left = "45.5%";
-                  };
-                }
-                {
-                  type = "state-icon";
-                  entity = "climate.yeelink_v6_af1f_ptc_bath_heater";
-                  hold_action = {
-                    action = "toggle";
-                  };
-                  style = {
-                    top = "20%";
-                    left = "45.5%";
-                  };
+                (state "light.bathroom" "51" "23")
+                (state "binary_sensor.dced8387eef4_occupancy" "45.5" "25.5")
+                (recursiveUpdate (state "climate.yeelink_v6_af1f_ptc_bath_heater" "45.5" "20") {
                   card_mod.style."state-badge $ ha-state-icon" = ''
                     ha-state-icon[data-state="ventilate"] {
                       color: var(--state-climate-cool-color) !important;
                     }
                   '';
-                }
-                {
-                  type = "state-icon";
-                  entity = "binary_sensor.0x00158d00028f9af8_contact";
+                })
+                (recursiveUpdate (state "binary_sensor.0x00158d00028f9af8_contact" "45.5" "14.7") {
+                  # Reverse on/off color, https://www.home-assistant.io/integrations/frontend/#state-color
                   style = {
-                    top = "14.7%";
-                    left = "45.5%";
-                    # Reverse on/off color, https://www.home-assistant.io/integrations/frontend/#state-color
                     "--state-binary_sensor-door-on-color" = "var(--state-icon-color)";
                     "--state-binary_sensor-door-off-color" = "var(--amber-color)";
                   };
-                }
-                {
+                })
+                (recursiveUpdate (state "climate.yeelink_v6_af1f_ptc_bath_heater" "53.5" "14.7") {
                   type = "state-label";
-                  entity = "climate.yeelink_v6_af1f_ptc_bath_heater";
                   attribute = "current_temperature";
                   suffix = "°C";
-                  style = {
-                    top = "14.7%";
-                    left = "53.5%";
-                  };
-                }
+                })
                 # people
                 # https://angel-rs.github.io/css-color-filter-generator/
                 {
