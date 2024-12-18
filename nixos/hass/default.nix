@@ -57,7 +57,6 @@ in
     ];
 
     systemd.services.home-assistant.preStart = ''
-      cp --no-preserve=mode /etc/home-assistant/automations.yaml ${config.services.home-assistant.configDir}/automations.yaml
       ln -fns ${./config/packages} ${config.services.home-assistant.configDir}/packages
     '';
 
@@ -96,7 +95,7 @@ in
       logbook = { };
       sun = { };
       logger.default = "warning";
-      automation = "!include automations.yaml";
+      automation = "!include /etc/home-assistant/automations.yaml";
     };
 
     my.nginx.enable = mkDefault true;
