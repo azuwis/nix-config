@@ -38,12 +38,13 @@ in
     # as of github:NixOS/nixpkgs/2873a73123077953f3e6f34964466018876d87c4
     # services.home-assistant.config.lovelace.resources =
     #   let
-    #     mkModule = name:
+    #     mkModule =
+    #       name:
     #       let
-    #         hash = builtins.hashFile "md5" "${www}/${name}.js";
+    #         hash = builtins.hashFile "md5" "${./static}/${name}.js";
     #       in
     #       {
-    #         url = "/local/${name}.js?v=${hash}";
+    #         url = "/local/static/${name}.js?v=${hash}";
     #         type = "module";
     #       };
     #   in
