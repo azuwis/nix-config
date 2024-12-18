@@ -95,6 +95,7 @@ let
         layout.mode.headings = false;
       };
     };
+  climate' = entity: card: recursiveUpdate (climate entity) { inherit card; };
 
   state =
     entity: left: top:
@@ -288,11 +289,11 @@ in
               power_color = "yes";
               show_source = "small";
             })
-            (recursiveUpdate (climate "climate.yeelink_v6_af1f_ptc_bath_heater") {
-              card.hide.state = true;
+            (climate' "climate.yeelink_v6_af1f_ptc_bath_heater" {
+              hide.state = true;
             })
-            (recursiveUpdate (climate "climate.gree_climate_9424b8123fe900") {
-              card.control = [ "hvac" ];
+            (climate' "climate.gree_climate_9424b8123fe900" {
+              control = [ "hvac" ];
             })
             (climate "climate.xiaomi_mt0_bedd_air_conditioner")
             (climate "climate.xiaomi_mt0_cdd0_air_conditioner")
