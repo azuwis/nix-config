@@ -116,6 +116,9 @@ let
         action = "toggle";
       };
     };
+  state' =
+    entity: left: top: card:
+    recursiveUpdate (state entity left top) card;
 
   people = id: top: {
     type = "image";
@@ -255,21 +258,21 @@ in
                 # bathroom
                 (state "light.bathroom" "51" "23")
                 (state "binary_sensor.dced8387eef4_occupancy" "45.5" "25.5")
-                (recursiveUpdate (state "climate.yeelink_v6_af1f_ptc_bath_heater" "45.5" "20") {
+                (state' "climate.yeelink_v6_af1f_ptc_bath_heater" "45.5" "20" {
                   card_mod.style."state-badge $ ha-state-icon" = ''
                     ha-state-icon[data-state="ventilate"] {
                       color: var(--state-climate-cool-color) !important;
                     }
                   '';
                 })
-                (recursiveUpdate (state "binary_sensor.0x00158d00028f9af8_contact" "45.5" "14.7") {
+                (state' "binary_sensor.0x00158d00028f9af8_contact" "45.5" "14.7" {
                   # Reverse on/off color, https://www.home-assistant.io/integrations/frontend/#state-color
                   style = {
                     "--state-binary_sensor-door-on-color" = "var(--state-icon-color)";
                     "--state-binary_sensor-door-off-color" = "var(--amber-color)";
                   };
                 })
-                (recursiveUpdate (state "climate.yeelink_v6_af1f_ptc_bath_heater" "53.5" "14.7") {
+                (state' "climate.yeelink_v6_af1f_ptc_bath_heater" "53.5" "14.7" {
                   type = "state-label";
                   attribute = "current_temperature";
                   suffix = "°C";
