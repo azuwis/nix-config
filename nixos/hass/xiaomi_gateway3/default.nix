@@ -121,7 +121,7 @@ in
             state: "off"
           - condition: numeric_state
             entity_id: sensor.a4c138694c34_illuminance
-            below: 380
+            below: 280
         actions:
           - action: light.turn_on
             target:
