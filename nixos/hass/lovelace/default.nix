@@ -24,6 +24,78 @@ let
 
   static = ./static;
 
+  climate =
+    entity:
+    let
+      vendor = builtins.elemAt (builtins.split "_" id) 0;
+      id = lib.removePrefix "climate." entity;
+      xiaomi_id = lib.removeSuffix "_air_conditioner" id;
+      sensors =
+        {
+          gree = [
+            {
+              entity = "sensor.1775bcf17c0e_humidity";
+              name = "Humidity";
+            }
+            {
+              inherit entity;
+              name = "Fan";
+              attribute = "fan_mode";
+            }
+          ];
+          xiaomi = [
+            {
+              entity = "sensor.${xiaomi_id}_relative_humidity";
+              name = "Humidity";
+            }
+            {
+              entity = "sensor.${xiaomi_id}_co2_density";
+              name = "Co2";
+            }
+            {
+              inherit entity;
+              name = "Fan";
+              attribute = "fan_mode";
+            }
+          ];
+          yeelink = [
+            {
+              inherit entity;
+              name = "State";
+            }
+            {
+              inherit entity;
+              name = "Fan";
+              attribute = "fan_mode";
+            }
+            {
+              inherit entity;
+              name = "Fan level";
+              attribute = "ptc_bath_heater.fan_level";
+            }
+          ];
+        }
+        .${vendor};
+    in
+    {
+      type = "conditional";
+      conditions = [
+        {
+          inherit entity;
+          state_not = "off";
+        }
+        {
+          inherit entity;
+          state_not = "unavailable";
+        }
+      ];
+      card = {
+        inherit entity sensors;
+        type = "custom:simple-thermostat";
+        layout.mode.headings = false;
+      };
+    };
+
   state =
     entity: left: top:
     let
@@ -225,186 +297,15 @@ in
                 show_source = "small";
               };
             }
-            {
-              type = "conditional";
-              conditions = [
-                {
-                  entity = "climate.yeelink_v6_af1f_ptc_bath_heater";
-                  state_not = "off";
-                }
-                {
-                  entity = "climate.yeelink_v6_af1f_ptc_bath_heater";
-                  state_not = "unavailable";
-                }
-              ];
-              card = {
-                type = "custom:simple-thermostat";
-                entity = "climate.yeelink_v6_af1f_ptc_bath_heater";
-                hide.state = true;
-                layout.mode.headings = false;
-                sensors = [
-                  {
-                    entity = "climate.yeelink_v6_af1f_ptc_bath_heater";
-                    name = "State";
-                  }
-                  {
-                    entity = "climate.yeelink_v6_af1f_ptc_bath_heater";
-                    name = "Fan";
-                    attribute = "fan_mode";
-                  }
-                  {
-                    entity = "climate.yeelink_v6_af1f_ptc_bath_heater";
-                    name = "Fan level";
-                    attribute = "ptc_bath_heater.fan_level";
-                  }
-                ];
-              };
-            }
-            {
-              type = "conditional";
-              conditions = [
-                {
-                  entity = "climate.gree_climate_9424b8123fe900";
-                  state_not = "off";
-                }
-                {
-                  entity = "climate.gree_climate_9424b8123fe900";
-                  state_not = "unavailable";
-                }
-              ];
-              card = {
-                type = "custom:simple-thermostat";
-                entity = "climate.gree_climate_9424b8123fe900";
-                control = [ "hvac" ];
-                layout = {
-                  mode = {
-                    headings = false;
-                  };
-                };
-                sensors = [
-                  {
-                    entity = "sensor.1775bcf17c0e_humidity";
-                    name = "Humidity";
-                  }
-                  {
-                    entity = "climate.gree_climate_9424b8123fe900";
-                    name = "Fan";
-                    attribute = "fan_mode";
-                  }
-                ];
-              };
-            }
-            {
-              type = "conditional";
-              conditions = [
-                {
-                  entity = "climate.xiaomi_mt0_bedd_air_conditioner";
-                  state_not = "off";
-                }
-                {
-                  entity = "climate.xiaomi_mt0_bedd_air_conditioner";
-                  state_not = "unavailable";
-                }
-              ];
-              card = {
-                type = "custom:simple-thermostat";
-                entity = "climate.xiaomi_mt0_bedd_air_conditioner";
-                layout = {
-                  mode = {
-                    headings = false;
-                  };
-                };
-                sensors = [
-                  {
-                    entity = "sensor.xiaomi_mt0_bedd_relative_humidity";
-                    name = "Humidity";
-                  }
-                  {
-                    entity = "sensor.xiaomi_mt0_bedd_co2_density";
-                    name = "Co2";
-                  }
-                  {
-                    entity = "climate.xiaomi_mt0_bedd_air_conditioner";
-                    name = "Fan";
-                    attribute = "fan_mode";
-                  }
-                ];
-              };
-            }
-            {
-              type = "conditional";
-              conditions = [
-                {
-                  entity = "climate.xiaomi_mt0_cdd0_air_conditioner";
-                  state_not = "off";
-                }
-                {
-                  entity = "climate.xiaomi_mt0_cdd0_air_conditioner";
-                  state_not = "unavailable";
-                }
-              ];
-              card = {
-                type = "custom:simple-thermostat";
-                entity = "climate.xiaomi_mt0_cdd0_air_conditioner";
-                layout = {
-                  mode = {
-                    headings = false;
-                  };
-                };
-                sensors = [
-                  {
-                    entity = "sensor.xiaomi_mt0_cdd0_relative_humidity";
-                    name = "Humidity";
-                  }
-                  {
-                    entity = "sensor.xiaomi_mt0_cdd0_co2_density";
-                    name = "Co2";
-                  }
-                  {
-                    entity = "climate.xiaomi_mt0_cdd0_air_conditioner";
-                    name = "Fan";
-                    attribute = "fan_mode";
-                  }
-                ];
-              };
-            }
-            {
-              type = "conditional";
-              conditions = [
-                {
-                  entity = "climate.xiaomi_mt0_6e25_air_conditioner";
-                  state_not = "off";
-                }
-                {
-                  entity = "climate.xiaomi_mt0_6e25_air_conditioner";
-                  state_not = "unavailable";
-                }
-              ];
-              card = {
-                type = "custom:simple-thermostat";
-                entity = "climate.xiaomi_mt0_6e25_air_conditioner";
-                layout = {
-                  mode = {
-                    headings = false;
-                  };
-                };
-                sensors = [
-                  {
-                    entity = "sensor.xiaomi_mt0_6e25_relative_humidity";
-                    name = "Humidity";
-                  }
-                  {
-                    entity = "sensor.xiaomi_mt0_6e25_co2_density";
-                    name = "Co2";
-                  }
-                  {
-                    entity = "climate.xiaomi_mt0_6e25_air_conditioner";
-                    name = "Fan";
-                    attribute = "fan_mode";
-                  }
-                ];
-              };
-            }
+            (recursiveUpdate (climate "climate.yeelink_v6_af1f_ptc_bath_heater") {
+              card.hide.state = true;
+            })
+            (recursiveUpdate (climate "climate.gree_climate_9424b8123fe900") {
+              card.control = [ "hvac" ];
+            })
+            (climate "climate.xiaomi_mt0_bedd_air_conditioner")
+            (climate "climate.xiaomi_mt0_cdd0_air_conditioner")
+            (climate "climate.xiaomi_mt0_6e25_air_conditioner")
           ];
         }
         {
