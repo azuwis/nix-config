@@ -38,7 +38,6 @@ in
       # gree = true;
       gree2 = true;
       mini-media-player = true;
-      mqtt = true;
       simple-thermostat = true;
       smartir = true;
       # weather = true;
