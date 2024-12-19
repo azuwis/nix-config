@@ -23,6 +23,8 @@ in
     # python3 -m zigpy_znp.tools.flash_read -o firmware_backup.bin /dev/ttyACM0
     # python3 -m zigpy_znp.tools.flash_write -i CC2531ZNP-Prod.bin /dev/ttyACM0
 
+    my.hass.mqtt = true;
+
     systemd.services.home-assistant.preStart = ''
       mkdir ${config.services.home-assistant.configDir}/packages
       ln -fns ${./zigbee2mqtt.yaml} ${config.services.home-assistant.configDir}/packages/zigbee2mqtt.yaml
