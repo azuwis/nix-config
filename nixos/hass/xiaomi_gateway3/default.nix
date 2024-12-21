@@ -55,6 +55,19 @@ in
           ];
         }
       ];
+      xiaomi_gateway3.devices = {
+        # Clock
+        "1775bcf17c0e".name = "Dining Room";
+        "a4c138008ef3".name = "Kids Room";
+        # Light Group
+        "1612458766316515328".name = "Dining Room Recessed";
+        "1612471766461116416".name = "Living Room Recessed";
+        "1627994535286190080".name = "Secondary Bedroom Recessed";
+        # Occupancy
+        "dced8387eef4".name = "Bathroom";
+        "649e314c943b".name = "Dining Room";
+        "a4c138694c34".name = "Kitchen";
+      };
       # logger.logs."custom_components.xiaomi_gateway3" = "debug";
     };
 
