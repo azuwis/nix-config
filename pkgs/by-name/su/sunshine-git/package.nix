@@ -14,11 +14,11 @@
 }).overrideAttrs
   (old: {
     pname = "sunshine-git";
-    version = "2024.1211.191744-unstable-2024-12-11";
+    version = "2024.1222.851-unstable-2024-12-22";
 
     src = old.src.override {
-      rev = "1543f584abf33adfa50731b2a84083c70faaa18d";
-      hash = "sha256-KdIoaKr0rf144sJVgN/AvMIrKz/pOsI6qZ/v19BG9M8=";
+      rev = "129abd8c26f3d42b6a742e78fa6f88895e81ea70";
+      hash = "sha256-Mg/9MebCZA+XGfMdjNZkD92IMXh5kjECY1/xmONbQ2A=";
     };
 
     patches = [ ];
