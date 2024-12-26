@@ -128,22 +128,21 @@
             data:
               brightness: "{{ brightness }}"
 
-      - alias: Light sync kitchen off state
+      - alias: Light sync kitchen on state
         triggers:
           - trigger: state
             entity_id:
               - light.kitchen_door
               - light.kitchen_window
-            to: "off"
+            from: "off"
+            to: "on"
             for: "00:00:01"
-        conditions:
-          - condition: state
-            entity_id: light.kitchen
-            state: "on"
         actions:
-          - action: light.turn_off
+          - action: light.turn_on
             target:
-              entity_id: light.kitchen
+              entity_id:
+                - light.kitchen_door
+                - light.kitchen_window
 
       - alias: Light fan light on when dining room light on
         triggers:
