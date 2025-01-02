@@ -97,6 +97,17 @@ let
     };
   climate' = entity: card: recursiveUpdate (climate entity) { inherit card; };
 
+  conditional = entity: elements: {
+    inherit elements;
+    type = "conditional";
+    conditions = [
+      {
+        inherit entity;
+        state_not = "unavailable";
+      }
+    ];
+  };
+
   state =
     entity: left: top:
     let
@@ -219,19 +230,10 @@ in
                 (state "sensor.xiaomi_mt0_bedd_relative_humidity" "40.1" "81.5")
                 (state "sensor.xiaomi_mt0_bedd_co2_density" "40" "85.5")
                 (state "humidifier.leshow_jsq1_4d84_humidifier" "50" "75")
-                {
-                  type = "conditional";
-                  conditions = [
-                    {
-                      entity = "humidifier.leshow_jsq1_4d84_humidifier";
-                      state_not = "unavailable";
-                    }
-                  ];
-                  elements = [
-                    (state "sensor.leshow_jsq1_4d84_water_level" "50.6" "72.3")
-                    (state "sensor.leshow_jsq1_4d84_relative_humidity" "49" "70.3")
-                  ];
-                }
+                (conditional "humidifier.leshow_jsq1_4d84_humidifier" [
+                  (state "sensor.leshow_jsq1_4d84_water_level" "50.6" "72.3")
+                  (state "sensor.leshow_jsq1_4d84_relative_humidity" "49" "70.3")
+                ])
                 (state "cover.lumi_hmcn01_7c8c_curtain" "33.9" "89.2")
                 (state "media_player.edifier_r2000db" "50" "66")
                 # secondary bedroom
