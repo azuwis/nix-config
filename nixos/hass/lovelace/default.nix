@@ -217,8 +217,10 @@ in
                 (state "light.yeelink_fancl5_e358_light" "80" "51.8")
                 (state "fan.yeelink_fancl5_e358_fan" "75" "51.8")
                 (state "humidifier.deye_z20_81f8_dehumidifier" "43.2" "42.9")
-                (state "sensor.deye_z20_81f8_relative_humidity" "52" "42.2")
-                (state "sensor.deye_z20_81f8_temperature" "52.9" "44.2")
+                (conditional "humidifier.deye_z20_81f8_dehumidifier" [
+                  (state "sensor.deye_z20_81f8_relative_humidity" "52" "42.2")
+                  (state "sensor.deye_z20_81f8_temperature" "52.9" "44.2")
+                ])
                 (state "sensor.1775bcf17c0e_humidity" "79" "42.2")
                 (state "sensor.1775bcf17c0e_temperature" "79.9" "44.2")
                 (state "binary_sensor.649e314c943b_occupancy" "55" "50.8")
