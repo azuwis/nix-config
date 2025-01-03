@@ -1,7 +1,4 @@
-{
-  home-assistant-custom-components,
-  nix-update-script,
-}:
+{ home-assistant-custom-components }:
 
 home-assistant-custom-components.xiaomi_gateway3.overridePythonAttrs (old: rec {
   version = "4.0.8";

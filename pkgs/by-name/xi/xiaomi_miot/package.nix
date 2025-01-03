@@ -1,4 +1,4 @@
-{ home-assistant, home-assistant-custom-components }:
+{ home-assistant-custom-components }:
 
 home-assistant-custom-components.xiaomi_miot.overridePythonAttrs (old: rec {
   version = "1.0.8";
