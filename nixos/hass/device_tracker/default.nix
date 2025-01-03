@@ -39,7 +39,7 @@ in
             data:
               scene_id: primary_bedroom_before
               snapshot_entities:
-                - cover.lumi_hmcn01_7c8c_curtain
+                - cover.lumi_hmcn01_7c8c_motor_control
                 - light.primary_bedroom
           - if:
               - condition: sun
@@ -48,7 +48,7 @@ in
             then:
               - action: cover.set_cover_position
                 target:
-                  entity_id: cover.lumi_hmcn01_7c8c_curtain
+                  entity_id: cover.lumi_hmcn01_7c8c_motor_control
                 data:
                   position: 20
           - if:

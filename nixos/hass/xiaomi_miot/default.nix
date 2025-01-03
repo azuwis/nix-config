@@ -91,13 +91,13 @@ in
             at: "21:30:00"
         conditions:
           - condition: numeric_state
-            entity_id: cover.lumi_hmcn01_ea01_curtain
+            entity_id: cover.lumi_hmcn01_ea01_motor_control
             attribute: curtain.current_position
             above: 35
         actions:
           - action: cover.set_cover_position
             target:
-              entity_id: cover.lumi_hmcn01_ea01_curtain
+              entity_id: cover.lumi_hmcn01_ea01_motor_control
             data:
               position: 35
 
@@ -112,7 +112,7 @@ in
         actions:
           - action: cover.set_cover_position
             target:
-              entity_id: cover.lumi_hmcn01_ea01_curtain
+              entity_id: cover.lumi_hmcn01_ea01_motor_control
             data:
               position: 100
 
@@ -127,7 +127,7 @@ in
         actions:
           - action: cover.set_cover_position
             target:
-              entity_id: cover.lumi_hmcn01_ea01_curtain
+              entity_id: cover.lumi_hmcn01_ea01_motor_control
             data:
               position: 100
 
@@ -137,13 +137,13 @@ in
             at: "23:00:00"
         conditions:
           - condition: numeric_state
-            entity_id: cover.lumi_hmcn01_7c8c_curtain
+            entity_id: cover.lumi_hmcn01_7c8c_motor_control
             attribute: curtain.current_position
             above: 15
         actions:
           - action: cover.set_cover_position
             target:
-              entity_id: cover.lumi_hmcn01_7c8c_curtain
+              entity_id: cover.lumi_hmcn01_7c8c_motor_control
             data:
               position: 15
 
@@ -194,12 +194,12 @@ in
       - alias: Fan dining room off when fan light dining room off
         triggers:
           - trigger: state
-            entity_id: light.yeelink_fancl5_e358_light
+            entity_id: light.yeelink_fancl5_e358_switch_status
             to: "off"
         actions:
           - action: fan.turn_off
             target:
-              entity_id: fan.yeelink_fancl5_e358_fan
+              entity_id: fan.yeelink_fancl5_e358_switch_status_2
 
       - alias: Auto ventilate on when approach or door close
         triggers:

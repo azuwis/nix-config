@@ -29,10 +29,10 @@ in
         }
       ];
       homeassistant.customize = {
-        "cover.lumi_hmcn01_7c8c_curtain" = {
+        "cover.lumi_hmcn01_7c8c_motor_control" = {
           friendly_name = "主卧窗帘";
         };
-        "cover.lumi_hmcn01_ea01_curtain" = {
+        "cover.lumi_hmcn01_ea01_motor_control" = {
           friendly_name = "儿童房窗帘";
         };
         "climate.xiaomi_mt0_bedd_air_conditioner" = {

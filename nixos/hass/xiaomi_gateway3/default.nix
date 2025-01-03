@@ -90,7 +90,7 @@ in
         actions:
           - action: light.toggle
             target:
-              entity_id: light.yeelink_fancl5_e358_light
+              entity_id: light.yeelink_fancl5_e358_switch_status
 
       - alias: Light bathroom on when sensor on
         triggers:

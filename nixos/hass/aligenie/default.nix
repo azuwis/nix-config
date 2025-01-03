@@ -22,12 +22,12 @@ in
     services.home-assistant.config = {
       aligenie.expire_hours = 9999999;
       homeassistant.customize = {
-        "cover.lumi_hmcn01_7c8c_curtain" = {
+        "cover.lumi_hmcn01_7c8c_motor_control" = {
           hagenie_deviceName = "窗帘";
           hagenie_deviceType = "curtain";
           hagenie_zone = "主卧";
         };
-        "cover.lumi_hmcn01_ea01_curtain" = {
+        "cover.lumi_hmcn01_ea01_motor_control" = {
           hagenie_deviceName = "窗帘";
           hagenie_deviceType = "curtain";
           hagenie_zone = "儿童房";
