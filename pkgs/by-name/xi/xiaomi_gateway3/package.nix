@@ -14,4 +14,8 @@ home-assistant-custom-components.xiaomi_gateway3.overridePythonAttrs (old: rec {
   passthru = (old.passthru or { }) // {
     enable = true;
   };
+
+  meta = (old.meta or { }) // {
+    changelog = "https://github.com/AlexxIT/XiaomiGateway3/releases/tag/v${version}";
+  };
 })
