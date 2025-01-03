@@ -15,6 +15,8 @@ moonlight-qt.overrideAttrs (old: {
 
   patches = [ ];
 
-  passthru.enable = false;
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru = (old.passthru or { }) // {
+    enable = false;
+    updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  };
 })

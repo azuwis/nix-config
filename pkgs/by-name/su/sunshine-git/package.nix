@@ -33,12 +33,14 @@
       (lib.cmakeFeature "CUDA_FAIL_ON_MISSING" "OFF")
     ];
 
-    passthru.updateScript = nix-update-script {
-      extraArgs = [
-        "--version"
-        "branch"
-        # "branch=42aec263058f2ab59502ea4b55aae27e46c81de6"
-        # "branch=pull/2606/head"
-      ];
+    passthru = (old.passthru or { }) // {
+      updateScript = nix-update-script {
+        extraArgs = [
+          "--version"
+          "branch"
+          # "branch=42aec263058f2ab59502ea4b55aae27e46c81de6"
+          # "branch=pull/2606/head"
+        ];
+      };
     };
   })

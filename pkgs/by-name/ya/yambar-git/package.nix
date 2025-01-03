@@ -12,7 +12,9 @@ yambar.overrideAttrs (old: {
     hash = "sha256-IHJgblYwCfhqSzM9C/PalK4xNmV0usWgGaHGDIQUVAg=";
   };
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch=pull/405/head" ];
+  passthru = (old.passthru or { }) // {
+    updateScript = nix-update-script {
+      extraArgs = [ "--version=branch=pull/405/head" ];
+    };
   };
 })

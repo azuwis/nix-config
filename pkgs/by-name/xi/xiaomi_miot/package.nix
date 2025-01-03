@@ -8,8 +8,9 @@ home-assistant-custom-components.xiaomi_miot.overridePythonAttrs (old: rec {
     hash = "sha256-DTIXhs5gPN96C/fWz3s7ZTOybp7Mx+/NbNGXIOGyMmk=";
   };
 
-  passthru.enable = true;
-  passthru.isHomeAssistantComponent = true;
+  passthru = (old.passthru or { }) // {
+    enable = true;
+  };
 
   meta.changelog = "https://github.com/al-one/hass-xiaomi-miot/releases/tag/v${version}";
 })
