@@ -15,7 +15,11 @@ in
   };
 
   config = mkIf (cfg.enable && cfg.xiaomi_miot) {
-    services.home-assistant.customComponents = [ pkgs.home-assistant-custom-components.xiaomi_miot ];
+    services.home-assistant.customComponents =
+      if pkgs.xiaomi_miot.enable then
+        [ pkgs.xiaomi_miot ]
+      else
+        [ pkgs.home-assistant-custom-components.xiaomi_miot ];
 
     # `dependencies` and `after_dependencies` in manifest.json
     services.home-assistant.extraComponents = [
