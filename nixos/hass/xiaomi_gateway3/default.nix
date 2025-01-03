@@ -31,10 +31,11 @@ in
   };
 
   config = mkIf (cfg.enable && cfg.xiaomi_gateway3) {
-    services.home-assistant.customComponents = [
-      # pkgs.home-assistant-custom-components.xiaomi_gateway3
-      pkgs.xiaomi_gateway3
-    ];
+    services.home-assistant.customComponents =
+      if pkgs.xiaomi_gateway3.enable then
+        [ pkgs.xiaomi_gateway3 ]
+      else
+        [ pkgs.home-assistant-custom-components.xiaomi_gateway3 ];
 
     services.home-assistant.config = {
       homeassistant.customize_glob = {

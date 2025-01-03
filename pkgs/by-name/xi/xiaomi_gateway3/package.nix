@@ -12,6 +12,7 @@ home-assistant-custom-components.xiaomi_gateway3.overridePythonAttrs (old: {
     hash = "sha256-vPV298RqDehdAnTXreURzJB1N96NKKBaII0V1wxWc5c=";
   };
 
+  passthru.enable = true;
   passthru.isHomeAssistantComponent = true;
   passthru.updateScript = nix-update-script {
     extraArgs = [ "--version=branch=linp.sensor_occupy.es2" ];
