@@ -32,7 +32,7 @@ python3.pkgs.buildPythonApplication rec {
     }"''
   ];
 
-  passthru.skipUpdate = true;
+  passthru.enable = false;
   passthru.updateScript = nix-update-script { };
 
   meta = with lib; {

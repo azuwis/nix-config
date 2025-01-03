@@ -20,7 +20,7 @@ buildHomeAssistantComponent rec {
 
   dontBuild = true;
 
-  passthru.skipUpdate = true;
+  passthru.enable = false;
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = {

@@ -78,7 +78,7 @@ let
   packages =
     if all == "true" then
       lib.mapAttrsToList (attrPath: package: { inherit attrPath package; }) (
-        lib.filterAttrs (_: value: !(value ? skipUpdate && value.skipUpdate)) allPackages
+        lib.filterAttrs (_: value: !(value ? enable && value.enable == false)) allPackages
       )
     else if package != null then
       [ (packageByName package allPackages) ]

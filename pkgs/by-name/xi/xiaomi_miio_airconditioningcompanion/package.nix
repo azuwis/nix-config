@@ -24,7 +24,7 @@ buildHomeAssistantComponent rec {
 
   dontCheckManifest = true;
 
-  passthru.skipUpdate = true;
+  passthru.enable = false;
   passthru.updateScript = nix-update-script { };
 
   meta = {
