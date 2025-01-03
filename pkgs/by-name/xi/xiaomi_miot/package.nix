@@ -12,5 +12,7 @@ home-assistant-custom-components.xiaomi_miot.overridePythonAttrs (old: rec {
     enable = true;
   };
 
-  meta.changelog = "https://github.com/al-one/hass-xiaomi-miot/releases/tag/v${version}";
+  meta = (old.meta or { }) // {
+    changelog = "https://github.com/al-one/hass-xiaomi-miot/releases/tag/v${version}";
+  };
 })
