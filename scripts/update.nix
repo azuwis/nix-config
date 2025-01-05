@@ -19,8 +19,8 @@ let
   allPackages =
     let
       pkgsWithoutOverlay = import nixpkgs { };
-      byNameAttrs = pkgs.overlays.packages null null;
-      topLevelAttrs = pkgs.overlays.default null null;
+      byNameAttrs = import "${nixpkgs}/pkgs/top-level/by-name-overlay.nix" ../pkgs/by-name null null;
+      topLevelAttrs = lib.composeManyExtensions (import ../overlays { inherit (pkgs) inputs; }) null null;
       topLevelPackages = builtins.mapAttrs (
         name: _:
         lib.warnIf (

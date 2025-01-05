@@ -27,7 +27,7 @@ withSystem system (
     customPkgs = import nixpkgs (
       lib.recursiveUpdate {
         inherit system;
-        overlays = [ self.overlays.default ] ++ overlays;
+        overlays = (import ../overlays { inherit inputs; }) ++ overlays;
         config = {
           allowAliases = false;
           allowUnfree = true;

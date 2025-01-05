@@ -38,7 +38,7 @@ in
       # nixpkgs = inputs.jovian.inputs.nixpkgs;
       overlays = [
         inputs.jovian.overlays.default
-        self.overlays.jovian
+        (import ../overlays/jovian.nix)
       ];
       modules = [ ../hosts/steamdeck.nix ];
     };

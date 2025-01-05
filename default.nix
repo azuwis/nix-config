@@ -24,15 +24,7 @@ let
   };
   nixpkgs = flake.defaultNix.inputs.nixpkgs.outPath;
   packages = import nixpkgs {
-    overlays = [
-      # For `builtins.unsafeGetAttrPos "src"` to work in scripts/update.nix,
-      # `flake.defaultNix.overlays.default` can not be used here.
-      # Update this if `flake.overlays.default` changed in `flakes/overlay.nix`.
-      flake.defaultNix.inputs.agenix.overlays.default
-      (import "${nixpkgs}/pkgs/top-level/by-name-overlay.nix" ./pkgs/by-name)
-      (import ./overlays/default.nix { inherit (flake.defaultNix) inputs; })
-      (import ./overlays/lix.nix)
-    ] ++ overlays;
+    overlays = (import ./overlays { inherit (flake.defaultNix) inputs; }) ++ overlays;
   };
 in
 # nix-update expect nixpkgs-like repo
