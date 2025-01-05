@@ -25,6 +25,11 @@ let
   self = flake.defaultNix;
   nixpkgs = self.inputs.nixpkgs.outPath;
   pkgs = import nixpkgs {
+    config = {
+      allowAliases = false;
+      allowUnfree = true;
+      android_sdk.accept_license = true;
+    };
     overlays = (import ./overlays { inherit (self) inputs; }) ++ overlays;
   };
 in
