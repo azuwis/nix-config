@@ -30,7 +30,6 @@ let
       # Update this if `flake.overlays.default` changed in `flakes/overlay.nix`.
       flake.defaultNix.inputs.agenix.overlays.default
       (import "${nixpkgs}/pkgs/top-level/by-name-overlay.nix" ./pkgs/by-name)
-      flake.defaultNix.overlays.yuzu
       (import ./overlays/default.nix { inherit (flake.defaultNix) inputs; })
       (import ./overlays/lix.nix)
     ] ++ overlays;
