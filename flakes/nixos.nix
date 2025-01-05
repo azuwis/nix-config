@@ -1,13 +1,12 @@
 {
   inputs,
-  self,
   withSystem,
   ...
 }:
 
 let
   mkNixos = import ./mk-system.nix {
-    inherit inputs self withSystem;
+    inherit inputs withSystem;
     defaultSystem = "x86_64-linux";
     defaultModules = [ ../nixos ];
     applyFunction =

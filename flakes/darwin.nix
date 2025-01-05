@@ -1,13 +1,12 @@
 {
   inputs,
-  self,
   withSystem,
   ...
 }:
 
 let
   mkDarwin = import ./mk-system.nix {
-    inherit inputs self withSystem;
+    inherit inputs withSystem;
     defaultSystem = "aarch64-darwin";
     defaultModules = [ ../darwin ];
     applyFunction =

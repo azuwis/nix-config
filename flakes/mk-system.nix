@@ -1,6 +1,5 @@
 {
   inputs,
-  self,
   withSystem,
   defaultSystem,
   defaultModules,

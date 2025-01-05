@@ -1,13 +1,12 @@
 {
   inputs,
-  self,
   withSystem,
   ...
 }:
 
 let
   mkDroid = import ./mk-system.nix {
-    inherit inputs self withSystem;
+    inherit inputs withSystem;
     defaultSystem = "aarch64-linux";
     defaultModules = [ ../droid ];
     applyFunction =
