@@ -22,12 +22,13 @@ let
   flake = import flake-compat {
     src = ./.;
   };
-  nixpkgs = flake.defaultNix.inputs.nixpkgs.outPath;
-  packages = import nixpkgs {
-    overlays = (import ./overlays { inherit (flake.defaultNix) inputs; }) ++ overlays;
+  self = flake.defaultNix;
+  nixpkgs = self.inputs.nixpkgs.outPath;
+  pkgs = import nixpkgs {
+    overlays = (import ./overlays { inherit (self) inputs; }) ++ overlays;
   };
 in
 # nix-update expect nixpkgs-like repo
 # https://discourse.nixos.org/t/25274
 # https://github.com/jtojnar/nixfiles/blob/master/default.nix
-packages // flake.defaultNix
+pkgs // self
