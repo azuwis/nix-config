@@ -10,7 +10,7 @@
 
 let
   inherit (pkgs) lib;
-  pkgs = import ../default.nix { };
+  pkgs = import ../. { };
   nixpkgs = pkgs.inputs.nixpkgs.outPath;
 
   getPosition = package: (builtins.unsafeGetAttrPos "src" package).file or package.meta.position;

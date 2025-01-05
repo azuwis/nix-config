@@ -1,7 +1,8 @@
 { path }:
+
 let
   inherit (pkgs) lib;
-  pkgs = import ../default.nix { };
+  pkgs = import ../. { };
   package = lib.attrByPath (lib.splitString "." path) null pkgs;
   render =
     package:
