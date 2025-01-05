@@ -1,4 +1,5 @@
 # https://discourse.nixos.org/t/in-overlays-when-to-use-self-vs-super/2968/12
+{ inputs }:
 
 final: prev: {
   # override

@@ -25,7 +25,7 @@
     inputs.agenix.overlays.default
     self.overlays.packages
     self.overlays.yuzu
-    (import ../overlays/default.nix)
+    (import ../overlays/default.nix { inherit inputs; })
     (import ../overlays/lix.nix)
   ];
 
