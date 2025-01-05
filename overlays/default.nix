@@ -25,9 +25,13 @@
 
     # https://github.com/nix-community/nix-zsh-completions/pull/52
     nix-zsh-completions = prev.nix-zsh-completions.overrideAttrs (old: {
+      version = "0.5.1-unstable-2024-12-15";
       src = old.src.override {
-        rev = "496b2e66aa10bdcb6f033bf8118f1972203ee7b0";
-        hash = "sha256-OncfatdtdEavVF5Y5hLITgx9wz1Z29bX4P/uxmojvDI=";
+        rev = "4e654da12a28ebc272e7f6b7a60a1c8af3da84f0";
+        hash = "sha256-L7N+TUag830IGD+lP8vwR0nWCXVfy87d5lTObYfBo8U=";
+      };
+      passthru = (old.passthru or { }) // {
+        updateScript = final.nix-update-script { extraArgs = [ "--version=branch" ]; };
       };
     });
 
