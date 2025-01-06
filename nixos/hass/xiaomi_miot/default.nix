@@ -47,7 +47,7 @@ in
           - action: fan.set_percentage
             target:
               entity_id: >-
-                {{ trigger.entity_id | regex_replace(find='^climate', replace='fan') | regex_replace(find='air_conditioner$', replace='air_fresh') }}
+                {{ trigger.entity_id | regex_replace(find='^climate', replace='fan') | regex_replace(find='air_conditioner$', replace='switch_status') }}
             data:
               percentage: 16
 
@@ -171,7 +171,7 @@ in
           - action: light.turn_{{ is_night | iif("off", "on") }}
             target:
               entity_id: >-
-                {{ expand(states.light) | selectattr('entity_id', 'search', '^light.xiaomi_mt0_.*_indicator_light$') | map(attribute='entity_id') | list }}
+                {{ expand(states.light) | selectattr('entity_id', 'search', '^light.xiaomi_mt0_.*_switch_status$') | map(attribute='entity_id') | list }}
 
       - alias: Screen brightness climate secondary bedroom early on
         triggers:
