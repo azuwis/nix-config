@@ -10,7 +10,6 @@ let
   inherit (lib)
     mkEnableOption
     mkIf
-    mkForce
     mkMerge
     mkPackageOption
     ;
@@ -40,16 +39,26 @@ in
   };
 
   config = mkIf cfg.enable (mkMerge [
+    (import "${modulesPath}/programs/wayland/wayland-session.nix" {
+      inherit lib pkgs;
+    })
+
     {
       hm.my.niri.enable = true;
 
       environment.systemPackages = with pkgs; [
+        niri
         xwayland-satellite
       ];
 
-      programs.niri.enable = true;
-      programs.xwayland.enable = mkForce true;
-      xdg.portal.wlr.enable = mkForce true;
+      systemd.packages = [ cfg.package ];
+
+      xdg.portal = {
+        enable = true;
+        # For screen capture
+        # extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
+        configPackages = [ cfg.package ];
+      };
     }
 
     (mkIf cfg.custom-session {
