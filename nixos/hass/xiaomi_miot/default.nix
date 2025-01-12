@@ -28,6 +28,10 @@ in
     ];
 
     services.home-assistant.config = {
+      xiaomi_miot.device_customizes = {
+        "deye.derh.z20".ignore_offline = true;
+        "leshow.humidifier.jsq1".ignore_offline = true;
+      };
       logger.logs."custom_components.xiaomi_miot" = "critical";
     };
 
