@@ -55,6 +55,10 @@ in
 
       xdg.portal = {
         enable = true;
+        # Prefer gtk portal for FileChooser, when gnome portal is enabled and nautilus is not installed,
+        # `Delegated FileChooser call failed: The name org.gnome.Nautilus was not provided by any .service files`,
+        # see https://github.com/NixOS/nixpkgs/pull/360101
+        config.niri."org.freedesktop.impl.portal.FileChooser" = "gtk";
         # For screen capture
         # extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
         configPackages = [ cfg.package ];
