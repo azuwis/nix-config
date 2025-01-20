@@ -184,7 +184,7 @@ in
         actions:
           - action: light.turn_on
             target:
-              entity_id: light.xiaomi_mt0_cdd0_indicator_light
+              entity_id: light.xiaomi_mt0_cdd0_switch_status
 
       - alias: Bath heater auto off
         triggers:
