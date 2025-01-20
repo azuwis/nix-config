@@ -134,9 +134,12 @@
             entity_id:
               - light.kitchen_door
               - light.kitchen_window
-            from: "off"
             to: "on"
             for: "00:00:01"
+        conditions:
+          - condition: state
+            entity_id: light.kitchen
+            state: "on"
         actions:
           - action: light.turn_on
             target:
