@@ -88,6 +88,7 @@ in
       };
       history = { };
       logbook = { };
+      mobile_app = { };
       sun = { };
       logger.default = "warning";
       automation = "!include /etc/home-assistant/automations.yaml";
