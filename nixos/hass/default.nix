@@ -32,7 +32,7 @@ in
 
   config = mkIf cfg.enable {
     my.hass = {
-      aligenie = true;
+      # aligenie = true;
       braviatv = true;
       device_tracker = true;
       # gree = true;
