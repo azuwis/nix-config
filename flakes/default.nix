@@ -13,5 +13,6 @@
     ./treefmt.nix
     # ./devshell.nix
     ./devshell-android.nix
+    ./darwin-vm.nix
   ];
 }
