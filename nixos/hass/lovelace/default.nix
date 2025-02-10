@@ -136,9 +136,7 @@ let
       };
     }
     // lib.optionalAttrs (!isSensor && !isBinarySensor) {
-      hold_action = {
-        action = "toggle";
-      };
+      hold_action.action = "toggle";
     };
   state' =
     entity: left: top: card:
@@ -149,9 +147,7 @@ let
     entity = "device_tracker.${id}";
     image = "/local/generated/${id}.png";
     # https://angel-rs.github.io/css-color-filter-generator/
-    state_filter = {
-      not_home = "brightness(0) saturate(100%) invert(44%) sepia(11%) saturate(1915%) hue-rotate(167deg) brightness(93%) contrast(95%)";
-    };
+    state_filter.not_home = "brightness(0) saturate(100%) invert(44%) sepia(11%) saturate(1915%) hue-rotate(167deg) brightness(93%) contrast(95%)";
     style = {
       left = "4%";
       top = "${top}%";
@@ -442,9 +438,7 @@ in
                   icon = "mdi:message-text";
                   action_name = "Test";
                   service = "notify.html5";
-                  service_data = {
-                    message = "This is a test message";
-                  };
+                  service_data.message = "This is a test message";
                 }
               ];
             }
