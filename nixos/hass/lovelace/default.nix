@@ -111,6 +111,12 @@ let
   state =
     entity: left: top:
     let
+      hasNightlight = builtins.elem entity [
+        "light.kids_room"
+        "light.living_room"
+        "light.primary_bedroom"
+        "light.secondary_bedroom"
+      ];
       isBinarySensor = lib.hasPrefix "binary_sensor." entity;
       isSensor = lib.hasPrefix "sensor." entity;
     in
@@ -121,6 +127,13 @@ let
         top = "${top}%";
       };
       type = if isSensor then "state-label" else "state-icon";
+    }
+    // lib.optionalAttrs hasNightlight {
+      double_tap_action = {
+        action = "perform-action";
+        perform_action = "light.toggle";
+        target.entity_id = "${entity}_nightlight";
+      };
     }
     // lib.optionalAttrs (!isSensor && !isBinarySensor) {
       hold_action = {
