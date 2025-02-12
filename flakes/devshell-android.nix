@@ -4,7 +4,7 @@
   perSystem =
     { pkgs, ... }:
     {
-      devshells.android =
+      devshells.android-sdk =
         let
           androidsdk =
             (pkgs.androidenv.composeAndroidPackages {
@@ -32,6 +32,19 @@
           packages = [
             androidsdk
             gradle
+          ];
+        };
+
+      devshells.android-emu =
+        let
+          emu = pkgs.androidenv.emulateApp {
+            name = "android-emu";
+            abiVersion = "armeabi-v7a"; # armeabi-v7a, mips, x86_64
+          };
+        in
+        {
+          packages = [
+            emu
           ];
         };
     };
