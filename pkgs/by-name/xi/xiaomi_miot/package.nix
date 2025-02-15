@@ -1,11 +1,11 @@
 { home-assistant-custom-components }:
 
 home-assistant-custom-components.xiaomi_miot.overridePythonAttrs (old: rec {
-  version = "1.0.8";
+  version = "1.0.10b0";
 
   src = old.src.override {
     rev = "v${version}";
-    hash = "sha256-DTIXhs5gPN96C/fWz3s7ZTOybp7Mx+/NbNGXIOGyMmk=";
+    hash = "sha256-y3D7WeqFI3IldfsR8OVDbc7St+8VQtf6yhvLztiZ8+8=";
   };
 
   passthru = (old.passthru or { }) // {
