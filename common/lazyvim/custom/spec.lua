@@ -15,6 +15,8 @@ return {
 ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝]],
         },
       },
+      indent = { animate = { enabled = false } },
+      scroll = { enabled = false },
     },
   },
 

@@ -25,6 +25,13 @@ return {
           underline = true,
           sp = colors.polar_night.brightest,
         }
+        -- snacks.nvim
+        highlights.SnacksIndent = {
+          link = "Comment",
+        }
+        highlights.SnacksIndentScope = {
+          link = "Comment",
+        }
       end,
     },
   },
