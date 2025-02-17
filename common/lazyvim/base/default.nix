@@ -130,6 +130,7 @@ in
           );
         in
         ''
+          vim.g.lazyvim_check_order = false
           require("lazy").setup({
             defaults = {
               lazy = true,
