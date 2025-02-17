@@ -16,7 +16,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    my.steam-devices.enable = true;
+    hardware.steam-hardware.enable = true;
 
     environment.systemPackages = [ cfg.package ];
   };
