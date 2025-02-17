@@ -16,10 +16,6 @@ return {
         highlights.NormalFloat = {
           bg = "#292e39",
         }
-        -- mini.indentscope
-        highlights.MiniIndentscopeSymbol = {
-          link = "Comment",
-        }
         -- nvim-treesitter-context
         highlights.TreesitterContextBottom = {
           underline = true,

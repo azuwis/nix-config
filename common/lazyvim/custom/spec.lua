@@ -21,16 +21,6 @@ return {
   },
 
   {
-    "echasnovski/mini.indentscope",
-    optional = true,
-    opts = {
-      draw = {
-        animation = require("mini.indentscope").gen_animation.none(),
-      },
-    },
-  },
-
-  {
     "neovim/nvim-lspconfig",
     optional = true,
     opts = {
