@@ -39,34 +39,27 @@ in
         type = pluginsOptionType;
         default = with pkgs.vimPlugins; [
           LazyVim
+          blink-cmp
           bufferline-nvim
-          cmp-buffer
-          cmp-nvim-lsp
-          cmp-path
           conform-nvim
-          dressing-nvim
           flash-nvim
           friendly-snippets
+          fzf-lua
           gitsigns-nvim
           grug-far-nvim
-          indent-blankline-nvim
           lazydev-nvim
           lualine-nvim
           neo-tree-nvim
           noice-nvim
           nui-nvim
-          nvim-cmp
           nvim-lint
           nvim-lspconfig
-          nvim-snippets
           nvim-treesitter
           nvim-treesitter-textobjects
           nvim-ts-autotag
           persistence-nvim
           plenary-nvim
           snacks-nvim
-          telescope-fzf-native-nvim
-          telescope-nvim
           todo-comments-nvim
           tokyonight-nvim
           trouble-nvim
@@ -152,8 +145,6 @@ in
             spec = {
               { "LazyVim/LazyVim", import = "lazyvim.plugins" },
               -- The following configs are needed for fixing lazyvim on nix
-              -- force enable telescope-fzf-native.nvim
-              { "nvim-telescope/telescope-fzf-native.nvim", enabled = true },
               -- disable mason.nvim, use programs.neovim.extraPackages
               { "williamboman/mason-lspconfig.nvim", enabled = false },
               { "williamboman/mason.nvim", enabled = false },
