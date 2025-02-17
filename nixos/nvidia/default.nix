@@ -19,7 +19,7 @@ in
 {
   options.my.nvidia = {
     enable = mkEnableOption "nvidia";
-    package = mkPackageOption config.boot.kernelPackages.nvidiaPackages "stable" { };
+    package = mkPackageOption config.boot.kernelPackages.nvidiaPackages "latest" { };
     firefox-fix = mkEnableOption "nvidia firefox fix" // {
       default = true;
     };
