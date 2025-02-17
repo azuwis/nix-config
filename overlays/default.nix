@@ -64,18 +64,6 @@
       // {
         default = final.wallpapers.lake;
       };
-
-    yuzu-ea = final.lib.optionalAttrs final.stdenv.isLinux (
-      inputs.yuzu.packages.${final.stdenv.system}.early-access.overrideAttrs (old: {
-        # error: 'VK_DRIVER_ID_MESA_AGXV' was not declared in this scope
-        postPatch =
-          (old.postPatch or "")
-          + ''
-            rm -r externals/Vulkan-Utility-Libraries
-            ln -s ${final.vulkan-utility-libraries.src} externals/Vulkan-Utility-Libraries
-          '';
-      })
-    );
   })
 
   (import ../overlays/lix.nix)

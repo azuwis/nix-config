@@ -29,22 +29,6 @@
         "type": "github"
       }
     },
-    "compat-list-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1709566002,
-        "narHash": "sha256-rBnsW8ijDEPCXzIkbfQnyhSFhIv91+jIkNPosVHJ2UY=",
-        "owner": "flathub",
-        "repo": "org.yuzu_emu.yuzu",
-        "rev": "4abf1d239aba843180abfed58fa8541432fece5b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "flathub",
-        "repo": "org.yuzu_emu.yuzu",
-        "type": "github"
-      }
-    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -298,44 +282,7 @@
         "openwrt-imagebuilder": "openwrt-imagebuilder",
         "systems": "systems",
         "treefmt-nix": "treefmt-nix",
-        "wsl": "wsl",
-        "yuzu": "yuzu"
-      }
-    },
-    "sudachi-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1713012806,
-        "narHash": "sha256-QH4eP/9w00TefqxnXkzU4nLaa0buU3Y7XUt4qWql8Ic=",
-        "ref": "refs/heads/main",
-        "rev": "4ce69bc41f33e3816b9a73ecc6268bd808e44367",
-        "revCount": 42,
-        "submodules": true,
-        "type": "git",
-        "url": "https://github.com/sudachi-emu/sudachi.git"
-      },
-      "original": {
-        "submodules": true,
-        "type": "git",
-        "url": "https://github.com/sudachi-emu/sudachi.git"
-      }
-    },
-    "suyu-git-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1713495322,
-        "narHash": "sha256-Jycpnfnx71alnxu+KgnOvaO26diEspx3O1dhA9OGflI=",
-        "ref": "refs/heads/dev",
-        "rev": "dfb9f06e5c46f251e4208adf1d4861e85b1d5eea",
-        "revCount": 27428,
-        "submodules": true,
-        "type": "git",
-        "url": "https://git.suyu.dev/suyu/suyu.git"
-      },
-      "original": {
-        "submodules": true,
-        "type": "git",
-        "url": "https://git.suyu.dev/suyu/suyu.git"
+        "wsl": "wsl"
       }
     },
     "systems": {
@@ -394,29 +341,6 @@
         "owner": "nix-community",
         "repo": "NixOS-WSL",
         "type": "github"
-      }
-    },
-    "yuzu": {
-      "inputs": {
-        "compat-list-src": "compat-list-src",
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "sudachi-src": "sudachi-src",
-        "suyu-git-src": "suyu-git-src"
-      },
-      "locked": {
-        "lastModified": 1715530260,
-        "narHash": "sha256-PZ9iutnrWwN0UDxdKD5cvnM26WO7qLSkYXakv9ZMq00=",
-        "ref": "refs/heads/main",
-        "rev": "d8db2dca4a85a6e703dbccb90c931f539f4a4f7d",
-        "revCount": 8,
-        "type": "git",
-        "url": "https://codeberg.org/K900/yuzu-flake"
-      },
-      "original": {
-        "type": "git",
-        "url": "https://codeberg.org/K900/yuzu-flake"
       }
     }
   },

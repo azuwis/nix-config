@@ -80,10 +80,6 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-    yuzu = {
-      url = "git+https://codeberg.org/K900/yuzu-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
