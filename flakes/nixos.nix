@@ -12,13 +12,15 @@ let
     applyFunction =
       args@{ ... }:
       args.nixpkgs.lib.nixosSystem {
-        inherit (args) system modules;
+        modules = [
+          inputs.nixpkgs.nixosModules.readOnlyPkgs
+          { nixpkgs.pkgs = args.pkgs; }
+        ] ++ args.modules;
         specialArgs = {
           inherit (args)
             inputs
             inputs'
             lib
-            pkgs
             ;
         };
       };
