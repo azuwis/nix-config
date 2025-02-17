@@ -36,9 +36,6 @@
       };
     });
 
-    # https://github.com/NixOS/nixpkgs/pull/313497
-    nixos-option = final.nixos-option-git;
-
     # python3 = prev.python3.override {
     #   packageOverrides =
     #     pyfinal: pyprev:
