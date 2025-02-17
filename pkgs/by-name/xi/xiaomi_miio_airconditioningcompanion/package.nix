@@ -14,7 +14,7 @@ buildHomeAssistantComponent rec {
   src = fetchFromGitHub {
     owner = "syssi";
     repo = "xiaomi_airconditioningcompanion";
-    rev = version;
+    tag = version;
     hash = "sha256-wJYjeQjkUwhvGEZTcXUWKTu5DIIyGI4rP6RU7L4EcoM=";
   };
 
