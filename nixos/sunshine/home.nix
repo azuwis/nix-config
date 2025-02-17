@@ -118,7 +118,7 @@ in
             {
               name = "Z Desktop";
               image-path = pkgs.runCommand "desktop.png" { } ''
-                ${pkgs.imagemagick}/bin/magick -density 1200 ${pkgs.adwaita-icon-theme}/share/icons/Adwaita/scalable/devices/input-keyboard.svg -resize 500x -background none -gravity center -extent 600x800 $out
+                ${pkgs.imagemagick}/bin/magick -density 1200 -background none ${pkgs.adwaita-icon-theme}/share/icons/Adwaita/scalable/devices/input-keyboard.svg -resize 500x -gravity center -extent 600x800 $out
               '';
             }
             {
@@ -169,7 +169,7 @@ in
             {
               name = "Yuzu";
               image-path = pkgs.runCommand "yuzu.png" { } ''
-                ${pkgs.imagemagick}/bin/magick ${pkgs.yuzu-ea}/share/icons/hicolor/scalable/apps/org.yuzu_emu.yuzu.svg -resize x420 -background none -gravity center -extent 600x800 $out
+                ${pkgs.imagemagick}/bin/magick -density 1200 -background none ${pkgs.torzu}/share/icons/hicolor/scalable/apps/onion.torzu_emu.torzu.svg -resize x500 -gravity center -extent 600x800 $out
               '';
               cmd = "yuzu";
               prep-cmd = yuzu-prep-cmd;
