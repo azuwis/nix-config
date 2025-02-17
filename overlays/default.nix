@@ -63,5 +63,5 @@
       };
   })
 
-  (import ../overlays/lix.nix)
+  # (import ../overlays/lix.nix)
 ]

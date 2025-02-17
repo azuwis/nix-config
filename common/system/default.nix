@@ -28,7 +28,7 @@
       config.my.user
     ];
   };
-  nix.package = pkgs.lix;
+  # nix.package = pkgs.lix;
   programs.zsh.enable = true;
   time.timeZone = "Asia/Shanghai";
 }
