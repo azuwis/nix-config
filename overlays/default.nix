@@ -46,12 +46,12 @@
     # };
     # python3Packages = final.python3.pkgs;
 
-    # vimPlugins =
-    #   prev.vimPlugins
-    #   // final.lib.packagesFromDirectoryRecursive {
-    #     inherit (final) callPackage;
-    #     directory = ../pkgs/vim;
-    #   };
+    vimPlugins =
+      prev.vimPlugins
+      // final.lib.packagesFromDirectoryRecursive {
+        inherit (final) callPackage;
+        directory = ../pkgs/vim;
+      };
 
     wallpapers =
       final.lib.packagesFromDirectoryRecursive {
