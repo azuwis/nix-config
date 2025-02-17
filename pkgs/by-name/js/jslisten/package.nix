@@ -19,6 +19,9 @@ stdenv.mkDerivation {
 
   buildInputs = [ udev ];
 
+  # fix error on gcc-14: implicit declaration of function 'usleep'
+  CFLAGS = "-std=gnu99";
+
   installPhase = ''
     runHook preInstall
 
