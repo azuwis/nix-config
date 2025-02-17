@@ -27,6 +27,7 @@
     nix-zsh-completions = prev.nix-zsh-completions.overrideAttrs (old: {
       version = "0.5.1-unstable-2024-12-15";
       src = old.src.override {
+        tag = null;
         rev = "4e654da12a28ebc272e7f6b7a60a1c8af3da84f0";
         hash = "sha256-L7N+TUag830IGD+lP8vwR0nWCXVfy87d5lTObYfBo8U=";
       };
