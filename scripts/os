@@ -28,7 +28,7 @@ USAGE:
   $cmd b|build [<host>]
   $cmd c|clean
   $cmd d|diff [<host>]
-  $cmd hardware
+  $cmd hw|hardware
   $cmd l|list
   $cmd s|switch
   $cmd u|update [-a] [<input>] [<commit>]
@@ -222,7 +222,7 @@ l | list)
   esac
   rebuild "$action" "$@"
   ;;
-hardware)
+hw | hardware)
   hardware
   ;;
 h | help)
