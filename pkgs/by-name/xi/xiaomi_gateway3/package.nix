@@ -9,7 +9,7 @@ home-assistant-custom-components.xiaomi_gateway3.overridePythonAttrs (old: rec {
   };
 
   passthru = (old.passthru or { }) // {
-    enable = true;
+    enable = false;
   };
 
   meta = (old.meta or { }) // {
