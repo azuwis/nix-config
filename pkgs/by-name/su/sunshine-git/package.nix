@@ -34,6 +34,7 @@
     ];
 
     passthru = (old.passthru or { }) // {
+      enable = false;
       updateScript = nix-update-script {
         extraArgs = [
           "--version"
