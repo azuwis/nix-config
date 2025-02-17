@@ -166,7 +166,7 @@ in
         default = {
           inherit settings;
           inherit userChrome;
-          extensions = [ pkgs.vimfx ];
+          extensions.packages = [ pkgs.vimfx ];
         };
       };
     };
