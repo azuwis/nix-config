@@ -13,7 +13,8 @@ let
       args@{ ... }:
       args.nixpkgs.lib.nixosSystem {
         modules = [
-          inputs.nixpkgs.nixosModules.readOnlyPkgs
+          # Jovian use nixpkgs.overlays option, and block readOnlyPkgs
+          # inputs.nixpkgs.nixosModules.readOnlyPkgs
           { nixpkgs.pkgs = args.pkgs; }
         ] ++ args.modules;
         specialArgs = {
