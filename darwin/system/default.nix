@@ -20,7 +20,6 @@
   launchd.daemons.activate-system.script = lib.mkOrder 0 ''
     wait4path /nix/store
   '';
-  services.nix-daemon.enable = true;
   # nix profile diff-closures --profile /nix/var/nix/profiles/system
   # show upgrade diff
   # ${pkgs.nix}/bin/nix store --experimental-features nix-command diff-closures /run/current-system "$systemConfig"
