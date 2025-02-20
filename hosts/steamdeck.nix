@@ -12,6 +12,8 @@
     ./hardware-steamdeck.nix
   ];
 
+  nixpkgs.overlays = [ (import ../overlays/jovian.nix) ];
+
   # workaround for efi entry reset after reboot
   boot.loader.grub.efiInstallAsRemovable = true;
   boot.loader.efi.canTouchEfiVariables = false;
