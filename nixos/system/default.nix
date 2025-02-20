@@ -96,8 +96,7 @@
   #   fi
   # '';
   system.stateVersion = "23.11";
-  # Re-enable after https://github.com/NixOS/nixpkgs/pull/383056
-  # systemd.enableStrictShellChecks = lib.mkDefault true;
+  systemd.enableStrictShellChecks = lib.mkDefault true;
   users.groups.${config.my.user} = {
     gid = config.my.uid;
   };
