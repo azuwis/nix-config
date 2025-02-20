@@ -10,15 +10,27 @@ let
     defaultSystem = "x86_64-linux";
     defaultModules = [ ../nixos ];
     applyFunction =
-      args@{ ... }:
-      args.nixpkgs.lib.nixosSystem {
-        modules = [
-          # Jovian use nixpkgs.overlays option, and block readOnlyPkgs
-          # inputs.nixpkgs.nixosModules.readOnlyPkgs
-          { nixpkgs.pkgs = args.pkgs; }
-        ] ++ args.modules;
+      {
+        extraArgs,
+        inputs',
+        inputs,
+        lib,
+        modules,
+        nixpkgs,
+        pkgs,
+        ...
+      }:
+      nixpkgs.lib.nixosSystem {
+        modules =
+          lib.optionals (!(extraArgs ? readOnlyPkgs && extraArgs.readOnlyPkgs == false)) [
+            inputs.nixpkgs.nixosModules.readOnlyPkgs
+          ]
+          ++ [
+            { nixpkgs.pkgs = pkgs; }
+          ]
+          ++ modules;
         specialArgs = {
-          inherit (args)
+          inherit
             inputs
             inputs'
             lib
@@ -42,6 +54,8 @@ in
         (import ../overlays/jovian.nix)
       ];
       modules = [ ../hosts/steamdeck.nix ];
+      # Jovian use nixpkgs.overlays option, and block readOnlyPkgs
+      readOnlyPkgs = false;
     };
 
     utm = mkNixos {
