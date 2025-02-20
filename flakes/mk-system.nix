@@ -6,12 +6,13 @@
   applyFunction,
 }:
 
-{
+extraArgs@{
   system ? defaultSystem,
   nixpkgs ? inputs.nixpkgs,
   config ? { },
   overlays ? [ ],
   modules ? [ ],
+  ...
 }:
 
 withSystem system (
@@ -37,6 +38,7 @@ withSystem system (
   in
   applyFunction {
     inherit
+      extraArgs
       inputs
       inputs'
       lib
