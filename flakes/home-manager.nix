@@ -22,7 +22,7 @@ let
       )
       ../common/home.nix
     ];
-    applyFunction =
+    apply =
       args@{ ... }:
       args.inputs.home-manager.lib.homeManagerConfiguration {
         inherit (args) pkgs modules;

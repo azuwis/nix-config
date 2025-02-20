@@ -3,7 +3,7 @@
   withSystem,
   defaultSystem,
   defaultModules,
-  applyFunction,
+  apply,
 }:
 
 extraArgs@{
@@ -36,7 +36,7 @@ withSystem system (
       } { inherit config; }
     );
   in
-  applyFunction {
+  apply {
     inherit
       extraArgs
       inputs

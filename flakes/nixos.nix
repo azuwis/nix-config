@@ -9,7 +9,7 @@ let
     inherit inputs withSystem;
     defaultSystem = "x86_64-linux";
     defaultModules = [ ../nixos ];
-    applyFunction =
+    apply =
       {
         extraArgs,
         inputs',

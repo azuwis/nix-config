@@ -9,7 +9,7 @@ let
     inherit inputs withSystem;
     defaultSystem = "aarch64-linux";
     defaultModules = [ ../droid ];
-    applyFunction =
+    apply =
       args@{ ... }:
       args.inputs.droid.lib.nixOnDroidConfiguration {
         inherit (args) pkgs modules;
