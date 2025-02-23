@@ -38,6 +38,11 @@
   networking.enableIPv6 = false;
   networking.nftables.enable = true;
   networking.useNetworkd = lib.mkDefault true;
+  # Route single-label domains to dnsservers
+  # https://github.com/systemd/systemd/issues/28054
+  # services.resolved.extraConfig = ''
+  #   ResolveUnicastSingleLabel=true
+  # '';
   # systemd.network.wait-online.anyInterface = config.networking.useDHCP;
   nix.settings.allowed-users = [ config.my.user ];
   nix.channel.enable = false;
