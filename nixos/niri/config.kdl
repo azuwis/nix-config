@@ -23,6 +23,20 @@ layout {
   focus-ring {
     off
   }
+  shadow {
+    on
+    softness 8
+    spread 1
+    offset x=0 y=3
+  }
+  tab-indicator {
+    gap 0
+    width 5
+    length total-proportion=0.3
+    gaps-between-tabs 2
+    active-gradient from="#808080" to="#bbddff" angle=45
+    inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
+  }
 }
 
 environment {
@@ -52,7 +66,7 @@ window-rule {
 
 window-rule {
   match app-id=r#"^(chromium-browser|firefox)$"#
-  exclude title=r#"^(Incoming Connection|Library|Open File|)$"#
+  exclude title=r#"^(Incoming Connection|Library|)$"#
   default-column-width { proportion 1.0; }
 }
 
@@ -68,8 +82,25 @@ window-rule {
 }
 
 window-rule {
-  match app-id=r#"^(tmenu)$"#
-  default-column-width { proportion 0.33333; }
+  match app-id=r#"^(mpv|tmenu)$"#
+  open-floating true
+}
+
+// Shadow for fuzzel
+layer-rule {
+  match namespace="^launcher$"
+  shadow {
+    on
+  }
+  geometry-corner-radius 12
+}
+
+// Shadow for yambar
+layer-rule {
+  match namespace="^panel$"
+  shadow {
+    on
+  }
 }
 
 // Work around WezTerm's initial configure bug
@@ -77,6 +108,15 @@ window-rule {
 window-rule {
   match app-id=r#"^org\.wezfurlong\.wezterm$"#
   default-column-width {}
+}
+
+// Open the Firefox picture-in-picture player as floating by default.
+window-rule {
+  // This app-id regular expression will work for both:
+  // - host Firefox (app-id is "firefox")
+  // - Flatpak Firefox (app-id is "org.mozilla.firefox")
+  match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+  open-floating true
 }
 
 binds {
@@ -185,17 +225,18 @@ binds {
 
   Mod+Tab { focus-workspace-previous; }
 
-  Mod+Comma  { consume-window-into-column; }
-  Mod+Period { expel-window-from-column; }
-
   Mod+BracketLeft  { consume-or-expel-window-left; }
   Mod+BracketRight { consume-or-expel-window-right; }
+
+  Mod+Comma  { consume-window-into-column; }
+  Mod+Period { expel-window-from-column; }
 
   Mod+R { switch-preset-column-width; }
   Mod+Shift+R { switch-preset-window-height; }
   Mod+Ctrl+R { reset-window-height; }
   Mod+F { maximize-column; }
   Mod+Shift+F { fullscreen-window; }
+  Mod+Ctrl+F { expand-column-to-available-width; }
   Mod+C { center-column; }
 
   Mod+Minus { set-column-width "-10%"; }
@@ -204,11 +245,19 @@ binds {
   Mod+Shift+Minus { set-window-height "-10%"; }
   Mod+Shift+Equal { set-window-height "+10%"; }
 
+  Mod+V       { toggle-window-floating; }
+  Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+
+  Mod+W { toggle-column-tabbed-display; }
+
   Print { screenshot; }
   Ctrl+Print { screenshot-screen; }
   Alt+Print { screenshot-window; }
 
+  Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+
   Mod+Shift+E { quit; }
+  Ctrl+Alt+Delete { quit; }
 
   Mod+Shift+P { spawn "tmenu" "passfzf"; }
 }
