@@ -19,12 +19,16 @@ let
     o:
     let
       inherit (lib)
-        concatStringsSep
         filterAttrs
+        flatten
         mapAttrsToList
         ;
-      env = concatStringsSep "\n" (
-        mapAttrsToList (n: v: ''export ${n}="${v}"'') (filterAttrs (n: v: v != null) cfg.env)
+      envWrapperArgs = flatten (
+        mapAttrsToList (name: value: [
+          "--set"
+          name
+          value
+        ]) (filterAttrs (name: value: value != null) cfg.env)
       );
     in
     {
@@ -34,9 +38,8 @@ let
           # conflict with legacyfox
           rm $out/lib/firefox/defaults/pref/autoconfig.js
           lndir -silent ${pkgs.legacyfox} $out
-          substituteInPlace $out/bin/firefox --replace-fail "exec -a" '${env}
-          exec -a'
         '';
+      makeWrapperArgs = o.makeWrapperArgs ++ envWrapperArgs;
     }
   );
 
