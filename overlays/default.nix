@@ -46,25 +46,25 @@
     # };
     # python3Packages = final.python3.pkgs;
 
-    vimPlugins =
-      prev.vimPlugins
-      // final.lib.packagesFromDirectoryRecursive {
-        inherit (final) callPackage;
-        directory = ../pkgs/vim;
-      }
-      # Remove when vimPlugins.LazyVim updated
-      // {
-        LazyVim = prev.vimPlugins.LazyVim.overrideAttrs (old: rec {
-          version = "14.14.0";
-          src = old.src.override {
-            rev = "v${version}";
-            sha256 = "sha256-1q8c2M/FZxYg4TiXe9PK6JdR4wKBgPbxRt40biIEBaY=";
-          };
-          passthru = (old.passthru or { }) // {
-            updateScript = final.nix-update-script { };
-          };
-        });
-      };
+    # vimPlugins =
+    #   prev.vimPlugins
+    #   // final.lib.packagesFromDirectoryRecursive {
+    #     inherit (final) callPackage;
+    #     directory = ../pkgs/vim;
+    #   }
+    #   # Remove when vimPlugins.LazyVim updated
+    #   // {
+    #     LazyVim = prev.vimPlugins.LazyVim.overrideAttrs (old: rec {
+    #       version = "14.14.0";
+    #       src = old.src.override {
+    #         rev = "v${version}";
+    #         sha256 = "sha256-1q8c2M/FZxYg4TiXe9PK6JdR4wKBgPbxRt40biIEBaY=";
+    #       };
+    #       passthru = (old.passthru or { }) // {
+    #         updateScript = final.nix-update-script { };
+    #       };
+    #     });
+    #   };
 
     wallpapers =
       final.lib.packagesFromDirectoryRecursive {
