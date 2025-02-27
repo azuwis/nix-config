@@ -25,6 +25,7 @@
   networking.hostName = "steamdeck";
   # networkmanager is required to complete the first-time setup process
   networking.networkmanager.enable = true;
+  networking.networkmanager.plugins = lib.mkForce [ ];
   networking.useNetworkd = false;
 
   nix = {
