@@ -6,7 +6,12 @@
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf mkMerge;
+  inherit (lib)
+    mkEnableOption
+    mkForce
+    mkIf
+    mkMerge
+    ;
   cfg = config.my.steam;
 in
 {
@@ -18,8 +23,9 @@ in
   };
 
   config = mkIf cfg.enable (mkMerge [
-    ({
+    {
       networking.networkmanager.enable = true;
+      networking.networkmanager.plugins = mkForce [ ];
       networking.useNetworkd = false;
 
       environment.systemPackages = with pkgs; [ mangohud ];
@@ -89,7 +95,7 @@ in
           };
         };
       };
-    })
+    }
 
     (mkIf cfg.gamescope-intel-fix {
       # https://github.com/ValveSoftware/gamescope/issues/1029
