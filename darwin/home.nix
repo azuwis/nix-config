@@ -9,5 +9,5 @@
 {
   imports = lib.my.getHmModules [ ./. ];
 
-  my.zsh-ssh-agent.enable = true;
+  my.ssh-agent.enable = true;
 }

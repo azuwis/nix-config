@@ -11,5 +11,5 @@
 
   hm.imports = lib.my.getHmModules [ ./. ];
 
-  hm.my.zsh-ssh-agent.enable = true;
+  hm.my.ssh-agent.enable = true;
 }
