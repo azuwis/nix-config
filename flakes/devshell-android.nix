@@ -19,7 +19,7 @@
             if [ -e "$file" ]; then
               args=("-Dorg.gradle.project.android.aapt2FromMavenOverride=$file")
             fi
-            ${pkgs.gradle}/bin/gradle "''${args[$@]}" "$@"
+            ${pkgs.gradle}/bin/gradle "''${args[@]}" "$@"
           '';
         in
         {
