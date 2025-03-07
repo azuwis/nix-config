@@ -8,8 +8,10 @@
         let
           androidsdk =
             (pkgs.androidenv.composeAndroidPackages {
-              # match `android.compileSdk` in build.gradle
+              # match `android.compileSdk` in app/build.gradle
               platformVersions = [ "34" ];
+              # match `android.buildToolsVersion` in app/build.gradle
+              buildToolsVersions = [ "34.0.0" ];
             }).androidsdk;
           androidHome = "${androidsdk}/libexec/android-sdk";
           gradle = pkgs.writeShellScriptBin "gradle" ''
