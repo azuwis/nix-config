@@ -19,12 +19,16 @@ in
 
   environment.etc."ssh/sshd_config".text = ''
     AcceptEnv LANG LC_*
+    AuthorizedKeysFile %h/.ssh/authorized_keys /etc/ssh/authorized_keys.d/%u
     KbdInteractiveAuthentication no
     PasswordAuthentication no
     PermitRootLogin no
     Port ${toString port}
     PrintMotd no
   '';
+
+  environment.etc."ssh/authorized_keys.d/nix-on-droid".text =
+    lib.concatStringsSep "\n" config.my.keys;
 
   environment.packages = [
     (pkgs.writeShellScriptBin "sshd-start" ''
