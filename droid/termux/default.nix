@@ -8,6 +8,7 @@
 let
   termuxConfig = ''
     bell-character=beep
+    fullscreen=true
   '';
 in
 
