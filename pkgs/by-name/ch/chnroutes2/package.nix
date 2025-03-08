@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "chnroutes2";
-  version = "0-unstable-2025-02-18";
+  version = "0-unstable-2025-03-08";
 
   src = fetchFromGitHub {
     owner = "misakaio";
     repo = "chnroutes2";
-    rev = "36d992e3ad08f9cad94e380d74787d9d2431f40f";
-    hash = "sha256-vEHckPcGNczww/y6qlcTdlb7T6XBQZZUrAbWUJt/43I=";
+    rev = "5703a5b2f275471c0ed96f5c7498c89e19243b78";
+    hash = "sha256-TnXGCkju2yyIgP/gBjntppPS23UD3WmhHT3cxTN8vME=";
   };
 
   installPhase = ''
