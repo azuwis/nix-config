@@ -36,4 +36,8 @@ in
       ${pkgs.openssh}/bin/sshd
     '')
   ];
+
+  hm.programs.zsh.logoutExtra = ''
+    pkill sshd
+  '';
 }

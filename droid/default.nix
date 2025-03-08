@@ -12,4 +12,7 @@
   hm.imports = lib.my.getHmModules [ ./. ];
 
   hm.my.ssh-agent.enable = true;
+  hm.programs.zsh.logoutExtra = ''
+    pkill ssh-agent
+  '';
 }
