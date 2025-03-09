@@ -32,11 +32,6 @@ let
             { nixpkgs.pkgs = pkgs; }
           ]
           ++ modules;
-        specialArgs = {
-          inherit
-            inputs
-            ;
-        };
       };
   };
 in
