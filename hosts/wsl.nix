@@ -1,10 +1,13 @@
 {
-  inputs,
   config,
   lib,
   pkgs,
   ...
 }:
+
+let
+  inputs = import ../inputs;
+in
 
 {
   # To make ssh accessable from LAN, run in host powershell:

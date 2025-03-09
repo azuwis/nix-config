@@ -1,5 +1,4 @@
 {
-  inputs,
   config,
   lib,
   pkgs,
@@ -21,9 +20,6 @@ in
 
   hm.imports = [ ./home.nix ];
 
-  home-manager.extraSpecialArgs = {
-    inherit inputs;
-  };
   home-manager.useGlobalPkgs = true;
   # do not enable home-manager.useUserPackages, to match standalone home-manager,
   # so home-manager/nixos-rebuild/darwin-rebuild can be used at the same time

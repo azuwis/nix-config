@@ -1,5 +1,4 @@
 {
-  inputs,
   config,
   lib,
   pkgs,
@@ -15,6 +14,7 @@ let
     mkPackageOption
     ;
   cfg = config.my.nvidia;
+  inputs = import ../../inputs;
 in
 {
   options.my.nvidia = {

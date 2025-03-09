@@ -1,5 +1,4 @@
 {
-  inputs,
   config,
   lib,
   pkgs,
@@ -14,6 +13,7 @@ let
     types
     ;
   cfg = config.my.nix-builder-client;
+  inputs = import ../../inputs;
 in
 {
   options.my.nix-builder-client = {

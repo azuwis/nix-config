@@ -1,5 +1,4 @@
 {
-  inputs,
   config,
   lib,
   pkgs,
@@ -8,6 +7,7 @@
 
 let
   inherit (import ../lib) getHmModules getModules;
+  inputs = import ../inputs;
 in
 
 {

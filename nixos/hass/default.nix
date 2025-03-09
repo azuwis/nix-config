@@ -1,5 +1,4 @@
 {
-  inputs,
   config,
   lib,
   pkgs,
@@ -10,6 +9,7 @@ let
   inherit (import ../../lib) getModules;
   inherit (lib) mkDefault mkEnableOption mkIf;
   cfg = config.my.hass;
+  inputs = import ../../inputs;
 in
 {
   imports = [

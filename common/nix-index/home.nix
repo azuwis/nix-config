@@ -1,5 +1,4 @@
 {
-  inputs,
   config,
   lib,
   pkgs,
@@ -9,6 +8,7 @@
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.my.nix-index;
+  inputs = import ../../inputs;
 
   nix-index-database = import inputs.nix-index-database.outPath { inherit pkgs; };
 in

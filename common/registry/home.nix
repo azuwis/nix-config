@@ -1,5 +1,4 @@
 {
-  inputs,
   config,
   lib,
   pkgs,
@@ -9,6 +8,7 @@
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.my.registry;
+  inputs = import ../../inputs;
 
   flakes = lib.filterAttrs (
     name: value:
