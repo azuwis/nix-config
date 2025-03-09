@@ -27,7 +27,7 @@ let
       args.inputs.home-manager.lib.homeManagerConfiguration {
         inherit (args) pkgs modules;
         extraSpecialArgs = {
-          inherit (args) inputs inputs';
+          inherit (args) inputs;
         };
       };
   };

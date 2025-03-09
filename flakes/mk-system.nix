@@ -17,7 +17,6 @@ extraArgs@{
 
 withSystem system (
   {
-    inputs',
     pkgs,
     system,
     ...
@@ -37,7 +36,6 @@ withSystem system (
     inherit
       extraArgs
       inputs
-      inputs'
       nixpkgs
       system
       ;

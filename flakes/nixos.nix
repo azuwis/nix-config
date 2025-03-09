@@ -12,7 +12,6 @@ let
     apply =
       {
         extraArgs,
-        inputs',
         inputs,
         modules,
         nixpkgs,
@@ -36,7 +35,6 @@ let
         specialArgs = {
           inherit
             inputs
-            inputs'
             ;
         };
       };

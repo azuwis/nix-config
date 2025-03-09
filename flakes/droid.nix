@@ -14,7 +14,7 @@ let
       args.inputs.droid.lib.nixOnDroidConfiguration {
         inherit (args) pkgs modules;
         extraSpecialArgs = {
-          inherit (args) inputs inputs';
+          inherit (args) inputs;
         };
       };
   };

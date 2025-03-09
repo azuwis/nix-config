@@ -16,7 +16,6 @@ let
         specialArgs = {
           inherit (args)
             inputs
-            inputs'
             pkgs
             ;
         };
