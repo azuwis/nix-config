@@ -185,11 +185,11 @@
     },
     "my": {
       "locked": {
-        "lastModified": 1724575839,
-        "narHash": "sha256-NhwmDSxJFAnU55bbsIGNXPiLcK6E9P4dif6KioMXs/k=",
+        "lastModified": 1741536598,
+        "narHash": "sha256-BakkvCnDf8EuOvkg23uCwtCPKAY5QI6MyJ2dhbcw5l4=",
         "ref": "refs/heads/master",
-        "rev": "9a1c267415ed4e12f90a7e8ce964cf9e4248f785",
-        "revCount": 9,
+        "rev": "a266313976cae87ae5588427d5b024043f96a750",
+        "revCount": 10,
         "type": "git",
         "url": "ssh://nuc/~/repo/my"
       },

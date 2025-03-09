@@ -24,7 +24,7 @@ in
 
   config = {
     my = {
-      inherit (inputs.my) builder domain;
+      inherit (import inputs.my.outPath) builder domain;
       user = "azuwis";
       name = "Zhong Jianxin";
       email = "azuwis@gmail.com";
