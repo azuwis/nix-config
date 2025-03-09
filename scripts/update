@@ -48,7 +48,10 @@ done
 shift $((OPTIND - 1))
 
 if [ -n "$info" ]; then
-  nix eval --raw --apply "f: f { path = \"$info\";}" --file "$root/scripts/info.nix"
+  output=$(nix-instantiate --eval --argstr path "$info" "$root/scripts/info.nix")
+  output=${output#\"}
+  output=${output%\"}
+  echo -e -n "$output"
   exit
 fi
 
