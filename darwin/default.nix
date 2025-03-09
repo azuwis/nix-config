@@ -6,12 +6,16 @@
   ...
 }:
 
+let
+  inherit (import ../lib) getModules;
+in
+
 {
   imports = [
     "${inputs.agenix.outPath}/modules/age.nix"
     "${inputs.home-manager.outPath}/nix-darwin"
     ../common
-  ] ++ inputs.lib.getModules [ ./. ];
+  ] ++ getModules [ ./. ];
 
   hm.imports = [ ./home.nix ];
 

@@ -6,6 +6,10 @@
   ...
 }:
 
+let
+  inherit (import ../lib) getModules;
+in
+
 {
   imports = [
     (lib.mkAliasOptionModule [ "hm" ] [
@@ -13,7 +17,7 @@
       "users"
       config.my.user
     ])
-  ] ++ inputs.lib.getModules [ ./. ];
+  ] ++ getModules [ ./. ];
 
   hm.imports = [ ./home.nix ];
 

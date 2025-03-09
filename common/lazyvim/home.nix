@@ -1,11 +1,14 @@
 {
-  inputs,
   config,
   lib,
   pkgs,
   ...
 }:
 
+let
+  inherit (import ../../lib) getModules;
+in
+
 {
-  imports = inputs.lib.getModules [ ./. ];
+  imports = getModules [ ./. ];
 }
