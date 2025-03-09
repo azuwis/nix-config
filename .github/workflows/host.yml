@@ -28,6 +28,7 @@ on:
           - nuc
           - steamdeck
           - droid
+          - wsl
           - mbp
           - all
         default: nuc
@@ -55,6 +56,7 @@ jobs:
           - {os: macos-latest, host: nuc}
           - {os: macos-latest, host: steamdeck}
           - {os: macos-latest, host: droid}
+          - {os: macos-latest, host: wsl}
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
