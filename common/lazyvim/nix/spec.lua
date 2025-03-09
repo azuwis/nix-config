@@ -7,8 +7,6 @@ else
   dir = vim.fn.expand("~/.config/nixpkgs")
 end
 
-local hostname = uv.os_gethostname()
-
 return {
   {
     "neovim/nvim-lspconfig",
@@ -22,13 +20,13 @@ return {
               },
               options = {
                 nixos = {
-                  expr = string.format("(import %s { }).nixosConfigurations.%s.options", dir, hostname),
+                  expr = string.format("(import %s { }).nixosConfigurations.nuc.options", dir),
                 },
                 ["nix-darwin"] = {
-                  expr = string.format("(import %s { }).darwinConfigurations.%s.options", dir, hostname),
+                  expr = string.format("(import %s { }).darwinConfigurations.mbp.options", dir),
                 },
                 ["home-manager"] = {
-                  expr = string.format("(import %s { }).homeConfigurations.%s.options", dir, os.getenv("USER")),
+                  expr = string.format("(import %s { }).homeConfigurations.azuwis.options", dir),
                 },
               },
             },
