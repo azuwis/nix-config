@@ -29,7 +29,7 @@
       };
     };
     flake-compat = {
-      url = "github:edolstra/flake-compat";
+      url = "github:nix-community/flake-compat";
     };
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
