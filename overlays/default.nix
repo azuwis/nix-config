@@ -2,7 +2,7 @@
 { inputs }:
 
 [
-  inputs.agenix.overlays.default
+  (import "${inputs.agenix.outPath}/overlay.nix")
   (import "${inputs.nixpkgs}/pkgs/top-level/by-name-overlay.nix" ../pkgs/by-name)
 
   (final: prev: {

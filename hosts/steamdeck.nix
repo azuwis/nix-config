@@ -8,7 +8,7 @@
 
 {
   imports = [
-    inputs.jovian.nixosModules.default
+    "${inputs.jovian.outPath}/modules"
     ./hardware-steamdeck.nix
   ];
 

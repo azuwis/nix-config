@@ -2,12 +2,7 @@
   inputs = {
     agenix = {
       url = "github:ryantm/agenix";
-      inputs = {
-        darwin.follows = "darwin";
-        home-manager.follows = "home-manager";
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
+      flake = false;
     };
     darwin = {
       url = "github:lnl7/nix-darwin";
@@ -30,6 +25,7 @@
     };
     flake-compat = {
       url = "github:nix-community/flake-compat";
+      flake = false;
     };
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -41,16 +37,14 @@
     };
     jovian = {
       url = "github:Jovian-Experiments/Jovian-NixOS";
-      inputs = {
-        nix-github-actions.follows = "";
-        nixpkgs.follows = "nixpkgs";
-      };
+      flake = false;
     };
     lib = {
       url = "path:./lib";
     };
     my = {
       url = "git+ssh://nuc/~/repo/my";
+      flake = false;
     };
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
@@ -78,10 +72,7 @@
     };
     wsl = {
       url = "github:nix-community/NixOS-WSL";
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        nixpkgs.follows = "nixpkgs";
-      };
+      flake = false;
     };
   };
 
