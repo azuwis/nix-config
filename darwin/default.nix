@@ -11,7 +11,7 @@
     inputs.agenix.darwinModules.default
     inputs.home-manager.darwinModules.home-manager
     ../common
-  ] ++ lib.my.getModules [ ./. ];
+  ] ++ inputs.lib.getModules [ ./. ];
 
   hm.imports = [ ./home.nix ];
 

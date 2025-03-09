@@ -13,7 +13,7 @@
       "users"
       config.my.user
     ])
-  ] ++ lib.my.getModules [ ./. ];
+  ] ++ inputs.lib.getModules [ ./. ];
 
   hm.imports = [ ./home.nix ];
 

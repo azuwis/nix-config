@@ -17,7 +17,6 @@ let
           inherit (args)
             inputs
             inputs'
-            lib
             pkgs
             ;
         };

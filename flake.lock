@@ -172,6 +172,17 @@
         "type": "github"
       }
     },
+    "lib": {
+      "locked": {
+        "path": "./lib",
+        "type": "path"
+      },
+      "original": {
+        "path": "./lib",
+        "type": "path"
+      },
+      "parent": []
+    },
     "my": {
       "locked": {
         "lastModified": 1724575839,
@@ -275,6 +286,7 @@
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "jovian": "jovian",
+        "lib": "lib",
         "my": "my",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs",

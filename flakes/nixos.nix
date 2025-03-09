@@ -14,7 +14,6 @@ let
         extraArgs,
         inputs',
         inputs,
-        lib,
         modules,
         nixpkgs,
         pkgs,
@@ -22,9 +21,14 @@ let
       }:
       nixpkgs.lib.nixosSystem {
         modules =
-          lib.optionals (!(extraArgs ? readOnlyPkgs && extraArgs.readOnlyPkgs == false)) [
-            inputs.nixpkgs.nixosModules.readOnlyPkgs
-          ]
+          (
+            if (extraArgs ? readOnlyPkgs && extraArgs.readOnlyPkgs == false) then
+              [ ]
+            else
+              [
+                inputs.nixpkgs.nixosModules.readOnlyPkgs
+              ]
+          )
           ++ [
             { nixpkgs.pkgs = pkgs; }
           ]
@@ -33,7 +37,6 @@ let
           inherit
             inputs
             inputs'
-            lib
             ;
         };
       };

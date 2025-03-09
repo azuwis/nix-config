@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   pkgs,
@@ -6,5 +7,5 @@
 }:
 
 {
-  imports = lib.my.getModules [ ./. ];
+  imports = inputs.lib.getModules [ ./. ];
 }

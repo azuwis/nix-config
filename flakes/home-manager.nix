@@ -28,7 +28,6 @@ let
         inherit (args) pkgs modules;
         extraSpecialArgs = {
           inherit (args) inputs inputs';
-          lib = import (args.inputs.home-manager + "/modules/lib/stdlib-extended.nix") args.lib;
         };
       };
   };

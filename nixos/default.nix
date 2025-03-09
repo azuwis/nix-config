@@ -18,9 +18,9 @@
     inputs.agenix.nixosModules.default
     inputs.home-manager.nixosModules.home-manager
     ../common
-  ] ++ lib.my.getModules [ ./. ];
+  ] ++ inputs.lib.getModules [ ./. ];
 
-  hm.imports = lib.my.getHmModules [ ./. ];
+  hm.imports = inputs.lib.getHmModules [ ./. ];
 
   environment.systemPackages = [ pkgs.agenix ];
 }

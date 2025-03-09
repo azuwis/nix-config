@@ -7,7 +7,7 @@
 }:
 
 {
-  imports = [ inputs.nix-index-database.hmModules.nix-index ] ++ lib.my.getHmModules [ ./. ];
+  imports = [ inputs.nix-index-database.hmModules.nix-index ] ++ inputs.lib.getHmModules [ ./. ];
 
   my = {
     difftastic.enable = true;

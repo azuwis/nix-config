@@ -24,7 +24,7 @@ in
         "text"
       ]
     )
-  ] ++ lib.my.getModules [ ./. ];
+  ] ++ inputs.lib.getModules [ ./. ];
 
   options.my.hass = {
     enable = mkEnableOption "hass";

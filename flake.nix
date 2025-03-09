@@ -46,6 +46,9 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
+    lib = {
+      url = "path:./lib";
+    };
     my = {
       url = "git+ssh://nuc/~/repo/my";
     };

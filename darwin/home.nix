@@ -7,7 +7,7 @@
 }:
 
 {
-  imports = lib.my.getHmModules [ ./. ];
+  imports = inputs.lib.getHmModules [ ./. ];
 
   my.ssh-agent.enable = true;
 }
