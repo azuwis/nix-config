@@ -7,7 +7,7 @@
 
 let
   mkHome = import ./mk-system.nix {
-    inherit inputs self withSystem;
+    inherit inputs withSystem;
     defaultSystem = "x86_64-linux";
     defaultModules = [
       (
