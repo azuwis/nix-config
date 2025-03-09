@@ -7,7 +7,7 @@
 }:
 
 {
-  imports = [ inputs.nix-index-database.hmModules.nix-index ] ++ inputs.lib.getHmModules [ ./. ];
+  imports = inputs.lib.getHmModules [ ./. ];
 
   my = {
     difftastic.enable = true;
@@ -19,6 +19,7 @@
     # gitui.enable = true;
     less.enable = true;
     neovim.enable = true;
+    nix-index.enable = true;
     yazi.enable = true;
     zsh.enable = true;
   };

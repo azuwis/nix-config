@@ -199,11 +199,7 @@
       }
     },
     "nix-index-database": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
+      "flake": false,
       "locked": {
         "lastModified": 1740281615,
         "narHash": "sha256-dZWcbAQ1sF8oVv+zjSKkPVY0ebwENQEkz5vc6muXbKY=",
