@@ -3,7 +3,7 @@
 
 [
   (import "${inputs.agenix.outPath}/overlay.nix")
-  (import "${inputs.nixpkgs}/pkgs/top-level/by-name-overlay.nix" ../pkgs/by-name)
+  (import "${inputs.nixpkgs.outPath}/pkgs/top-level/by-name-overlay.nix" ../pkgs/by-name)
 
   (final: prev: {
     # disable fcitx5-configtool
