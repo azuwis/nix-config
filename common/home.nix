@@ -26,7 +26,9 @@
 
   # let standalone home-manager and home-manager in nixos/nix-darwin use the same derivation
   home.packages = [
-    (pkgs.callPackage (inputs.home-manager + /home-manager) { path = inputs.home-manager; })
+    (pkgs.callPackage "${inputs.home-manager.outPath}/home-manager" {
+      path = inputs.home-manager.outPath;
+    })
   ];
   home.stateVersion = "23.11";
   systemd.user.startServices = "sd-switch";

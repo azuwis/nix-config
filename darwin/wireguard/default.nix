@@ -13,7 +13,7 @@
     wireguard-tools
   ];
   age.secrets.wg0 = {
-    file = "${inputs.my}/wg0.age";
+    file = "${inputs.my.outPath}/wg0.age";
     path = "/etc/wireguard/wg0.conf";
     symlink = false;
   };
