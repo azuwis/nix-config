@@ -1,20 +1,7 @@
 {
   "nodes": {
     "agenix": {
-      "inputs": {
-        "darwin": [
-          "darwin"
-        ],
-        "home-manager": [
-          "home-manager"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "systems": [
-          "systems"
-        ]
-      },
+      "flake": false,
       "locked": {
         "lastModified": 1736955230,
         "narHash": "sha256-uenf8fv2eG5bKM8C/UvFaiJMZ4IpUFaQxk9OH5t/1gA=",
@@ -97,6 +84,7 @@
       }
     },
     "flake-compat": {
+      "flake": false,
       "locked": {
         "lastModified": 1717312683,
         "narHash": "sha256-FrlieJH50AuvagamEvWMIE6D2OAnERuDboFDYAED/dE=",
@@ -152,12 +140,7 @@
       }
     },
     "jovian": {
-      "inputs": {
-        "nix-github-actions": [],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
+      "flake": false,
       "locked": {
         "lastModified": 1740637966,
         "narHash": "sha256-+TGCqVdf8OHKSsJZTT4KNPS5JPZB/DfDHbT3dFq7yH4=",
@@ -184,6 +167,7 @@
       "parent": []
     },
     "my": {
+      "flake": false,
       "locked": {
         "lastModified": 1741536598,
         "narHash": "sha256-BakkvCnDf8EuOvkg23uCwtCPKAY5QI6MyJ2dhbcw5l4=",
@@ -329,14 +313,7 @@
       }
     },
     "wsl": {
-      "inputs": {
-        "flake-compat": [
-          "flake-compat"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
+      "flake": false,
       "locked": {
         "lastModified": 1740567864,
         "narHash": "sha256-eTS2wrC1jKR6PKXC9jZqQy5PwqbIOBLSLF3dwLiFJ8M=",

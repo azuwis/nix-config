@@ -8,8 +8,8 @@
 
 {
   imports = [
-    inputs.agenix.darwinModules.default
-    inputs.home-manager.darwinModules.home-manager
+    "${inputs.agenix.outPath}/modules/age.nix"
+    "${inputs.home-manager.outPath}/nix-darwin"
     ../common
   ] ++ inputs.lib.getModules [ ./. ];
 

@@ -15,8 +15,8 @@
   # /var/lib/torrent-ratio/
   # /var/lib/zigbee2mqtt/
   imports = [
-    inputs.agenix.nixosModules.default
-    inputs.home-manager.nixosModules.home-manager
+    "${inputs.agenix.outPath}/modules/age.nix"
+    "${inputs.home-manager.outPath}/nixos"
     ../common
   ] ++ inputs.lib.getModules [ ./. ];
 
