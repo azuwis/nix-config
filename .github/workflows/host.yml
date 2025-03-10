@@ -28,6 +28,7 @@ on:
           - nuc
           - steamdeck
           - droid
+          - wsl
           - mbp
           - all
         default: nuc
@@ -47,14 +48,16 @@ jobs:
             inputs.host == 'nuc' && '["nuc"]' || (
             inputs.host == 'steamdeck' && '["steamdeck"]' || (
             inputs.host == 'droid' && '["droid"]' || (
+            inputs.host == 'wsl' && '["wsl"]' || (
             inputs.host == 'mbp' && '["mbp"]' || (
-            '["nuc", "steamdeck", "droid", "mbp"]'
-          ))))) }}
+            '["nuc", "steamdeck", "droid", "wsl", "mbp"]'
+          )))))) }}
         exclude:
           - {os: ubuntu-latest, host: mbp}
           - {os: macos-latest, host: nuc}
           - {os: macos-latest, host: steamdeck}
           - {os: macos-latest, host: droid}
+          - {os: macos-latest, host: wsl}
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
