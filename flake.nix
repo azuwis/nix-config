@@ -39,9 +39,6 @@
       url = "github:Jovian-Experiments/Jovian-NixOS";
       flake = false;
     };
-    lib = {
-      url = "path:./lib";
-    };
     my = {
       url = "git+ssh://nuc/~/repo/my";
       flake = false;

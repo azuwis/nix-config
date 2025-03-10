@@ -7,6 +7,7 @@
 }:
 
 let
+  inherit (import ../../lib) getModules;
   inherit (lib) mkDefault mkEnableOption mkIf;
   cfg = config.my.hass;
 in
@@ -24,7 +25,7 @@ in
         "text"
       ]
     )
-  ] ++ inputs.lib.getModules [ ./. ];
+  ] ++ getModules [ ./. ];
 
   options.my.hass = {
     enable = mkEnableOption "hass";

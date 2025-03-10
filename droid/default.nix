@@ -1,5 +1,4 @@
 {
-  inputs,
   config,
   lib,
   pkgs,
@@ -7,10 +6,14 @@
   ...
 }:
 
-{
-  imports = [ ../common ] ++ inputs.lib.getModules [ ./. ];
+let
+  inherit (import ../lib) getHmModules getModules;
+in
 
-  hm.imports = inputs.lib.getHmModules [ ./. ];
+{
+  imports = [ ../common ] ++ getModules [ ./. ];
+
+  hm.imports = getHmModules [ ./. ];
 
   hm.my.ssh-agent.enable = true;
   hm.programs.zsh.logoutExtra = ''

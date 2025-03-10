@@ -6,6 +6,10 @@
   ...
 }:
 
+let
+  inherit (import ../lib) getHmModules getModules;
+in
+
 {
   # Files to backup
   # /var/lib/acme/
@@ -18,9 +22,9 @@
     "${inputs.agenix.outPath}/modules/age.nix"
     "${inputs.home-manager.outPath}/nixos"
     ../common
-  ] ++ inputs.lib.getModules [ ./. ];
+  ] ++ getModules [ ./. ];
 
-  hm.imports = inputs.lib.getHmModules [ ./. ];
+  hm.imports = getHmModules [ ./. ];
 
   environment.systemPackages = [ pkgs.agenix ];
 }

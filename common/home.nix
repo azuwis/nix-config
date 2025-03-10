@@ -6,8 +6,12 @@
   ...
 }:
 
+let
+  inherit (import ../lib) getHmModules;
+in
+
 {
-  imports = inputs.lib.getHmModules [ ./. ];
+  imports = getHmModules [ ./. ];
 
   my = {
     difftastic.enable = true;
