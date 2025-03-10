@@ -12,10 +12,7 @@ let
     apply =
       args@{ ... }:
       args.inputs.darwin.lib.darwinSystem {
-        inherit (args) system modules;
-        specialArgs = {
-          inherit (args) pkgs;
-        };
+        inherit (args) modules pkgs;
       };
   };
 in
