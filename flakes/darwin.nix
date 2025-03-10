@@ -14,10 +14,7 @@ let
       args.inputs.darwin.lib.darwinSystem {
         inherit (args) system modules;
         specialArgs = {
-          inherit (args)
-            inputs
-            pkgs
-            ;
+          inherit (args) pkgs;
         };
       };
   };
