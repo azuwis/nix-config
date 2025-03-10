@@ -1,6 +1,3 @@
 {
-  outputs = _: {
-    builder = "1.1.1.1";
-    domain = "example.com";
-  };
+  outputs = _: import ./default.nix;
 }
