@@ -1,5 +1,4 @@
 {
-  inputs,
   config,
   lib,
   pkgs,
@@ -7,6 +6,7 @@
 }:
 
 let
+  inputs = import ../../inputs;
   scinetScript = pkgs.substituteAll {
     src = ./scinet.sh;
     name = "scinet";
