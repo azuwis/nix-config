@@ -16,7 +16,12 @@ in
   # New-NetFirewallRule -DisplayName "WSL OpenSSH Server" -Action Allow -Protocol TCP -LocalPort 22
   # ```
 
-  imports = [ "${inputs.wsl.outPath}/modules" ];
+  imports = [
+    ../nixos
+    "${inputs.wsl.outPath}/modules"
+  ];
+
+  nixpkgs.hostPlatform = "x86_64-linux";
 
   # WSL does not need bootloader/networking/greetd/pipewire
   boot.loader.systemd-boot.enable = false;

@@ -6,6 +6,10 @@
 }:
 
 {
-  imports = [ ./hardware-utm.nix ];
+  imports = [
+    ../nixos
+    ./hardware-utm.nix
+  ];
+
   networking.hostName = "utm";
 }

@@ -123,7 +123,7 @@ droid_switch() {
 hardware() {
   test -e /etc/NIXOS || exit
   # shellcheck disable=SC2024
-  run sudo nixos-generate-config --show-hardware-config | grep -Ev 'nixpkgs.hostPlatform|networking.interfaces.macvtap|networking.interfaces.virbr' >"$FLAKE/hosts/hardware-$(hostname).nix"
+  run sudo nixos-generate-config --show-hardware-config | grep -Ev 'networking.interfaces.macvtap|networking.interfaces.virbr' >"$FLAKE/hosts/hardware-$(hostname).nix"
 }
 
 rebuild() {

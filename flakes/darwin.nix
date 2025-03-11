@@ -1,23 +1,18 @@
 {
   inputs,
-  withSystem,
+  lib,
   ...
 }:
 
 let
-  mkDarwin = import ./mk-system.nix {
-    inherit inputs withSystem;
-    defaultSystem = "aarch64-darwin";
-    defaultModules = [ ../darwin ];
-    apply =
-      args@{ ... }:
-      args.inputs.darwin.lib.darwinSystem {
-        inherit (args) modules pkgs;
-      };
-  };
+  mkDarwin =
+    host:
+    inputs.darwin.lib.darwinSystem {
+      modules = [ (../hosts + "/${host}.nix") ];
+    };
 in
 {
-  flake.darwinConfigurations = {
-    mbp = mkDarwin { modules = [ ../hosts/mbp.nix ]; };
-  };
+  flake.darwinConfigurations = lib.genAttrs [
+    "mbp"
+  ] mkDarwin;
 }

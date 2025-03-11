@@ -6,6 +6,10 @@
 }:
 
 {
+  imports = [ ../darwin ];
+
+  nixpkgs.hostPlatform = "aarch64-darwin";
+
   networking.hostName = "mbp";
   my.desktop.enable = true;
 

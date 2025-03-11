@@ -6,7 +6,11 @@
 }:
 
 {
-  imports = [ ./hardware-tuf.nix ];
+  imports = [
+    ../nixos
+    ./hardware-tuf.nix
+  ];
+
   boot.supportedFilesystems = [ "ntfs" ];
   # powerManagement.cpuFreqGovernor = "performance";
   networking.hostName = "tuf";
