@@ -6,6 +6,7 @@
 }:
 
 let
+  # `inputs` is needed to prevent infinite recursions
   overlays = import ../overlays { inherit inputs; };
 in
 {

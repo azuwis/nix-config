@@ -30,7 +30,7 @@ let
       allowUnfree = true;
       android_sdk.accept_license = true;
     };
-    overlays = (import ./overlays { inherit (self) inputs; }) ++ overlays;
+    overlays = (import ./overlays { }) ++ overlays;
   };
 in
 # nix-update expect nixpkgs-like repo

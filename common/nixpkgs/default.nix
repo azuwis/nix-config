@@ -8,7 +8,6 @@
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.my.nixpkgs;
-  inputs = import ../../inputs;
 in
 {
   options.my.nixpkgs = {
@@ -20,7 +19,7 @@ in
   config = mkIf cfg.enable {
     nixpkgs = {
       config = import ../../config.nix;
-      overlays = (import ../../overlays { inherit inputs; });
+      overlays = (import ../../overlays { });
     };
   };
 }

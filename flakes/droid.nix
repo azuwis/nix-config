@@ -13,7 +13,7 @@ let
         # https://github.com/nix-community/nix-on-droid/blob/5d88ff2519e4952f8d22472b52c531bb5f1635fc/flake.nix#L82
         allowAliases = true;
       };
-      overlays = import ../overlays { inherit inputs; };
+      overlays = import ../overlays { };
     };
   mkDroid =
     {

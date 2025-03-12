@@ -1,5 +1,7 @@
 # https://discourse.nixos.org/t/in-overlays-when-to-use-self-vs-super/2968/12
-{ inputs }:
+{
+  inputs ? import ../inputs,
+}:
 
 [
   (import "${inputs.agenix.outPath}/overlay.nix")
