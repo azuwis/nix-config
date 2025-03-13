@@ -1,9 +1,3 @@
-{
-  # Required by nixpkgs-hammering
-  overlays ? [ ],
-  ...
-}:
-
 let
   flake-compat =
     let
@@ -15,7 +9,7 @@ let
         narHash
         ;
     in
-    fetchTarball {
+    builtins.fetchTarball {
       url = "https://github.com/${owner}/${repo}/archive/${rev}.tar.gz";
       sha256 = narHash;
     };
@@ -23,17 +17,5 @@ let
     src = ./.;
   };
   self = flake.defaultNix;
-  nixpkgs = self.inputs.nixpkgs.outPath;
-  pkgs = import nixpkgs {
-    config = {
-      allowAliases = false;
-      allowUnfree = true;
-      android_sdk.accept_license = true;
-    };
-    overlays = (import ./overlays { }) ++ overlays;
-  };
 in
-# nix-update expect nixpkgs-like repo
-# https://discourse.nixos.org/t/25274
-# https://github.com/jtojnar/nixfiles/blob/master/default.nix
-pkgs // self
+self

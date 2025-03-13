@@ -2,7 +2,7 @@
 
 let
   inherit (pkgs) lib;
-  pkgs = import ../. { };
+  pkgs = import ../pkgs { };
   package = lib.attrByPath (lib.splitString "." path) null pkgs;
   render =
     package:

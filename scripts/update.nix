@@ -10,8 +10,9 @@
 
 let
   inherit (pkgs) lib;
-  pkgs = import ../. { };
-  nixpkgs = pkgs.inputs.nixpkgs.outPath;
+  inputs = import ../inputs;
+  pkgs = import ../pkgs { };
+  nixpkgs = inputs.nixpkgs.outPath;
 
   getPosition = package: (builtins.unsafeGetAttrPos "src" package).file or package.meta.position;
   pkgHasPrefix = prefix: package: lib.hasPrefix prefix (getPosition package);

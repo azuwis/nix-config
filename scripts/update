@@ -64,7 +64,7 @@ command+=("$@")
 if [ "$filter_stderr" = "true" ]; then
   "${command[@]}" 2> >(grep -v ^fetching >&2)
 else
-  pushd "$root" >/dev/null
+  pushd "$root/pkgs" >/dev/null
   >&2 echo "${command[@]}"
   "${command[@]}"
   popd >/dev/null
