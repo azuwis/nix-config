@@ -36,6 +36,10 @@ USAGE:
 EOF
 }
 
+echoerr() {
+  >&2 echo "$@"
+}
+
 run() {
   full_command=("$@")
   command=$1
@@ -93,7 +97,7 @@ build() {
 
   if [ -e "$SYSTEM" ]; then
     if [ "$SYSTEM" = "$BUILT" ]; then
-      echo "build-result == current-system"
+      echoerr "build-result == current-system"
     else
       run nvd diff "$SYSTEM" "$BUILT"
 
@@ -232,7 +236,7 @@ s | switch)
   build
   if [ "$ask" = yes ]; then
     if [ "$SYSTEM" = "$BUILT" ]; then
-      echo "Skip switch"
+      echoerr "Skip switch"
       exit
     fi
     read -p "Switch? [Yn]" -r answer
