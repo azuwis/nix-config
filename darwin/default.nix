@@ -20,4 +20,12 @@ in
   hm.imports = [ ./home.nix ];
 
   environment.systemPackages = [ pkgs.agenix ];
+
+  # See nix-darwin/flake.nix
+  nixpkgs.source = inputs.nixpkgs.outPath;
+  system.checks.verifyNixPath = lib.mkDefault false;
+  # Use information from npins to set system version suffix
+  system.darwinVersionSuffix =
+    lib.mkIf (inputs.nixpkgs ? revision)
+      ".${lib.substring 0 7 inputs.nixpkgs.revision}";
 }

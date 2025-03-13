@@ -1,0 +1,112 @@
+{
+  "pins": {
+    "agenix": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "ryantm",
+        "repo": "agenix"
+      },
+      "branch": "main",
+      "revision": "e600439ec4c273cf11e06fe4d9d906fb98fa097c",
+      "url": "https://github.com/ryantm/agenix/archive/e600439ec4c273cf11e06fe4d9d906fb98fa097c.tar.gz",
+      "hash": "006ngydiykjgqs85cl19h9klq8kaqm5zs0ng51dnwy7nzgqxzsdr"
+    },
+    "home-manager": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nix-community",
+        "repo": "home-manager"
+      },
+      "branch": "master",
+      "revision": "b8869e4ead721bbd4f0d6b927e8395705d4f16e6",
+      "url": "https://github.com/nix-community/home-manager/archive/b8869e4ead721bbd4f0d6b927e8395705d4f16e6.tar.gz",
+      "hash": "0i8flhc88cvpi1vr0z6qfvk03nph2m940m1miwn18h1p0baglczi"
+    },
+    "jovian": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Jovian-Experiments",
+        "repo": "Jovian-NixOS"
+      },
+      "branch": "development",
+      "revision": "227d9adc3331820a349b3344a5fcc710a5f196c1",
+      "url": "https://github.com/Jovian-Experiments/Jovian-NixOS/archive/227d9adc3331820a349b3344a5fcc710a5f196c1.tar.gz",
+      "hash": "0zn8pdd79xxl3p1kgz21yqjbkx1l18z4snf29b5f3w2zaylq4cgr"
+    },
+    "my": {
+      "type": "Git",
+      "repository": {
+        "type": "Git",
+        "url": "ssh://nuc/~/repo/my"
+      },
+      "branch": "master",
+      "revision": "a266313976cae87ae5588427d5b024043f96a750",
+      "url": null,
+      "hash": "0pp662vqb7cxr268wh1r0ql8zl62h9xxn87r78pc2zy356y29a85"
+    },
+    "nix-darwin": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "LnL7",
+        "repo": "nix-darwin"
+      },
+      "branch": "master",
+      "revision": "665cc04a60eb8ba47d41eadbe6264ca8a71943e8",
+      "url": "https://github.com/LnL7/nix-darwin/archive/665cc04a60eb8ba47d41eadbe6264ca8a71943e8.tar.gz",
+      "hash": "1frvh9hdxb2l4g4q53vr5pbgsr80blck4dryrddirq4lrc3ma6xw"
+    },
+    "nix-index-database": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nix-community",
+        "repo": "nix-index-database"
+      },
+      "branch": "main",
+      "revision": "465792533d03e6bb9dc849d58ab9d5e31fac9023",
+      "url": "https://github.com/nix-community/nix-index-database/archive/465792533d03e6bb9dc849d58ab9d5e31fac9023.tar.gz",
+      "hash": "19kcjxmymp4vrwj02d84piwk8mixlhi8vczzaql5zc1m0in9r5bm"
+    },
+    "nix-on-droid": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nix-community",
+        "repo": "nix-on-droid"
+      },
+      "branch": "master",
+      "revision": "5d88ff2519e4952f8d22472b52c531bb5f1635fc",
+      "url": "https://github.com/nix-community/nix-on-droid/archive/5d88ff2519e4952f8d22472b52c531bb5f1635fc.tar.gz",
+      "hash": "1z411zdzmdp7d2408rf62nwh2gdfi2lzlfsmndlpxxkwdgh76vrz"
+    },
+    "nixpkgs": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "NixOS",
+        "repo": "nixpkgs"
+      },
+      "branch": "nixpkgs-unstable",
+      "revision": "3a05eebede89661660945da1f151959900903b6a",
+      "url": "https://github.com/NixOS/nixpkgs/archive/3a05eebede89661660945da1f151959900903b6a.tar.gz",
+      "hash": "0n56l6v5k3lmrr4vjnp6xk1s46shkwdkvai05dzcbcabpl29yb9g"
+    },
+    "wsl": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nix-community",
+        "repo": "NixOS-WSL"
+      },
+      "branch": "main",
+      "revision": "1f40b43d01626ce994eb47150afa0d7215f396ca",
+      "url": "https://github.com/nix-community/NixOS-WSL/archive/1f40b43d01626ce994eb47150afa0d7215f396ca.tar.gz",
+      "hash": "1hr7hnwc1pax5k914f68lv14ybj3d8vgdhm57ixa935mn31bcd3r"
+    }
+  },
+  "version": 3
+}

@@ -1,21 +1,53 @@
 let
-  flake-compat =
-    let
-      lock = builtins.fromJSON (builtins.readFile ./flake.lock);
-      inherit (lock.nodes.${lock.nodes.${lock.root}.inputs.flake-compat}.locked)
-        owner
-        repo
-        rev
-        narHash
-        ;
-    in
-    builtins.fetchTarball {
-      url = "https://github.com/${owner}/${repo}/archive/${rev}.tar.gz";
-      sha256 = narHash;
+  inputs = import ./inputs;
+  nixpkgs = inputs.nixpkgs.outPath;
+  lib = import "${nixpkgs}/lib";
+
+  mkNixos =
+    host:
+    import "${nixpkgs}/nixos/lib/eval-config.nix" {
+      system = null;
+      modules = [
+        (./hosts + "/${host}.nix") # compatible syntax with nix 2.3
+      ];
     };
-  flake = import flake-compat {
-    src = ./.;
+
+  nixosConfigurations = lib.genAttrs [
+    "hyperv"
+    "nuc"
+    "steamdeck"
+    "tuf"
+    "utm"
+    "wsl"
+  ] mkNixos;
+
+  mkDarwin =
+    host:
+    import "${inputs.nix-darwin.outPath}/eval-config.nix" {
+      inherit lib;
+      modules = [
+        (./hosts + "/${host}.nix")
+      ];
+    };
+
+  darwinConfigurations = lib.genAttrs [
+    "mbp"
+  ] mkDarwin;
+
+  mkDroid = import "${inputs.nix-on-droid.outPath}/modules" {
+    home-manager-path = inputs.home-manager.outPath;
+    config.imports = [ ./droid ];
   };
-  self = flake.defaultNix;
+
+  nixOnDroidConfigurations.default = mkDroid;
+  # for CI
+  nixOnDroidConfigurations.droid = mkDroid;
 in
-self
+
+{
+  inherit
+    nixosConfigurations
+    darwinConfigurations
+    nixOnDroidConfigurations
+    ;
+}

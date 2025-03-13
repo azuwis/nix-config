@@ -203,8 +203,7 @@ ci)
       .#nixOnDroidConfigurations.droid.config.environment.files.prootStatic.outPath
     OS=droid
   fi
-  nix flake lock --override-input my "path:$FLAKE/test"
-  build --no-nom "$@" --impure
+  NPINS_OVERRIDE_my="$FLAKE/test" build --no-nom "$@" --impure
   ;;
 d | diff)
   build --diff "$@"

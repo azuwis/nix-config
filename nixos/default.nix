@@ -27,4 +27,9 @@ in
   hm.imports = getHmModules [ ./. ];
 
   environment.systemPackages = [ pkgs.agenix ];
+
+  # Use information from npins to set system version suffix
+  system.nixos.versionSuffix =
+    lib.mkIf (inputs.nixpkgs ? revision)
+      ".${lib.substring 0 7 inputs.nixpkgs.revision}";
 }

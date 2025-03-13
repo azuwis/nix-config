@@ -4,9 +4,6 @@
   imports = [
     inputs.devshell.flakeModule
     ./overlays.nix
-    ./darwin.nix
-    ./nixos.nix
-    ./droid.nix
     ./home-manager.nix
     ./openwrt.nix
     ./treefmt.nix
