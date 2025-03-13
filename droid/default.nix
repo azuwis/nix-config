@@ -13,8 +13,6 @@ in
 {
   imports = [ ../common ] ++ getModules [ ./. ];
 
-  my.nixpkgs.enable = false;
-
   hm.imports = getHmModules [ ./. ];
 
   hm.my.ssh-agent.enable = true;
