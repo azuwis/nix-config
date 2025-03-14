@@ -20,6 +20,7 @@ in
   config = mkIf cfg.enable {
     programs.nix-index.enable = true;
 
-    home.file."${config.xdg.cacheHome}/nix-index/files".source = nix-index-database.nix-index-database;
+    home.file."${config.xdg.cacheHome}/nix-index/files".source =
+      nix-index-database.nix-index-small-database;
   };
 }
