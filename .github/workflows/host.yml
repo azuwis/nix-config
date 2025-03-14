@@ -70,5 +70,45 @@ jobs:
           name: azuwis
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: Build
-        run: ./scripts/os ci ${{ matrix.host }}
+        env:
+          HOST: ${{ matrix.host }}
+        run: |
+          ./scripts/os ci "$HOST"
+          mkdir -p /tmp/report
+          nix path-info --closure-size ~/.local/state/nix/profiles/"$HOST" | awk '{print $2}' > /tmp/report/"$HOST"
+          echo "${GITHUB_SHA::8}" > /tmp/report/nix-config
+          jq -r '.pins.nixpkgs.revision[:8]' inputs/sources.json > /tmp/report/nixpkgs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: report-${{ matrix.host }}
+          path: /tmp/report/
       - uses: azuwis/actions/nix/post@main
+  summary:
+    # For displaying `Final summary` in `Summary`
+    name: Final
+    needs: build
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+      - uses: actions/download-artifact@v4
+        with:
+          path: /tmp/report
+          merge-multiple: true
+      - name: Summary
+        run: |
+          IFS=',' read -ra data <data.csv
+          line="$(date --iso-8601=seconds)"
+          for file in "${data[@]:1}"; do
+            read -r cell </tmp/report/"$file"
+            line="$line,$cell"
+          done
+          echo "$line" >>data.csv
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data.csv
+          git commit -m 'Update data.csv'
+          git push
