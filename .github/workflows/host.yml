@@ -107,6 +107,12 @@ jobs:
             line="$line,$cell"
           done
           echo "$line" >>data.csv
+          {
+            sed -e '1s/,/ | /g; 1p; 1s/[^ |]\+/---/g; q' data.csv
+            tail -n 11 data.csv | sed -e '1d; s/,/ | /g'
+            echo
+            echo "https://azuwis.github.io/nix-config"
+          } >"$GITHUB_STEP_SUMMARY"
           git config --global user.name 'github-actions[bot]'
           git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data.csv
