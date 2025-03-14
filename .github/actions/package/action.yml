@@ -28,7 +28,7 @@ runs:
         package=$PACKAGE
         if [ "$(nix eval --impure --json --expr "
         let
-          pkgs = import ./default.nix { };
+          pkgs = import ./pkgs { };
           meta = pkgs.$package.meta;
         in
         (meta ? platforms && builtins.elem builtins.currentSystem meta.platforms)
@@ -40,7 +40,7 @@ runs:
           exit
         fi
         echo "::group::Build $package"
-        nix -L build -f . "$package"
+        nix -L build -f pkgs "$package"
         echo "::endgroup::"
         echo "::group::Install 'tree'"
         nix-env -f '<nixpkgs>' -iA tree
