@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Closure Size</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        .chart {
+            margin: 2rem;
+            font-family: Arial;
+        }
+
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
+        }
+
+        .tooltip {
+            position: absolute;
+            padding: 10px;
+            background: rgba(255,255,255,0.9);
+            border: 1px solid #ddd;
+            pointer-events: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div id="chart"></div>
+
+<script>
+// Configuration
+const width = window.innerWidth * 0.8;
+const height = 500;
+const margin = { top: 20, right: 30, bottom: 50, left: 60 };
+
+// Create SVG container
+const svg = d3.select("#chart")
+    .append("svg")
+    .attr("class", "chart")
+    .attr("width", width)
+    .attr("height", height);
+
+// Tooltip
+const tooltip = d3.select("body")
+    .append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
+// Data loading and processing
+d3.csv("data.csv").then(data => {
+    // Parse ISO-8601 timestamps
+    const processedData = data.map(d => {
+        const item = {
+            time: new Date(d.time),
+            labels: {
+                "nix-config": d["nix-config"],
+                "nixpkgs": d.nixpkgs
+            }
+        };
+
+        // Extract closure size fields
+        ["nuc", "steamdeck", "droid", "wsl", "mbp"].forEach(device => {
+            item[device] = +d[device];
+        });
+
+        return item;
+    });
+
+    // Convert to long format
+    const longData = processedData.flatMap(d => 
+        ["nuc", "steamdeck", "droid", "wsl", "mbp"].map(device => ({
+            time: d.time,
+            device,
+            value: d[device],
+            labels: d.labels
+        }))
+    );
+
+    // Scales
+    const xScale = d3.scaleTime()
+        .domain(d3.extent(processedData, d => d.time))
+        .range([margin.left, width - margin.right]);
+
+    const yScale = d3.scaleLinear()
+        .domain([0, d3.max(longData, d => d.value)])
+        .nice()
+        .range([height - margin.bottom, margin.top]);
+
+    // Color scale
+    const color = d3.scaleOrdinal()
+        .domain(["nuc", "steamdeck", "droid", "wsl", "mbp"])
+        .range(d3.schemeTableau10);
+
+    // Draw lines
+    const line = d3.line()
+        .x(d => xScale(d.time))
+        .y(d => yScale(d.value));
+
+    svg.selectAll(".line")
+        .data(d3.group(longData, d => d.device))
+        .join("path")
+            .attr("class", "line")
+            .attr("d", ([key, values]) => line(values))
+            .attr("stroke", ([key]) => color(key))
+            .attr("fill", "none")
+            .attr("stroke-width", 2);
+
+    // Data points
+    svg.selectAll(".dot")
+        .data(longData)
+        .join("circle")
+            .attr("class", "dot")
+            .attr("cx", d => xScale(d.time))
+            .attr("cy", d => yScale(d.value))
+            .attr("r", 4)
+            .attr("fill", d => color(d.device))
+            .on("mouseover", (event, d) => {
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", 0.9);
+
+                tooltip.html(`
+                    <strong>${d3.timeFormat("%Y-%m-%d %H:%M")(d.time)}</strong><br>
+                    ${d.device}: ${d3.format(".2s")(d.value)}B<br>
+                    nix-config: ${d.labels["nix-config"].substring(0,8)}<br>
+                    nixpkgs: ${d.labels.nixpkgs.substring(0,8)}
+                `)
+                .style("left", (event.pageX + 10) + "px")
+                .style("top", (event.pageY - 28) + "px");
+            })
+            .on("mouseout", () => {
+                tooltip.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            });
+
+    // Axes
+    svg.append("g")
+        .attr("transform", `translate(0,${height - margin.bottom})`)
+        .call(d3.axisBottom(xScale)
+            .ticks(d3.timeDay.every(1))
+            .tickFormat(d3.timeFormat("%m-%d")))
+        .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", "rotate(-45)");
+
+    svg.append("g")
+        .attr("transform", `translate(${margin.left},0)`)
+        .call(d3.axisLeft(yScale)
+            .tickFormat(d => d3.format(".2s")(d) + "B"))
+        .append("text")
+            .attr("fill", "#000")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", "0.71em")
+            .text("Closure Size");
+
+    // Legend
+    const legend = svg.append("g")
+        .attr("font-family", "sans-serif")
+        .attr("font-size", 10)
+        .attr("text-anchor", "start")
+        .selectAll("g")
+        .data(color.domain())
+        .join("g")
+            .attr("transform", (d, i) => `translate(${width - 120},${i * 20 + 20})`);
+
+    legend.append("rect")
+        .attr("x", 0)
+        .attr("width", 19)
+        .attr("height", 19)
+        .attr("fill", color);
+
+    legend.append("text")
+        .attr("x", 24)
+        .attr("y", 9.5)
+        .attr("dy", "0.32em")
+        .text(d => d);
+});
+
+// Responsive handling
+window.addEventListener("resize", () => {
+    const newWidth = window.innerWidth * 0.8;
+    d3.select(".chart").attr("width", newWidth);
+});
+</script>
+</body>
+</html>
