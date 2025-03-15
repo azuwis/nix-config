@@ -206,7 +206,7 @@ ci)
   if [ "$1" = droid ]; then
     nix eval --impure --option extra-substituters https://nix-on-droid.cachix.org \
       --option extra-trusted-public-keys "nix-on-droid.cachix.org-1:56snoMJTXmDRC1Ei24CmKoUqvHJ9XCp+nidK7qkMQrU=" \
-      .#nixOnDroidConfigurations.droid.config.environment.files.prootStatic.outPath
+      "$CONFIG#nixOnDroidConfigurations.droid.config.environment.files.prootStatic.outPath"
     OS=droid
   fi
   NPINS_OVERRIDE_my="$CONFIG/test" build --no-nom "$@" --impure
