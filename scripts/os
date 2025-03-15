@@ -51,7 +51,9 @@ run() {
     shift
     full_command=(nix run nixpkgs#"$package" -- "$@")
   fi
-  >&2 printf '\033[0;33m$ %s\033[0m\n' "${full_command[*]}"
+  >&2 printf '\033[0;33m$ '
+  >&2 printf '%q ' "${full_command[@]}"
+  >&2 printf '\033[0m\n'
   "${full_command[@]}"
 }
 
