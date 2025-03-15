@@ -95,7 +95,7 @@ build() {
   nixos) args+=("$CONFIG#nixosConfigurations.\"$hostname\".config.system.build.toplevel") ;;
   esac
 
-  BUILT=$(run "${nix[@]}" build --no-link --print-out-paths "${args[@]}" "$@")
+  BUILT=$(run "${nix[@]}" build --extra-experimental-features 'nix-command flakes' --no-link --print-out-paths "${args[@]}" "$@")
 
   if [ -e "$SYSTEM" ]; then
     if [ "$SYSTEM" = "$BUILT" ]; then
