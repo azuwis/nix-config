@@ -22,6 +22,10 @@ in
       enable = true;
       settings = {
         aliases = {
+          fe = [
+            "git"
+            "fetch"
+          ];
           ld = [
             "log"
             "--template"
@@ -43,6 +47,10 @@ in
             "exec"
             "--"
             "${scripts}/pr"
+          ];
+          pu = [
+            "git"
+            "push"
           ];
         };
         colors = {
