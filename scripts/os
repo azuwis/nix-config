@@ -2,7 +2,7 @@
 
 set -e
 
-FLAKE=$(readlink -f "$(dirname "${BASH_SOURCE[0]}")/..")
+CONFIG=$(readlink -f "$(dirname "${BASH_SOURCE[0]}")/..")
 
 case "$(uname -s)" in
 Darwin)
@@ -88,9 +88,9 @@ build() {
   fi
 
   case "$OS" in
-  darwin) args+=("$FLAKE#darwinConfigurations.\"$hostname\".system") ;;
-  droid) args+=(--impure "$FLAKE#nixOnDroidConfigurations.\"$hostname\".activationPackage") ;;
-  nixos) args+=("$FLAKE#nixosConfigurations.\"$hostname\".config.system.build.toplevel") ;;
+  darwin) args+=("$CONFIG#darwinConfigurations.\"$hostname\".system") ;;
+  droid) args+=(--impure "$CONFIG#nixOnDroidConfigurations.\"$hostname\".activationPackage") ;;
+  nixos) args+=("$CONFIG#nixosConfigurations.\"$hostname\".config.system.build.toplevel") ;;
   esac
 
   BUILT=$(run "${nix[@]}" build --no-link --print-out-paths "${args[@]}" "$@")
@@ -127,27 +127,27 @@ droid_switch() {
 hardware() {
   test -e /etc/NIXOS || exit
   # shellcheck disable=SC2024
-  run sudo nixos-generate-config --show-hardware-config | grep -Ev 'networking.interfaces.macvtap|networking.interfaces.virbr' >"$FLAKE/hosts/hardware-$(hostname).nix"
+  run sudo nixos-generate-config --show-hardware-config | grep -Ev 'networking.interfaces.macvtap|networking.interfaces.virbr' >"$CONFIG/hosts/hardware-$(hostname).nix"
 }
 
 rebuild() {
   local cmd
   case "$OS" in
   darwin)
-    cmd=(darwin-rebuild --flake "$FLAKE")
+    cmd=(darwin-rebuild --flake "$CONFIG")
     ;;
   droid)
-    cmd=(nix-on-droid --flake "$FLAKE")
+    cmd=(nix-on-droid --flake "$CONFIG")
     ;;
   nixos)
-    cmd=(nixos-rebuild --flake "$FLAKE" --fast --use-remote-sudo)
+    cmd=(nixos-rebuild --flake "$CONFIG" --fast --use-remote-sudo)
     ;;
   esac
   run "${cmd[@]}" "$@"
 }
 
 update() {
-  pushd "$FLAKE" >/dev/null
+  pushd "$CONFIG" >/dev/null
   local args
   args=(update)
   if [ -n "$1" ]; then
@@ -207,7 +207,7 @@ ci)
       .#nixOnDroidConfigurations.droid.config.environment.files.prootStatic.outPath
     OS=droid
   fi
-  NPINS_OVERRIDE_my="$FLAKE/test" build --no-nom "$@" --impure
+  NPINS_OVERRIDE_my="$CONFIG/test" build --no-nom "$@" --impure
   ;;
 d | diff)
   build --diff "$@"
