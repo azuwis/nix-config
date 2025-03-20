@@ -1,37 +1,34 @@
-{
-  inputs,
-  self,
-  withSystem,
-  ...
-}:
-
 let
-  mkHome = import ./mk-system.nix {
-    inherit inputs withSystem;
-    defaultSystem = "x86_64-linux";
-    defaultModules = [
-      (
-        { lib, pkgs, ... }:
-        {
-          news.display = "silent";
-          news.json = lib.mkForce { };
-          news.entries = lib.mkForce [ ];
-          # set the same option as home-manager in nixos/nix-darwin, to generate the same derivation
-          nix.package = pkgs.nix;
-        }
-      )
-      ../common/home.nix
-    ];
-    apply =
-      args@{ ... }:
-      args.inputs.home-manager.lib.homeManagerConfiguration {
-        inherit (args) pkgs modules;
-      };
-  };
+  inputs = import ../inputs;
+
+  mkHome =
+    {
+      system,
+      modules ? [ ],
+    }:
+    import "${inputs.home-manager.outPath}/modules" {
+      pkgs = import ../pkgs { inherit system; };
+      configuration.imports = [
+        (
+          { lib, pkgs, ... }:
+          {
+            news.display = "silent";
+            news.json = lib.mkForce { };
+            news.entries = lib.mkForce [ ];
+            # set the same option as home-manager in nixos/nix-darwin, to generate the same derivation
+            nix.package = pkgs.nix;
+          }
+        )
+        ../common/nixpkgs
+        ../common/home.nix
+      ] ++ modules;
+    };
 in
+
 {
-  flake.homeConfigurations = {
+  homeConfigurations = {
     azuwis = mkHome {
+      system = "x86_64-linux";
       modules = [
         {
           home.username = "azuwis";
@@ -56,6 +53,7 @@ in
     };
 
     deck = mkHome {
+      system = "x86_64-linux";
       modules = [
         {
           home.username = "deck";
@@ -65,18 +63,4 @@ in
       ];
     };
   };
-
-  perSystem =
-    {
-      self',
-      inputs',
-      pkgs,
-      ...
-    }:
-    {
-      packages.home-manager = inputs'.home-manager.packages.default;
-      apps.init-home.program = pkgs.writeShellScriptBin "init-home" ''
-        ${self'.packages.home-manager}/bin/home-manager --extra-experimental-features "nix-command flakes" switch --flake "${self}" "$@"
-      '';
-    };
 }

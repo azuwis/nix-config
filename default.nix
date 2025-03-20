@@ -1,1 +1,4 @@
-import ./flakes/darwin.nix // import ./flakes/nixos.nix // import ./flakes/droid.nix
+import ./flakes/darwin.nix
+// import ./flakes/nixos.nix
+// import ./flakes/droid.nix
+// import ./flakes/home-manager.nix
