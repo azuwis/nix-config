@@ -56,26 +56,6 @@
         "type": "github"
       }
     },
-    "home-manager": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1740624780,
-        "narHash": "sha256-8TP61AI3QBQsjzVUQFIV8NoB5nbYfJB3iHczhBikDkU=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "b8869e4ead721bbd4f0d6b927e8395705d4f16e6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1740547748,
@@ -123,7 +103,6 @@
         "agenix": "agenix",
         "devshell": "devshell",
         "flake-parts": "flake-parts",
-        "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "openwrt-imagebuilder": "openwrt-imagebuilder",
         "systems": "systems",
