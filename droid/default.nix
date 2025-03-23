@@ -17,6 +17,6 @@ in
 
   hm.my.ssh-agent.enable = true;
   hm.programs.zsh.logoutExtra = ''
-    pkill ssh-agent
+    [ "$TTY" = /dev/pts/0 ] && [ -n "$SSH_AGENT_PID" ] && kill "$SSH_AGENT_PID"
   '';
 }

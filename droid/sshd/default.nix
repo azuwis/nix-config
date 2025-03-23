@@ -38,6 +38,6 @@ in
   ];
 
   hm.programs.zsh.logoutExtra = ''
-    pkill sshd
+    [ "$TTY" = /dev/pts/0 ] && pkill sshd
   '';
 }
