@@ -12,6 +12,18 @@
       "url": "https://github.com/ryantm/agenix/archive/e600439ec4c273cf11e06fe4d9d906fb98fa097c.tar.gz",
       "hash": "006ngydiykjgqs85cl19h9klq8kaqm5zs0ng51dnwy7nzgqxzsdr"
     },
+    "devshell": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "numtide",
+        "repo": "devshell"
+      },
+      "branch": "main",
+      "revision": "f7795ede5b02664b57035b3b757876703e2c3eac",
+      "url": "https://github.com/numtide/devshell/archive/f7795ede5b02664b57035b3b757876703e2c3eac.tar.gz",
+      "hash": "1rm57diq54amiv6kafim0gpnindm63hsycfflpibpj72gancgvdl"
+    },
     "home-manager": {
       "type": "Git",
       "repository": {
