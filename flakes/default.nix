@@ -1,7 +1,0 @@
-{ inputs, ... }:
-
-{
-  imports = [
-    ./overlays.nix
-  ];
-}
