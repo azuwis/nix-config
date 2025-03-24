@@ -19,7 +19,7 @@ in
   config = mkIf cfg.enable {
     nixpkgs = {
       config = import ../../config.nix;
-      overlays = (import ../../overlays { });
+      overlays = (import ../../overlays);
     };
   };
 }

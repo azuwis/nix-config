@@ -7,7 +7,7 @@ let
     // {
       config = import ../config.nix // args.config or { };
       # Required by nixpkgs-hammering
-      overlays = (import ../overlays { }) ++ args.overlays or [ ];
+      overlays = (import ../overlays) ++ args.overlays or [ ];
     }
   );
 in
