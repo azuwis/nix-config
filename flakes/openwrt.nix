@@ -1,21 +1,20 @@
-{ inputs, withSystem, ... }:
-
 let
+  inputs = import ../inputs;
+  pkgs = import ../pkgs { };
+
+  openwrt-imagebuilder = inputs.nix-openwrt-imagebuilder.outPath;
+  profiles = import (openwrt-imagebuilder + "/profiles.nix") { inherit pkgs; };
+
   mkOpenwrt =
     {
       profile,
       config ? { },
     }:
-    withSystem "x86_64-linux" (
-      { pkgs, ... }:
-      let
-        profiles = inputs.openwrt-imagebuilder.lib.profiles { inherit pkgs; };
-      in
-      inputs.openwrt-imagebuilder.lib.build (profiles.identifyProfile profile // config)
-    );
+    import (openwrt-imagebuilder + "/builder.nix") (profiles.identifyProfile profile // config);
 in
+
 {
-  flake.packages.x86_64-linux = {
+  openwrt = {
     xr500 = mkOpenwrt { profile = "netgear_xr500"; };
   };
 }

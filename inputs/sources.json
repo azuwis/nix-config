@@ -95,6 +95,18 @@
       "url": "https://github.com/nix-community/nix-on-droid/archive/5d88ff2519e4952f8d22472b52c531bb5f1635fc.tar.gz",
       "hash": "1z411zdzmdp7d2408rf62nwh2gdfi2lzlfsmndlpxxkwdgh76vrz"
     },
+    "nix-openwrt-imagebuilder": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "astro",
+        "repo": "nix-openwrt-imagebuilder"
+      },
+      "branch": "main",
+      "revision": "0c97c0d3bad748b9dc40fbee14954882584b9a27",
+      "url": "https://github.com/astro/nix-openwrt-imagebuilder/archive/0c97c0d3bad748b9dc40fbee14954882584b9a27.tar.gz",
+      "hash": "0dsb09nfsx2v92gbnggwjcgnkqvs7gi0pg3lbbzpdrvi2h100sps"
+    },
     "nixpkgs": {
       "type": "Git",
       "repository": {

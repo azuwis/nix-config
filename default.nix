@@ -11,3 +11,4 @@ import ./pkgs args
 // import ./flakes/nixos.nix
 // import ./flakes/droid.nix
 // import ./flakes/home-manager.nix
+// import ./flakes/openwrt.nix
