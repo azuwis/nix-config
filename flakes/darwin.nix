@@ -5,7 +5,7 @@ let
 
   mkDarwin =
     host:
-    import "${inputs.nix-darwin.outPath}/eval-config.nix" {
+    import (inputs.nix-darwin.outPath + "/eval-config.nix") {
       inherit lib;
       modules = [
         (../hosts + "/${host}.nix")

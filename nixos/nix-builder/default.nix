@@ -18,7 +18,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    age.secrets.nix-secret-key.file = "${inputs.my.outPath}/nix-secret-key.age";
+    age.secrets.nix-secret-key.file = inputs.my.outPath + "/nix-secret-key.age";
 
     nix.settings = {
       secret-key-files = [ config.age.secrets.nix-secret-key.path ];

@@ -6,7 +6,7 @@ let
       system,
       modules ? [ ],
     }:
-    import "${inputs.nix-on-droid.outPath}/modules" {
+    import (inputs.nix-on-droid.outPath + "/modules") {
       pkgs = import ../pkgs { inherit system; };
       targetSystem = system;
       home-manager-path = inputs.home-manager.outPath;

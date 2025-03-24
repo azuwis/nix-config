@@ -12,8 +12,8 @@ in
 
 {
   imports = [
-    "${inputs.agenix.outPath}/modules/age.nix"
-    "${inputs.home-manager.outPath}/nix-darwin"
+    (inputs.agenix.outPath + "/modules/age.nix")
+    (inputs.home-manager.outPath + "/nix-darwin")
     ../common
   ] ++ getModules [ ./. ];
 

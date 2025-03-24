@@ -30,7 +30,7 @@ in
 
   # let standalone home-manager and home-manager in nixos/nix-darwin use the same derivation
   home.packages = [
-    (pkgs.callPackage "${inputs.home-manager.outPath}/home-manager" {
+    (pkgs.callPackage (inputs.home-manager.outPath + "/home-manager") {
       path = inputs.home-manager.outPath;
     })
   ];

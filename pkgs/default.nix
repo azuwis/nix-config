@@ -2,7 +2,7 @@
 
 let
   inputs = import ../inputs;
-  pkgs = import "${inputs.nixpkgs.outPath}" (
+  pkgs = import inputs.nixpkgs.outPath (
     args
     // {
       config = import ../config.nix // args.config or { };

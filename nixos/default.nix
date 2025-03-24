@@ -19,8 +19,8 @@ in
   # /var/lib/torrent-ratio/
   # /var/lib/zigbee2mqtt/
   imports = [
-    "${inputs.agenix.outPath}/modules/age.nix"
-    "${inputs.home-manager.outPath}/nixos"
+    (inputs.agenix.outPath + "/modules/age.nix")
+    (inputs.home-manager.outPath + "/nixos")
     ../common
   ] ++ getModules [ ./. ];
 

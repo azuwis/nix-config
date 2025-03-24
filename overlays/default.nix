@@ -4,8 +4,8 @@ in
 
 # https://discourse.nixos.org/t/in-overlays-when-to-use-self-vs-super/2968/12
 [
-  (import "${inputs.agenix.outPath}/overlay.nix")
-  (import "${inputs.nixpkgs.outPath}/pkgs/top-level/by-name-overlay.nix" ../pkgs/by-name)
+  (import (inputs.agenix.outPath + "/overlay.nix"))
+  (import (inputs.nixpkgs.outPath + "/pkgs/top-level/by-name-overlay.nix") ../pkgs/by-name)
 
   (final: prev: {
     # disable fcitx5-configtool

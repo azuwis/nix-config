@@ -6,7 +6,7 @@ let
       system,
       modules ? [ ],
     }:
-    import "${inputs.home-manager.outPath}/modules" {
+    import (inputs.home-manager.outPath + "/modules") {
       pkgs = import ../pkgs { inherit system; };
       configuration.imports = [
         (
