@@ -60,9 +60,9 @@ run() {
 build() {
   local args diff hostname nix profile
 
-  nix=(nom)
+  nix=(nom-build)
   if [ "$1" = "--no-nom" ]; then
-    nix=(nix --print-build-logs)
+    nix=(nix-build)
     shift
   fi
 
@@ -74,7 +74,6 @@ build() {
   if [ -n "$1" ]; then
     hostname="$1"
     profile="$HOME/.local/state/nix/profiles/$hostname"
-    args=(--profile "$profile")
     SYSTEM=$(readlink -f "$profile" || true)
     shift
   else
@@ -90,12 +89,16 @@ build() {
   fi
 
   case "$OS" in
-  darwin) args+=("$CONFIG#darwinConfigurations.\"$hostname\".system") ;;
-  droid) args+=(--impure "$CONFIG#nixOnDroidConfigurations.\"$hostname\".activationPackage") ;;
-  nixos) args+=("$CONFIG#nixosConfigurations.\"$hostname\".config.system.build.toplevel") ;;
+  darwin) args=("darwinConfigurations.\"$hostname\".system") ;;
+  droid) args=("nixOnDroidConfigurations.\"$hostname\".activationPackage") ;;
+  nixos) args=("nixosConfigurations.\"$hostname\".config.system.build.toplevel") ;;
   esac
 
-  BUILT=$(run "${nix[@]}" build --extra-experimental-features 'nix-command flakes' --no-link --print-out-paths "${args[@]}" "$@")
+  BUILT=$(run "${nix[@]}" "$CONFIG" --no-out-link --attr "${args[@]}" "$@")
+
+  if [ -n "$profile" ]; then
+    nix-env --profile "$profile" --set "$BUILT"
+  fi
 
   if [ -e "$SYSTEM" ]; then
     if [ "$SYSTEM" = "$BUILT" ]; then
@@ -120,15 +123,39 @@ clean() {
   done
 }
 
+darwin_switch() {
+  # https://github.com/LnL7/nix-darwin/blob/bb81755a3674951724d79b8cba6bbff01409d44d/pkgs/nix-tools/darwin-rebuild.sh#L213
+  run sudo nix-env --profile /nix/var/nix/profiles/system --set "$BUILT"
+  # https://github.com/LnL7/nix-darwin/blob/bb81755a3674951724d79b8cba6bbff01409d44d/pkgs/nix-tools/darwin-rebuild.sh#L221
+  run "$BUILT/activate-user"
+  run sudo "$BUILT/activate"
+}
+
 droid_switch() {
-  # It seems nix eval cache does not work on nix-on-droid,
-  # directly call activate script to avoid eval again
+  # https://github.com/nix-community/nix-on-droid/blob/5d88ff2519e4952f8d22472b52c531bb5f1635fc/nix-on-droid/nix-on-droid.sh#L95
   run "$BUILT/activate"
+}
+
+nixos_switch() {
+  # https://github.com/NixOS/nixpkgs/blob/dad0bf139b2db8d258deb21424454db24285d531/pkgs/os-specific/linux/nixos-rebuild/nixos-rebuild.sh#L806
+  run sudo nix-env --profile /nix/var/nix/profiles/system --set "$BUILT"
+  # https://github.com/NixOS/nixpkgs/blob/dad0bf139b2db8d258deb21424454db24285d531/pkgs/os-specific/linux/nixos-rebuild/nixos-rebuild.sh#L896
+  cmd=(
+    "systemd-run"
+    "-E" "LOCALE_ARCHIVE" # Will be set to new value early in switch-to-configuration script, but interpreter starts out with old value
+    "--collect"
+    "--no-ask-password"
+    "--pipe"
+    "--quiet"
+    "--service-type=exec"
+    "--unit=nixos-rebuild-switch-to-configuration"
+    "--wait"
+  )
+  run sudo "${cmd[@]}" "$BUILT/bin/switch-to-configuration" "$@"
 }
 
 hardware() {
   test -e /etc/NIXOS || exit
-  # shellcheck disable=SC2024
   run sudo nixos-generate-config --show-hardware-config | grep -Ev 'networking.interfaces.macvtap|networking.interfaces.virbr' >"$CONFIG/hosts/hardware-$(hostname).nix"
 }
 
@@ -142,7 +169,7 @@ rebuild() {
     cmd=(nix-on-droid --flake "$CONFIG")
     ;;
   nixos)
-    cmd=(nixos-rebuild --flake "$CONFIG" --fast --use-remote-sudo)
+    cmd=(nixos-rebuild --no-flake --fast --use-remote-sudo --file "$CONFIG" --attr nixosConfigurations."$(hostname)")
     ;;
   esac
   run "${cmd[@]}" "$@"
@@ -204,12 +231,12 @@ c | clean)
   ;;
 ci)
   if [ "$1" = droid ]; then
-    nix eval --impure --option extra-substituters https://nix-on-droid.cachix.org \
+    nix-instantiate --eval --option extra-substituters https://nix-on-droid.cachix.org \
       --option extra-trusted-public-keys "nix-on-droid.cachix.org-1:56snoMJTXmDRC1Ei24CmKoUqvHJ9XCp+nidK7qkMQrU=" \
-      "$CONFIG#nixOnDroidConfigurations.droid.config.environment.files.prootStatic.outPath"
+      "$CONFIG" --attr nixOnDroidConfigurations.droid.config.environment.files.prootStatic.outPath
     OS=droid
   fi
-  NPINS_OVERRIDE_my="$CONFIG/test" build --no-nom "$@" --impure
+  NPINS_OVERRIDE_my="$CONFIG/test" build --no-nom "$@"
   ;;
 d | diff)
   build --diff "$@"
@@ -246,10 +273,10 @@ s | switch)
       exit 1
     fi
   fi
-  if [ "$OS" = droid ]; then
-    droid_switch
+  action="switch"
+  if [ "$(type -t "${OS}_switch")" = function ]; then
+    "${OS}_switch" "$action"
   else
-    action="switch"
     rebuild "$action" "$@"
   fi
   ;;
