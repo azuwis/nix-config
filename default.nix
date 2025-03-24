@@ -6,9 +6,4 @@
 # to provide nixpkgs-like attrs.
 # https://discourse.nixos.org/t/25274
 # https://github.com/jtojnar/nixfiles/blob/master/default.nix
-import ./pkgs args
-// import ./flakes/darwin.nix
-// import ./flakes/nixos.nix
-// import ./flakes/droid.nix
-// import ./flakes/home-manager.nix
-// import ./flakes/openwrt.nix
+import ./pkgs args // import ./flakes
