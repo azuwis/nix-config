@@ -7,6 +7,7 @@ on:
       - '*'
     paths:
       - flake.lock
+      - 'inputs/**'
   workflow_dispatch:
     inputs:
       debug:
