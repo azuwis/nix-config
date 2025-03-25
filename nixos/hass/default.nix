@@ -64,7 +64,7 @@ in
     };
 
     age.secrets.hass = {
-      file = inputs.my.outPath + "/hass.age";
+      file = "${inputs.my.outPath}/hass.age";
       path = "${config.services.home-assistant.configDir}/secrets.yaml";
       owner = "hass";
       group = "hass";

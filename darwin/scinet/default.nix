@@ -20,7 +20,7 @@ in
 {
   environment.systemPackages = [ scinetScript ];
   age.secrets.shadowsocks = {
-    file = inputs.my.outPath + "/shadowsocks.age";
+    file = "${inputs.my.outPath}/shadowsocks.age";
     path = "/etc/shadowsocks/config.json";
     symlink = false;
   };

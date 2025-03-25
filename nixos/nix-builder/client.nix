@@ -39,12 +39,12 @@ in
   config = mkIf cfg.enable {
     age.secrets = {
       nix-ssh = {
-        file = inputs.my.outPath + "/nix-ssh.age";
+        file = "${inputs.my.outPath}/nix-ssh.age";
         mode = "0440";
         group = "wheel";
       };
       nix-ssh-root = {
-        file = inputs.my.outPath + "/nix-ssh.age";
+        file = "${inputs.my.outPath}/nix-ssh.age";
       };
     };
 
