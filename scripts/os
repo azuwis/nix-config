@@ -125,7 +125,7 @@ clean() {
 
 darwin_switch() {
   # https://github.com/LnL7/nix-darwin/blob/bb81755a3674951724d79b8cba6bbff01409d44d/pkgs/nix-tools/darwin-rebuild.sh#L213
-  run sudo nix-env --profile /nix/var/nix/profiles/system --set "$BUILT"
+  run sudo -H nix-env --profile /nix/var/nix/profiles/system --set "$BUILT"
   # https://github.com/LnL7/nix-darwin/blob/bb81755a3674951724d79b8cba6bbff01409d44d/pkgs/nix-tools/darwin-rebuild.sh#L221
   run "$BUILT/activate-user"
   run sudo "$BUILT/activate"
