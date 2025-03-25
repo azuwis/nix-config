@@ -222,12 +222,21 @@ else
   action="switch"
   ask=yes
 fi
+
 case "$action" in
-b | build)
-  build "$@"
-  ;;
-c | clean)
-  clean "$@"
+b) action="build" ;;
+c) action="clean" ;;
+d) action="diff" ;;
+h) action="help" ;;
+hw) action="hardware" ;;
+l) action="list" ;;
+s) action="switch" ;;
+u) action="update" ;;
+esac
+
+case "$action" in
+build | clean | hardware | update)
+  "$action" "$@"
   ;;
 ci)
   if [ "$1" = droid ]; then
@@ -238,10 +247,13 @@ ci)
   fi
   NPINS_OVERRIDE_my="$CONFIG/test" build --no-nom "$@"
   ;;
-d | diff)
+diff)
   build --diff "$@"
   ;;
-l | list)
+help)
+  usage
+  ;;
+list)
   case "$OS" in
   darwin)
     action=--list-generations
@@ -255,13 +267,7 @@ l | list)
   esac
   rebuild "$action" "$@"
   ;;
-hw | hardware)
-  hardware
-  ;;
-h | help)
-  usage
-  ;;
-s | switch)
+boot | dry-activate | switch | test)
   build
   if [ "$ask" = yes ]; then
     if [ "$SYSTEM" = "$BUILT" ]; then
@@ -273,15 +279,11 @@ s | switch)
       exit 1
     fi
   fi
-  action="switch"
   if [ "$(type -t "${OS}_switch")" = function ]; then
     "${OS}_switch" "$action"
   else
     rebuild "$action" "$@"
   fi
-  ;;
-u | update)
-  update "$@"
   ;;
 *)
   rebuild "$action" "$@"
