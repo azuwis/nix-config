@@ -1,7 +1,3 @@
-# Manually copy from https://github.com/andir/npins/raw/refs/tags/0.3.0/src/default.nix
-# and modified to be compatible with version 3, as npins 0.3 is not available in nixpkgs yet,
-# and the `NPINS_OVERRIDE_*` feature is needed in scripts/os.
-
 /*
   This file is provided under the MIT licence:
 
@@ -75,7 +71,7 @@ let
       repository,
       revision,
       url ? null,
-      submodules ? false,
+      submodules,
       hash,
       branch ? null,
       ...
@@ -116,7 +112,6 @@ let
         inherit name;
         # hash = hash;
         inherit url submodules;
-        shallow = true;
       };
 
   mkPyPiSource =
@@ -145,7 +140,7 @@ let
       sha256 = hash;
     };
 in
-if version == 3 then
+if version == 5 then
   builtins.mapAttrs mkSource data.pins
 else
   throw "Unsupported format version ${toString version} in sources.json. Try running `npins upgrade`"

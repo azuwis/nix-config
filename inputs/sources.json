@@ -8,6 +8,7 @@
         "repo": "agenix"
       },
       "branch": "main",
+      "submodules": false,
       "revision": "e600439ec4c273cf11e06fe4d9d906fb98fa097c",
       "url": "https://github.com/ryantm/agenix/archive/e600439ec4c273cf11e06fe4d9d906fb98fa097c.tar.gz",
       "hash": "006ngydiykjgqs85cl19h9klq8kaqm5zs0ng51dnwy7nzgqxzsdr"
@@ -20,6 +21,7 @@
         "repo": "devshell"
       },
       "branch": "main",
+      "submodules": false,
       "revision": "7c9e793ebe66bcba8292989a68c0419b737a22a0",
       "url": "https://github.com/numtide/devshell/archive/7c9e793ebe66bcba8292989a68c0419b737a22a0.tar.gz",
       "hash": "165601skgrlgvgr4h7hjbz80zp7zpn7z2c7qjh6bal8hmjmmlqwi"
@@ -32,6 +34,7 @@
         "repo": "home-manager"
       },
       "branch": "master",
+      "submodules": false,
       "revision": "869f2ec2add75ce2a70a6dbbf585b8399abec625",
       "url": "https://github.com/nix-community/home-manager/archive/869f2ec2add75ce2a70a6dbbf585b8399abec625.tar.gz",
       "hash": "0iy4gbhydx7h37dnpnzcqaz8ycy4i4zqzdvax22496rrxds42z0p"
@@ -44,6 +47,7 @@
         "repo": "Jovian-NixOS"
       },
       "branch": "development",
+      "submodules": false,
       "revision": "a95606cae5c9e1f5b84debe7865ef171d4deb287",
       "url": "https://github.com/Jovian-Experiments/Jovian-NixOS/archive/a95606cae5c9e1f5b84debe7865ef171d4deb287.tar.gz",
       "hash": "1mf55nikf9sypkpw5df4nvhlnww3svm4ga614yyqgrdahy9fv642"
@@ -55,6 +59,7 @@
         "url": "ssh://nuc/~/repo/my"
       },
       "branch": "master",
+      "submodules": false,
       "revision": "a266313976cae87ae5588427d5b024043f96a750",
       "url": null,
       "hash": "0pp662vqb7cxr268wh1r0ql8zl62h9xxn87r78pc2zy356y29a85"
@@ -67,6 +72,7 @@
         "repo": "nix-darwin"
       },
       "branch": "master",
+      "submodules": false,
       "revision": "bb81755a3674951724d79b8cba6bbff01409d44d",
       "url": "https://github.com/LnL7/nix-darwin/archive/bb81755a3674951724d79b8cba6bbff01409d44d.tar.gz",
       "hash": "12f9ndbr7cvvr06369gnk8pwyama12ipzv7lc26xdkjmjrj1835f"
@@ -79,6 +85,7 @@
         "repo": "nix-index-database"
       },
       "branch": "main",
+      "submodules": false,
       "revision": "36dc43cb50d5d20f90a28d53abb33a32b0a2aae6",
       "url": "https://github.com/nix-community/nix-index-database/archive/36dc43cb50d5d20f90a28d53abb33a32b0a2aae6.tar.gz",
       "hash": "087xrdvs6l8rcfbk8824y2fzy0g3yrdyp2g7nxywxxyjb8yp1s82"
@@ -91,6 +98,7 @@
         "repo": "nix-on-droid"
       },
       "branch": "master",
+      "submodules": false,
       "revision": "5d88ff2519e4952f8d22472b52c531bb5f1635fc",
       "url": "https://github.com/nix-community/nix-on-droid/archive/5d88ff2519e4952f8d22472b52c531bb5f1635fc.tar.gz",
       "hash": "1z411zdzmdp7d2408rf62nwh2gdfi2lzlfsmndlpxxkwdgh76vrz"
@@ -103,6 +111,7 @@
         "repo": "nix-openwrt-imagebuilder"
       },
       "branch": "main",
+      "submodules": false,
       "revision": "89d3674159e5606b0c1db636e7c7463b7b976b45",
       "url": "https://github.com/astro/nix-openwrt-imagebuilder/archive/89d3674159e5606b0c1db636e7c7463b7b976b45.tar.gz",
       "hash": "196hmqn5g1w3szkc5wjv6z37hc7a8m0mphg6cfaj9wxd6qmkphsv"
@@ -115,6 +124,7 @@
         "repo": "nixpkgs"
       },
       "branch": "nixpkgs-unstable",
+      "submodules": false,
       "revision": "f3a2a0601e9669a6e38af25b46ce6c4563bcb6da",
       "url": "https://github.com/NixOS/nixpkgs/archive/f3a2a0601e9669a6e38af25b46ce6c4563bcb6da.tar.gz",
       "hash": "1dqapkf8qjnf7d84hrn7x97p61gm775y4ks8k34lvcqhdifl0ar8"
@@ -127,6 +137,7 @@
         "repo": "treefmt-nix"
       },
       "branch": "main",
+      "submodules": false,
       "revision": "adc195eef5da3606891cedf80c0d9ce2d3190808",
       "url": "https://github.com/numtide/treefmt-nix/archive/adc195eef5da3606891cedf80c0d9ce2d3190808.tar.gz",
       "hash": "11bcg442n1ngnrvr3f59lkfaiiz1c50wmmy0ahr88a1gps23q4ax"
@@ -139,10 +150,11 @@
         "repo": "NixOS-WSL"
       },
       "branch": "main",
+      "submodules": false,
       "revision": "96d7df91cce0d7cd30d1958fe1aefcb5f9bfced7",
       "url": "https://github.com/nix-community/NixOS-WSL/archive/96d7df91cce0d7cd30d1958fe1aefcb5f9bfced7.tar.gz",
       "hash": "0kmcx41m78xdvr6kwn3mkcsp8b860f04dd1cz24564468vckzclv"
     }
   },
-  "version": 3
+  "version": 5
 }
