@@ -24,11 +24,9 @@ in
           # `program` only accept 100 chars, shorten them by wrapping
           sway-run =
             args:
-            "${
-              pkgs.writeShellScript (builtins.elemAt (builtins.split " " args) 0) ''
-                exec ${./scripts}/sway-run.sh ${args}
-              ''
-            } &";
+            "${pkgs.writeShellScript (builtins.elemAt (builtins.split " " args) 0) ''
+              exec ${./scripts}/sway-run.sh ${args}
+            ''} &";
         in
         {
           # PS+L

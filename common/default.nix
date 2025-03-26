@@ -11,11 +11,7 @@ in
 
 {
   imports = [
-    (lib.mkAliasOptionModule [ "hm" ] [
-      "home-manager"
-      "users"
-      config.my.user
-    ])
+    (lib.mkAliasOptionModule [ "hm" ] [ "home-manager" "users" config.my.user ])
   ] ++ getModules [ ./. ];
 
   hm.imports = [ ./home.nix ];

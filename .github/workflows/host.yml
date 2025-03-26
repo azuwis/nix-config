@@ -17,7 +17,7 @@ on:
       os:
         description: OS to run
         type: choice
-        options: 
+        options:
           - linux
           - darwin
           - all
@@ -25,7 +25,7 @@ on:
       host:
         description: Host to build
         type: choice
-        options: 
+        options:
           - nuc
           - steamdeck
           - droid

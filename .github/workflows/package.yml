@@ -14,7 +14,7 @@ on:
       os:
         description: OS to run
         type: choice
-        options: 
+        options:
           - linux
           - darwin
           - all
