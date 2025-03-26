@@ -44,18 +44,19 @@
   # hm.my.sunshine.package = pkgs.sunshine-git;
   my.zramswap.enable = true;
 
-  specialisation.vfio.configuration = {
-    system.nixos.tags = [ "vfio" ];
-    my.nvidia.enable = false;
-    my.vfio = {
-      enable = true;
-      platform = "intel";
-      vfioIds = [
-        "10de:1c04"
-        "10de:10f1"
-      ];
-    };
-  };
+  # Eval time will be multiplied by specialisations count
+  # specialisation.vfio.configuration = {
+  #   system.nixos.tags = [ "vfio" ];
+  #   my.nvidia.enable = false;
+  #   my.vfio = {
+  #     enable = true;
+  #     platform = "intel";
+  #     vfioIds = [
+  #       "10de:1c04"
+  #       "10de:10f1"
+  #     ];
+  #   };
+  # };
 
   hm.my.jslisten.enable = true;
 
