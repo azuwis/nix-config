@@ -39,7 +39,7 @@ in
   };
 
   config = mkIf cfg.enable (mkMerge [
-    (import "${modulesPath}/programs/wayland/wayland-session.nix" {
+    (import (modulesPath + "/programs/wayland/wayland-session.nix") {
       inherit lib pkgs;
     })
 

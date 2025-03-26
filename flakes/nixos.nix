@@ -1,11 +1,11 @@
 let
   inputs = import ../inputs;
   nixpkgs = inputs.nixpkgs.outPath;
-  lib = import "${nixpkgs}/lib";
+  lib = import (nixpkgs + "/lib");
 
   mkNixos =
     host:
-    import "${nixpkgs}/nixos/lib/eval-config.nix" {
+    import (nixpkgs + "/nixos/lib/eval-config.nix") {
       # No need to pass nixpkgs or pkgs, eval-config.nix will import the same
       # nixpkgs that contains it, see nixpkgs/nixos/modules/misc/nixpkgs.nix
       system = null;
