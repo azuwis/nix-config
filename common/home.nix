@@ -6,7 +6,7 @@
 }:
 
 let
-  inherit (import ../lib) getHmModules;
+  inherit (import ../lib/my.nix) getHmModules;
   inputs = import ../inputs;
 in
 
