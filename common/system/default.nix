@@ -28,8 +28,7 @@
       config.my.user
     ];
   };
-  # https://github.com/NixOS/nix/pull/11992
-  nix.package = pkgs.nixVersions.nix_2_26;
+  nix.package = pkgs.nix;
   programs.zsh.enable = true;
   time.timeZone = "Asia/Shanghai";
 }
