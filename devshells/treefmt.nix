@@ -5,8 +5,6 @@ let
   treefmt-nix = import inputs.treefmt-nix.outPath;
 
   treefmt = treefmt-nix.mkWrapper pkgs {
-    # For `nixpkgs.config.allowAliases = false`
-    package = pkgs.treefmt2;
     projectRootFile = "flake.nix";
     settings.global.excludes = [ "hosts/hardware-*.nix" ];
 
