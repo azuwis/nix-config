@@ -9,8 +9,7 @@ home-assistant-custom-components.xiaomi_miot.overridePythonAttrs (old: rec {
   };
 
   passthru = (old.passthru or { }) // {
-    enable = true;
-    updateScript = nix-update-script { extraArgs = [ "--version-regex=^v([0-9.]+)$" ]; };
+    enable = false;
   };
 
   meta = (old.meta or { }) // {
