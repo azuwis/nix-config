@@ -1,7 +1,6 @@
 let
   inputs = import ../inputs;
-  nixpkgs = inputs.nixpkgs.outPath;
-  lib = import (nixpkgs + "/lib");
+  lib = import ../lib;
 
   mkDarwin =
     host:
