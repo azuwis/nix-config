@@ -1,14 +1,16 @@
 #!/bin/bash
 
 get_wifi() {
-  local wifi test
-  wifi=$(networksetup -getairportnetwork en0)
-  read -r _ _ test WIFI_LABEL <<<"$wifi"
-  if [ "$test" = "Network:" ]; then
+  WIFI_LABEL=""
+  while read -r key sep value rest; do
+    if [ "$key" = SSID ] && [ "$sep" = ":" ]; then
+      WIFI_LABEL="$value"
+    fi
+  done < <(ipconfig getsummary en0)
+  if [ -n "$WIFI_LABEL" ]; then
     WIFI_ICON="󰖩"
     WIFI_PADDING=6
   else
-    WIFI_LABEL=""
     WIFI_ICON="󰖪"
     WIFI_PADDING=0
   fi
