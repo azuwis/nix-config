@@ -68,13 +68,13 @@
       "type": "Git",
       "repository": {
         "type": "GitHub",
-        "owner": "LnL7",
+        "owner": "nix-darwin",
         "repo": "nix-darwin"
       },
       "branch": "master",
       "submodules": false,
       "revision": "bb81755a3674951724d79b8cba6bbff01409d44d",
-      "url": "https://github.com/LnL7/nix-darwin/archive/bb81755a3674951724d79b8cba6bbff01409d44d.tar.gz",
+      "url": "https://github.com/nix-darwin/nix-darwin/archive/bb81755a3674951724d79b8cba6bbff01409d44d.tar.gz",
       "hash": "12f9ndbr7cvvr06369gnk8pwyama12ipzv7lc26xdkjmjrj1835f"
     },
     "nix-index-database": {
