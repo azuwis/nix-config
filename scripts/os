@@ -57,6 +57,13 @@ run() {
   "${full_command[@]}"
 }
 
+input() {
+  output=$(nix-instantiate --eval --expr "(import $CONFIG/inputs).$1.outPath")
+  output=${output#\"}
+  output=${output%\"}
+  echo "$output"
+}
+
 build() {
   local args diff hostname nix profile
 
@@ -163,7 +170,7 @@ rebuild() {
   local cmd
   case "$OS" in
   darwin)
-    cmd=(darwin-rebuild --flake "$CONFIG")
+    cmd=(darwin-rebuild --no-flake -I nixpkgs="$(input nixpkgs)" -I darwin="$(input nix-darwin)" -I darwin-config="$CONFIG/hosts/$(hostname).nix")
     ;;
   droid)
     cmd=(nix-on-droid --flake "$CONFIG")
