@@ -80,19 +80,11 @@ in
 
   config = mkIf cfg.enable {
     launchd.daemons.scidns-local = {
-      serviceConfig.ProgramArguments = [
-        "/bin/sh"
-        "-c"
-        ''/bin/wait4path /nix/store && exec "$@"''
-        "--"
-        "${cfg.package}/bin/dnsmasq"
-        "--keep-in-foreground"
-        "--listen-address=${cfg.local.bind}"
-        "--port=${toString cfg.local.port}"
-        "--resolv-file=/var/run/${if cfg.resolv.enable then "scidns-resolv" else "resolv.conf"}"
-        "--strict-order"
-        "--cache-size=0"
-      ];
+      command =
+        let
+          resoveFile = if cfg.resolv.enable then "scidns-resolv" else "resolv.conf";
+        in
+        "${cfg.package}/bin/dnsmasq --keep-in-foreground --listen-address=${cfg.local.bind} --port=${toString cfg.local.port} --resolv-file=/var/run/${resoveFile} --strict-order --cache-size=0";
       serviceConfig.KeepAlive = true;
       serviceConfig.RunAtLoad = true;
     };
@@ -105,19 +97,7 @@ in
     };
 
     launchd.daemons.scidns = {
-      serviceConfig.ProgramArguments = [
-        "/bin/sh"
-        "-c"
-        ''/bin/wait4path /nix/store && exec "$@"''
-        "--"
-        "${cfg.package}/bin/dnsmasq"
-        "--keep-in-foreground"
-        "--listen-address=${cfg.bind}"
-        "--port=${toString cfg.port}"
-        "--no-resolv"
-        "--server=${cfg.remoteServer}"
-        "--servers-file=${scidnsConf}"
-      ];
+      command = "${cfg.package}/bin/dnsmasq --keep-in-foreground --listen-address=${cfg.bind} --port=${toString cfg.port} --no-resolv --server=${cfg.remoteServer} --servers-file=${scidnsConf}";
       serviceConfig.KeepAlive = true;
       serviceConfig.RunAtLoad = true;
     };
