@@ -17,7 +17,7 @@ in
   config = mkIf cfg.enable {
     programs.alacritty.enable = true;
     programs.alacritty.settings = {
-      general.import = [ "${pkgs.alacritty-theme}/nord.toml" ];
+      general.import = [ "${pkgs.alacritty-theme}/share/alacritty-theme/nord.toml" ];
       font = {
         normal.family = "JetBrainsMono Nerd Font";
         size = 15;
