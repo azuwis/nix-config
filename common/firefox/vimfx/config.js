@@ -1,14 +1,13 @@
 // example: https://github.com/lydell/dotfiles/blob/master/.vimfx/config.js
 
-const {classes: Cc, interfaces: Ci, utils: Cu} = Components
+const {classes: Cc, interfaces: Ci} = Components
 const nsIEnvironment = Cc["@mozilla.org/process/environment;1"].getService(Ci.nsIEnvironment)
 const nsIWindowWatcher = Cc["@mozilla.org/embedcomp/window-watcher;1"].getService(Ci.nsIWindowWatcher)
 const ioService = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService);
 
-Cu.import('resource://gre/modules/XPCOMUtils.jsm')
-const {AddonManager} = ChromeUtils.import('resource://gre/modules/AddonManager.jsm');
-const {PopupNotifications} = ChromeUtils.import('resource://gre/modules/PopupNotifications.jsm');
-const {Preferences} = ChromeUtils.import('resource://gre/modules/Preferences.jsm');
+const {AddonManager} = ChromeUtils.importESModule('resource://gre/modules/AddonManager.sys.mjs');
+const {PopupNotifications} = ChromeUtils.importESModule('resource://gre/modules/PopupNotifications.sys.mjs');
+const {Preferences} = ChromeUtils.importESModule('resource://gre/modules/Preferences.sys.mjs');
 
 // helper functions
 let {commands} = vimfx.modes.normal
