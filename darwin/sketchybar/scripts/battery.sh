@@ -5,9 +5,10 @@ get_battery() {
   battery="$(pmset -g batt)"
   BATTERY_LABEL="${battery%\%*}"
   BATTERY_LABEL="${BATTERY_LABEL##*	}"
-  read -r _ _ _ status _ <<<"$battery"
+  status="${battery#Now drawing from \'}"
+  status="${status%% *}"
   BATTERY_HIGHLIGHT="off"
-  if [ "$status" = "'AC" ]; then
+  if [ "$status" = "AC" ]; then
     BATTERY_ICON="󱊦"
   else
     if [ "$BATTERY_LABEL" -le 30 ]; then

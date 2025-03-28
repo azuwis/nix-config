@@ -8,6 +8,6 @@ while read -r index window; do
   else
     args+=(--set "space${index}" label="°")
   fi
-done <<<"$(yabai -m query --spaces index,windows | jq -r '.[] | [.index, .windows[0]] | @sh')"
+done < <(yabai -m query --spaces index,windows | jq -r '.[] | [.index, .windows[0]] | @sh')
 
 sketchybar -m "${args[@]}"
