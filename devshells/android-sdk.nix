@@ -1,3 +1,5 @@
+{ ... }:
+
 let
   inputs = import ../inputs;
   pkgs = import ../pkgs { };
