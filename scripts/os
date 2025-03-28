@@ -274,7 +274,7 @@ list)
   esac
   rebuild "$action" "$@"
   ;;
-boot | dry-activate | switch | test)
+switch)
   build
   if [ "$ask" = yes ]; then
     if [ "$SYSTEM" = "$BUILT" ]; then
