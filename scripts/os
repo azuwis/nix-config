@@ -173,7 +173,7 @@ rebuild() {
     cmd=(darwin-rebuild --no-flake -I nixpkgs="$(input nixpkgs)" -I darwin="$(input nix-darwin)" -I darwin-config="$CONFIG/hosts/$(hostname).nix")
     ;;
   droid)
-    cmd=(nix-on-droid --flake "$CONFIG")
+    cmd=(nix-on-droid -I nixpkgs="$(input nixpkgs)" -I nix-on-droid="$(input nix-on-droid)" -I home-manager="$(input home-manager)" --file "$CONFIG/droid")
     ;;
   nixos)
     cmd=(nixos-rebuild --no-flake --fast --use-remote-sudo --file "$CONFIG" --attr nixosConfigurations."$(hostname)")
