@@ -2,7 +2,8 @@
 
 set -e
 
-CONFIG=$(readlink -f "$(dirname "${BASH_SOURCE[0]}")/..")
+CONFIG=$(readlink -f "${BASH_SOURCE[0]}")
+CONFIG=${CONFIG%/*/*}
 
 case "$(uname -s)" in
 Darwin)
