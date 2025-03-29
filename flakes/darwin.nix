@@ -12,8 +12,6 @@ let
     };
 in
 
-{
-  darwinConfigurations = lib.genAttrs [
-    "mbp"
-  ] mkDarwin;
-}
+lib.genAttrs [
+  "mbp"
+] mkDarwin

@@ -14,7 +14,5 @@ let
 in
 
 {
-  openwrtConfigurations = {
-    xr500 = mkOpenwrt { profile = "netgear_xr500"; };
-  };
+  xr500 = mkOpenwrt { profile = "netgear_xr500"; };
 }

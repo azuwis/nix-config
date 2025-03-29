@@ -15,13 +15,11 @@ let
     };
 in
 
-{
-  nixosConfigurations = lib.genAttrs [
-    "hyperv"
-    "nuc"
-    "steamdeck"
-    "tuf"
-    "utm"
-    "wsl"
-  ] mkNixos;
-}
+lib.genAttrs [
+  "hyperv"
+  "nuc"
+  "steamdeck"
+  "tuf"
+  "utm"
+  "wsl"
+] mkNixos

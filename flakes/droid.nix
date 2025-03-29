@@ -20,10 +20,8 @@ let
 in
 
 {
-  nixOnDroidConfigurations = {
-    default = mkDroid { system = "aarch64-linux"; };
+  default = mkDroid { system = "aarch64-linux"; };
 
-    # for CI
-    droid = mkDroid { system = "x86_64-linux"; };
-  };
+  # for CI
+  droid = mkDroid { system = "x86_64-linux"; };
 }

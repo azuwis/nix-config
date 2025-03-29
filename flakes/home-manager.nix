@@ -26,41 +26,39 @@ let
 in
 
 {
-  homeConfigurations = {
-    azuwis = mkHome {
-      system = "x86_64-linux";
-      modules = [
-        {
-          home.username = "azuwis";
-          home.homeDirectory = "/home/azuwis";
-        }
-      ];
-    };
+  azuwis = mkHome {
+    system = "x86_64-linux";
+    modules = [
+      {
+        home.username = "azuwis";
+        home.homeDirectory = "/home/azuwis";
+      }
+    ];
+  };
 
-    "azuwis@mbp" = mkHome {
-      system = "aarch64-darwin";
-      modules = [
-        {
-          home.username = "azuwis";
-          home.homeDirectory = "/Users/azuwis";
-          my.desktop.enable = true;
-          my.firefox.enable = true;
-          my.rime.enable = true;
-          my.emacs.enable = true;
-        }
-        ../darwin/home.nix
-      ];
-    };
+  "azuwis@mbp" = mkHome {
+    system = "aarch64-darwin";
+    modules = [
+      {
+        home.username = "azuwis";
+        home.homeDirectory = "/Users/azuwis";
+        my.desktop.enable = true;
+        my.firefox.enable = true;
+        my.rime.enable = true;
+        my.emacs.enable = true;
+      }
+      ../darwin/home.nix
+    ];
+  };
 
-    deck = mkHome {
-      system = "x86_64-linux";
-      modules = [
-        {
-          home.username = "deck";
-          home.homeDirectory = "/home/deck";
-          my.registry.enable = true;
-        }
-      ];
-    };
+  deck = mkHome {
+    system = "x86_64-linux";
+    modules = [
+      {
+        home.username = "deck";
+        home.homeDirectory = "/home/deck";
+        my.registry.enable = true;
+      }
+    ];
   };
 }

@@ -1,5 +1,7 @@
-import ./darwin.nix
-// import ./nixos.nix
-// import ./droid.nix
-// import ./home-manager.nix
-// import ./openwrt.nix
+{
+  darwinConfigurations = import ./darwin.nix;
+  nixosConfigurations = import ./nixos.nix;
+  nixOnDroidConfigurations = import ./droid.nix;
+  homeConfigurations = import ./home-manager.nix;
+  openwrtConfigurations = import ./openwrt.nix;
+}
