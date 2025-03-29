@@ -16,6 +16,7 @@ in
 
   config = mkIf (cfg.enable && cfg.smartir) {
     services.home-assistant.customComponents = [ pkgs.home-assistant-custom-components.smartir ];
+    services.home-assistant.extraComponents = [ "broadlink" ];
 
     services.home-assistant.config = {
       smartir.check_updates = false;
