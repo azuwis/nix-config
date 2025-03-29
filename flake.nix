@@ -1,3 +1,0 @@
-{
-  outputs = _: import ./flakes;
-}
