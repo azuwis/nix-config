@@ -26,15 +26,16 @@ in
     luaPackages = final.lua.pkgs;
 
     # https://github.com/nix-community/nix-zsh-completions/pull/52
+    # https://github.com/nix-community/nix-zsh-completions/pull/55
     nix-zsh-completions = prev.nix-zsh-completions.overrideAttrs (old: {
-      version = "0.5.1-unstable-2024-12-15";
+      version = "0.5.1-unstable-2025-03-26";
       src = old.src.override {
         tag = null;
-        rev = "4e654da12a28ebc272e7f6b7a60a1c8af3da84f0";
-        hash = "sha256-L7N+TUag830IGD+lP8vwR0nWCXVfy87d5lTObYfBo8U=";
+        rev = "c2553ae08a6e688e82a7e0b65f51203eb4ab8a45";
+        hash = "sha256-4g0lJ+vkr0H0AgSQS2kDiidHCChKNh1VphU/mKFkioQ=";
       };
       passthru = (old.passthru or { }) // {
-        updateScript = final.nix-update-script { extraArgs = [ "--version=branch" ]; };
+        updateScript = final.nix-update-script { extraArgs = [ "--version=branch=pull/55/head" ]; };
       };
     });
 
