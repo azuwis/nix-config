@@ -33,7 +33,7 @@ USAGE:
   $cmd l|list
   $cmd s|switch
   $cmd u|update [-a] [<input>] [<commit>]
-  $cmd <darwin-rebuild/nix-on-droid/nixos-rebuild args>
+  $cmd [--] <darwin-rebuild/nix-on-droid/nixos-rebuild args>
 EOF
 }
 
@@ -292,6 +292,9 @@ switch)
   else
     rebuild "$action" "$@"
   fi
+  ;;
+--)
+  rebuild "$@"
   ;;
 *)
   rebuild "$action" "$@"
