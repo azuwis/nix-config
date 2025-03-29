@@ -235,7 +235,7 @@ case "$action" in
 b) action="build" ;;
 c) action="clean" ;;
 d) action="diff" ;;
-h) action="help" ;;
+h | -h) action="help" ;;
 hw) action="hardware" ;;
 l) action="list" ;;
 s) action="switch" ;;
