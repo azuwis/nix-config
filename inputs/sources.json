@@ -142,7 +142,7 @@
       "url": "https://github.com/numtide/treefmt-nix/archive/adc195eef5da3606891cedf80c0d9ce2d3190808.tar.gz",
       "hash": "11bcg442n1ngnrvr3f59lkfaiiz1c50wmmy0ahr88a1gps23q4ax"
     },
-    "wsl": {
+    "nixos-wsl": {
       "type": "Git",
       "repository": {
         "type": "GitHub",

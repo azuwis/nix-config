@@ -18,7 +18,7 @@ in
 
   imports = [
     ../nixos
-    (inputs.wsl.outPath + "/modules")
+    (inputs.nixos-wsl.outPath + "/modules")
   ];
 
   nixpkgs.hostPlatform = "x86_64-linux";
