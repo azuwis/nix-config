@@ -12,7 +12,7 @@ in
 {
   imports = [
     ../nixos
-    (inputs.jovian.outPath + "/modules")
+    (inputs.jovian-nixos.outPath + "/modules")
     ./hardware-steamdeck.nix
   ];
 

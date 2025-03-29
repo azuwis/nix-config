@@ -39,7 +39,7 @@
       "url": "https://github.com/nix-community/home-manager/archive/869f2ec2add75ce2a70a6dbbf585b8399abec625.tar.gz",
       "hash": "0iy4gbhydx7h37dnpnzcqaz8ycy4i4zqzdvax22496rrxds42z0p"
     },
-    "jovian": {
+    "jovian-nixos": {
       "type": "Git",
       "repository": {
         "type": "GitHub",
