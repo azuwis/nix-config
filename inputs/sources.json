@@ -35,9 +35,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "869f2ec2add75ce2a70a6dbbf585b8399abec625",
-      "url": "https://github.com/nix-community/home-manager/archive/869f2ec2add75ce2a70a6dbbf585b8399abec625.tar.gz",
-      "hash": "0iy4gbhydx7h37dnpnzcqaz8ycy4i4zqzdvax22496rrxds42z0p"
+      "revision": "5ee44bc7c2e853f144390a12ebe5174ad7e3b9e0",
+      "url": "https://github.com/nix-community/home-manager/archive/5ee44bc7c2e853f144390a12ebe5174ad7e3b9e0.tar.gz",
+      "hash": "1cr5qzkz0bfc357hdh5hjzw6cng9pjg4wb3xi3qz1b3s6bs3pxdf"
     },
     "jovian-nixos": {
       "type": "Git",
@@ -48,9 +48,9 @@
       },
       "branch": "development",
       "submodules": false,
-      "revision": "a95606cae5c9e1f5b84debe7865ef171d4deb287",
-      "url": "https://github.com/Jovian-Experiments/Jovian-NixOS/archive/a95606cae5c9e1f5b84debe7865ef171d4deb287.tar.gz",
-      "hash": "1mf55nikf9sypkpw5df4nvhlnww3svm4ga614yyqgrdahy9fv642"
+      "revision": "1c17514c8558886af0afc34b6c348c1f2ee9fd24",
+      "url": "https://github.com/Jovian-Experiments/Jovian-NixOS/archive/1c17514c8558886af0afc34b6c348c1f2ee9fd24.tar.gz",
+      "hash": "0sz69ji0km0lqzg486glsz2y2xk3bvdv7bljbcinsa5rg7hj8la2"
     },
     "my": {
       "type": "Git",
@@ -73,9 +73,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "bb81755a3674951724d79b8cba6bbff01409d44d",
-      "url": "https://github.com/nix-darwin/nix-darwin/archive/bb81755a3674951724d79b8cba6bbff01409d44d.tar.gz",
-      "hash": "12f9ndbr7cvvr06369gnk8pwyama12ipzv7lc26xdkjmjrj1835f"
+      "revision": "73d59580d01e9b9f957ba749f336a272869c42dd",
+      "url": "https://github.com/nix-darwin/nix-darwin/archive/73d59580d01e9b9f957ba749f336a272869c42dd.tar.gz",
+      "hash": "0lx1fqxc45y730yqa9m27wswjk2ji5jdc71zpbrbjab6k5mxcqvs"
     },
     "nix-index-database": {
       "type": "Git",
@@ -86,9 +86,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "36dc43cb50d5d20f90a28d53abb33a32b0a2aae6",
-      "url": "https://github.com/nix-community/nix-index-database/archive/36dc43cb50d5d20f90a28d53abb33a32b0a2aae6.tar.gz",
-      "hash": "087xrdvs6l8rcfbk8824y2fzy0g3yrdyp2g7nxywxxyjb8yp1s82"
+      "revision": "b3696bfb6c24aa61428839a99e8b40c53ac3a82d",
+      "url": "https://github.com/nix-community/nix-index-database/archive/b3696bfb6c24aa61428839a99e8b40c53ac3a82d.tar.gz",
+      "hash": "14g7lsqkl7afq64jfbb8c5mhwcdbm7s4a1q7fcxpx8wb6hi9l4rd"
     },
     "nix-on-droid": {
       "type": "Git",
@@ -112,35 +112,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "89d3674159e5606b0c1db636e7c7463b7b976b45",
-      "url": "https://github.com/astro/nix-openwrt-imagebuilder/archive/89d3674159e5606b0c1db636e7c7463b7b976b45.tar.gz",
-      "hash": "196hmqn5g1w3szkc5wjv6z37hc7a8m0mphg6cfaj9wxd6qmkphsv"
-    },
-    "nixpkgs": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "NixOS",
-        "repo": "nixpkgs"
-      },
-      "branch": "nixpkgs-unstable",
-      "submodules": false,
-      "revision": "f3a2a0601e9669a6e38af25b46ce6c4563bcb6da",
-      "url": "https://github.com/NixOS/nixpkgs/archive/f3a2a0601e9669a6e38af25b46ce6c4563bcb6da.tar.gz",
-      "hash": "1dqapkf8qjnf7d84hrn7x97p61gm775y4ks8k34lvcqhdifl0ar8"
-    },
-    "treefmt-nix": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "numtide",
-        "repo": "treefmt-nix"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "adc195eef5da3606891cedf80c0d9ce2d3190808",
-      "url": "https://github.com/numtide/treefmt-nix/archive/adc195eef5da3606891cedf80c0d9ce2d3190808.tar.gz",
-      "hash": "11bcg442n1ngnrvr3f59lkfaiiz1c50wmmy0ahr88a1gps23q4ax"
+      "revision": "150fb3d0b20f2659b84a1f1287a5d7964a422996",
+      "url": "https://github.com/astro/nix-openwrt-imagebuilder/archive/150fb3d0b20f2659b84a1f1287a5d7964a422996.tar.gz",
+      "hash": "1f0nzhry5is8pq8g35a2dblr9zxvrvb4jicwfzp10z12nkgvchy7"
     },
     "nixos-wsl": {
       "type": "Git",
@@ -151,9 +125,35 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "96d7df91cce0d7cd30d1958fe1aefcb5f9bfced7",
-      "url": "https://github.com/nix-community/NixOS-WSL/archive/96d7df91cce0d7cd30d1958fe1aefcb5f9bfced7.tar.gz",
-      "hash": "0kmcx41m78xdvr6kwn3mkcsp8b860f04dd1cz24564468vckzclv"
+      "revision": "394c77f61ac76399290bfc2ef9d47b1fba31b215",
+      "url": "https://github.com/nix-community/NixOS-WSL/archive/394c77f61ac76399290bfc2ef9d47b1fba31b215.tar.gz",
+      "hash": "17vlvj3h8zyyq74i7bqnwxaqlrq93vfh37yxlcm62bwwqq0bjgyk"
+    },
+    "nixpkgs": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "NixOS",
+        "repo": "nixpkgs"
+      },
+      "branch": "nixpkgs-unstable",
+      "submodules": false,
+      "revision": "b9d43b3fe5152d1dc5783a2ba865b2a03388b741",
+      "url": "https://github.com/NixOS/nixpkgs/archive/b9d43b3fe5152d1dc5783a2ba865b2a03388b741.tar.gz",
+      "hash": "0jivm6d8lcygbmnskb36chga54k2r43xwc5innfq0vy82ffz4pq6"
+    },
+    "treefmt-nix": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "numtide",
+        "repo": "treefmt-nix"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "29a3d7b768c70addce17af0869f6e2bd8f5be4b7",
+      "url": "https://github.com/numtide/treefmt-nix/archive/29a3d7b768c70addce17af0869f6e2bd8f5be4b7.tar.gz",
+      "hash": "1hfxmsz94m5rvrvkpss39fl880sgn8ai10lpby7dxdi94sbk442r"
     }
   },
   "version": 5
