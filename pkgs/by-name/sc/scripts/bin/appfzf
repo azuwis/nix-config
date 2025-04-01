@@ -12,5 +12,5 @@ app=$(printf '%s\n' "${apps[@]}" | fzf --no-separator --history="$HOME/.cache/ap
 if [[ $app == "/etc/profiles/per-user/$USER/bin/"* ]] || [[ $app == "$HOME/.nix-profile/bin/"* ]]; then
   daemon "$app"
 else
-  open -a "$app.app"
+  open -n -a "$app.app"
 fi
