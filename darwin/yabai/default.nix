@@ -41,7 +41,7 @@
       yabai -m signal --add event=system_woke action="sleep 60; pkill -x skhd"
 
       yabai -m rule --add app="^(Digital Color Meter|Finder|System Information|System Preferences|System Settings|Ryujinx|mpv)$" manage=off
-      yabai -m rule --add app="^alacritty$" title="^Fzf$" manage=off
+      yabai -m rule --add app="^[Aa]lacritty$" title="^Fzf$" manage=off
       yabai -m rule --add app="^(Firefox|Google Chrome|Safari)$" space=2
       yabai -m rule --add app="^Mail$" space=3
       yabai -m rule --add app="^网易POPO$" manage=off space=5
