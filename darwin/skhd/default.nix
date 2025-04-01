@@ -54,8 +54,8 @@
       lalt - w : yabai -m space --layout stack
       lalt - e : yabai -m space --layout bsp
       lalt - s : yabai -m space --layout float
-      lalt - return : SHELL=/run/current-system/sw/bin/zsh open -n -a ${pkgs.kitty}/Applications/kitty.app
-      # lalt - return : SHELL=/run/current-system/sw/bin/zsh open -n -a ${pkgs.alacritty}/Applications/Alacritty.app
+      # lalt - return : SHELL=/run/current-system/sw/bin/zsh open -n -a ${pkgs.kitty}/Applications/kitty.app
+      lalt - return : alacritty msg create-window || SHELL=/run/current-system/sw/bin/zsh open -n -a ${pkgs.alacritty}/Applications/Alacritty.app
     '';
   };
 
