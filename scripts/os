@@ -5,21 +5,23 @@ set -e
 CONFIG=$(readlink -f "${BASH_SOURCE[0]}")
 CONFIG=${CONFIG%/*/*}
 
-case "$(uname -s)" in
-Darwin)
-  OS=darwin
-  ;;
-Linux)
-  if [ -d /system/app/ ] && [ -d /system/priv-app ]; then
-    OS=droid
-  else
-    OS=nixos
-  fi
-  ;;
-*)
-  exit 1
-  ;;
-esac
+if [ -z "$OS" ]; then
+  case "$(uname -s)" in
+  Darwin)
+    OS=darwin
+    ;;
+  Linux)
+    if [ -d /system/app/ ] && [ -d /system/priv-app ]; then
+      OS=droid
+    else
+      OS=nixos
+    fi
+    ;;
+  *)
+    exit 1
+    ;;
+  esac
+fi
 
 usage() {
   local cmd
