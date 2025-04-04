@@ -185,10 +185,9 @@ rebuild() {
   run "${cmd[@]}" "$@"
 }
 
-update() {
-  pushd "$CONFIG" >/dev/null
+flake_update() {
   local args
-  args=(update)
+  args=()
   if [ -n "$1" ]; then
     input="$1"
     if [ "$input" = "-a" ]; then
@@ -198,16 +197,12 @@ update() {
         shift
       fi
     else
-      if nix --version | grep -qF Lix; then
-        args=(update "$input")
-      else
-        args=(lock --update-input "$input")
-      fi
+      args=("$input")
       shift
     fi
   fi
   if [ -n "$1" ]; then
-    url=$(nix eval --raw --file flake.nix "inputs.$input.url")
+    url=$(nix eval --raw --file "$CONFIG/flake.nix" "inputs.$input.url")
     slash=${url//[^\/]/}
     if [ "${#slash}" = 1 ]; then
       url="$url/$1"
@@ -220,8 +215,7 @@ update() {
     args+=(--override-input "$input" "$url")
     shift
   fi
-  run nix flake "${args[@]}" "$@"
-  popd >/dev/null
+  run nix flake update --flake "$CONFIG" "${args[@]}" "$@"
 }
 
 ask=no
@@ -241,11 +235,11 @@ h | -h) action="help" ;;
 hw) action="hardware" ;;
 l) action="list" ;;
 s) action="switch" ;;
-u) action="update" ;;
+u) action="flake_update" ;;
 esac
 
 case "$action" in
-build | clean | hardware | update)
+build | clean | hardware | flake_update)
   "$action" "$@"
   ;;
 ci)
