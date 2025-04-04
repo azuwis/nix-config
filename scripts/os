@@ -36,6 +36,7 @@ USAGE:
   $cmd s|switch
   $cmd u|update [-a] [<input>] [<commit>]
   $cmd [--] <darwin-rebuild/nix-on-droid/nixos-rebuild args>
+  $cmd dry <command> ...
 EOF
 }
 
@@ -57,7 +58,12 @@ run() {
   >&2 printf '\033[0;33m$ '
   >&2 printf '%q ' "${full_command[@]}"
   >&2 printf '\033[0m\n'
-  "${full_command[@]}"
+  if [ "$DRY_RUN" = true ]; then
+    echoerr "Dry run, exit"
+    exit 1
+  else
+    "${full_command[@]}"
+  fi
 }
 
 input() {
@@ -220,6 +226,11 @@ flake_update() {
   fi
   run nix flake update --flake "$CONFIG" "${args[@]}" "$@"
 }
+
+if [ "$1" = dry ]; then
+  DRY_RUN=true
+  shift
+fi
 
 ask=no
 action="$1"
