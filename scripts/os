@@ -186,6 +186,9 @@ rebuild() {
 }
 
 flake_update() {
+  if [ -e flake.nix ]; then
+    CONFIG=.
+  fi
   local args
   args=()
   if [ -n "$1" ]; then
