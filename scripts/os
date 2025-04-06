@@ -76,8 +76,9 @@ input() {
 build() {
   local args diff hostname nix profile
 
-  nix=(nom-build)
-  if [ "$1" = "--no-nom" ]; then
+  # nix=(nom-build)
+  nix=(nix-build --log-format bar-with-logs)
+  if [ "$1" = "--ci" ]; then
     nix=(nix-build)
     shift
   fi
@@ -263,7 +264,7 @@ ci)
       "$CONFIG" --attr nixOnDroidConfigurations.droid.config.environment.files.prootStatic.outPath
     OS=droid
   fi
-  NPINS_OVERRIDE_my="$CONFIG/test" build --no-nom "$@"
+  NPINS_OVERRIDE_my="$CONFIG/test" build --ci "$@"
   ;;
 diff)
   build --diff "$@"

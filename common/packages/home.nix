@@ -28,7 +28,7 @@
     lsof
     man
     netcat-gnu
-    nix-output-monitor
+    # nix-output-monitor
     nix-tree
     npins
     nvd
