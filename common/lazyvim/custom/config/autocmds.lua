@@ -17,7 +17,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup("wrap_spell"),
-  pattern = { "jj", "NeogitCommitMessage" },
+  pattern = { "jjdescription", "NeogitCommitMessage" },
   callback = function()
     vim.opt_local.wrap = true
     vim.opt_local.spell = true
@@ -26,6 +26,6 @@ vim.api.nvim_create_autocmd("FileType", {
 
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup("auto_insert"),
-  pattern = { "jj", "gitcommit", "NeogitCommitMessage" },
+  pattern = { "jjdescription", "gitcommit", "NeogitCommitMessage" },
   command = "exec 'norm gg' | startinsert!",
 })
