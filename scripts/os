@@ -77,6 +77,8 @@ build() {
   local args diff hostname nix profile
 
   # nix=(nom-build)
+  # https://github.com/NixOS/nix/blob/07204ff6e546c95e3b95af90078b0082cb1449fc/src/libmain/progress-bar.cc#L477-L495
+  # blue: running, green: done, normal: expected
   nix=(nix-build --log-format bar-with-logs)
   if [ "$1" = "--ci" ]; then
     nix=(nix-build)
