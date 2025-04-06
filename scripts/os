@@ -259,9 +259,12 @@ build | clean | hardware | flake_update)
   ;;
 ci)
   if [ "$1" = droid ]; then
-    nix-instantiate --eval --option extra-substituters https://nix-on-droid.cachix.org \
-      --option extra-trusted-public-keys "nix-on-droid.cachix.org-1:56snoMJTXmDRC1Ei24CmKoUqvHJ9XCp+nidK7qkMQrU=" \
-      "$CONFIG" --attr nixOnDroidConfigurations.droid.config.environment.files.prootStatic.outPath
+    proot=$(nix-instantiate --eval "$CONFIG" --attr nixOnDroidConfigurations.droid.config.environment.files.prootStatic.outPath)
+    proot=${proot#\"}
+    proot=${proot%\"}
+    nix-store --realise --option substituters https://nix-on-droid.cachix.org \
+      --option trusted-public-keys "nix-on-droid.cachix.org-1:56snoMJTXmDRC1Ei24CmKoUqvHJ9XCp+nidK7qkMQrU=" \
+      "$proot"
     OS=droid
   fi
   NPINS_OVERRIDE_my="$CONFIG/test" build --ci "$@"
