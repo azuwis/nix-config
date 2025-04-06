@@ -7,6 +7,10 @@
 
 let
   inherit (import ../lib/my.nix) getHmModules getModules;
+  # To use `inputs` in `imports`, normally `specialArgs` is used when calling
+  # nixpkgs/nixos/lib/eval-config.nix, but to be compatible with non-flake usage
+  # of nixos-rebuild/darwin-rebuild/nix-on-droid, `import ../inputs` is much
+  # simpler solution
   inputs = import ../inputs;
 in
 

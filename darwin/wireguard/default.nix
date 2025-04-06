@@ -1,13 +1,10 @@
 {
+  inputs,
   config,
   lib,
   pkgs,
   ...
 }:
-
-let
-  inputs = import ../../inputs;
-in
 
 {
   # wg-quick up wg0

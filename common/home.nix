@@ -13,6 +13,8 @@ in
 {
   imports = getHmModules [ ./. ];
 
+  _module.args.inputs = import ../inputs;
+
   my = {
     difftastic.enable = true;
     direnv.enable = true;

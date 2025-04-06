@@ -14,6 +14,8 @@ in
     (lib.mkAliasOptionModule [ "hm" ] [ "home-manager" "users" config.my.user ])
   ] ++ getModules [ ./. ];
 
+  _module.args.inputs = import ../inputs;
+
   hm.imports = [ ./home.nix ];
 
   home-manager.useGlobalPkgs = true;

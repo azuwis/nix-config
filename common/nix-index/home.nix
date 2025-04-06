@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   pkgs,
@@ -8,7 +9,6 @@
 let
   inherit (lib) mkEnableOption mkIf;
   inherit (lib.hm.shell) mkBashIntegrationOption mkZshIntegrationOption;
-  inputs = import ../../inputs;
   cfg = config.my.nix-index;
 
   nix-index-database = import inputs.nix-index-database.outPath { inherit pkgs; };
