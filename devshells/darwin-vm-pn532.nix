@@ -1,8 +1,10 @@
-{ ... }:
+{
+  pkgs ? import ../pkgs { },
+  ...
+}:
 
 let
   inputs = import ../inputs;
-  pkgs = import ../pkgs { };
   devshell = import inputs.devshell.outPath { nixpkgs = pkgs; };
 
   vm-pn532 =

@@ -1,10 +1,10 @@
-{ ... }:
+{ ... }@args:
 
 let
   lib = import ./lib;
 in
 
 lib.packagesFromDirectoryRecursive {
-  callPackage = import;
+  callPackage = file: _: import file args;
   directory = ./devshells;
 }
