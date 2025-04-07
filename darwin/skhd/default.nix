@@ -13,6 +13,7 @@
     in
     {
       enable = true;
+      # lalt - return : alacritty msg create-window || SHELL=/run/current-system/sw/bin/zsh open -n -a ${pkgs.alacritty}/Applications/Alacritty.app
       skhdConfig = ''
         lalt - 1 : yabai -m space --focus 1
         lalt - 2 : yabai -m space --focus 2
@@ -60,7 +61,6 @@
         lalt - e : yabai -m space --layout bsp
         lalt - s : yabai -m space --layout float
         lalt - return : SHELL=/run/current-system/sw/bin/zsh kitty --single-instance
-        # lalt - return : alacritty msg create-window || SHELL=/run/current-system/sw/bin/zsh open -n -a ${pkgs.alacritty}/Applications/Alacritty.app
       '';
     };
 

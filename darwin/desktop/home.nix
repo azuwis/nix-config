@@ -15,7 +15,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    my.alacritty.enable = true;
+    # my.alacritty.enable = true;
     my.mpv.enable = true;
 
     # Suppress login message
