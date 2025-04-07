@@ -42,6 +42,7 @@
 
       yabai -m rule --add app="^(Digital Color Meter|Finder|System Information|System Preferences|System Settings|Ryujinx|mpv)$" manage=off
       yabai -m rule --add app="^[Aa]lacritty$" title="^Fzf$" manage=off
+      yabai -m rule --add app="^[Kk]itty$" title="^Fzf$" manage=off grid=6:6:2:2:2:1
       yabai -m rule --add app="^(Firefox|Google Chrome|Safari)$" space=2
       yabai -m rule --add app="^Mail$" space=3
       yabai -m rule --add app="^网易POPO$" manage=off space=5
