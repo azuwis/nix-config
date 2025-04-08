@@ -35,7 +35,7 @@
   #nav-bar:hover { margin: calc((var(--urlbar-min-height) * -1) - 8px) 0 0 0 !important; }
 
   /* builtin vertical tabs */
-  @media (-moz-bool-pref: "sidebar.revamp") {
+  @media -moz-pref("sidebar.revamp") {
     #navigator-toolbox:focus-within > .browser-toolbar,
     #nav-bar:hover {
       margin: 0 0 0 !important;
