@@ -65,7 +65,9 @@ if [ "$filter_stderr" = "true" ]; then
   "${command[@]}" 2> >(grep -v ^fetching >&2)
 else
   pushd "$root" >/dev/null
-  >&2 echo "${command[@]}"
+  >&2 printf '\033[0;33m$ '
+  >&2 printf '%q ' "${command[@]}"
+  >&2 printf '\033[0m\n'
   "${command[@]}"
   popd >/dev/null
 fi
