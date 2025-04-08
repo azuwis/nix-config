@@ -9,16 +9,6 @@
     opacity: .5;
   }
 
-  /* hide tab scroll buttons */
-  toolbarbutton#scrollbutton-up, toolbarbutton#scrollbutton-down {
-    display: none;
-  }
-
-  /* hide alltabs button */
-  toolbarbutton#alltabs-button {
-    display: none;
-  }
-
   /* remove menu icon */
   :-moz-any(#contentAreaContextMenu, #tabContextMenu) > :-moz-any(menuitem, menu) > .menu-iconic-left {
     visibility: hidden !important;
@@ -31,39 +21,34 @@
     z-index: 2 !important;
   }
 
+  /* show nav-bar when hover */
   #navigator-toolbox:focus-within > .browser-toolbar,
-  #nav-bar:hover { margin: calc((var(--urlbar-min-height) * -1) - 8px) 0 0 0 !important; }
+  #nav-bar:hover {
+    margin: 0 0 0 !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100%;
+  }
 
-  /* builtin vertical tabs */
-  @media -moz-pref("sidebar.revamp") {
-    #navigator-toolbox:focus-within > .browser-toolbar,
-    #nav-bar:hover {
-      margin: 0 0 0 !important;
-      position: fixed !important;
-      top: 0 !important;
-      left: 0 !important;
-      width: 100%;
-    }
+  /* remove outline and shadow of main window */
+  #tabbrowser-tabbox {
+    outline: inherit !important;
+    box-shadow: inherit !important;
+  }
 
-    /* remove outline and shadow of main window */
-    #tabbrowser-tabbox {
-      outline: inherit !important;
-      box-shadow: inherit !important;
-    }
+  /* remove new tab button */
+  #vertical-tabs-newtab-button, #tabbrowser-arrowscrollbox-periphery {
+    display: none !important;
+  }
 
-    /* remove new tab button */
-    #vertical-tabs-newtab-button, #tabbrowser-arrowscrollbox-periphery {
-      display: none !important;
-    }
+  /* remove tabs from other deivces button */
+  moz-button[view="viewTabsSidebar"] {
+    display: none !important;
+  }
 
-    /* remove tabs from other deivces button */
-    moz-button[view="viewTabsSidebar"] {
-      display: none !important;
-    }
-
-    /* remove decoration bar, mainly for macOS */
-    #TabsToolbar {
-      display: none !important;
-    }
+  /* remove decoration bar, mainly for macOS */
+  #TabsToolbar {
+    display: none !important;
   }
 }
