@@ -12,7 +12,6 @@
 # Deploy keys -> Add deploy key -> Allow write access
 # Secrets and variables -> Actions -> New repository secret
 
-
 name: Update packages
 permissions: {}
 on:
