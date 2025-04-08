@@ -20,5 +20,6 @@
     import ./default.nix
     // {
       devShells = eachSystem ({ pkgs, ... }: import ../shell.nix { inherit pkgs; });
+      packages = eachSystem ({ pkgs, ... }: import ../apps { inherit pkgs; });
     };
 }
