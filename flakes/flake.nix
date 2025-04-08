@@ -20,6 +20,12 @@
     import ./default.nix
     // {
       devShells = eachSystem ({ pkgs, ... }: import ../shell.nix { inherit pkgs; });
-      packages = eachSystem ({ pkgs, ... }: import ../apps { inherit pkgs; });
+      apps = eachSystem (
+        { pkgs, ... }:
+        builtins.mapAttrs (name: drv: {
+          type = "app";
+          program = lib.getExe drv;
+        }) (import ../apps { inherit pkgs; })
+      );
     };
 }
