@@ -221,6 +221,8 @@ in
                 (state "light.1660a6874242f000_group" "93" "72.8")
                 (state "climate.gree_climate_9424b8123fe900" "88" "72.6")
                 (state "media_player.sony_kdl_55w800b" "59" "72.6")
+                (state "sensor.0x00158d000215c127_humidity" "61.5" "76.7")
+                (state "sensor.0x00158d000215c127_temperature" "62.5" "78.7")
                 # dining room
                 (state "light.16609ab46d42b000_group" "63" "43")
                 (state "light.yeelink_fancl5_e358_switch_status" "80" "51.8")
@@ -247,6 +249,8 @@ in
                 ])
                 (state "cover.lumi_hmcn01_7c8c_motor_control" "33.9" "89.2")
                 (state "media_player.edifier_r2000db" "50" "66")
+                (state "sensor.0x00158d0001e81c40_humidity" "24.2" "62.7")
+                (state "sensor.0x00158d0001e81c40_temperature" "25.2" "64.7")
                 # secondary bedroom
                 (state "light.secondary_bedroom" "20.3" "23")
                 (state "light.1697cc678402b000_group" "36.5" "23")
