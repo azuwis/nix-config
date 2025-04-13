@@ -195,7 +195,7 @@ rebuild() {
   run "${cmd[@]}" "$@"
 }
 
-flake_update() {
+flake-update() {
   if [ -e flake.nix ]; then
     CONFIG=.
   fi
@@ -259,11 +259,11 @@ h | -h) action="help" ;;
 hw) action="hardware" ;;
 l) action="list" ;;
 s) action="switch" ;;
-u) action="flake_update" ;;
+u) action="flake-update" ;;
 esac
 
 case "$action" in
-build | clean | hardware | flake_update | direnv-gcroots)
+build | clean | hardware | flake-update | direnv-gcroots)
   "$action" "$@"
   ;;
 ci)
