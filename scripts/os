@@ -231,6 +231,41 @@ flake-update() {
   run nix flake update --flake "$CONFIG" "${args[@]}" "$@"
 }
 
+npins-update() {
+  local args
+  args=(update)
+  if [ -n "$1" ]; then
+    input="$1"
+    shift
+    if [ "$input" = "-a" ]; then
+      update_all=true
+      input="$1"
+      shift
+    fi
+    if [ -n "$1" ]; then
+      hash="$1"
+      {
+        read -r type
+        read -r owner
+        read -r repo
+        read -r branch
+        read -r submodules
+      } < <(jq -r ".pins.${input} | (.repository.type | ascii_downcase), .repository.owner, .repository.repo, .branch, .submodules" inputs/sources.json)
+      args=(add --name "$input" "$type" --branch "$branch" --at "$hash" "$owner" "$repo")
+      if [ "$submodules" = true ]; then
+        args+=(--submodules)
+      fi
+      if [ "$update_all" = true ]; then
+        mapfile -t inputs < <(jq -r '.pins | to_entries | map(select(.key!="'"$input"'")).[].key' inputs/sources.json)
+        run npins update "${inputs[@]}"
+      fi
+    else
+      args+=("$input")
+    fi
+  fi
+  run npins "${args[@]}"
+}
+
 # See all nix-direnv gcroots
 direnv-gcroots() {
   nix-store --gc --print-roots | awk '/flake-profile/ {print $1}' | xargs -o nix-tree
@@ -258,12 +293,13 @@ dg) action="direnv-gcroots" ;;
 h | -h) action="help" ;;
 hw) action="hardware" ;;
 l) action="list" ;;
+nu) action="npins-update" ;;
 s) action="switch" ;;
 u) action="flake-update" ;;
 esac
 
 case "$action" in
-build | clean | hardware | flake-update | direnv-gcroots)
+build | clean | hardware | flake-update | npins-update | direnv-gcroots)
   "$action" "$@"
   ;;
 ci)
