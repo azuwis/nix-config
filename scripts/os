@@ -34,8 +34,9 @@ USAGE:
   $cmd hw|hardware
   $cmd l|list
   $cmd s|switch
+  $cmd u|update|nu|npins-update [-a] [<input>] [<commit>]
+  $cmd fu|flake-update [-a] [<input>] [<commit>]
   $cmd dg|direnv-gcroots
-  $cmd u|update [-a] [<input>] [<commit>]
   $cmd [--] <darwin-rebuild/nix-on-droid/nixos-rebuild args>
   $cmd dry <command> ...
 EOF
@@ -290,12 +291,12 @@ b) action="build" ;;
 c) action="clean" ;;
 d) action="diff" ;;
 dg) action="direnv-gcroots" ;;
+fu) action="flake-update" ;;
 h | -h) action="help" ;;
 hw) action="hardware" ;;
 l) action="list" ;;
-nu) action="npins-update" ;;
+nu | u | update) action="npins-update" ;;
 s) action="switch" ;;
-u) action="flake-update" ;;
 esac
 
 case "$action" in
