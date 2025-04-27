@@ -52,11 +52,9 @@
   # CVE-2023-38408
   programs.ssh.agentPKCS11Whitelist = "''";
   security.pam.sshAgentAuth.enable = true;
-  security.sudo = {
+  security.sudo-rs = {
+    enable = true;
     execWheelOnly = true;
-    extraConfig = ''
-      Defaults requiretty
-    '';
   };
   services.openssh = {
     enable = true;
