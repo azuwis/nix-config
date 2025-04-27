@@ -51,9 +51,9 @@
   programs.ssh.startAgent = true;
   # CVE-2023-38408
   programs.ssh.agentPKCS11Whitelist = "''";
+  security.pam.sshAgentAuth.enable = true;
   security.sudo = {
     execWheelOnly = true;
-    wheelNeedsPassword = false;
     extraConfig = ''
       Defaults requiretty
     '';
