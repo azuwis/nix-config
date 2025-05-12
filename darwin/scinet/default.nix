@@ -7,13 +7,15 @@
 }:
 
 let
-  scinetScript = pkgs.substituteAll {
+  scinetScript = pkgs.replaceVarsWith {
     src = ./scinet.sh;
     name = "scinet";
     dir = "bin";
     isExecutable = true;
-    scidns_resolv_script = config.services.scidns.resolv.script;
-    sciroute_script = config.services.sciroute.script;
+    replacements = {
+      scidns_resolv_script = config.services.scidns.resolv.script;
+      sciroute_script = config.services.sciroute.script;
+    };
   };
 in
 

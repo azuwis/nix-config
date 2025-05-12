@@ -29,10 +29,11 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     {
-      xdg.configFile."niri/config.kdl".source = pkgs.substituteAll {
+      xdg.configFile."niri/config.kdl".source = pkgs.replaceVars ./config.kdl {
         inherit (cfg) extraConfig;
-        src = ./config.kdl;
         wallpaper = pkgs.wallpapers.default;
+        DEFAULT_AUDIO_SINK = null;
+        DEFAULT_AUDIO_SOURCE = null;
       };
     }
 

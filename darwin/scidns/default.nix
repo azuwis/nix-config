@@ -12,11 +12,13 @@ let
   scidnsConf = pkgs.runCommand "scidns.conf" { } ''
     sed -e 's,^,server=/,' -e 's,$,/${cfg.local.bind}#${toString cfg.local.port},' ${localDomains} >$out
   '';
-  scidnsResolvScript = pkgs.substituteAll {
+  scidnsResolvScript = pkgs.replaceVarsWith {
     src = ./scidns-resolv.sh;
     isExecutable = true;
-    scidns = cfg.bind;
-    launchdLabel = config.launchd.daemons.scidns-resolv.serviceConfig.Label;
+    replacements = {
+      launchdLabel = config.launchd.daemons.scidns-resolv.serviceConfig.Label;
+      scidns = cfg.bind;
+    };
   };
 in
 
