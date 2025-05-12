@@ -61,7 +61,6 @@ in
             underline = false;
           };
         };
-        git.subprocess = true;
         # https://martinvonz.github.io/jj/latest/templates/
         # https://github.com/martinvonz/jj/blob/main/cli/src/config/templates.toml
         template-aliases = {
