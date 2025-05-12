@@ -23,6 +23,6 @@ in
 
   config = mkIf cfg.enable {
     programs.bash.initExtra = mkIf cfg.enableBashIntegration shellInit;
-    programs.zsh.initExtra = mkIf cfg.enableZshIntegration shellInit;
+    programs.zsh.initContent = mkIf cfg.enableZshIntegration shellInit;
   };
 }

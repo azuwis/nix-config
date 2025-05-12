@@ -27,7 +27,7 @@ in
     #   }
     # '';
     programs.direnv.nix-direnv.enable = true;
-    programs.zsh.initExtra = ''
+    programs.zsh.initContent = ''
       # nix-direnv
       nixify() {
         if [ ! -e ./.envrc ]; then

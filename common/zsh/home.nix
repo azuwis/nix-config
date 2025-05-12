@@ -35,7 +35,7 @@ in
         l = "ls --color=auto -l";
         ls = "ls --color=auto";
       };
-      initExtra = ''
+      initContent = ''
         zstyle ':completion:*' matcher-list "" 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
         # setopt MENU_COMPLETE
         ulimit -n 4096

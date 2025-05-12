@@ -16,11 +16,9 @@ in
 
   config = mkIf cfg.enable {
     home.packages = [ pkgs.zsh-fzf-tab ];
-    programs.zsh = {
-      initExtra = ''
-        # zsh-fzf-tab
-        . ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
-      '';
-    };
+    programs.zsh.initContent = ''
+      # zsh-fzf-tab
+      . ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
+    '';
   };
 }

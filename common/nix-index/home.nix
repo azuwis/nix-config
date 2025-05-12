@@ -39,7 +39,7 @@ in
       nix-index-database.nix-index-small-database;
 
     programs.bash.initExtra = mkIf cfg.enableBashIntegration shellInit;
-    programs.zsh.initExtra = mkIf cfg.enableZshIntegration shellInit;
+    programs.zsh.initContent = mkIf cfg.enableZshIntegration shellInit;
 
     home.packages = [ nix-index-full ];
   };
