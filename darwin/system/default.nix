@@ -15,7 +15,8 @@
   nix.settings = {
     allowed-users = [ config.my.user ];
     extra-platforms = [ "x86_64-darwin" ];
-    sandbox = "relaxed";
+    # `replaceVarsWith { isExecutable = true; ... }` fail
+    # sandbox = "relaxed";
   };
   # nix profile diff-closures --profile /nix/var/nix/profiles/system
   # show upgrade diff
