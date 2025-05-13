@@ -1,5 +1,7 @@
 {
   pkgs ? import ../pkgs { },
+  # nix-shell /etc/nixos/devshells/android-sdk.nix --arg studio true
+  studio ? false,
   ...
 }:
 
@@ -36,5 +38,5 @@ devshell.mkShell {
   packages = [
     androidsdk
     gradle
-  ];
+  ] ++ pkgs.lib.optionals studio [ (pkgs.android-studio.withSdk androidsdk) ];
 }
