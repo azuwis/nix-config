@@ -34,6 +34,8 @@ in
         cr = ''cd "$(git rev-parse --show-toplevel)"'';
         l = "ls --color=auto -l";
         ls = "ls --color=auto";
+        nix-build = "nix-build --log-format bar-with-logs";
+        nix-shell = "nix-shell --log-format bar-with-logs";
       };
       initContent = ''
         zstyle ':completion:*' matcher-list "" 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
