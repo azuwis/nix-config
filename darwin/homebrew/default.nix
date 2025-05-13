@@ -24,7 +24,7 @@
       "homebrew/cask"
       # "homebrew/homebrew-services"
     ];
-    brews = [ "mas" ];
+    # brews = [ "mas" ];
     casks = [
       "google-chrome"
       "microsoft-office"
@@ -34,12 +34,14 @@
       "olive"
       "reaper"
     ];
-    masApps = {
-      "Microsoft Remote Desktop" = 1295203466;
-      DingTalk = 1435447041;
-      WeChat = 836500024;
-      # Xcode = 497799835;
-    };
+    # mas does not work (`mas list` hang), maybe related to spotlight index
+    # https://github.com/mas-cli/mas/issues/805
+    # masApps = {
+    #   "Microsoft Remote Desktop" = 1295203466;
+    #   DingTalk = 1435447041;
+    #   WeChat = 836500024;
+    #   # Xcode = 497799835;
+    # };
     extraConfig = ''
       # cask "battle-net", args: { language: "zh-CN" }
     '';
