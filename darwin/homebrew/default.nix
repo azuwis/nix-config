@@ -5,24 +5,42 @@
   ...
 }:
 
+let
+  inputs = import ../../inputs;
+in
+
 {
-  environment.systemPath = [ "/opt/homebrew/bin" ];
-  environment.variables = {
-    HOMEBREW_NO_ANALYTICS = "1";
+  imports = [ (inputs.nix-homebrew.outPath + "/modules") ];
+
+  nix-homebrew = {
+    inherit (config.my) user;
+    enable = true;
+    extraEnv = {
+      HOMEBREW_NO_ANALYTICS = "1";
+    };
+    mutableTaps = false;
+    package = inputs.brew-src // {
+      name = "brew-${inputs.brew-src.version}";
+    };
+    taps = {
+      "homebrew/homebrew-core" = inputs.homebrew-core;
+      "homebrew/homebrew-cask" = inputs.homebrew-cask;
+    };
   };
+
   homebrew = {
     enable = true;
     onActivation = {
-      # autoUpdate = true;
       cleanup = "zap";
+      upgrade = true;
     };
     global = {
       brewfile = true;
     };
+    # Set according to nix-homebrew.tags, or `Refusing to untap ...`
     taps = [
       "homebrew/core"
       "homebrew/cask"
-      # "homebrew/homebrew-services"
     ];
     # brews = [ "mas" ];
     casks = [
