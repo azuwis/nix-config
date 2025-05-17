@@ -35,9 +35,6 @@ in
       cleanup = "zap";
       upgrade = true;
     };
-    global = {
-      brewfile = true;
-    };
     # Set according to nix-homebrew.tags, or `Refusing to untap ...`
     taps = [
       # "homebrew/core"
