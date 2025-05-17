@@ -15,6 +15,9 @@ in
   nix-homebrew = {
     inherit (config.my) user;
     enable = true;
+    # Do not add /opt/homebrew/bin in PATH, not used for now
+    # https://github.com/zhaofengli/nix-homebrew/blob/159f21ae77da757bbaeb98c0b16ff2e7b2738350/modules/default.nix#L459
+    enableZshIntegration = false;
     extraEnv = {
       HOMEBREW_NO_ANALYTICS = "1";
     };
