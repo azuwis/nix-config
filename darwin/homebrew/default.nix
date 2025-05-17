@@ -22,8 +22,9 @@ in
     package = inputs.brew-src // {
       name = "brew-${inputs.brew-src.version}";
     };
+    # npins add github -b master Homebrew homebrew-core
     taps = {
-      "homebrew/homebrew-core" = inputs.homebrew-core;
+      # "homebrew/homebrew-core" = inputs.homebrew-core;
       "homebrew/homebrew-cask" = inputs.homebrew-cask;
     };
   };
@@ -39,7 +40,7 @@ in
     };
     # Set according to nix-homebrew.tags, or `Refusing to untap ...`
     taps = [
-      "homebrew/core"
+      # "homebrew/core"
       "homebrew/cask"
     ];
     # brews = [ "mas" ];

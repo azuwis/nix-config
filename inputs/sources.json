@@ -68,19 +68,6 @@
       "url": "https://github.com/Homebrew/homebrew-cask/archive/7c0336fdb62906ea860160b9ff86984ea2792844.tar.gz",
       "hash": "11xcvamwxnypqiq26qrkf9r5vj5vwjb64k5zd4hjqjmq37fhkqxf"
     },
-    "homebrew-core": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "Homebrew",
-        "repo": "homebrew-core"
-      },
-      "branch": "master",
-      "submodules": false,
-      "revision": "85606b2d9d8bfafbafb3118e7bd38b2ce9465ef5",
-      "url": "https://github.com/Homebrew/homebrew-core/archive/85606b2d9d8bfafbafb3118e7bd38b2ce9465ef5.tar.gz",
-      "hash": "1a0bxhp169g4sfbmdnsk1i2dldnw7dglrr46lidl8y54nrbis7bq"
-    },
     "jovian-nixos": {
       "type": "Git",
       "repository": {
