@@ -49,6 +49,8 @@ in
     # };
     # python3Packages = final.python3.pkgs;
 
+    torzu = final.callPackage (inputs.fruit.outPath + "/pkgs/torzu/package.nix") { };
+
     # vimPlugins =
     #   prev.vimPlugins
     #   // final.lib.packagesFromDirectoryRecursive {

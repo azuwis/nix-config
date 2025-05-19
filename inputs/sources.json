@@ -42,6 +42,19 @@
       "url": "https://github.com/numtide/devshell/archive/7c9e793ebe66bcba8292989a68c0419b737a22a0.tar.gz",
       "hash": "165601skgrlgvgr4h7hjbz80zp7zpn7z2c7qjh6bal8hmjmmlqwi"
     },
+    "fruit": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "liberodark",
+        "repo": "my-flakes"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "4a39d891050cac3f08d321869cb237fa18b682bb",
+      "url": "https://github.com/liberodark/my-flakes/archive/4a39d891050cac3f08d321869cb237fa18b682bb.tar.gz",
+      "hash": "1356ry42v6w78x2s3lpj6kmmvwchh1jszawzzbx4amib2axia0bg"
+    },
     "home-manager": {
       "type": "Git",
       "repository": {
