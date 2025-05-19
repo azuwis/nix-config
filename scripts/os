@@ -145,10 +145,9 @@ clean() {
 }
 
 darwin_switch() {
-  # https://github.com/LnL7/nix-darwin/blob/bb81755a3674951724d79b8cba6bbff01409d44d/pkgs/nix-tools/darwin-rebuild.sh#L213
-  run sudo -H nix-env --profile /nix/var/nix/profiles/system --set "$BUILT"
-  # https://github.com/LnL7/nix-darwin/blob/bb81755a3674951724d79b8cba6bbff01409d44d/pkgs/nix-tools/darwin-rebuild.sh#L221
-  run "$BUILT/activate-user"
+  # https://github.com/nix-darwin/nix-darwin/blob/b9b927dd1f24094b271e8ec5277a672dc4fc860d/pkgs/nix-tools/darwin-rebuild.sh#L236
+  # Need `--set-home` or warning: $HOME ('/Users/azuwis') is not owned by you, falling back to the one defined in the 'passwd' file ('/var/root')
+  run sudo --set-home nix-env --profile /nix/var/nix/profiles/system --set "$BUILT"
   run sudo "$BUILT/activate"
 }
 

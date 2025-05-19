@@ -6,6 +6,8 @@
 }:
 
 {
+  # https://github.com/nix-darwin/nix-darwin/pull/1341
+  system.primaryUser = config.my.user;
   users.users.${config.my.user}.home = "/Users/${config.my.user}";
   environment.variables = {
     LANG = "en_US.UTF-8";
