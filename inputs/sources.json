@@ -113,11 +113,11 @@
         "owner": "nix-darwin",
         "repo": "nix-darwin"
       },
-      "branch": "master",
+      "branch": "nix-darwin-25.05",
       "submodules": false,
-      "revision": "e2676937faf868111dcea6a4a9cf4b6549907c9d",
-      "url": "https://github.com/nix-darwin/nix-darwin/archive/e2676937faf868111dcea6a4a9cf4b6549907c9d.tar.gz",
-      "hash": "1l2jjn93iwzljryv9pkj7islw6rr7p6g5fdkc5zffb5mq8gyd3x1"
+      "revision": "74ecd01d2c122f8a4a48066ab1d48f3e01671671",
+      "url": "https://github.com/nix-darwin/nix-darwin/archive/74ecd01d2c122f8a4a48066ab1d48f3e01671671.tar.gz",
+      "hash": "0z6hwbwd22i3q9b7760r3k0xkbhvnhmzjwb9ci4rnysz85q418sy"
     },
     "nix-homebrew": {
       "type": "Git",
