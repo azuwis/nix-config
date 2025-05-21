@@ -43,7 +43,7 @@
   my.hass.enable = true;
   my.intelGpu.enable = true;
   my.nix-builder-client.enable = true;
-  my.photoprism.enable = true;
+  # my.photoprism.enable = true;
   my.retroarch.enable = true;
   my.torrent.enable = true;
   my.uxplay.enable = true;
