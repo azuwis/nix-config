@@ -77,9 +77,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "d63ec5b2063aa5a6677f8a7d12d189abb6a86c73",
-      "url": "https://github.com/Homebrew/homebrew-cask/archive/d63ec5b2063aa5a6677f8a7d12d189abb6a86c73.tar.gz",
-      "hash": "1kvjp6gn8kch9f3zm7vmw999n85jga3bpdy153dw69wz5rvbx5kp"
+      "revision": "7b1e16c7d39018c5b33b1307058af359251bec66",
+      "url": "https://github.com/Homebrew/homebrew-cask/archive/7b1e16c7d39018c5b33b1307058af359251bec66.tar.gz",
+      "hash": "0bmmk935rlfmxhhb3yvbz5b4plv5zrplzsam4pnrgf2kcwv214pg"
     },
     "jovian-nixos": {
       "type": "Git",
@@ -90,9 +90,9 @@
       },
       "branch": "development",
       "submodules": false,
-      "revision": "0ba1a34fa6d995fe433109f0ad66de8d5613d46e",
-      "url": "https://github.com/Jovian-Experiments/Jovian-NixOS/archive/0ba1a34fa6d995fe433109f0ad66de8d5613d46e.tar.gz",
-      "hash": "1fcv7lsk2chyakx2xmhmakqpzs42lz2s2q47ssrw45rfvjbdiszx"
+      "revision": "c59af31c8fad36a5af0f8c8363595c6c346aa646",
+      "url": "https://github.com/Jovian-Experiments/Jovian-NixOS/archive/c59af31c8fad36a5af0f8c8363595c6c346aa646.tar.gz",
+      "hash": "0srzqpf38qyp4blaxnd1l1zbg5l8xcgkgljph77yb1yb4j4dnbrf"
     },
     "my": {
       "type": "Git",
@@ -115,9 +115,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "b9b927dd1f24094b271e8ec5277a672dc4fc860d",
-      "url": "https://github.com/nix-darwin/nix-darwin/archive/b9b927dd1f24094b271e8ec5277a672dc4fc860d.tar.gz",
-      "hash": "0jj6s1ws9m39a4qmmjnr05zkvz0ds174rn1nz41df1r83xq0kh0q"
+      "revision": "e2676937faf868111dcea6a4a9cf4b6549907c9d",
+      "url": "https://github.com/nix-darwin/nix-darwin/archive/e2676937faf868111dcea6a4a9cf4b6549907c9d.tar.gz",
+      "hash": "1l2jjn93iwzljryv9pkj7islw6rr7p6g5fdkc5zffb5mq8gyd3x1"
     },
     "nix-homebrew": {
       "type": "Git",
@@ -167,9 +167,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "5f68e1858597c731bdfb93c87c0fdadf4315707e",
-      "url": "https://github.com/astro/nix-openwrt-imagebuilder/archive/5f68e1858597c731bdfb93c87c0fdadf4315707e.tar.gz",
-      "hash": "0xl51y9c7hyc2ab9j7f9z9g08wyjzql0ihc6jgw6fa0ccpqw8r2c"
+      "revision": "cd4e69a7a0e03dae12f94ed88be0e62fa7778022",
+      "url": "https://github.com/astro/nix-openwrt-imagebuilder/archive/cd4e69a7a0e03dae12f94ed88be0e62fa7778022.tar.gz",
+      "hash": "0a0d472lr2h5kn5mq4hpm1g05vis2yd25ypri7ax8j500hclxp9p"
     },
     "nixos-wsl": {
       "type": "Git",
@@ -193,9 +193,9 @@
       },
       "branch": "nixos-25.05",
       "submodules": false,
-      "revision": "ca49c4304acf0973078db0a9d200fd2bae75676d",
-      "url": "https://github.com/NixOS/nixpkgs/archive/ca49c4304acf0973078db0a9d200fd2bae75676d.tar.gz",
-      "hash": "01x0xfbjj10xz7hjflrr9k6fx9vja9ws666614kkfnr4ydj7k55f"
+      "revision": "cd2812de55cf87df88a9e09bf3be1ce63d50c1a6",
+      "url": "https://github.com/NixOS/nixpkgs/archive/cd2812de55cf87df88a9e09bf3be1ce63d50c1a6.tar.gz",
+      "hash": "04fqd36hqf1pv1dgrbvgcgf8l82hn5872pd6l38bs8wm551lqsh5"
     },
     "treefmt-nix": {
       "type": "Git",
