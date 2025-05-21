@@ -220,7 +220,6 @@ in
                 (state "light.living_room" "75.3" "72.8")
                 (state "light.1660a6874242f000_group" "93" "72.8")
                 (state "climate.gree_climate_9424b8123fe900" "88" "72.6")
-                (state "media_player.sony_kdl_55w800b" "59" "72.6")
                 (state "sensor.0x00158d000215c127_humidity" "61.5" "76.7")
                 (state "sensor.0x00158d000215c127_temperature" "62.5" "78.7")
                 # dining room
@@ -253,12 +252,13 @@ in
                 (state "sensor.0x00158d0001e81c40_temperature" "25.2" "64.7")
                 # secondary bedroom
                 (state "light.secondary_bedroom" "20.3" "23")
-                (state "light.1697cc678402b000_group" "36.5" "23")
+                (state "light.1697cc678402b000_group" "36.5" "21")
                 (state "climate.xiaomi_mt0_cdd0_air_conditioner" "8" "17.5")
                 (state "fan.xiaomi_mt0_cdd0_switch_status" "8" "13.5")
                 (state "sensor.xiaomi_mt0_cdd0_temperature" "19" "16")
                 (state "sensor.xiaomi_mt0_cdd0_relative_humidity" "18" "14")
                 (state "sensor.xiaomi_mt0_cdd0_co2_density" "20.3" "18")
+                (state "media_player.sony_kdl_55w800b" "36.5" "25")
                 # kids room
                 (state "light.kids_room" "20.3" "43")
                 (state "climate.xiaomi_mt0_6e25_air_conditioner" "6" "52.5")
@@ -304,11 +304,11 @@ in
               hide.play_pause = true;
               volume_stateless = true;
             })
-            (player' "media_player.sony_kdl_55w800b" {
-              hide_controls = "yes";
-              power_color = "yes";
-              show_source = "small";
-            })
+            # (player' "media_player.sony_kdl_55w800b" {
+            #   hide_controls = "yes";
+            #   power_color = "yes";
+            #   show_source = "small";
+            # })
             (climate' "climate.yeelink_v6_af1f_ptc_bath_heater" {
               hide.state = true;
             })
