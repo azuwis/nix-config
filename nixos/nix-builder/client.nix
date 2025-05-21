@@ -75,6 +75,9 @@ in
         IdentityFile ${config.age.secrets.nix-ssh.path}
         Port 22
         User nix-ssh
+        ControlMaster auto
+        ControlPath ~/.ssh/nix-builder-%C
+        ControlPersist 10s
     '';
   };
 }
