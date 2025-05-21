@@ -147,13 +147,13 @@ in
           - condition: numeric_state
             entity_id: cover.lumi_hmcn01_7c8c_motor_control
             attribute: curtain.current_position
-            above: 15
+            above: 9
         actions:
           - action: cover.set_cover_position
             target:
               entity_id: cover.lumi_hmcn01_7c8c_motor_control
             data:
-              position: 15
+              position: 9
 
       - alias: Screen brightness
         triggers:
