@@ -59,6 +59,26 @@ animations {
   }
 }
 
+// Shadow for fuzzel
+layer-rule {
+  match namespace="^launcher$"
+  shadow {
+    on
+  }
+  geometry-corner-radius 12
+}
+
+// Shadow for yambar
+layer-rule {
+  match namespace="^panel$"
+  shadow {
+    on
+  }
+}
+
+// Window rules are processed in order of appearance in the config file.
+// This means that you can put more generic rules first, then override
+// them for specific windows later.
 window-rule {
   geometry-corner-radius 6
   clip-to-geometry true
@@ -84,23 +104,6 @@ window-rule {
 window-rule {
   match app-id=r#"^(mpv|tmenu)$"#
   open-floating true
-}
-
-// Shadow for fuzzel
-layer-rule {
-  match namespace="^launcher$"
-  shadow {
-    on
-  }
-  geometry-corner-radius 12
-}
-
-// Shadow for yambar
-layer-rule {
-  match namespace="^panel$"
-  shadow {
-    on
-  }
 }
 
 // Open the Firefox picture-in-picture player as floating by default.
