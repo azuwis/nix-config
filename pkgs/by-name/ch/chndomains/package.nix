@@ -8,13 +8,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "chndomains";
-  version = "0-unstable-2025-05-18";
+  version = "0-unstable-2025-05-23";
 
   src = fetchFromGitHub {
     owner = "felixonmars";
     repo = "dnsmasq-china-list";
-    rev = "0cd2fb6c2e3ed1711e3eb6dd1cb1318db3e47808";
-    hash = "sha256-JAXgXGA2xtBHTpGw0D0DnPSdcbhNLLu0z6UGjar8AVQ=";
+    rev = "c7ed41997e78b41841a394d6852b5ccdb1b3f31c";
+    hash = "sha256-3SyZFmwHxzDXokqtdy2NrOqVqNNef3h3u+wUigizm6Q=";
   };
 
   nativeBuildInputs = [ gawk ];
