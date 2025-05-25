@@ -248,6 +248,7 @@ binds {
   Mod+F { maximize-column; }
   Mod+Shift+F { fullscreen-window; }
   Mod+Ctrl+F { expand-column-to-available-width; }
+  Mod+Ctrl+Shift+F { toggle-windowed-fullscreen; }
   Mod+C { center-column; }
 
   Mod+Minus { set-column-width "-10%"; }
