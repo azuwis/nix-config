@@ -16,6 +16,7 @@ input {
 }
 
 layout {
+  background-color "transparent"
   gaps 8
   // center-focused-column "on-overflow"
   // always-center-single-column
@@ -36,6 +37,12 @@ layout {
     gaps-between-tabs 2
     active-gradient from="#808080" to="#bbddff" angle=45
     inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
+  }
+}
+
+overview {
+  workspace-shadow {
+    off
   }
 }
 
