@@ -15,15 +15,15 @@ in
       }
     );
 
-    lua = prev.lua.override {
-      packageOverrides =
-        luafinal: luaprev:
-        final.lib.packagesFromDirectoryRecursive {
-          inherit (final.lua.pkgs) callPackage;
-          directory = ../pkgs/lua;
-        };
-    };
-    luaPackages = final.lua.pkgs;
+    # lua = prev.lua.override {
+    #   packageOverrides =
+    #     luafinal: luaprev:
+    #     final.lib.packagesFromDirectoryRecursive {
+    #       inherit (final.lua.pkgs) callPackage;
+    #       directory = ../pkgs/lua;
+    #     };
+    # };
+    # luaPackages = final.lua.pkgs;
 
     # https://github.com/nix-community/nix-zsh-completions/pull/52
     # https://github.com/nix-community/nix-zsh-completions/pull/55
