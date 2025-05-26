@@ -17,8 +17,9 @@
   nix.settings = {
     allowed-users = [ config.my.user ];
     extra-platforms = [ "x86_64-darwin" ];
-    # `replaceVarsWith { isExecutable = true; ... }` fail
-    # sandbox = "relaxed";
+    # `replaceVarsWith { isExecutable = true; ... }` fail with sandbox enabled, use `dontPatchShebangs = true;` to workaround
+    # https://github.com/NixOS/nixpkgs/issues/343576
+    sandbox = "relaxed";
   };
   # nix profile diff-closures --profile /nix/var/nix/profiles/system
   # show upgrade diff
