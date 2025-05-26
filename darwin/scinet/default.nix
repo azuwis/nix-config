@@ -12,6 +12,7 @@ let
     name = "scinet";
     dir = "bin";
     isExecutable = true;
+    dontPatchShebangs = true;
     replacements = {
       scidns_resolv_script = config.services.scidns.resolv.script;
       sciroute_script = config.services.sciroute.script;

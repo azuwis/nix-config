@@ -15,6 +15,7 @@ let
   scidnsResolvScript = pkgs.replaceVarsWith {
     src = ./scidns-resolv.sh;
     isExecutable = true;
+    dontPatchShebangs = true;
     replacements = {
       launchdLabel = config.launchd.daemons.scidns-resolv.serviceConfig.Label;
       scidns = cfg.bind;

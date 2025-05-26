@@ -11,6 +11,7 @@ let
   scirouteScript = pkgs.replaceVarsWith {
     src = ./sciroute.sh;
     isExecutable = true;
+    dontPatchShebangs = true;
     replacements = {
       inherit (cfg) interface;
       localCidr = pkgs.chnroutes2;
