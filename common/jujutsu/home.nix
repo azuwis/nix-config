@@ -61,8 +61,9 @@ in
             underline = false;
           };
         };
-        # https://martinvonz.github.io/jj/latest/templates/
-        # https://github.com/martinvonz/jj/blob/main/cli/src/config/templates.toml
+        # https://jj-vcs.github.io/jj/latest/templates/
+        # https://github.com/jj-vcs/jj/blob/main/cli/src/config/templates.toml
+        # log_custom modified from builtin_log_compact
         template-aliases = {
           description_placeholder = ''label("description placeholder", "(no description)")'';
           log_custom = ''
