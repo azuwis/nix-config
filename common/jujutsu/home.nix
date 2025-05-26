@@ -61,6 +61,12 @@ in
             underline = false;
           };
         };
+        merge-tools = {
+          nvim.edit-args = [
+            "-c"
+            "DiffEditor $left $right $output"
+          ];
+        };
         # https://jj-vcs.github.io/jj/latest/templates/
         # https://github.com/jj-vcs/jj/blob/main/cli/src/config/templates.toml
         # log_custom modified from builtin_log_compact
@@ -91,11 +97,7 @@ in
         };
         ui = {
           default-command = "log";
-          diff-editor = [
-            "nvim"
-            "-c"
-            "DiffEditor $left $right $output"
-          ];
+          diff-editor = "nvim";
           diff-instructions = false;
           diff.format = "git";
         };
