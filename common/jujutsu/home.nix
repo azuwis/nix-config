@@ -97,7 +97,8 @@ in
         };
         ui = {
           default-command = "log";
-          diff-editor = "nvim";
+          diff-editor = ":builtin";
+          # diff-editor = "nvim";
           diff-instructions = false;
           diff.format = "git";
         };
