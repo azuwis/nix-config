@@ -7,11 +7,11 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "simple-thermostat";
-  version = "2.5.0";
+  version = "2.2.7";
 
   src = fetchurl {
-    url = "https://github.com/nervetattoo/simple-thermostat/releases/download/v${finalAttrs.version}/simple-thermostat.js";
-    hash = "sha256-mC7/6MsVrLkNgkls6VDAaCgHTzw5noYV+VOeCy6y+Xo=";
+    url = "https://github.com/nickdos/simple-thermostat/releases/download/v${finalAttrs.version}/simple-thermostat.js";
+    hash = "sha256-kHVUWiYjEumdPUPxbs6GjRdwC988Z863OhXtuZ+ibCI=";
   };
 
   dontUnpack = true;
