@@ -103,7 +103,7 @@ in
       serverName = "v.${domain}";
       onlySSL = true;
       useACMEHost = "default";
-      root = "${pkgs.vuetorrent}/share/public";
+      root = "${pkgs.vuetorrent}/share/vuetorrent/public";
       locations."/api" = {
         proxyPass = "http://127.0.0.1:${port}";
         extraConfig = ''
