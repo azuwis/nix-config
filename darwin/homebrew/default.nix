@@ -38,7 +38,7 @@ in
       cleanup = "zap";
       upgrade = true;
     };
-    # Set according to nix-homebrew.tags, or `Refusing to untap ...`
+    # Set according to nix-homebrew.taps, or `Refusing to untap ...`
     taps = [
       # "homebrew/core"
       "homebrew/cask"
