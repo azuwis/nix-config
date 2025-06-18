@@ -58,6 +58,12 @@
     XF86Tools = "exec ~/bin/xf86tools";
   };
 
+  hm.my.niri.extraConfig = ''
+    output "HDMI-A-1" {
+      mode "1920x1080@60.000"
+    }
+  '';
+
   # workaround for yambar sway module not getting updates
   hm.wayland.windowManager.sway.config.startup = [
     { command = ''swaymsg -t subscribe '["output"]' && sleep 5 && pkill yambar''; }
