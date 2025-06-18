@@ -198,6 +198,7 @@ in
       };
     };
 
+    # swaymsg -s /run/user/*/sway-ipc.*.sock --pretty --type get_inputs | awk '/Identifier:/ {print $2}'
     wayland.windowManager.sway.extraConfig = ''
       input "1356:3302:Sunshine_DualSense_(virtual)_pad_Touchpad" events disabled
       input "43776:43778:Wolf_mouse_(abs)_virtual_device" events disabled

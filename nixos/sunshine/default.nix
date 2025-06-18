@@ -32,11 +32,13 @@ in
     hardware.uinput.enable = true;
     users.users.${cfg.user}.extraGroups = [ "uinput" ];
 
+    boot.kernelModules = [ "uhid" ];
+
+    # https://github.com/LizardByte/Sunshine/blob/master/src_assets/linux/misc/60-sunshine.rules
+    # KERNEL=="hidraw*", ATTRS{name}=="Sunshine PS5 (virtual) pad", OWNER="${cfg.user}"
     services.udev.extraRules = ''
       SUBSYSTEM=="misc", KERNEL=="uhid", GROUP="uinput", MODE="0660"
-      SUBSYSTEMS=="input", ATTRS{id/vendor}=="045e", ATTRS{id/product}=="02ea", ATTRS{name}=="Sunshine X-Box One (virtual) pad", OWNER="${cfg.user}"
-      SUBSYSTEMS=="input", ATTRS{id/vendor}=="054c", ATTRS{id/product}=="0ce6", ATTRS{name}=="Sunshine DualSense (virtual) pad*", OWNER="${cfg.user}"
-      SUBSYSTEMS=="input", ATTRS{id/vendor}=="057e", ATTRS{id/product}=="2009", ATTRS{name}=="Sunshine Nintendo (virtual) pad*", OWNER="${cfg.user}"
+      SUBSYSTEMS=="input", ATTRS{name}=="Sunshine * (virtual) pad*", OWNER="${cfg.user}"
       SUBSYSTEMS=="input", ATTRS{id/vendor}=="ab00", ATTRS{id/product}=="ab0*", ATTRS{name}=="Wolf *", OWNER="${cfg.user}"
       SUBSYSTEMS=="input", ATTRS{id/vendor}=="beef", ATTRS{id/product}=="dead", ATTRS{name}=="* passthrough", OWNER="${cfg.user}"
     '';
