@@ -34,9 +34,7 @@ in
 
     services.udev.extraRules = ''
       SUBSYSTEM=="misc", KERNEL=="uhid", GROUP="uinput", MODE="0660"
-      SUBSYSTEMS=="input", ATTRS{id/vendor}=="045e", ATTRS{id/product}=="028e", ATTRS{name}=="Microsoft X-Box 360 pad", OWNER="${cfg.user}"
       SUBSYSTEMS=="input", ATTRS{id/vendor}=="045e", ATTRS{id/product}=="02ea", ATTRS{name}=="Sunshine X-Box One (virtual) pad", OWNER="${cfg.user}"
-      SUBSYSTEMS=="input", ATTRS{id/vendor}=="046d", ATTRS{id/product}=="4038", ATTRS{name}=="Logitech Wireless Mouse PID:4038", OWNER="${cfg.user}"
       SUBSYSTEMS=="input", ATTRS{id/vendor}=="054c", ATTRS{id/product}=="0ce6", ATTRS{name}=="Sunshine DualSense (virtual) pad*", OWNER="${cfg.user}"
       SUBSYSTEMS=="input", ATTRS{id/vendor}=="057e", ATTRS{id/product}=="2009", ATTRS{name}=="Sunshine Nintendo (virtual) pad*", OWNER="${cfg.user}"
       SUBSYSTEMS=="input", ATTRS{id/vendor}=="ab00", ATTRS{id/product}=="ab0*", ATTRS{name}=="Wolf *", OWNER="${cfg.user}"
