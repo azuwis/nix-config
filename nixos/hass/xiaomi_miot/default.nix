@@ -186,11 +186,14 @@ in
             target:
               entity_id: light.xiaomi_mt0_cdd0_switch_status
 
-      - alias: Bath heater heat auto off
+      - alias: Bath heater dry/heat/fan_only auto off
         triggers:
           - trigger: state
             entity_id: climate.yeelink_v6_af1f_ptc_bath_heater
-            to: heat
+            to:
+              - dry
+              - fan_only
+              - heat
             for: "00:30:00"
         actions:
           - action: climate.turn_off
