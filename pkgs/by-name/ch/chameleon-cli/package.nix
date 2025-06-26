@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  fetchpatch,
   cmake,
   makeWrapper,
   python3,
@@ -21,7 +22,7 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "chameleon-cli";
-  version = "dev-unstable-2025-04-21";
+  version = "2.0.0-unstable-2025-04-21";
 
   src = fetchFromGitHub {
     owner = "RfidResearchGroup";
@@ -32,6 +33,16 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   sourceRoot = "${finalAttrs.src.name}/software";
+
+  patches = [
+    # Fix when the dir conatains hardnested is read only
+    # https://github.com/RfidResearchGroup/ChameleonUltra/pull/261
+    (fetchpatch {
+      url = "https://github.com/RfidResearchGroup/ChameleonUltra/commit/af8aa0146941b1e2e516b26da93739a86a083237.patch";
+      hash = "sha256-+VJT1LyxZv15xJr6XRzGYYib1DfOADtcp7K4kpKuxn0=";
+      stripLen = 1;
+    })
+  ];
 
   nativeBuildInputs = [
     cmake
@@ -50,14 +61,19 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r ../script/* $out/libexec
     rm -r $out/libexec/tests
     rm $out/libexec/requirements.txt
-    makeWrapper ${python3}/bin/python $out/bin/chameleon-cli \
+    makeWrapper ${lib.getExe python3} $out/bin/chameleon-cli \
       --add-flags "$out/libexec/chameleon_cli_main.py" \
       --prefix PYTHONPATH : ${pythonPath}
 
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version=branch"
+      "--version-regex=^v[0-9.]+$"
+    ];
+  };
 
   meta = {
     description = "Command line interface for Chameleon Ultra";
