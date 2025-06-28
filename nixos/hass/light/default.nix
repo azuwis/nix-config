@@ -28,7 +28,7 @@
           name = "Kids room";
           model = "ceiling13";
         };
-        "yeelink-light-panel1_mibt8793.lan" = {
+        "yeelink-light-panel1_mibt6379.lan" = {
           name = "Kitchen door";
         };
         "yeelink-light-panel1_mibt813A.lan" = {
