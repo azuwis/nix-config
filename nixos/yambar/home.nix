@@ -103,7 +103,7 @@ in
         {
           network = {
             poll-interval = 10000;
-            content.map.conditions."name == eno1 || name == wlo1" = [
+            content.map.conditions."state == up" = [
               {
                 string = {
                   text = "";
