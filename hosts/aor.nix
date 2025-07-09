@@ -59,6 +59,7 @@
   # };
 
   hm.my.jslisten.enable = true;
+  hm.my.yambar.scale = 2;
 
   environment.systemPackages = with pkgs; [
     nix-search
