@@ -16,6 +16,7 @@ let
 in
 
 lib.genAttrs [
+  "aor"
   "hyperv"
   "nuc"
   "steamdeck"
