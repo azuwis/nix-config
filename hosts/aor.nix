@@ -8,6 +8,7 @@
 {
   imports = [
     ../nixos
+    ./disk-aor.nix
     ./hardware-aor.nix
   ];
 
