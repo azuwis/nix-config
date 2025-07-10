@@ -24,6 +24,7 @@ in
   # /var/lib/zigbee2mqtt/
   imports = [
     (inputs.agenix.outPath + "/modules/age.nix")
+    (inputs.disko.outPath + "/module.nix")
     (inputs.home-manager.outPath + "/nixos")
     ../common
   ] ++ getModules [ ./. ];
