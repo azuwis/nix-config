@@ -20,6 +20,10 @@ in
     domain = mkOption { type = types.str; };
     ca = mkOption { type = types.path; };
     builder = mkOption { type = types.str; };
+    scale = mkOption {
+      type = types.int;
+      default = 1;
+    };
   };
 
   config = {

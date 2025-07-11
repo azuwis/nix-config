@@ -12,6 +12,7 @@ let
     mkOption
     types
     ;
+  inherit (config.my) scale;
   cfg = config.my.yambar;
 
   # ifaces = builtins.attrNames config.networking.interfaces;
@@ -22,10 +23,6 @@ in
 {
   options.my.yambar = {
     enable = mkEnableOption "yambar";
-    scale = mkOption {
-      type = types.int;
-      default = 1;
-    };
   };
 
   config = mkIf cfg.enable {
@@ -36,11 +33,11 @@ in
     programs.yambar.settings.bar = {
       layer = "top";
       location = "top";
-      height = 26 * cfg.scale;
+      height = 26 * scale;
       background = "2E3440FF";
-      font = "monospace:pixelsize=${builtins.toString (16 * cfg.scale)}";
-      spacing = 6 * cfg.scale;
-      margin = 12 * cfg.scale;
+      font = "monospace:pixelsize=${builtins.toString (16 * scale)}";
+      spacing = 6 * scale;
+      margin = 12 * scale;
       left = [
         {
           i3 = {
@@ -49,7 +46,7 @@ in
               let
                 default = {
                   text = "{name}";
-                  margin = 6 * cfg.scale;
+                  margin = 6 * scale;
                   on-click = "${msgcmd} --quiet workspace {name}";
                 };
                 focused.foreground = "EBCB8BFF";
@@ -76,7 +73,7 @@ in
             content.map =
               let
                 default = {
-                  margin = 6 * cfg.scale;
+                  margin = 6 * scale;
                   text = "{id}";
                 };
               in
@@ -107,7 +104,7 @@ in
               {
                 string = {
                   text = "";
-                  right-margin = 4 * cfg.scale;
+                  right-margin = 4 * scale;
                 };
               }
               {
@@ -119,8 +116,8 @@ in
               {
                 string = {
                   text = "";
-                  left-margin = 6 * cfg.scale;
-                  right-margin = 4 * cfg.scale;
+                  left-margin = 6 * scale;
+                  right-margin = 4 * scale;
                 };
               }
               {
@@ -139,7 +136,7 @@ in
               {
                 string = {
                   text = "󰓅";
-                  right-margin = 4 * cfg.scale;
+                  right-margin = 4 * scale;
                 };
               }
               { string.text = "{cpu}%"; }
@@ -153,7 +150,7 @@ in
               {
                 string = {
                   text = "󰍛";
-                  right-margin = 4 * cfg.scale;
+                  right-margin = 4 * scale;
                 };
               }
               { string.text = "{free:gb}G"; }
@@ -166,11 +163,11 @@ in
               map.conditions = {
                 sink_muted.string = {
                   text = "󰖁";
-                  right-margin = 4 * cfg.scale;
+                  right-margin = 4 * scale;
                 };
                 "~sink_muted".string = {
                   text = "󰕾";
-                  right-margin = 4 * cfg.scale;
+                  right-margin = 4 * scale;
                 };
               };
             }
@@ -184,7 +181,7 @@ in
               {
                 string = {
                   text = "";
-                  right-margin = 4 * cfg.scale;
+                  right-margin = 4 * scale;
                 };
               }
               { string.text = "{date} {time}"; }
