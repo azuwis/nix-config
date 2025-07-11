@@ -18,13 +18,11 @@ in
     programs.yazi = {
       enable = true;
       settings = {
-        manager = {
-          ratio = [
-            1
-            3
-            4
-          ];
-        };
+        mgr.ratio = [
+          1
+          3
+          4
+        ];
         preview = {
           cache_dir = "${config.xdg.cacheHome}/yazi";
           max_height = 1200;
