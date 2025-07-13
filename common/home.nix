@@ -20,7 +20,6 @@ in
     direnv.enable = true;
     editorconfig.enable = true;
     # helix.enable = true;
-    jujutsu.enable = true;
     git.enable = true;
     # gitui.enable = true;
     less.enable = true;

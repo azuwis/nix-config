@@ -13,6 +13,7 @@ let
     inherit pkgs;
     modules = getWmModules [ ./. ] ++ [
       {
+        programs.jujutsu.enable = true;
       }
     ];
   };
