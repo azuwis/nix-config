@@ -6,7 +6,7 @@
 }:
 
 {
-  home.packages = with pkgs; [
+  environment.systemPackages = with pkgs; [
     (pass.withExtensions (ext: [ ext.pass-otp ]))
     age
     borgbackup
