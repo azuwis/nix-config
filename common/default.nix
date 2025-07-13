@@ -12,6 +12,7 @@ in
 {
   imports = [
     (lib.mkAliasOptionModule [ "hm" ] [ "home-manager" "users" config.my.user ])
+    ./wrapper.nix
   ] ++ getModules [ ./. ];
 
   _module.args.inputs = import ../inputs;

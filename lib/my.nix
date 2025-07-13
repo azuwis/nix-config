@@ -14,4 +14,5 @@ in
   inherit getPaths;
   getModules = builtins.concatMap (getPaths "default.nix");
   getHmModules = builtins.concatMap (getPaths "home.nix");
+  getWmModules = builtins.concatMap (getPaths "wrapper.nix");
 }
