@@ -22,7 +22,6 @@ in
     # helix.enable = true;
     git.enable = true;
     # gitui.enable = true;
-    less.enable = true;
     neovim.enable = true;
     nix-index.enable = true;
     yazi.enable = true;
