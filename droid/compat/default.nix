@@ -29,6 +29,16 @@ in
         "config"
       ]
     )
+    (mkAliasOptionModule
+      [
+        "environment"
+        "systemPackages"
+      ]
+      [
+        "environment"
+        "packages"
+      ]
+    )
   ];
 
   options = {
