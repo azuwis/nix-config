@@ -6,19 +6,12 @@
 }:
 
 let
-  inherit (import ../lib/my.nix) getWmModules;
   inputs = import ../inputs;
   wrapper-manager = import inputs.wrapper-manager;
-  wm-eval = wrapper-manager.lib {
-    inherit pkgs;
-    modules = getWmModules [ ./. ] ++ [
-      {
-        programs.jujutsu.enable = true;
-      }
-    ];
-  };
 in
 
 {
-  environment.systemPackages = builtins.attrValues wm-eval.config.build.packages;
+  _module.args.wrapper = wrapper-manager.lib.wrapWith pkgs;
+
+  wrappers.jujutsu.enable = true;
 }

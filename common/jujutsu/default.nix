@@ -2,17 +2,18 @@
   config,
   lib,
   pkgs,
+  wrapper,
   ...
 }:
 
 let
   inherit (lib) mkEnableOption mkIf mkOption;
-  cfg = config.programs.jujutsu;
+  cfg = config.wrappers.jujutsu;
   tomlFormat = pkgs.formats.toml { };
   scripts = ./scripts;
 in
 {
-  options.programs.jujutsu = {
+  options.wrappers.jujutsu = {
     enable = mkEnableOption "jujutsu";
 
     settings = mkOption {
@@ -22,12 +23,14 @@ in
   };
 
   config = mkIf cfg.enable {
-    wrappers.jujutsu = {
-      basePackage = pkgs.jujutsu;
-      env.JJ_CONFIG.value = tomlFormat.generate "jujutsu-config" cfg.settings;
-    };
+    environment.systemPackages = [
+      (wrapper {
+        basePackage = pkgs.jujutsu;
+        env.JJ_CONFIG.value = tomlFormat.generate "jujutsu-config" cfg.settings;
+      })
+    ];
 
-    programs.jujutsu.settings = {
+    wrappers.jujutsu.settings = {
       aliases = {
         fe = [
           "git"
