@@ -33,6 +33,8 @@
   ];
   # https://github.com/orgs/NixOS/projects/66
   # boot.initrd.systemd.enable = true;
+  documentation.doc.enable = false;
+  documentation.info.enable = false;
   # explicitly enable nixos docs, system like nixos-wsl does not enable this
   documentation.nixos.enable = true;
   networking.enableIPv6 = false;
