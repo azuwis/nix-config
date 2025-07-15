@@ -21,5 +21,7 @@ in
     my.firefox.enable = true;
     # my.hammerspoon.enable = true;
     my.rime.enable = true;
+
+    wrappers.mpv.enable = true;
   };
 }

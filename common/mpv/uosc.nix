@@ -7,17 +7,17 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.mpv;
+  cfg = config.wrappers.mpv;
 in
 {
-  options.my.mpv = {
+  options.wrappers.mpv = {
     uosc = mkEnableOption "uosc" // {
       default = true;
     };
   };
 
   config = mkIf (cfg.enable && cfg.uosc) {
-    programs.mpv = {
+    wrappers.mpv = {
       bindings = {
         "<" = "script-binding uosc/prev";
         ">" = "script-binding uosc/next";

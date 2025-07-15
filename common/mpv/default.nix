@@ -6,28 +6,24 @@
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.mpv;
+  inherit (lib) mkIf;
+  cfg = config.wrappers.mpv;
 in
 {
   imports = [
     ./anime4k.nix
+    ./impl.nix
     ./manga-reader.nix
     ./uosc.nix
   ];
 
-  options.my.mpv = {
-    enable = mkEnableOption "mpv";
-  };
-
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
+    environment.systemPackages = with pkgs; [
       ffmpeg-headless
       yt-dlp
     ];
 
-    programs.mpv = {
-      enable = true;
+    wrappers.mpv = {
       bindings = {
         # https://github.com/mpv-player/mpv/blob/master/etc/input.conf
         R = "cycle_values window-scale 2 0.5 1"; # switch between 2x, 1/2, unresized window size
