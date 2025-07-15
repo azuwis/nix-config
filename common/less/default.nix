@@ -17,7 +17,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.sessionVariables.LESS = "-RX#5";
-    environment.sessionVariables.PAGER = "less -FRX#5";
+    environment.variables.LESS = "-RX#5";
+    environment.variables.PAGER = "less -FRX#5";
   };
 }
