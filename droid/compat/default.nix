@@ -39,6 +39,16 @@ in
         "packages"
       ]
     )
+    (mkAliasOptionModule
+      [
+        "environment"
+        "variables"
+      ]
+      [
+        "environment"
+        "sessionVariables"
+      ]
+    )
   ];
 
   options = {
