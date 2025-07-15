@@ -250,7 +250,7 @@ npins-update() {
         read -r repo
         read -r branch
         read -r submodules
-      } < <(jq -r ".pins.${input} | (.repository.type | ascii_downcase), .repository.owner, .repository.repo, .branch, .submodules" inputs/sources.json)
+      } < <(jq -r ".pins.\"${input}\" | (.repository.type | ascii_downcase), .repository.owner, .repository.repo, .branch, .submodules" inputs/sources.json)
       args=(add --name "$input" "$type" --branch "$branch" --at "$hash" "$owner" "$repo")
       if [ "$submodules" = true ]; then
         args+=(--submodules)
