@@ -106,9 +106,10 @@
       },
       "branch": "development",
       "submodules": false,
-      "revision": "591d18c05101aa99f612206db7a471a7734c5f1b",
-      "url": "https://github.com/Jovian-Experiments/Jovian-NixOS/archive/591d18c05101aa99f612206db7a471a7734c5f1b.tar.gz",
-      "hash": "04wvib2k664305l21nkvfbqnsffza5pl660x16g38p81qxasg1hl"
+      "revision": "f81c48f403c976463fe5812e9e6bca8cf49aebdc",
+      "url": "https://github.com/Jovian-Experiments/Jovian-NixOS/archive/f81c48f403c976463fe5812e9e6bca8cf49aebdc.tar.gz",
+      "hash": "0anz3d4h7qm689cbxjj75qc5k65mifszygyv07604kwwar7mmbmf",
+      "frozen": true
     },
     "my": {
       "type": "Git",
