@@ -5,6 +5,7 @@
   fetchpatch,
   cmake,
   makeWrapper,
+  xz,
   python3,
   nix-update-script,
 }:
@@ -22,31 +23,31 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "chameleon-cli";
-  version = "2.0.0-unstable-2025-04-21";
+  version = "2.0.0-unstable-2025-07-20";
 
   src = fetchFromGitHub {
     owner = "RfidResearchGroup";
     repo = "ChameleonUltra";
-    rev = "303d2d31e10b0b57c6181f7396706a23d54b72d7";
+    rev = "0bc01512ab14dd30a5b4711cc97f726a72fdd5cd";
     sparseCheckout = [ "software" ];
-    hash = "sha256-v7So6zEfoNt7wRnK+NueGeGUDep+VR6ImTmBSH36fYE=";
+    hash = "sha256-fRI2ZAeKLv8mIpEWolwR+DwisXwTYB5d5foG1h6HJgU=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/software";
 
-  patches = [
-    # Fix when the dir conatains hardnested is read only
-    # https://github.com/RfidResearchGroup/ChameleonUltra/pull/261
-    (fetchpatch {
-      url = "https://github.com/RfidResearchGroup/ChameleonUltra/commit/af8aa0146941b1e2e516b26da93739a86a083237.patch";
-      hash = "sha256-+VJT1LyxZv15xJr6XRzGYYib1DfOADtcp7K4kpKuxn0=";
-      stripLen = 1;
-    })
-  ];
+  postPatch = ''
+    substituteInPlace src/CMakeLists.txt \
+      --replace-fail "liblzma" "lzma" \
+      --replace-fail "FetchContent_MakeAvailable(xz)" "find_package(liblzma REQUIRED)"
+  '';
 
   nativeBuildInputs = [
     cmake
     makeWrapper
+  ];
+
+  buildInputs = [
+    xz
   ];
 
   cmakeFlags = [
