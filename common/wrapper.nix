@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   pkgs,
@@ -6,7 +7,6 @@
 }:
 
 let
-  inputs = import ../inputs;
   wrapper-manager = import inputs.wrapper-manager;
 in
 
