@@ -226,19 +226,6 @@
       "revision": "c9d477b5d5bd7f26adddd3f96cfd6a904768d4f9",
       "url": "https://github.com/numtide/treefmt-nix/archive/c9d477b5d5bd7f26adddd3f96cfd6a904768d4f9.tar.gz",
       "hash": "00r32ba0idap6bd1sclyl8jkvvr601ip3rrcz3x0y0xzhczvpnfp"
-    },
-    "wrapper-manager": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "viperML",
-        "repo": "wrapper-manager"
-      },
-      "branch": "master",
-      "submodules": false,
-      "revision": "8ad2484b485acad0632cb0af15b5eb704e3c1d0a",
-      "url": "https://github.com/viperML/wrapper-manager/archive/8ad2484b485acad0632cb0af15b5eb704e3c1d0a.tar.gz",
-      "hash": "11kcrkrnajzbhbyg5w2jhy5h5dw3ffn604pm37ikyird5z2r37cy"
     }
   },
   "version": 5

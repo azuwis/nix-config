@@ -13,7 +13,6 @@ in
 {
   imports = [
     (lib.mkAliasOptionModule [ "hm" ] [ "home-manager" "users" config.my.user ])
-    ./wrapper.nix
   ] ++ getModules [ ./. ];
 
   _module.args.inputs = inputs;
@@ -26,4 +25,5 @@ in
   # home-manager.useUserPackages = true;
 
   programs.yazi.enable = true;
+  wrappers.jujutsu.enable = true;
 }
