@@ -12,6 +12,7 @@ let
     mkIf
     mkMerge
     mkOption
+    optionalAttrs
     ;
   cfg = config.wrappers.jujutsu;
   tomlFormat = pkgs.formats.toml { };
@@ -31,7 +32,13 @@ in
     environment.systemPackages = [
       (pkgs.wrapper {
         package = pkgs.jujutsu;
-        env.JJ_CONFIG = tomlFormat.generate "jujutsu-config.toml" cfg.settings;
+        env =
+          {
+            JJ_CONFIG = tomlFormat.generate "jujutsu-config.toml" cfg.settings;
+          }
+          // optionalAttrs config.wrappers.git.enable {
+            GIT_CONFIG_GLOBAL = config.wrappers.git.configFile;
+          };
       })
     ];
 

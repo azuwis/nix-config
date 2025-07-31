@@ -73,6 +73,14 @@ in
         '';
       };
 
+      configFile = lib.mkOption {
+        type = lib.types.package;
+        readOnly = true;
+        default = pkgs.writeText "git-config-global" (
+          lib.concatMapStringsSep "\n" lib.generators.toGitINI cfg.config
+        );
+      };
+
       lfs = {
         enable = lib.mkEnableOption "git-lfs (Large File Storage)";
 
@@ -88,9 +96,7 @@ in
       environment.systemPackages = [
         (pkgs.wrapper {
           package = cfg.package;
-          env.GIT_CONFIG_GLOBAL = pkgs.writeText "git-config-global" (
-            lib.concatMapStringsSep "\n" lib.generators.toGitINI cfg.config
-          );
+          env.GIT_CONFIG_GLOBAL = cfg.configFile;
         })
       ];
     })
