@@ -26,4 +26,5 @@ in
 
   programs.yazi.enable = true;
   wrappers.jujutsu.enable = true;
+  wrappers.git.enable = true;
 }

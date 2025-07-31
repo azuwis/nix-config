@@ -7,24 +7,20 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.git;
+  cfg = config.wrappers.git;
   scripts = ./scripts;
 in
 {
-  options.my.git = {
-    enable = mkEnableOption "git";
-  };
+  imports = [ ./impl.nix ];
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
+    environment.systemPackages = with pkgs; [
       git-crypt
       git-remote-gcrypt
     ];
-    programs.git = {
-      enable = true;
-      userEmail = config.my.email;
-      userName = config.my.name;
-      aliases = {
+    wrappers.git.config = {
+      user = { inherit (config.my) email name; };
+      alias = {
         br = "branch";
         ci = "commit";
         co = "checkout";
@@ -39,31 +35,29 @@ in
         st = "status";
         rewind = "!f() { git update-ref refs/heads/$1 \${2:-HEAD}; }; f";
       };
-      ignores = [
-        ".*.sw?"
-        ".direnv/"
-        ".envrc"
-      ];
-      extraConfig = {
-        rebase = {
-          autosquash = true;
-          autostash = true;
-          stat = true;
+      core.excludesFile = pkgs.writeText "git-excludes-file" ''
+        .*.sw?
+        .direnv/
+        .envrc
+      '';
+      rebase = {
+        autosquash = true;
+        autostash = true;
+        stat = true;
+      };
+      rerere = {
+        autoupdate = true;
+        enabled = true;
+      };
+      status = {
+        submoduleSummary = true;
+      };
+      url = {
+        "ssh://git@github.com:22/" = {
+          pushInsteadOf = "https://github.com/";
         };
-        rerere = {
-          autoupdate = true;
-          enabled = true;
-        };
-        status = {
-          submoduleSummary = true;
-        };
-        url = {
-          "ssh://git@github.com:22/" = {
-            pushInsteadOf = "https://github.com/";
-          };
-          "ssh://git@codeberg.org:22/" = {
-            pushInsteadOf = "https://codeberg.org/";
-          };
+        "ssh://git@codeberg.org:22/" = {
+          pushInsteadOf = "https://codeberg.org/";
         };
       };
     };

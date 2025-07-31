@@ -20,7 +20,6 @@ in
     direnv.enable = true;
     editorconfig.enable = true;
     # helix.enable = true;
-    git.enable = true;
     # gitui.enable = true;
     neovim.enable = true;
     nix-index.enable = true;
