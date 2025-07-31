@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  wrapper,
   ...
 }:
 
@@ -30,9 +29,9 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = [
-      (wrapper {
-        basePackage = pkgs.jujutsu;
-        env.JJ_CONFIG.value = tomlFormat.generate "jujutsu-config.toml" cfg.settings;
+      (pkgs.wrapper {
+        package = pkgs.jujutsu;
+        env.JJ_CONFIG = tomlFormat.generate "jujutsu-config.toml" cfg.settings;
       })
     ];
 
