@@ -25,6 +25,7 @@ in
   # home-manager.useUserPackages = true;
 
   programs.yazi.enable = true;
+  wrappers.difftastic.enable = true;
   wrappers.jujutsu.enable = true;
   wrappers.git.enable = true;
 }

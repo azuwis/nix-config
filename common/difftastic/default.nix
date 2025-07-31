@@ -7,17 +7,17 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.difftastic;
+  cfg = config.wrappers.difftastic;
 in
 {
-  options.my.difftastic = {
+  options.wrappers.difftastic = {
     enable = mkEnableOption "difftastic";
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ pkgs.difftastic ];
-    programs.git.aliases.df = "difftool";
-    programs.git.extraConfig = {
+    environment.systemPackages = [ pkgs.difftastic ];
+    wrappers.git.config = {
+      alias.df = "difftool";
       diff.tool = "difftastic";
       difftool.prompt = false;
       difftool.difftastic = {

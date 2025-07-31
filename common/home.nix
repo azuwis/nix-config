@@ -16,7 +16,6 @@ in
   _module.args.inputs = inputs;
 
   my = {
-    difftastic.enable = true;
     direnv.enable = true;
     editorconfig.enable = true;
     # helix.enable = true;
