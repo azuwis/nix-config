@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  wrapper,
   ...
 }:
 let
@@ -62,8 +61,37 @@ let
 
   renderDefaultProfiles = profiles: renderOptions { profile = lib.concatStringsSep "," profiles; };
 
-  mpvPackage =
-    if cfg.scripts == [ ] then cfg.package else pkgs.mpv.override { inherit (cfg) scripts; };
+  mpvHome = pkgs.linkFarm "mpv-home" (
+    {
+      "mpv.conf" = pkgs.writeText "mpv.conf" (
+        lib.optionalString (cfg.defaultProfiles != [ ]) (renderDefaultProfiles cfg.defaultProfiles)
+        + lib.optionalString (cfg.config != { }) (renderOptions cfg.config)
+        + lib.optionalString (cfg.profiles != { }) (renderProfiles cfg.profiles)
+        + lib.optionalString (cfg.includes != [ ]) (
+          lib.concatMapStringsSep "\n" (x: "include=${x}") cfg.includes
+        )
+      );
+      "input.conf" = pkgs.writeText "mpv-input.conf" (
+        lib.optionalString (cfg.bindings != { }) (renderBindings cfg.bindings)
+        + lib.optionalString (cfg.extraInput != "") cfg.extraInput
+      );
+    }
+    // (lib.mapAttrs' (
+      name: value:
+      lib.nameValuePair "script-opts/${name}.conf" (
+        pkgs.writeText "mpv-script-opts-${name}.conf" (renderScriptOptions value)
+      )
+    ) cfg.scriptOpts)
+  );
+
+  mpvPackage = pkgs.mpv.override {
+    inherit (cfg) scripts;
+    extraMakeWrapperArgs = [
+      "--set"
+      "MPV_HOME"
+      mpvHome
+    ];
+  };
 
 in
 {
@@ -220,33 +248,7 @@ in
       {
         wrappers.mpv.finalPackage = mpvPackage;
 
-        environment.systemPackages = [
-          (wrapper {
-            basePackage = mpvPackage;
-            env.MPV_HOME.value = pkgs.linkFarm "mpv-home" (
-              {
-                "mpv.conf" = pkgs.writeText "mpv.conf" (
-                  lib.optionalString (cfg.defaultProfiles != [ ]) (renderDefaultProfiles cfg.defaultProfiles)
-                  + lib.optionalString (cfg.config != { }) (renderOptions cfg.config)
-                  + lib.optionalString (cfg.profiles != { }) (renderProfiles cfg.profiles)
-                  + lib.optionalString (cfg.includes != [ ]) (
-                    lib.concatMapStringsSep "\n" (x: "include=${x}") cfg.includes
-                  )
-                );
-                "input.conf" = pkgs.writeText "mpv-input.conf" (
-                  lib.optionalString (cfg.bindings != { }) (renderBindings cfg.bindings)
-                  + lib.optionalString (cfg.extraInput != "") cfg.extraInput
-                );
-              }
-              // (lib.mapAttrs' (
-                name: value:
-                lib.nameValuePair "script-opts/${name}.conf" (
-                  pkgs.writeText "mpv-script-opts-${name}.conf" (renderScriptOptions value)
-                )
-              ) cfg.scriptOpts)
-            );
-          })
-        ];
+        environment.systemPackages = [ mpvPackage ];
       }
     ]
   );
