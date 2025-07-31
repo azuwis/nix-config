@@ -24,7 +24,6 @@ in
     # gitui.enable = true;
     neovim.enable = true;
     nix-index.enable = true;
-    yazi.enable = true;
     zsh.enable = true;
   };
 

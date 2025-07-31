@@ -11,7 +11,10 @@ let
 in
 
 {
-  imports = [ ../common ] ++ getModules [ ./. ];
+  imports = [
+    ../common
+    ../common/compat.nix
+  ] ++ getModules [ ./. ];
 
   hm.imports = getHmModules [ ./. ];
 
