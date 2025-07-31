@@ -7,6 +7,7 @@
 
 let
   inherit (import ../lib/my.nix) getModules;
+  inputs = import ../inputs;
 in
 
 {
@@ -15,7 +16,7 @@ in
     ./wrapper.nix
   ] ++ getModules [ ./. ];
 
-  _module.args.inputs = import ../inputs;
+  _module.args.inputs = inputs;
 
   hm.imports = [ ./home.nix ];
 

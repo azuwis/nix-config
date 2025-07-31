@@ -13,7 +13,7 @@ in
 {
   imports = getHmModules [ ./. ];
 
-  _module.args.inputs = import ../inputs;
+  _module.args.inputs = inputs;
 
   my = {
     difftastic.enable = true;
