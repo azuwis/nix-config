@@ -20,7 +20,6 @@ in
     editorconfig.enable = true;
     # helix.enable = true;
     # gitui.enable = true;
-    neovim.enable = true;
     nix-index.enable = true;
     zsh.enable = true;
   };

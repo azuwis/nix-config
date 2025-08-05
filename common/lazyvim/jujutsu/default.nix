@@ -7,16 +7,17 @@
 
 let
   inherit (lib) mkEnableOption;
-  cfg = config.my.lazyvim.jujutsu;
+  cfg = config.wrappers.lazyvim.jujutsu;
 in
 {
-  options.my.lazyvim.jujutsu = {
+  options.wrappers.lazyvim.jujutsu = {
     enable = mkEnableOption "LazyVim jujutsu support";
   };
 
   config = lib.mkIf cfg.enable {
-    my.lazyvim.extraPlugins = with pkgs.vimPlugins; [ hunk-nvim ];
-
-    xdg.configFile."nvim/lua/plugins/jujutsu.lua".source = ./spec.lua;
+    wrappers.lazyvim = {
+      extraPlugins = [ pkgs.vimPlugins.hunk-nvim ];
+      config.jujutsu = ./spec.lua;
+    };
   };
 }

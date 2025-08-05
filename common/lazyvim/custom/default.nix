@@ -7,25 +7,29 @@
 
 let
   inherit (lib) mkEnableOption;
-  cfg = config.my.lazyvim.custom;
+  cfg = config.wrappers.lazyvim.custom;
 in
 {
-  options.my.lazyvim.custom = {
+  options.wrappers.lazyvim.custom = {
     enable = mkEnableOption "LazyVim custom settings";
   };
 
   config = lib.mkIf cfg.enable {
-    my.lazyvim.extraPlugins = with pkgs.vimPlugins; [
-      {
-        name = "mini.surround";
-        path = mini-nvim;
-      }
-    ];
-
-    xdg.configFile."nvim/lua/plugins/custom.lua".source = ./spec.lua;
-    xdg.configFile."nvim/lua/config".source = ./config;
-
-    xdg.configFile."nvim/package.json".source = ./package.json;
-    xdg.configFile."nvim/snippets".source = ./snippets;
+    wrappers.lazyvim = {
+      extraPlugins = [
+        {
+          name = "mini.surround";
+          path = pkgs.vimPlugins.mini-nvim;
+        }
+      ];
+      config.custom = pkgs.replaceVarsWith {
+        src = ./spec.lua;
+        replacements = {
+          # Need to use builtins.path to force copy ./snippets to nix store
+          snippets = builtins.path { path = ./snippets; };
+        };
+      };
+      config."lua/config" = ./config;
+    };
   };
 }

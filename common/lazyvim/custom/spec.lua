@@ -85,4 +85,20 @@ return {
       max_lines = 1,
     },
   },
+
+  {
+    "saghen/blink.cmp",
+    optional = true,
+    opts = {
+      sources = {
+        providers = {
+          snippets = {
+            opts = {
+              search_paths = { "@snippets@" },
+            },
+          },
+        },
+      },
+    },
+  },
 }

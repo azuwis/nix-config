@@ -7,11 +7,11 @@
 
 let
   inherit (lib) mkEnableOption mkOption;
-  cfg = config.my.lazyvim.yaml;
+  cfg = config.wrappers.lazyvim.yaml;
   yaml = pkgs.formats.yaml { };
 in
 {
-  options.my.lazyvim.yaml = {
+  options.wrappers.lazyvim.yaml = {
     enable = mkEnableOption "LazyVim yaml support";
 
     settings = mkOption {
@@ -28,12 +28,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    programs.neovim.extraPackages = with pkgs; [ yamlfmt ];
+    wrappers.lazyvim = {
+      extraPackages = [ pkgs.yamlfmt ];
+      config.yaml = ./spec.lua;
+      treesitterParsers = [ "yaml" ];
+    };
 
-    my.neovim.treesitterParsers = [ "yaml" ];
-
-    xdg.configFile."nvim/lua/plugins/yaml.lua".source = ./spec.lua;
-
-    xdg.configFile."yamlfmt.yaml".source = yaml.generate "yamlfmt.yaml" cfg.settings;
+    # TODO: Use pkgs.wrapper
+    # xdg.configFile."yamlfmt.yaml".source = yaml.generate "yamlfmt.yaml" cfg.settings;
   };
 }

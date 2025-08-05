@@ -7,29 +7,29 @@
 
 let
   inherit (lib) mkEnableOption;
-  cfg = config.my.lazyvim.nord;
+  cfg = config.wrappers.lazyvim.nord;
 in
 {
-  options.my.lazyvim.nord = {
+  options.wrappers.lazyvim.nord = {
     enable = mkEnableOption "LazyVim nord theme";
   };
 
   config = lib.mkIf cfg.enable {
-    my.lazyvim.extraPlugins = with pkgs.vimPlugins; [
-      {
-        name = "nord.nvim";
-        path = gbprod-nord;
-      }
-    ];
-
-    my.lazyvim.excludePlugins = with pkgs.vimPlugins; [
-      {
-        name = "catppuccin";
-        path = catppuccin-nvim;
-      }
-      tokyonight-nvim
-    ];
-
-    xdg.configFile."nvim/lua/plugins/nord.lua".source = ./spec.lua;
+    wrappers.lazyvim = {
+      extraPlugins = [
+        {
+          name = "nord.nvim";
+          path = pkgs.vimPlugins.gbprod-nord;
+        }
+      ];
+      excludePlugins = with pkgs.vimPlugins; [
+        {
+          name = "catppuccin";
+          path = catppuccin-nvim;
+        }
+        tokyonight-nvim
+      ];
+      config.nord = ./spec.lua;
+    };
   };
 }

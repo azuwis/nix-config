@@ -18,7 +18,7 @@ in
 {
   imports = [
     # ./nvchad
-    ./lazyvim
+    # ./lazyvim
     # ./update-nix-fetchgit
   ];
 

@@ -7,22 +7,22 @@
 
 let
   inherit (lib) mkEnableOption;
-  cfg = config.my.lazyvim.bash;
+  cfg = config.wrappers.lazyvim.bash;
 in
 {
-  options.my.lazyvim.bash = {
+  options.wrappers.lazyvim.bash = {
     enable = mkEnableOption "LazyVim bash support";
   };
 
   config = lib.mkIf cfg.enable {
-    programs.neovim.extraPackages = with pkgs; [
-      bash-language-server
-      shellcheck
-      shfmt
-    ];
-
-    my.neovim.treesitterParsers = [ "bash" ];
-
-    xdg.configFile."nvim/lua/plugins/bash.lua".source = ./spec.lua;
+    wrappers.lazyvim = {
+      extraPackages = with pkgs; [
+        bash-language-server
+        shellcheck
+        shfmt
+      ];
+      config.bash = ./spec.lua;
+      treesitterParsers = [ "bash" ];
+    };
   };
 }

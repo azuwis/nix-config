@@ -7,18 +7,18 @@
 
 let
   inherit (lib) mkEnableOption;
-  cfg = config.my.lazyvim.helm;
+  cfg = config.wrappers.lazyvim.helm;
 in
 {
-  options.my.lazyvim.helm = {
+  options.wrappers.lazyvim.helm = {
     enable = mkEnableOption "LazyVim helm support";
   };
 
   config = lib.mkIf cfg.enable {
-    my.lazyvim.extraPlugins = with pkgs.vimPlugins; [ vim-helm ];
-
-    programs.neovim.extraPackages = with pkgs; [ helm-ls ];
-
-    xdg.configFile."nvim/lua/plugins/helm.lua".source = ./spec.lua;
+    wrappers.lazyvim = {
+      extraPackages = [ pkgs.helm-ls ];
+      extraPlugins = [ pkgs.vimPlugins.vim-helm ];
+      config.helm = ./spec.lua;
+    };
   };
 }

@@ -7,21 +7,21 @@
 
 let
   inherit (lib) mkEnableOption;
-  cfg = config.my.lazyvim.nix;
+  cfg = config.wrappers.lazyvim.nix;
 in
 {
-  options.my.lazyvim.nix = {
+  options.wrappers.lazyvim.nix = {
     enable = mkEnableOption "LazyVim nix support";
   };
 
   config = lib.mkIf cfg.enable {
-    programs.neovim.extraPackages = with pkgs; [
-      nixd
-      nixfmt-rfc-style
-    ];
-
-    my.neovim.treesitterParsers = [ "nix" ];
-
-    xdg.configFile."nvim/lua/plugins/nix.lua".source = ./spec.lua;
+    wrappers.lazyvim = {
+      extraPackages = with pkgs; [
+        nixd
+        nixfmt-rfc-style
+      ];
+      config.nix = ./spec.lua;
+      treesitterParsers = [ "nix" ];
+    };
   };
 }

@@ -7,23 +7,23 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.lazyvim.mini-files;
+  cfg = config.wrappers.lazyvim.mini-files;
 in
 {
-  options.my.lazyvim.mini-files = {
+  options.wrappers.lazyvim.mini-files = {
     enable = mkEnableOption "LazyVim mini-files support";
   };
 
   config = mkIf cfg.enable {
-    my.lazyvim.extraPlugins = with pkgs.vimPlugins; [
-      {
-        name = "mini.files";
-        path = mini-nvim;
-      }
-    ];
-
-    my.lazyvim.excludePlugins = with pkgs.vimPlugins; [ neo-tree-nvim ];
-
-    xdg.configFile."nvim/lua/plugins/mini-files.lua".source = ./spec.lua;
+    wrappers.lazyvim = {
+      extraPlugins = [
+        {
+          name = "mini.files";
+          path = pkgs.vimPlugins.mini-nvim;
+        }
+      ];
+      excludePlugins = [ pkgs.vimPlugins.neo-tree-nvim ];
+      config.mini-files = ./spec.lua;
+    };
   };
 }

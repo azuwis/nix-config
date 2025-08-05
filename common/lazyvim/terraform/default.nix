@@ -7,18 +7,19 @@
 
 let
   inherit (lib) mkEnableOption;
-  cfg = config.my.lazyvim.terraform;
+  cfg = config.wrappers.lazyvim.terraform;
 in
 {
-  options.my.lazyvim.terraform = {
+  options.wrappers.lazyvim.terraform = {
     enable = mkEnableOption "LazyVim terraform support";
   };
 
   config = lib.mkIf cfg.enable {
-    programs.neovim.extraPackages = with pkgs; [ terraform-ls ];
 
-    my.neovim.treesitterParsers = [ "hcl" ];
-
-    xdg.configFile."nvim/lua/plugins/terraform.lua".source = ./spec.lua;
+    wrappers.lazyvim = {
+      extraPackages = [ pkgs.terraform-ls ];
+      config.terraform = ./spec.lua;
+      treesitterParsers = [ "hcl" ];
+    };
   };
 }

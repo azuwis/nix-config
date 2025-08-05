@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 lazy_plugins() {
-  nvim --headless -c ':lua for _, plugin in ipairs(require("lazy").plugins()) do print(plugin.name) end' -c 'q' 2>&1 | grep -vxF 'lazy.nvim' | sort
+  nvim --headless -c ':lua for _, plugin in ipairs(require("lazy").plugins()) do if plugin.name ~= "lazy.nvim" then print(plugin.name) end end' -c 'q' 2>&1 | sort
 }
 
 nix_plugins() {
-  dir=$(awk -F'"' '/path = / {print $2}' ~/.config/nvim/init.lua)
+  dir=$(awk -F'"' '/path = / {print $2}' "$(awk '/exec/ {print $4}' "$(command -v nvim)")")
   ls -1 "$dir" | sort
 }
 
