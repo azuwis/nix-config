@@ -209,17 +209,24 @@ in
                 spec = {
                   { "LazyVim/LazyVim", import = "lazyvim.plugins" },
                   -- The following configs are needed for fixing lazyvim on nix
-                  -- disable mason.nvim, use programs.neovim.extraPackages
+                  -- Disable mason.nvim, use wrappers.lazyvim.extraPackages
                   { "williamboman/mason-lspconfig.nvim", enabled = false },
                   { "williamboman/mason.nvim", enabled = false },
                   -- import/override with your plugins
                   { import = "plugins" },
-                  -- treesitter handled by wrappers.lazyvim.treesitterParsers, put this line at the end of spec to clear ensure_installed
-                  { "nvim-treesitter/nvim-treesitter", opts = function(_, opts) opts.ensure_installed = {} end },
+                  -- Treesitter parsers handled by wrappers.lazyvim.treesitterParsers,
+                  -- put this line at the end of spec to clear ensure_installed
+                  {
+                    "nvim-treesitter/nvim-treesitter",
+                    opts = function(_, opts)
+                      opts.ensure_installed = {}
+                    end,
+                  },
                 },
                 performance = {
                   rtp = {
-                    -- Needed for [lazyvim config](https://www.lazyvim.org/configuration/general) and treesitter parsers
+                    -- Needed for [lazyvim config](https://www.lazyvim.org/configuration/general)
+                    -- and treesitter parsers
                     paths = { "${lazyvimConfig}" },
                   },
                 },
