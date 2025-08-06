@@ -173,7 +173,7 @@ in
                 ++ [
                   {
                     name = "parser";
-                    path = treesitterParsers;
+                    path = "${treesitterParsers}/parser";
                   }
                 ]
               );
