@@ -2,6 +2,17 @@ return {
   { import = "lazyvim.plugins.extras.coding.mini-surround" },
 
   {
+    "LazyVim/LazyVim",
+    opts = {
+      news = {
+        -- Disable news and welcome message, lazyvim shows welcome message every
+        -- run when ~/.config/nvim does not exist
+        lazyvim = false,
+      },
+    },
+  },
+
+  {
     "folke/snacks.nvim",
     opts = {
       dashboard = {
