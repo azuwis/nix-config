@@ -136,6 +136,9 @@ in
         lua-language-server
         stylua
         vscode-langservers-extracted
+        # fzf-lua
+        fd
+        fzf
         ripgrep
       ];
 
