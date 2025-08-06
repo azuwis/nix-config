@@ -173,12 +173,6 @@ in
                   name = if (lib.hasSuffix ".lua" value) then "lua/plugins/${name}.lua" else name;
                   path = value;
                 }) cfg.config
-                ++ [
-                  {
-                    name = "parser";
-                    path = "${treesitterParsers}/parser";
-                  }
-                ]
               );
               treesitterParsers = pkgs.symlinkJoin {
                 name = "treesitter-parsers";
@@ -227,7 +221,10 @@ in
                   rtp = {
                     -- Needed for [lazyvim config](https://www.lazyvim.org/configuration/general)
                     -- and treesitter parsers
-                    paths = { "${lazyvimConfig}" },
+                    paths = {
+                      "${lazyvimConfig}",
+                      "${treesitterParsers}",
+                    },
                   },
                 },
               })
