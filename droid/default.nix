@@ -13,6 +13,7 @@ in
 {
   imports = [
     ../common
+    ../common/home-manager.nix
   ] ++ getModules [ ./. ];
 
   hm.imports = getHmModules [ ./. ];

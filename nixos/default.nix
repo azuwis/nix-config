@@ -27,6 +27,7 @@ in
     (inputs.disko.outPath + "/module.nix")
     (inputs.home-manager.outPath + "/nixos")
     ../common
+    ../common/home-manager.nix
   ] ++ getModules [ ./. ];
 
   hm.imports = getHmModules [ ./. ];

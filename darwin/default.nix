@@ -15,6 +15,7 @@ in
     (inputs.agenix.outPath + "/modules/age.nix")
     (inputs.home-manager.outPath + "/nix-darwin")
     ../common
+    ../common/home-manager.nix
   ] ++ getModules [ ./. ];
 
   hm.imports = [ ./home.nix ];
