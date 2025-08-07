@@ -13,7 +13,6 @@ in
 {
   imports = [
     ../common
-    ../common/compat.nix
   ] ++ getModules [ ./. ];
 
   hm.imports = getHmModules [ ./. ];
