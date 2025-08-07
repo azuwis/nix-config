@@ -16,6 +16,9 @@ in
     (inputs.home-manager.outPath + "/nix-darwin")
     ../common
     ../common/home-manager.nix
+    ../common/nixpkgs
+    ../common/registry
+    ../common/system
   ] ++ getModules [ ./. ];
 
   hm.imports = [ ./home.nix ];

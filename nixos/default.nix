@@ -28,6 +28,9 @@ in
     (inputs.home-manager.outPath + "/nixos")
     ../common
     ../common/home-manager.nix
+    ../common/nixpkgs
+    ../common/registry
+    ../common/system
   ] ++ getModules [ ./. ];
 
   hm.imports = getHmModules [ ./. ];

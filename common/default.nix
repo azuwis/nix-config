@@ -6,12 +6,21 @@
 }:
 
 let
-  inherit (import ../lib/my.nix) getModules;
   inputs = import ../inputs;
 in
 
 {
-  imports = getModules [ ./. ];
+  imports = [
+    ./difftastic
+    ./git
+    ./jujutsu
+    ./lazyvim
+    ./less
+    ./mpv
+    ./my
+    ./packages
+    ./yazi
+  ];
 
   _module.args.inputs = inputs;
 
