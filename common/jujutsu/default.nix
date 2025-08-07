@@ -22,6 +22,11 @@ in
   options.wrappers.jujutsu = {
     enable = mkEnableOption "jujutsu";
 
+    finalPackage = mkOption {
+      type = lib.types.package;
+      readOnly = true;
+    };
+
     settings = mkOption {
       type = tomlFormat.type;
       default = { };
@@ -29,18 +34,18 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [
-      (pkgs.wrapper {
-        package = pkgs.jujutsu;
-        env =
-          {
-            JJ_CONFIG = tomlFormat.generate "jujutsu-config.toml" cfg.settings;
-          }
-          // optionalAttrs config.wrappers.git.enable {
-            GIT_CONFIG_GLOBAL = config.wrappers.git.configFile;
-          };
-      })
-    ];
+    environment.systemPackages = [ cfg.finalPackage ];
+
+    wrappers.jujutsu.finalPackage = pkgs.wrapper {
+      package = pkgs.jujutsu;
+      env =
+        {
+          JJ_CONFIG = tomlFormat.generate "jujutsu-config.toml" cfg.settings;
+        }
+        // optionalAttrs config.wrappers.git.enable {
+          GIT_CONFIG_GLOBAL = config.wrappers.git.configFile;
+        };
+    };
 
     wrappers.jujutsu.settings = mkMerge [
       (importTOML ./config.toml)
