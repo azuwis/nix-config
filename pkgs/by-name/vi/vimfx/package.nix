@@ -2,10 +2,10 @@
 
 buildFirefoxXpiAddon rec {
   pname = "vimfx";
-  version = "0.27.4";
+  version = "0.27.5";
   addonId = "VimFx-unlisted@akhodakivskiy.github.com";
   url = "https://github.com/akhodakivskiy/VimFx/releases/download/v${version}/VimFx.xpi";
-  sha256 = "sha256-X9Ax7H0UYk+WGz362dSHCrAXBDmC0/rWjqppHywj/zE=";
+  sha256 = "sha256-j/vO197mWo0r++4N1KqlHMHnnEn6meuz1Fx94A/L3W4=";
   passthru.updateScript = nix-update-script {
     extraArgs = [
       "--override-filename"
