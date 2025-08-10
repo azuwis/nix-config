@@ -9,7 +9,12 @@ get_wifi() {
   done < <(ipconfig getsummary en0)
   if [ -n "$WIFI_LABEL" ]; then
     WIFI_ICON="󰖩"
-    WIFI_PADDING=6
+    if [ "$WIFI_LABEL" = "<redacted>" ]; then
+      WIFI_LABEL=""
+      WIFI_PADDING=0
+    else
+      WIFI_PADDING=6
+    fi
   else
     WIFI_ICON="󰖪"
     WIFI_PADDING=0
