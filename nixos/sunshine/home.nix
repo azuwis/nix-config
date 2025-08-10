@@ -120,7 +120,7 @@ in
             {
               name = "BotW";
               image-path = mkImage {
-                url = "https://assets-prd.ignimgs.com/2022/06/14/zelda-breath-of-the-wild-1655249167687.jpg";
+                url = "https://assets-prd.ignimgs.com/2022/06/14/zelda-breath-of-the-wild-1655249167687.jpg?width=600";
                 hash = "sha256-9AhOUgNuztTpqBLuvdTwLcJHEaKHc7F7YM6wzbzRDPk=";
               };
               cmd = "cemu --fullscreen --title-id 00050000101c9300";
