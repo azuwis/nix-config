@@ -13,13 +13,13 @@ let
     mkOption
     types
     ;
-  cfg = config.services.qbittorrent;
+  cfg = config.my.qbittorrent;
 
   ini = pkgs.formats.ini { };
   configFile = ini.generate "qBittorrent.conf" cfg.settings;
 in
 {
-  options.services.qbittorrent = {
+  options.my.qbittorrent = {
     enable = mkEnableOption "qbittorrent";
 
     dataDir = mkOption {
@@ -111,7 +111,7 @@ in
       '';
     };
 
-    services.qbittorrent.settings.BitTorrent."Session\\Port" = 8999;
+    my.qbittorrent.settings.BitTorrent."Session\\Port" = 8999;
     networking.firewall.allowedTCPPorts = [ cfg.settings.BitTorrent."Session\\Port" ];
   };
 }

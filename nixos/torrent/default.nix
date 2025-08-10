@@ -16,7 +16,7 @@ let
   cfg = config.my.torrent;
 
   inherit (config.my) domain;
-  port = builtins.toString config.services.qbittorrent.settings.Preferences."WebUI\\Port";
+  port = builtins.toString config.my.qbittorrent.settings.Preferences."WebUI\\Port";
 in
 {
   options.my.torrent = {
@@ -42,21 +42,21 @@ in
     users.users.${cfg.user} = {
       uid = cfg.uid;
       group = cfg.user;
-      home = config.services.qbittorrent.dataDir;
+      home = config.my.qbittorrent.dataDir;
       createHome = true;
       homeMode = "0750";
       isSystemUser = true;
     };
     users.groups.${cfg.user}.gid = cfg.uid;
     systemd.tmpfiles.rules = [
-      "a+ ${config.services.qbittorrent.dataDir} - - - - u:${config.my.user}:r-x"
+      "a+ ${config.my.qbittorrent.dataDir} - - - - u:${config.my.user}:r-x"
     ];
 
     my.torrent-ratio.enable = cfg.torrent-ratio;
-    services.qbittorrent.enable = true;
-    services.qbittorrent.user = cfg.user;
-    services.qbittorrent.group = cfg.user;
-    services.qbittorrent.settings = {
+    my.qbittorrent.enable = true;
+    my.qbittorrent.user = cfg.user;
+    my.qbittorrent.group = cfg.user;
+    my.qbittorrent.settings = {
       BitTorrent = {
         "Session\\DefaultSavePath" = cfg.DefaultSavePath;
         "Session\\DisableAutoTMMByDefault" = false;
