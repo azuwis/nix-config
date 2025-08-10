@@ -27,7 +27,7 @@
     jq
     lsof
     man
-    netcat-gnu
+    netcat
     # nix-output-monitor
     nix-tree
     npins
