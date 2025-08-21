@@ -37,7 +37,7 @@ in
         install -m 0755 ${./resolv-${cfg.implement}.sh} $out/bin/resolv
       '')
     ];
-    hm.programs.zsh.initContent = ''
+    programs.zsh.interactiveShellInit = ''
       resolv
     '';
   };

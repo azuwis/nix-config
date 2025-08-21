@@ -37,7 +37,7 @@ in
     '')
   ];
 
-  hm.programs.zsh.logoutExtra = ''
+  environment.etc.zlogout.text = ''
     [ "$TTY" = /dev/pts/0 ] && pkill sshd
   '';
 }
