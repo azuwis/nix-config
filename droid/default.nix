@@ -9,8 +9,7 @@ let
   inherit (import ../lib/my.nix) getModules;
   inherit (lib) mkAliasOptionModule;
   inputs = import ../inputs;
-  nixpkgs = inputs.nixpkgs.outPath;
-  modulesPath = nixpkgs + "/nixos/modules/";
+  modulesPath = inputs.nixpkgs.outPath + "/nixos/modules/";
 in
 
 {
@@ -25,6 +24,7 @@ in
       "programs/git.nix"
       "programs/nix-index.nix"
       "programs/xonsh.nix"
+      "programs/yazi.nix"
       "programs/zsh/zsh.nix"
     ]
     ++ [
