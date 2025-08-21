@@ -24,10 +24,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "4.6.0",
-      "revision": "a7ea27a9c81660931a9796edc63d8533dfb1da26",
-      "url": "https://api.github.com/repos/Homebrew/brew/tarball/4.6.0",
-      "hash": "1isglcy6njc1zwly43l5kcc37k99v2ax7x9n5x5mih7kp3g4xqiy"
+      "version": "4.6.4",
+      "revision": "160af073a53fcb23331d70d79785d17d13da41e7",
+      "url": "https://api.github.com/repos/Homebrew/brew/tarball/4.6.4",
+      "hash": "0k36gb1s9iqn685sm8rg4vpksiw45mnvcybdvqxs1ckviza08r3f"
     },
     "devshell": {
       "type": "Git",
@@ -67,9 +67,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "0902ee7b5e6098b5479b8c0d355665498e153fe1",
-      "url": "https://github.com/liberodark/my-flakes/archive/0902ee7b5e6098b5479b8c0d355665498e153fe1.tar.gz",
-      "hash": "0q64w9jj4lzpa88p12hddxh6ay8fgd0kaavclqdl8bmx0drgxq1n"
+      "revision": "cd243dabd9e917ff71d318835a906ca26549c349",
+      "url": "https://github.com/liberodark/my-flakes/archive/cd243dabd9e917ff71d318835a906ca26549c349.tar.gz",
+      "hash": "1fkgqcldjkqs6kd9kbkaxjz30s6yjc06c13nn2z1fmddaj7hzc7n"
     },
     "home-manager": {
       "type": "Git",
@@ -80,9 +80,9 @@
       },
       "branch": "release-25.05",
       "submodules": false,
-      "revision": "fc3add429f21450359369af74c2375cb34a2d204",
-      "url": "https://github.com/nix-community/home-manager/archive/fc3add429f21450359369af74c2375cb34a2d204.tar.gz",
-      "hash": "026rvynmzmpigax9f8gy9z67lsl6dhzv2p6s8wz4w06v3gjvspm1"
+      "revision": "4fb695d10890e9fc6a19deadf85ff79ffb78da86",
+      "url": "https://github.com/nix-community/home-manager/archive/4fb695d10890e9fc6a19deadf85ff79ffb78da86.tar.gz",
+      "hash": "1qkffckwzyx4k6ngpfzmkc8ajdr20crvzji7pmxlrccwdv73pwq8"
     },
     "homebrew-cask": {
       "type": "Git",
@@ -93,9 +93,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "55f588344cd95760079ef9c923a26c65ac642de4",
-      "url": "https://github.com/Homebrew/homebrew-cask/archive/55f588344cd95760079ef9c923a26c65ac642de4.tar.gz",
-      "hash": "1nxi33knirbpmczls3xildwl3940wjm3f7dxcdhjyqlwc07zlrbb"
+      "revision": "30b521cc784da26b780c72f4cb10a9f29f7ae8dd",
+      "url": "https://github.com/Homebrew/homebrew-cask/archive/30b521cc784da26b780c72f4cb10a9f29f7ae8dd.tar.gz",
+      "hash": "07shz85qlv4vikrf2hn8lpzw1zznz0lvi033mdh15xdn085zan3l"
     },
     "jovian-nixos": {
       "type": "Git",
@@ -158,9 +158,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "b65f8d80656f9fcbd1fecc4b7f0730f468333142",
-      "url": "https://github.com/nix-community/nix-index-database/archive/b65f8d80656f9fcbd1fecc4b7f0730f468333142.tar.gz",
-      "hash": "1pf07zklkjkn9sdrvw93036jsa161qv8p4gc4v5iam19zprwxcji"
+      "revision": "ebbc1c05f786ae39bb5e04e57bf2c10c44a649e3",
+      "url": "https://github.com/nix-community/nix-index-database/archive/ebbc1c05f786ae39bb5e04e57bf2c10c44a649e3.tar.gz",
+      "hash": "156fri66yn0zmx0s0f19l8w73j1mzwg6yqy2ydyz03v661j739j3"
     },
     "nix-on-droid": {
       "type": "Git",
@@ -184,9 +184,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "2e3b4cb2984c4c9a942d99a30605615d32dc6dc4",
-      "url": "https://github.com/astro/nix-openwrt-imagebuilder/archive/2e3b4cb2984c4c9a942d99a30605615d32dc6dc4.tar.gz",
-      "hash": "1qy204zxx9b8w0bdbbfpmrabc8fsh0x72l2qg3p8bjcrjf1vyvk8"
+      "revision": "d2f4c07ca221cc0b5a4385f2dc9af46ea88a198c",
+      "url": "https://github.com/astro/nix-openwrt-imagebuilder/archive/d2f4c07ca221cc0b5a4385f2dc9af46ea88a198c.tar.gz",
+      "hash": "1mjn588zil1ing1qaym9g1kh7gb2l2qd985yy910pyp5yvcpxlpp"
     },
     "nixos-wsl": {
       "type": "Git",
@@ -197,9 +197,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "ca55236cd9ef3cdea29b51a0b52a9402c60e9a27",
-      "url": "https://github.com/nix-community/NixOS-WSL/archive/ca55236cd9ef3cdea29b51a0b52a9402c60e9a27.tar.gz",
-      "hash": "1cc3g1af0z32q5sfcbc8gn8qyyfdj0vihiwi0ljhdk8851mw6afz"
+      "revision": "203a7b463f307c60026136dd1191d9001c43457f",
+      "url": "https://github.com/nix-community/NixOS-WSL/archive/203a7b463f307c60026136dd1191d9001c43457f.tar.gz",
+      "hash": "1vvn0xf8z9dgj8vycdlnn94v9b3jk7rp3mai36l9apvrj2x85shh"
     },
     "nixpkgs": {
       "type": "Git",
@@ -210,9 +210,9 @@
       },
       "branch": "nixos-25.05",
       "submodules": false,
-      "revision": "fc756aa6f5d3e2e5666efcf865d190701fef150a",
-      "url": "https://github.com/NixOS/nixpkgs/archive/fc756aa6f5d3e2e5666efcf865d190701fef150a.tar.gz",
-      "hash": "09s5npwi2vdi0ldkjbavfjb9lwg3x9wwrndnmbh72rbal6zjm23s"
+      "revision": "9cb344e96d5b6918e94e1bca2d9f3ea1e9615545",
+      "url": "https://github.com/NixOS/nixpkgs/archive/9cb344e96d5b6918e94e1bca2d9f3ea1e9615545.tar.gz",
+      "hash": "0q43871m2fpm4bq43r4vfjwdp6d7kj2pr6x3s2bpl9zjnv84zac0"
     },
     "treefmt-nix": {
       "type": "Git",
@@ -223,9 +223,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "1298185c05a56bff66383a20be0b41a307f52228",
-      "url": "https://github.com/numtide/treefmt-nix/archive/1298185c05a56bff66383a20be0b41a307f52228.tar.gz",
-      "hash": "01rq2lv2wir55vj7av37x4px2p80phvgf946vyg52apsxvvy1v87"
+      "revision": "7d81f6fb2e19bf84f1c65135d1060d829fae2408",
+      "url": "https://github.com/numtide/treefmt-nix/archive/7d81f6fb2e19bf84f1c65135d1060d829fae2408.tar.gz",
+      "hash": "1cg20q8ja8k2nb7mzy95hgmd8whxapc3fbyndh1ip5dr6d1grxfs"
     }
   },
   "version": 5
