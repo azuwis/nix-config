@@ -18,6 +18,7 @@ in
     ./less
     ./mpv
     ./my
+    ./nix-index
     ./packages
     ./yazi
     ./zsh
@@ -28,6 +29,7 @@ in
   programs.difftastic.enable = true;
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
+  programs.nix-index.enable = true;
   programs.git.enable = true;
   programs.yazi.enable = true;
   wrappers.jujutsu.enable = true;
