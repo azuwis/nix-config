@@ -6,7 +6,7 @@
 }:
 
 let
-  inherit (import ../lib/my.nix) getHmModules getModules;
+  inherit (import ../lib/my.nix) getModules;
   inherit (lib) mkAliasOptionModule;
   inputs = import ../inputs;
   nixpkgs = inputs.nixpkgs.outPath;
@@ -28,10 +28,8 @@ in
       "programs/zsh/zsh.nix"
     ]
     ++ [
-      (mkAliasOptionModule [ "home-manager" "users" config.my.user ] [ "home-manager" "config" ])
       (mkAliasOptionModule [ "environment" "systemPackages" ] [ "environment" "packages" ])
       ../common
-      ../common/home-manager.nix
       ../common/nixpkgs
       ../common/registry
     ]
