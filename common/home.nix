@@ -21,7 +21,6 @@ in
     # helix.enable = true;
     # gitui.enable = true;
     nix-index.enable = true;
-    zsh.enable = true;
   };
 
   # let standalone home-manager and home-manager in nixos/nix-darwin use the same derivation

@@ -115,7 +115,7 @@
     ];
     group = config.my.user;
     isNormalUser = true;
-    shell = pkgs.zsh;
+    shell = "/run/current-system/sw/bin/zsh";
     uid = config.my.uid;
     openssh.authorizedKeys.keys = config.my.keys;
   };

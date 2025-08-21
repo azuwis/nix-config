@@ -29,6 +29,5 @@
     ];
   };
   nix.package = pkgs.nix;
-  programs.zsh.enable = true;
   time.timeZone = "Asia/Shanghai";
 }

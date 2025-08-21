@@ -20,6 +20,7 @@ in
     ./my
     ./packages
     ./yazi
+    ./zsh
   ];
 
   _module.args.inputs = inputs;
@@ -41,4 +42,9 @@ in
   wrappers.lazyvim.terraform.enable = true;
   # wrappers.lazyvim.yaml.enable = true;
   # wrappers.lazyvim.update-nix-fetchgit.enable = true;
+
+  wrappers.zsh.enable = true;
+  wrappers.zsh.fzf.enable = true;
+  wrappers.zsh.pure-prompt.enable = true;
+  wrappers.zsh.zoxide.enable = true;
 }
