@@ -8,19 +8,26 @@
 let
   inherit (import ../lib/my.nix) getModules;
   inputs = import ../inputs;
+  modulesPath = inputs.nixpkgs.outPath + "/nixos/modules";
 in
 
 {
-  imports = [
-    (inputs.agenix.outPath + "/modules/age.nix")
-    (inputs.home-manager.outPath + "/nix-darwin")
-    ../common
-    ../common/home-manager.nix
-    ../common/nixpkgs
-    ../common/registry
-    ../common/system
-  ]
-  ++ getModules [ ./. ];
+  imports =
+    builtins.map (path: modulesPath + path) [
+      "/programs/command-not-found/command-not-found.nix"
+      "/programs/git.nix"
+      "/programs/yazi.nix"
+    ]
+    ++ [
+      (inputs.agenix.outPath + "/modules/age.nix")
+      (inputs.home-manager.outPath + "/nix-darwin")
+      ../common
+      ../common/home-manager.nix
+      ../common/nixpkgs
+      ../common/registry
+      ../common/system
+    ]
+    ++ getModules [ ./. ];
 
   hm.imports = [ ./home.nix ];
 
