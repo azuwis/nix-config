@@ -19,11 +19,14 @@ in
     ../common/nixpkgs
     ../common/registry
     ../common/system
-  ] ++ getModules [ ./. ];
+  ]
+  ++ getModules [ ./. ];
 
   hm.imports = [ ./home.nix ];
 
   environment.systemPackages = [ pkgs.agenix ];
+
+  programs.zsh.ssh-agent.enable = true;
 
   # See nix-darwin/flake.nix
   nixpkgs.source = inputs.nixpkgs.outPath;

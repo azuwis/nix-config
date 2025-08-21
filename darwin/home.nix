@@ -11,6 +11,4 @@ in
 
 {
   imports = getHmModules [ ./. ];
-
-  my.ssh-agent.enable = true;
 }

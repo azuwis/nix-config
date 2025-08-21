@@ -9,6 +9,7 @@
   imports = [
     ./fzf.nix
     ./pure-prompt.nix
+    ./ssh-agent.nix
     ./zoxide.nix
   ];
 

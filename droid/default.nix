@@ -37,9 +37,7 @@ in
 
   user.shell = "${pkgs.zsh}/bin/zsh";
 
-  hm.imports = getHmModules [ ./. ];
-
-  hm.my.ssh-agent.enable = true;
+  programs.zsh.ssh-agent.enable = true;
   hm.programs.zsh.logoutExtra = ''
     [ "$TTY" = /dev/pts/0 ] && [ -n "$SSH_AGENT_PID" ] && kill "$SSH_AGENT_PID"
   '';
