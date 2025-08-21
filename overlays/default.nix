@@ -89,6 +89,16 @@ in
     #     });
     #   };
 
+    # Remove when vimPlugins.grug-far-nvim updated
+    # https://github.com/NixOS/nixpkgs/issues/434296
+    vimPlugins = prev.vimPlugins // {
+      grug-far-nvim = final.neovimUtils.buildNeovimPlugin {
+        luaAttr = final.neovim-unwrapped.lua.pkgs.grug-far-nvim.overrideAttrs (old: {
+          doCheck = false;
+        });
+      };
+    };
+
     wallpapers =
       final.lib.packagesFromDirectoryRecursive {
         inherit (final) callPackage;
