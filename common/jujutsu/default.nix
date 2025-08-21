@@ -38,13 +38,12 @@ in
 
     wrappers.jujutsu.finalPackage = pkgs.wrapper {
       package = pkgs.jujutsu;
-      env =
-        {
-          JJ_CONFIG = tomlFormat.generate "jujutsu-config.toml" cfg.settings;
-        }
-        // optionalAttrs config.wrappers.git.enable {
-          GIT_CONFIG_GLOBAL = config.wrappers.git.configFile;
-        };
+      env = {
+        JJ_CONFIG = tomlFormat.generate "jujutsu-config.toml" cfg.settings;
+      }
+      // optionalAttrs config.programs.git.enable {
+        GIT_CONFIG_GLOBAL = config.environment.etc.gitconfig.source;
+      };
     };
 
     wrappers.jujutsu.settings = mkMerge [

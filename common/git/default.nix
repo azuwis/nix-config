@@ -6,19 +6,18 @@
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf;
-  cfg = config.wrappers.git;
+  inherit (lib) mkIf;
+  cfg = config.programs.git;
   scripts = ./scripts;
 in
 {
-  imports = [ ./impl.nix ];
-
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       git-crypt
       git-remote-gcrypt
     ];
-    wrappers.git.config = {
+
+    programs.git.config = {
       user = { inherit (config.my) email name; };
       alias = {
         br = "branch";

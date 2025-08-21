@@ -25,10 +25,10 @@ in
 
   _module.args.inputs = inputs;
 
+  programs.difftastic.enable = true;
+  programs.git.enable = true;
   programs.yazi.enable = true;
-  wrappers.difftastic.enable = true;
   wrappers.jujutsu.enable = true;
-  wrappers.git.enable = true;
 
   wrappers.lazyvim.enable = true;
   wrappers.lazyvim.ansible.enable = true;
