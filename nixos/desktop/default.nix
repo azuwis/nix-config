@@ -35,6 +35,10 @@ in
     };
 
     programs.gnupg.agent.enable = true;
+    programs.gnupg.agent.settings = {
+      default-cache-ttl = 14400;
+      max-cache-ttl = 14400;
+    };
     # Keyboard typing on pinentry-gnome3 stucks
     programs.gnupg.agent.pinentryPackage = pkgs.pinentry-qt;
 
