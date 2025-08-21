@@ -38,7 +38,7 @@ in
   user.shell = "${pkgs.zsh}/bin/zsh";
 
   programs.zsh.ssh-agent.enable = true;
-  hm.programs.zsh.logoutExtra = ''
+  environment.etc.zlogout.text = ''
     [ "$TTY" = /dev/pts/0 ] && [ -n "$SSH_AGENT_PID" ] && kill "$SSH_AGENT_PID"
   '';
 }
