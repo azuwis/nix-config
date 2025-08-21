@@ -15,18 +15,17 @@ in
   };
 
   config = mkIf (cfg.enable && cfg.zoxide.enable) {
+    environment.shellAliases = {
+      c = "z";
+    };
+
     environment.systemPackages = with pkgs; [
       zoxide
     ];
 
-    programs.zsh = {
-      shellAliases = {
-        c = "z";
-      };
-      interactiveShellInit = ''
-        # zoxide
-        eval "$(zoxide init zsh)"
-      '';
-    };
+    programs.zsh.interactiveShellInit = ''
+      # zoxide
+      eval "$(zoxide init zsh)"
+    '';
   };
 }
