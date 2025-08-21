@@ -38,7 +38,7 @@
       yabai -m config window_gap "$gap"
 
       yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
-      yabai -m signal --add event=system_woke action="pkill -x skhd"
+      # yabai -m signal --add event=system_woke action="pkill -x skhd"
 
       yabai -m rule --add app="^(Digital Color Meter|Finder|System Information|System Preferences|System Settings|Ryujinx|mpv)$" manage=off
       yabai -m rule --add app="^[Aa]lacritty$" title="^Fzf$" manage=off
