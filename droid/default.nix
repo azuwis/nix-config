@@ -2,53 +2,34 @@
   config,
   lib,
   pkgs,
-  home-manager-path,
   ...
 }:
 
 let
   inherit (import ../lib/my.nix) getHmModules getModules;
   inherit (lib) mkAliasOptionModule;
+  inputs = import ../inputs;
+  nixpkgs = inputs.nixpkgs.outPath;
+  modulesPath = nixpkgs + "/nixos/modules/";
 in
 
 {
-  imports = [
-    (mkAliasOptionModule
-      [
-        "home-manager"
-        "users"
-        config.my.user
-      ]
-      [
-        "home-manager"
-        "config"
-      ]
-    )
-    (mkAliasOptionModule
-      [
-        "environment"
-        "systemPackages"
-      ]
-      [
-        "environment"
-        "packages"
-      ]
-    )
-    (mkAliasOptionModule
-      [
-        "environment"
-        "variables"
-      ]
-      [
-        "environment"
-        "sessionVariables"
-      ]
-    )
-    ../common
-    ../common/home-manager.nix
-    ../common/nixpkgs
-    ../common/registry
-  ] ++ getModules [ ./. ];
+  imports =
+    builtins.map (path: modulesPath + path) [
+      "config/shells-environment.nix"
+      "misc/extra-arguments.nix"
+      "programs/git.nix"
+      "programs/zsh/zsh.nix"
+    ]
+    ++ [
+      (mkAliasOptionModule [ "home-manager" "users" config.my.user ] [ "home-manager" "config" ])
+      (mkAliasOptionModule [ "environment" "systemPackages" ] [ "environment" "packages" ])
+      ../common
+      ../common/home-manager.nix
+      ../common/nixpkgs
+      ../common/registry
+    ]
+    ++ getModules [ ./. ];
 
   user.shell = "${pkgs.zsh}/bin/zsh";
 
