@@ -18,7 +18,11 @@ in
     builtins.map (path: modulesPath + path) [
       "config/shells-environment.nix"
       "misc/extra-arguments.nix"
+      "programs/bash/bash.nix"
+      "programs/direnv.nix"
+      "programs/fish.nix"
       "programs/git.nix"
+      "programs/xonsh.nix"
       "programs/zsh/zsh.nix"
     ]
     ++ [
