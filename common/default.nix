@@ -26,6 +26,8 @@ in
   _module.args.inputs = inputs;
 
   programs.difftastic.enable = true;
+  programs.direnv.enable = true;
+  programs.direnv.nix-direnv.enable = true;
   programs.git.enable = true;
   programs.yazi.enable = true;
   wrappers.jujutsu.enable = true;
