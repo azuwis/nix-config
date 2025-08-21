@@ -24,6 +24,7 @@
       "HIST_FCNTL_LOCK"
       "HIST_IGNORE_DUPS"
       "HIST_IGNORE_SPACE"
+      "INC_APPEND_HISTORY"
       "SHARE_HISTORY"
     ];
 
