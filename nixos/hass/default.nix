@@ -25,7 +25,8 @@ in
         "text"
       ]
     )
-  ] ++ getModules [ ./. ];
+  ]
+  ++ getModules [ ./. ];
 
   options.my.hass = {
     enable = mkEnableOption "hass";

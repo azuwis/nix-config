@@ -25,18 +25,17 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     xar
     cpio
   ];
-  installPhase =
-    ''
-      xar -Oxf SF\ Symbols.pkg SFSymbols.pkg/Payload | gzip -d | cpio -i
-    ''
-    + lib.optionalString fonts ''
-      mkdir -p $out/share/fonts/truetype
-      cp ./Library/Fonts/${if full then "*" else "SF-Pro.ttf"} $out/share/fonts/truetype
-    ''
-    + lib.optionalString app ''
-      mkdir -p $out/Applications
-      cp -R ./Applications/SF\ Symbols.app $out/Applications
-    '';
+  installPhase = ''
+    xar -Oxf SF\ Symbols.pkg SFSymbols.pkg/Payload | gzip -d | cpio -i
+  ''
+  + lib.optionalString fonts ''
+    mkdir -p $out/share/fonts/truetype
+    cp ./Library/Fonts/${if full then "*" else "SF-Pro.ttf"} $out/share/fonts/truetype
+  ''
+  + lib.optionalString app ''
+    mkdir -p $out/Applications
+    cp -R ./Applications/SF\ Symbols.app $out/Applications
+  '';
 
   meta = {
     description =

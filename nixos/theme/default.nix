@@ -47,11 +47,11 @@ in
       };
     };
 
-    qt =
-      {
-        enable = true;
-      }
-      // lib.optionalAttrs
+    qt = {
+      enable = true;
+    }
+    //
+      lib.optionalAttrs
         (
           !config.services.desktopManager.plasma6.enable
           && !config.services.xserver.desktopManager.plasma5.enable

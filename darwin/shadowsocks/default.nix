@@ -78,7 +78,8 @@ in
           "-c"
           ''/bin/wait4path ${cfg.config} && exec "$@"''
           "--"
-        ] ++ cfg.programArgs;
+        ]
+        ++ cfg.programArgs;
 
         serviceConfig.UserName = cfg.user;
         serviceConfig.KeepAlive = true;

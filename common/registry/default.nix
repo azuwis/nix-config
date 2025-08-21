@@ -29,23 +29,22 @@ in
       # ${nixpkgs}/nixos/modules/config/nix-flakes.nix
       environment.etc."nix/inputs/nixpkgs".source = nixpkgs;
       nix.nixPath = [ "/etc/nix/inputs" ];
-      nix.registry =
-        {
-          n.to = {
-            id = "nixpkgs";
-            type = "indirect";
-          };
-        }
-        // lib.optionalAttrs (lib.hasPrefix "/nix/store/" nixpkgs) {
-          # Only set nixpkgs registry if in nix store
-          # When NPINS_OVERRIDE_nixpkgs is used, nixpkgs registry will be something like
-          # `path:/home/user/src/nixpkgs`, and then `nix run nixpkgs#foo` will copy the
-          # entire nixpkgs repo into nix store
-          nixpkgs.to = {
-            type = "path";
-            path = nixpkgs;
-          };
+      nix.registry = {
+        n.to = {
+          id = "nixpkgs";
+          type = "indirect";
         };
+      }
+      // lib.optionalAttrs (lib.hasPrefix "/nix/store/" nixpkgs) {
+        # Only set nixpkgs registry if in nix store
+        # When NPINS_OVERRIDE_nixpkgs is used, nixpkgs registry will be something like
+        # `path:/home/user/src/nixpkgs`, and then `nix run nixpkgs#foo` will copy the
+        # entire nixpkgs repo into nix store
+        nixpkgs.to = {
+          type = "path";
+          path = nixpkgs;
+        };
+      };
     }
   );
 }

@@ -31,7 +31,8 @@ in
     ../common/nixpkgs
     ../common/registry
     ../common/system
-  ] ++ getModules [ ./. ];
+  ]
+  ++ getModules [ ./. ];
 
   hm.imports = getHmModules [ ./. ];
 

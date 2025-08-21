@@ -40,28 +40,27 @@ in
         fontPackages = with pkgs; [ noto-fonts-cjk-sans ];
         gamescopeSession = {
           enable = true;
-          args =
-            [
-              "--rt"
-              "--filter"
-              "fsr"
-              "--mangoapp"
-            ]
-            # hack to add args to steam
-            ++ [
-              "--"
-              "steam"
-              "-pipewire-dmabuf"
-              "-steamos3"
-              "-gamepadui"
-            ]
-            ++ [
-              ";"
-              "exit"
-              "$?"
-              ";"
-              "echo"
-            ];
+          args = [
+            "--rt"
+            "--filter"
+            "fsr"
+            "--mangoapp"
+          ]
+          # hack to add args to steam
+          ++ [
+            "--"
+            "steam"
+            "-pipewire-dmabuf"
+            "-steamos3"
+            "-gamepadui"
+          ]
+          ++ [
+            ";"
+            "exit"
+            "$?"
+            ";"
+            "echo"
+          ];
           env = {
             # ENABLE_GAMESCOPE_WSI = "0";
             # WLR_DRM_DEVICES = "/dev/dri/card0";

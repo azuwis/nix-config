@@ -13,7 +13,8 @@ let
       config.imports = [
         { my.nixpkgs.enable = false; }
         ../droid
-      ] ++ modules;
+      ]
+      ++ modules;
       # Prevent nix-on-droid from using <nixpkgs>, see nix-on-droid/modules/nixpkgs/config.nix
       isFlake = true;
     };

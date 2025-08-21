@@ -21,7 +21,8 @@ let
         )
         ../common/nixpkgs
         ../common/home.nix
-      ] ++ modules;
+      ]
+      ++ modules;
     };
 in
 

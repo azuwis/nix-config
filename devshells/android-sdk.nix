@@ -38,5 +38,6 @@ devshell.mkShell {
   packages = [
     androidsdk
     gradle
-  ] ++ pkgs.lib.optionals studio [ (pkgs.android-studio.withSdk androidsdk) ];
+  ]
+  ++ pkgs.lib.optionals studio [ (pkgs.android-studio.withSdk androidsdk) ];
 }

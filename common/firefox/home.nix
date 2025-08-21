@@ -32,13 +32,11 @@ let
       );
     in
     {
-      buildCommand =
-        o.buildCommand
-        + ''
-          # conflict with legacyfox
-          rm $out/lib/firefox/defaults/pref/autoconfig.js
-          lndir -silent ${pkgs.legacyfox} $out
-        '';
+      buildCommand = o.buildCommand + ''
+        # conflict with legacyfox
+        rm $out/lib/firefox/defaults/pref/autoconfig.js
+        lndir -silent ${pkgs.legacyfox} $out
+      '';
       makeWrapperArgs = o.makeWrapperArgs ++ envWrapperArgs;
     }
   );

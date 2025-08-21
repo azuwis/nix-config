@@ -101,34 +101,34 @@ let
 
   packagesJson = pkgs.writeText "packages.json" (builtins.toJSON (map packageData packages));
 
-  optionalArgs =
-    [ "--keep-going" ]
-    ++ lib.optional (max-workers != null) "--max-workers=${max-workers}"
-    ++ lib.optional (commit == "true") "--commit"
-    ++ lib.optional (skip-prompt == "true") "--skip-prompt";
+  optionalArgs = [
+    "--keep-going"
+  ]
+  ++ lib.optional (max-workers != null) "--max-workers=${max-workers}"
+  ++ lib.optional (commit == "true") "--commit"
+  ++ lib.optional (skip-prompt == "true") "--skip-prompt";
 
   args = [ packagesJson ] ++ optionalArgs;
 
 in
 pkgs.stdenv.mkDerivation {
   name = "update-script";
-  shellHook =
-    ''
-      unset shellHook # do not contaminate nested shells
-      unset TZ # retain git commit timezone
-    ''
-    + (
-      if (output-json == "true") then
-        ''
-          exec cat "${packagesJson}"
-        ''
-      else if (list-package == "true") then
-        ''
-          exec ${pkgs.jq}/bin/jq -r '.[].attrPath' "${packagesJson}"
-        ''
-      else
-        ''
-          exec ${pkgs.python3.interpreter} "${nixpkgs}/maintainers/scripts/update.py" ${builtins.concatStringsSep " " args}
-        ''
-    );
+  shellHook = ''
+    unset shellHook # do not contaminate nested shells
+    unset TZ # retain git commit timezone
+  ''
+  + (
+    if (output-json == "true") then
+      ''
+        exec cat "${packagesJson}"
+      ''
+    else if (list-package == "true") then
+      ''
+        exec ${pkgs.jq}/bin/jq -r '.[].attrPath' "${packagesJson}"
+      ''
+    else
+      ''
+        exec ${pkgs.python3.interpreter} "${nixpkgs}/maintainers/scripts/update.py" ${builtins.concatStringsSep " " args}
+      ''
+  );
 }
