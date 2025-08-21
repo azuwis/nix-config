@@ -17,6 +17,7 @@ in
     builtins.map (path: modulesPath + path) [
       "/config/shells-environment.nix"
       "/misc/extra-arguments.nix"
+      "/misc/meta.nix"
       "/programs/bash/bash.nix"
       "/programs/command-not-found/command-not-found.nix"
       "/programs/direnv.nix"
