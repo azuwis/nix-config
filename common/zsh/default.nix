@@ -36,6 +36,12 @@
       nix-shell = "nix-shell --log-format bar-with-logs";
     };
 
+    shellInit = ''
+      # Disable zsh's newuser startup script that prompts you to create
+      # a ~/.zshrc file if missing
+      zsh-newuser-install() { :; }
+    '';
+
     interactiveShellInit = ''
       ulimit -n 4096
       bindkey -e
