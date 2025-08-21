@@ -6,7 +6,7 @@
 }:
 
 {
-  home.packages = with pkgs; [
+  environment.systemPackages = with pkgs; [
     (pkgs.runCommand "telnet-0.0.0" { } ''
       mkdir -p $out/bin $out/share/man/man1/
       ln -s ${pkgs.inetutils}/bin/telnet $out/bin/
