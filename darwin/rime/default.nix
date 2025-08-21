@@ -17,6 +17,6 @@ in
   config = mkIf cfg.enable {
     hm.my.rime.enable = true;
 
-    homebrew.casks = mkIf config.homebrew.enable [ "squirrel" ];
+    homebrew.casks = mkIf config.homebrew.enable [ "squirrel-app" ];
   };
 }
