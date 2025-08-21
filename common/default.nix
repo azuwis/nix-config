@@ -43,8 +43,8 @@ in
   # wrappers.lazyvim.yaml.enable = true;
   # wrappers.lazyvim.update-nix-fetchgit.enable = true;
 
-  wrappers.zsh.enable = true;
-  wrappers.zsh.fzf.enable = true;
-  wrappers.zsh.pure-prompt.enable = true;
-  wrappers.zsh.zoxide.enable = true;
+  programs.zsh.enable = true;
+  programs.zsh.fzf.enable = true;
+  programs.zsh.pure-prompt.enable = true;
+  programs.zsh.zoxide.enable = true;
 }

@@ -7,7 +7,6 @@
 
 {
   imports = [
-    ./impl.nix
     ./fzf.nix
     ./pure-prompt.nix
     ./zoxide.nix
@@ -17,7 +16,7 @@
     zsh-completions
   ];
 
-  wrappers.zsh = {
+  programs.zsh = {
     histSize = 10000;
 
     setOptions = [

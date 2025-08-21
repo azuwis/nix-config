@@ -7,11 +7,11 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.wrappers.zsh;
+  cfg = config.programs.zsh;
 in
 {
-  options.wrappers.zsh.zoxide = {
-    enable = mkEnableOption "wrappers.zsh.zoxide";
+  options.programs.zsh.zoxide = {
+    enable = mkEnableOption "programs.zsh.zoxide";
   };
 
   config = mkIf (cfg.enable && cfg.zoxide.enable) {
@@ -19,7 +19,7 @@ in
       zoxide
     ];
 
-    wrappers.zsh = {
+    programs.zsh = {
       shellAliases = {
         c = "z";
       };

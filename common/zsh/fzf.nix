@@ -7,11 +7,11 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.wrappers.zsh;
+  cfg = config.programs.zsh;
 in
 {
-  options.wrappers.zsh.fzf = {
-    enable = mkEnableOption "wrappers.zsh.fzf";
+  options.programs.zsh.fzf = {
+    enable = mkEnableOption "programs.zsh.fzf";
   };
 
   config = mkIf (cfg.enable && cfg.fzf.enable) {
@@ -20,7 +20,7 @@ in
       fzf
     ];
 
-    wrappers.zsh.interactiveShellInit = ''
+    programs.zsh.interactiveShellInit = ''
       # fzf
       if [[ $options[zle] = on ]]; then
         eval "$(fzf --zsh)"

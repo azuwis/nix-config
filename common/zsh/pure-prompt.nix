@@ -7,15 +7,15 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.wrappers.zsh;
+  cfg = config.programs.zsh;
 in
 {
-  options.wrappers.zsh.pure-prompt = {
-    enable = mkEnableOption "wrappers.zsh.fzf";
+  options.programs.zsh.pure-prompt = {
+    enable = mkEnableOption "programs.zsh.fzf";
   };
 
   config = mkIf (cfg.enable && cfg.pure-prompt.enable) {
-    wrappers.zsh.promptInit = ''
+    programs.zsh.promptInit = ''
       # pure-prompt
       . ${pkgs.pure-prompt}/share/zsh/site-functions/async
       . ${pkgs.pure-prompt}/share/zsh/site-functions/prompt_pure_setup
