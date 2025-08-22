@@ -31,7 +31,7 @@
         "yeelink-light-panel1_mibt6379.lan" = {
           name = "Kitchen door";
         };
-        "yeelink-light-panel1_mibt813A.lan" = {
+        "yeelink-light-panel1_mibt4C93.lan" = {
           name = "Kitchen window";
         };
         "yeelink-light-panel1_mibt98B7.lan" = {
