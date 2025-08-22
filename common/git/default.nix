@@ -17,6 +17,12 @@ in
       git-remote-gcrypt
     ];
 
+    # sysconfdir is "$out/etc" on Darwin, but "/etc" on all other platforms
+    # https://github.com/NixOS/nixpkgs/issues/93784
+    environment.variables = mkIf (pkgs.stdenv.hostPlatform.isDarwin) {
+      GIT_CONFIG_GLOBAL = "/etc/gitconfig";
+    };
+
     programs.git.config = {
       user = { inherit (config.my) email name; };
       alias = {
