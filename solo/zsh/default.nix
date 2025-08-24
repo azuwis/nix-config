@@ -20,6 +20,7 @@ let
   zsh = pkgs.wrapper {
     package = pkgs.zsh;
     env.ZDOTDIR = zdotdir;
+    wrapperArgs = [ "--inherit-argv0" ];
   };
 
 in
