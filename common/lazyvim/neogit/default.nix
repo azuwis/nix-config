@@ -7,15 +7,15 @@
 
 let
   inherit (lib) mkEnableOption;
-  cfg = config.wrappers.lazyvim.neogit;
+  cfg = config.programs.lazyvim.neogit;
 in
 {
-  options.wrappers.lazyvim.neogit = {
+  options.programs.lazyvim.neogit = {
     enable = mkEnableOption "LazyVim neogit";
   };
 
   config = lib.mkIf cfg.enable {
-    wrappers.lazyvim = {
+    programs.lazyvim = {
       extraPlugins = with pkgs.vimPlugins; [
         diffview-nvim
         neogit

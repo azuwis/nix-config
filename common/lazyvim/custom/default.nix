@@ -7,15 +7,15 @@
 
 let
   inherit (lib) mkEnableOption;
-  cfg = config.wrappers.lazyvim.custom;
+  cfg = config.programs.lazyvim.custom;
 in
 {
-  options.wrappers.lazyvim.custom = {
+  options.programs.lazyvim.custom = {
     enable = mkEnableOption "LazyVim custom settings";
   };
 
   config = lib.mkIf cfg.enable {
-    wrappers.lazyvim = {
+    programs.lazyvim = {
       extraPlugins = [
         {
           name = "mini.surround";

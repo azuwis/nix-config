@@ -7,11 +7,11 @@
 
 let
   inherit (lib) mkEnableOption mkOption;
-  cfg = config.wrappers.lazyvim.yaml;
+  cfg = config.programs.lazyvim.yaml;
   yaml = pkgs.formats.yaml { };
 in
 {
-  options.wrappers.lazyvim.yaml = {
+  options.programs.lazyvim.yaml = {
     enable = mkEnableOption "LazyVim yaml support";
 
     settings = mkOption {
@@ -28,7 +28,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    wrappers.lazyvim = {
+    programs.lazyvim = {
       extraPackages = [ pkgs.yamlfmt ];
       config.yaml = ./spec.lua;
       treesitterParsers = [ "yaml" ];

@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkOption;
-  cfg = config.wrappers.lazyvim;
+  cfg = config.programs.lazyvim;
 in
 {
-  options.wrappers.lazyvim =
+  options.programs.lazyvim =
     let
       pluginsOptionType =
         let
@@ -130,7 +130,7 @@ in
     environment.systemPackages = [ cfg.finalPackage ];
     environment.variables.EDITOR = "nvim";
 
-    wrappers.lazyvim = {
+    programs.lazyvim = {
       extraPackages = with pkgs; [
         # LazyVim
         lua-language-server
@@ -203,12 +203,12 @@ in
                 spec = {
                   { "LazyVim/LazyVim", import = "lazyvim.plugins" },
                   -- The following configs are needed for fixing lazyvim on nix
-                  -- Disable mason.nvim, use wrappers.lazyvim.extraPackages
+                  -- Disable mason.nvim, use programs.lazyvim.extraPackages
                   { "williamboman/mason-lspconfig.nvim", enabled = false },
                   { "williamboman/mason.nvim", enabled = false },
                   -- import/override with your plugins
                   { import = "plugins" },
-                  -- Treesitter parsers handled by wrappers.lazyvim.treesitterParsers,
+                  -- Treesitter parsers handled by programs.lazyvim.treesitterParsers,
                   -- put this line at the end of spec to clear ensure_installed
                   {
                     "nvim-treesitter/nvim-treesitter",

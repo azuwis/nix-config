@@ -7,15 +7,15 @@
 
 let
   inherit (lib) mkEnableOption;
-  cfg = config.wrappers.lazyvim.nix;
+  cfg = config.programs.lazyvim.nix;
 in
 {
-  options.wrappers.lazyvim.nix = {
+  options.programs.lazyvim.nix = {
     enable = mkEnableOption "LazyVim nix support";
   };
 
   config = lib.mkIf cfg.enable {
-    wrappers.lazyvim = {
+    programs.lazyvim = {
       extraPackages = with pkgs; [
         nixd
         nixfmt-rfc-style

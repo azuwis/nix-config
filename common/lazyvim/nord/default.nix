@@ -7,15 +7,15 @@
 
 let
   inherit (lib) mkEnableOption;
-  cfg = config.wrappers.lazyvim.nord;
+  cfg = config.programs.lazyvim.nord;
 in
 {
-  options.wrappers.lazyvim.nord = {
+  options.programs.lazyvim.nord = {
     enable = mkEnableOption "LazyVim nord theme";
   };
 
   config = lib.mkIf cfg.enable {
-    wrappers.lazyvim = {
+    programs.lazyvim = {
       extraPlugins = [
         {
           name = "nord.nvim";

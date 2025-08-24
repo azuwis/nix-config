@@ -7,7 +7,7 @@
 
 let
   inherit (lib) mkEnableOption;
-  cfg = config.wrappers.lazyvim.update-nix-fetchgit;
+  cfg = config.programs.lazyvim.update-nix-fetchgit;
 
   update-nix-fetchgit-vim = pkgs.vimUtils.buildVimPlugin {
     pname = "update-nix-fetchgit.vim";
@@ -20,12 +20,12 @@ let
 in
 
 {
-  options.wrappers.lazyvim.update-nix-fetchgit = {
+  options.programs.lazyvim.update-nix-fetchgit = {
     enable = mkEnableOption "LazyVim update-nix-fetchgit support";
   };
 
   config = lib.mkIf cfg.enable {
-    wrappers.lazyvim = {
+    programs.lazyvim = {
       extraPackages = [ pkgs.update-nix-fetchgit ];
       extraPlugins = [ update-nix-fetchgit-vim ];
       config.update-nix-fetchgit = ./spec.lua;

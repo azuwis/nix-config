@@ -34,18 +34,18 @@ in
   programs.nix-index.enable = true;
   programs.yazi.enable = true;
 
-  wrappers.lazyvim.enable = true;
-  wrappers.lazyvim.ansible.enable = true;
-  wrappers.lazyvim.bash.enable = true;
-  wrappers.lazyvim.custom.enable = true;
-  wrappers.lazyvim.helm.enable = true;
-  wrappers.lazyvim.mini-files.enable = true;
-  wrappers.lazyvim.neogit.enable = true;
-  wrappers.lazyvim.nix.enable = true;
-  wrappers.lazyvim.nord.enable = true;
-  wrappers.lazyvim.terraform.enable = true;
-  # wrappers.lazyvim.yaml.enable = true;
-  # wrappers.lazyvim.update-nix-fetchgit.enable = true;
+  programs.lazyvim.enable = true;
+  programs.lazyvim.ansible.enable = true;
+  programs.lazyvim.bash.enable = true;
+  programs.lazyvim.custom.enable = true;
+  programs.lazyvim.helm.enable = true;
+  programs.lazyvim.mini-files.enable = true;
+  programs.lazyvim.neogit.enable = true;
+  programs.lazyvim.nix.enable = true;
+  programs.lazyvim.nord.enable = true;
+  programs.lazyvim.terraform.enable = true;
+  # programs.lazyvim.yaml.enable = true;
+  # programs.lazyvim.update-nix-fetchgit.enable = true;
 
   programs.zsh.enable = true;
   programs.zsh.fzf.enable = true;

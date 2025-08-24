@@ -7,15 +7,15 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.wrappers.lazyvim.mini-files;
+  cfg = config.programs.lazyvim.mini-files;
 in
 {
-  options.wrappers.lazyvim.mini-files = {
+  options.programs.lazyvim.mini-files = {
     enable = mkEnableOption "LazyVim mini-files support";
   };
 
   config = mkIf cfg.enable {
-    wrappers.lazyvim = {
+    programs.lazyvim = {
       extraPlugins = [
         {
           name = "mini.files";

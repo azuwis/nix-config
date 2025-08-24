@@ -7,15 +7,15 @@
 
 let
   inherit (lib) mkEnableOption;
-  cfg = config.wrappers.lazyvim.jujutsu;
+  cfg = config.programs.lazyvim.jujutsu;
 in
 {
-  options.wrappers.lazyvim.jujutsu = {
+  options.programs.lazyvim.jujutsu = {
     enable = mkEnableOption "LazyVim jujutsu support";
   };
 
   config = lib.mkIf cfg.enable {
-    wrappers.lazyvim = {
+    programs.lazyvim = {
       extraPlugins = [ pkgs.vimPlugins.hunk-nvim ];
       config.jujutsu = ./spec.lua;
     };

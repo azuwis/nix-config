@@ -7,15 +7,15 @@
 
 let
   inherit (lib) mkEnableOption;
-  cfg = config.wrappers.lazyvim.bash;
+  cfg = config.programs.lazyvim.bash;
 in
 {
-  options.wrappers.lazyvim.bash = {
+  options.programs.lazyvim.bash = {
     enable = mkEnableOption "LazyVim bash support";
   };
 
   config = lib.mkIf cfg.enable {
-    wrappers.lazyvim = {
+    programs.lazyvim = {
       extraPackages = with pkgs; [
         bash-language-server
         shellcheck

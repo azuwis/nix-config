@@ -7,16 +7,16 @@
 
 let
   inherit (lib) mkEnableOption;
-  cfg = config.wrappers.lazyvim.ansible;
+  cfg = config.programs.lazyvim.ansible;
 in
 {
-  options.wrappers.lazyvim.ansible = {
+  options.programs.lazyvim.ansible = {
     enable = mkEnableOption "LazyVim ansible support";
   };
 
   config = lib.mkIf cfg.enable {
 
-    wrappers.lazyvim = {
+    programs.lazyvim = {
       extraPackages = [ pkgs.ansible-language-server ];
       config.ansible = ./spec.lua;
       treesitterParsers = [ "yaml" ];
