@@ -10,12 +10,6 @@ let
 in
 
 devshell.mkShell {
-  env = builtins.attrValues (
-    builtins.mapAttrs (name: value: {
-      inherit name value;
-    }) eval.config.environment.variables
-  );
-
   devshell.startup.zsh.text = ''
     exec -a -zsh "${eval.config.environment.shell}/bin/zsh"
   '';
