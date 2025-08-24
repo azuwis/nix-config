@@ -14,7 +14,6 @@ in
   imports = [
     (mkAliasOptionModule [ "environment" "systemPackages" ] [ "environment" "packages" ])
     ../common
-    ../common/nixpkgs
     ../common/registry
   ]
   ++ getModules [ ./. ];

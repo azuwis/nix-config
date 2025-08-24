@@ -9,9 +9,7 @@ let
     import (inputs.nix-on-droid.outPath + "/modules") {
       pkgs = import ../pkgs { inherit system; };
       targetSystem = system;
-      home-manager-path = inputs.home-manager.outPath;
       config.imports = [
-        { my.nixpkgs.enable = false; }
         ../droid
       ]
       ++ modules;
