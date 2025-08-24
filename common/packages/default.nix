@@ -11,6 +11,7 @@
     age
     borgbackup
     bzip2
+    coreutils-full
     curl
     diffutils
     file
