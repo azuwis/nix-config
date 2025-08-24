@@ -11,6 +11,13 @@
 
 let
   hasMan = builtins.hasAttr "man" package;
+  makeWrapperArgs = lib.flatten (
+    lib.mapAttrsToList (name: value: [
+      "--set"
+      name
+      value
+    ]) env
+  );
 in
 
 runCommand package.name
@@ -43,8 +50,7 @@ runCommand package.name
         fi
       done
       exe="${lib.getExe package}"
-      makeWrapper "$exe" "$out/bin/$(basename "$exe")" \
-        ${lib.concatMapAttrsStringSep " " (name: value: "--set ${name} ${value}") env}
+      makeWrapper "$exe" "$out/bin/$(basename "$exe")" ${lib.escapeShellArgs makeWrapperArgs}
     ''
     + lib.optionalString hasMan ''
       ln -s ${package.man} "$man"
