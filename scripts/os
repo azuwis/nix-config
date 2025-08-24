@@ -57,7 +57,7 @@ run() {
   esac
   if [ -n "$package" ] && ! command -v "$command" &>/dev/null; then
     shift
-    full_command=(nix run nixpkgs#"$package" -- "$@")
+    full_command=(nix --extra-experimental-features "flakes nix-command" run nixpkgs#"$package" -- "$@")
   fi
   >&2 printf '\033[0;33m$ '
   >&2 printf '%q ' "${full_command[@]}"
@@ -226,7 +226,7 @@ flake-update() {
     fi
   fi
   if [ -n "$1" ]; then
-    url=$(nix eval --raw --file "$CONFIG/flake.nix" "inputs.$input.url")
+    url=$(nix --extra-experimental-features "flakes nix-command" eval --raw --file "$CONFIG/flake.nix" "inputs.$input.url")
     slash=${url//[^\/]/}
     if [ "${#slash}" = 1 ]; then
       url="$url/$1"
@@ -239,7 +239,7 @@ flake-update() {
     args+=(--override-input "$input" "$url")
     shift
   fi
-  run nix flake update --flake "$CONFIG" "${args[@]}" "$@"
+  run nix --extra-experimental-features "flakes nix-command" flake update --flake "$CONFIG" "${args[@]}" "$@"
 }
 
 npins-update() {
