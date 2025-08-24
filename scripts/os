@@ -57,7 +57,7 @@ run() {
   esac
   if [ -n "$package" ] && ! command -v "$command" &>/dev/null; then
     shift
-    full_command=(nix --extra-experimental-features "flakes nix-command" run nixpkgs#"$package" -- "$@")
+    full_command=(nix --extra-experimental-features nix-command run --file "$CONFIG" "$package" -- "$@")
   fi
   >&2 printf '\033[0;33m$ '
   >&2 printf '%q ' "${full_command[@]}"
