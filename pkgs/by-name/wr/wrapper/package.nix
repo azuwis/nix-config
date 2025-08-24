@@ -7,17 +7,20 @@
 {
   package,
   env ? { },
+  wrapperArgs ? [ ],
 }:
 
 let
   hasMan = builtins.hasAttr "man" package;
-  makeWrapperArgs = lib.flatten (
-    lib.mapAttrsToList (name: value: [
-      "--set"
-      name
-      value
-    ]) env
-  );
+  makeWrapperArgs =
+    lib.flatten (
+      lib.mapAttrsToList (name: value: [
+        "--set"
+        name
+        value
+      ]) env
+    )
+    ++ wrapperArgs;
 in
 
 runCommand package.name
