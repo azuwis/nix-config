@@ -33,6 +33,7 @@ in
     {
       environment.pathsToLink = [
         "/bin"
+        "/etc/profile.d"
         "/share/man"
       ];
 
@@ -44,6 +45,8 @@ in
 
         paths = cfg.systemPackages;
       };
+
+      environment.systemPackages = [ pkgs.nix ];
     }
 
     (mkIf config.programs.git.enable {
