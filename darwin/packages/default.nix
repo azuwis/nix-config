@@ -15,6 +15,7 @@
     android-file-transfer
     android-tools
     blueutil
+    coreutils-full
     daemon
     gimp
     iproute2mac

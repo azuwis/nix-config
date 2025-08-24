@@ -46,7 +46,10 @@ in
         paths = cfg.systemPackages;
       };
 
-      environment.systemPackages = [ pkgs.nix ];
+      environment.systemPackages = with pkgs; [
+        coreutils-full
+        nix
+      ];
     }
 
     (mkIf config.programs.git.enable {
