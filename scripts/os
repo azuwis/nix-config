@@ -13,8 +13,10 @@ if [ -z "$OS" ]; then
   Linux)
     if [ -d /system/app/ ] && [ -d /system/priv-app ]; then
       OS=droid
-    else
+    elif [ -e /etc/NIXOS ]; then
       OS=nixos
+    else
+      OS=solo
     fi
     ;;
   *)
@@ -106,6 +108,10 @@ build() {
       hostname=default
       ;;
     nixos) SYSTEM=$(readlink -f /run/current-system || true) ;;
+    solo)
+      SYSTEM=$(readlink -f ~/.nix-profile || true)
+      hostname=solo
+      ;;
     esac
   fi
 
@@ -113,6 +119,7 @@ build() {
   darwin) args=("darwinConfigurations.\"$hostname\".system") ;;
   droid) args=("nixOnDroidConfigurations.\"$hostname\".activationPackage") ;;
   nixos) args=("nixosConfigurations.\"$hostname\".config.system.build.toplevel") ;;
+  solo) args=("soloConfigurations.\"$hostname\".config.environment.path") ;;
   esac
 
   BUILT=$(run "${nix[@]}" "$CONFIG" --no-out-link --attr "${args[@]}" "$@")
@@ -172,6 +179,10 @@ nixos_switch() {
     "--wait"
   )
   run sudo "${cmd[@]}" "$BUILT/bin/switch-to-configuration" "$@"
+}
+
+solo_switch() {
+  run nix-env --set "$BUILT"
 }
 
 hardware() {
@@ -311,6 +322,8 @@ ci)
       --option trusted-public-keys "nix-on-droid.cachix.org-1:56snoMJTXmDRC1Ei24CmKoUqvHJ9XCp+nidK7qkMQrU=" \
       "$proot"
     OS=droid
+  elif [ "$1" = solo ]; then
+    OS=solo
   fi
   NPINS_OVERRIDE_my="$CONFIG/test" build --ci "$@"
   ;;
