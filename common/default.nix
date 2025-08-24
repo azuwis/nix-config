@@ -29,10 +29,10 @@ in
   programs.difftastic.enable = true;
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
-  programs.nix-index.enable = true;
   programs.git.enable = true;
+  programs.jujutsu.enable = true;
+  programs.nix-index.enable = true;
   programs.yazi.enable = true;
-  wrappers.jujutsu.enable = true;
 
   wrappers.lazyvim.enable = true;
   wrappers.lazyvim.ansible.enable = true;

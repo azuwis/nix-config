@@ -13,12 +13,12 @@ let
     mkMerge
     mkOption
     ;
-  cfg = config.wrappers.jujutsu;
+  cfg = config.programs.jujutsu;
   tomlFormat = pkgs.formats.toml { };
   scripts = ./scripts;
 in
 {
-  options.wrappers.jujutsu = {
+  options.programs.jujutsu = {
     enable = mkEnableOption "jujutsu";
 
     finalPackage = mkOption {
@@ -35,14 +35,14 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.finalPackage ];
 
-    wrappers.jujutsu.finalPackage = pkgs.wrapper {
+    programs.jujutsu.finalPackage = pkgs.wrapper {
       package = pkgs.jujutsu;
       env = {
         JJ_CONFIG = tomlFormat.generate "jujutsu-config.toml" cfg.settings;
       };
     };
 
-    wrappers.jujutsu.settings = mkMerge [
+    programs.jujutsu.settings = mkMerge [
       (importTOML ./config.toml)
       {
         aliases = {
