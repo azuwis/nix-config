@@ -29,6 +29,7 @@ on:
           - nuc
           - steamdeck
           - droid
+          - solo
           - wsl
           - mbp
           - all
@@ -58,6 +59,7 @@ jobs:
           - {os: macos-latest, host: nuc}
           - {os: macos-latest, host: steamdeck}
           - {os: macos-latest, host: droid}
+          - {os: macos-latest, host: solo}
           - {os: macos-latest, host: wsl}
     runs-on: ${{ matrix.os }}
     steps:
