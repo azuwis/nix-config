@@ -302,7 +302,7 @@ c) action="clean" ;;
 d) action="diff" ;;
 dg) action="direnv-gcroots" ;;
 fu) action="flake-update" ;;
-h | -h) action="help" ;;
+h | -h) action="usage" ;;
 hw) action="hardware" ;;
 l) action="list" ;;
 nu | u | update) action="npins-update" ;;
@@ -310,7 +310,7 @@ s) action="switch" ;;
 esac
 
 case "$action" in
-build | clean | hardware | flake-update | npins-update | direnv-gcroots)
+build | clean | hardware | flake-update | npins-update | direnv-gcroots | usage)
   "$action" "$@"
   ;;
 ci)
@@ -329,9 +329,6 @@ ci)
   ;;
 diff)
   build --diff "$@"
-  ;;
-help)
-  usage
   ;;
 list)
   case "$OS" in
