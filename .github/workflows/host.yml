@@ -21,7 +21,7 @@ on:
           - linux
           - darwin
           - all
-        default: linux
+        default: all
       host:
         description: Host to build
         type: choice
@@ -32,7 +32,7 @@ on:
           - wsl
           - mbp
           - all
-        default: nuc
+        default: all
 jobs:
   build:
     strategy:
