@@ -55,7 +55,7 @@ input() {
 }
 
 build() {
-  local args diff hostname nix profile
+  local args diff nix profile
 
   # nix=(nom-build)
   # https://github.com/NixOS/nix/blob/07204ff6e546c95e3b95af90078b0082cb1449fc/src/libmain/progress-bar.cc#L477-L495
@@ -72,31 +72,23 @@ build() {
   fi
 
   if [ -n "$1" ]; then
-    hostname="$1"
-    profile="$HOME/.local/state/nix/profiles/$hostname"
+    profile="$HOME/.local/state/nix/profiles/$HOSTNAME"
     SYSTEM=$(readlink -f "$profile" || true)
     shift
   else
-    hostname="$(hostname)"
     case "$OS" in
     darwin) SYSTEM=$(readlink -f /run/current-system || true) ;;
-    droid)
-      SYSTEM=$(readlink -f /nix/var/nix/profiles/nix-on-droid || true)
-      hostname=default
-      ;;
+    droid) SYSTEM=$(readlink -f /nix/var/nix/profiles/nix-on-droid || true) ;;
     nixos) SYSTEM=$(readlink -f /run/current-system || true) ;;
-    solo)
-      SYSTEM=$(readlink -f ~/.nix-profile || true)
-      hostname=solo
-      ;;
+    solo) SYSTEM=$(readlink -f ~/.nix-profile || true) ;;
     esac
   fi
 
   case "$OS" in
-  darwin) args=("darwinConfigurations.\"$hostname\".system") ;;
-  droid) args=("nixOnDroidConfigurations.\"$hostname\".activationPackage") ;;
-  nixos) args=("nixosConfigurations.\"$hostname\".config.system.build.toplevel") ;;
-  solo) args=("soloConfigurations.\"$hostname\".config.environment.path") ;;
+  darwin) args=("darwinConfigurations.\"$HOSTNAME\".system") ;;
+  droid) args=("nixOnDroidConfigurations.\"$HOSTNAME\".activationPackage") ;;
+  nixos) args=("nixosConfigurations.\"$HOSTNAME\".config.system.build.toplevel") ;;
+  solo) args=("soloConfigurations.\"$HOSTNAME\".config.environment.path") ;;
   esac
 
   BUILT=$(run "${nix[@]}" "$CONFIG" --no-out-link --attr "${args[@]}" "$@")
@@ -171,13 +163,13 @@ rebuild() {
   local cmd
   case "$OS" in
   darwin)
-    cmd=(darwin-rebuild --no-flake -I nixpkgs="$(input nixpkgs)" -I darwin="$(input nix-darwin)" -I darwin-config="$CONFIG/hosts/$(hostname).nix")
+    cmd=(darwin-rebuild --no-flake -I nixpkgs="$(input nixpkgs)" -I darwin="$(input nix-darwin)" -I darwin-config="$CONFIG/hosts/$HOSTNAME.nix")
     ;;
   droid)
     cmd=(nix-on-droid -I nixpkgs="$(input nixpkgs)" -I nix-on-droid="$(input nix-on-droid)" --file "$CONFIG/droid")
     ;;
   nixos)
-    cmd=(nixos-rebuild --no-flake --fast --use-remote-sudo --file "$CONFIG" --attr nixosConfigurations."$(hostname)")
+    cmd=(nixos-rebuild --no-flake --fast --use-remote-sudo --file "$CONFIG" --attr "nixosConfigurations.\"$HOSTNAME\"")
     ;;
   esac
   run "${cmd[@]}" "$@"
@@ -298,25 +290,32 @@ clean | hardware | flake-update | npins-update | direnv-gcroots | usage)
 esac
 
 # Variables for build
-if [ -z "$OS" ]; then
-  case "$(uname -s)" in
-  Darwin)
-    OS=darwin
-    ;;
-  Linux)
-    if [ -d /system/app/ ] && [ -d /system/priv-app ]; then
-      OS=droid
-    elif [ -e /etc/NIXOS ]; then
-      OS=nixos
-    else
-      OS=solo
-    fi
-    ;;
-  *)
-    exit 1
-    ;;
-  esac
+if { [ "$action" = build ] || [ "$action" = ci ] || [ "$action" = diff ]; } && [ "$#" -gt 0 ]; then
+  HOSTNAME="${*: -1}"
+elif [ -d /system/app/ ] && [ -d /system/priv-app ]; then
+  # nix-on-droid can not set hostname, so detect and hardcode here
+  # https://github.com/nix-community/nix-on-droid/issues/51
+  HOSTNAME=default
+else
+  HOSTNAME=$(hostname)
 fi
+
+OS=$(nix-instantiate --argstr hostname "$HOSTNAME" --argstr flakes "$CONFIG/flakes" --eval --expr '
+{ flakes, hostname }:
+let
+  attr = import flakes;
+in
+if builtins.hasAttr hostname attr.darwinConfigurations then
+  "darwin"
+else if builtins.hasAttr hostname attr.nixosConfigurations then
+  "nixos"
+else if builtins.hasAttr hostname attr.nixOnDroidConfigurations then
+  "droid"
+else
+  "solo"
+')
+OS=${OS#\"}
+OS=${OS%\"}
 
 case "$action" in
 build)
@@ -330,9 +329,6 @@ ci)
     nix-store --realise --option substituters https://nix-on-droid.cachix.org \
       --option trusted-public-keys "nix-on-droid.cachix.org-1:56snoMJTXmDRC1Ei24CmKoUqvHJ9XCp+nidK7qkMQrU=" \
       "$proot"
-    OS=droid
-  elif [ "$1" = solo ]; then
-    OS=solo
   fi
   NPINS_OVERRIDE_my="$CONFIG/test" build --ci "$@"
   ;;
