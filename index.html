@@ -83,6 +83,25 @@ d3.csv("data.csv").then(data => {
         .domain(d3.extent(processedData, d => d.time))
         .range([margin.left, width - margin.right]);
 
+    const timeSpan = xScale.domain()[1] - xScale.domain()[0];
+    const days = (timeSpan) / (1000 * 60 * 60 * 24);
+    
+    const timeFormat = (() => {
+      if (days > 60) return d3.timeFormat("%Y-%m");
+      if (days > 14) return d3.timeFormat("%m-%d");
+      if (days > 2) return d3.timeFormat("%m-%d");
+      return d3.timeFormat("%m-%d %H:%M");
+    })();
+    
+    const timeTicks = (() => {
+      if (days > 180) return d3.timeMonth.every(1);
+      if (days > 60) return d3.timeMonth.every(1);
+      if (days > 30) return d3.timeWeek.every(1);
+      if (days > 7) return d3.timeDay.every(2);
+      if (days > 3) return d3.timeDay.every(1);
+      return d3.timeHour.every(12);
+    })();
+
     const yScale = d3.scaleLinear()
         .domain([0, d3.max(longData, d => d.value)])
         .nice()
@@ -140,8 +159,8 @@ d3.csv("data.csv").then(data => {
     svg.append("g")
         .attr("transform", `translate(0,${height - margin.bottom})`)
         .call(d3.axisBottom(xScale)
-            .ticks(d3.timeDay.every(1))
-            .tickFormat(d3.timeFormat("%m-%d")))
+            .ticks(timeTicks)
+            .tickFormat(timeFormat))
         .selectAll("text")
             .style("text-anchor", "end")
             .attr("dx", "-.8em")
