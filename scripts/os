@@ -295,7 +295,7 @@ if { [ "$action" = build ] || [ "$action" = ci ] || [ "$action" = diff ]; } && [
 elif [ -d /system/app/ ] && [ -d /system/priv-app ]; then
   # nix-on-droid can not set hostname, so detect and hardcode here
   # https://github.com/nix-community/nix-on-droid/issues/51
-  HOSTNAME=default
+  HOSTNAME=droid-arm
 else
   HOSTNAME=$(hostname)
 fi
