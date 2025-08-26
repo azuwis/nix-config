@@ -22,8 +22,8 @@ in
             "$USER"
           ]
           [
-            "/Users/${config.my.user}"
-            config.my.user
+            config.system.primaryUserHome
+            config.system.primaryUser
           ]
           config.environment.systemPath;
     };
