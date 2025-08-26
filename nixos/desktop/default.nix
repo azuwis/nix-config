@@ -42,7 +42,7 @@ in
     # Keyboard typing on pinentry-gnome3 stucks
     programs.gnupg.agent.pinentryPackage = pkgs.pinentry-qt;
 
-    wrappers.mpv.enable = true;
+    programs.mpv.enable = true;
 
     hm = {
       my.firefox.enable = true;

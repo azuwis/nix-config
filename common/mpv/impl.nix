@@ -14,7 +14,7 @@ let
     ;
   inherit (builtins) typeOf stringLength;
 
-  cfg = config.wrappers.mpv;
+  cfg = config.programs.mpv;
 
   mpvOption = with types; either str (either int (either bool float));
   mpvOptionDup = with types; either mpvOption (listOf mpvOption);
@@ -96,7 +96,7 @@ let
 in
 {
   options = {
-    wrappers.mpv = {
+    programs.mpv = {
       enable = lib.mkEnableOption "mpv";
 
       package = lib.mkPackageOption pkgs "mpv" {
@@ -174,7 +174,7 @@ in
         description = ''
           Sub-configuration options for specific profiles written to
           {file}`$MPV_HOME/mpv.conf`. See
-          {option}`wrappers.mpv.config` for more information.
+          {option}`programs.mpv.config` for more information.
         '';
         type = mpvProfiles;
         default = { };
@@ -194,7 +194,7 @@ in
       defaultProfiles = mkOption {
         description = ''
           Profiles to be applied by default. Options set by them are overridden
-          by options set in [](#opt-wrappers.mpv.config).
+          by options set in [](#opt-programs.mpv.config).
         '';
         type = mpvDefaultProfiles;
         default = [ ];
@@ -241,12 +241,12 @@ in
         assertions = [
           {
             assertion = (cfg.scripts == [ ]) || (cfg.package == pkgs.mpv);
-            message = ''The wrappers.mpv "package" option is mutually exclusive with "scripts" option.'';
+            message = ''The programs.mpv "package" option is mutually exclusive with "scripts" option.'';
           }
         ];
       }
       {
-        wrappers.mpv.finalPackage = mpvPackage;
+        programs.mpv.finalPackage = mpvPackage;
 
         environment.systemPackages = [ mpvPackage ];
       }

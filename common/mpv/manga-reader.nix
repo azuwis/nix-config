@@ -7,17 +7,17 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.wrappers.mpv;
+  cfg = config.programs.mpv;
 in
 {
-  options.wrappers.mpv = {
+  options.programs.mpv = {
     manga-reader = mkEnableOption "manga-reader" // {
       default = true;
     };
   };
 
   config = mkIf (cfg.enable && cfg.manga-reader) {
-    wrappers.mpv = {
+    programs.mpv = {
       bindings = {
         M = "script-binding toggle-reader";
       };

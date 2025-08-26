@@ -7,7 +7,7 @@
 
 let
   inherit (lib) mkIf;
-  cfg = config.wrappers.mpv;
+  cfg = config.programs.mpv;
 in
 {
   imports = [
@@ -23,7 +23,7 @@ in
       yt-dlp
     ];
 
-    wrappers.mpv = {
+    programs.mpv = {
       bindings = {
         # https://github.com/mpv-player/mpv/blob/master/etc/input.conf
         R = "cycle_values window-scale 2 0.5 1"; # switch between 2x, 1/2, unresized window size

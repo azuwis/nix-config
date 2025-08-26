@@ -12,7 +12,7 @@ let
     mkOption
     types
     ;
-  cfg = config.wrappers.mpv;
+  cfg = config.programs.mpv;
 
   anime4k = pkgs.anime4k;
   profiles = {
@@ -51,7 +51,7 @@ let
   };
 in
 {
-  options.wrappers.mpv.anime4k = {
+  options.programs.mpv.anime4k = {
     enable = mkEnableOption "anime4k" // {
       default = true;
     };
@@ -65,7 +65,7 @@ in
   };
 
   config = mkIf (cfg.enable && cfg.anime4k.enable) {
-    wrappers.mpv = {
+    programs.mpv = {
       bindings = profiles.${cfg.anime4k.profile};
     };
   };

@@ -22,6 +22,6 @@ in
     # my.hammerspoon.enable = true;
     my.rime.enable = true;
 
-    wrappers.mpv.enable = true;
+    programs.mpv.enable = true;
   };
 }
