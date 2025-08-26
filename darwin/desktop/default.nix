@@ -15,13 +15,16 @@ in
   };
 
   config = mkIf cfg.enable {
-    hm.my.desktop.enable = true;
-
     # my.emacs.enable = true;
     my.firefox.enable = true;
     # my.hammerspoon.enable = true;
     my.rime.enable = true;
 
     programs.mpv.enable = true;
+
+    # Suppress login message
+    system.activationScripts.postActivation.text = ''
+      touch ${config.system.primaryUserHome}/.hushlogin
+    '';
   };
 }
