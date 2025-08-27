@@ -13,6 +13,7 @@ in
   imports = [
     ./difftastic
     ./git
+    ./home
     ./jujutsu
     ./lazyvim
     ./less
