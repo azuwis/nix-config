@@ -11,10 +11,6 @@ let
 in
 {
   config = mkIf cfg.enable {
-    home.activation.legacyfox = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      $DRY_RUN_CMD ${pkgs.rsync}/bin/rsync -a ${pkgs.legacyfox}/lib/firefox/ /Applications/Firefox.app/Contents/Resources/
-    '';
-
     programs.firefox.package = null;
   };
 }

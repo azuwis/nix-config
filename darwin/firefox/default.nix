@@ -18,5 +18,9 @@ in
     hm.my.firefox.enable = true;
 
     homebrew.casks = [ "firefox" ];
+
+    system.activationScripts.postActivation.text = ''
+      ${pkgs.rsync}/bin/rsync -a ${pkgs.legacyfox}/lib/firefox/ /Applications/Firefox.app/Contents/Resources/
+    '';
   };
 }
