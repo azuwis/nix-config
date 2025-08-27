@@ -64,5 +64,12 @@ in
         };
       }
     ];
+
+    # Use standard completions
+    # https://github.com/jj-vcs/jj/discussions/5039
+    # https://github.com/clap-rs/clap/issues/5587
+    programs.zsh.interactiveShellInit = ''
+      eval "$(jj util completion zsh)"
+    '';
   };
 }
