@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.editorconfig;
+  cfg = config.programs.editorconfig;
 in
 {
-  options.my.editorconfig = {
+  options.programs.editorconfig = {
     enable = mkEnableOption "editorconfig";
   };
 

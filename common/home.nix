@@ -16,7 +16,6 @@ in
   _module.args.inputs = inputs;
 
   my = {
-    editorconfig.enable = true;
     # helix.enable = true;
     # gitui.enable = true;
   };

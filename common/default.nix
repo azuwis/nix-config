@@ -12,6 +12,7 @@ in
 {
   imports = [
     ./difftastic
+    ./editorconfig
     ./git
     ./home
     ./jujutsu
@@ -30,6 +31,7 @@ in
   programs.difftastic.enable = true;
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
+  programs.editorconfig.enable = true;
   programs.git.enable = true;
   programs.jujutsu.enable = true;
   programs.lazyvim.ansible.enable = true;
