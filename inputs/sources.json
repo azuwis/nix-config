@@ -186,7 +186,8 @@
       "submodules": false,
       "revision": "d2f4c07ca221cc0b5a4385f2dc9af46ea88a198c",
       "url": "https://github.com/astro/nix-openwrt-imagebuilder/archive/d2f4c07ca221cc0b5a4385f2dc9af46ea88a198c.tar.gz",
-      "hash": "1mjn588zil1ing1qaym9g1kh7gb2l2qd985yy910pyp5yvcpxlpp"
+      "hash": "1mjn588zil1ing1qaym9g1kh7gb2l2qd985yy910pyp5yvcpxlpp",
+      "frozen": true
     },
     "nixos-wsl": {
       "type": "Git",
