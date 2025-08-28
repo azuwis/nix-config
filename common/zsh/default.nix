@@ -35,8 +35,8 @@
 
       interactiveShellInit = ''
         setopt EXTENDED_HISTORY HIST_FCNTL_LOCK HIST_IGNORE_DUPS HIST_IGNORE_SPACE INC_APPEND_HISTORY SHARE_HISTORY
-        SAVEHIST=10000
-        HISTSIZE=10000
+        SAVEHIST=20000
+        HISTSIZE=20000
         ulimit -n 4096
         bindkey -e
         zstyle ':completion:*' matcher-list "" 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
