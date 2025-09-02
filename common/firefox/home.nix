@@ -102,16 +102,13 @@ let
     "beacon.enabled" = false;
     "geo.enabled" = false;
     "browser.send_pings" = false;
-    "browser.fixup.alternate.enabled" = false;
     "extensions.getAddons.cache.enabled" = false;
     "media.gmp-gmpopenh264.enabled" = false;
     "media.gmp-manager.url.override" = "data:text/plain,";
-    "browser.aboutHomeSnippets.updateUrl" = "";
     "browser.search.update" = false;
     "devtools.chrome.enabled" = true;
     "network.IDN_show_punycode" = true;
     "full-screen-api.warning.timeout" = 1;
-    "browser.urlbar.oneOffSearches" = false;
     "privacy.userContext.enabled" = true;
     "privacy.userContext.ui.enabled" = true;
     "extensions.shield-recipe-client.enabled" = false;
