@@ -266,10 +266,6 @@ vimfx.addCommand({
 map(',u', 'ublock_bootstrap', true)
 
 let bootstrap = () => {
-    // whitelist frame.js in content sandbox
-    let file = getConfigFile('frame.js')
-    Preferences.set('security.sandbox.content.mac.testing_read_path1', file)
-    Preferences.set('security.sandbox.content.read_path_whitelist', file)
     // set font for different OSes
     switch (Services.appinfo.OS) {
     case 'Darwin':
@@ -279,6 +275,9 @@ let bootstrap = () => {
         Preferences.set('font.name.monospace.zh-CN', 'Consolas')
         Preferences.set('font.name.sans-serif.zh-CN', '微软雅黑')
         Preferences.set('font.name.serif.zh-CN', '微软雅黑')
+        // whitelist frame.js in content sandbox
+        let file = getConfigFile('frame.js')
+        Preferences.set('security.sandbox.content.read_path_whitelist', file)
         break
     }
     // install addons

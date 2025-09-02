@@ -129,7 +129,10 @@ let
     "sidebar.revamp" = true;
     "sidebar.verticalTabs" = true;
     # vimfx
-    "extensions.VimFx.config_file_directory" = "~/.config/vimfx";
+    # https://github.com/akhodakivskiy/VimFx/blob/master/documentation/config-file.md
+    "extensions.VimFx.config_file_directory" = "${./vimfx/config}";
+    "security.sandbox.content.mac.testing_read_path1" = "${./vimfx/config}/frame.js";
+    "security.sandbox.content.read_path_whitelist" = "${./vimfx/config}/frame.js";
     # https://github.com/akhodakivskiy/VimFx/blob/master/documentation/known-bugs.md
     "fission.bfcacheInParent" = false;
     # "fission.autostart" = false;
@@ -154,10 +157,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.activation.vimfx = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      $DRY_RUN_CMD ${pkgs.rsync}/bin/rsync -a ${./vimfx}/ ~/.config/vimfx/
-    '';
-
     # example how to set default env, but allow exported env var to override
     # my.firefox.env.GDK_BACKEND = "\${GDK_BACKEND:-x11}";
 
