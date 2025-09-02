@@ -7,7 +7,6 @@
 
 let
   inherit (lib)
-    literalExpression
     mkEnableOption
     mkIf
     mkOption
@@ -15,31 +14,38 @@ let
     ;
   cfg = config.my.firefox;
 
-  firefox = pkgs.firefox.overrideAttrs (
-    o:
-    let
-      inherit (lib)
-        filterAttrs
-        flatten
-        mapAttrsToList
-        ;
-      envWrapperArgs = flatten (
-        mapAttrsToList (name: value: [
-          "--set"
-          name
-          value
-        ]) (filterAttrs (name: value: value != null) cfg.env)
+  firefox =
+    (pkgs.firefox.override (o: {
+      extraPrefsFiles = (o.extraPrefsFiles or [ ]) ++ [ "${pkgs.legacyfox}/lib/firefox/config.js" ];
+    })).overrideAttrs
+      (
+        o:
+        let
+          inherit (lib)
+            filterAttrs
+            flatten
+            mapAttrsToList
+            ;
+          envWrapperArgs = flatten (
+            mapAttrsToList (name: value: [
+              "--set"
+              name
+              value
+            ]) (filterAttrs (name: value: value != null) cfg.env)
+          );
+        in
+        {
+          # https://github.com/girst/LegacyFox-mirror-of-git.gir.st/blob/master/defaults/pref/config-prefs.js
+          # According to the above file, the following command is needed, but VimFx works without it in real test:
+          #
+          # echo 'pref("general.config.sandbox_enabled", false);' >> "$prefsDir/autoconfig.js"
+          buildCommand = o.buildCommand + ''
+            ln -s ${pkgs.legacyfox}/lib/firefox/legacy $libDir/
+            ln -s ${pkgs.legacyfox}/lib/firefox/legacy.manifest $libDir/
+          '';
+          makeWrapperArgs = o.makeWrapperArgs ++ envWrapperArgs;
+        }
       );
-    in
-    {
-      buildCommand = o.buildCommand + ''
-        # conflict with legacyfox
-        rm $out/lib/firefox/defaults/pref/autoconfig.js
-        lndir -silent ${pkgs.legacyfox} $out
-      '';
-      makeWrapperArgs = o.makeWrapperArgs ++ envWrapperArgs;
-    }
-  );
 
   # userChrome = builtins.readFile (builtins.fetchurl {
   #   url = "https://raw.githubusercontent.com/andreasgrafen/cascade/a16181ec77da1872f102e51bcf2739c627b03a1b/userChrome.css";
