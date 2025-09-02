@@ -14,23 +14,6 @@
     visibility: hidden !important;
   }
 
-  /* https://github.com/andreasgrafen/cascade/issues/20 */
-  /* transition to oneline */
-  #nav-bar:not([customizing]){
-    margin: calc((var(--urlbar-min-height) * -1) - 8px) 100vw 0 0 !important;
-    z-index: 2 !important;
-  }
-
-  /* show nav-bar when hover */
-  #navigator-toolbox:focus-within > .browser-toolbar,
-  #nav-bar:hover {
-    margin: 0 0 0 !important;
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100%;
-  }
-
   /* remove outline and shadow of main window */
   #tabbrowser-tabbox {
     outline: inherit !important;
@@ -39,11 +22,6 @@
 
   /* remove new tab button */
   #vertical-tabs-newtab-button, #tabbrowser-arrowscrollbox-periphery {
-    display: none !important;
-  }
-
-  /* remove tabs from other deivces button */
-  moz-button[view="viewTabsSidebar"] {
     display: none !important;
   }
 

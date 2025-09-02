@@ -27,6 +27,7 @@ in
     (inputs.disko.outPath + "/module.nix")
     (inputs.home-manager.outPath + "/nixos")
     ../common
+    ../common/firefox
     ../common/home-manager.nix
     ../common/nixpkgs
     ../common/registry

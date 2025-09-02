@@ -34,6 +34,8 @@ in
       daemonIOSchedClass = "idle";
     };
 
+    programs.firefox.enable = true;
+
     programs.gnupg.agent.enable = true;
     programs.gnupg.agent.settings = {
       default-cache-ttl = 14400;
@@ -45,8 +47,6 @@ in
     programs.mpv.enable = true;
 
     hm = {
-      my.firefox.enable = true;
-
       programs.chromium.enable = true;
     };
   };
