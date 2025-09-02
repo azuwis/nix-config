@@ -100,7 +100,8 @@ in
         {
           network = {
             poll-interval = 10000;
-            content.map.conditions."state == up" = [
+            # `kind = ""` matches non-virtual interfaces
+            content.map.conditions."state == up && kind == \"\"" = [
               {
                 string = {
                   text = "";
