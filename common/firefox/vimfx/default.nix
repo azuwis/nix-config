@@ -22,6 +22,8 @@ in
         "${pkgs.legacyfox}/lib/firefox/config.js"
       ];
 
+      extensions = [ pkgs.vimfx ];
+
       # https://github.com/girst/LegacyFox-mirror-of-git.gir.st/blob/master/defaults/pref/config-prefs.js
       # According to the above file, the following command is needed, but VimFx works without it in real test:
       #
@@ -29,7 +31,6 @@ in
       extraBuildCommand = ''
         ln -s ${pkgs.legacyfox}/lib/firefox/legacy $libDir/
         ln -s ${pkgs.legacyfox}/lib/firefox/legacy.manifest $libDir/
-        ln -s "${pkgs.vimfx}/${pkgs.vimfx.extid}.xpi" "$libDir/distribution/extensions/"
       '';
 
       settings =

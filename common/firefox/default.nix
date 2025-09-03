@@ -30,6 +30,11 @@ in
       default = { };
     };
 
+    extensions = lib.mkOption {
+      type = lib.types.listOf lib.types.package;
+      default = [ ];
+    };
+
     extraBuildCommand = lib.mkOption {
       type = lib.types.lines;
       default = "";
@@ -91,6 +96,11 @@ in
               value
             ]) (lib.filterAttrs (name: value: value != null) cfg.env)
           );
+          extensionsBuildCommand = lib.concatStrings (
+            builtins.map (
+              entry: "ln -s \"${entry}/${entry.extid}.xpi\" \"$libDir/distribution/extensions/\"\n"
+            ) cfg.extensions
+          );
         in
         (pkgs.firefox.override (old: {
           # `programs.firefox.policies` generates `/etc/firefox/policies/policies.json`,
@@ -100,7 +110,7 @@ in
           extraPolicies = (old.extraPolicies or { }) // cfg.policies;
         })).overrideAttrs
           (old: {
-            buildCommand = old.buildCommand + cfg.extraBuildCommand;
+            buildCommand = old.buildCommand + cfg.extraBuildCommand + extensionsBuildCommand;
             makeWrapperArgs = old.makeWrapperArgs ++ envWrapperArgs;
           });
 
