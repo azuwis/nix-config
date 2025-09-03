@@ -207,6 +207,7 @@ in
         "browser.download.manager.showWhenStarting" = false;
         "browser.safebrowsing.enabled" = false;
         "browser.safebrowsing.malware.enabled" = false;
+        "browser.search.region" = "US";
         "browser.search.update" = false;
         "browser.sessionstore.interval" = 300000; # 300 seconds
         "browser.tabs.closeWindowWithLastTab" = false;
