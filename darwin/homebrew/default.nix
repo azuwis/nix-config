@@ -35,6 +35,8 @@ in
   homebrew = {
     enable = true;
     onActivation = {
+      # since nix-homebrew is used, and mutableTaps is disabled, autoUpdate only update index of pinned version
+      autoUpdate = true;
       cleanup = "zap";
       upgrade = true;
     };
