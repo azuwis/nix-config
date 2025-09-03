@@ -46,6 +46,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # `programs.firefox.policies` generates `/etc/firefox/policies/policies.json`,
+    # but Firefox on darwin does not read it, disable it and use `extraPolicies`
+    # to handle that, see bellow
+    environment.etc."firefox/policies/policies.json".enable = false;
+
     programs.firefox = {
       autoConfig =
         let
@@ -87,10 +92,17 @@ in
             ]) (lib.filterAttrs (name: value: value != null) cfg.env)
           );
         in
-        pkgs.firefox.overrideAttrs (old: {
-          buildCommand = old.buildCommand + cfg.extraBuildCommand;
-          makeWrapperArgs = old.makeWrapperArgs ++ envWrapperArgs;
-        });
+        (pkgs.firefox.override (old: {
+          # `programs.firefox.policies` generates `/etc/firefox/policies/policies.json`,
+          # but Firefox on darwin does not read it.
+          # Use `extraPolicies` to handle `programs.firefox.policies`, it will generate
+          # `<firefox-dir>/distribution/policies.json`, and works on all platforms
+          extraPolicies = (old.extraPolicies or { }) // cfg.policies;
+        })).overrideAttrs
+          (old: {
+            buildCommand = old.buildCommand + cfg.extraBuildCommand;
+            makeWrapperArgs = old.makeWrapperArgs ++ envWrapperArgs;
+          });
 
       # https://mozilla.github.io/policy-templates/
       # https://github.com/mozilla-firefox/firefox/blob/release/browser/components/enterprisepolicies/Policies.sys.mjs
