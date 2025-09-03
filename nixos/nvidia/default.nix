@@ -20,9 +20,7 @@ in
   options.my.nvidia = {
     enable = mkEnableOption "nvidia";
     package = mkPackageOption config.boot.kernelPackages.nvidiaPackages "latest" { };
-    firefox-fix = mkEnableOption "nvidia firefox fix" // {
-      default = true;
-    };
+    firefox-fix = mkEnableOption "nvidia firefox fix";
     nvidia-patch = mkEnableOption "nvidia-patch";
     sway-fix = mkEnableOption "nvidia sway fix" // {
       default = true;
@@ -46,12 +44,12 @@ in
       programs.sway.extraOptions = [ "--unsupported-gpu" ];
     }
 
-    (mkIf cfg.firefox-fix {
+    (mkIf (cfg.firefox-fix && config.programs.firefox.enable) {
       # https://github.com/elFarto/nvidia-vaapi-driver
       hardware.graphics.extraPackages = [ pkgs.nvidia-vaapi-driver ];
-      hm.my.firefox.env.GDK_BACKEND = null;
-      hm.my.firefox.env.MOZ_DISABLE_RDD_SANDBOX = "1";
-      hm.programs.firefox.profiles.default.settings = {
+      programs.firefox.env.GDK_BACKEND = null;
+      programs.firefox.env.MOZ_DISABLE_RDD_SANDBOX = "1";
+      programs.firefox.settings = {
         "widget.dmabuf.force-enabled" = true;
       };
     })
