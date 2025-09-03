@@ -254,6 +254,9 @@ in
         "security.dialog_enable_delay" = 0;
         "ui.caretBlinkTime" = 0; # disable cursor blinking
         "view_source.wrap_long_lines" = true;
+      }
+      // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
+        "font.name.monospace.x-western" = "Menlo";
       };
 
       style = builtins.readFile ./style.css;

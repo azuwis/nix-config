@@ -268,9 +268,6 @@ map(',u', 'ublock_bootstrap', true)
 let bootstrap = () => {
     // set font for different OSes
     switch (Services.appinfo.OS) {
-    case 'Darwin':
-        Preferences.set('font.name.monospace.x-western', 'Menlo')
-        break
     case 'WINNT':
         Preferences.set('font.name.monospace.zh-CN', 'Consolas')
         Preferences.set('font.name.sans-serif.zh-CN', '微软雅黑')
