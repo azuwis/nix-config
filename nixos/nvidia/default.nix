@@ -68,9 +68,6 @@ in
     })
 
     (mkIf (cfg.sway-fix && config.programs.sway.enable) {
-      # sway/wlroots vulkan need vulkan-validation-layers for now, may remove on later version.
-      # https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/3850
-      environment.systemPackages = [ pkgs.vulkan-validation-layers ];
       # Sway complains even nvidia GPU is only used for offload
       programs.sway.extraOptions = [ "--unsupported-gpu" ];
       # export WLR_RENDERER=vulkan
