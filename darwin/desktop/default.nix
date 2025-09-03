@@ -16,10 +16,10 @@ in
 
   config = mkIf cfg.enable {
     # my.emacs.enable = true;
-    my.firefox.enable = true;
     # my.hammerspoon.enable = true;
     my.rime.enable = true;
 
+    programs.firefox.enable = true;
     programs.mpv.enable = true;
 
     # Suppress login message
