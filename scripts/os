@@ -290,7 +290,7 @@ clean | hardware | flake-update | npins-update | direnv-gcroots | usage)
 esac
 
 # Variables for build
-if { [ "$action" = build ] || [ "$action" = ci ] || [ "$action" = diff ]; } && [ "$#" -gt 0 ]; then
+if { [ "$action" = build ] || [ "$action" = ci ] || [ "$action" = diff ] || [ "$action" = switch ]; } && [ "$#" -gt 0 ]; then
   HOSTNAME="${*: -1}"
 elif [ -d /system/app/ ] && [ -d /system/priv-app ]; then
   # nix-on-droid can not set hostname, so detect and hardcode here
@@ -350,7 +350,7 @@ list)
   rebuild "$action" "$@"
   ;;
 switch)
-  build
+  build "$@"
   if [ "$ask" = yes ]; then
     if [ "$SYSTEM" = "$BUILT" ]; then
       echoerr "Skip switch"
