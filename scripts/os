@@ -7,12 +7,12 @@ usage() {
   cmd=$(basename "$0")
   cat <<EOF
 USAGE:
-  $cmd b|build [<host>]
+  $cmd b|build [<nix-build args>] [<host>]
   $cmd c|clean
   $cmd d|diff [<host>]
   $cmd hw|hardware
   $cmd l|list
-  $cmd s|switch
+  $cmd s|switch [<host>]
   $cmd u|update|nu|npins-update [-a] [<input>] [<commit>]
   $cmd fu|flake-update [-a] [<input>] [<commit>]
   $cmd dg|direnv-gcroots
