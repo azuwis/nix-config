@@ -117,6 +117,8 @@ in
         "browser.aboutConfig.showWarning" = false;
         "browser.download.manager.showAlertOnComplete" = true;
         "browser.download.manager.showWhenStarting" = false;
+        "browser.newtabpage.activity-stream.showSponsoredCheckboxes" = false; # not covered by FirefoxHome policy
+        "browser.newtabpage.activity-stream.showWeather" = false; # not covered by FirefoxHome policy
         "browser.safebrowsing.enabled" = false;
         "browser.safebrowsing.malware.enabled" = false;
         "browser.search.region" = "US";
