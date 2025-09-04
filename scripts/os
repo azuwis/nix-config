@@ -62,10 +62,9 @@ build() {
   # blue: running, green: done, normal: expected
   nix=(nix-build --log-format bar-with-logs)
 
-  if [ -n "$1" ]; then
+  if [ "$FOROTHER" = true ]; then
     profile="$HOME/.local/state/nix/profiles/$HOSTNAME"
     SYSTEM=$(readlink -f "$profile" || true)
-    shift
   else
     case "$OS" in
     darwin) SYSTEM=$(readlink -f /run/current-system || true) ;;
@@ -96,6 +95,10 @@ build() {
   fi
 
   BUILT=$(run "${nix[@]}" "$CONFIG" --no-out-link --attr "${args[@]}" "$@")
+
+  if [ -z "$BUILT" ]; then
+    exit
+  fi
 
   if [ -n "$profile" ]; then
     nix-env --profile "$profile" --set "$BUILT"
@@ -301,8 +304,12 @@ clean | hardware | flake-update | npins-update | direnv-gcroots | usage)
 esac
 
 # Variables for build
-if { [ "$action" = build ] || [ "$action" = switch ]; } && [ "$#" -gt 0 ]; then
+if { [ "$action" = build ] || [ "$action" = switch ]; } &&
+  [ "$#" -gt 0 ] && [[ "${*: -1}" != -* ]]; then
   HOSTNAME="${*: -1}"
+  FOROTHER=true
+  # remove last arg
+  set -- "${@:1:$#-1}"
 elif [ -d /system/app/ ] && [ -d /system/priv-app ]; then
   # nix-on-droid can not set hostname, so detect and hardcode here
   # https://github.com/nix-community/nix-on-droid/issues/51
