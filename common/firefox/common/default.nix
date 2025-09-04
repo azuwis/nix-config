@@ -130,6 +130,7 @@ in
         "browser.uidensity" = 1;
         # theme
         "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
+        "layout.css.prefers-color-scheme.content-override" = 2; # websites color scheme follow theme
         # lang
         "intl.accept_languages" = "en-us,en,zh-cn,zh";
         # network
