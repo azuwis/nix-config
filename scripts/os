@@ -115,6 +115,24 @@ build() {
       fi
     fi
   fi
+
+  if [ "$SWITCH" = true ]; then
+    if [ "$ASK" = true ]; then
+      if [ "$SYSTEM" = "$BUILT" ]; then
+        echoerr "Skip switch"
+        exit
+      fi
+      read -p "Switch? [Yn]" -r answer
+      if [ -n "$answer" ] && [ "$answer" != "Y" ]; then
+        exit 1
+      fi
+    fi
+    if [ "$(type -t "${OS}_switch")" = function ]; then
+      "${OS}_switch" switch
+    else
+      rebuild switch "$@"
+    fi
+  fi
 }
 
 clean() {
@@ -267,13 +285,13 @@ if [ "$1" = dry ]; then
   shift
 fi
 
-ask=no
 action="$1"
 if [ -n "$action" ]; then
   shift
 else
-  action="switch"
-  ask=yes
+  ASK=true
+  SWITCH=true
+  action="build"
 fi
 
 case "$action" in
@@ -293,7 +311,10 @@ h | -h) action="usage" ;;
 hw) action="hardware" ;;
 l) action="list" ;;
 nu | u | update) action="npins-update" ;;
-s) action="switch" ;;
+s | switch)
+  SWITCH=true
+  action="build"
+  ;;
 esac
 
 case "$action" in
@@ -304,8 +325,7 @@ clean | hardware | flake-update | npins-update | direnv-gcroots | usage)
 esac
 
 # Variables for build
-if { [ "$action" = build ] || [ "$action" = switch ]; } &&
-  [ "$#" -gt 0 ] && [[ "${*: -1}" != -* ]]; then
+if [ "$action" = build ] && [ "$#" -gt 0 ] && [[ "${*: -1}" != -* ]]; then
   HOSTNAME="${*: -1}"
   FOROTHER=true
   # remove last arg
@@ -352,24 +372,6 @@ list)
     ;;
   esac
   rebuild "$action" "$@"
-  ;;
-switch)
-  build "$@"
-  if [ "$ask" = yes ]; then
-    if [ "$SYSTEM" = "$BUILT" ]; then
-      echoerr "Skip switch"
-      exit
-    fi
-    read -p "Switch? [Yn]" -r answer
-    if [ -n "$answer" ] && [ "$answer" != "Y" ]; then
-      exit 1
-    fi
-  fi
-  if [ "$(type -t "${OS}_switch")" = function ]; then
-    "${OS}_switch" "$action"
-  else
-    rebuild "$action" "$@"
-  fi
   ;;
 --)
   rebuild "$@"
