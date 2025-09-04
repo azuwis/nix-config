@@ -55,21 +55,12 @@ input() {
 }
 
 build() {
-  local args diff nix profile
+  local args nix profile
 
   # nix=(nom-build)
   # https://github.com/NixOS/nix/blob/07204ff6e546c95e3b95af90078b0082cb1449fc/src/libmain/progress-bar.cc#L477-L495
   # blue: running, green: done, normal: expected
   nix=(nix-build --log-format bar-with-logs)
-  if [ "$1" = "--ci" ]; then
-    nix=(nix-build)
-    shift
-  fi
-
-  if [ "$1" = "--diff" ]; then
-    diff=yes
-    shift
-  fi
 
   if [ -n "$1" ]; then
     profile="$HOME/.local/state/nix/profiles/$HOSTNAME"
@@ -91,6 +82,19 @@ build() {
   solo) args=("soloConfigurations.\"$HOSTNAME\".config.environment.path") ;;
   esac
 
+  if [ "$CI" = true ]; then
+    export NPINS_OVERRIDE_my="$CONFIG/test"
+    nix=(nix-build)
+    if [ "$HOSTNAME" = droid ]; then
+      proot=$(nix-instantiate --eval "$CONFIG" --attr nixOnDroidConfigurations.droid.config.environment.files.prootStatic.outPath)
+      proot=${proot#\"}
+      proot=${proot%\"}
+      nix-store --realise --option substituters https://nix-on-droid.cachix.org \
+        --option trusted-public-keys "nix-on-droid.cachix.org-1:56snoMJTXmDRC1Ei24CmKoUqvHJ9XCp+nidK7qkMQrU=" \
+        "$proot"
+    fi
+  fi
+
   BUILT=$(run "${nix[@]}" "$CONFIG" --no-out-link --attr "${args[@]}" "$@")
 
   if [ -n "$profile" ]; then
@@ -103,7 +107,7 @@ build() {
     else
       run nvd diff "$SYSTEM" "$BUILT"
 
-      if [ "$diff" = yes ]; then
+      if [ "$DIFF" = true ]; then
         run nix-diff --character-oriented "$SYSTEM" "$BUILT"
       fi
     fi
@@ -272,7 +276,14 @@ fi
 case "$action" in
 b) action="build" ;;
 c) action="clean" ;;
-d) action="diff" ;;
+ci)
+  CI=true
+  action="build"
+  ;;
+d | diff)
+  DIFF=true
+  action="build"
+  ;;
 dg) action="direnv-gcroots" ;;
 fu) action="flake-update" ;;
 h | -h) action="usage" ;;
@@ -290,7 +301,7 @@ clean | hardware | flake-update | npins-update | direnv-gcroots | usage)
 esac
 
 # Variables for build
-if { [ "$action" = build ] || [ "$action" = ci ] || [ "$action" = diff ] || [ "$action" = switch ]; } && [ "$#" -gt 0 ]; then
+if { [ "$action" = build ] || [ "$action" = switch ]; } && [ "$#" -gt 0 ]; then
   HOSTNAME="${*: -1}"
 elif [ -d /system/app/ ] && [ -d /system/priv-app ]; then
   # nix-on-droid can not set hostname, so detect and hardcode here
@@ -320,20 +331,6 @@ OS=${OS%\"}
 case "$action" in
 build)
   "$action" "$@"
-  ;;
-ci)
-  if [ "$1" = droid ]; then
-    proot=$(nix-instantiate --eval "$CONFIG" --attr nixOnDroidConfigurations.droid.config.environment.files.prootStatic.outPath)
-    proot=${proot#\"}
-    proot=${proot%\"}
-    nix-store --realise --option substituters https://nix-on-droid.cachix.org \
-      --option trusted-public-keys "nix-on-droid.cachix.org-1:56snoMJTXmDRC1Ei24CmKoUqvHJ9XCp+nidK7qkMQrU=" \
-      "$proot"
-  fi
-  NPINS_OVERRIDE_my="$CONFIG/test" build --ci "$@"
-  ;;
-diff)
-  build --diff "$@"
   ;;
 list)
   case "$OS" in
