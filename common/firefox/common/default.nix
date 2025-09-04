@@ -147,6 +147,8 @@ in
         "reader.font_type" = "serif";
         # scroll
         "apz.gtk.kinetic_scroll.enabled" = false;
+        "general.autoScroll" = true;
+        "general.smoothScroll" = true;
         "general.smoothScroll.mouseWheel.durationMinMS" = 100;
         "mousewheel.default.delta_multiplier_y" = 90;
         # sidebar
