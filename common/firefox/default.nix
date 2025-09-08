@@ -94,11 +94,9 @@ in
               value
             ]) (lib.filterAttrs (name: value: value != null) cfg.env)
           );
-          extensionsBuildCommand = lib.concatStrings (
-            builtins.map (
-              entry: "ln -s \"${entry}/${entry.extid}.xpi\" \"$libDir/distribution/extensions/\"\n"
-            ) cfg.extensions
-          );
+          extensionsBuildCommand = lib.concatMapStrings (
+            entry: "ln -s \"${entry}/${entry.extid}.xpi\" \"$libDir/distribution/extensions/\"\n"
+          ) cfg.extensions;
         in
         (pkgs.firefox.override (old: {
           # `programs.firefox.policies` generates `/etc/firefox/policies/policies.json`,
