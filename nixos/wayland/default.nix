@@ -76,6 +76,24 @@ in
 
       programs.foot.enable = true;
 
+      programs.fuzzel = {
+        enable = true;
+        settings = {
+          main = {
+            font = "monospace:pixelsize=20";
+            icons-enabled = false;
+            lines = 8;
+            terminal = cfg.terminal;
+          };
+          colors = {
+            background = "2e3440ff";
+            text = "d8dee9ff";
+            selection = "4c566aff";
+            selection-text = "e8dee9ff";
+          };
+        };
+      };
+
       services.greetd = {
         enable = true;
         settings = {
