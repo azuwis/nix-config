@@ -14,6 +14,10 @@ in
   config = mkIf cfg.enable (mkMerge [
     {
       hm.my.wayland.terminal = "footclient";
+      my.wayland.startup.foot = [
+        "foot"
+        "--server"
+      ];
       my.wayland.terminal = "footclient";
 
       environment.systemPackages = [
@@ -32,12 +36,6 @@ in
         theme = "nord";
       };
     }
-
-    (mkIf config.my.niri.enable {
-      my.niri.extraConfig = ''
-        spawn-at-startup "foot" "--server"
-      '';
-    })
 
     (mkIf config.my.sway.enable {
       hm.wayland.windowManager.sway.config = {
