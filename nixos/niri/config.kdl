@@ -104,12 +104,16 @@ window-rule {
 
 window-rule {
   match app-id=r#"^foot(client)?$"#
+  // Add padding
   border {
     on
     width 4
     active-color "#2e3440"
     inactive-color "#2e3440"
   }
+  // final radius = geometry-corner-radius + border, to keep final radius consistant,
+  // with global default (see first window-rule above), use `6 - 4` here
+  geometry-corner-radius 2
   default-column-width { proportion 0.66667; }
 }
 
