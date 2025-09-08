@@ -7,6 +7,7 @@
 {
   package,
   env ? { },
+  flags ? [ ],
   wrapperArgs ? [ ],
 }:
 
@@ -20,6 +21,12 @@ let
         value
       ]) env
     )
+    ++ (lib.flatten (
+      builtins.map (f: [
+        "--add-flag"
+        f
+      ]) flags
+    ))
     ++ wrapperArgs;
 in
 
