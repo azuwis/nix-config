@@ -51,7 +51,6 @@ environment {
 }
 spawn-at-startup "sh" "-c" "exec xwayland-satellite :12 2>/dev/null"
 
-spawn-at-startup "fcitx5"
 spawn-at-startup "swaybg" "--image" "@wallpaper@"
 
 prefer-no-csd
