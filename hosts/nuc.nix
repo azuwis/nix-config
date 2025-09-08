@@ -46,7 +46,7 @@
   # my.photoprism.enable = true;
   my.retroarch.enable = true;
   my.torrent.enable = true;
-  my.uxplay.enable = true;
+  # my.uxplay.enable = true;
   my.wayland.initlock = false;
   my.zramswap.enable = true;
 
