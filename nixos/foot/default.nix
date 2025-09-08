@@ -6,44 +6,41 @@
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf mkMerge;
-  cfg = config.my.foot;
+  inherit (lib) mkIf mkMerge;
+  cfg = config.programs.foot;
 in
-{
-  options.my.foot = {
-    enable = mkEnableOption "foot";
-  };
 
+{
   config = mkIf cfg.enable (mkMerge [
     {
+      hm.my.wayland.terminal = "footclient";
       my.wayland.terminal = "footclient";
 
-      home.packages = [
+      environment.systemPackages = [
         (pkgs.writeShellScriptBin "tmenu" ''
           ${config.programs.foot.package}/bin/foot --app-id tmenu --window-size-chars 50x10 "$@"
         '')
       ];
 
       programs.foot = {
-        enable = true;
         settings = {
           main = {
             font = lib.mkDefault "monospace:pixelsize=20";
-            include = "${lib.getOutput "themes" pkgs.foot}/share/foot/themes/nord";
             term = "xterm-256color";
           };
         };
+        theme = "nord";
       };
     }
 
     (mkIf config.my.niri.enable {
-      my.niri.extraConfig = ''
+      hm.my.niri.extraConfig = ''
         spawn-at-startup "foot" "--server"
       '';
     })
 
     (mkIf config.my.sway.enable {
-      wayland.windowManager.sway.config = {
+      hm.wayland.windowManager.sway.config = {
         startup = [ { command = "foot --server"; } ];
       };
     })

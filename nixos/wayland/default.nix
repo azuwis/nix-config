@@ -27,6 +27,7 @@ in
       default = cfg.autologin;
     };
     session = mkOption { type = types.str; };
+    terminal = mkOption { type = types.str; };
     xdgAutostart = mkEnableOption "xdgAutostart";
   };
 
@@ -72,6 +73,8 @@ in
         xdg-utils
         grim
       ];
+
+      programs.foot.enable = true;
 
       services.greetd = {
         enable = true;
