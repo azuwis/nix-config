@@ -58,7 +58,7 @@
     XF86Tools = "exec ~/bin/xf86tools";
   };
 
-  hm.my.niri.extraConfig = ''
+  my.niri.extraConfig = ''
     output "HDMI-A-1" {
       mode "1920x1080@60.000"
     }
