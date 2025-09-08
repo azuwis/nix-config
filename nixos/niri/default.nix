@@ -11,6 +11,7 @@ let
     mkEnableOption
     mkIf
     mkMerge
+    mkOption
     mkPackageOption
     ;
   cfg = config.my.niri;
@@ -32,10 +33,19 @@ in
 {
   options.my.niri = {
     enable = mkEnableOption "niri";
+
     package = mkPackageOption pkgs "niri" { };
+
     custom-session = mkEnableOption "niri custom session" // {
       default = config.my.wayland.session == "niri-session-custom";
     };
+
+    extraConfig = mkOption {
+      type = lib.types.lines;
+      default = "";
+    };
+
+    initlock = mkEnableOption "initlock";
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -44,7 +54,12 @@ in
     })
 
     {
-      hm.my.niri.enable = true;
+      environment.etc."niri/config.kdl".source = pkgs.replaceVars ./config.kdl {
+        inherit (cfg) extraConfig;
+        wallpaper = pkgs.wallpapers.default;
+        DEFAULT_AUDIO_SINK = null;
+        DEFAULT_AUDIO_SOURCE = null;
+      };
 
       environment.systemPackages = with pkgs; [
         niri
@@ -66,7 +81,7 @@ in
     }
 
     (mkIf cfg.custom-session {
-      hm.my.niri.extraConfig = ''
+      my.niri.extraConfig = ''
         spawn-at-startup "systemctl" "--user" "start" "niri-session.target"
       '';
 
@@ -77,6 +92,12 @@ in
         wants = [ "graphical-session-pre.target" ];
         after = [ "graphical-session-pre.target" ];
       };
+    })
+
+    (mkIf cfg.initlock {
+      my.niri.extraConfig = ''
+        spawn-at-startup "initlock"
+      '';
     })
   ]);
 }

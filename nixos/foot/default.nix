@@ -34,7 +34,7 @@ in
     }
 
     (mkIf config.my.niri.enable {
-      hm.my.niri.extraConfig = ''
+      my.niri.extraConfig = ''
         spawn-at-startup "foot" "--server"
       '';
     })

@@ -115,7 +115,7 @@ in
     }
 
     (mkIf cfg.autologin {
-      hm.my.niri.initlock = mkDefault true;
+      my.niri.initlock = mkDefault true;
       hm.my.sway.initlock = mkDefault true;
 
       # to start initial_session again, run `rm /run/greetd.run; systemctl restart greetd`
@@ -126,7 +126,7 @@ in
     })
 
     (mkIf cfg.initlock {
-      hm.my.niri.initlock = true;
+      my.niri.initlock = true;
       hm.my.sway.initlock = true;
     })
 
