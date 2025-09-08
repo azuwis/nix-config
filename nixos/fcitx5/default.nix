@@ -63,8 +63,6 @@ in
 
     hm.wayland.windowManager.sway.config.startup = [ { command = "fcitx5"; } ];
     hm.xsession.windowManager.i3.config.startup = [ { command = "fcitx5"; } ];
-    my.niri.extraConfig = ''
-      spawn-at-startup "fcitx5"
-    '';
+    my.wayland.startup.fcitx5 = [ "fcitx5" ];
   };
 }
