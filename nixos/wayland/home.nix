@@ -13,7 +13,6 @@ let
     mkOption
     types
     ;
-  inherit (config.my) scale;
   cfg = config.my.wayland;
 in
 {
@@ -34,17 +33,5 @@ in
       "--enable-wayland-ime"
       "--wayland-text-input-version=3"
     ];
-
-    programs.swaylock = {
-      enable = true;
-      settings = {
-        color = "2E3440";
-        font-size = 24 * scale;
-        ignore-empty-password = true;
-        indicator-idle-visible = true;
-        indicator-radius = 100;
-        show-failed-attempts = true;
-      };
-    };
   };
 }

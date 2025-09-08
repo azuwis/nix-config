@@ -14,6 +14,7 @@ let
     mkOption
     types
     ;
+  inherit (config.my) scale;
   cfg = config.my.wayland;
   sessionName = builtins.elemAt (builtins.split " " cfg.session) 0;
 in
@@ -91,6 +92,18 @@ in
             selection = "4c566aff";
             selection-text = "e8dee9ff";
           };
+        };
+      };
+
+      programs.swaylock = {
+        enable = true;
+        settings = {
+          color = "2E3440";
+          font-size = 24 * scale;
+          ignore-empty-password = true;
+          indicator-idle-visible = true;
+          indicator-radius = 100;
+          show-failed-attempts = true;
         };
       };
 

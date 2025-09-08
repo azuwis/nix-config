@@ -48,6 +48,7 @@
   my.nix-builder.enable = true;
   my.pn532.enable = true;
   my.retroarch.enable = true;
+  my.scale = 2;
   my.steam.enable = true;
   # my.steam.gamescope-intel-fix = true;
   # my.steam.gamescope-git = true;
