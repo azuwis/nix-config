@@ -44,8 +44,6 @@ in
       type = lib.types.lines;
       default = "";
     };
-
-    initlock = mkEnableOption "initlock";
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -65,6 +63,10 @@ in
         niri
         xwayland-satellite
       ];
+
+      my.niri.extraConfig = lib.concatMapStrings (
+        entry: "spawn-at-startup ${lib.concatMapStringsSep " " (x: "\"${x}\"") entry}\n"
+      ) (builtins.attrValues config.my.wayland.startup);
 
       systemd.packages = [ cfg.package ];
 
@@ -92,12 +94,6 @@ in
         wants = [ "graphical-session-pre.target" ];
         after = [ "graphical-session-pre.target" ];
       };
-    })
-
-    (mkIf cfg.initlock {
-      my.niri.extraConfig = ''
-        spawn-at-startup "initlock"
-      '';
     })
   ]);
 }

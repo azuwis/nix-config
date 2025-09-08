@@ -28,6 +28,23 @@ in
       default = cfg.autologin;
     };
     session = mkOption { type = types.str; };
+    startup = mkOption {
+      type = types.attrsOf (
+        types.listOf types.str
+        // {
+          # Allow define only once, do not merge
+          merge =
+            loc: defs:
+            if lib.length defs > 1 then
+              lib.addErrorContext "Conflicting definitions for '${lib.concatStringsSep "." loc}':" (
+                builtins.throw "Duplicate definition detected"
+              )
+            else
+              (lib.head defs).value;
+        }
+      );
+      default = { };
+    };
     terminal = mkOption { type = types.str; };
     xdgAutostart = mkEnableOption "xdgAutostart";
   };
@@ -128,7 +145,7 @@ in
     }
 
     (mkIf cfg.autologin {
-      my.niri.initlock = mkDefault true;
+      my.wayland.startup.initlock = [ "initlock" ];
       hm.my.sway.initlock = mkDefault true;
 
       # to start initial_session again, run `rm /run/greetd.run; systemctl restart greetd`
@@ -139,7 +156,6 @@ in
     })
 
     (mkIf cfg.initlock {
-      my.niri.initlock = true;
       hm.my.sway.initlock = true;
     })
 
