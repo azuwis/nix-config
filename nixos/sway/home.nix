@@ -25,8 +25,6 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     {
-      my.cliphist.enable = true;
-
       home.packages = with pkgs; [
         swappy
         sway-contrib.grimshot
