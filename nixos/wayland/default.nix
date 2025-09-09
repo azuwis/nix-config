@@ -88,6 +88,7 @@ in
         swaybg
         wev
         wtype
+        wl-clipboard # neovim
         xdg-utils
         grim
       ];
