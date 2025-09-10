@@ -46,6 +46,8 @@ in
     programs.sway = {
       enable = true;
       wrapperFeatures.gtk = true;
+      # sway complains even nvidia GPU is only used for offload
+      extraOptions = [ "--unsupported-gpu" ];
       # override default extraPackages, some packages are already setted in my.wayland
       extraPackages = with pkgs; [
         swappy

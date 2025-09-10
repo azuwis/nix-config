@@ -22,9 +22,7 @@ in
     package = mkPackageOption config.boot.kernelPackages.nvidiaPackages "latest" { };
     firefox-fix = mkEnableOption "nvidia firefox fix";
     nvidia-patch = mkEnableOption "nvidia-patch";
-    sway-fix = mkEnableOption "nvidia sway fix" // {
-      default = true;
-    };
+    sway-fix = mkEnableOption "nvidia sway fix";
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -68,8 +66,6 @@ in
     })
 
     (mkIf (cfg.sway-fix && config.programs.sway.enable) {
-      # Sway complains even nvidia GPU is only used for offload
-      programs.sway.extraOptions = [ "--unsupported-gpu" ];
       # export WLR_RENDERER=vulkan
       programs.sway.extraSessionCommands = ''
         export WLR_NO_HARDWARE_CURSORS=1
