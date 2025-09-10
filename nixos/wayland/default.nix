@@ -153,6 +153,12 @@ in
     })
 
     (mkIf cfg.xdgAutostart {
+      my.wayland.startup.xdgAutostart = [
+        "systemctl"
+        "--user"
+        "start"
+        "xdg-autostart-if-no-desktop-manager.target"
+      ];
       services.xserver.desktopManager.runXdgAutostartIfNone = true;
     })
   ]);
