@@ -24,9 +24,6 @@ in
     autologin = mkEnableOption "autologin" // {
       default = true;
     };
-    initlock = mkEnableOption "initlock" // {
-      default = cfg.autologin;
-    };
     session = mkOption { type = types.str; };
     startup = mkOption {
       type = types.attrsOf (
@@ -147,7 +144,6 @@ in
 
     (mkIf cfg.autologin {
       my.wayland.startup.initlock = [ "initlock" ];
-      hm.my.sway.initlock = mkDefault true;
 
       # to start initial_session again, run `rm /run/greetd.run; systemctl restart greetd`
       services.greetd.settings.initial_session = {
@@ -156,10 +152,8 @@ in
       };
     })
 
-    (mkIf cfg.initlock {
-      hm.my.sway.initlock = true;
+    (mkIf cfg.xdgAutostart {
+      services.xserver.desktopManager.runXdgAutostartIfNone = true;
     })
-
-    (mkIf cfg.xdgAutostart { services.xserver.desktopManager.runXdgAutostartIfNone = true; })
   ]);
 }

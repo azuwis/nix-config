@@ -1,4 +1,5 @@
 {
+  osConfig,
   config,
   lib,
   pkgs,
@@ -11,7 +12,7 @@ let
   ini = pkgs.formats.ini { };
 
   configFile = ini.generate "jslisten.ini" cfg.settings;
-  sway = config.my.sway.enable;
+  sway = osConfig.my.sway.enable;
 in
 {
   options.my.jslisten = {

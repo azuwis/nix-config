@@ -20,8 +20,8 @@ let
 
   swayConfig = pkgs.runCommand "sunshine-sway.conf" { } ''
     {
-    grep -Ev '(^exec jslisten|^exec initlock|^exec swayidle|events disabled|dbus-update-activation-environment)' ${
-      config.xdg.configFile."sway/config".source
+    grep -Ev '(^exec jslisten|^exec initlock|^exec swayidle|events disabled|^include)' ${
+      osConfig.environment.etc."sway/config".source
     }
     echo '
     default_border normal
@@ -197,15 +197,5 @@ in
         SyslogIdentifier = "sunshine";
       };
     };
-
-    # swaymsg -s /run/user/*/sway-ipc.*.sock --pretty --type get_inputs | awk '/Identifier:/ {print $2}'
-    wayland.windowManager.sway.extraConfig = ''
-      input "1356:3302:Sunshine_DualSense_(virtual)_pad_Touchpad" events disabled
-      input "43776:43778:Wolf_mouse_(abs)_virtual_device" events disabled
-      input "48879:57005:Keyboard_passthrough" events disabled
-      input "48879:57005:Mouse_passthrough" events disabled
-      input "48879:57005:Pen_passthrough" events disabled
-      input "48879:57005:Touch_passthrough" events disabled
-    '';
   };
 }
