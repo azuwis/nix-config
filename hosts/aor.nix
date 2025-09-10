@@ -62,8 +62,7 @@
   ];
   # programs.steam.remotePlay.openFirewall = true;
   my.sunshine.enable = true;
-  # avoid vfio use another sunshine instance
-  hm.my.sunshine.cudaSupport = true;
+  # hm.my.sunshine.cudaSupport = true;
   # hm.my.sunshine.package = pkgs.sunshine-git;
   my.zramswap.enable = true;
 
