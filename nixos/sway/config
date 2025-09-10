@@ -245,6 +245,9 @@ input "type:touchpad" {
 
 output * background @wallpaper@ fill #2E3440
 
+# match scale of niri
+output "LG Electronics LG HDR 4K 0x0002113D" scale 1.5
+
 @extraConfig@
 
 include /etc/sway/config.d/*
