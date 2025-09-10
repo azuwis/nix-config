@@ -55,9 +55,7 @@ in
   options.my.sunshine = {
     enable = mkEnableOption "sunshine";
 
-    cudaSupport = mkEnableOption "cuda support" // {
-      default = osConfig.my.nvidia.enable;
-    };
+    cudaSupport = mkEnableOption "cuda support";
 
     package = mkPackageOption pkgs "sunshine" { };
 
