@@ -15,9 +15,33 @@ in
   };
 
   config = mkIf cfg.enable {
-    # need by home-manager gtk.enable https://github.com/nix-community/home-manager/issues/3113
-    programs.dconf.enable = true;
-    hm.my.theme.enable = true;
+    environment.systemPackages = with pkgs; [
+      adwaita-icon-theme
+    ];
+    xdg.icons.fallbackCursorThemes = [ "Adwaita" ];
+
+    # https://github.com/swaywm/sway/wiki/GTK-3-settings-on-Wayland
+
+    # Use dark theme
+    #
+    # `Adwaita:dark`, gtk3 builtin, only works in GTK_THEME env var, works without gnome-themes-extra
+    #
+    # environment.variables.GTK_THEME = "Adwaita:dark";
+    #
+    # `Adwaita-dark` is provided in gnome-themes-extra, support gtk2/gtk3
+    #
+    # environment.systemPackages = with pkgs; [
+    #   gnome-themes-extra
+    # ];
+    # programs.dconf.profiles.user.databases = [
+    #   {
+    #     settings."org/gnome/desktop/interface" = {
+    #       color-scheme = "prefer-dark";
+    #       gtk-application-prefer-dark-theme = true;
+    #       gtk-theme = "Adwaita-dark";
+    #     };
+    #   }
+    # ];
 
     fonts = {
       enableDefaultPackages = false;
