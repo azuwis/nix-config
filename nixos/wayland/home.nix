@@ -25,7 +25,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    my.swayidle.enable = mkDefault true;
     # my.waybar.enable = mkDefault true;
     my.yambar.enable = mkDefault true;
 

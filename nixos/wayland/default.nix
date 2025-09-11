@@ -110,6 +110,8 @@ in
         };
       };
 
+      programs.swayidle.enable = true;
+
       programs.swaylock = {
         enable = true;
         settings = {
