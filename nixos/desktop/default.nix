@@ -18,7 +18,7 @@ in
     my.android.enable = true;
     my.bluetooth.enable = true;
     my.fcitx5.enable = true;
-    my.niri.enable = true;
+    programs.niri.enable = true;
     programs.sway.enable = true;
     my.theme.enable = true;
     programs.wayland.session = mkDefault "niri-session-custom";

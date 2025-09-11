@@ -14,10 +14,10 @@ let
     mkOption
     mkPackageOption
     ;
-  cfg = config.my.niri;
+  cfg = config.programs.niri;
 
   # Modify from https://github.com/YaLTeR/niri/blob/main/resources/niri-session
-  # The original `systemctl --user --wait start niri.service` cause problem with `my.sunshine.enable`:
+  # The original `systemctl --user --wait start niri.service` cause problem with sunshine:
   # ```
   # niri::backend::tty: using as the render node: "/dev/dri/renderD128"
   # niri::backend::tty: device added: 57857 "/dev/dri/card1"
@@ -31,7 +31,9 @@ let
   '';
 in
 {
-  options.my.niri = {
+  disabledModules = [ "programs/wayland/niri.nix" ];
+
+  options.programs.niri = {
     enable = mkEnableOption "niri";
 
     package = mkPackageOption pkgs "niri" { };
@@ -64,7 +66,7 @@ in
         xwayland-satellite
       ];
 
-      my.niri.extraConfig = lib.concatMapStrings (
+      programs.niri.extraConfig = lib.concatMapStrings (
         entry: "spawn-at-startup ${lib.concatMapStringsSep " " (x: "\"${x}\"") entry}\n"
       ) (builtins.attrValues config.programs.wayland.startup);
 
@@ -83,7 +85,7 @@ in
     }
 
     (mkIf cfg.custom-session {
-      my.niri.extraConfig = ''
+      programs.niri.extraConfig = ''
         spawn-at-startup "systemctl" "--user" "start" "niri-session.target"
       '';
 

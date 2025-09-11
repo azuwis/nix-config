@@ -53,7 +53,7 @@
   programs.jslisten.enable = true;
   programs.swayidle.enable = false;
 
-  my.niri.extraConfig = ''
+  programs.niri.extraConfig = ''
     output "HDMI-A-1" {
       mode "1920x1080@60.000"
     }
