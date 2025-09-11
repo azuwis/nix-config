@@ -112,7 +112,7 @@ in
   ];
 
   my.nix-builder-client.enable = true;
-  my.theme.enable = true;
+  theme.enable = true;
   # Proton is not sandboxed, https://github.com/ValveSoftware/Proton/issues/3979
   # It even mounts the SD card, and expose it to all games.
   # SteamOS deck user use uid 1000, create another user with different uid,

@@ -20,7 +20,7 @@ in
     programs.fcitx5.enable = true;
     programs.niri.enable = true;
     programs.sway.enable = true;
-    my.theme.enable = true;
+    theme.enable = true;
     programs.wayland.session = mkDefault "niri-session-custom";
     # programs.wayland.session = "sway";
 

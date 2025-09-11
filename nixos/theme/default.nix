@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.theme;
+  cfg = config.theme;
 in
 {
-  options.my.theme = {
+  options.theme = {
     enable = mkEnableOption "theme";
   };
 
