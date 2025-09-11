@@ -25,6 +25,7 @@ in
     # my.wayland.session = "sway";
 
     environment.systemPackages = with pkgs; [
+      chromium
       evemu
       evtest
     ];
@@ -45,9 +46,5 @@ in
     programs.gnupg.agent.pinentryPackage = pkgs.pinentry-qt;
 
     programs.mpv.enable = true;
-
-    hm = {
-      programs.chromium.enable = true;
-    };
   };
 }
