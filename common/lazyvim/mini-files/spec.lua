@@ -7,6 +7,16 @@ return {
   },
 
   {
+    "folke/snacks.nvim",
+    optional = true,
+    opts = {
+      explorer = {
+        replace_netrw = false,
+      },
+    },
+  },
+
+  {
     "echasnovski/mini.files",
     lazy = false,
     keys = {
