@@ -39,9 +39,14 @@ in
       edge=bottom
     '';
 
-    my.sway.extraConfig = lib.concatMapStrings (entry: "exec ${lib.concatStringsSep " " entry}\n") (
-      builtins.attrValues config.my.wayland.startup
-    );
+    my.sway.extraConfig =
+      lib.concatMapStrings (entry: "exec ${lib.concatStringsSep " " entry}\n") (
+        builtins.attrValues config.my.wayland.startup
+      )
+      # Systemd integration, does not work on multiple sway instances, so not putting to `config` file
+      + ''
+        include /etc/sway/config.d/*
+      '';
 
     programs.sway = {
       enable = true;
