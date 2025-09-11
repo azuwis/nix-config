@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.android;
+  cfg = config.programs.android;
 in
 {
-  options.my.android = {
+  options.programs.android = {
     enable = mkEnableOption "android";
     adbusers = mkEnableOption ''
       Whether to add my.user to adbusers group.
