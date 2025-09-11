@@ -15,15 +15,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    programs.android.enable = true;
-    programs.bluetooth.enable = true;
-    programs.fcitx5.enable = true;
-    programs.niri.enable = true;
-    programs.sway.enable = true;
-    theme.enable = true;
-    programs.wayland.session = mkDefault "niri-session-custom";
-    # programs.wayland.session = "sway";
-
     environment.systemPackages = with pkgs; [
       chromium
       evemu
@@ -35,16 +26,25 @@ in
       daemonIOSchedClass = "idle";
     };
 
+    programs.android.enable = true;
+    programs.bluetooth.enable = true;
+    programs.fcitx5.enable = true;
     programs.firefox.enable = true;
-
-    programs.gnupg.agent.enable = true;
-    programs.gnupg.agent.settings = {
-      default-cache-ttl = 14400;
-      max-cache-ttl = 14400;
+    programs.gnupg.agent = {
+      enable = true;
+      # Keyboard typing on pinentry-gnome3 stucks
+      pinentryPackage = pkgs.pinentry-qt;
+      settings = {
+        default-cache-ttl = 14400;
+        max-cache-ttl = 14400;
+      };
     };
-    # Keyboard typing on pinentry-gnome3 stucks
-    programs.gnupg.agent.pinentryPackage = pkgs.pinentry-qt;
-
     programs.mpv.enable = true;
+    programs.niri.enable = true;
+    programs.sway.enable = true;
+    programs.wayland.session = mkDefault "niri-session-custom";
+    # programs.wayland.session = "sway";
+
+    theme.enable = true;
   };
 }
