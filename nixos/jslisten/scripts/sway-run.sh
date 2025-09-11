@@ -28,5 +28,5 @@ shift
 if command -v "$2" >/dev/null; then
   run "$@"
 else
-  run app_id=com.moonlight_stream.Moonlight moonlight stream tuf "$moonlight_app"
+  run app_id=com.moonlight_stream.Moonlight moonlight stream aor "$moonlight_app"
 fi

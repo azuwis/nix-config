@@ -20,7 +20,6 @@ lib.genAttrs [
   "hyperv"
   "nuc"
   "steamdeck"
-  "tuf"
   "utm"
   "wsl"
 ] mkNixos
