@@ -11,12 +11,12 @@ in
 
 {
   options = {
-    programs.firefox.ublock.enable = lib.mkEnableOption "uBlock origin" // {
+    programs.firefox.ublock-origin.enable = lib.mkEnableOption "uBlock origin" // {
       default = true;
     };
   };
 
-  config = lib.mkIf (cfg.enable && cfg.ublock.enable) {
+  config = lib.mkIf (cfg.enable && cfg.ublock-origin.enable) {
     programs.firefox = {
       extensions = [ pkgs.ublock-origin ];
 

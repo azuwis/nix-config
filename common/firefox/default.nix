@@ -14,7 +14,7 @@ in
 {
   imports = [
     ./common
-    ./ublock
+    ./ublock-origin
     ./vimfx
   ];
 
