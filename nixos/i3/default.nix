@@ -25,8 +25,6 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     ({
-      hm.my.i3.enable = true;
-
       programs.dconf.enable = true;
 
       services.xserver = {
@@ -55,8 +53,6 @@ in
     })
 
     (mkIf cfg.autologin {
-      hm.my.i3.initlock = mkDefault true;
-
       # to start initial_session again, run `/run/greetd.run; systemctl restart greetd`
       services.greetd.settings.initial_session = {
         command = "systemd-cat --identifier=startx startx";

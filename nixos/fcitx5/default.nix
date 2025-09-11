@@ -61,8 +61,6 @@ in
 
     environment.etc."xdg/fcitx5/pinyin/sp.dat".source = ./sp.dat;
 
-    hm.wayland.windowManager.sway.config.startup = [ { command = "fcitx5"; } ];
-    hm.xsession.windowManager.i3.config.startup = [ { command = "fcitx5"; } ];
     my.wayland.startup.fcitx5 = [ "fcitx5" ];
   };
 }

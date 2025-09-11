@@ -15,8 +15,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    hm.my.uxplay.enable = true;
-
     networking.firewall.allowedTCPPorts = [
       7100
       7000

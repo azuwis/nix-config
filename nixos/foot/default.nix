@@ -35,11 +35,5 @@ in
         theme = "nord";
       };
     }
-
-    (mkIf config.my.sway.enable {
-      hm.wayland.windowManager.sway.config = {
-        startup = [ { command = "foot --server"; } ];
-      };
-    })
   ]);
 }

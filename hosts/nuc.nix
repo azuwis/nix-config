@@ -51,12 +51,7 @@
   my.zramswap.enable = true;
 
   programs.jslisten.enable = true;
-  hm.my.swayidle.enable = false;
-
-  hm.wayland.windowManager.sway.config.keybindings = lib.mkOptionDefault {
-    XF86HomePage = "exec ~/bin/xf86homepage";
-    XF86Tools = "exec ~/bin/xf86tools";
-  };
+  programs.swayidle.enable = false;
 
   my.niri.extraConfig = ''
     output "HDMI-A-1" {
@@ -64,10 +59,12 @@
     }
   '';
 
-  # workaround for yambar sway module not getting updates
-  hm.wayland.windowManager.sway.config.startup = [
-    { command = ''swaymsg -t subscribe '["output"]' && sleep 5 && pkill yambar''; }
-  ];
+  my.sway.extraConfig = ''
+    bindsym XF86HomePage exec ~/bin/xf86homepage
+    bindsym XF86Tools exec ~/bin/xf86tools
+    # workaround for yambar sway module not getting updates
+    exec swaymsg -t subscribe '["output"]' && sleep 5 && pkill yambar
+  '';
 
   environment.systemPackages = with pkgs; [ moonlight-qt ];
 }

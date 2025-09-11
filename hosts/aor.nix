@@ -62,8 +62,6 @@
   ];
   # programs.steam.remotePlay.openFirewall = true;
   services.sunshine.enable = true;
-  # hm.my.sunshine.cudaSupport = true;
-  # hm.my.sunshine.package = pkgs.sunshine-git;
   my.zramswap.enable = true;
 
   # Eval time will be multiplied by specialisations count
@@ -81,14 +79,15 @@
   # };
 
   programs.jslisten.enable = true;
-  hm.my.scale = 2;
 
   environment.systemPackages = with pkgs; [
     nix-search
     torzu
   ];
   # Fix yuzu fullscreen framerate
-  hm.wayland.windowManager.sway.config.output.HDMI-A-1.max_render_time = "10";
+  # my.sway.extraConfig = ''
+  #   output * max_render_time 10
+  # '';
 
   users.users.steam = {
     isNormalUser = true;

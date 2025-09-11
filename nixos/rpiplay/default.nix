@@ -15,8 +15,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    hm.my.rpiplay.enable = true;
-
     networking.firewall.allowedTCPPorts = [
       7000
       7100
