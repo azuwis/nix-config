@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.fcitx5;
+  cfg = config.programs.fcitx5;
 in
 {
-  options.my.fcitx5 = {
+  options.programs.fcitx5 = {
     enable = mkEnableOption "fcitx5";
   };
 

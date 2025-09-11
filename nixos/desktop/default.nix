@@ -17,7 +17,7 @@ in
   config = mkIf cfg.enable {
     programs.android.enable = true;
     programs.bluetooth.enable = true;
-    my.fcitx5.enable = true;
+    programs.fcitx5.enable = true;
     programs.niri.enable = true;
     programs.sway.enable = true;
     my.theme.enable = true;
