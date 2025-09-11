@@ -108,7 +108,7 @@ in
         };
       };
 
-      programs.swayidle.enable = true;
+      programs.swayidle.enable = mkDefault true;
 
       programs.swaylock = {
         enable = true;
