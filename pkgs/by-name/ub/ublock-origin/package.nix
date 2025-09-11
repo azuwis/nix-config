@@ -26,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru.extid = "uBlock0@raymondhill.net";
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version-regex=^([0-9.]+)$" ]; };
 
   meta = {
     changelog = "https://github.com/gorhill/uBlock/releases/tag/${finalAttrs.version}";
