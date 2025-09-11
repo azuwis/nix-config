@@ -83,6 +83,7 @@ in
       SUBSYSTEMS=="input", ATTRS{id/vendor}=="beef", ATTRS{id/product}=="dead", ATTRS{name}=="* passthrough", OWNER="${cfg.user}"
     '';
 
+    programs.sway.enable = true;
     # swaymsg -s /run/user/*/sway-ipc.*.sock --pretty --type get_inputs | awk '/Identifier:/ {print $2}'
     programs.sway.extraConfig = ''
       input "1356:3302:Sunshine_DualSense_(virtual)_pad_Touchpad" events disabled
