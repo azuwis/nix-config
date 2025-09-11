@@ -65,7 +65,7 @@
   # follow OS keyboard, so capslock/ctrl will NOT be swapped back
   services.udev.extraHwdb = lib.mkForce "";
 
-  my.sway.extraConfig = ''
+  programs.sway.extraConfig = ''
     output * mode 1600x900
   '';
 

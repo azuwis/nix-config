@@ -27,7 +27,7 @@ in
       "store"
     ];
 
-    my.sway.extraConfig = ''
+    programs.sway.extraConfig = ''
       bindsym $mod+p exec tmenu sh -c 'cliphist list | fzf --reverse --no-info | cliphist decode 2>/dev/null | wl-copy'
     '';
   };

@@ -11,12 +11,10 @@ let
     mkIf
     mkOption
     ;
-  cfg = config.my.sway;
+  cfg = config.programs.sway;
 in
 {
-  options.my.sway = {
-    enable = mkEnableOption "sway";
-
+  options.programs.sway = {
     extraConfig = mkOption {
       type = lib.types.lines;
       default = "";
@@ -39,7 +37,7 @@ in
       edge=bottom
     '';
 
-    my.sway.extraConfig =
+    programs.sway.extraConfig =
       lib.concatMapStrings (entry: "exec ${lib.concatStringsSep " " entry}\n") (
         builtins.attrValues config.programs.wayland.startup
       )
@@ -49,7 +47,6 @@ in
       '';
 
     programs.sway = {
-      enable = true;
       wrapperFeatures.gtk = true;
       # sway complains even nvidia GPU is only used for offload
       extraOptions = [ "--unsupported-gpu" ];

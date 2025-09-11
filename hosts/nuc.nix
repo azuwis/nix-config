@@ -59,7 +59,7 @@
     }
   '';
 
-  my.sway.extraConfig = ''
+  programs.sway.extraConfig = ''
     bindsym XF86HomePage exec ~/bin/xf86homepage
     bindsym XF86Tools exec ~/bin/xf86tools
     # workaround for yambar sway module not getting updates

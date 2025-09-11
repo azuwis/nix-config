@@ -45,7 +45,7 @@ in
   #     sudo rm /tmp/.X11-unix
   #   fi
   # '';
-  my.sway.extraConfig = ''
+  programs.sway.extraConfig = ''
     output * mode 1920x1080
   '';
 

@@ -85,7 +85,7 @@
     torzu
   ];
   # Fix yuzu fullscreen framerate
-  # my.sway.extraConfig = ''
+  # programs.sway.extraConfig = ''
   #   output * max_render_time 10
   # '';
 

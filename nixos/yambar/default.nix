@@ -14,7 +14,7 @@ let
   # ifaces = builtins.attrNames config.networking.interfaces;
   # ens = builtins.filter (name: (builtins.match "^e.*" name) != null) ifaces;
   # en = if ens != [] then builtins.elemAt ens 0 else null;
-  msgcmd = if config.my.sway.enable then "swaymsg" else "i3-msg";
+  msgcmd = if config.programs.sway.enable then "swaymsg" else "i3-msg";
 in
 {
   options.programs.yambar = {

@@ -11,7 +11,7 @@ let
   ini = pkgs.formats.ini { };
 
   configFile = ini.generate "jslisten.ini" cfg.settings;
-  sway = config.my.sway.enable;
+  sway = config.programs.sway.enable;
 in
 {
   options.programs.jslisten = {
