@@ -80,7 +80,7 @@
   #   };
   # };
 
-  hm.my.jslisten.enable = true;
+  programs.jslisten.enable = true;
   hm.my.scale = 2;
 
   environment.systemPackages = with pkgs; [

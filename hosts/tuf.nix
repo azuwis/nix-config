@@ -58,7 +58,7 @@
   #   };
   # };
 
-  hm.my.jslisten.enable = true;
+  programs.jslisten.enable = true;
 
   environment.systemPackages = with pkgs; [
     nix-search

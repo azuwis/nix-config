@@ -50,7 +50,7 @@
   my.wayland.startup.initlock = lib.mkForce [ ];
   my.zramswap.enable = true;
 
-  hm.my.jslisten.enable = true;
+  programs.jslisten.enable = true;
   hm.my.swayidle.enable = false;
 
   hm.wayland.windowManager.sway.config.keybindings = lib.mkOptionDefault {

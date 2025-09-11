@@ -1,5 +1,4 @@
 {
-  osConfig,
   config,
   lib,
   pkgs,
@@ -8,14 +7,14 @@
 
 let
   inherit (lib) mkEnableOption mkIf mkOption;
-  cfg = config.my.jslisten;
+  cfg = config.programs.jslisten;
   ini = pkgs.formats.ini { };
 
   configFile = ini.generate "jslisten.ini" cfg.settings;
-  sway = osConfig.my.sway.enable;
+  sway = config.my.sway.enable;
 in
 {
-  options.my.jslisten = {
+  options.programs.jslisten = {
     enable = mkEnableOption "jslisten";
 
     settings = mkOption {
@@ -87,29 +86,16 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ pkgs.jslisten ];
+    environment.systemPackages = [ pkgs.jslisten ];
 
-    home.file.".jslisten".source = configFile;
-    home.file.".jslisten".onChange = "/run/current-system/sw/bin/systemctl --user restart jslisten";
+    environment.etc."jslisten".source = configFile;
 
-    systemd.user.services.jslisten = {
-      Unit = {
-        PartOf = [ "graphical-session.target" ];
-        After = [ "graphical-session.target" ];
-      };
-
-      Service = {
-        ExecStart = "${pkgs.jslisten}/bin/jslisten --mode hold --loglevel notice";
-        Environment = "PATH=%h/.nix-profile/bin:/etc/profiles/per-user/%u/bin:/run/current-system/sw/bin";
-        Restart = "on-failure";
-      };
-
-      Install = {
-        WantedBy = [ "graphical-session.target" ];
-      };
-    };
-
-    # wayland.windowManager.sway.config.startup = [{ command = "jslisten --mode hold --loglevel notice"; }];
-    # xsession.windowManager.i3.config.startup = [{ command = "jslisten --mode hold --loglevel notice"; }];
+    my.wayland.startup.jslisten = [
+      "jslisten"
+      "--mode"
+      "hold"
+      "--loglevel"
+      "notice"
+    ];
   };
 }
