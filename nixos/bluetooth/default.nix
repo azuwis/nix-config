@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.bluetooth;
+  cfg = config.programs.bluetooth;
 in
 {
-  options.my.bluetooth = {
+  options.programs.bluetooth = {
     enable = mkEnableOption "bluetooth";
   };
 
