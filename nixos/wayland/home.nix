@@ -26,7 +26,6 @@ in
 
   config = mkIf cfg.enable {
     # my.waybar.enable = mkDefault true;
-    my.yambar.enable = mkDefault true;
 
     programs.chromium.commandLineArgs = [
       "--enable-wayland-ime"

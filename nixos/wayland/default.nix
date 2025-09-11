@@ -124,6 +124,8 @@ in
         };
       };
 
+      programs.yambar.enable = true;
+
       services.greetd = {
         enable = true;
         settings = {

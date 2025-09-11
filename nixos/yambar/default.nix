@@ -7,29 +7,39 @@
 }:
 
 let
-  inherit (lib)
-    mkEnableOption
-    mkIf
-    mkOption
-    types
-    ;
   inherit (config.my) scale;
-  cfg = config.my.yambar;
+  cfg = config.programs.yambar;
+  yamlFormat = pkgs.formats.yaml { };
 
   # ifaces = builtins.attrNames config.networking.interfaces;
   # ens = builtins.filter (name: (builtins.match "^e.*" name) != null) ifaces;
   # en = if ens != [] then builtins.elemAt ens 0 else null;
-  msgcmd = if osConfig.my.sway.enable then "swaymsg" else "i3-msg";
+  msgcmd = if config.my.sway.enable then "swaymsg" else "i3-msg";
 in
 {
-  options.my.yambar = {
-    enable = mkEnableOption "yambar";
+  options.programs.yambar = {
+    enable = lib.mkEnableOption "yambar";
+
+    package = lib.mkPackageOption pkgs "yambar-git" { };
+
+    settings = lib.mkOption {
+      type = yamlFormat.type;
+      default = { };
+    };
   };
 
-  config = mkIf cfg.enable {
-    programs.yambar.enable = true;
+  config = lib.mkIf cfg.enable {
+    environment.etc."xdg/yambar/config.yml".source =
+      yamlFormat.generate "yambar-config.yml" cfg.settings;
 
-    programs.yambar.package = pkgs.yambar-git;
+    environment.systemPackages = [
+      (pkgs.wrapper {
+        package = cfg.package;
+        env.XDG_CONFIG_HOME = "/etc/xdg";
+      })
+    ];
+
+    my.wayland.startup.yambar = [ "yambar" ];
 
     programs.yambar.settings.bar = {
       layer = "top";
@@ -191,28 +201,6 @@ in
           };
         }
       ];
-    };
-
-    wayland.windowManager.sway.config.bars = [ ];
-
-    xsession.windowManager.i3.config.bars = [ ];
-
-    systemd.user.services.yambar = {
-      Unit = {
-        After = [ "graphical-session.target" ];
-        ConditionEnvironment = [ "WAYLAND_DISPLAY" ];
-        PartOf = [ "graphical-session.target" ];
-      };
-
-      Service = {
-        ExecStart = "${config.programs.yambar.package}/bin/yambar";
-        Restart = "on-failure";
-        RestartSec = "1s";
-      };
-
-      Install = {
-        WantedBy = [ "graphical-session.target" ];
-      };
     };
   };
 }

@@ -23,8 +23,6 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     ({
-      my.yambar.enable = true;
-
       home.packages = with pkgs; [
         (runCommand "rofi-dmenu" { } ''
           mkdir -p $out/bin
