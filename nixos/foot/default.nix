@@ -13,7 +13,6 @@ in
 {
   config = mkIf cfg.enable (mkMerge [
     {
-      hm.my.wayland.terminal = "footclient";
       my.wayland.startup.foot = [
         "foot"
         "--server"
