@@ -47,7 +47,7 @@
   my.retroarch.enable = true;
   my.torrent.enable = true;
   # my.uxplay.enable = true;
-  my.wayland.startup.initlock = lib.mkForce [ ];
+  programs.wayland.startup.initlock = lib.mkForce [ ];
   my.zramswap.enable = true;
 
   programs.jslisten.enable = true;

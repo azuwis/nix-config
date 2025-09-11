@@ -39,7 +39,7 @@ in
       })
     ];
 
-    my.wayland.startup.yambar = [ "yambar" ];
+    programs.wayland.startup.yambar = [ "yambar" ];
 
     programs.yambar.settings.bar = {
       layer = "top";

@@ -20,7 +20,7 @@ in
       wl-clipboard
     ];
 
-    my.wayland.startup.cliphist = [
+    programs.wayland.startup.cliphist = [
       "wl-paste"
       "--watch"
       "cliphist"

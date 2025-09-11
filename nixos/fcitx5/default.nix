@@ -61,6 +61,6 @@ in
 
     environment.etc."xdg/fcitx5/pinyin/sp.dat".source = ./sp.dat;
 
-    my.wayland.startup.fcitx5 = [ "fcitx5" ];
+    programs.wayland.startup.fcitx5 = [ "fcitx5" ];
   };
 }

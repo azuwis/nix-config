@@ -13,11 +13,11 @@ in
 {
   config = mkIf cfg.enable (mkMerge [
     {
-      my.wayland.startup.foot = [
+      programs.wayland.startup.foot = [
         "foot"
         "--server"
       ];
-      my.wayland.terminal = "footclient";
+      programs.wayland.terminal = "footclient";
 
       environment.systemPackages = [
         (pkgs.writeShellScriptBin "tmenu" ''

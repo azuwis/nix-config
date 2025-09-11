@@ -21,8 +21,8 @@ in
     my.niri.enable = true;
     my.sway.enable = true;
     my.theme.enable = true;
-    my.wayland.session = mkDefault "niri-session-custom";
-    # my.wayland.session = "sway";
+    programs.wayland.session = mkDefault "niri-session-custom";
+    # programs.wayland.session = "sway";
 
     environment.systemPackages = with pkgs; [
       chromium

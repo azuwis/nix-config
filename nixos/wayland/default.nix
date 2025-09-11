@@ -15,11 +15,11 @@ let
     types
     ;
   inherit (config.my) scale;
-  cfg = config.my.wayland;
+  cfg = config.programs.wayland;
   sessionName = builtins.elemAt (builtins.split " " cfg.session) 0;
 in
 {
-  options.my.wayland = {
+  options.programs.wayland = {
     enable = mkEnableOption "wayland";
     autologin = mkEnableOption "autologin" // {
       default = true;
@@ -145,7 +145,7 @@ in
     }
 
     (mkIf cfg.autologin {
-      my.wayland.startup.initlock = [ "initlock" ];
+      programs.wayland.startup.initlock = [ "initlock" ];
 
       # to start initial_session again, run `rm /run/greetd.run; systemctl restart greetd`
       services.greetd.settings.initial_session = {
@@ -155,7 +155,7 @@ in
     })
 
     (mkIf cfg.xdgAutostart {
-      my.wayland.startup.xdgAutostart = [
+      programs.wayland.startup.xdgAutostart = [
         "systemctl"
         "--user"
         "start"

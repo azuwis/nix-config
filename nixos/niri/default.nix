@@ -37,7 +37,7 @@ in
     package = mkPackageOption pkgs "niri" { };
 
     custom-session = mkEnableOption "niri custom session" // {
-      default = config.my.wayland.session == "niri-session-custom";
+      default = config.programs.wayland.session == "niri-session-custom";
     };
 
     extraConfig = mkOption {
@@ -66,7 +66,7 @@ in
 
       my.niri.extraConfig = lib.concatMapStrings (
         entry: "spawn-at-startup ${lib.concatMapStringsSep " " (x: "\"${x}\"") entry}\n"
-      ) (builtins.attrValues config.my.wayland.startup);
+      ) (builtins.attrValues config.programs.wayland.startup);
 
       systemd.packages = [ cfg.package ];
 

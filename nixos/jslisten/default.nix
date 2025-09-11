@@ -90,7 +90,7 @@ in
 
     environment.etc."jslisten".source = configFile;
 
-    my.wayland.startup.jslisten = [
+    programs.wayland.startup.jslisten = [
       "jslisten"
       "--mode"
       "hold"

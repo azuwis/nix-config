@@ -56,6 +56,6 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.finalPackage ];
-    my.wayland.startup.swayidle = [ "swayidle" ];
+    programs.wayland.startup.swayidle = [ "swayidle" ];
   };
 }

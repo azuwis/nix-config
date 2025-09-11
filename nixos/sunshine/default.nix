@@ -12,7 +12,7 @@ let
     name = "sunshine-sway.conf";
     src = ../sway/config;
     replacements = {
-      inherit (config.my.wayland) terminal;
+      inherit (config.programs.wayland) terminal;
       wallpaper = pkgs.wallpapers.default;
       DEFAULT_AUDIO_SINK = null;
       DEFAULT_AUDIO_SOURCE = null;
@@ -49,7 +49,7 @@ let
               "foot"
               "yambar"
             ]
-          ) config.my.wayland.startup
+          ) config.programs.wayland.startup
         )
       );
     };

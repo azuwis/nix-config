@@ -50,5 +50,5 @@ in
   '';
 
   my.desktop.enable = true;
-  my.wayland.autologin = false;
+  programs.wayland.autologin = false;
 }
