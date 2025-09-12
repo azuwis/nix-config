@@ -7,11 +7,11 @@
 stdenv.mkDerivation (finalAttrs: {
   pname = "ublock-origin";
 
-  version = "1.65.0";
+  version = "1.65.1b8";
 
   src = fetchurl {
     url = "https://github.com/gorhill/uBlock/releases/download/${finalAttrs.version}/uBlock0_${finalAttrs.version}.firefox.signed.xpi";
-    hash = "sha256-PnPJaimpM4ZgZfB1b+AymEv1slSvjdGv16f34GaKM88=";
+    hash = "sha256-GftZH4USfvEmkUUBgy1Tzv4l0MCNWBi023Jb68v/WIU=";
   };
 
   dontUnpack = true;
