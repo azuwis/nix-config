@@ -355,6 +355,20 @@ else
 OS=${OS#\"}
 OS=${OS%\"}
 
+if [ "$OS" = solo ] &&
+  [ "$(nix-instantiate --argstr hostname "$HOSTNAME" --argstr flakes "$CONFIG/flakes" --eval --expr '
+{ flakes, hostname }:
+let
+  attr = import flakes;
+in
+if builtins.hasAttr hostname attr.soloConfigurations then
+  true
+else
+  false
+')" = false ]; then
+  HOSTNAME=solo
+fi
+
 case "$action" in
 build)
   "$action" "$@"
