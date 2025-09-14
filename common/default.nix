@@ -6,7 +6,8 @@
 }:
 
 let
-  inputs = import ../inputs;
+  # inputs = import ../inputs;
+  inputs = builtins.mapAttrs (_: p: p { inherit pkgs; }) (import ../inputs);
 in
 
 {
