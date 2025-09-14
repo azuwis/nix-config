@@ -9,23 +9,19 @@ let
 in
 {
   options.programs.swaylock = {
-    enable = lib.mkOption {
-      type = lib.types.bool;
-      example = true;
-      description = ''
-        Whether to enable swaylock.
+    enable = lib.mkEnableOption ''
+      swaylock.
 
-        Note that PAM must be configured to enable swaylock to perform
-        authentication.
+      Note that PAM must be configured to enable swaylock to perform
+      authentication.
 
-        On NixOS, this is by default enabled with the sway module, but
-        for other compositors it can currently be enabled using:
+      On NixOS, this is by default enabled with the sway module, but
+      for other compositors it can currently be enabled using:
 
-        ```nix
-        security.pam.services.swaylock = {};
-        ```
-      '';
-    };
+      ```nix
+      security.pam.services.swaylock = {};
+      ```
+    '';
 
     package = lib.mkPackageOption pkgs "swaylock" { };
 
