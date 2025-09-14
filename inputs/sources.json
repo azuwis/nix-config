@@ -69,7 +69,8 @@
       "submodules": false,
       "revision": "024556fe3b9eb2b616048ae6fa1aeab09e1260aa",
       "url": "https://github.com/liberodark/my-flakes/archive/024556fe3b9eb2b616048ae6fa1aeab09e1260aa.tar.gz",
-      "hash": "sha256-RpQSmZ+Ci571oEosojBXVQUoWaLExEcRYmZvIOMq8pI="
+      "hash": "sha256-RpQSmZ+Ci571oEosojBXVQUoWaLExEcRYmZvIOMq8pI=",
+      "frozen": true
     },
     "home-manager": {
       "type": "Git",
