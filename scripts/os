@@ -34,7 +34,7 @@ run() {
   esac
   if [ -n "$package" ] && ! command -v "$command" &>/dev/null; then
     shift
-    full_command=(nix --extra-experimental-features nix-command run --file "$CONFIG" "$package" -- "$@")
+    full_command=(nix --extra-experimental-features nix-command run --file "$CONFIG/pkgs" "$package" -- "$@")
   fi
   >&2 printf '\033[0;33m$ '
   >&2 printf '%q ' "${full_command[@]}"
@@ -85,7 +85,7 @@ build() {
     export NPINS_OVERRIDE_my="$CONFIG/test"
     nix=(nix-build)
     if [ "$HOSTNAME" = droid ]; then
-      proot=$(nix-instantiate --eval "$CONFIG" --attr nixOnDroidConfigurations.droid.config.environment.files.prootStatic.outPath)
+      proot=$(nix-instantiate --eval "$CONFIG/flakes" --attr nixOnDroidConfigurations.droid.config.environment.files.prootStatic.outPath)
       proot=${proot#\"}
       proot=${proot%\"}
       nix-store --realise --option substituters https://nix-on-droid.cachix.org \
@@ -94,7 +94,7 @@ build() {
     fi
   fi
 
-  BUILT=$(run "${nix[@]}" "$CONFIG" --no-out-link --attr "${args[@]}" "$@")
+  BUILT=$(run "${nix[@]}" "$CONFIG/flakes" --no-out-link --attr "${args[@]}" "$@")
 
   if [ -z "$BUILT" ]; then
     exit
@@ -194,7 +194,7 @@ rebuild() {
     cmd=(nix-on-droid -I nixpkgs="$(input nixpkgs)" -I nix-on-droid="$(input nix-on-droid)" --file "$CONFIG/droid")
     ;;
   nixos)
-    cmd=(nixos-rebuild --no-flake --fast --use-remote-sudo --file "$CONFIG" --attr "nixosConfigurations.\"$HOSTNAME\"")
+    cmd=(nixos-rebuild --no-flake --fast --use-remote-sudo --file "$CONFIG/flakes" --attr "nixosConfigurations.\"$HOSTNAME\"")
     ;;
   esac
   run "${cmd[@]}" "$@"
