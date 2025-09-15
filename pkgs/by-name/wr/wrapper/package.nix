@@ -1,6 +1,7 @@
 {
   lib,
   runCommand,
+  makeBinaryWrapper,
   makeWrapper,
 }:
 
@@ -8,6 +9,7 @@
   package,
   env ? { },
   flags ? [ ],
+  wrapper ? makeWrapper,
   wrapperArgs ? [ ],
 }:
 
@@ -35,7 +37,7 @@ runCommand package.name
     inherit (package) pname version;
 
     nativeBuildInputs = [
-      makeWrapper
+      wrapper
     ];
 
     outputs = [
@@ -60,7 +62,12 @@ runCommand package.name
         fi
       done
       exe="${lib.getExe package}"
+    ''
+    + lib.optionalString (wrapper == makeWrapper) ''
       makeWrapper "$exe" "$out/bin/$(basename "$exe")" ${lib.escapeShellArgs makeWrapperArgs}
+    ''
+    + lib.optionalString (wrapper == makeBinaryWrapper) ''
+      makeBinaryWrapper "$exe" "$out/bin/$(basename "$exe")" ${lib.escapeShellArgs makeWrapperArgs}
     ''
     + lib.optionalString hasMan ''
       ln -s ${package.man} "$man"
