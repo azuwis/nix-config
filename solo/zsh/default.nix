@@ -28,6 +28,5 @@ in
 {
   config = lib.mkIf cfg.enable {
     environment.shell = zsh;
-    environment.systemPackages = [ (lib.hiPrio zsh) ];
   };
 }

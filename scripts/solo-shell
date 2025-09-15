@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Rootless nix, https://nix.dev/manual/nix/2.28/release-notes/rl-2.10
+# Download nix static build, https://hydra.nixos.org/project/nix, search for `buildStatic.nix-cli`
+# echo 1 > /proc/sys/kernel/unprivileged_userns_clone
+
+CONFIG=$(readlink -f "${BASH_SOURCE[0]}")
+CONFIG=${CONFIG%/*/*}
+
+# Does not work for rootless nix
+# "$(nix-build --no-out-link "$CONFIG/flakes" --attr soloConfigurations.solo.config.environment.shell)/bin/zsh"
+
+exec nix --extra-experimental-features "flakes nix-command" run "$CONFIG"/flakes#soloConfigurations.solo-shell.config.environment.shell -- "$@"

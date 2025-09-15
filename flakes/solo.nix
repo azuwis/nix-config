@@ -12,4 +12,5 @@ in
 
 lib.genAttrs [
   "solo"
+  "solo-shell"
 ] mkSolo
