@@ -14,7 +14,7 @@ let
     mkOption
     types
     ;
-  inherit (config.my) scale;
+  inherit (cfg) scale;
   cfg = config.programs.wayland;
   sessionName = builtins.elemAt (builtins.split " " cfg.session) 0;
 in
@@ -23,6 +23,10 @@ in
     enable = mkEnableOption "wayland";
     autologin = mkEnableOption "autologin" // {
       default = true;
+    };
+    scale = mkOption {
+      type = types.int;
+      default = 1;
     };
     session = mkOption { type = types.str; };
     startup = mkOption {

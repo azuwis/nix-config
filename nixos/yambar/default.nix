@@ -7,7 +7,7 @@
 }:
 
 let
-  inherit (config.my) scale;
+  inherit (config.programs.wayland) scale;
   cfg = config.programs.yambar;
   yamlFormat = pkgs.formats.yaml { };
 
