@@ -29,6 +29,7 @@
     lsof
     man
     netcat
+    ncurses # clear, reset
     # nix-output-monitor
     nix-tree
     npins
