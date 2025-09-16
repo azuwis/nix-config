@@ -33,7 +33,6 @@ in
     {
       environment.pathsToLink = [
         "/bin"
-        "/etc/profile.d"
         "/share/man"
       ];
 
@@ -48,7 +47,6 @@ in
 
       environment.systemPackages = with pkgs; [
         coreutils-full
-        nix
       ];
     }
 
