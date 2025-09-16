@@ -14,6 +14,7 @@ let
     ".zshenv" = cfge.zshenv.source;
     ".zshrc" = pkgs.runCommand "zsh-zshrc" { } ''
       substitute ${cfge.zshrc.source} $out --replace-fail /etc/zinputrc "${cfge.zinputrc.source}"
+      sed -i '/^HOST=/d' $out
     '';
   };
 
