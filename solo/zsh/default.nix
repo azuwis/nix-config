@@ -20,6 +20,8 @@ let
 
   zsh = pkgs.wrapper {
     package = pkgs.zsh;
+    # Need settting LOCALE_ARCHIVE before running for zsh locale support
+    env.LOCALE_ARCHIVE = config.environment.variables.LOCALE_ARCHIVE;
     env.SHELL = "${placeholder "out"}/bin/zsh";
     env.ZDOTDIR = zdotdir;
     wrapper = pkgs.makeBinaryWrapper;
