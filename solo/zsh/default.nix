@@ -19,6 +19,7 @@ let
 
   zsh = pkgs.wrapper {
     package = pkgs.zsh;
+    env.SHELL = "${placeholder "out"}/bin/zsh";
     env.ZDOTDIR = zdotdir;
     wrapper = pkgs.makeBinaryWrapper;
     wrapperArgs = [ "--inherit-argv0" ];
