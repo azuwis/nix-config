@@ -25,14 +25,6 @@ in
   imports = [
     (inputs.agenix.outPath + "/modules/age.nix")
     (inputs.disko.outPath + "/module.nix")
-    # (inputs.home-manager.outPath + "/nixos")
-    # {
-    #   home-manager.users.${config.my.user}.imports = [
-    #     {
-    #       uninstall = true;
-    #     }
-    #   ];
-    # }
     ../common
     ../common/firefox
     ../common/nixpkgs

@@ -27,13 +27,6 @@ return {
               --   ["nix-darwin"] = {
               --     expr = string.format("(import %s { }).darwinConfigurations.mbp.options", dir),
               --   },
-              --   ["home-manager"] = {
-              --     expr = string.format("(import %s { }).homeConfigurations.azuwis.options", dir),
-              --     expr = string.format(
-              --       'let inputs = import %s/inputs; pkgs = import inputs.nixpkgs.outPath { }; hm = import (inputs.home-manager.outPath + "/modules") { inherit pkgs; configuration.home = { stateVersion = "24.11"; username = "foo"; homeDirectory = "/home/foo"; }; }; in hm.options',
-              --       dir
-              --     ),
-              --   },
               -- },
             },
           },
