@@ -37,7 +37,7 @@ let
           echo "skip replace: $target, not a symlink"
         fi
       fi
-    done < <(find "$newhome" -type l -printf '%P\0')
+    done < <(find "$newhome/" -type l -printf '%P\0')
 
     if [ -e "$oldhome" ]; then
       while read -r -d $'\0' file; do
@@ -49,7 +49,7 @@ let
             echo "skip remove: $realhome/$file, not a symlink"
           fi
         fi
-      done < <(find "$oldhome" -type l -printf '%P\0')
+      done < <(find "$oldhome/" -type l -printf '%P\0')
     fi
   '';
 
