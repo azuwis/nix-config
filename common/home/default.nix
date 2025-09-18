@@ -20,7 +20,7 @@ let
 
     newhome="${home}/home"
     while read -r -d $'\0' file; do
-      source="$newhome/$file"
+      source=$(readlink -f "$newhome/$file")
       target="$realhome/$file"
       if [ ! -e "$target" ]; then
         echo "new: $target -> $source"
