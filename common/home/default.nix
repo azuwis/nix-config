@@ -51,6 +51,12 @@ let
           fi
         fi
       done < <(find "$oldhome/" -type l -printf '%P\0')
+
+      while read -r -d $'\0' dir; do
+        if [ -d "$realhome/$dir" ]; then
+          rmdir --ignore-fail-on-non-empty "$realhome/$dir"
+        fi
+      done < <(find "$oldhome/" -depth -mindepth 1 -type d -printf '%P\0')
     fi
 
     mkdir -p "$(dirname "$oldhome")"
