@@ -24,6 +24,7 @@ let
       target="$realhome/$file"
       if [ ! -e "$target" ]; then
         echo "new: $target -> $source"
+        mkdir -p "$(dirname "$target")"
         ln -sn "$source" "$target"
       else
         if [ -L "$target" ]; then
