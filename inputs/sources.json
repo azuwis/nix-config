@@ -124,6 +124,20 @@
       "url": "https://github.com/nix-darwin/nix-darwin/archive/1fef4404de4d1596aa5ab2bd68078370e1b9dcdb.tar.gz",
       "hash": "sha256-qHn+/0+IOz5cG68BZUwL9BV3EO/e9eNKCjH3+N7wMdI="
     },
+    "nix-darwin-master": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nix-darwin",
+        "repo": "nix-darwin"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "ebd0bfc11fc2b5cff37401e9b3703881ad5fabbd",
+      "url": "https://github.com/nix-darwin/nix-darwin/archive/ebd0bfc11fc2b5cff37401e9b3703881ad5fabbd.tar.gz",
+      "hash": "sha256-wwqf3+A8EiqwWpcAaPN20QXJLlpGPpwtLTrzgnngI2o=",
+      "frozen": true
+    },
     "nix-homebrew": {
       "type": "Git",
       "repository": {
