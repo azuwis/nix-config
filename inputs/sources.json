@@ -72,19 +72,6 @@
       "hash": "sha256-RpQSmZ+Ci571oEosojBXVQUoWaLExEcRYmZvIOMq8pI=",
       "frozen": true
     },
-    "home-manager": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "nix-community",
-        "repo": "home-manager"
-      },
-      "branch": "release-25.05",
-      "submodules": false,
-      "revision": "f21d9167782c086a33ad53e2311854a8f13c281e",
-      "url": "https://github.com/nix-community/home-manager/archive/f21d9167782c086a33ad53e2311854a8f13c281e.tar.gz",
-      "hash": "sha256-K6PEI5PYY94TVMH0mX3MbZNYFme7oNRKml/85BpRRAo="
-    },
     "homebrew-cask": {
       "type": "Git",
       "repository": {
