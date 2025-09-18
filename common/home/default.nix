@@ -9,7 +9,7 @@
 let
   activate = pkgs.writeShellScript "activate-home" ''
     realhome="$1"
-    oldhome="$2"
+    oldhome="$realhome/.local/state/home"
 
     echo "setting up $realhome"
 
@@ -52,6 +52,9 @@ let
         fi
       done < <(find "$oldhome/" -type l -printf '%P\0')
     fi
+
+    mkdir -p "$(dirname "$oldhome")"
+    ln -sfn "$newhome" "$oldhome"
   '';
 
   home = pkgs.runCommandLocal "home" { } ''
@@ -163,10 +166,5 @@ in
       readOnly = true;
       default = activate;
     };
-  };
-
-  config = {
-    environment.systemPackages = [ home ];
-    environment.pathsToLink = [ "/home" ];
   };
 }

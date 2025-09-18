@@ -7,6 +7,6 @@
 
 {
   build.activation.home = ''
-    ${config.home.activate} "$HOME" "$HOME/.nix-profile/home" || true
+    ${config.home.activate} "$HOME" || true
   '';
 }
