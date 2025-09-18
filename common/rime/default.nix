@@ -29,23 +29,19 @@ in
         .${pkgs.stdenv.hostPlatform.parsed.kernel.name};
     };
 
-    deploy = mkOption {
-      type = types.str;
-      default =
-        {
-          darwin = "'/Library/Input Methods/Squirrel.app/Contents/MacOS/Squirrel' --reload";
-          linux = "fcitx-remote -r";
-        }
-        .${pkgs.stdenv.hostPlatform.parsed.kernel.name};
-    };
+    # deploy = mkOption {
+    #   type = types.str;
+    #   default =
+    #     {
+    #       darwin = "'/Library/Input Methods/Squirrel.app/Contents/MacOS/Squirrel' --reload";
+    #       linux = "fcitx-remote -r";
+    #     }
+    #     .${pkgs.stdenv.hostPlatform.parsed.kernel.name};
+    # };
   };
 
   config = mkIf cfg.enable {
-    home.file.${cfg.dir} = {
-      source = pkgs.rime-ice;
-      recursive = true;
-      onChange = cfg.deploy;
-    };
+    home.file.${cfg.dir}.source = "${pkgs.rime-ice}/*";
 
     home.file."${cfg.dir}/default.custom.yaml".text = ''
       patch:

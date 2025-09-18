@@ -23,6 +23,7 @@ in
     ./my
     ./nix-index
     ./packages
+    ./rime
     ./yazi
     ./zsh
   ];
