@@ -30,8 +30,8 @@ let
           if [ "$(readlink "$target")" != "$source" ]; then
             echo "replace: $target -> $source"
             ln -sfn "$source" "$target"
-          else
-            echo "keep: $target -> $source"
+          # else
+          #   echo "keep: $target -> $source"
           fi
         else
           echo "skip replace: $target, not a symlink"
