@@ -5,8 +5,12 @@
   ...
 }:
 
+let
+  inherit (config.users.users.${config.my.user}) name home;
+in
+
 {
-  systemd.user.tmpfiles.rules = builtins.map (
-    entry: "L+ %h/${entry.target} - - - - ${entry.source}"
-  ) (lib.attrValues config.home.file);
+  system.activationScripts.homeActivate = ''
+    ${pkgs.shadow.su}/bin/su "${name}" --command '${config.home.activate} "${home}" /run/current-system/sw/home'
+  '';
 }
