@@ -6,6 +6,7 @@
 }:
 
 {
+  android-integration.am.enable = true;
   environment.etcBackupExtension = ".bak";
   environment.motd = "";
   nix.extraOptions = ''
