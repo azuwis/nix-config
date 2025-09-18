@@ -13,17 +13,13 @@ in
 {
   imports = [
     (inputs.agenix.outPath + "/modules/age.nix")
-    (inputs.home-manager.outPath + "/nix-darwin")
     ../common
     ../common/firefox
-    ../common/home-manager.nix
     ../common/nixpkgs
     ../common/registry
     ../common/system
   ]
   ++ getModules [ ./. ];
-
-  hm.imports = [ ./home.nix ];
 
   environment.systemPackages = [ pkgs.agenix ];
 
