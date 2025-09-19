@@ -1,11 +1,11 @@
 { home-assistant-custom-components, nix-update-script }:
 
 home-assistant-custom-components.xiaomi_miot.overridePythonAttrs (old: rec {
-  version = "1.0.20";
+  version = "1.0.21";
 
   src = old.src.override {
     rev = "v${version}";
-    hash = "sha256-qn//le4zaS7URP4pWofwsA4FbB20DK7iRRUn8NWzwAI=";
+    hash = "sha256-P/IcWaBv+yj9bMeSm/vDtht0S7YQPOb0+/rWR7DLiJU=";
   };
 
   passthru = (old.passthru or { }) // {
