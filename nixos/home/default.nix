@@ -5,12 +5,17 @@
   ...
 }:
 
-let
-  inherit (config.users.users.${config.my.user}) name home;
-in
+# let
+#   inherit (config.users.users.${config.my.user}) name home;
+# in
 
 {
-  system.activationScripts.homeActivate = ''
-    ${pkgs.shadow.su}/bin/su "${name}" --command '${config.home.activate} "${home}"'
+  # system.activationScripts.activateHome = ''
+  #   ${pkgs.shadow.su}/bin/su "${name}" --command '${config.home.activate} "${home}"'
+  # '';
+
+  # journalctl --user --unit nixos-activation
+  system.userActivationScripts.activateHome = ''
+    ${config.home.activate} "$HOME"
   '';
 }
