@@ -46,7 +46,7 @@
   # my.photoprism.enable = true;
   my.retroarch.enable = true;
   my.torrent.enable = true;
-  # my.uxplay.enable = true;
+  # programs.uxplay.enable = true;
   programs.wayland.startup.initlock = lib.mkForce [ ];
   my.zramswap.enable = true;
 
