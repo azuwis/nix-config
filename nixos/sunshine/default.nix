@@ -25,9 +25,9 @@ let
         # All mouse like devices are pass through Mouse_passthrough,
         # add the virtual devices will double the evnets and thus the move speed.
         # seat seat0 attach "1356:3302:Sunshine_DualSense_(virtual)_pad_Touchpad"
-        # seat seat0 attach "43776:43778:Wolf_mouse_(abs)_virtual_device"
         seat seat0 attach "48879:57005:Keyboard_passthrough"
         seat seat0 attach "48879:57005:Mouse_passthrough"
+        seat seat0 attach "48879:57005:Mouse_passthrough_(absolute)"
         seat seat0 attach "48879:57005:Pen_passthrough"
         seat seat0 attach "48879:57005:Touch_passthrough"
 
@@ -81,17 +81,16 @@ in
     services.udev.extraRules = ''
       SUBSYSTEM=="misc", KERNEL=="uhid", GROUP="uinput", MODE="0660"
       SUBSYSTEMS=="input", ATTRS{name}=="Sunshine * (virtual) pad*", OWNER="${cfg.user}"
-      SUBSYSTEMS=="input", ATTRS{id/vendor}=="ab00", ATTRS{id/product}=="ab0*", ATTRS{name}=="Wolf *", OWNER="${cfg.user}"
-      SUBSYSTEMS=="input", ATTRS{id/vendor}=="beef", ATTRS{id/product}=="dead", ATTRS{name}=="* passthrough", OWNER="${cfg.user}"
+      SUBSYSTEMS=="input", ATTRS{id/vendor}=="beef", ATTRS{id/product}=="dead", ATTRS{name}=="* passthrough*", OWNER="${cfg.user}"
     '';
 
     programs.sway.enable = true;
     # swaymsg -s /run/user/*/sway-ipc.*.sock --pretty --type get_inputs | awk '/Identifier:/ {print $2}'
     programs.sway.extraConfig = ''
       input "1356:3302:Sunshine_DualSense_(virtual)_pad_Touchpad" events disabled
-      input "43776:43778:Wolf_mouse_(abs)_virtual_device" events disabled
       input "48879:57005:Keyboard_passthrough" events disabled
       input "48879:57005:Mouse_passthrough" events disabled
+      input "48879:57005:Mouse_passthrough_(absolute)" events disabled
       input "48879:57005:Pen_passthrough" events disabled
       input "48879:57005:Touch_passthrough" events disabled
     '';
