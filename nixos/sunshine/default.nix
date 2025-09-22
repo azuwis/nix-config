@@ -136,6 +136,7 @@ in
         exec sway --config ${swayConfig}
       '';
 
+      # https://docs.lizardbyte.dev/projects/sunshine/latest/md_docs_2configuration.html
       settings = {
         channels = 2;
         fps = "[30, 60]";
