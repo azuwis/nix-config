@@ -71,6 +71,21 @@ in
   config = lib.mkIf cfg.enable {
     boot.kernelModules = [ "uhid" ];
 
+    # Disable sunshine virtual events for real display
+    # https://wayland.freedesktop.org/libinput/doc/latest/device-quirks.html
+    # List of events https://gitlab.freedesktop.org/libinput/libinput/-/blob/main/src/evdev-frame.h?ref_type=heads#L48
+    environment.etc."libinput/local-overrides.quirks".text = ''
+      [Sunshine Virtual Mouse Keyboard]
+      MatchVendor=0xBEEF
+      MatchProduct=0xDEAD
+      MatchName=* passthrough*
+      AttrEventCode=-EV_ABS;-EV_KEY;-EV_MSC;-EV_REL;-EV_SW;-EV_SYN
+
+      [Sunshine Virtual Pad]
+      MatchName=Sunshine * (virtual) pad*
+      AttrEventCode=-EV_ABS;-EV_KEY;-EV_MSC;-EV_REL;-EV_SW;-EV_SYN
+    '';
+
     hardware.uinput.enable = true;
     users.users.${cfg.user}.extraGroups = [ "uinput" ];
 
@@ -106,7 +121,11 @@ in
       autoStart = true;
       openFirewall = true;
 
+      # Set LIBINPUT_QUIRKS_DIR to origin quirks dir, so /etc/libinput/local-overrides.quirks is ignored,
+      # and virtual devices are picked by headless display
+      # https://gitlab.freedesktop.org/libinput/libinput/-/blob/1.27.1/src/libinput.c?ref_type=tags#L1895-1899
       package = pkgs.writeShellScriptBin "sunshine-sway" ''
+        export LIBINPUT_QUIRKS_DIR="${lib.getOutput "out" pkgs.libinput}/share/libinput"
         export LIBSEAT_BACKEND=builtin
         export SEATD_VTBOUND=0
         export WLR_BACKENDS=headless,libinput
