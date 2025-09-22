@@ -101,14 +101,14 @@ in
 
     programs.sway.enable = true;
     # swaymsg -s /run/user/*/sway-ipc.*.sock --pretty --type get_inputs | awk '/Identifier:/ {print $2}'
-    programs.sway.extraConfig = ''
-      input "1356:3302:Sunshine_DualSense_(virtual)_pad_Touchpad" events disabled
-      input "48879:57005:Keyboard_passthrough" events disabled
-      input "48879:57005:Mouse_passthrough" events disabled
-      input "48879:57005:Mouse_passthrough_(absolute)" events disabled
-      input "48879:57005:Pen_passthrough" events disabled
-      input "48879:57005:Touch_passthrough" events disabled
-    '';
+    # programs.sway.extraConfig = ''
+    #   input "1356:3302:Sunshine_DualSense_(virtual)_pad_Touchpad" events disabled
+    #   input "48879:57005:Keyboard_passthrough" events disabled
+    #   input "48879:57005:Mouse_passthrough" events disabled
+    #   input "48879:57005:Mouse_passthrough_(absolute)" events disabled
+    #   input "48879:57005:Pen_passthrough" events disabled
+    #   input "48879:57005:Touch_passthrough" events disabled
+    # '';
 
     # Make avahi optional
     services.avahi.enable = lib.mkOverride 999 false;
