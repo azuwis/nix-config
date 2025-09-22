@@ -30,6 +30,9 @@ in
       boot.loader.grub.gfxmodeEfi = mkDefault "1920x1080";
       hardware.nvidia.modesetting.enable = true;
       hardware.nvidia.package = cfg.package;
+      # Only install nvidia-vaapi-driver if firefox-fix, but not by default,
+      # specifically designed to be used by Firefox
+      hardware.nvidia.videoAcceleration = lib.mkOverride 999 false;
       # hardware.nvidia.prime = {
       #   intelBusId = "PCI:0:2:0";
       #   nvidiaBusId = "PCI:1:0:0";
@@ -41,6 +44,7 @@ in
 
     (mkIf (cfg.firefox-fix && config.programs.firefox.enable) {
       # https://github.com/elFarto/nvidia-vaapi-driver
+      hardware.nvidia.videoAcceleration = false;
       programs.firefox.env.GDK_BACKEND = null;
       programs.firefox.env.MOZ_DISABLE_RDD_SANDBOX = "1";
       programs.firefox.settings = {
