@@ -25,9 +25,9 @@ let
         # All mouse like devices are pass through Mouse_passthrough,
         # add the virtual devices will double the evnets and thus the move speed.
         # seat seat0 attach "1356:3302:Sunshine_DualSense_(virtual)_pad_Touchpad"
-        # seat seat0 attach "43776:43778:Wolf_mouse_(abs)_virtual_device"
         seat seat0 attach "48879:57005:Keyboard_passthrough"
         seat seat0 attach "48879:57005:Mouse_passthrough"
+        seat seat0 attach "48879:57005:Mouse_passthrough_(absolute)"
         seat seat0 attach "48879:57005:Pen_passthrough"
         seat seat0 attach "48879:57005:Touch_passthrough"
 
@@ -71,6 +71,21 @@ in
   config = lib.mkIf cfg.enable {
     boot.kernelModules = [ "uhid" ];
 
+    # Disable sunshine virtual events for real display
+    # https://wayland.freedesktop.org/libinput/doc/latest/device-quirks.html
+    # List of events https://gitlab.freedesktop.org/libinput/libinput/-/blob/main/src/evdev-frame.h?ref_type=heads#L48
+    environment.etc."libinput/local-overrides.quirks".text = ''
+      [Sunshine Virtual Mouse Keyboard]
+      MatchVendor=0xBEEF
+      MatchProduct=0xDEAD
+      MatchName=* passthrough*
+      AttrEventCode=-EV_ABS;-EV_KEY;-EV_MSC;-EV_REL;-EV_SW;-EV_SYN
+
+      [Sunshine Virtual Pad]
+      MatchName=Sunshine * (virtual) pad*
+      AttrEventCode=-EV_ABS;-EV_KEY;-EV_MSC;-EV_REL;-EV_SW;-EV_SYN
+    '';
+
     hardware.uinput.enable = true;
     users.users.${cfg.user}.extraGroups = [ "uinput" ];
 
@@ -81,20 +96,19 @@ in
     services.udev.extraRules = ''
       SUBSYSTEM=="misc", KERNEL=="uhid", GROUP="uinput", MODE="0660"
       SUBSYSTEMS=="input", ATTRS{name}=="Sunshine * (virtual) pad*", OWNER="${cfg.user}"
-      SUBSYSTEMS=="input", ATTRS{id/vendor}=="ab00", ATTRS{id/product}=="ab0*", ATTRS{name}=="Wolf *", OWNER="${cfg.user}"
-      SUBSYSTEMS=="input", ATTRS{id/vendor}=="beef", ATTRS{id/product}=="dead", ATTRS{name}=="* passthrough", OWNER="${cfg.user}"
+      SUBSYSTEMS=="input", ATTRS{id/vendor}=="beef", ATTRS{id/product}=="dead", ATTRS{name}=="* passthrough*", OWNER="${cfg.user}"
     '';
 
     programs.sway.enable = true;
     # swaymsg -s /run/user/*/sway-ipc.*.sock --pretty --type get_inputs | awk '/Identifier:/ {print $2}'
-    programs.sway.extraConfig = ''
-      input "1356:3302:Sunshine_DualSense_(virtual)_pad_Touchpad" events disabled
-      input "43776:43778:Wolf_mouse_(abs)_virtual_device" events disabled
-      input "48879:57005:Keyboard_passthrough" events disabled
-      input "48879:57005:Mouse_passthrough" events disabled
-      input "48879:57005:Pen_passthrough" events disabled
-      input "48879:57005:Touch_passthrough" events disabled
-    '';
+    # programs.sway.extraConfig = ''
+    #   input "1356:3302:Sunshine_DualSense_(virtual)_pad_Touchpad" events disabled
+    #   input "48879:57005:Keyboard_passthrough" events disabled
+    #   input "48879:57005:Mouse_passthrough" events disabled
+    #   input "48879:57005:Mouse_passthrough_(absolute)" events disabled
+    #   input "48879:57005:Pen_passthrough" events disabled
+    #   input "48879:57005:Touch_passthrough" events disabled
+    # '';
 
     # Make avahi optional
     services.avahi.enable = lib.mkOverride 999 false;
@@ -107,7 +121,11 @@ in
       autoStart = true;
       openFirewall = true;
 
+      # Set LIBINPUT_QUIRKS_DIR to origin quirks dir, so /etc/libinput/local-overrides.quirks is ignored,
+      # and virtual devices are picked by headless display
+      # https://gitlab.freedesktop.org/libinput/libinput/-/blob/1.27.1/src/libinput.c?ref_type=tags#L1895-1899
       package = pkgs.writeShellScriptBin "sunshine-sway" ''
+        export LIBINPUT_QUIRKS_DIR="${lib.getOutput "out" pkgs.libinput}/share/libinput"
         export LIBSEAT_BACKEND=builtin
         export SEATD_VTBOUND=0
         export WLR_BACKENDS=headless,libinput
@@ -118,6 +136,7 @@ in
         exec sway --config ${swayConfig}
       '';
 
+      # https://docs.lizardbyte.dev/projects/sunshine/latest/md_docs_2configuration.html
       settings = {
         channels = 2;
         fps = "[30, 60]";

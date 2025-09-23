@@ -177,6 +177,10 @@ nixos_switch() {
 
 solo_switch() {
   run nix-env --set "$BUILT"
+  activate=$(nix-build "$CONFIG/flakes" --no-out-link --attr "soloConfigurations.\"$HOSTNAME\".config.home.activate")
+  if [ -n "$activate" ]; then
+    run "$activate" "$HOME"
+  fi
 }
 
 hardware() {

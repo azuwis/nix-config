@@ -8,6 +8,6 @@ CONFIG=$(readlink -f "${BASH_SOURCE[0]}")
 CONFIG=${CONFIG%/*/*}
 
 # Does not work for rootless nix
-# "$(nix-build --no-out-link "$CONFIG/flakes" --attr soloConfigurations.solo.config.environment.shell)/bin/zsh"
+# "$(nix-build --no-out-link "$CONFIG/flakes" --attr soloConfigurations.solo-shell.config.environment.shell)/bin/zsh"
 
 exec nix --extra-experimental-features "flakes nix-command" run "$CONFIG"/flakes#soloConfigurations.solo-shell.config.environment.shell -- "$@"

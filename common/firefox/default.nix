@@ -76,7 +76,7 @@ in
         + lib.optionalString (cfg.style != "") ''
           try {
             let sss = Components.classes["@mozilla.org/content/style-sheet-service;1"].getService(Components.interfaces.nsIStyleSheetService);
-            let uri = Services.io.newURI('data:text/css;charset=UTF-8,' + encodeURIComponent(`${cfg.style}`), sss.USER_SHEET);
+            let uri = Services.io.newURI("file://${pkgs.writeText "userChrome.css" cfg.style}", sss.USER_SHEET);
             if (!sss.sheetRegistered(uri, sss.USER_SHEET)) {
               sss.loadAndRegisterSheet(uri, sss.USER_SHEET);
             }
