@@ -12,6 +12,7 @@ in
 
 {
   imports = [
+    ./alacritty
     ./difftastic
     ./editorconfig
     ./git
@@ -30,9 +31,11 @@ in
 
   _module.args.inputs = inputs;
 
+  # programs.alacritty.enable = true;
   programs.difftastic.enable = true;
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
+  # programs.emacs.enable = true;
   programs.editorconfig.enable = true;
   programs.git.enable = true;
   programs.jujutsu.enable = true;

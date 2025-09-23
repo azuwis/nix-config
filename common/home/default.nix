@@ -8,6 +8,8 @@
 # Ref: nixpkgs/nixos/modules/system/etc/etc.nix
 let
   activate = pkgs.writeShellScript "activate-home" ''
+    set -euo pipefail
+
     realhome="$1"
     oldhome="$realhome/.local/state/home"
 

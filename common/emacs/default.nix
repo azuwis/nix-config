@@ -15,8 +15,10 @@ in
   };
 
   config = mkIf cfg.enable {
-    hm.my.emacs.enable = true;
+    environment.systemPackages = [ pkgs.emacs ];
 
     fonts.packages = [ pkgs.emacs-all-the-icons-fonts ];
+
+    home.file.".doom.d".source = ./doom.d;
   };
 }

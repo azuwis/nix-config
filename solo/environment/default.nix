@@ -6,7 +6,6 @@
 }:
 
 let
-  inherit (lib) mkIf mkMerge;
   cfg = config.environment;
 in
 
@@ -29,29 +28,23 @@ in
     };
   };
 
-  config = mkMerge [
-    {
-      environment.pathsToLink = [
-        "/bin"
-        "/share/man"
-      ];
+  config = {
+    environment.pathsToLink = [
+      "/bin"
+      "/share/man"
+    ];
 
-      environment.path = pkgs.buildEnv {
-        # nixpkgs/modules/config/system-path.nix
-        inherit (cfg) pathsToLink;
+    environment.path = pkgs.buildEnv {
+      # nixpkgs/modules/config/system-path.nix
+      inherit (cfg) pathsToLink;
 
-        name = "profile-path";
+      name = "profile-path";
 
-        paths = cfg.systemPackages;
-      };
+      paths = cfg.systemPackages;
+    };
 
-      environment.systemPackages = with pkgs; [
-        coreutils-full
-      ];
-    }
-
-    (mkIf config.programs.git.enable {
-      environment.variables.GIT_CONFIG_GLOBAL = config.environment.etc.gitconfig.source;
-    })
-  ];
+    environment.systemPackages = with pkgs; [
+      coreutils-full
+    ];
+  };
 }
