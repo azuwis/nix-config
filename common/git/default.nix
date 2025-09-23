@@ -34,7 +34,7 @@ in
         fixup = "!f() { git commit --fixup=$1 && git rebase --interactive --autosquash $1~; }; f";
         fork = "!f() { url=$(git remote get-url origin); git remote add \"$USER\" \"\${url%/*/*}/$USER/\${url##*/}\"; git remote show -n \"$USER\"; }; f";
         gch = "!git reflog expire --expire=now --all && git gc --prune=now --aggressive";
-        lg = "log --abbrev-commit --graph --date=relative --pretty=format:'%C(yellow)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset'";
+        lg = "log --abbrev-commit --graph --pretty=format:'%C(yellow)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %Cblue<%an>%Creset'";
         ni = "!${scripts}/ni";
         pfork = "!f() { url=$(git remote get-url origin); git push \"\${url%/*/*}/\${1%%:*}/\${url##*/}\" HEAD:\"\${1#*:}\"; }; f";
         st = "status";
