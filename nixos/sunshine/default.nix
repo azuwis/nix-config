@@ -137,6 +137,15 @@ in
       '';
 
       # https://docs.lizardbyte.dev/projects/sunshine/latest/md_docs_2configuration.html
+      # NOTE: Set `adapter_name` to the same device for vaapi encoding, example:
+      # ```
+      # adapter_name = "/dev/dri/renderD129";
+      # adapter_name = "/dev/dri/by-path/pci-0000:11:00.0-render";
+      # ```
+      # Sunshine default to `/dev/dri/renderD128`, which is not always correct, the `renderD128` is
+      # not even consistent between different kernel versions.
+      # Use `vainfo --display drm --device /dev/dri/renderD12x` to find out.
+      # https://docs.lizardbyte.dev/projects/sunshine/latest/md_docs_2configuration.html#adapter_name
       settings = {
         channels = 2;
         fps = "[30, 60]";
