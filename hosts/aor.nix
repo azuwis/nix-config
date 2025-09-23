@@ -33,7 +33,7 @@
     };
   };
 
-  boot.extraModulePackages = [ pkgs.linuxPackages.r8125 ];
+  boot.extraModulePackages = [ config.boot.kernelPackages.r8125 ];
   boot.supportedFilesystems = [ "ntfs" ];
   # powerManagement.cpuFreqGovernor = "performance";
   networking.hostName = "aor";
