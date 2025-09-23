@@ -12,21 +12,18 @@
     ./hardware-aor.nix
   ];
 
-  # Linux kernel 6.12.47 breaks sunshine vaapi encoding on AMD GPU,
-  # `Error: Couldn't initialize va display: unknown libva error`,
-  # pin to 6.12.46 for now
-  boot.kernelPackages = pkgs.linuxPackagesFor (
-    pkgs.linuxKernel.kernels.linux_6_12.override {
-      argsOverride = rec {
-        version = "6.12.46";
-        src = pkgs.fetchurl {
-          url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
-          hash = "sha256:0gjp2jqw9ip8j5i97bg2xvdy6r5sqzvia16qqlisrji4sf176pif";
-        };
-        modDirVersion = version;
-      };
-    }
-  );
+  # boot.kernelPackages = pkgs.linuxPackagesFor (
+  #   pkgs.linuxKernel.kernels.linux_6_12.override {
+  #     argsOverride = rec {
+  #       version = "6.12.46";
+  #       src = pkgs.fetchurl {
+  #         url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
+  #         hash = "sha256:0gjp2jqw9ip8j5i97bg2xvdy6r5sqzvia16qqlisrji4sf176pif";
+  #       };
+  #       modDirVersion = version;
+  #     };
+  #   }
+  # );
 
   # https://wiki.nixos.org/wiki/Remote_disk_unlocking
   # mkdir -p /etc/secrets/initrd
@@ -78,6 +75,7 @@
   ];
   # programs.steam.remotePlay.openFirewall = true;
   services.sunshine.enable = true;
+  services.sunshine.settings.adapter_name = "/dev/dri/by-path/pci-0000:11:00.0-render";
   my.zramswap.enable = true;
 
   # Eval time will be multiplied by specialisations count
