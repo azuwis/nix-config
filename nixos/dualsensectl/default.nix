@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf mkPackageOption;
-  cfg = config.my.dualsensectl;
+  cfg = config.programs.dualsensectl;
 in
 {
-  options.my.dualsensectl = {
+  options.programs.dualsensectl = {
     enable = mkEnableOption "dualsensectl";
     package = mkPackageOption pkgs "dualsensectl" { };
   };

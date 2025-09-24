@@ -39,7 +39,7 @@
 
   # my.evdevhook.enable = true;
   my.desktop.enable = true;
-  my.dualsensectl.enable = true;
+  programs.dualsensectl.enable = true;
   my.hass.enable = true;
   my.intelGpu.enable = true;
   my.nix-builder-client.enable = true;

@@ -53,7 +53,7 @@
 
   my.cemu.enable = true;
   my.desktop.enable = true;
-  my.dualsensectl.enable = true;
+  programs.dualsensectl.enable = true;
   my.nvidia.enable = lib.mkDefault true;
   hardware.nvidia.open = true;
   # my.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
