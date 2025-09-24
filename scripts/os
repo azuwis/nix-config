@@ -12,6 +12,7 @@ USAGE:
   $cmd d|diff [<host>]
   $cmd hw|hardware
   $cmd l|list
+  $cmd r|run <apps>
   $cmd s|switch [<host>]
   $cmd u|update|nu|npins-update [-a] [<input>] [<commit>]
   $cmd fu|flake-update [-a] [<input>] [<commit>]
@@ -23,6 +24,12 @@ EOF
 
 echoerr() {
   >&2 echo "$@"
+}
+
+run() {
+  command="$1"
+  shift
+  nix --extra-experimental-features nix-command run --file "$CONFIG/apps" "$command" -- "$@"
 }
 
 run_command() {
@@ -315,6 +322,7 @@ h | -h) action="usage" ;;
 hw) action="hardware" ;;
 l) action="list" ;;
 nu | u | update) action="npins-update" ;;
+r | run) action="run" ;;
 s | switch)
   SWITCH=true
   action="build"
@@ -322,7 +330,7 @@ s | switch)
 esac
 
 case "$action" in
-clean | hardware | flake-update | npins-update | direnv-gcroots | usage)
+clean | direnv-gcroots | flake-update | hardware | npins-update | run | usage)
   "$action" "$@"
   exit $?
   ;;
