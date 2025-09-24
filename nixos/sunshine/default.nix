@@ -151,6 +151,7 @@ in
         fps = "[30, 60]";
         origin_web_ui_allowed = "pc";
         resolutions = "[1280x720, 1920x1080]";
+        vaapi_strict_rc_buffer = "enabled";
       };
 
       applications = {
