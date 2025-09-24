@@ -29,7 +29,12 @@ echoerr() {
 run() {
   command="$1"
   shift
-  nix --extra-experimental-features nix-command run --file "$CONFIG/apps" "$command" -- "$@"
+  if [ "$(nix-instantiate --argstr apps "$CONFIG/apps" --argstr command "$command" --eval --expr \
+    '{ apps, command }: if builtins.hasAttr command (import apps { }) then true else false')" = true ]; then
+    nix --extra-experimental-features nix-command run --file "$CONFIG/apps" "$command" -- "$@"
+  else
+    nix --extra-experimental-features nix-command run --file "$CONFIG/pkgs" "$command" -- "$@"
+  fi
 }
 
 run_command() {
