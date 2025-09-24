@@ -25,7 +25,7 @@ echoerr() {
   >&2 echo "$@"
 }
 
-run() {
+run_command() {
   full_command=("$@")
   command=$1
   case "$command" in
@@ -94,7 +94,7 @@ build() {
     fi
   fi
 
-  BUILT=$(run "${nix[@]}" "$CONFIG/flakes" --no-out-link --attr "${args[@]}" "$@")
+  BUILT=$(run_command "${nix[@]}" "$CONFIG/flakes" --no-out-link --attr "${args[@]}" "$@")
 
   if [ -z "$BUILT" ]; then
     exit
@@ -108,10 +108,10 @@ build() {
     if [ "$SYSTEM" = "$BUILT" ]; then
       echoerr "build-result == current-system"
     else
-      run nvd diff "$SYSTEM" "$BUILT"
+      run_command nvd diff "$SYSTEM" "$BUILT"
 
       if [ "$DIFF" = true ]; then
-        run nix-diff --character-oriented "$SYSTEM" "$BUILT"
+        run_command nix-diff --character-oriented "$SYSTEM" "$BUILT"
       fi
     fi
   fi
@@ -148,18 +148,18 @@ clean() {
 darwin_switch() {
   # https://github.com/nix-darwin/nix-darwin/blob/b9b927dd1f24094b271e8ec5277a672dc4fc860d/pkgs/nix-tools/darwin-rebuild.sh#L236
   # Need `--set-home` or warning: $HOME ('/Users/azuwis') is not owned by you, falling back to the one defined in the 'passwd' file ('/var/root')
-  run sudo --set-home nix-env --profile /nix/var/nix/profiles/system --set "$BUILT"
-  run sudo "$BUILT/activate"
+  run_command sudo --set-home nix-env --profile /nix/var/nix/profiles/system --set "$BUILT"
+  run_command sudo "$BUILT/activate"
 }
 
 droid_switch() {
   # https://github.com/nix-community/nix-on-droid/blob/5d88ff2519e4952f8d22472b52c531bb5f1635fc/nix-on-droid/nix-on-droid.sh#L95
-  run "$BUILT/activate"
+  run_command "$BUILT/activate"
 }
 
 nixos_switch() {
   # https://github.com/NixOS/nixpkgs/blob/dad0bf139b2db8d258deb21424454db24285d531/pkgs/os-specific/linux/nixos-rebuild/nixos-rebuild.sh#L806
-  run sudo nix-env --profile /nix/var/nix/profiles/system --set "$BUILT"
+  run_command sudo nix-env --profile /nix/var/nix/profiles/system --set "$BUILT"
   # https://github.com/NixOS/nixpkgs/blob/dad0bf139b2db8d258deb21424454db24285d531/pkgs/os-specific/linux/nixos-rebuild/nixos-rebuild.sh#L896
   cmd=(
     "systemd-run"
@@ -172,20 +172,20 @@ nixos_switch() {
     "--unit=nixos-rebuild-switch-to-configuration"
     "--wait"
   )
-  run sudo "${cmd[@]}" "$BUILT/bin/switch-to-configuration" "$@"
+  run_command sudo "${cmd[@]}" "$BUILT/bin/switch-to-configuration" "$@"
 }
 
 solo_switch() {
-  run nix-env --set "$BUILT"
+  run_command nix-env --set "$BUILT"
   activate=$(nix-build "$CONFIG/flakes" --no-out-link --attr "soloConfigurations.\"$HOSTNAME\".config.home.activate")
   if [ -n "$activate" ]; then
-    run "$activate" "$HOME"
+    run_command "$activate" "$HOME"
   fi
 }
 
 hardware() {
   test -e /etc/NIXOS || exit
-  run sudo nixos-generate-config --show-hardware-config | grep -Ev 'networking.interfaces.macvtap|networking.interfaces.virbr' >"$CONFIG/hosts/hardware-$(hostname).nix"
+  run_command sudo nixos-generate-config --show-hardware-config | grep -Ev 'networking.interfaces.macvtap|networking.interfaces.virbr' >"$CONFIG/hosts/hardware-$(hostname).nix"
 }
 
 rebuild() {
@@ -201,7 +201,7 @@ rebuild() {
     cmd=(nixos-rebuild --no-flake --fast --use-remote-sudo --file "$CONFIG/flakes" --attr "nixosConfigurations.\"$HOSTNAME\"")
     ;;
   esac
-  run "${cmd[@]}" "$@"
+  run_command "${cmd[@]}" "$@"
 }
 
 flake-update() {
@@ -237,7 +237,7 @@ flake-update() {
     args+=(--override-input "$input" "$url")
     shift
   fi
-  run nix --extra-experimental-features "flakes nix-command" flake update --flake "$CONFIG" "${args[@]}" "$@"
+  run_command nix --extra-experimental-features "flakes nix-command" flake update --flake "$CONFIG" "${args[@]}" "$@"
 }
 
 npins-update() {
@@ -266,13 +266,13 @@ npins-update() {
       fi
       if [ "$update_all" = true ]; then
         mapfile -t inputs < <(jq -r '.pins | to_entries | map(select(.key!="'"$input"'")).[].key' inputs/sources.json)
-        run npins update "${inputs[@]}"
+        run_command npins update "${inputs[@]}"
       fi
     else
       args+=("$input")
     fi
   fi
-  run npins "${args[@]}"
+  run_command npins "${args[@]}"
 }
 
 # See all nix-direnv gcroots
