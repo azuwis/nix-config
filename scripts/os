@@ -329,7 +329,7 @@ clean | hardware | flake-update | npins-update | direnv-gcroots | usage)
 esac
 
 # Variables for build
-if [ "$action" = build ] && [ "$#" -gt 0 ] && [[ "${*: -1}" != -* ]]; then
+if [ "$action" = build ] && [ "$#" -gt 0 ] && [[ ${*: -1} != -* ]]; then
   HOSTNAME="${*: -1}"
   FOROTHER=true
   # remove last arg
