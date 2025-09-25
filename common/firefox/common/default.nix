@@ -34,6 +34,8 @@ in
           EmailTracking = true;
           # SuspectedFingerprinting = true;
         };
+        # Firefox will still try to update extensions installed by `programs.firefox.extensions`, to disable:
+        # ExtensionUpdate = false;
         FirefoxHome = {
           Highlights = false;
           TopSites = false;
