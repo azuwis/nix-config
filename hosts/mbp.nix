@@ -13,6 +13,10 @@
   networking.hostName = "mbp";
   my.desktop.enable = true;
 
+  environment.systemPackages = with pkgs; [
+    moonlight-qt
+  ];
+
   # For `devshells/darwin-vm-pn532.nix`
   # nix.linux-builder.enable = true;
   # Workaround `sandbox-exec: pattern serialization length <number> exceeds maximum (65535)`
