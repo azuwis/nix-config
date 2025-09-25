@@ -239,7 +239,7 @@ in
             {
               name = "Yuzu";
               image-path = pkgs.runCommand "yuzu.png" { } ''
-                ${pkgs.imagemagick}/bin/magick -density 1200 -background none ${pkgs.torzu}/share/icons/hicolor/scalable/apps/onion.torzu_emu.torzu.svg -resize x500 -gravity center -extent 600x800 $out
+                ${pkgs.imagemagick}/bin/magick -density 1200 -background none ${pkgs.fruit}/share/icons/hicolor/scalable/apps/org.yuzu_emu.yuzu.svg -resize x500 -gravity center -extent 600x800 $out
               '';
               cmd = "yuzu";
               prep-cmd = yuzu-prep-cmd;

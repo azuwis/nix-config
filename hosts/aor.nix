@@ -95,8 +95,8 @@
   programs.jslisten.enable = true;
 
   environment.systemPackages = with pkgs; [
+    fruit
     nix-search
-    torzu
   ];
   # Fix yuzu fullscreen framerate
   # programs.sway.extraConfig = ''
