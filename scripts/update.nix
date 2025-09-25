@@ -19,7 +19,9 @@ let
 
   allPackages =
     let
-      pkgsWithoutOverlay = import nixpkgs { };
+      pkgsWithoutOverlay = import nixpkgs {
+        config.allowAliases = false; # filter removed packages
+      };
       byNameAttrs = import (nixpkgs + "/pkgs/top-level/by-name-overlay.nix") ../pkgs/by-name null null;
       topLevelAttrs = lib.composeManyExtensions (import ../overlays) null null;
       topLevelPackages = builtins.mapAttrs (
