@@ -49,26 +49,6 @@ in
     # };
     # python3Packages = final.python3.pkgs;
 
-    torzu =
-      (final.callPackage (inputs.fruit.outPath + "/pkgs/torzu/package.nix") { }).overrideAttrs
-        (old: rec {
-          version = "2025-04-16";
-          src = old.src.override {
-            url = "https://notabug.org/litucks/torzu.git";
-            rev = version;
-            hash = "sha256-qDryc0S/S6cUZj58UBsTsJShLqCabf/661IkLZbgxjs=";
-          };
-          patches = [ ];
-          passthru = (old.passthru or { }) // {
-            updateScript =
-              with final;
-              writeShellScript "update-torzu" ''
-                NEW_VERSION=$(${lib.getExe git} ls-remote --tags --refs --sort=-version:refname ${src.url} '20*' | head -n 1 | cut --delimiter=/ --field=3-)
-                ${lib.getExe' common-updater-scripts "update-source-version"} torzu "$NEW_VERSION" --print-changes --file=overlays/default.nix
-              '';
-          };
-        });
-
     # vimPlugins =
     #   prev.vimPlugins
     #   // final.lib.packagesFromDirectoryRecursive {

@@ -58,20 +58,6 @@
       "url": "https://api.github.com/repos/nix-community/disko/tarball/v1.12.0",
       "hash": "sha256-eDoSOhxGEm2PykZFa/x9QG5eTH0MJdiJ9aR00VAofXE="
     },
-    "fruit": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "liberodark",
-        "repo": "my-flakes"
-      },
-      "branch": "master",
-      "submodules": false,
-      "revision": "024556fe3b9eb2b616048ae6fa1aeab09e1260aa",
-      "url": "https://github.com/liberodark/my-flakes/archive/024556fe3b9eb2b616048ae6fa1aeab09e1260aa.tar.gz",
-      "hash": "sha256-RpQSmZ+Ci571oEosojBXVQUoWaLExEcRYmZvIOMq8pI=",
-      "frozen": true
-    },
     "homebrew-cask": {
       "type": "Git",
       "repository": {
