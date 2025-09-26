@@ -6,20 +6,22 @@
   catch2_3,
   cmake,
   fetchFromGitHub,
-  fetchFromGitea,
   cpp-jwt,
   cubeb,
   enet,
+  fetchgit,
   fetchurl,
   ffmpeg-headless,
-  fmt_11,
+  fmt,
   glslang,
   libopus,
   libusb1,
   lz4,
   python3,
   unzip,
-  nix-update-script,
+  writeShellScript,
+  gitMinimal,
+  common-updater-scripts,
   nlohmann_json,
   pkg-config,
   qt6,
@@ -80,15 +82,13 @@ let
 in
 
 stdenv.mkDerivation (finalAttrs: {
-  pname = "yuzu";
-  version = "0-unstable-2025-09-02";
+  pname = "fruit";
+  version = "2025-04-16";
 
-  src = fetchFromGitea {
-    domain = "codeberg.org";
-    owner = "yuzu-emu";
-    repo = "yuzu";
-    rev = "c4f27bcefb3b0b47b814f9d35c743269fa0f036e";
-    hash = "sha256-sr5V+ZZyny6Vw4XOPznGWli3tMAWnWHF770AeZNnInA=";
+  src = fetchgit {
+    url = "https://notabug.org/litucks/torzu.git";
+    rev = finalAttrs.version;
+    hash = "sha256-qDryc0S/S6cUZj58UBsTsJShLqCabf/661IkLZbgxjs=";
     fetchSubmodules = true;
   };
 
@@ -114,7 +114,7 @@ stdenv.mkDerivation (finalAttrs: {
     enet
 
     ffmpeg-headless
-    fmt_11
+    fmt
     # intentionally omitted: gamemode - loaded dynamically at runtime
     # intentionally omitted: httplib - upstream requires an older version than what we have
     libopus
@@ -174,7 +174,7 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeFeature "TITLE_BAR_FORMAT_IDLE" "${finalAttrs.pname} | ${finalAttrs.version} (nixpkgs) {}")
     (lib.cmakeFeature "TITLE_BAR_FORMAT_RUNNING" "${finalAttrs.pname} | ${finalAttrs.version} (nixpkgs) | {}")
 
-    (lib.cmakeBool "ENABLE_WEB_SERVICE" false)
+    # (lib.cmakeBool "ENABLE_WEB_SERVICE" false)
   ];
 
   env = {
@@ -202,7 +202,10 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm444 $src/dist/72-yuzu-input.rules $out/lib/udev/rules.d/72-yuzu-input.rules
   ";
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = writeShellScript "update-torzu" ''
+    NEW_VERSION=$(${lib.getExe gitMinimal} ls-remote --tags --refs --sort=-version:refname ${finalAttrs.src.url} '20*' | head -n 1 | cut --delimiter=/ --field=3-)
+    ${lib.getExe' common-updater-scripts "update-source-version"} fruit "$NEW_VERSION" --print-changes
+  '';
 
   meta = {
     mainProgram = "yuzu";
