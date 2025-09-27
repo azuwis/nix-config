@@ -11,6 +11,7 @@
     # compsize
     dnsutils
     efibootmgr
+    ethtool
     inetutils
     iotop-c
     man-pages
