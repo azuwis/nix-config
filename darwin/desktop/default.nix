@@ -17,10 +17,10 @@ in
   config = mkIf cfg.enable {
     # programs.emacs.enable = true;
     # my.hammerspoon.enable = true;
-    my.rime.enable = true;
 
     programs.firefox.enable = true;
     programs.mpv.enable = true;
+    programs.rime.enable = true;
 
     # Suppress login message
     system.activationScripts.postActivation.text = ''

@@ -7,7 +7,7 @@
 
 let
   inherit (lib) mkIf;
-  cfg = config.my.rime;
+  cfg = config.programs.rime;
 in
 {
   config = mkIf cfg.enable {

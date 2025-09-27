@@ -12,10 +12,10 @@ let
     mkOption
     types
     ;
-  cfg = config.my.rime;
+  cfg = config.programs.rime;
 in
 {
-  options.my.rime = {
+  options.programs.rime = {
     enable = mkEnableOption "rime";
 
     dir = mkOption {
