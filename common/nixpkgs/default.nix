@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.nixpkgs;
+  cfg = config.nixpkgs;
 in
 {
-  options.my.nixpkgs = {
+  options.nixpkgs = {
     enable = mkEnableOption "nixpkgs" // {
       default = true;
     };

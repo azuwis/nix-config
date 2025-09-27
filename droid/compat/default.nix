@@ -39,6 +39,6 @@ in
   };
 
   config = {
-    my.nixpkgs.enable = false;
+    nixpkgs.enable = false;
   };
 }
