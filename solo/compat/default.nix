@@ -12,7 +12,7 @@ let
 in
 
 {
-  disabledModules = [ ../../common/system ];
+  disabledModules = [ ../../common/system/default.nix ];
 
   imports = builtins.map (path: modulesPath + path) [
     "/config/nix-flakes.nix"
