@@ -27,6 +27,7 @@ in
     ./packages
     ./registry
     ./rime
+    ./system
     ./yazi
     ./zsh
   ];

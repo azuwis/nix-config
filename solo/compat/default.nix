@@ -12,6 +12,8 @@ let
 in
 
 {
+  disabledModules = [ ../../common/system ];
+
   imports = builtins.map (path: modulesPath + path) [
     "/config/nix-flakes.nix"
     "/config/shells-environment.nix"
