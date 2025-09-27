@@ -26,7 +26,7 @@ in
     (inputs.agenix.outPath + "/modules/age.nix")
     (inputs.disko.outPath + "/module.nix")
     ../common
-    ../common/firefox
+    ../desktop
   ]
   ++ getModules [ ./. ];
 

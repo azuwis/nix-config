@@ -6,31 +6,13 @@
 }:
 
 let
+  inherit (import ../lib/my.nix) getModules;
   # inputs = import ../inputs;
   inputs = builtins.mapAttrs (_: p: p { inherit pkgs; }) (import ../inputs);
 in
 
 {
-  imports = [
-    ./alacritty
-    ./difftastic
-    ./editorconfig
-    ./git
-    ./home
-    ./jujutsu
-    ./lazyvim
-    ./less
-    ./mpv
-    ./my
-    ./nix-index
-    ./nixpkgs
-    ./packages
-    ./registry
-    ./rime
-    ./system
-    ./yazi
-    ./zsh
-  ];
+  imports = getModules [ ./. ];
 
   _module.args.inputs = inputs;
 

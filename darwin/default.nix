@@ -14,7 +14,7 @@ in
   imports = [
     (inputs.agenix.outPath + "/modules/age.nix")
     ../common
-    ../common/firefox
+    ../desktop
   ]
   ++ getModules [ ./. ];
 
