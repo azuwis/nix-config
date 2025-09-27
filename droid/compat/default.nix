@@ -32,6 +32,7 @@ in
     environment.pathsToLink = mkOption { };
     environment.profileRelativeSessionVariables = mkOption { default = { }; };
     networking.fqdnOrHostName = mkOption { default = "droid"; };
+    nix.optimise = mkOption { };
     system.activationScripts = mkOption { };
     system.build = mkOption { };
     users.defaultUserShell = mkOption { };
