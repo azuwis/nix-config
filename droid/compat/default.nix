@@ -12,6 +12,8 @@ let
 in
 
 {
+  disabledModules = [ ../../common/nixpkgs/default.nix ];
+
   imports = builtins.map (path: modulesPath + path) [
     "/config/shells-environment.nix"
     "/misc/extra-arguments.nix"
@@ -36,9 +38,5 @@ in
     system.activationScripts = mkOption { };
     system.build = mkOption { };
     users.defaultUserShell = mkOption { };
-  };
-
-  config = {
-    nixpkgs.enable = false;
   };
 }
