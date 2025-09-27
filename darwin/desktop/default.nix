@@ -15,7 +15,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    # my.emacs.enable = true;
+    # programs.emacs.enable = true;
     # my.hammerspoon.enable = true;
     my.rime.enable = true;
 

@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.emacs;
+  cfg = config.programs.emacs;
 in
 {
-  options.my.emacs = {
+  options.programs.emacs = {
     enable = mkEnableOption "emacs";
   };
 
