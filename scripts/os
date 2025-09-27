@@ -77,6 +77,15 @@ build() {
   if [ "$FOROTHER" = true ]; then
     profile="$HOME/.local/state/nix/profiles/$HOSTNAME"
     SYSTEM=$(readlink -f "$profile" || true)
+
+    if [ "$OS" = droid ]; then
+      proot=$(nix-instantiate --eval "$CONFIG/flakes" --attr "nixOnDroidConfigurations.\"$HOSTNAME\".config.environment.files.prootStatic.outPath")
+      proot=${proot#\"}
+      proot=${proot%\"}
+      nix-store --realise --option substituters https://nix-on-droid.cachix.org \
+        --option trusted-public-keys "nix-on-droid.cachix.org-1:56snoMJTXmDRC1Ei24CmKoUqvHJ9XCp+nidK7qkMQrU=" \
+        "$proot"
+    fi
   else
     case "$OS" in
     darwin) SYSTEM=$(readlink -f /run/current-system || true) ;;
@@ -96,14 +105,6 @@ build() {
   if [ "$CI" = true ]; then
     export NPINS_OVERRIDE_my="$CONFIG/test"
     nix=(nix-build)
-    if [ "$HOSTNAME" = droid ]; then
-      proot=$(nix-instantiate --eval "$CONFIG/flakes" --attr nixOnDroidConfigurations.droid.config.environment.files.prootStatic.outPath)
-      proot=${proot#\"}
-      proot=${proot%\"}
-      nix-store --realise --option substituters https://nix-on-droid.cachix.org \
-        --option trusted-public-keys "nix-on-droid.cachix.org-1:56snoMJTXmDRC1Ei24CmKoUqvHJ9XCp+nidK7qkMQrU=" \
-        "$proot"
-    fi
   fi
 
   BUILT=$(run_command "${nix[@]}" "$CONFIG/flakes" --no-out-link --attr "${args[@]}" "$@")
