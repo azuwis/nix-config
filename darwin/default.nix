@@ -15,7 +15,6 @@ in
     (inputs.agenix.outPath + "/modules/age.nix")
     ../common
     ../common/firefox
-    ../common/nixpkgs
     ../common/registry
     ../common/system
   ]

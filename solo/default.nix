@@ -12,7 +12,6 @@ in
 {
   imports = [
     ../common
-    ../common/nixpkgs
   ]
   ++ getModules [ ./. ];
 }

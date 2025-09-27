@@ -23,6 +23,7 @@ in
     ./mpv
     ./my
     ./nix-index
+    ./nixpkgs
     ./packages
     ./rime
     ./yazi

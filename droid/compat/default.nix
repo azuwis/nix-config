@@ -37,4 +37,8 @@ in
     system.build = mkOption { };
     users.defaultUserShell = mkOption { };
   };
+
+  config = {
+    my.nixpkgs.enable = false;
+  };
 }
