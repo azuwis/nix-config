@@ -13,6 +13,7 @@ in
 
 {
   imports = builtins.map (path: modulesPath + path) [
+    "/config/nix-flakes.nix"
     "/config/shells-environment.nix"
     "/misc/assertions.nix"
     "/misc/meta.nix"
@@ -35,6 +36,7 @@ in
     environment.sessionVariables = mkOption { default = { }; };
     environment.profileRelativeSessionVariables = mkOption { default = { }; };
     networking.fqdnOrHostName = mkOption { default = "nix"; };
+    nix.nixPath = mkOption { };
     system.activationScripts = mkOption { };
     users.defaultUserShell = mkOption { };
   };

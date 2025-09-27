@@ -25,6 +25,7 @@ in
     ./nix-index
     ./nixpkgs
     ./packages
+    ./registry
     ./rime
     ./yazi
     ./zsh

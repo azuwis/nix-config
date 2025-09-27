@@ -27,7 +27,6 @@ in
     (inputs.disko.outPath + "/module.nix")
     ../common
     ../common/firefox
-    ../common/registry
     ../common/system
   ]
   ++ getModules [ ./. ];
