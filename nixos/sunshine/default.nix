@@ -114,7 +114,7 @@ in
     services.avahi.enable = lib.mkOverride 999 false;
 
     systemd.user.services.sunshine.serviceConfig.Environment = [
-      "PATH=%h/.nix-profile/bin:/etc/profiles/per-user/%u/bin:/run/current-system/sw/bin"
+      "PATH=/run/wrappers/bin:/run/current-system/sw/bin"
     ];
 
     services.sunshine = {
