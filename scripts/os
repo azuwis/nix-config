@@ -49,13 +49,15 @@ run_command() {
     shift
     full_command=(nix --extra-experimental-features nix-command run --file "$CONFIG/pkgs" "$package" -- "$@")
   fi
-  >&2 printf '\033[0;33m$ '
+  if [ "$DRY_RUN" = true ]; then
+    dry="Dry run:"
+  else
+    dry="$"
+  fi
+  >&2 printf '\033[0;33m%s ' "$dry"
   >&2 printf '%q ' "${full_command[@]}"
   >&2 printf '\033[0m\n'
-  if [ "$DRY_RUN" = true ]; then
-    echoerr "Dry run, exit"
-    exit 1
-  else
+  if [ "$DRY_RUN" != true ]; then
     "${full_command[@]}"
   fi
 }
@@ -111,6 +113,7 @@ build() {
   BUILT=$(run_command "${nix[@]}" "$CONFIG/flakes" --no-out-link --attr "${args[@]}" "$@")
 
   if [ -z "$BUILT" ]; then
+    echoerr "Empty built, exit"
     exit
   fi
 
