@@ -69,6 +69,14 @@ layer-rule {
   geometry-corner-radius 12
 }
 
+// Shadow for waybar
+layer-rule {
+  match namespace="^waybar$"
+  shadow {
+    on
+  }
+}
+
 // Shadow for yambar
 layer-rule {
   match namespace="^panel$"
