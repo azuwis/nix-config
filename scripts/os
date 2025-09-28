@@ -10,6 +10,7 @@ USAGE:
   $cmd b|build [<nix-build args>] [<host>]
   $cmd c|clean
   $cmd d|diff [<host>]
+  $cmd dp|deploy [<host>]
   $cmd hw|hardware
   $cmd l|list
   $cmd r|run <apps>
@@ -318,6 +319,7 @@ ci)
   CI=true
   action="build"
   ;;
+dp | deploy) action="deploy" ;;
 d | diff)
   DIFF=true
   action="build"
@@ -343,7 +345,7 @@ clean | direnv-gcroots | flake-update | hardware | npins-update | run | usage)
 esac
 
 # Variables for build
-if [ "$action" = build ] && [ "$#" -gt 0 ] && [[ ${*: -1} != -* ]]; then
+if { [ "$action" = build ] || [ "$action" = deploy ]; } && [ "$#" -gt 0 ] && [[ ${*: -1} != -* ]]; then
   HOSTNAME="${*: -1}"
   FOROTHER=true
   # remove last arg
@@ -390,6 +392,9 @@ fi
 case "$action" in
 build)
   "$action" "$@"
+  ;;
+deploy)
+  rebuild switch --target-host "$HOSTNAME" "$@"
   ;;
 list)
   case "$OS" in
