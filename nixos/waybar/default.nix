@@ -26,7 +26,10 @@ in
       {
         layer = "top";
         height = 26;
-        modules-left = [ "ext/workspaces" ];
+        modules-left = [
+          "niri/workspaces"
+          "sway/workspaces"
+        ];
         modules-center = [
           "niri/window"
           "sway/window"
