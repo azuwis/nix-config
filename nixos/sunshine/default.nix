@@ -47,6 +47,7 @@ let
             builtins.elem name [
               "fcitx5"
               "foot"
+              "waybar"
               "yambar"
             ]
           ) config.programs.wayland.startup
