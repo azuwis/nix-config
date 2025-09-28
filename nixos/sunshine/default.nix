@@ -164,9 +164,16 @@ in
               let
                 image = pkgs.fetchurl { inherit url hash; };
               in
-              pkgs.runCommand "${lib.nameFromURL url "."}.png" { } ''
-                ${pkgs.imagemagick}/bin/magick ${image} -background none -gravity center -extent 600x800 $out
-              '';
+              pkgs.runCommand "${lib.nameFromURL url "."}.png" { } (
+                if lib.hasSuffix ".svg" url then
+                  ''
+                    ${pkgs.imagemagick}/bin/magick -density 1200 -background none ${image} -resize x500 -gravity center -extent 600x800 $out
+                  ''
+                else
+                  ''
+                    ${pkgs.imagemagick}/bin/magick ${image} -background none -gravity center -extent 600x800 $out
+                  ''
+              );
             cemu-prep-cmd = [
               {
                 do = "${./scripts}/cemu-do.sh";
@@ -187,9 +194,10 @@ in
           [
             {
               name = "Z Desktop";
-              image-path = pkgs.runCommand "desktop.png" { } ''
-                ${pkgs.imagemagick}/bin/magick -density 1200 -background none ${pkgs.adwaita-icon-theme}/share/icons/Adwaita/scalable/devices/input-keyboard.svg -resize 500x -gravity center -extent 600x800 $out
-              '';
+              image-path = mkImage {
+                url = "https://github.com/LizardByte/Sunshine/raw/86188d47a7463b0f73b35de18a628353adeaa20e/sunshine.svg";
+                hash = "sha256-PCdVypB7d9EtkAolVIhCTAqAWb+1VlVoZtZDSK5W5xs=";
+              };
             }
             {
               name = "BotW";
@@ -238,9 +246,10 @@ in
             }
             {
               name = "Yuzu";
-              image-path = pkgs.runCommand "yuzu.png" { } ''
-                ${pkgs.imagemagick}/bin/magick -density 1200 -background none "${pkgs.fruit}/share/icons/hicolor/scalable/apps/"*.svg -resize x500 -gravity center -extent 600x800 $out
-              '';
+              image-path = mkImage {
+                url = "https://salsa.debian.org/debian/yuzu/-/raw/b88a2a787b22e770009174e22660d0db8bfb7eb9/dist/yuzu.svg";
+                hash = "sha256-JXAqoBw+YpCqeWY+M9OK6OgozheVc92pUa54+B+olU0=";
+              };
               cmd = "yuzu";
               prep-cmd = yuzu-prep-cmd;
             }
