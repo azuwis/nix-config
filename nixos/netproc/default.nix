@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.netproc;
+  cfg = config.programs.netproc;
 in
 {
-  options.my.netproc = {
+  options.programs.netproc = {
     enable = mkEnableOption "netproc" // {
       default = true;
     };
