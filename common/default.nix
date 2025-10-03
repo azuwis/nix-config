@@ -36,6 +36,7 @@ in
   programs.lazyvim.terraform.enable = true;
   # programs.lazyvim.update-nix-fetchgit.enable = true;
   # programs.lazyvim.yaml.enable = true;
+  programs.less.enable = true;
   programs.nix-index.enable = true;
   programs.yazi.enable = true;
   programs.zsh.enable = true;

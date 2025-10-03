@@ -6,18 +6,11 @@
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.less;
+  cfg = config.programs.less;
 in
 {
-  options.my.less = {
-    enable = mkEnableOption "less" // {
-      default = true;
-    };
-  };
-
-  config = mkIf cfg.enable {
-    environment.variables.LESS = "-RX#5";
-    environment.variables.PAGER = "less -FRX#5";
+  config = lib.mkIf cfg.enable {
+    environment.variables.PAGER = "less";
+    programs.less.envVariables.LESS = "-FRX#5";
   };
 }

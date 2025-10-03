@@ -26,6 +26,7 @@ in
     "/programs/direnv.nix"
     "/programs/fish.nix"
     "/programs/git.nix"
+    "/programs/less.nix"
     "/programs/nix-index.nix"
     "/programs/xonsh.nix"
     "/programs/yazi.nix"
