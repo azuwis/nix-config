@@ -70,5 +70,5 @@
   '';
 
   my.desktop.enable = true;
-  my.zramswap.enable = true;
+  zramSwap.enable = true;
 }

@@ -6,16 +6,10 @@
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.zramswap;
+  cfg = config.zramSwap;
 in
 {
-  options.my.zramswap = {
-    enable = mkEnableOption "zramswap";
-  };
-
-  config = mkIf cfg.enable {
-    zramSwap.enable = true;
+  config = lib.mkIf cfg.enable {
     # boot.kernel.sysctl."vm.swappiness" = 100;
   };
 }

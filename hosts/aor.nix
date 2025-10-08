@@ -76,7 +76,7 @@
   # programs.steam.remotePlay.openFirewall = true;
   services.sunshine.enable = true;
   services.sunshine.settings.adapter_name = "/dev/dri/by-path/pci-0000:11:00.0-render";
-  my.zramswap.enable = true;
+  zramSwap.enable = true;
 
   # Eval time will be multiplied by specialisations count
   # specialisation.vfio.configuration = {

@@ -48,7 +48,7 @@
   my.torrent.enable = true;
   # programs.uxplay.enable = true;
   programs.wayland.startup.initlock = lib.mkForce [ ];
-  my.zramswap.enable = true;
+  zramSwap.enable = true;
 
   programs.jslisten.enable = true;
   programs.swayidle.enable = false;
