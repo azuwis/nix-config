@@ -64,6 +64,7 @@ in
     }) inputs';
 
     settings.registry.entries = [
+      "agenix"
       "nixpkgs"
     ];
   };

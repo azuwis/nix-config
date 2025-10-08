@@ -25,6 +25,7 @@ in
 
 {
   config = lib.mkIf config.programs.nix-index.enable {
+    settings.registry.entries = [ "nix-index-database" ];
     programs.command-not-found.enable = false;
     programs.nix-index.package = nix-index;
   };

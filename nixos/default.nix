@@ -32,6 +32,8 @@ in
 
   environment.systemPackages = [ pkgs.agenix ];
 
+  settings.registry.entries = [ "disko" ];
+
   # Use information from npins to set system version suffix
   system.nixos.versionSuffix =
     lib.mkIf (inputs.nixpkgs ? revision)

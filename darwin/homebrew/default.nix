@@ -12,6 +12,12 @@ in
 {
   imports = [ (inputs.nix-homebrew.outPath + "/modules") ];
 
+  settings.registry.entries = [
+    "brew-src"
+    "homebrew-cask"
+    "nix-homebrew"
+  ];
+
   nix-homebrew = {
     inherit (config.my) user;
     enable = true;

@@ -18,6 +18,8 @@ in
   ]
   ++ getModules [ ./. ];
 
+  settings.registry.entries = [ "nix-darwin" ];
+
   environment.systemPackages = [ pkgs.agenix ];
 
   programs.zsh.ssh-agent.enable = true;
