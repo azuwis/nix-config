@@ -6,15 +6,15 @@
 
 npins.overrideAttrs (
   finalAttrs: prevAttrs: {
-    version = "0.3.1-unstable-2025-08-24";
+    version = "0.3.1-unstable-2025-09-21";
 
     src = prevAttrs.src.override {
-      rev = "e4683671e145c652c371b6b8ad9b0d757c88853c";
+      rev = "e49bcf58d66fa7f586aff687feae72c23e429672";
       tag = null;
-      sha256 = "sha256-Nu86s1xok+1EFM0J9e55hrYPgfoutEZUDBpeXReCOaY=";
+      sha256 = "sha256-ZLrVWa7WU+IUXPAd6mR7B9c6FDZSiGgW8ClfW0SxbMs=";
     };
 
-    cargoHash = "sha256-dBMY5L9xzq3czs5fGHFXNqzQQvHO3+c6WRY8tVvIz20=";
+    cargoHash = "sha256-OrGkv0KXCrPleM+F7rwTIWVdFNhKdTniKCqWym4B9Ls=";
     # rebuild cargoDeps by hand because `.overrideAttrs cargoHash`
     # does not reconstruct cargoDeps (a known limitation):
     cargoDeps = rustPlatform.fetchCargoVendor {
