@@ -398,6 +398,9 @@ build)
   ;;
 deploy)
   rebuild switch --target-host "$HOSTNAME" "$@"
+  if [ -L ./result ]; then
+    rm ./result
+  fi
   ;;
 list)
   case "$OS" in
