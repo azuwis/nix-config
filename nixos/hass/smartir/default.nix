@@ -15,7 +15,14 @@ in
   };
 
   config = mkIf (cfg.enable && cfg.smartir) {
-    services.home-assistant.customComponents = [ pkgs.home-assistant-custom-components.smartir ];
+    services.home-assistant.customComponents = [
+      (pkgs.home-assistant-custom-components.smartir.overridePythonAttrs (old: {
+        # Add `Off` to `sources` for R2000DB, useful to synchronize power state
+        postInstall = (old.postInstall or "") + ''
+          cp -r ${./codes}/* $out/custom_components/smartir/codes/
+        '';
+      }))
+    ];
     services.home-assistant.extraComponents = [ "broadlink" ];
 
     services.home-assistant.config = {
