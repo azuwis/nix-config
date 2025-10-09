@@ -40,6 +40,7 @@ in
       # gree = true;
       gree2 = true;
       mini-media-player = true;
+      # python_script = true;
       simple-thermostat = true;
       smartir = true;
       # weather = true;
