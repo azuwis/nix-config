@@ -14,6 +14,7 @@
 
   # Use `kitten choose_fonts` to get font names
   environment.etc."xdg/kitty/kitty.conf".text = ''
+    clipboard_control write-clipboard write-primary
     copy_on_select yes
     cursor_blink_interval 0
     editor vim
