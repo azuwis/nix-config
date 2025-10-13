@@ -60,7 +60,7 @@
         lalt - w : yabai -m space --layout stack
         lalt - e : yabai -m space --layout bsp
         lalt - s : yabai -m space --layout float
-        lalt - return : kitty --single-instance
+        lalt - return : SHELL=/run/current-system/sw/bin/zsh kitty --single-instance
       '';
     };
 
