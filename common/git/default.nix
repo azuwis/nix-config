@@ -45,6 +45,7 @@ in
         .direnv/
         .envrc
       '';
+      diff.algorithm = "histogram";
       rebase = {
         autosquash = true;
         autostash = true;
