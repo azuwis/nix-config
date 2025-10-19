@@ -109,4 +109,9 @@
     uid = 3000;
     openssh.authorizedKeys.keys = config.my.keys;
   };
+
+  services.ollama = {
+    enable = true;
+    acceleration = "cuda";
+  };
 }
