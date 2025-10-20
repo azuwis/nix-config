@@ -41,8 +41,10 @@ in
   homebrew = {
     enable = true;
     onActivation = {
-      # since nix-homebrew is used, and mutableTaps is disabled, autoUpdate only update index of pinned version
-      autoUpdate = true;
+      # When `nix-homebrew.mutableTaps` is false, autoUpdate will have not
+      # effect because `HOMEBREW_NO_AUTO_UPDATE=1` set in `brew` wrapper
+      # https://github.com/zhaofengli/nix-homebrew/blob/main/modules/default.nix#L126-L128
+      # autoUpdate = true;
       cleanup = "zap";
       upgrade = true;
     };
