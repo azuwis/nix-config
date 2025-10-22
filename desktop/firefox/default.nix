@@ -13,6 +13,7 @@ in
 
 {
   imports = [
+    ./bookmarklets
     ./common
     ./ublock-origin
     ./vimfx

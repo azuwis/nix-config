@@ -1,0 +1,7 @@
+[
+  {
+    "Title": "unlock-copy",
+    "URL": "javascript:!function(){document.addEventListener(\"contextmenu\",(t=>t.stopPropagation()),!0),document.addEventListener(\"selectstart\",(t=>t.stopPropagation()),!0),document.addEventListener(\"mousedown\",(t=>t.stopPropagation()),!0),document.addEventListener(\"copy\",(t=>t.stopPropagation()),!0);const t=EventTarget.prototype.addEventListener;EventTarget.prototype.addEventListener=function(e,n,o){[\"contextmenu\",\"selectstart\",\"copy\"].includes(e)||t.call(this,e,n,o)};document.querySelectorAll(\"*\").forEach((t=>{t.style.userSelect=\"auto\",t.style.webkitUserSelect=\"auto\",t.style.MozUserSelect=\"auto\"})),document.oncontextmenu=null,document.onselectstart=null,document.oncopy=null,HTMLDocument.prototype.oncontextmenu=null,HTMLElement.prototype.oncontextmenu=null,HTMLElement.prototype.onselectstart=null}();",
+    "Placement": "menu"
+  }
+]
