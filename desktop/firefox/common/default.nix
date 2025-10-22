@@ -128,6 +128,7 @@ in
         "browser.sessionstore.interval" = 300000; # 300 seconds
         "browser.tabs.closeWindowWithLastTab" = false;
         "browser.tabs.tabClipWidth" = 50;
+        # "browser.urlbar.filter.javascript" = false; # show bookmarklets in URL bar, but will not execute when enter, https://superuser.com/questions/1500939/enable-javascript-in-url-bar-in-firefox
         "browser.urlbar.trimURLs" = false;
         # compact mode
         "browser.compactmode.show" = true;
