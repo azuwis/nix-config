@@ -24,7 +24,12 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version=branch"
+      "--version-regex=^(.*-0[1-7])$"
+    ];
+  };
 
   meta = {
     description = "Better aggregated chnroutes";
