@@ -46,6 +46,7 @@ in
       (importTOML ./config.toml)
       {
         aliases = {
+          d = [ "describe" ];
           ni = [
             "util"
             "exec"
