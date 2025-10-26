@@ -141,14 +141,14 @@
       "type": "Git",
       "repository": {
         "type": "GitHub",
-        "owner": "nix-community",
+        "owner": "azuwis",
         "repo": "nix-index-database"
       },
       "branch": "main",
       "submodules": false,
-      "revision": "c9f5ea45f25652ec2f771f9426ccacb21cbbaeaa",
-      "url": "https://github.com/nix-community/nix-index-database/archive/c9f5ea45f25652ec2f771f9426ccacb21cbbaeaa.tar.gz",
-      "hash": "sha256-OD7QnaGEVNdukYEbJbUNWPsvnDrpbZOZxVIk6Pt9Jhw="
+      "revision": "fbb560f031372e0b7ad23f3b2cc13ce5facf11fe",
+      "url": "https://github.com/azuwis/nix-index-database/archive/fbb560f031372e0b7ad23f3b2cc13ce5facf11fe.tar.gz",
+      "hash": "sha256-h6L7/ZD2c5F+bdywY/aq7OQnjhyGdMm9m1Dqa2lwLYg="
     },
     "nix-on-droid": {
       "type": "Git",
