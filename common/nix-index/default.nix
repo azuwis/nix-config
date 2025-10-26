@@ -12,8 +12,8 @@ let
   # Wrap nix-locate to use full database, nix-locate-small to use small database
   nix-index = pkgs.runCommand "nix-index" { buildInputs = [ pkgs.makeWrapper ]; } ''
     mkdir -p $out/etc/profile.d $out/share/misc/full $out/share/misc/small
-    ln -s ${nix-index-database.nix-index-database} $out/share/misc/full/files
-    ln -s ${nix-index-database.nix-index-small-database} $out/share/misc/small/files
+    ln -s ${nix-index-database.nix-index-stable-database} $out/share/misc/full/files
+    ln -s ${nix-index-database.nix-index-stable-small-database} $out/share/misc/small/files
     makeWrapper ${pkgs.nix-index}/bin/nix-locate $out/bin/nix-locate \
       --set NIX_INDEX_DATABASE $out/share/misc/full
     makeWrapper ${pkgs.nix-index}/bin/nix-locate $out/bin/nix-locate-small \
