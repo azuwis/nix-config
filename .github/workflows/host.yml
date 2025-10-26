@@ -6,8 +6,8 @@ on:
     branches:
       - '*'
     paths:
-      - flake.lock
-      - 'inputs/**'
+      - .github/workflows/host.yml
+      - inputs/**
   workflow_dispatch:
     inputs:
       debug:
