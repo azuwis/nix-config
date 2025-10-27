@@ -84,7 +84,7 @@ jobs:
           nix path-info --closure-size ~/.local/state/nix/profiles/"$HOST" | awk '{print $2}' > /tmp/report/"$HOST"
           echo "${GITHUB_SHA::8}" > /tmp/report/nix-config
           jq -r '.pins.nixpkgs.revision[:8]' inputs/sources.json > /tmp/report/nixpkgs
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
           name: report-${{ matrix.host }}
           path: /tmp/report/
