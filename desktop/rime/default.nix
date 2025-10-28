@@ -65,6 +65,10 @@ in
       sha256 = "0ygcpbhp00lb5ghi56kpxl1mg52i7hdlrznm2wkdq8g3hjxyxfqi";
     };
 
+    # https://github.com/rime/librime/issues/972
+    # patch:
+    #   punctuator/digit_separators: ",.:" # default value, set "" to disable
+    #   punctuator/digit_separator_action: "" # default not set, set "commit" to auto commit
     home.file."${cfg.dir}/luna_pinyin.custom.yaml".text = ''
       patch:
         __include: grammar:/hans
