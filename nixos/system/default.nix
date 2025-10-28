@@ -70,9 +70,10 @@
   # Switch leftmeta and leftalt, as the window manager global modifier, meta is more often used then alt
   # https://wiki.archlinux.org/title/map_scancodes_to_keycodes
   # nix shell nixpkgs#evemu nixpkgs#evtest
-  # sudo evemu-describe
-  # sudo evtest | grep EV_MSC
-  # sudo udevadm trigger
+  # Get DMI/name for `evdev:name:*`: sudo evemu-describe
+  # Get modalias for `evdev:input:*`: cat /sys/class/input/event*/device/modalias
+  # Get keycode: sudo evtest | grep EV_MSC
+  # Reload: sudo udevadm trigger
   # Dell XPS13
   # evdev:atkbd:dmi:bvn*:bvr*:bd*:svnDell*:pnXPS13*:pvr*
   # Logitech K400 Plus
