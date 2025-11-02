@@ -230,6 +230,10 @@ font pango:monospace 8
 hide_edge_borders both
 smart_borders no_gaps
 
+input "type:pointer" {
+  natural_scroll enabled
+}
+
 input "type:keyboard" {
   repeat_delay 300
   repeat_rate 33
