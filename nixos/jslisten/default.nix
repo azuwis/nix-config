@@ -21,65 +21,98 @@ in
       type = ini.type;
       default =
         let
+          fruit =
+            app:
+            run {
+              inherit app;
+              app_id = "onion.torzu_emu.torzu";
+              class = "yuzu";
+              cmd = if app == "Fruit" then "yuzu" else "yuzu -f -g $HOME/Games/Switch/${app}.nsp";
+            };
           # `program` only accept 100 chars, shorten them by wrapping
-          sway-run =
+          run =
             args:
-            "${pkgs.writeShellScript (builtins.elemAt (builtins.split " " args) 0) ''
-              exec ${./scripts}/sway-run.sh ${args}
-            ''} &";
+            let
+              makeWrapperArgs = lib.flatten (
+                lib.mapAttrsToList (name: value: [
+                  "--set"
+                  (lib.toUpper name)
+                  value
+                ]) args
+              );
+              wrapper =
+                pkgs.runCommand args.app
+                  {
+                    nativeBuildInputs = [
+                      pkgs.makeWrapper
+                    ];
+                  }
+                  ''
+                    makeWrapper "${./scripts}/run.sh" "$out" ${lib.escapeShellArgs makeWrapperArgs}
+                  '';
+            in
+            "${wrapper} &";
+          type = args: "${./scripts}/type.sh ${args} &";
         in
         {
           # PS+L
           Left = {
             button1 = 10;
             button2 = 4;
-            program = if sway then "wtype -k left &" else "xdotool key Left &";
+            program = type "Left";
           };
           # PS+R
           Right = {
             button1 = 10;
             button2 = 5;
-            program = if sway then "wtype -k right &" else "xdotool key Right &";
+            program = type "Right";
           };
           # PS+ZL
           Moonlight = {
             button1 = 10;
             button2 = 6;
-            program = sway-run "Dummy app_id=com.moonlight_stream.Moonlight moonlight";
+            # program = sway-run "Dummy app_id=com.moonlight_stream.Moonlight moonlight";
+            program = run {
+              app = "Moonlight";
+              app_id = "com.moonlight_stream.Moonlight";
+              class = "Moonlight";
+              cmd = "moonlight";
+            };
           };
           # PS+ZR
           Space = {
             button1 = 10;
             button2 = 7;
-            program = if sway then "wtype -k space &" else "xdotool key space &";
+            program = type "space";
           };
           # PS+△
           TotK = {
             button1 = 10;
             button2 = 2;
-            program = sway-run "TotK class=yuzu yuzu -f -g $HOME/Games/Switch/TotK.nsp";
+            program = fruit "TotK";
           };
           # PS+□
           Yuzu = {
             button1 = 10;
             button2 = 3;
-            program = sway-run "Yuzu class=yuzu yuzu";
+            program = fruit "Fruit";
           };
           # PS+○
           BotW = {
             button1 = 10;
             button2 = 1;
-            program =
-              if sway then
-                sway-run "BotW app_id=info.cemu.Cemu cemu --fullscreen --title-id 00050000101c9300"
-              else
-                "${./scripts}/i3-botw.sh &";
+            program = run {
+              app = "BotW";
+              app_id = "info.cemu.Cemu";
+              class = "Cemu";
+              cmd = "cemu --fullscreen --title-id 00050000101c9300";
+            };
           };
           # PS+X
           NieR = {
             button1 = 10;
             button2 = 0;
-            program = sway-run "NieR class=yuzu yuzu -f -g $HOME/Games/Switch/NieR.nsp";
+            program = fruit "NieR";
           };
         };
     };
