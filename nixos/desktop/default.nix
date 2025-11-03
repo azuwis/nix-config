@@ -16,7 +16,6 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      chromium
       evemu
       evtest
     ];
@@ -28,6 +27,7 @@ in
 
     programs.android.enable = true;
     programs.bluetooth.enable = true;
+    programs.chromium.enable = true;
     programs.fcitx5.enable = true;
     programs.firefox.enable = true;
     programs.gnupg.agent = {
