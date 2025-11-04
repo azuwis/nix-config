@@ -15,13 +15,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "chameleon-${deviceType}-firmware";
-  version = "2.1.0-unstable-2025-10-13";
+  version = "2.1.0-unstable-2025-10-16";
 
   src = fetchFromGitHub {
     owner = "RfidResearchGroup";
     repo = "ChameleonUltra";
-    rev = "97dfe5b9a41a6ea5535c6842afbe420098c4844b";
-    hash = "sha256-uXmFWkzDRyI1hZtWKWxQquTn40cbA36WTBkOmWllRJ4=";
+    rev = "100484b30d8cea56b30afa100ad501164eabe88d";
+    hash = "sha256-n+S9NhimP587/nvtrsaZalxL0okhqbWGFeWDYjO9gxM=";
   };
 
   postPatch = ''
@@ -75,7 +75,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
-      "--version=branch"
+      # https://github.com/RfidResearchGroup/ChameleonUltra/pull/307
+      "--version=branch=pull/307/merge"
       "--version-regex=v(.*)"
     ];
   };
