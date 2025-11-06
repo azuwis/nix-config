@@ -87,6 +87,7 @@ in
         wev
         wtype
         wl-clipboard # neovim
+        wlrctl
         xdg-utils
         grim
       ];
