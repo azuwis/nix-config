@@ -18,70 +18,32 @@ in
       type = lib.types.attrsOf toml.type;
       default =
         let
-          fruit =
-            app:
-            run {
-              inherit app;
-              app_id = "onion.torzu_emu.torzu";
-              class = "yuzu";
-              cmd = if app == "Fruit" then "yuzu" else "yuzu -f -g $HOME/Games/Switch/${app}.nsp";
-            };
-          run =
-            args:
-            let
-              makeWrapperArgs = lib.flatten (
-                lib.mapAttrsToList (name: value: [
-                  "--set"
-                  (lib.toUpper name)
-                  value
-                ]) args
-              );
-              wrapper =
-                pkgs.runCommand args.app
-                  {
-                    nativeBuildInputs = [
-                      pkgs.makeWrapper
-                    ];
-                  }
-                  ''
-                    makeWrapper "${./scripts}/run.sh" "$out" ${lib.escapeShellArgs makeWrapperArgs}
-                  '';
-            in
-            wrapper;
           dualsense = {
             remap = {
               # PS+L
-              BTN_MODE-BTN_TL = [ "KEY_LEFT" ];
+              BTN_MODE-BTN_TL = [ "KEY_UP" ];
               # PS+R
-              BTN_MODE-BTN_TR = [ "KEY_RIGHT" ];
+              BTN_MODE-BTN_TR = [ "KEY_DOWN" ];
+              # PS+ZL
+              BTN_MODE-BTN_TL2 = [ "KEY_LEFT" ];
               # PS+ZR
-              BTN_MODE-BTN_TR2 = [ "KEY_SPACE" ];
+              BTN_MODE-BTN_TR2 = [ "KEY_RIGHT" ];
+              # PS+□
+              BTN_MODE-BTN_START = [ "KEY_BACKSPACE" ];
+              # PS+□
+              BTN_MODE-BTN_WEST = [ "KEY_SPACE" ];
+              # PS+○
+              BTN_MODE-BTN_EAST = [ "KEY_ESC" ];
+              # PS+X
+              BTN_MODE-BTN_SOUTH = [ "KEY_ENTER" ];
             };
             commands = {
-              # PS+ZL
-              BTN_MODE-BTN_TL2 = [
-                (run {
-                  app = "Moonlight";
-                  app_id = "com.moonlight_stream.Moonlight";
-                  class = "Moonlight";
-                  cmd = "moonlight";
-                })
-              ];
               # PS+△
-              BTN_MODE-BTN_NORTH = [ (fruit "TotK") ];
-              # PS+□
-              BTN_MODE-BTN_WEST = [ (fruit "Fruit") ];
-              # PS+○
-              BTN_MODE-BTN_EAST = [
-                (run {
-                  app = "BotW";
-                  app_id = "info.cemu.Cemu";
-                  class = "Cemu";
-                  cmd = "cemu --fullscreen --title-id 00050000101c9300";
-                })
-              ];
-              # PS+X
-              BTN_MODE-BTN_SOUTH = [ (fruit "NieR") ];
+              BTN_MODE-BTN_NORTH = [ "gamefzf" ];
+            };
+            settings = {
+              RSTICK = "cursor";
+              RSTICK_ACTIVATION_MODIFIERS = "BTN_MODE";
             };
           };
         in
