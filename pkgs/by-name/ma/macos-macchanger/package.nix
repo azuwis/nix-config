@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "macchanger";
-  version = "0.2";
+  version = "0-unstable-2025-04-05";
 
   src = fetchFromGitHub {
     owner = "shilch";
     repo = "macchanger";
-    rev = "v${finalAttrs.version}-draft";
-    hash = "sha256-VGTm6cefWxLfajh+zJ6vaGZRXOrw3xJi4P21j3I8ERY=";
+    rev = "fd253f2df97f6f42421b9fc002f827012b5ecf72";
+    hash = "sha256-Y4hhmuELvVOzOGF3CbWWQedA5OPNSTY+Ur6rwcuOQl0=";
   };
 
   buildInputs = [ apple-sdk_12 ];
@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script { extraArgs = [ "--version=branch=v0.2-draft2" ]; };
   };
 
   meta = {
