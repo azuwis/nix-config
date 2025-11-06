@@ -16,7 +16,7 @@ let
         # When NPINS_OVERRIDE_nixpkgs is used, nixpkgs registry will be something like
         # `path:/home/user/src/nixpkgs`, and then `nix run nixpkgs#foo` will copy the
         # entire nixpkgs repo into nix store
-        name: value: builtins.elem name cfg.entries && lib.hasPrefix "/nix/store/" value
+        name: value: builtins.elem name cfg.entries && lib.hasPrefix builtins.storeDir value
       )
       (
         # Use toString to avoid copying inputs to nix store if NPINS_OVERRIDE_* is used
