@@ -130,6 +130,7 @@ in
         "browser.tabs.tabClipWidth" = 50;
         # "browser.urlbar.filter.javascript" = false; # show bookmarklets in URL bar, but will not execute when enter, https://superuser.com/questions/1500939/enable-javascript-in-url-bar-in-firefox
         "browser.urlbar.trimURLs" = false;
+        "browser.urlbar.resultMenu.keyboardAccessible" = false; # disable Tab key to access `...` menu
         # compact mode
         "browser.compactmode.show" = true;
         "browser.uidensity" = 1;
