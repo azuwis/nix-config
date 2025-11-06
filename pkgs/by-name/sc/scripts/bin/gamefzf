@@ -1,0 +1,116 @@
+#!/usr/bin/env bash
+
+case "$XDG_CURRENT_DESKTOP" in
+i3)
+  firefox_toggle_play() {
+    if [ "$(i3-msg -t get_tree | jq -r '.. | select(.type?) | select(.focused==true and .fullscreen_mode==1) | .window_properties.class')" = firefox ]; then
+      xdotool key space
+    fi
+  }
+  focus() {
+    app_id="$1"
+    class="$2"
+    if [ -z "$class" ]; then
+      class="$app_id"
+    fi
+    swaymsg --quiet "[class=$class]" focus
+  }
+  get_focused_app() {
+    i3-msg -t get_tree | jq -r '.. | select(.type?) | select(.focused==true) | .window_properties.class'
+  }
+  ;;
+
+niri)
+  firefox_toggle_play() {
+    if [ "$(niri msg --json focused-window | jq -r '[.app_id, .layout.window_size[0], .layout.window_size[1]] | join(" ")')" = "firefox $(niri msg --json focused-output | jq -r '[.logical.width, .logical.height] | join(" ")')" ]; then
+      # wtype does not work on Firefox in Niri, but `wlrctl keyboard type " "` works, why?
+      wlrctl keyboard type " "
+    fi
+  }
+  focus() {
+    app_id="$1"
+    class="$2"
+    id=$(niri msg --json windows | jq -r "[.[] | select(.app_id==\"$app_id\" or .app_id==\"$class\")][0].id // empty")
+    if [ -n "$id" ]; then
+      niri msg action focus-window --id "$id"
+    else
+      false
+    fi
+  }
+  get_focused_app() {
+    niri msg --json focused-window | jq -r '.app_id'
+  }
+  ;;
+
+sway)
+  firefox_toggle_play() {
+    if [ "$(swaymsg -t get_tree | jq -r '.. | select(.type?) | select(.focused==true and .fullscreen_mode==1) | .app_id // .window_properties.class')" = firefox ]; then
+      wlrctl keyboard type " "
+    fi
+  }
+  focus() {
+    app_id="$1"
+    class="$2"
+    if [ -z "$class" ]; then
+      class="$app_id"
+    fi
+    swaymsg --quiet "[app_id=$app_id]" focus ||
+      swaymsg --quiet "[class=$class]" focus
+  }
+  get_focused_app() {
+    swaymsg -t get_tree | jq -r '.. | select(.type?) | select(.focused==true) | .app_id // .window_properties.class'
+  }
+  ;;
+esac
+
+is_app_focused() {
+  case "$(get_focused_app)" in
+  com.moonlight_stream.Moonlight | Moonlight | \
+    onion.torzu_emu.torzu | yuzu | \
+    com.libretro.RetroArch | retroarch | \
+    info.cemu.Cemu | Cemu)
+    true
+    ;;
+  *) false ;;
+  esac
+}
+
+focus_app() {
+  focus com.moonlight_stream.Moonlight Moonlight ||
+    focus onion.torzu_emu.torzu yuzu ||
+    focus com.libretro.RetroArch retroarch ||
+    focus info.cemu.Cemu Cemu
+}
+
+run() {
+  if is_app_focused; then
+    focus firefox && firefox_toggle_play
+  else
+    firefox_toggle_play
+    focus_app || select_game
+  fi
+}
+
+select_game() {
+  declare -A apps
+
+  for nsp in ~/Games/Switch/*.nsp; do
+    app=${nsp##*/}
+    app=${app%.nsp}
+    apps[$app]="yuzu -f -g \"$nsp\""
+  done
+
+  apps['BotW']='cemu --fullscreen --title-id 00050000101c9300'
+  apps['Moonlight']='moonlight'
+  apps['RetroArch']='retroarch'
+  apps['Yuzu']='yuzu'
+
+  keys=("${!apps[@]}")
+  selected=$(printf "%s\n" "${keys[@]}" | sort | fuzzel --dmenu --lines=10)
+  if [[ -n "$selected" ]]; then
+    command="${apps[$selected]}"
+    eval "$command"
+  fi
+}
+
+run
