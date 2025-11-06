@@ -93,7 +93,7 @@
   #   };
   # };
 
-  programs.jslisten.enable = true;
+  programs.makima.enable = true;
 
   environment.systemPackages = with pkgs; [
     fruit

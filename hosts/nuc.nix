@@ -50,7 +50,7 @@
   programs.wayland.startup.initlock = lib.mkForce [ ];
   zramSwap.enable = true;
 
-  programs.jslisten.enable = true;
+  programs.makima.enable = true;
   programs.swayidle.enable = false;
 
   programs.niri.extraConfig = ''
