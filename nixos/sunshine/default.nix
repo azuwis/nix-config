@@ -125,9 +125,11 @@ in
       # Set LIBINPUT_QUIRKS_DIR to origin quirks dir, so /etc/libinput/local-overrides.quirks is ignored,
       # and virtual devices are picked by headless display
       # https://gitlab.freedesktop.org/libinput/libinput/-/blob/1.27.1/src/libinput.c?ref_type=tags#L1895-1899
+      # Use QT_QPA_PLATFORM=xcb or fruit give black screen
       package = pkgs.writeShellScriptBin "sunshine-sway" ''
         export LIBINPUT_QUIRKS_DIR="${lib.getOutput "out" pkgs.libinput}/share/libinput"
         export LIBSEAT_BACKEND=builtin
+        export QT_QPA_PLATFORM=xcb
         export SEATD_VTBOUND=0
         export WLR_BACKENDS=headless,libinput
         export WLR_LIBINPUT_NO_DEVICES=1
