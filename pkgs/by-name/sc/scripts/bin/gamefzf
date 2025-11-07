@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+shopt -s nullglob
+
 case "$XDG_CURRENT_DESKTOP" in
 i3)
   firefox_toggle_play() {
