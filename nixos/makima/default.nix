@@ -38,8 +38,9 @@ in
               BTN_MODE-BTN_SOUTH = [ "KEY_ENTER" ];
             };
             commands = {
+              # makima use `systemd-run` to run command, which need full path, and will clear PATH env
               # PS+△
-              BTN_MODE-BTN_NORTH = [ "gamefzf" ];
+              BTN_MODE-BTN_NORTH = [ "--setenv=PATH /run/current-system/sw/bin/gamefzf" ];
             };
             settings = {
               RSTICK = "cursor";
