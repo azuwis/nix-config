@@ -42,10 +42,11 @@ in
               # PS+△
               BTN_MODE-BTN_NORTH = [ "--setenv=PATH /run/current-system/sw/bin/gamefzf" ];
             };
-            settings = {
-              RSTICK = "cursor";
-              RSTICK_ACTIVATION_MODIFIERS = "BTN_MODE";
-            };
+            # Set to `cursor` does not work, comment for now
+            # settings = {
+            #   RSTICK = "cursor";
+            #   RSTICK_ACTIVATION_MODIFIERS = "BTN_MODE";
+            # };
           };
         in
         {
