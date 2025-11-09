@@ -11,6 +11,10 @@
     ./hardware-nuc.nix
   ];
 
+  # On kernel 6.12, DualSense controller only works on first pair, will not connect after.
+  # Kernel 6.17 works without problem.
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   powerManagement.cpuFreqGovernor = "schedutil";
   fileSystems."/".options = [ "compress-force=zstd" ];
   fileSystems."/srv".options = [ "compress=zstd" ];
