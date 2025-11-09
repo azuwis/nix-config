@@ -74,6 +74,7 @@
     "1080"
   ];
   # programs.steam.remotePlay.openFirewall = true;
+  services.evsieve.enable = true;
   services.smartdns.enable = true;
   services.sunshine.enable = true;
   services.sunshine.settings.adapter_name = "/dev/dri/by-path/pci-0000:11:00.0-render";
@@ -92,8 +93,6 @@
   #     ];
   #   };
   # };
-
-  programs.makima.enable = true;
 
   environment.systemPackages = with pkgs; [
     fruit

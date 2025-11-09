@@ -52,10 +52,10 @@
   my.torrent.enable = true;
   # programs.uxplay.enable = true;
   programs.wayland.startup.initlock = lib.mkForce [ ];
+  services.evsieve.enable = true;
   services.smartdns.enable = true;
   zramSwap.enable = true;
 
-  programs.makima.enable = true;
   programs.swayidle.enable = false;
 
   programs.niri.extraConfig = ''
