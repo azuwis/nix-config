@@ -96,7 +96,7 @@ run() {
 select_game() {
   declare -A apps
 
-  if command -v yuzu 2>/dev/null; then
+  if command -v yuzu >/dev/null; then
     apps['Yuzu']='yuzu'
     for nsp in ~/Games/Switch/*.nsp; do
       app=${nsp##*/}
@@ -105,9 +105,9 @@ select_game() {
     done
   fi
 
-  command -v cemu 2>/dev/null && apps['BotW']='cemu --fullscreen --title-id 00050000101c9300'
-  command -v moonlight 2>/dev/null && apps['Moonlight']='moonlight'
-  command -v retroarch 2>/dev/null && apps['RetroArch']='retroarch'
+  command -v cemu >/dev/null && apps['BotW']='cemu --fullscreen --title-id 00050000101c9300'
+  command -v moonlight >/dev/null && apps['Moonlight']='moonlight'
+  command -v retroarch >/dev/null && apps['RetroArch']='retroarch'
 
   keys=("${!apps[@]}")
   selected=$(printf "%s\n" "${keys[@]}" | sort | fuzzel --dmenu --lines=10)
