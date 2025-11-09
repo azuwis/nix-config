@@ -28,7 +28,7 @@ in
               BTN_MODE-BTN_TL2 = [ "KEY_LEFT" ];
               # PS+ZR
               BTN_MODE-BTN_TR2 = [ "KEY_RIGHT" ];
-              # PS+□
+              # PS+≡
               BTN_MODE-BTN_START = [ "KEY_BACKSPACE" ];
               # PS+□
               BTN_MODE-BTN_WEST = [ "KEY_SPACE" ];
