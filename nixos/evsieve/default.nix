@@ -18,7 +18,7 @@ in
     environment.systemPackages = [ pkgs.evsieve ];
 
     services.udev.extraRules = ''
-      ACTION=="add", SUBSYSTEM=="input", KERNEL=="event*", ATTRS{idVendor}=="054c", ATTRS{idProduct}=="0ce6", ENV{ID_INPUT_JOYSTICK}=="1", ENV{SYSTEMD_USER_WANTS}="evsieve@%s{idVendor}%s{idProduct}-%k.service", TAG+="systemd"
+      ACTION=="add", SUBSYSTEM=="input", KERNEL=="event*", ATTRS{id/vendor}=="054c", ATTRS{id/product}=="0ce6", ENV{ID_INPUT_JOYSTICK}=="1", ENV{SYSTEMD_USER_WANTS}+="evsieve@%s{id/vendor}%s{id/product}-%k.service", TAG+="systemd"
     '';
 
     systemd.user.services."evsieve@" = {
