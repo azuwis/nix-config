@@ -24,7 +24,7 @@ let
         seat seat0 fallback false
         # All mouse like devices are pass through Mouse_passthrough,
         # add the virtual devices will double the evnets and thus the move speed.
-        # seat seat0 attach "1356:3302:Sunshine_DualSense_(virtual)_pad_Touchpad"
+        # seat seat0 attach "1356:3302:Sunshine_PS5_(virtual)_pad_Touchpad"
         seat seat0 attach "48879:57005:Keyboard_passthrough"
         seat seat0 attach "48879:57005:Mouse_passthrough"
         seat seat0 attach "48879:57005:Mouse_passthrough_(absolute)"
@@ -103,7 +103,7 @@ in
     programs.sway.enable = true;
     # swaymsg -s /run/user/*/sway-ipc.*.sock --pretty --type get_inputs | awk '/Identifier:/ {print $2}'
     # programs.sway.extraConfig = ''
-    #   input "1356:3302:Sunshine_DualSense_(virtual)_pad_Touchpad" events disabled
+    #   input "1356:3302:Sunshine_PS5_(virtual)_pad_Touchpad" events disabled
     #   input "48879:57005:Keyboard_passthrough" events disabled
     #   input "48879:57005:Mouse_passthrough" events disabled
     #   input "48879:57005:Mouse_passthrough_(absolute)" events disabled
