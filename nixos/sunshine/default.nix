@@ -16,6 +16,7 @@ let
       wallpaper = pkgs.wallpapers.default;
       DEFAULT_AUDIO_SINK = null;
       DEFAULT_AUDIO_SOURCE = null;
+      # swaymsg -s /run/user/*/sway-ipc.*.sock --pretty --type get_inputs | awk '/Identifier:/ {print $2}'
       extraConfig = ''
         default_border normal
         default_floating_border normal
@@ -101,15 +102,6 @@ in
     '';
 
     programs.sway.enable = true;
-    # swaymsg -s /run/user/*/sway-ipc.*.sock --pretty --type get_inputs | awk '/Identifier:/ {print $2}'
-    # programs.sway.extraConfig = ''
-    #   input "1356:3302:Sunshine_PS5_(virtual)_pad_Touchpad" events disabled
-    #   input "48879:57005:Keyboard_passthrough" events disabled
-    #   input "48879:57005:Mouse_passthrough" events disabled
-    #   input "48879:57005:Mouse_passthrough_(absolute)" events disabled
-    #   input "48879:57005:Pen_passthrough" events disabled
-    #   input "48879:57005:Touch_passthrough" events disabled
-    # '';
 
     # Make avahi optional
     services.avahi.enable = lib.mkOverride 999 false;
