@@ -9,6 +9,7 @@ case "$id" in
     --hook btn:mode btn:east send-key=key:esc@kb \
     --hook btn:mode btn:west send-key=key:space@kb \
     --hook btn:mode btn:south send-key=key:enter@kb \
+    --hook btn:mode btn:select send-key=key:leftmeta@kb send-key=key:leftshift@kb send-key=key:m@kb \
     --hook btn:mode btn:start send-key=key:backspace@kb \
     --hook btn:mode btn:tl send-key=key:up@kb \
     --hook btn:mode btn:tr send-key=key:down@kb \
