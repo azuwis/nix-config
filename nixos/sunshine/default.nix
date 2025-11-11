@@ -34,6 +34,9 @@ let
 
         # input "48879:57005:Mouse_passthrough" accel_profile flat
         input "48879:57005:Mouse_passthrough" pointer_accel -1
+        bindsym $mod+m input "48879:57005:Mouse_passthrough" pointer_accel 0
+        bindsym $mod+Shift+m input "48879:57005:Mouse_passthrough" pointer_accel -1
+
         output HEADLESS-1 mode ${cfg.mode}
 
         assign [app_id="^sunshine-terminal$"] 9
