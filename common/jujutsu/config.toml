@@ -37,6 +37,13 @@ log_detailed = 'concat(builtin_log_detailed, diff.stat(120), "\n")'
 log_stat = 'concat(builtin_log_compact, diff.summary())'
 
 [templates]
+draft_commit_description = '''
+concat(
+  builtin_draft_commit_description,
+  "\nJJ: ignore-rest\n",
+  diff.git(),
+)
+'''
 log = "log_custom"
 
 [ui]
