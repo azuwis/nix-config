@@ -75,7 +75,7 @@
   ];
   # programs.steam.remotePlay.openFirewall = true;
   services.evsieve.enable = true;
-  services.smartdns.enable = true;
+  services.scinet.enable = true;
   services.sunshine.enable = true;
   services.sunshine.settings.adapter_name = "/dev/dri/by-path/pci-0000:11:00.0-render";
   zramSwap.enable = true;
