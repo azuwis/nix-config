@@ -93,9 +93,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "a266313976cae87ae5588427d5b024043f96a750",
+      "revision": "96d7c8580b5cf02f1379b9254ba8dd35907b6188",
       "url": null,
-      "hash": "sha256-BakkvCnDf8EuOvkg23uCwtCPKAY5QI6MyJ2dhbcw5l4="
+      "hash": "sha256-pqpp20uNpLEtSGOHmNo2jZhnVNxxRPyiJtsjD9TSDuM="
     },
     "nix-darwin": {
       "type": "Git",
