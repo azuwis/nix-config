@@ -23,9 +23,9 @@ in
     systemd.services.shadowsocks-rust =
       let
         # https://en.wikipedia.org/wiki/Reserved_IP_addresses
-        ExecStartPost = pkgs.writeScript "shadowsocks-rust-post-start" ''
+        setupNftables = pkgs.writeScript "shadowsocks-rust-setup-nftables" ''
           #! ${pkgs.nftables}/bin/nft -f
-          include "${ExecStopPost}"
+          include "${clearNftables}"
           table ip shadowsocks-rust {
             set local {
               type ipv4_addr
@@ -59,7 +59,7 @@ in
             }
           }
         '';
-        ExecStopPost = pkgs.writeScript "shadowsocks-rust-pre-stop" ''
+        clearNftables = pkgs.writeScript "shadowsocks-rust-clear-nftables" ''
           #! ${pkgs.nftables}/bin/nft -f
           table ip shadowsocks-rust
           delete table ip shadowsocks-rust
@@ -70,12 +70,12 @@ in
         after = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
         serviceConfig = {
-          inherit ExecStartPost ExecStopPost;
           DynamicUser = true;
-          CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
-          AmbientCapabilities = [ "CAP_NET_ADMIN" ];
           LoadCredential = "config.json:${config.age.secrets."shadowsocks-rust-redir.json".path}";
           ExecStart = "${lib.getBin cfg.package}/bin/sslocal --config \${CREDENTIALS_DIRECTORY}/config.json";
+          # `+` run commands as root
+          ExecStartPost = "+${setupNftables}";
+          ExecStopPost = "+${clearNftables}";
         };
       };
   };
