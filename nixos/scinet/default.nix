@@ -22,6 +22,7 @@ in
     age.secrets."shadowsocks-rust-redir.json".file = "${inputs.my.outPath}/shadowsocks-rust-redir.json";
     systemd.services.shadowsocks-rust =
       let
+        # https://en.wikipedia.org/wiki/Reserved_IP_addresses
         ExecStartPost = pkgs.writeScript "shadowsocks-rust-post-start" ''
           #! ${pkgs.nftables}/bin/nft -f
           include "${ExecStopPost}"
@@ -68,7 +69,6 @@ in
         description = "shadowsocks-rust Daemon";
         after = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
-        # https://en.wikipedia.org/wiki/Reserved_IP_addresses
         serviceConfig = {
           inherit ExecStartPost ExecStopPost;
           DynamicUser = true;
