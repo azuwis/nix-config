@@ -46,15 +46,11 @@ in
             }
         }
         chain output {
-          type nat hook output priority 0;
+          type nat hook output priority filter; policy accept;
           oif lo accept
           ip daddr @local accept
           tcp dport { 22, 53, 80, 8000, 443, 587, 873, 993, 3000, 5222, 5228, 32200 } dnat to 127.0.0.1:7071
         }
-        chain input {
-          type nat hook input priority 0;
-        }
-
       '';
     };
 
