@@ -1,9 +1,19 @@
 return {
   {
-    "neovim/nvim-lspconfig",
+    "stevearc/conform.nvim",
+    optional = true,
     opts = {
-      servers = {
-        bashls = {},
+      formatters_by_ft = {
+        sh = { "shfmt" },
+      },
+    },
+  },
+  {
+    "mfussenegger/nvim-lint",
+    optional = true,
+    opts = {
+      linters_by_ft = {
+        sh = { "shellcheck" },
       },
     },
   },

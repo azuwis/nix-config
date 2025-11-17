@@ -17,7 +17,6 @@ in
   config = lib.mkIf cfg.enable {
     programs.lazyvim = {
       extraPackages = with pkgs; [
-        bash-language-server
         shellcheck
         shfmt
       ];
