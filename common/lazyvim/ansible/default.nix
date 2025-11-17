@@ -17,7 +17,6 @@ in
   config = lib.mkIf cfg.enable {
 
     programs.lazyvim = {
-      extraPackages = [ pkgs.ansible-language-server ];
       config.ansible = ./spec.lua;
       treesitterParsers = [ "yaml" ];
     };

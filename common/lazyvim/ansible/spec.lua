@@ -1,9 +1,19 @@
 return {
   {
-    "neovim/nvim-lspconfig",
+    "stevearc/conform.nvim",
+    optional = true,
     opts = {
-      servers = {
-        ansiblels = {},
+      formatters_by_ft = {
+        ansible = { "ansible-lint" },
+      },
+    },
+  },
+  {
+    "mfussenegger/nvim-lint",
+    optional = true,
+    opts = {
+      linters_by_ft = {
+        ansible = { "ansible_lint" },
       },
     },
     init = function()
