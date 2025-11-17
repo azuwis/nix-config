@@ -111,7 +111,6 @@ in
       default = { };
       description = ''
         Set of files that have to be linked in {file}`~/`.
-        NOTE: Beware those files will NOT be cleaned up.
       '';
 
       type =
