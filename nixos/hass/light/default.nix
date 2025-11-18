@@ -86,7 +86,7 @@
             {% set now = now() %}
             {% if now > today_at("22:35") %}
               128
-            {% elif now < today_at("7:10") %}
+            {% elif now < today_at("06:50") %}
               3
             {% else %}
               255
@@ -111,7 +111,7 @@
         triggers:
           - trigger: time
             at:
-              - "07:10:01"
+              - "06:50:01"
               - "22:35:01"
               - "00:00:01"
         variables:

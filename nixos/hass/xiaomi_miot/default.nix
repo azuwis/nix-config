@@ -142,7 +142,7 @@ in
       - alias: Curtain primary bedroom half close
         triggers:
           - trigger: time
-            at: "23:00:00"
+            at: "22:30:00"
         conditions:
           - condition: numeric_state
             entity_id: cover.lumi_hmcn01_7c8c_motor_control
