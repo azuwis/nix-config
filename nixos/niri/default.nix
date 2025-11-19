@@ -57,12 +57,16 @@ in
       environment.etc."niri/config.kdl".source = pkgs.replaceVars ./config.kdl {
         inherit (cfg) extraConfig;
         wallpaper = pkgs.wallpapers.default;
+        wallpaper-blur = pkgs.runCommand "wallpaper-blur.jpg" { } ''
+          ${lib.getExe pkgs.imagemagick} ${pkgs.wallpapers.default} -gaussian-blur 0x12 $out
+        '';
         DEFAULT_AUDIO_SINK = null;
         DEFAULT_AUDIO_SOURCE = null;
       };
 
       environment.systemPackages = with pkgs; [
         niri
+        swww
         xwayland-satellite
       ];
 

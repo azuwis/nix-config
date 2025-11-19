@@ -117,7 +117,8 @@ input {
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Layout
 layout {
-    background-color "transparent"
+    // For single wallpaper setup
+    // background-color "transparent"
 
     // Set gaps around windows in logical pixels.
     gaps 8
@@ -282,11 +283,12 @@ layout {
 }
 
 // Overview
-overview {
-    workspace-shadow {
-        off
-    }
-}
+// For single wallpaper setup
+// overview {
+//     workspace-shadow {
+//         off
+//     }
+// }
 
 // Add lines like this to spawn processes at startup.
 // Note that running niri as a session supports xdg-desktop-autostart,
@@ -300,7 +302,9 @@ overview {
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
 
 // Wallpaper
-spawn-at-startup "swaybg" "--image" "@wallpaper@"
+spawn-at-startup "swaybg" "--image" "@wallpaper-blur@"
+spawn-at-startup "swww-daemon" "--no-cache"
+spawn-at-startup "swww" "img" "--transition-type" "none" "@wallpaper@"
 
 hotkey-overlay {
     // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
