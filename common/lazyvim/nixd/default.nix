@@ -7,11 +7,11 @@
 
 let
   inherit (lib) mkEnableOption;
-  cfg = config.programs.lazyvim.nix;
+  cfg = config.programs.lazyvim.nixd;
 in
 {
-  options.programs.lazyvim.nix = {
-    enable = mkEnableOption "LazyVim nix support";
+  options.programs.lazyvim.nixd = {
+    enable = mkEnableOption "LazyVim nixd support";
   };
 
   config = lib.mkIf cfg.enable {

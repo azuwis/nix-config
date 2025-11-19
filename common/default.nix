@@ -31,7 +31,7 @@ in
   programs.lazyvim.helm.enable = true;
   programs.lazyvim.mini-files.enable = true;
   programs.lazyvim.neogit.enable = true;
-  programs.lazyvim.nix.enable = true;
+  programs.lazyvim.nixd.enable = true;
   programs.lazyvim.nord.enable = true;
   programs.lazyvim.terraform.enable = true;
   # programs.lazyvim.update-nix-fetchgit.enable = true;
