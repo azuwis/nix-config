@@ -85,7 +85,6 @@ in
         qt6.qtwayland
         swaybg
         wev
-        wtype
         wl-clipboard # neovim
         wlrctl
         xdg-utils
