@@ -8,6 +8,23 @@ local uv = vim.uv
 -- end
 
 return {
+  -- nixd used to give `nixd: %-32001:` error
+  -- {
+  --   "folke/noice.nvim",
+  --   optional = true,
+  --   opts = {
+  --     routes = {
+  --       {
+  --         filter = {
+  --           event = "notify",
+  --           error = true,
+  --           find = "nixd: %-32001:",
+  --         },
+  --         opts = { skip = true },
+  --       },
+  --     },
+  --   },
+  -- },
   {
     "neovim/nvim-lspconfig",
     opts = {
