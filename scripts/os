@@ -144,7 +144,12 @@ build() {
         exit 1
       fi
     fi
-    if [ "$(type -t "${OS}_switch")" = function ]; then
+    if [ "$DEPLOY" = true ]; then
+      rebuild switch --target-host "$HOSTNAME" "$@"
+      if [ -L ./result ]; then
+        rm ./result
+      fi
+    elif [ "$(type -t "${OS}_switch")" = function ]; then
       "${OS}_switch" switch
     else
       rebuild switch "$@"
@@ -322,7 +327,12 @@ ci)
   CI=true
   action="build"
   ;;
-dp | deploy) action="deploy" ;;
+dp | deploy)
+  ASK=true
+  DEPLOY=true
+  SWITCH=true
+  action="build"
+  ;;
 d | diff)
   DIFF=true
   action="build"
@@ -395,12 +405,6 @@ fi
 case "$action" in
 build)
   "$action" "$@"
-  ;;
-deploy)
-  rebuild switch --target-host "$HOSTNAME" "$@"
-  if [ -L ./result ]; then
-    rm ./result
-  fi
   ;;
 list)
   case "$OS" in
