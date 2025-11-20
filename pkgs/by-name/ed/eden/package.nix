@@ -182,7 +182,20 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm444 "$src/dist/72-yuzu-input.rules" "$out/lib/udev/rules.d/72-yuzu-input.rules"
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=unstable" ]; };
+  passthru = {
+    # Hack to make `nix-update --subpackage depsUpdate` works
+    depsUpdate = stdenv.mkDerivation {
+      inherit (finalAttrs.deps) name;
+      src = finalAttrs.deps;
+    };
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--subpackage=depsUpdate"
+        "--version=unstable" # include `*-rc` version
+        "--version-regex=^v([0-9.cr-]+)$" # but exclude `*test*`
+      ];
+    };
+  };
 
   meta = {
     mainProgram = "eden";
