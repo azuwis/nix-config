@@ -45,7 +45,7 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  # Ad host signing does not work?
+  # Ad hoc signing does not work?
   # https://github.com/NotWadeGrimridge/PingPlace/blob/de66b4d881596d8e841831c698e4572ef38e34b2/Makefile#L13C2-L13C83
   # https://github.com/NotWadeGrimridge/PingPlace/commit/390c30b3f3c3b597d8ccb482d1d3a5ec978ccb57
   postFixup = ''
