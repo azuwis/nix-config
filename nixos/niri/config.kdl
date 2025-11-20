@@ -303,7 +303,7 @@ layout {
 
 // Wallpaper
 spawn-at-startup "swaybg" "--image" "@wallpaper-blur@"
-spawn-at-startup "swww-daemon" "--no-cache"
+spawn-at-startup "swww-daemon"
 spawn-at-startup "swww" "img" "--transition-type" "none" "@wallpaper@"
 
 hotkey-overlay {
