@@ -95,7 +95,7 @@
   # };
 
   environment.systemPackages = with pkgs; [
-    fruit
+    eden
     nix-search
   ];
   # Fix yuzu fullscreen framerate

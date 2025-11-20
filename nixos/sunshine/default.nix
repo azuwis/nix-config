@@ -178,13 +178,13 @@ in
                 undo = "${./scripts}/cemu-undo.sh";
               }
             ];
-            yuzu-prep-cmd = [
+            eden-prep-cmd = [
               {
-                do = pkgs.writeShellScript "yuzu-do" ''
-                  sed -e '2,$s|^|player_0_|' "$HOME/.config/yuzu/input/Sunshine.ini" | ${pkgs.crudini}/bin/crudini --merge "$HOME/.config/yuzu/qt-config.ini"
+                do = pkgs.writeShellScript "eden-do" ''
+                  sed -e '2,$s|^|player_0_|' "$HOME/.config/eden/input/Sunshine.ini" | ${pkgs.crudini}/bin/crudini --merge "$HOME/.config/eden/qt-config.ini"
                 '';
-                undo = pkgs.writeShellScript "yuzu-undo" ''
-                  sed -e '2,$s|^|player_0_|' "$HOME/.config/yuzu/input/Local.ini" | ${pkgs.crudini}/bin/crudini --merge "$HOME/.config/yuzu/qt-config.ini"
+                undo = pkgs.writeShellScript "eden-undo" ''
+                  sed -e '2,$s|^|player_0_|' "$HOME/.config/eden/input/Local.ini" | ${pkgs.crudini}/bin/crudini --merge "$HOME/.config/eden/qt-config.ini"
                 '';
               }
             ];
@@ -212,8 +212,8 @@ in
                 url = "https://assets-prd.ignimgs.com/2021/12/08/nierautomata-1638924135289.jpg?width=600";
                 hash = "sha256-l3Q5APq27o5wwnB1nikUJVt1P3q1dMxeLx1MadCdwRE=";
               };
-              cmd = "yuzu -f -g $(HOME)/Games/Switch/NieR.nsp";
-              prep-cmd = yuzu-prep-cmd;
+              cmd = "eden -f -g $(HOME)/Games/Switch/NieR.nsp";
+              prep-cmd = eden-prep-cmd;
             }
             {
               name = "REReve";
@@ -221,8 +221,8 @@ in
                 url = "https://assets-prd.ignimgs.com/2021/12/22/resident-evil-revelations-1-button-1640136891229.jpg?width=600";
                 hash = "sha256-5QUB9lirZrUk5X4mI3V/hrDsUsOKkv02ppLNheqW7mo=";
               };
-              cmd = "yuzu -f -g $(HOME)/Games/Switch/REReve.nsp";
-              prep-cmd = yuzu-prep-cmd;
+              cmd = "eden -f -g $(HOME)/Games/Switch/REReve.nsp";
+              prep-cmd = eden-prep-cmd;
             }
             {
               name = "TotK";
@@ -230,8 +230,8 @@ in
                 url = "https://assets-prd.ignimgs.com/2022/09/14/zelda-tears-of-the-kingdom-button-2k-1663127818777.jpg?width=600";
                 hash = "sha256-z25bcucS1YOT9WRGxNv0fzTbhVaoNItpSLvujqz7CeM=";
               };
-              cmd = "yuzu -f -g $(HOME)/Games/Switch/TotK.nsp";
-              prep-cmd = yuzu-prep-cmd;
+              cmd = "eden -f -g $(HOME)/Games/Switch/TotK.nsp";
+              prep-cmd = eden-prep-cmd;
             }
             {
               name = "XenoChron3";
@@ -239,17 +239,17 @@ in
                 url = "https://assets-prd.ignimgs.com/2022/04/17/xenochron3-1650154074567.jpg?width=600";
                 hash = "sha256-nJHIKkUbuLWilEqx9iR4MWaWLT0cPK3ptSeVhMH/4AE=";
               };
-              cmd = "yuzu -f -g $(HOME)/Games/Switch/XenoChron3.nsp";
-              prep-cmd = yuzu-prep-cmd;
+              cmd = "eden -f -g $(HOME)/Games/Switch/XenoChron3.nsp";
+              prep-cmd = eden-prep-cmd;
             }
             {
-              name = "Yuzu";
+              name = "Eden";
               image-path = mkImage {
                 url = "https://salsa.debian.org/debian/yuzu/-/raw/b88a2a787b22e770009174e22660d0db8bfb7eb9/dist/yuzu.svg";
                 hash = "sha256-JXAqoBw+YpCqeWY+M9OK6OgozheVc92pUa54+B+olU0=";
               };
-              cmd = "yuzu";
-              prep-cmd = yuzu-prep-cmd;
+              cmd = "eden";
+              prep-cmd = eden-prep-cmd;
             }
           ];
       };

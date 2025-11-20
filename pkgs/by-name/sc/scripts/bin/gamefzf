@@ -68,7 +68,7 @@ esac
 is_app_focused() {
   case "$(get_focused_app)" in
   com.moonlight_stream.Moonlight | Moonlight | \
-    onion.torzu_emu.torzu | yuzu | \
+    dev.eden_emu.eden | eden | \
     com.libretro.RetroArch | retroarch | \
     info.cemu.Cemu | Cemu)
     true
@@ -79,7 +79,7 @@ is_app_focused() {
 
 focus_app() {
   focus com.moonlight_stream.Moonlight Moonlight ||
-    focus onion.torzu_emu.torzu yuzu ||
+    focus dev.eden_emu.eden eden ||
     focus com.libretro.RetroArch retroarch ||
     focus info.cemu.Cemu Cemu
 }
@@ -96,12 +96,12 @@ run() {
 select_game() {
   declare -A apps
 
-  if command -v yuzu >/dev/null; then
-    apps['Yuzu']='yuzu'
+  if command -v eden >/dev/null; then
+    apps['Eden']='eden'
     for nsp in ~/Games/Switch/*.nsp; do
       app=${nsp##*/}
       app=${app%.nsp}
-      apps[$app]="yuzu -f -g \"$nsp\""
+      apps[$app]="eden -f -g \"$nsp\""
     done
   fi
 
