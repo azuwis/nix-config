@@ -175,7 +175,7 @@ in
             mkCemu =
               {
                 name,
-                id,
+                id ? "",
                 url,
                 hash,
               }:
@@ -184,7 +184,7 @@ in
                 image-path = mkImage {
                   inherit url hash;
                 };
-                cmd = "cemu --fullscreen --title-id ${id}";
+                cmd = if name == "Cemu" then "cemu" else "cemu --fullscreen --title-id ${id}";
                 prep-cmd = [
                   {
                     do = "${./scripts}/cemu-do.sh";
