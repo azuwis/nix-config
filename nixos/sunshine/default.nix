@@ -232,26 +232,6 @@ in
               id = "00050000101c9300";
             })
             (mkEden {
-              name = "NieR";
-              url = "https://assets-prd.ignimgs.com/2021/12/08/nierautomata-1638924135289.jpg?width=600";
-              hash = "sha256-l3Q5APq27o5wwnB1nikUJVt1P3q1dMxeLx1MadCdwRE=";
-            })
-            (mkEden {
-              name = "REReve";
-              url = "https://assets-prd.ignimgs.com/2021/12/22/resident-evil-revelations-1-button-1640136891229.jpg?width=600";
-              hash = "sha256-5QUB9lirZrUk5X4mI3V/hrDsUsOKkv02ppLNheqW7mo=";
-            })
-            (mkEden {
-              name = "TotK";
-              url = "https://assets-prd.ignimgs.com/2022/09/14/zelda-tears-of-the-kingdom-button-2k-1663127818777.jpg?width=600";
-              hash = "sha256-z25bcucS1YOT9WRGxNv0fzTbhVaoNItpSLvujqz7CeM=";
-            })
-            (mkEden {
-              name = "XenoChron3";
-              url = "https://assets-prd.ignimgs.com/2022/04/17/xenochron3-1650154074567.jpg?width=600";
-              hash = "sha256-nJHIKkUbuLWilEqx9iR4MWaWLT0cPK3ptSeVhMH/4AE=";
-            })
-            (mkEden {
               name = "Eden";
               url = "https://salsa.debian.org/debian/yuzu/-/raw/b88a2a787b22e770009174e22660d0db8bfb7eb9/dist/yuzu.svg";
               hash = "sha256-JXAqoBw+YpCqeWY+M9OK6OgozheVc92pUa54+B+olU0=";
