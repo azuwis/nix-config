@@ -306,6 +306,12 @@ spawn-at-startup "swaybg" "--image" "@wallpaper-blur@"
 spawn-at-startup "swww-daemon"
 spawn-at-startup "swww" "img" "--transition-type" "none" "@wallpaper@"
 
+// Niri set XCURSOR_SIZE and XCURSOR_THEME, but does not import them to systemd and dbus
+// https://github.com/YaLTeR/niri/blob/79e41d7d88de44356b48400515076bf5593544e8/src/cursor.rs#L191-L192
+// https://github.com/YaLTeR/niri/blob/79e41d7d88de44356b48400515076bf5593544e8/src/main.rs#L272-L278
+spawn-at-startup "systemctl" "--user" "import-environment" "XCURSOR_SIZE" "XCURSOR_THEME"
+spawn-at-startup "dbus-update-activation-environment" "XCURSOR_SIZE" "XCURSOR_THEME"
+
 hotkey-overlay {
     // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
     skip-at-startup
