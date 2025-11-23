@@ -42,7 +42,7 @@ in
     programs.mpv.enable = true;
     programs.niri.enable = true;
     programs.sway.enable = true;
-    programs.wayland.session = mkDefault "niri-session-custom";
+    programs.wayland.session = mkDefault "niri-session";
     # programs.wayland.session = "sway";
 
     theme.enable = true;
