@@ -203,7 +203,7 @@ in
                 image-path = mkImage {
                   inherit url hash;
                 };
-                cmd = if (name == "Eden") then "eden" else "eden -f -g $(HOME)/Games/Switch/${name}.nsp";
+                cmd = if name == "Eden" then "eden" else "eden -f -g $(HOME)/Games/Switch/${name}.nsp";
                 # It seems inputtino make local and virtual dualsense controller the same appeared to the app, so no need to run prep-cmd
                 # prep-cmd = [
                 #   {
