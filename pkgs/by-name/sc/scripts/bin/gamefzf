@@ -105,8 +105,13 @@ select_game() {
     done
   fi
 
+  if command -v moonlight >/dev/null; then
+    apps['Eden']='moonlight stream aor Eden'
+    apps['Moonlight']='moonlight'
+    apps['Z_Desktop']='moonlight stream aor Z_Desktop'
+  fi
+
   command -v cemu >/dev/null && apps['BotW']='cemu --fullscreen --title-id 00050000101c9300'
-  command -v moonlight >/dev/null && apps['Moonlight']='moonlight'
   command -v retroarch >/dev/null && apps['RetroArch']='retroarch'
 
   keys=("${!apps[@]}")

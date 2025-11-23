@@ -219,7 +219,7 @@ in
           in
           [
             {
-              name = "Z Desktop";
+              name = "Z_Desktop";
               image-path = mkImage {
                 url = "https://github.com/LizardByte/Sunshine/raw/86188d47a7463b0f73b35de18a628353adeaa20e/sunshine.svg";
                 hash = "sha256-PCdVypB7d9EtkAolVIhCTAqAWb+1VlVoZtZDSK5W5xs=";
