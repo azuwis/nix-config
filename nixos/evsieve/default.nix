@@ -32,8 +32,7 @@ in
       partOf = [ "graphical-session.target" ];
       wants = [ "graphical-session.target" ];
       serviceConfig = {
-        # Use `/bin/sh --login` to make the ENV close to desktop
-        ExecStart = ''/bin/sh --login -c "exec ${./evsieve.sh} %i"'';
+        ExecStart = "${./evsieve.sh} %i";
         SyslogIdentifier = "evsieve";
       };
     };
