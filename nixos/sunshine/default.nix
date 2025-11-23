@@ -172,12 +172,26 @@ in
                     ${pkgs.imagemagick}/bin/magick ${image} -background none -gravity center -extent 600x800 $out
                   ''
               );
-            cemu-prep-cmd = [
+            mkCemu =
               {
-                do = "${./scripts}/cemu-do.sh";
-                undo = "${./scripts}/cemu-undo.sh";
-              }
-            ];
+                name,
+                id,
+                url,
+                hash,
+              }:
+              {
+                inherit name;
+                image-path = mkImage {
+                  inherit url hash;
+                };
+                cmd = "cemu --fullscreen --title-id ${id}";
+                prep-cmd = [
+                  {
+                    do = "${./scripts}/cemu-do.sh";
+                    undo = "${./scripts}/cemu-undo.sh";
+                  }
+                ];
+              };
             mkEden =
               {
                 name,
@@ -210,15 +224,12 @@ in
                 hash = "sha256-PCdVypB7d9EtkAolVIhCTAqAWb+1VlVoZtZDSK5W5xs=";
               };
             }
-            {
+            (mkCemu {
               name = "BotW";
-              image-path = mkImage {
-                url = "https://assets-prd.ignimgs.com/2022/06/14/zelda-breath-of-the-wild-1655249167687.jpg?width=600";
-                hash = "sha256-9AhOUgNuztTpqBLuvdTwLcJHEaKHc7F7YM6wzbzRDPk=";
-              };
-              cmd = "cemu --fullscreen --title-id 00050000101c9300";
-              prep-cmd = cemu-prep-cmd;
-            }
+              url = "https://assets-prd.ignimgs.com/2022/06/14/zelda-breath-of-the-wild-1655249167687.jpg?width=600";
+              hash = "sha256-9AhOUgNuztTpqBLuvdTwLcJHEaKHc7F7YM6wzbzRDPk=";
+              id = "00050000101c9300";
+            })
             (mkEden {
               name = "NieR";
               url = "https://assets-prd.ignimgs.com/2021/12/08/nierautomata-1638924135289.jpg?width=600";
