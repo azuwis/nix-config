@@ -29,7 +29,7 @@ let
     dbus-update-activation-environment --all
     niri --session
     systemctl --user stop niri-session.target
-    systemctl --user unset-environment WAYLAND_DISPLAY XDG_SESSION_TYPE XDG_CURRENT_DESKTOP NIRI_SOCKET
+    systemctl --user unset-environment WAYLAND_DISPLAY DISPLAY XDG_SESSION_TYPE XDG_CURRENT_DESKTOP NIRI_SOCKET
   '';
 in
 {
