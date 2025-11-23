@@ -226,10 +226,9 @@ in
               };
             }
             (mkCemu {
-              name = "BotW";
-              url = "https://assets-prd.ignimgs.com/2022/06/14/zelda-breath-of-the-wild-1655249167687.jpg?width=600";
-              hash = "sha256-9AhOUgNuztTpqBLuvdTwLcJHEaKHc7F7YM6wzbzRDPk=";
-              id = "00050000101c9300";
+              name = "Cemu";
+              url = "https://github.com/cemu-project/Cemu/raw/a6fb0a48eb437a8a41c13b782ac8ae0433bf8f98/dist/linux/info.cemu.Cemu.png";
+              hash = "sha256-ZFipm4vVTkSFfvoPgr/WA15+By5+CA4zMOTiz+icvTM=";
             })
             (mkEden {
               name = "Eden";
