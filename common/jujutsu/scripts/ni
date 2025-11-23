@@ -46,7 +46,7 @@ fi
 
 while read -r rev email name; do
   new="$((RANDOM % mod + 120 + new))"
-  JJ_TIMESTAMP="$(date -Iseconds --date=@"$new")" JJ_USER="$name" JJ_EMAIL="$email" jj describe --reset-author --no-edit "$rev"
+  JJ_TIMESTAMP="$(date -Iseconds --date=@"$new")" JJ_USER="$name" JJ_EMAIL="$email" jj describe --reset-author --no-edit --ignore-immutable "$rev"
   mod=600
 done < <(jj log --no-graph --reversed --template 'change_id ++ " " ++ author.email() ++ " " ++ author.name() ++ "\n"' --revisions "${from}..${to}")
 
