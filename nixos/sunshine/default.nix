@@ -204,16 +204,17 @@ in
                   inherit url hash;
                 };
                 cmd = if (name == "Eden") then "eden" else "eden -f -g $(HOME)/Games/Switch/${name}.nsp";
-                prep-cmd = [
-                  {
-                    do = pkgs.writeShellScript "eden-do" ''
-                      sed -e '2,$s|^|player_0_|' "$HOME/.config/eden/input/Sunshine.ini" | ${pkgs.crudini}/bin/crudini --merge "$HOME/.config/eden/qt-config.ini"
-                    '';
-                    undo = pkgs.writeShellScript "eden-undo" ''
-                      sed -e '2,$s|^|player_0_|' "$HOME/.config/eden/input/Local.ini" | ${pkgs.crudini}/bin/crudini --merge "$HOME/.config/eden/qt-config.ini"
-                    '';
-                  }
-                ];
+                # It seems inputtino make local and virtual dualsense controller the same appeared to the app, so no need to run prep-cmd
+                # prep-cmd = [
+                #   {
+                #     do = pkgs.writeShellScript "eden-do" ''
+                #       sed -e '2,$s|^|player_0_|' "$HOME/.config/eden/input/Sunshine.ini" | ${pkgs.crudini}/bin/crudini --merge "$HOME/.config/eden/qt-config.ini"
+                #     '';
+                #     undo = pkgs.writeShellScript "eden-undo" ''
+                #       sed -e '2,$s|^|player_0_|' "$HOME/.config/eden/input/Local.ini" | ${pkgs.crudini}/bin/crudini --merge "$HOME/.config/eden/qt-config.ini"
+                #     '';
+                #   }
+                # ];
               };
           in
           [
