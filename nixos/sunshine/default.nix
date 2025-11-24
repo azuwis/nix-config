@@ -173,14 +173,11 @@ in
               {
                 name,
                 id ? "",
-                url,
-                hash,
+                image,
               }:
               {
                 inherit name;
-                image-path = mkImage {
-                  inherit url hash;
-                };
+                image-path = image;
                 cmd = if name == "Cemu" then "cemu" else "cemu --fullscreen --title-id ${id}";
                 prep-cmd = [
                   {
@@ -224,8 +221,12 @@ in
             }
             (mkCemu {
               name = "Cemu";
-              url = "https://github.com/cemu-project/Cemu/raw/a6fb0a48eb437a8a41c13b782ac8ae0433bf8f98/dist/linux/info.cemu.Cemu.png";
-              hash = "sha256-ZFipm4vVTkSFfvoPgr/WA15+By5+CA4zMOTiz+icvTM=";
+              image = mkImage {
+                # https://www.steamgriddb.com/icon/31790
+                url = "https://cdn2.steamgriddb.com/icon/3b11e049d4d051954f4c8b742a2b306e.png";
+                hash = "sha256-uva+yvakvtSirqtWCYhlrxtTTFb7a8gSkeBSJTX8f2s=";
+                resize = "600x";
+              };
             })
             (mkEden {
               name = "Eden";
