@@ -162,16 +162,9 @@ in
               let
                 image = pkgs.fetchurl { inherit url hash; };
               in
-              pkgs.runCommand "${lib.nameFromURL url "."}.png" { } (
-                if lib.hasSuffix ".svg" url then
-                  ''
-                    ${pkgs.imagemagick}/bin/magick -density 1200 -background none ${image} -resize x500 -gravity center -extent 600x800 $out
-                  ''
-                else
-                  ''
-                    ${pkgs.imagemagick}/bin/magick ${image} -background none -gravity center -extent 600x800 $out
-                  ''
-              );
+              pkgs.runCommand "${lib.nameFromURL url "."}.png" { } ''
+                ${pkgs.imagemagick}/bin/magick -density 1200 -background none ${image} -resize 500x -gravity center -extent 600x800 $out
+              '';
             mkCemu =
               {
                 name,
