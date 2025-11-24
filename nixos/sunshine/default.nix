@@ -189,14 +189,11 @@ in
             mkEden =
               {
                 name,
-                url,
-                hash,
+                image,
               }:
               {
                 inherit name;
-                image-path = mkImage {
-                  inherit url hash;
-                };
+                image-path = image;
                 cmd = if name == "Eden" then "eden" else "eden -f -g $(HOME)/Games/Switch/${name}.nsp";
                 # It seems inputtino make local and virtual dualsense controller the same appeared to the app, so no need to run prep-cmd
                 # prep-cmd = [
@@ -230,8 +227,10 @@ in
             })
             (mkEden {
               name = "Eden";
-              url = "https://salsa.debian.org/debian/yuzu/-/raw/b88a2a787b22e770009174e22660d0db8bfb7eb9/dist/yuzu.svg";
-              hash = "sha256-JXAqoBw+YpCqeWY+M9OK6OgozheVc92pUa54+B+olU0=";
+              image = mkImage {
+                url = "https://salsa.debian.org/debian/yuzu/-/raw/b88a2a787b22e770009174e22660d0db8bfb7eb9/dist/yuzu.svg";
+                hash = "sha256-JXAqoBw+YpCqeWY+M9OK6OgozheVc92pUa54+B+olU0=";
+              };
             })
           ];
       };
