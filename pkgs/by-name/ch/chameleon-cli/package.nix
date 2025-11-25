@@ -7,6 +7,7 @@
   makeWrapper,
   xz,
   python3,
+  nix-update-script,
 }:
 
 let
@@ -83,7 +84,12 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = ./update.sh;
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version=branch"
+      "--version-regex=v(.*)"
+    ];
+  };
 
   meta = {
     description = "Command line interface for Chameleon Ultra";
