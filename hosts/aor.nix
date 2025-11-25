@@ -60,7 +60,7 @@
   my.libvirtd.enable = true;
   my.nix-builder.enable = true;
   my.pn532.enable = true;
-  my.retroarch.enable = true;
+  programs.retroarch.enable = true;
   programs.wayland.scale = 2;
   my.steam.enable = true;
   # my.steam.gamescope-intel-fix = true;

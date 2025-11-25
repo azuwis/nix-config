@@ -48,7 +48,7 @@
   my.intelGpu.enable = true;
   my.nix-builder-client.enable = true;
   # my.photoprism.enable = true;
-  my.retroarch.enable = true;
+  programs.retroarch.enable = true;
   my.torrent.enable = true;
   # programs.uxplay.enable = true;
   programs.wayland.startup.initlock = lib.mkForce [ ];

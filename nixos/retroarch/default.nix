@@ -6,20 +6,13 @@
 }:
 
 let
-  inherit (lib)
-    attrVals
-    mkEnableOption
-    mkIf
-    mkOption
-    types
-    ;
-  cfg = config.my.retroarch;
+  cfg = config.programs.retroarch;
 in
 {
-  options.my.retroarch = {
-    enable = mkEnableOption "retroarch";
-    cores = mkOption {
-      type = types.listOf types.str;
+  options.programs.retroarch = {
+    enable = lib.mkEnableOption "retroarch";
+    cores = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
       default = [
         "genesis-plus-gx"
         "nestopia"
@@ -27,9 +20,9 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     environment.systemPackages = [
-      (pkgs.retroarch.withCores (cores: attrVals cfg.cores cores))
+      (pkgs.retroarch.withCores (cores: lib.attrVals cfg.cores cores))
     ];
   };
 }
