@@ -55,7 +55,7 @@
         ZSH_AUTOSUGGEST_STRATEGY=(history)
 
         # zsh-fast-syntax-highlighting
-        . ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
+        . ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
         # zsh-history-substring-search
         . ${pkgs.zsh-history-substring-search}/share/zsh-history-substring-search/zsh-history-substring-search.zsh
