@@ -6,24 +6,15 @@
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.libvirtd;
+  cfg = config.virtualisation.libvirtd;
 in
 {
-  options.my.libvirtd = {
-    enable = mkEnableOption "libvirtd";
-  };
-
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ virt-manager ];
 
-    virtualisation.libvirtd = {
-      enable = true;
-
-      qemu = {
-        package = pkgs.qemu_kvm;
-        ovmf.enable = true;
-      };
+    virtualisation.libvirtd.qemu = {
+      package = pkgs.qemu_kvm;
+      ovmf.enable = true;
     };
 
     users.users.${config.my.user}.extraGroups = [ "libvirtd" ];

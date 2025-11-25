@@ -56,7 +56,7 @@
   programs.dualsensectl.enable = true;
   hardware.nvidia.enable = lib.mkDefault true;
   hardware.nvidia.open = true;
-  my.libvirtd.enable = true;
+  virtualisation.libvirtd.enable = true;
   my.nix-builder.enable = true;
   my.pn532.enable = true;
   programs.retroarch.enable = true;
