@@ -117,18 +117,37 @@ in
       autoStart = true;
       openFirewall = true;
 
-      # Set LIBINPUT_QUIRKS_DIR to origin quirks dir, so /etc/libinput/local-overrides.quirks is ignored,
-      # and virtual devices are picked by headless display
-      # https://gitlab.freedesktop.org/libinput/libinput/-/blob/1.27.1/src/libinput.c?ref_type=tags#L1895-1899
-      # Use QT_QPA_PLATFORM=xcb or fruit give black screen
       package = pkgs.writeShellScriptBin "sunshine-sway" ''
+        # Set LIBINPUT_QUIRKS_DIR to origin quirks dir, so /etc/libinput/local-overrides.quirks is ignored,
+        # and sunehine virtual devices are picked by headless display
+        # https://gitlab.freedesktop.org/libinput/libinput/-/blob/1.27.1/src/libinput.c?ref_type=tags#L1895-1899
         export LIBINPUT_QUIRKS_DIR="${lib.getOutput "out" pkgs.libinput}/share/libinput"
+
+        # Virtual wayland display setup
         export LIBSEAT_BACKEND=builtin
-        export QT_QPA_PLATFORM=xcb
         export SEATD_VTBOUND=0
         export WLR_BACKENDS=headless,libinput
         export WLR_LIBINPUT_NO_DEVICES=1
+
+        # Eden recommand xcb backend, good old fruit give black screen without it
+        export QT_QPA_PLATFORM=xcb
+
+        # The wrapped sway automatically use dbus-run-session if DBUS_SESSION_BUS_ADDRESS unset
+        # https://github.com/NixOS/nixpkgs/blob/c5d2fe68dd3fdfe532d493d4fb8d169e4fe237e9/pkgs/by-name/sw/sway/package.nix#L41-L46
         unset DBUS_SESSION_BUS_ADDRESS
+
+        # The WM on real display like niri-session may import the following env vars to systemd
+        # user service manager, sunshine run as systemd user service will inherit them.
+        # Need to unset before calling sway/dbus-run-session, or some processes like
+        # xdg-desktop-portal-gtk will use the wrong DISPLAY
+        unset DISPLAY
+        unset NIRI_SOCKET
+        unset WAYLAND_DISPLAY
+        unset XDG_CURRENT_DESKTOP
+        unset XDG_SEAT
+        unset XDG_SESSION_ID
+        unset XDG_SESSION_TYPE
+        unset XDG_VTNR
 
         export SUNSHINE_CONFIG="$1"
         exec sway --config ${swayConfig}
