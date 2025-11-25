@@ -197,11 +197,11 @@
         "owner": "NixOS",
         "repo": "nixpkgs"
       },
-      "branch": "nixos-25.05",
+      "branch": "nixos-25.11",
       "submodules": false,
-      "revision": "c8aa8cc00a5cb57fada0851a038d35c08a36a2bb",
-      "url": "https://github.com/NixOS/nixpkgs/archive/c8aa8cc00a5cb57fada0851a038d35c08a36a2bb.tar.gz",
-      "hash": "sha256-m9W0dYXflzeGgKNravKJvTMR4Qqa2MVD11AwlGMufeE="
+      "revision": "a320ce8e6e2cc6b4397eef214d202a50a4583829",
+      "url": "https://github.com/NixOS/nixpkgs/archive/a320ce8e6e2cc6b4397eef214d202a50a4583829.tar.gz",
+      "hash": "sha256-6zddwDs2n+n01l+1TG6PlyokDdXzu/oBmEejcH5L5+A="
     },
     "treefmt-nix": {
       "type": "Git",
