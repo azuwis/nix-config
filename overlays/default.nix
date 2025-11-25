@@ -69,15 +69,21 @@ in
     #     });
     #   };
 
-    # Remove when vimPlugins.grug-far-nvim updated
-    # https://github.com/NixOS/nixpkgs/issues/434296
-    vimPlugins = prev.vimPlugins // {
-      grug-far-nvim = final.neovimUtils.buildNeovimPlugin {
-        luaAttr = final.neovim-unwrapped.lua.pkgs.grug-far-nvim.overrideAttrs (old: {
-          doCheck = false;
-        });
-      };
-    };
+    # Remove when vimPlugins.lualine-nvim updated
+    # https://github.com/NixOS/nixpkgs/pull/464616
+    vimPlugins = prev.vimPlugins.extend (
+      vimfinal: vimprev: {
+        lualine-nvim = final.neovimUtils.buildNeovimPlugin {
+          luaAttr = final.neovim-unwrapped.lua.pkgs.lualine-nvim.overrideAttrs (old: {
+            knownRockspec =
+              (final.fetchurl {
+                url = "mirror://luarocks/lualine.nvim-scm-1.rockspec";
+                sha256 = "01cqa4nvpq0z4230szwbcwqb0kd8cz2dycrd764r0z5c6vivgfzs";
+              }).outPath;
+          });
+        };
+      }
+    );
 
     wallpapers =
       final.lib.packagesFromDirectoryRecursive {
