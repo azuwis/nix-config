@@ -51,7 +51,7 @@
   # powerManagement.cpuFreqGovernor = "performance";
   networking.hostName = "aor";
 
-  my.cemu.enable = true;
+  programs.cemu.enable = true;
   my.desktop.enable = true;
   programs.dualsensectl.enable = true;
   my.nvidia.enable = lib.mkDefault true;
