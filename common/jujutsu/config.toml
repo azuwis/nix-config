@@ -49,5 +49,5 @@ log = "log_custom"
 [ui]
 default-command = "log"
 diff-editor = ":builtin"
+diff-formatter = ":git"
 diff-instructions = false
-diff.format = "git"
