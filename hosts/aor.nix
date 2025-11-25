@@ -85,11 +85,8 @@
   #   hardware.nvidia.enable = false;
   #   my.vfio = {
   #     enable = true;
-  #     platform = "intel";
-  #     vfioIds = [
-  #       "10de:2f04"
-  #       "10de:2f80"
-  #     ];
+  #     platform = "amd";
+  #     vfioIds = [ "10de:2f04" "10de:2f80" ]; # lspci -nn | grep NVIDIA
   #   };
   # };
 
