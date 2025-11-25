@@ -61,10 +61,10 @@
   my.pn532.enable = true;
   programs.retroarch.enable = true;
   programs.wayland.scale = 2;
-  my.steam.enable = true;
-  # my.steam.gamescope-intel-fix = true;
-  # my.steam.gamescope-git = true;
-  # my.steam.nvidia-offload = true;
+  programs.steam.enable = true;
+  # programs.steam.gamescope-intel-fix = true;
+  # programs.steam.gamescope-git = true;
+  # programs.steam.nvidia-offload = true;
   programs.steam.gamescopeSession.args = [
     "--fullscreen"
     "--output-width"

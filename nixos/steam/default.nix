@@ -12,11 +12,10 @@ let
     mkIf
     mkMerge
     ;
-  cfg = config.my.steam;
+  cfg = config.programs.steam;
 in
 {
-  options.my.steam = {
-    enable = mkEnableOption "steam";
+  options.programs.steam = {
     nvidia-offload = mkEnableOption "nvidia-offload";
     gamescope-intel-fix = mkEnableOption "gamescope-intel-fix";
     gamescope-git = mkEnableOption "gamescope git";
@@ -36,25 +35,22 @@ in
       };
 
       programs.steam = {
-        enable = true;
         fontPackages = with pkgs; [ noto-fonts-cjk-sans ];
         gamescopeSession = {
           enable = true;
           args = [
+            # gamescope args
             "--rt"
             "--filter"
             "fsr"
             "--mangoapp"
-          ]
-          # hack to add args to steam
-          ++ [
+            # steam args
             "--"
             "steam"
             "-pipewire-dmabuf"
             "-steamos3"
             "-gamepadui"
-          ]
-          ++ [
+            # hack to add args to steam
             ";"
             "exit"
             "$?"
