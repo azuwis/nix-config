@@ -16,10 +16,10 @@ let
     mkOption
     types
     ;
-  cfg = config.my.vfio;
+  cfg = config.hardware.vfio;
 in
 {
-  options.my.vfio = {
+  options.hardware.vfio = {
     enable = mkEnableOption "vfio";
 
     vfioIds = mkOption {

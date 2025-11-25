@@ -83,7 +83,7 @@
   # specialisation.vfio.configuration = {
   #   system.nixos.tags = [ "vfio" ];
   #   hardware.nvidia.enable = false;
-  #   my.vfio = {
+  #   hardware.vfio = {
   #     enable = true;
   #     platform = "amd";
   #     vfioIds = [ "10de:2f04" "10de:2f80" ]; # lspci -nn | grep NVIDIA
