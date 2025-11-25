@@ -31,19 +31,7 @@
   simpleini,
   spirv-headers,
   spirv-tools,
-  # unordered_dense,
-  # TODO, remove when update to nixos-25.11
-  unordered_dense ? stdenv.mkDerivation (finalAttrs: {
-    pname = "unordered_dense";
-    version = "4.8.1";
-    src = fetchFromGitHub {
-      owner = "martinus";
-      repo = "unordered_dense";
-      tag = "v${finalAttrs.version}";
-      hash = "sha256-JdPlyShWnAcdgixDHRaroFg7YWdPtD4Nl1PmpcQ1SAk=";
-    };
-    nativeBuildInputs = [ cmake ];
-  }),
+  unordered_dense,
   vulkan-memory-allocator,
   vulkan-utility-libraries,
   zlib,
