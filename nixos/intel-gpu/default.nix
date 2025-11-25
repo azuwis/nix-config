@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.intelGpu;
+  cfg = config.hardware.intelGpu;
 in
 {
-  options.my.intelGpu = {
+  options.hardware.intelGpu = {
     enable = mkEnableOption "intelGpu";
   };
 

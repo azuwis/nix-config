@@ -45,7 +45,7 @@
   my.desktop.enable = true;
   programs.dualsensectl.enable = true;
   my.hass.enable = true;
-  my.intelGpu.enable = true;
+  hardware.intelGpu.enable = true;
   my.nix-builder-client.enable = true;
   # my.photoprism.enable = true;
   programs.retroarch.enable = true;
