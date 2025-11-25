@@ -12,16 +12,14 @@ let
     mkEnableOption
     mkIf
     mkMerge
-    mkPackageOption
+    mkOption
     ;
-  cfg = config.my.nvidia;
+  cfg = config.hardware.nvidia;
 in
 {
-  options.my.nvidia = {
+  options.hardware.nvidia = {
     enable = mkEnableOption "nvidia";
-    package = mkPackageOption config.boot.kernelPackages.nvidiaPackages "latest" { };
     firefox-fix = mkEnableOption "nvidia firefox fix";
-    nvidia-patch = mkEnableOption "nvidia-patch";
     sway-fix = mkEnableOption "nvidia sway fix";
   };
 
@@ -29,7 +27,6 @@ in
     {
       boot.loader.grub.gfxmodeEfi = mkDefault "1920x1080";
       hardware.nvidia.modesetting.enable = true;
-      hardware.nvidia.package = cfg.package;
       # Only install nvidia-vaapi-driver if firefox-fix, but not by default,
       # specifically designed to be used by Firefox
       hardware.nvidia.videoAcceleration = lib.mkOverride 999 false;
@@ -40,6 +37,24 @@ in
       #   offload.enableOffloadCmd = true;
       # };
       services.xserver.videoDrivers = [ "nvidia" ];
+
+      # hardware.nvidia.package = config.lib.nvidia.patch config.boot.kernelPackages.nvidiaPackages.stable;
+      lib.nvidia.patch =
+        package:
+        package.overrideAttrs (old: {
+          preFixup = (old.preFixup or "") + ''
+            patch_nvidia() {
+              local patch_file patch_sed so_file
+              patch_file=$1
+              so_file=$2
+              patch_sed=$(grep -m 1 -F '"${old.version}"' "${inputs.nvidia-patch}/$patch_file" | cut -d "'" -f 2)
+              echo "patching $so_file with $patch_sed"
+              sed -i "$patch_sed" "$out/lib/$so_file"
+            }
+            patch_nvidia patch.sh libnvidia-encode.so
+            patch_nvidia patch-fbc.sh libnvidia-fbc.so
+          '';
+        });
     }
 
     (mkIf (cfg.firefox-fix && config.programs.firefox.enable) {
@@ -50,23 +65,6 @@ in
       programs.firefox.settings = {
         "widget.dmabuf.force-enabled" = true;
       };
-    })
-
-    (mkIf cfg.nvidia-patch {
-      hardware.nvidia.package = cfg.package.overrideAttrs (old: {
-        preFixup = (old.preFixup or "") + ''
-          patch_nvidia() {
-            local patch_file patch_sed so_file
-            patch_file=$1
-            so_file=$2
-            patch_sed=$(grep -m 1 -F '"${old.version}"' "${inputs.nvidia-patch}/$patch_file" | cut -d "'" -f 2)
-            echo "patching $so_file with $patch_sed"
-            sed -i "$patch_sed" "$out/lib/$so_file"
-          }
-          patch_nvidia patch.sh libnvidia-encode.so
-          patch_nvidia patch-fbc.sh libnvidia-fbc.so
-        '';
-      });
     })
 
     (mkIf (cfg.sway-fix && config.programs.sway.enable) {

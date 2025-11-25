@@ -54,9 +54,8 @@
   programs.cemu.enable = true;
   my.desktop.enable = true;
   programs.dualsensectl.enable = true;
-  my.nvidia.enable = lib.mkDefault true;
+  hardware.nvidia.enable = lib.mkDefault true;
   hardware.nvidia.open = true;
-  # my.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
   my.libvirtd.enable = true;
   my.nix-builder.enable = true;
   my.pn532.enable = true;
@@ -83,7 +82,7 @@
   # Eval time will be multiplied by specialisations count
   # specialisation.vfio.configuration = {
   #   system.nixos.tags = [ "vfio" ];
-  #   my.nvidia.enable = false;
+  #   hardware.nvidia.enable = false;
   #   my.vfio = {
   #     enable = true;
   #     platform = "intel";
