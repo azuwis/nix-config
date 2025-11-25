@@ -31,6 +31,6 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    environment.shell = zsh;
+    solo.shell = zsh;
   };
 }

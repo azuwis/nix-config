@@ -12,18 +12,20 @@ in
 {
   options = {
     environment = {
-      path = lib.mkOption { };
-
       pathsToLink = lib.mkOption {
         type = lib.types.listOf lib.types.str;
       };
 
-      shell = lib.mkOption {
-        type = lib.types.path;
-      };
-
       systemPackages = lib.mkOption {
         type = lib.types.listOf lib.types.package;
+      };
+    };
+
+    solo = {
+      path = lib.mkOption { };
+
+      shell = lib.mkOption {
+        type = lib.types.path;
       };
     };
   };
@@ -34,7 +36,7 @@ in
       "/share/man"
     ];
 
-    environment.path = pkgs.buildEnv {
+    solo.path = pkgs.buildEnv {
       # nixpkgs/modules/config/system-path.nix
       inherit (cfg) pathsToLink;
 

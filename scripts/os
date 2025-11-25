@@ -102,7 +102,7 @@ build() {
   darwin) args=("darwinConfigurations.\"$HOSTNAME\".system") ;;
   droid) args=("nixOnDroidConfigurations.\"$HOSTNAME\".activationPackage") ;;
   nixos) args=("nixosConfigurations.\"$HOSTNAME\".config.system.build.toplevel") ;;
-  solo) args=("soloConfigurations.\"$HOSTNAME\".config.environment.path") ;;
+  solo) args=("soloConfigurations.\"$HOSTNAME\".config.solo.path") ;;
   esac
 
   if [ "$CI" = true ]; then
