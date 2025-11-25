@@ -131,7 +131,7 @@ in
         enable = true;
         settings = {
           default_session = {
-            command = "${pkgs.greetd.greetd}/bin/agreety --cmd 'systemd-cat --identifier=${sessionName} ${cfg.session}'";
+            command = "${pkgs.greetd}/bin/agreety --cmd 'systemd-cat --identifier=${sessionName} ${cfg.session}'";
           };
         };
       };

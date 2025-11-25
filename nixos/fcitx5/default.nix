@@ -21,7 +21,6 @@ in
       qt6Packages.fcitx5-chinese-addons
       fcitx5-fluent
     ];
-    i18n.inputMethod.fcitx5.plasma6Support = true;
     i18n.inputMethod.fcitx5.waylandFrontend = lib.mkDefault true;
 
     i18n.inputMethod.fcitx5.settings = {

@@ -18,7 +18,7 @@ in
     programs.lazyvim = {
       extraPackages = with pkgs; [
         nil
-        nixfmt-rfc-style
+        nixfmt
       ];
       config.nix = ./spec.lua;
       treesitterParsers = [ "nix" ];

@@ -95,18 +95,6 @@ in
   ];
   jovian.steam.desktopSession = "plasmax11";
 
-  # services.xserver.enable = true;
-  # services.xserver.desktopManager.plasma5.enable = true;
-  # services.xserver.displayManager.startx.enable = true;
-  # environment.plasma5.excludePackages = with pkgs.libsForQt5; [
-  #   pkgs.aha
-  #   plasma-browser-integration
-  #   oxygen
-  # ];
-  # jovian.steam.desktopSession = "plasma";
-  # # TODO: plasma5 break it, remove when fixed
-  # systemd.enableStrictShellChecks = false;
-
   # Fix permission of `/`, SteamOS may modify dir permission of the SD card
   # mount point, and make SSHD refuce any user to login.
   systemd.tmpfiles.rules = [

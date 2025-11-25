@@ -14,7 +14,6 @@ in
 
     virtualisation.libvirtd.qemu = {
       package = pkgs.qemu_kvm;
-      ovmf.enable = true;
     };
 
     users.users.${config.my.user}.extraGroups = [ "libvirtd" ];
