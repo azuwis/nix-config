@@ -81,6 +81,8 @@ in
           && !config.services.xserver.desktopManager.plasma5.enable
         )
         {
+          # Setting platformTheme to gnome will make Qt apps to use xdg portal for file opening dialog,
+          # it make cause problem for Sunshine if xdg portals use wrong DISPLAY WAYLAND_DISPLAY env var
           platformTheme = "gnome";
           style = "adwaita";
         };
