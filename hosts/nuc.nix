@@ -41,7 +41,7 @@
   #   };
   # };
 
-  # my.evdevhook.enable = true;
+  # services.evdevhook.enable = true;
   my.desktop.enable = true;
   programs.dualsensectl.enable = true;
   my.hass.enable = true;

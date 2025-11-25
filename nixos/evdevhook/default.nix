@@ -14,13 +14,13 @@ let
     optionalAttrs
     types
     ;
-  cfg = config.my.evdevhook;
+  cfg = config.services.evdevhook;
   json = pkgs.formats.json { };
 
   configFile = json.generate "evdevhook.json" cfg.settings;
 in
 {
-  options.my.evdevhook = {
+  options.services.evdevhook = {
     enable = mkEnableOption "evdevhook";
 
     package = mkPackageOption pkgs "evdevhook" { };
