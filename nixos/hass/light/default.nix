@@ -6,7 +6,7 @@
 }:
 
 {
-  config = lib.mkIf config.my.hass.enable {
+  config = lib.mkIf config.services.hass.enable {
     services.home-assistant.config = {
       logger.logs."homeassistant.components.yeelight" = "critical";
       # miiocli cloud

@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.hass;
+  cfg = config.services.hass;
 in
 {
-  options.my.hass = {
+  options.services.hass = {
     zigbee2mqtt = mkEnableOption "zigbee2mqtt";
   };
 
@@ -23,7 +23,7 @@ in
     # python3 -m zigpy_znp.tools.flash_read -o firmware_backup.bin /dev/ttyACM0
     # python3 -m zigpy_znp.tools.flash_write -i CC2531ZNP-Prod.bin /dev/ttyACM0
 
-    my.hass.mqtt = true;
+    services.hass.mqtt = true;
 
     systemd.services.home-assistant.preStart = ''
       mkdir ${config.services.home-assistant.configDir}/packages

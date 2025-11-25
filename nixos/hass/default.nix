@@ -9,7 +9,7 @@
 let
   inherit (import ../../lib/my.nix) getModules;
   inherit (lib) mkDefault mkEnableOption mkIf;
-  cfg = config.my.hass;
+  cfg = config.services.hass;
 in
 {
   imports = [
@@ -28,12 +28,12 @@ in
   ]
   ++ getModules [ ./. ];
 
-  options.my.hass = {
+  options.services.hass = {
     enable = mkEnableOption "hass";
   };
 
   config = mkIf cfg.enable {
-    my.hass = {
+    services.hass = {
       # aligenie = true;
       braviatv = true;
       device_tracker = true;

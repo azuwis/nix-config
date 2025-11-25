@@ -9,10 +9,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.hass;
+  cfg = config.services.hass;
 in
 {
-  options.my.hass = {
+  options.services.hass = {
     aligenie = mkEnableOption "aligenie";
   };
 

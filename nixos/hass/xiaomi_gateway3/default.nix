@@ -7,7 +7,7 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.hass;
+  cfg = config.services.hass;
 
   mijia_hub_init = pkgs.writeScript "mijia_hub_init" ''
     #!${lib.getExe pkgs.expect} -f
@@ -26,7 +26,7 @@ let
   '';
 in
 {
-  options.my.hass = {
+  options.services.hass = {
     xiaomi_gateway3 = mkEnableOption "xiaomi_gateway3";
   };
 

@@ -8,10 +8,10 @@
 let
   inherit (config.my) domain;
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.hass;
+  cfg = config.services.hass;
 in
 {
-  options.my.hass = {
+  options.services.hass = {
     zhibot = mkEnableOption "zhibot";
   };
 

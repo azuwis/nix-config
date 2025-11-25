@@ -172,7 +172,7 @@ let
 in
 
 {
-  config = lib.mkIf config.my.hass.enable {
+  config = lib.mkIf config.services.hass.enable {
     systemd.services.home-assistant.preStart = ''
       ln -fns ${static} ${config.services.home-assistant.configDir}/www/static
       ln -fns ${generated} ${config.services.home-assistant.configDir}/www/generated

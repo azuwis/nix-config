@@ -44,7 +44,7 @@
   # services.evdevhook.enable = true;
   my.desktop.enable = true;
   programs.dualsensectl.enable = true;
-  my.hass.enable = true;
+  services.hass.enable = true;
   hardware.intelGpu.enable = true;
   my.nix-builder-client.enable = true;
   # my.photoprism.enable = true;

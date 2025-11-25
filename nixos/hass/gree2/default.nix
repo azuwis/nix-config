@@ -7,13 +7,13 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.hass;
+  cfg = config.services.hass;
 in
 {
   # OpenWRT: /etc/config/dhcp
   # config dnsmasq
   #   list address '/dis.gree.com/<ip_of_hass>'
-  options.my.hass = {
+  options.services.hass = {
     gree2 = mkEnableOption "gree2";
   };
 
