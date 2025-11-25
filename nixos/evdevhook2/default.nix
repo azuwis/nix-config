@@ -15,13 +15,13 @@ let
     optionalString
     types
     ;
-  cfg = config.my.evdevhook2;
+  cfg = config.services.evdevhook2;
   ini = pkgs.formats.ini { };
 
   configFile = ini.generate "evdevhook2.ini" cfg.settings;
 in
 {
-  options.my.evdevhook2 = {
+  options.services.evdevhook2 = {
     enable = mkEnableOption "evdevhook2";
 
     package = mkPackageOption pkgs "evdevhook2" { };
