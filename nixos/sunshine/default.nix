@@ -100,8 +100,8 @@ in
     # KERNEL=="hidraw*", ATTRS{name}=="Sunshine PS5 (virtual) pad", OWNER="${cfg.user}"
     services.udev.extraRules = ''
       SUBSYSTEM=="misc", KERNEL=="uhid", GROUP="uinput", MODE="0660"
-      SUBSYSTEMS=="input", ATTRS{name}=="Sunshine * (virtual) pad*", OWNER="${cfg.user}"
-      SUBSYSTEMS=="input", ATTRS{id/vendor}=="beef", ATTRS{id/product}=="dead", ATTRS{name}=="* passthrough*", OWNER="${cfg.user}"
+      SUBSYSTEM=="input", KERNEL=="event*", ATTRS{name}=="Sunshine * (virtual) pad*", MODE="0660", GROUP="uinput"
+      SUBSYSTEM=="input", KERNEL=="event*", ATTRS{id/vendor}=="beef", ATTRS{id/product}=="dead", ATTRS{name}=="* passthrough*", MODE="0660", GROUP="uinput"
     '';
 
     programs.sway.enable = true;
