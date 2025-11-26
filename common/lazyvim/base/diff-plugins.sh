@@ -5,7 +5,7 @@ lazy_plugins() {
 }
 
 nix_plugins() {
-  dir=$(awk -F'"' '/path = / {print $2}' "$(awk '/exec/ {print $4}' "$(command -v nvim)")")
+  dir=$(awk -F'"' '/path = / {print $2}' "$(grep -o '/nix/store/[0-9a-z]\+-init.lua' "$(command -v nvim)")")
   ls -1 "$dir" | sort
 }
 
