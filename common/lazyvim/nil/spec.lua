@@ -9,6 +9,11 @@ return {
               formatting = {
                 command = { "nixfmt" },
               },
+              nix = {
+                flake = {
+                  autoArchive = false,
+                },
+              },
             },
           },
         },
