@@ -196,12 +196,12 @@ in
                 inherit name;
                 image-path = image;
                 cmd = if name == "Cemu" then "cemu" else "cemu --fullscreen --title-id ${id}";
-                prep-cmd = [
-                  {
-                    do = "${./scripts}/cemu-do.sh";
-                    undo = "${./scripts}/cemu-undo.sh";
-                  }
-                ];
+                # prep-cmd = [
+                #   {
+                #     do = "${./scripts}/cemu-do.sh";
+                #     undo = "${./scripts}/cemu-undo.sh";
+                #   }
+                # ];
               };
             mkEden =
               {
