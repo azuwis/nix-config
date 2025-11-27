@@ -25,6 +25,9 @@
   #   }
   # );
 
+  boot.loader.limine.enable = true;
+  boot.loader.limine.secureBoot.enable = true;
+
   # https://wiki.nixos.org/wiki/Remote_disk_unlocking
   # mkdir -p /etc/secrets/initrd
   # ssh-keygen -t ed25519 -N "" -f /etc/secrets/initrd/ssh_host_ed25519_key
