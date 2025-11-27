@@ -20,7 +20,9 @@
       "nix-command"
     ];
     flake-registry = "";
-    keep-outputs = true;
+    # This keep build time paths like compilers and source tarballs, may require
+    # 20G+ after keeping multiple direnv profiles
+    # keep-outputs = true;
     log-lines = 25;
     tarball-ttl = 43200;
     trusted-users = [ config.my.user ];

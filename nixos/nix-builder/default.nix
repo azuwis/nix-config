@@ -21,6 +21,7 @@ in
     age.secrets.nix-secret-key.file = "${inputs.my.outPath}/nix-secret-key.age";
 
     nix.settings = {
+      keep-outputs = true;
       secret-key-files = [ config.age.secrets.nix-secret-key.path ];
       trusted-users = [ "nix-ssh" ];
     };
