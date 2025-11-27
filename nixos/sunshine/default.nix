@@ -97,7 +97,7 @@ in
     # udevadm info -a [/sys/device/...|/dev/...]
     # udevadm monitor --environment --property --udev
     # https://github.com/LizardByte/Sunshine/blob/master/src_assets/linux/misc/60-sunshine.rules
-    # KERNEL=="hidraw*", ATTRS{name}=="Sunshine PS5 (virtual) pad", OWNER="${cfg.user}"
+    # KERNEL=="hidraw*", ATTRS{name}=="Sunshine PS5 (virtual) pad", GROUP="input", MODE="0660", TAG+="uaccess"
     services.udev.extraRules = ''
       SUBSYSTEM=="misc", KERNEL=="uhid", GROUP="uinput", MODE="0660"
       SUBSYSTEM=="input", KERNEL=="event*", ATTRS{name}=="Sunshine * (virtual) pad*", MODE="0660", GROUP="uinput"
