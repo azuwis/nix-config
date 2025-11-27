@@ -104,25 +104,11 @@
         "owner": "nix-darwin",
         "repo": "nix-darwin"
       },
-      "branch": "nix-darwin-25.05",
-      "submodules": false,
-      "revision": "000eadb231812ad6ea6aebd7526974aaf4e79355",
-      "url": "https://github.com/nix-darwin/nix-darwin/archive/000eadb231812ad6ea6aebd7526974aaf4e79355.tar.gz",
-      "hash": "sha256-4XifSIHfpJKcCf5bZZRhj8C4aCpjNBaE3kXr02s4rHU="
-    },
-    "nix-darwin-master": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "nix-darwin",
-        "repo": "nix-darwin"
-      },
       "branch": "master",
       "submodules": false,
-      "revision": "ebd0bfc11fc2b5cff37401e9b3703881ad5fabbd",
-      "url": "https://github.com/nix-darwin/nix-darwin/archive/ebd0bfc11fc2b5cff37401e9b3703881ad5fabbd.tar.gz",
-      "hash": "sha256-wwqf3+A8EiqwWpcAaPN20QXJLlpGPpwtLTrzgnngI2o=",
-      "frozen": true
+      "revision": "e95de00a471d07435e0527ff4db092c84998698e",
+      "url": "https://github.com/nix-darwin/nix-darwin/archive/e95de00a471d07435e0527ff4db092c84998698e.tar.gz",
+      "hash": "sha256-HN84sByg9FhJnojkGGDSrcjcbeioFWoNXfuyYfJ1kBE="
     },
     "nix-homebrew": {
       "type": "Git",
