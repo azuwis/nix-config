@@ -69,8 +69,8 @@ in
     users.groups = optionalAttrs (cfg.group == "evdevhook") { evdevhook = { }; };
 
     services.udev.extraRules = ''
-      ATTRS{name}=="DualSense Wireless Controller Motion Sensors", OWNER="${cfg.user}"
-      ATTRS{name}=="Sony Interactive Entertainment DualSense Wireless Controller Motion Sensors", OWNER="${cfg.user}"
+      SUBSYSTEM=="input", KERNEL=="event*", ATTRS{name}=="DualSense Wireless Controller Motion Sensors", OWNER="${cfg.user}"
+      SUBSYSTEM=="input", KERNEL=="event*", ATTRS{name}=="Sony Interactive Entertainment DualSense Wireless Controller Motion Sensors", OWNER="${cfg.user}"
     '';
 
     systemd.services.evdevhook = {
