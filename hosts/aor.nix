@@ -76,7 +76,11 @@
   services.evsieve.enable = true;
   services.scinet.enable = true;
   services.sunshine.enable = true;
-  services.sunshine.settings.adapter_name = "/dev/dri/by-path/pci-0000:11:00.0-render";
+  # After update to 25.11, sunshine crash when using AMD vaapi encoder, may related to mesa bump
+  # https://github.com/LizardByte/Sunshine/issues/4358
+  # services.sunshine.settings.adapter_name = "/dev/dri/by-path/pci-0000:11:00.0-render";
+  services.sunshine.cudaSupport = true;
+  services.sunshine.settings.encoder = "nvenc";
   zramSwap.enable = true;
 
   # Eval time will be multiplied by specialisations count
