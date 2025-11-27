@@ -10,6 +10,8 @@ let
 in
 
 {
+  disabledModules = [ ../nixos/steam/default.nix ];
+
   imports = [
     ../nixos
     (inputs.jovian-nixos.outPath + "/modules")
@@ -73,25 +75,29 @@ in
   #   themePackages = [ pkgs.steamdeck-hw-theme ];
   # };
 
-  # See `nixos/modules/services/desktop-managers/plasma6.nix` optionalPackages for excludePackages
-  # Package included: konsole kate dolphin
+  # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/desktop-managers/plasma6.nix
+  # See optionalPackages for excludePackages
+  # Package included: konsole kwin-x11 kate dolphin
   services.desktopManager.plasma6.enable = true;
   services.desktopManager.plasma6.enableQt5Integration = false;
   services.xserver.displayManager.startx.enable = true;
   services.xserver.enable = true;
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
+    aurorae
     plasma-browser-integration
+    plasma-workspace-wallpapers
+    (lib.getBin qttools)
     ark
     elisa
     gwenview
     okular
+    ktexteditor
     khelpcenter
     baloo-widgets
     dolphin-plugins
     spectacle
     ffmpegthumbs
     krdp
-    xwaylandvideobridge
   ];
   jovian.steam.desktopSession = "plasmax11";
 
