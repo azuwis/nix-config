@@ -5,6 +5,9 @@
   ...
 }:
 
+# NOTE: Enable `Optimize mouse for remote desktop instead of games` in Moonlight,
+# or the mouse cursor will be very fast when using Dualsense's touchpad
+
 let
   cfg = config.services.sunshine;
 
@@ -23,19 +26,12 @@ let
         bindsym BTN_RIGHT kill
 
         seat seat0 fallback false
-        # All mouse like devices are pass through Mouse_passthrough,
-        # add the virtual devices will double the evnets and thus the move speed.
         # seat seat0 attach "1356:3302:Sunshine_PS5_(virtual)_pad_Touchpad"
         seat seat0 attach "48879:57005:Keyboard_passthrough"
         seat seat0 attach "48879:57005:Mouse_passthrough"
         seat seat0 attach "48879:57005:Mouse_passthrough_(absolute)"
         seat seat0 attach "48879:57005:Pen_passthrough"
         seat seat0 attach "48879:57005:Touch_passthrough"
-
-        # input "48879:57005:Mouse_passthrough" accel_profile flat
-        input "48879:57005:Mouse_passthrough" pointer_accel -1
-        bindsym $mod+m input "48879:57005:Mouse_passthrough" pointer_accel 0
-        bindsym $mod+Shift+m input "48879:57005:Mouse_passthrough" pointer_accel -1
 
         output HEADLESS-1 mode ${cfg.mode}
 
