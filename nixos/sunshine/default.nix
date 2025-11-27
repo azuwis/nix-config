@@ -42,7 +42,7 @@ let
         assign [app_id="^sunshine-terminal$"] 9
         exec foot --app-id=sunshine-terminal
 
-        exec ${lib.getExe pkgs.sunshine} "$SUNSHINE_CONFIG"
+        exec ${lib.getExe (pkgs.sunshine.override { inherit (cfg) cudaSupport; })} "$SUNSHINE_CONFIG"
       ''
       + lib.concatMapStrings (entry: "exec ${lib.concatStringsSep " " entry}\n") (
         builtins.attrValues (
@@ -62,6 +62,8 @@ let
 in
 {
   options.services.sunshine = {
+    cudaSupport = lib.mkEnableOption "cuda";
+
     mode = lib.mkOption {
       type = lib.types.str;
       default = "1920x1080@60Hz";
