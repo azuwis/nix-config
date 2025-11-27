@@ -12,7 +12,9 @@
       ln -s ${pkgs.inetutils}/bin/telnet $out/bin/
       ln -s ${pkgs.inetutils}/share/man/man1/telnet.1.gz $out/share/man/man1/
     '')
-    android-file-transfer
+    # android-file-transfer bump to use fuse3, not available in nixpkgs' macfuse yet
+    # https://github.com/NixOS/nixpkgs/pull/458276
+    # android-file-transfer
     android-tools
     blueutil
     coreutils-full
