@@ -27,6 +27,13 @@
       entryOptions = "--unrestricted";
       subEntryOptions = "";
     };
+    limine = {
+      style = {
+        backdrop = "000000";
+        wallpapers = [ ];
+        wallpaperStyle = "centered";
+      };
+    };
   };
   environment.systemPackages = lib.optionals (config.boot.loader.grub.enable == true) [
     pkgs.grub-reboot-menu
