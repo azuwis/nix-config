@@ -2,7 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  apple-sdk_12,
+  apple-sdk,
   testers,
   nix-update-script,
 }:
@@ -18,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-Y4hhmuELvVOzOGF3CbWWQedA5OPNSTY+Ur6rwcuOQl0=";
   };
 
-  buildInputs = [ apple-sdk_12 ];
+  buildInputs = [ apple-sdk ];
 
   installPhase = ''
     runHook preInstall
