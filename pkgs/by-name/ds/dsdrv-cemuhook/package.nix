@@ -9,6 +9,7 @@
 python3.pkgs.buildPythonPackage {
   pname = "dsdrv-cemuhook";
   version = "0.5.1-unstable-2023-08-25";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "lirannl";
@@ -17,7 +18,9 @@ python3.pkgs.buildPythonPackage {
     sha256 = "sha256-YSo7PwIlSqYbVhpEZam41SVLzg610G1cgoyL8S7he88=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
+  build-system = with python3.pkgs; [ setuptools ];
+
+  dependencies = with python3.pkgs; [
     evdev
     pyudev
   ];
