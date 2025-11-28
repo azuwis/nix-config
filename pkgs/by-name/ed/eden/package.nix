@@ -173,7 +173,8 @@ stdenv.mkDerivation (finalAttrs: {
   passthru = {
     # Hack to make `nix-update --subpackage depsUpdate` works
     depsUpdate = stdenv.mkDerivation {
-      inherit (finalAttrs.deps) name;
+      pname = "depsUpdate";
+      version = "0";
       src = finalAttrs.deps;
     };
     updateScript = nix-update-script {
