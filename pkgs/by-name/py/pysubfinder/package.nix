@@ -8,6 +8,7 @@
 python3.pkgs.buildPythonApplication {
   pname = "subfinder";
   version = "2.2.2-pre-unstable-2024-02-14";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "ausaki";
@@ -16,7 +17,9 @@ python3.pkgs.buildPythonApplication {
     sha256 = "sha256-SeensfAKYU3HUjGaF3hzrnXZkQYs/15IH3msNEl0iS8=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
+  build-system = with python3.pkgs; [ setuptools ];
+
+  dependencies = with python3.pkgs; [
     requests
     lxml
     beautifulsoup4
