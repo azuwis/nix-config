@@ -11,6 +11,7 @@ yambar.overrideAttrs (old: {
   };
 
   passthru = (old.passthru or { }) // {
+    enable = false;
     updateScript = nix-update-script {
       extraArgs = [ "--version=branch" ];
     };
