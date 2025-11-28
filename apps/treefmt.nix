@@ -10,6 +10,9 @@ treefmt-nix.mkWrapper pkgs {
   settings.global.excludes = [ "hosts/hardware-*.nix" ];
 
   programs.nixfmt.enable = true;
+  # nixfmt-rfc-style renamed to nixfmt, and become an alias, but treefmt-nix still use it
+  # https://github.com/numtide/treefmt-nix/blob/5b4ee75aeefd1e2d5a1cc43cf6ba65eba75e83e4/programs/nixfmt.nix#L18
+  programs.nixfmt.package = pkgs.nixfmt;
 
   programs.shfmt = {
     enable = true;
