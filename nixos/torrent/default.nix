@@ -16,7 +16,7 @@ let
   cfg = config.my.torrent;
 
   inherit (config.my) domain;
-  port = builtins.toString config.my.qbittorrent.settings.Preferences."WebUI\\Port";
+  port = toString config.my.qbittorrent.settings.Preferences."WebUI\\Port";
 in
 {
   options.my.torrent = {

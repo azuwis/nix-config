@@ -89,7 +89,7 @@ in
         User = "${cfg.user}";
         Group = "${cfg.group}";
         Restart = "on-abort";
-        ExecStart = "${cfg.package}/bin/dsdrv --udp --udp-host ${cfg.settings.host} --udp-port ${builtins.toString cfg.settings.port} ${cfg.settings.extraArgs}";
+        ExecStart = "${cfg.package}/bin/dsdrv --udp --udp-host ${cfg.settings.host} --udp-port ${toString cfg.settings.port} ${cfg.settings.extraArgs}";
       };
     };
 

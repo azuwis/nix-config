@@ -14,7 +14,7 @@ let
   cfg = config.programs.swayidle;
 
   lockCommand = "blurlock";
-  timeoutCommand = builtins.toString (
+  timeoutCommand = toString (
     pkgs.writeShellScript "swayidle-timeout-command" ''
       case "$XDG_CURRENT_DESKTOP" in
       niri) niri msg action power-off-monitors ;;
@@ -22,7 +22,7 @@ let
       esac
     ''
   );
-  resumeCommand = builtins.toString (
+  resumeCommand = toString (
     pkgs.writeShellScript "swayidle-resume-command" ''
       case "$XDG_CURRENT_DESKTOP" in
       sway) swaymsg "output * power on" ;;

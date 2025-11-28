@@ -8,7 +8,7 @@ in
 # nix-shell devshells/<name>.nix
 # nix develop ./flakes#<name>
 # nix develop 'github:azuwis/nix-config?dir=flakes#<name>'
-builtins.removeAttrs (lib.packagesFromDirectoryRecursive {
+removeAttrs (lib.packagesFromDirectoryRecursive {
   callPackage = file: _: import file args;
   directory = ../devshells;
 }) [ "default" ]

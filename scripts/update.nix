@@ -54,10 +54,7 @@ let
       vimPackages = mkPkgSet "vimPlugins" ../pkgs/vim;
     in
     lib.filterAttrs
-      (
-        _: value:
-        lib.isDerivation value && value ? updateScript && pkgHasPrefix (builtins.toString ../.) value
-      )
+      (_: value: lib.isDerivation value && value ? updateScript && pkgHasPrefix (toString ../.) value)
       (
         topLevelPackages
         // lib.optionalAttrs (topLevelAttrs ? lua) luaPackages
@@ -71,7 +68,7 @@ let
       package = if builtins.hasAttr path pkgs then pkgs.${path} else null;
     in
     if package == null then
-      builtins.throw "Package with an attribute name `${path}` does not exist."
+      throw "Package with an attribute name `${path}` does not exist."
     else
       {
         attrPath = path;
@@ -86,7 +83,7 @@ let
     else if package != null then
       [ (packageByName package allPackages) ]
     else
-      builtins.throw "No arguments provided.";
+      throw "No arguments provided.";
 
   packageData =
     { package, attrPath }:
@@ -94,9 +91,7 @@ let
       name = package.name;
       pname = lib.getName package;
       oldVersion = lib.getVersion package;
-      updateScript = map builtins.toString (
-        lib.toList (package.updateScript.command or package.updateScript)
-      );
+      updateScript = map toString (lib.toList (package.updateScript.command or package.updateScript));
       supportedFeatures = package.updateScript.supportedFeatures or [ ];
       attrPath = package.updateScript.attrPath or attrPath;
     };

@@ -59,10 +59,7 @@ in
             package = cfg.package;
             flags = lib.mapAttrsToList (
               n: v:
-              if v == true then
-                "--${n}"
-              else
-                "--${n}" + "=" + (if builtins.isPath v then "${v}" else builtins.toString v)
+              if v == true then "--${n}" else "--${n}" + "=" + (if builtins.isPath v then "${v}" else toString v)
             ) (lib.filterAttrs (n: v: v != false) cfg.settings);
           });
     };

@@ -46,7 +46,7 @@ in
       location = "top";
       height = 26 * scale;
       background = "2E3440FF";
-      font = "monospace:pixelsize=${builtins.toString (16 * scale)}";
+      font = "monospace:pixelsize=${toString (16 * scale)}";
       spacing = 6 * scale;
       margin = 12 * scale;
       left = [

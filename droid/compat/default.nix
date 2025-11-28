@@ -14,7 +14,7 @@ in
 {
   disabledModules = [ ../../common/nixpkgs/default.nix ];
 
-  imports = builtins.map (path: modulesPath + path) [
+  imports = map (path: modulesPath + path) [
     "/config/shells-environment.nix"
     "/misc/extra-arguments.nix"
     "/misc/meta.nix"

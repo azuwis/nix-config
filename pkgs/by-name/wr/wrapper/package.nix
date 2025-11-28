@@ -24,7 +24,7 @@ let
       ]) env
     )
     ++ (lib.flatten (
-      builtins.map (f: [
+      map (f: [
         "--add-flag"
         f
       ]) flags

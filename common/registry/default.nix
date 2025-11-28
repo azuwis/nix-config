@@ -22,7 +22,7 @@ let
         # Use toString to avoid copying inputs to nix store if NPINS_OVERRIDE_* is used
         # nix.registry use builtins.toJSON, which will also copy paths to nix store
         # https://nix.dev/manual/nix/2.26/language/builtins#builtins-toJSON
-        builtins.mapAttrs (_: value: builtins.toString value.outPath) inputs
+        builtins.mapAttrs (_: value: toString value.outPath) inputs
       );
 in
 

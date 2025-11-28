@@ -14,7 +14,7 @@ in
 {
   disabledModules = [ ../../common/system/default.nix ];
 
-  imports = builtins.map (path: modulesPath + path) [
+  imports = map (path: modulesPath + path) [
     "/config/nix-flakes.nix"
     "/config/shells-environment.nix"
     "/misc/assertions.nix"

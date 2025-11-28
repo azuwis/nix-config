@@ -15,7 +15,7 @@ in
   # zsh module from nix-darwin are outdated, use the one from nixos
   disabledModules = [ "programs/zsh" ];
 
-  imports = builtins.map (path: modulesPath + path) [
+  imports = map (path: modulesPath + path) [
     "/programs/zsh/zsh.nix"
   ];
 

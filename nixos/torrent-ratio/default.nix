@@ -50,7 +50,7 @@ in
         DynamicUser = true;
         StateDirectory = "torrent-ratio";
         WorkingDirectory = "/var/lib/torrent-ratio";
-        ExecStart = "${pkgs.torrent-ratio}/bin/torrent-ratio -v -addr ${cfg.host}:${builtins.toString cfg.port} -db ${cfg.db} ${
+        ExecStart = "${pkgs.torrent-ratio}/bin/torrent-ratio -v -addr ${cfg.host}:${toString cfg.port} -db ${cfg.db} ${
           optionalString (cfg.conf != null) "-conf ${cfg.conf}"
         }";
         Restart = "on-failure";

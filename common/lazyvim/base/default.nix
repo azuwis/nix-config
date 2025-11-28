@@ -188,7 +188,7 @@ in
                 else
                   drv;
               lazyvimPlugins = pkgs.linkFarm "lazyvim-plugins" (
-                builtins.map mkEntryFromDrv (lib.subtractLists cfg.excludePlugins cfg.plugins ++ cfg.extraPlugins)
+                map mkEntryFromDrv (lib.subtractLists cfg.excludePlugins cfg.plugins ++ cfg.extraPlugins)
               );
               lazyvimConfig = pkgs.linkFarm "lazyvim-config" (
                 lib.mapAttrsToList (name: value: {

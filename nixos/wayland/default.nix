@@ -38,7 +38,7 @@ in
             loc: defs:
             if lib.length defs > 1 then
               lib.addErrorContext "Conflicting definitions for '${lib.concatStringsSep "." loc}':" (
-                builtins.throw "Duplicate definition detected"
+                throw "Duplicate definition detected"
               )
             else
               (lib.head defs).value;
