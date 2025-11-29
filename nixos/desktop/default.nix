@@ -45,6 +45,9 @@ in
     programs.wayland.session = mkDefault "niri-session";
     # programs.wayland.session = "sway";
 
+    # Reduce 700M closure size
+    services.speechd.enable = false;
+
     theme.enable = true;
   };
 }
