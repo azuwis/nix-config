@@ -55,7 +55,7 @@ in
               type nat hook output priority filter; policy accept;
               oif lo accept
               ip daddr @local accept
-              tcp dport { 22, 53, 80, 8000, 443, 587, 873, 993, 3000, 5222, 5228, 32200 } dnat to 127.0.0.1:7071
+              tcp dport { 20-1023, 3000, 5222, 5228, 8000, 32200 } dnat to 127.0.0.1:7071
             }
           }
         '';
