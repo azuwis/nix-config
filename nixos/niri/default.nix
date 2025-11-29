@@ -87,6 +87,8 @@ in
         entry: "spawn-at-startup ${lib.concatMapStringsSep " " (x: "\"${x}\"") entry}\n"
       ) (builtins.attrValues config.programs.wayland.startup);
 
+      programs.wayland.enable = true;
+
       systemd.packages = [ cfg.package ];
 
       xdg.portal = {
