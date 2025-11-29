@@ -39,6 +39,7 @@ let
         seat seat0 attach "48879:57005:Touch_passthrough"
 
         output HEADLESS-1 mode ${cfg.mode}
+        output HEADLESS-1 scale ${cfg.scale}
 
         assign [app_id="^sunshine-terminal$"] 9
         exec foot --app-id=sunshine-terminal
@@ -67,7 +68,12 @@ in
 
     mode = lib.mkOption {
       type = lib.types.str;
-      default = "1920x1080@60Hz";
+      default = "3840x2160@60Hz";
+    };
+
+    scale = lib.mkOption {
+      type = lib.types.str;
+      default = "2";
     };
 
     user = lib.mkOption {
@@ -170,7 +176,7 @@ in
         channels = 2;
         fps = "[30, 60]";
         origin_web_ui_allowed = "pc";
-        resolutions = "[1280x720, 1920x1080]";
+        resolutions = "[1280x720, 1920x1080, 3840x2160]";
         vaapi_strict_rc_buffer = "enabled";
       };
 
