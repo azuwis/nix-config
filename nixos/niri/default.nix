@@ -44,6 +44,15 @@ in
       default = config.programs.wayland.session == "niri-session-custom";
     };
 
+    # No specific input device configuration yet, at least provide per-host setting our own
+    # https://github.com/YaLTeR/niri/issues/371
+    settings.input.mouse = mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [
+        "natural-scroll"
+      ];
+    };
+
     extraConfig = mkOption {
       type = lib.types.lines;
       default = "";
@@ -64,6 +73,7 @@ in
         '';
         DEFAULT_AUDIO_SINK = null;
         DEFAULT_AUDIO_SOURCE = null;
+        input_mouse = lib.concatStringsSep "\n        " cfg.settings.input.mouse;
       };
 
       environment.systemPackages = with pkgs; [
