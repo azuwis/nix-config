@@ -8,6 +8,11 @@
 # NOTE: Enable `Optimize mouse for remote desktop instead of games` in Moonlight,
 # or the mouse cursor will be very fast when using Dualsense's touchpad
 
+# Moonlight controller combo
+# Select+L1+R1+Start: quit
+# Select+L1+R1+X(□): stats
+# https://github.com/moonlight-stream/moonlight-qt/blob/296387345d9d4ef124d69e8c19f83f393ff4a8ea/app/streaming/input/gamepad.cpp#L366-L396
+
 let
   cfg = config.services.sunshine;
 
