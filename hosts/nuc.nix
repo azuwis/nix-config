@@ -58,6 +58,9 @@
 
   programs.swayidle.enable = false;
 
+  # Niri does not have per input device setting yet, override `natural-scroll` for
+  # Microsoft All-in-One Media Keyboard
+  programs.niri.settings.input.mouse = [ ];
   programs.niri.extraConfig = ''
     output "HDMI-A-1" {
       mode "1920x1080@60.000"
