@@ -13,6 +13,7 @@
 
   # On kernel 6.12, DualSense controller only works on first pair, will not connect after.
   # Kernel 6.17 works without problem.
+  # Bluetooth adapter: 0bda:a725 Realtek Semiconductor Corp. Bluetooth Radio
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   powerManagement.cpuFreqGovernor = "schedutil";
