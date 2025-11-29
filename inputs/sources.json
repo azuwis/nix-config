@@ -9,8 +9,8 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "2f0f812f69f3eb4140157fe15e12739adf82e32a",
-      "url": "https://github.com/ryantm/agenix/archive/2f0f812f69f3eb4140157fe15e12739adf82e32a.tar.gz",
+      "revision": "fcdea223397448d35d9b31f798479227e80183f6",
+      "url": "https://github.com/ryantm/agenix/archive/fcdea223397448d35d9b31f798479227e80183f6.tar.gz",
       "hash": "sha256-wyT7Pl6tMFbFrs8Lk/TlEs81N6L+VSybPfiIgzU8lbQ="
     },
     "brew-src": {
@@ -24,10 +24,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "4.6.18",
-      "revision": "00001bedf8eac442bdabd327148be0b97998b27b",
-      "url": "https://api.github.com/repos/Homebrew/brew/tarball/refs/tags/4.6.18",
-      "hash": "sha256-hK8bZNPGvtBHJbbSdvAS5XxIPF6TiSU+aZ4L1Jjkzrs="
+      "version": "5.0.3",
+      "revision": "fbfdbaba008189499958a7aeb1e2c36ab10c067d",
+      "url": "https://api.github.com/repos/Homebrew/brew/tarball/refs/tags/5.0.3",
+      "hash": "sha256-n/IMowE9S23ovmTkKX7KhxXC2Yq41EAVFR2FBIXPcT8="
     },
     "devshell": {
       "type": "Git",
@@ -38,9 +38,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "7c9e793ebe66bcba8292989a68c0419b737a22a0",
-      "url": "https://github.com/numtide/devshell/archive/7c9e793ebe66bcba8292989a68c0419b737a22a0.tar.gz",
-      "hash": "sha256-kWNaq6wQUbUMlPgw8Y+9/9wP0F8SHkjy24/mN3UAppg="
+      "revision": "17ed8d9744ebe70424659b0ef74ad6d41fc87071",
+      "url": "https://github.com/numtide/devshell/archive/17ed8d9744ebe70424659b0ef74ad6d41fc87071.tar.gz",
+      "hash": "sha256-M7SZyPZiqZUR/EiiBJnmyUbOi5oE/03tCeFrTiUZchI="
     },
     "disko": {
       "type": "GitRelease",
@@ -67,9 +67,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "d144d75ec78c5c0f94eaf1c97f9d0b586c436caf",
-      "url": "https://github.com/Homebrew/homebrew-cask/archive/d144d75ec78c5c0f94eaf1c97f9d0b586c436caf.tar.gz",
-      "hash": "sha256-ZxyvxPguZiNGAgSPuKWp0p8uImCqapaYySuRqnUtYW0="
+      "revision": "93d5333801cb63458314335a7e48a3a16966076e",
+      "url": "https://github.com/Homebrew/homebrew-cask/archive/93d5333801cb63458314335a7e48a3a16966076e.tar.gz",
+      "hash": "sha256-4WWggyJkpD0tsQmunaUYL//iPPDKkVntw/CpBCb2MvA="
     },
     "jovian-nixos": {
       "type": "Git",
@@ -80,9 +80,9 @@
       },
       "branch": "development",
       "submodules": false,
-      "revision": "50026908d1501193afdcccdf7359d1a485074eda",
-      "url": "https://github.com/Jovian-Experiments/Jovian-NixOS/archive/50026908d1501193afdcccdf7359d1a485074eda.tar.gz",
-      "hash": "sha256-s/6WrJJryLI6BgphsY8l0s0UmGUg3mgkSFuvvsbN0FM="
+      "revision": "96023dcc9a0febaaa3b91f447b9ae2fbe86f2923",
+      "url": "https://github.com/Jovian-Experiments/Jovian-NixOS/archive/96023dcc9a0febaaa3b91f447b9ae2fbe86f2923.tar.gz",
+      "hash": "sha256-DRcv8Y0BnWm4ZhUQnaYk1dNzC6ZhA2W9Vv5Jl4n0RbE="
     },
     "my": {
       "type": "Git",
@@ -118,9 +118,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "f36e5db56e117f7df701ab152d0d2036ea85218c",
-      "url": "https://github.com/zhaofengli/nix-homebrew/archive/f36e5db56e117f7df701ab152d0d2036ea85218c.tar.gz",
-      "hash": "sha256-qr60maXGbZ4FX5tejPRI3nr0bnRTnZ3AbbbfO6/6jq4="
+      "revision": "3cae36b3a17b09a66435291619dce8cf2c4728ca",
+      "url": "https://github.com/zhaofengli/nix-homebrew/archive/3cae36b3a17b09a66435291619dce8cf2c4728ca.tar.gz",
+      "hash": "sha256-KsFDGRGD8j1R6TvJ4HkebKsh3HXLY0XazanLrhO3wqE="
     },
     "nix-index-database": {
       "type": "Git",
@@ -131,9 +131,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "fbb560f031372e0b7ad23f3b2cc13ce5facf11fe",
-      "url": "https://github.com/azuwis/nix-index-database/archive/fbb560f031372e0b7ad23f3b2cc13ce5facf11fe.tar.gz",
-      "hash": "sha256-h6L7/ZD2c5F+bdywY/aq7OQnjhyGdMm9m1Dqa2lwLYg="
+      "revision": "c3047bb3bfa8d71bd37cc77793cb3b6a6e65a244",
+      "url": "https://github.com/azuwis/nix-index-database/archive/c3047bb3bfa8d71bd37cc77793cb3b6a6e65a244.tar.gz",
+      "hash": "sha256-3/dDLlwIlf/JIgshrudF+FV/i/9azNlHks+sh+wVoPI="
     },
     "nix-on-droid": {
       "type": "Git",
@@ -171,9 +171,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "86f85079c8d896b1903c70a919fa3d43c92d6f7f",
-      "url": "https://github.com/nix-community/NixOS-WSL/archive/86f85079c8d896b1903c70a919fa3d43c92d6f7f.tar.gz",
-      "hash": "sha256-l20QOQZYjmGq3PK0gZ8NJOi3GMKjLd6iwwk54MKwkbk="
+      "revision": "c7832dd786175e20f2697179e0e03efadffe4201",
+      "url": "https://github.com/nix-community/NixOS-WSL/archive/c7832dd786175e20f2697179e0e03efadffe4201.tar.gz",
+      "hash": "sha256-ezkjlUCohD9o9c47Ey0/I4CamSS0QEORTqGvyGqMud0="
     },
     "nixpkgs": {
       "type": "Git",
@@ -184,9 +184,9 @@
       },
       "branch": "nixos-25.11",
       "submodules": false,
-      "revision": "a320ce8e6e2cc6b4397eef214d202a50a4583829",
-      "url": "https://github.com/NixOS/nixpkgs/archive/a320ce8e6e2cc6b4397eef214d202a50a4583829.tar.gz",
-      "hash": "sha256-6zddwDs2n+n01l+1TG6PlyokDdXzu/oBmEejcH5L5+A="
+      "revision": "ba9b83e5fb4b552a423d24dabe5ccb47a9c89901",
+      "url": "https://github.com/NixOS/nixpkgs/archive/ba9b83e5fb4b552a423d24dabe5ccb47a9c89901.tar.gz",
+      "hash": "sha256-1LNGcU+aTbATD3BPCf7U1KsP1CjCH+ZWqM6JH0sZ6Q0="
     },
     "treefmt-nix": {
       "type": "Git",
@@ -197,9 +197,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "2eddae033e4e74bf581c2d1dfa101f9033dbd2dc",
-      "url": "https://github.com/numtide/treefmt-nix/archive/2eddae033e4e74bf581c2d1dfa101f9033dbd2dc.tar.gz",
-      "hash": "sha256-Msq86cR5SjozQGCnC6H8C+0cD4rnx91BPltZ9KK613Y="
+      "revision": "5b4ee75aeefd1e2d5a1cc43cf6ba65eba75e83e4",
+      "url": "https://github.com/numtide/treefmt-nix/archive/5b4ee75aeefd1e2d5a1cc43cf6ba65eba75e83e4.tar.gz",
+      "hash": "sha256-AlEObg0syDl+Spi4LsZIBrjw+snSVU4T8MOeuZJUJjM="
     }
   },
   "version": 7
