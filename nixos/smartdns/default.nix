@@ -17,16 +17,19 @@ in
 
     services.resolved.enable = true;
     # When resolved enabled, /etc/nsswitch.conf will have `hosts: mymachines resolve [!UNAVAIL=return] files myhostname dns`,
-    # which will make apps like `ping` `firefox` prefer systemd-resolved, and ignore /etc/resolv.conf.
-    # Can not easily remove `resolve [!UNAVAIL=return]`, so override all. Be ware if future NixOS version changes
-    # `system.nssDatabases.hosts`, new values should be set.
-    system.nssDatabases.hosts = lib.mkForce [ "mymachines files myhostname dns" ];
+    # which will make gethostbyname (apps like `ping` `firefox`) prefer systemd-resolved, and ignore /etc/resolv.conf.
+    # Can not easily remove `resolve [!UNAVAIL=return]`, so prepend `dns [!UNAVAIL=return]`, and make
+    # smartdns behave like `files myhostname dns`.
+    # This make tools like `dig` and `ping` have almost the same result.
+    system.nssDatabases.hosts = lib.mkBefore [ "dns [!UNAVAIL=return]" ];
 
     services.smartdns.settings = {
       bind = "127.0.0.52";
       cache-size = 4096;
       force-AAAA-SOA = true;
       force-qtype-SOA = 65;
+      # Support /etc/hosts, so don't need `files` in nsswitch.conf
+      hosts-file = "/etc/hosts";
       nameserver = [
         "/detectportal.firefox.com/local"
         "/lan/local"
