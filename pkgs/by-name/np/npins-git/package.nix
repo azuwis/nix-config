@@ -6,12 +6,12 @@
 
 npins.overrideAttrs (
   finalAttrs: prevAttrs: {
-    version = "0.3.1-unstable-2025-10-12";
+    version = "0.3.1-unstable-2025-11-26";
 
     src = prevAttrs.src.override {
-      rev = "f4e3698681704e74196fa0f905c7dfdd43cf5c86";
+      rev = "84a362d77fb3c487ad759c80547facb028f4d96f";
       tag = null;
-      sha256 = "sha256-8lkiistkBemkRN4aTqGW3SvI1CqibOnvFvNJS9OOdnU=";
+      sha256 = "sha256-EWA14ovB/5UFiK9fmEYtofIMbGnVeJ/4yK0aJEJXtsI=";
     };
 
     cargoHash = "sha256-YAIjrGQkmrurftV0fFP2s3BZSuNnpaFRGXZ89y+1tSc=";
