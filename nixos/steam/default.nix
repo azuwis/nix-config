@@ -24,7 +24,6 @@ in
   config = mkIf cfg.enable (mkMerge [
     {
       networking.networkmanager.enable = true;
-      networking.networkmanager.plugins = mkForce [ ];
       networking.useNetworkd = false;
 
       environment.systemPackages = with pkgs; [ mangohud ];
