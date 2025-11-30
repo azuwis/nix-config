@@ -34,13 +34,15 @@ in
         "/detectportal.firefox.com/local"
         "/lan/local"
         "/netease.com/local"
+        "/google.com/global"
+        "/githubusercontent.com/global"
       ];
       prefetch-domain = true;
       rr-ttl-min = 600;
       serve-expired = true;
       server = "127.0.0.54 -group local";
       server-quic = "223.5.5.5";
-      server-tls = "1.0.0.1";
+      server-tls = "1.0.0.1 -group global";
       user = "nobody";
     };
   };
