@@ -12,7 +12,6 @@ in
 
 {
   imports = map (path: modulesPath + path) [
-    "/programs/command-not-found/command-not-found.nix"
     "/programs/firefox.nix"
     "/programs/git.nix"
     "/programs/less.nix"
