@@ -83,7 +83,6 @@ in
         pulsemixer
         qt5.qtwayland
         qt6.qtwayland
-        swaybg
         wev
         wl-clipboard # neovim
         wlrctl

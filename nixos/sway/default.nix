@@ -54,6 +54,7 @@ in
       extraPackages = with pkgs; [
         swappy
         sway-contrib.grimshot
+        swaybg
       ];
     };
   };
