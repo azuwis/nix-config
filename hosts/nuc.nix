@@ -47,7 +47,7 @@
   programs.dualsensectl.enable = true;
   services.hass.enable = true;
   hardware.intelGpu.enable = true;
-  my.nix-builder-client.enable = true;
+  services.nix-builder.client.enable = true;
   # my.photoprism.enable = true;
   programs.retroarch.enable = true;
   my.torrent.enable = true;

@@ -13,11 +13,11 @@ let
     mkOption
     types
     ;
-  cfg = config.my.nix-builder-client;
+  cfg = config.services.nix-builder.client;
 in
 {
-  options.my.nix-builder-client = {
-    enable = mkEnableOption "nix-builder-client";
+  options.services.nix-builder.client = {
+    enable = mkEnableOption "nix-builder client";
     systems = mkOption {
       type = types.listOf types.str;
       default = [

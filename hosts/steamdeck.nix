@@ -106,7 +106,7 @@ in
     "z / 0755 root root"
   ];
 
-  my.nix-builder-client.enable = true;
+  services.nix-builder.client.enable = true;
   theme.enable = true;
   # Proton is not sandboxed, https://github.com/ValveSoftware/Proton/issues/3979
   # It even mounts the SD card, and expose it to all games.
