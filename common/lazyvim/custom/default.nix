@@ -25,8 +25,8 @@ in
       config.custom = pkgs.replaceVarsWith {
         src = ./spec.lua;
         replacements = {
-          # Need to use builtins.path to force copy ./snippets to nix store
-          snippets = builtins.path { path = ./snippets; };
+          # Need to force copy ./snippets to nix store
+          snippets = "${./snippets}";
         };
       };
       config."lua/config" = ./config;
