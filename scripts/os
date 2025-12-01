@@ -220,7 +220,7 @@ rebuild() {
     cmd=(nix-on-droid -I nixpkgs="$(input nixpkgs)" -I nix-on-droid="$(input nix-on-droid)" --file "$CONFIG/droid")
     ;;
   nixos)
-    cmd=(nixos-rebuild --no-flake --fast --use-remote-sudo --file "$CONFIG/flakes" --attr "nixosConfigurations.\"$HOSTNAME\"")
+    cmd=(nixos-rebuild --no-flake --no-reexec --sudo --file "$CONFIG/flakes" --attr "nixosConfigurations.\"$HOSTNAME\"")
     ;;
   esac
   run_command "${cmd[@]}" "$@"
