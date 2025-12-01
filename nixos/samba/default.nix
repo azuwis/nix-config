@@ -7,16 +7,11 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.samba;
+  cfg = config.services.samba;
 in
 {
-  options.my.samba = {
-    enable = mkEnableOption "samba";
-  };
-
   config = mkIf cfg.enable {
     services.samba = {
-      enable = true;
       nmbd.enable = false;
       winbindd.enable = false;
       openFirewall = true;

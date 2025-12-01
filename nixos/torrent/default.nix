@@ -112,7 +112,7 @@ in
       };
     };
 
-    my.samba.enable = mkDefault true;
+    services.samba.enable = mkDefault true;
     services.samba.settings.torrent = {
       path = cfg.DefaultSavePath;
       browseable = "no";
