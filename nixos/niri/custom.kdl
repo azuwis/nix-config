@@ -1,0 +1,142 @@
+// vim: set tabstop=4 softtabstop=4 shiftwidth=4 expandtab:
+input {
+    keyboard {
+        repeat-delay 300
+        repeat-rate 33
+    }
+    mouse {
+        @input_mouse@
+    }
+}
+
+layout {
+    gaps 8
+    focus-ring {
+        off
+    }
+    shadow {
+        on
+        softness 8
+        spread 1
+        offset x=0 y=3
+    }
+    tab-indicator {
+        gap 0
+        width 5
+        length total-proportion=0.3
+        gaps-between-tabs 2
+        active-gradient from="#808080" to="#bbddff" angle=45
+        inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
+    }
+}
+
+// Wallpaper
+spawn-at-startup "swww-daemon"
+spawn-at-startup "swww" "img" "--transition-type" "none" "@wallpaper@"
+spawn-at-startup "swww-daemon" "--namespace" "overview"
+spawn-at-startup "swww" "img" "--namespace" "overview" "--transition-type" "none" "@wallpaper-blur@"
+
+// Niri set XCURSOR_SIZE and XCURSOR_THEME, but does not import them to systemd and dbus
+// https://github.com/YaLTeR/niri/blob/79e41d7d88de44356b48400515076bf5593544e8/src/cursor.rs#L191-L192
+// https://github.com/YaLTeR/niri/blob/79e41d7d88de44356b48400515076bf5593544e8/src/main.rs#L272-L278
+spawn-at-startup "systemctl" "--user" "import-environment" "XCURSOR_SIZE" "XCURSOR_THEME"
+spawn-at-startup "dbus-update-activation-environment" "XCURSOR_SIZE" "XCURSOR_THEME"
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+prefer-no-csd
+
+animations {
+    // Turn off workspace switch animation
+    workspace-switch {
+        off
+    }
+}
+
+// Shadow for fuzzel
+layer-rule {
+    match namespace="^launcher$"
+    shadow {
+        on
+    }
+    geometry-corner-radius 12
+}
+
+// Shadow for waybar
+layer-rule {
+    match namespace="^waybar$"
+    shadow {
+        on
+    }
+}
+
+// Shadow for yambar
+layer-rule {
+    match namespace="^panel$"
+    shadow {
+        on
+    }
+}
+
+// Put swww overview inside the overview backdrop.
+layer-rule {
+    match namespace="^swww-daemonoverview$"
+    place-within-backdrop true
+}
+
+// Window rules are processed in order of appearance in the config file.
+// This means that you can put more generic rules first, then override
+// them for specific windows later.
+
+// Enable rounded corners for all windows.
+window-rule {
+    geometry-corner-radius 6
+    clip-to-geometry true
+}
+
+// Browser
+window-rule {
+    match app-id=r#"^(chromium-browser|firefox)$"#
+    exclude title=r#"^(Incoming Connection|Library|)$"#
+    default-column-width { proportion 1.0; }
+}
+
+// Terminal
+window-rule {
+    match app-id=r#"^foot(client)?$"#
+    // Add padding
+    border {
+        on
+        width 4
+        active-color "#2e3440"
+        inactive-color "#2e3440"
+    }
+    // final radius = geometry-corner-radius + border, to keep final radius consistant,
+    // with global default (see first window-rule above), use `6 - 4` here
+    geometry-corner-radius 2
+    default-column-width { proportion 0.66667; }
+}
+
+// Floating
+window-rule {
+    match app-id=r#"^(mpv|tmenu)$"#
+    open-floating true
+}
+
+// Max
+window-rule {
+    match app-id=r#"^(com\.moonlight_stream\.Moonlight)$"#
+    default-column-width { proportion 1.0; }
+}
+
+binds {
+    Mod+Return hotkey-overlay-title="Open a Terminal: foot" { spawn "footclient"; }
+    Super+Alt+L allow-when-locked=true hotkey-overlay-title="Lock the Screen: swaylockx" { spawn "swaylockx"; }
+    Mod+Tab { focus-workspace-previous; }
+    Mod+Ctrl+Shift+F { toggle-windowed-fullscreen; }
+    Mod+Shift+P { spawn "tmenu" "passfzf"; }
+}
+
+@extraConfig@

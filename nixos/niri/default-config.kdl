@@ -1,6 +1,3 @@
-// vim: set tabstop=4 softtabstop=4 shiftwidth=4 expandtab:
-// Base on https://github.com/YaLTeR/niri/raw/refs/tags/v25.11/resources/default-config.kdl
-
 // This config is in the KDL format: https://kdl.dev
 // "/-" comments out the following node.
 // Check the wiki for a full description of the configuration:
@@ -26,10 +23,6 @@ input {
 
         // Enable numlock on startup, omitting this setting disables it.
         numlock
-
-        // Repeat settings
-        repeat-delay 300
-        repeat-rate 33
     }
 
     // Next sections include libinput settings.
@@ -51,7 +44,7 @@ input {
 
     mouse {
         // off
-        @input_mouse@
+        // natural-scroll
         // accel-speed 0.2
         // accel-profile "flat"
         // scroll-method "no-scroll"
@@ -117,11 +110,8 @@ input {
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Layout
 layout {
-    // For single wallpaper setup
-    // background-color "transparent"
-
     // Set gaps around windows in logical pixels.
-    gaps 8
+    gaps 16
 
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
@@ -166,7 +156,7 @@ layout {
     // You can change how the focus ring looks.
     focus-ring {
         // Uncomment this line to disable the focus ring.
-        off
+        // off
 
         // How many logical pixels the ring extends out from the windows.
         width 4
@@ -225,7 +215,7 @@ layout {
     // You can enable drop shadows for windows.
     shadow {
         // Uncomment the next line to enable shadows.
-        on
+        // on
 
         // By default, the shadow draws only around its window, and not behind it.
         // Uncomment this setting to make the shadow draw behind its window.
@@ -247,13 +237,13 @@ layout {
         // pixels and match the CSS box-shadow properties.
 
         // Softness controls the shadow blur radius.
-        softness 8
+        softness 30
 
         // Spread expands the shadow.
-        spread 1
+        spread 5
 
         // Offset moves the shadow relative to the window.
-        offset x=0 y=3
+        offset x=0 y=5
 
         // You can also change the shadow color and opacity.
         color "#0007"
@@ -270,25 +260,7 @@ layout {
         // top 64
         // bottom 64
     }
-
-    // Tab indicator
-    tab-indicator {
-        gap 0
-        width 5
-        length total-proportion=0.3
-        gaps-between-tabs 2
-        active-gradient from="#808080" to="#bbddff" angle=45
-        inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
-    }
 }
-
-// Overview
-// For single wallpaper setup
-// overview {
-//     workspace-shadow {
-//         off
-//     }
-// }
 
 // Add lines like this to spawn processes at startup.
 // Note that running niri as a session supports xdg-desktop-autostart,
@@ -296,26 +268,14 @@ layout {
 // See the binds section below for more spawn examples.
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
-// spawn-at-startup "waybar"
+spawn-at-startup "waybar"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
 
-// Wallpaper
-spawn-at-startup "swww-daemon"
-spawn-at-startup "swww" "img" "--transition-type" "none" "@wallpaper@"
-spawn-at-startup "swww-daemon" "--namespace" "overview"
-spawn-at-startup "swww" "img" "--namespace" "overview" "--transition-type" "none" "@wallpaper-blur@"
-
-// Niri set XCURSOR_SIZE and XCURSOR_THEME, but does not import them to systemd and dbus
-// https://github.com/YaLTeR/niri/blob/79e41d7d88de44356b48400515076bf5593544e8/src/cursor.rs#L191-L192
-// https://github.com/YaLTeR/niri/blob/79e41d7d88de44356b48400515076bf5593544e8/src/main.rs#L272-L278
-spawn-at-startup "systemctl" "--user" "import-environment" "XCURSOR_SIZE" "XCURSOR_THEME"
-spawn-at-startup "dbus-update-activation-environment" "XCURSOR_SIZE" "XCURSOR_THEME"
-
 hotkey-overlay {
     // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
-    skip-at-startup
+    // skip-at-startup
 }
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
@@ -323,7 +283,7 @@ hotkey-overlay {
 // Additionally, clients will be informed that they are tiled, removing some client-side rounded corners.
 // This option will also fix border/focus ring drawing behind some semitransparent windows.
 // After enabling or disabling this, you need to restart the apps for this to take effect.
-prefer-no-csd
+// prefer-no-csd
 
 // You can change the path where screenshots are saved.
 // A ~ at the front will be expanded to the home directory.
@@ -342,90 +302,11 @@ animations {
 
     // Slow down all animations by this factor. Values below 1 speed them up instead.
     // slowdown 3.0
-
-    // Turn off workspace switch animation
-    workspace-switch {
-        off
-    }
-}
-
-// Shadow for fuzzel
-layer-rule {
-    match namespace="^launcher$"
-    shadow {
-        on
-    }
-    geometry-corner-radius 12
-}
-
-// Shadow for waybar
-layer-rule {
-    match namespace="^waybar$"
-    shadow {
-        on
-    }
-}
-
-// Shadow for yambar
-layer-rule {
-    match namespace="^panel$"
-    shadow {
-        on
-    }
-}
-
-// Put swaybg inside the overview backdrop.
-layer-rule {
-    match namespace="^swww-daemonoverview$"
-    place-within-backdrop true
 }
 
 // Window rules let you adjust behavior for individual windows.
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Window-Rules
-
-// Window rules are processed in order of appearance in the config file.
-// This means that you can put more generic rules first, then override
-// them for specific windows later.
-window-rule {
-    geometry-corner-radius 6
-    clip-to-geometry true
-}
-
-// Browser
-window-rule {
-    match app-id=r#"^(chromium-browser|firefox)$"#
-    exclude title=r#"^(Incoming Connection|Library|)$"#
-    default-column-width { proportion 1.0; }
-}
-
-// Terminal
-window-rule {
-    match app-id=r#"^foot(client)?$"#
-    // Add padding
-    border {
-        on
-        width 4
-        active-color "#2e3440"
-        inactive-color "#2e3440"
-    }
-    // final radius = geometry-corner-radius + border, to keep final radius consistant,
-    // with global default (see first window-rule above), use `6 - 4` here
-    geometry-corner-radius 2
-    default-column-width { proportion 0.66667; }
-}
-
-// Floating
-window-rule {
-    match app-id=r#"^(mpv|tmenu)$"#
-    open-floating true
-}
-
-// Max
-window-rule {
-    match app-id=r#"^(com\.moonlight_stream\.Moonlight)$"#
-    default-column-width { proportion 1.0; }
-}
 
 // Work around WezTerm's initial configure bug
 // by setting an empty default-column-width.
@@ -481,9 +362,9 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+Return hotkey-overlay-title="Open a Terminal: foot" { spawn "footclient"; }
+    Mod+T hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
     Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
-    Super+Alt+L allow-when-locked=true hotkey-overlay-title="Lock the Screen: swaylockx" { spawn "swaylockx"; }
+    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
@@ -656,7 +537,7 @@ binds {
     // Mod+Ctrl+1 { move-window-to-workspace 1; }
 
     // Switches focus between the current and the previous workspace.
-    Mod+Tab { focus-workspace-previous; }
+    // Mod+Tab { focus-workspace-previous; }
 
     // The following binds move the focused window in and out of a column.
     // If the window is alone, they will consume it into the nearby column to the side.
@@ -680,7 +561,7 @@ binds {
     // Expand the focused column to space not taken up by other fully visible columns.
     // Makes the column "fill the rest of the space".
     Mod+Ctrl+F { expand-column-to-available-width; }
-    Mod+Ctrl+Shift+F { toggle-windowed-fullscreen; }
+
     Mod+C { center-column; }
 
     // Center all fully visible columns on screen.
@@ -738,9 +619,5 @@ binds {
 
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.
-    // Mod+Shift+P { power-off-monitors; }
-
-    Mod+Shift+P { spawn "tmenu" "passfzf"; }
+    Mod+Shift+P { power-off-monitors; }
 }
-
-@extraConfig@

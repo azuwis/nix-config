@@ -65,14 +65,19 @@ in
     })
 
     {
-      environment.etc."niri/config.kdl".source = pkgs.replaceVars ./config.kdl {
+      # https://github.com/YaLTeR/niri/raw/refs/tags/v25.11/resources/default-config.kdl
+      environment.etc."niri/config.kdl".source = pkgs.runCommand "niri-default-config.kdl" { } ''
+        sed -e '/ Mod+T /d' -e '/spawn-at-startup "waybar"/d' ${./default-config.kdl} > $out
+        echo >> $out
+        echo 'include "custom.kdl"' >> $out
+      '';
+
+      environment.etc."niri/custom.kdl".source = pkgs.replaceVars ./custom.kdl {
         inherit (cfg) extraConfig;
         wallpaper = pkgs.wallpapers.default;
         wallpaper-blur = pkgs.runCommand "wallpaper-blur.jpg" { } ''
           ${lib.getExe pkgs.imagemagick} ${pkgs.wallpapers.default} -blur 0x12 $out
         '';
-        DEFAULT_AUDIO_SINK = null;
-        DEFAULT_AUDIO_SOURCE = null;
         input_mouse = lib.concatStringsSep "\n        " cfg.settings.input.mouse;
       };
 
