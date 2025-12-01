@@ -11,7 +11,7 @@
   nixpkgs.hostPlatform = "aarch64-darwin";
 
   networking.hostName = "mbp";
-  my.desktop.enable = true;
+  desktop.enable = true;
 
   environment.systemPackages = with pkgs; [
     moonlight-qt

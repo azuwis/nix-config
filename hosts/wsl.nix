@@ -51,6 +51,6 @@ in
     output * mode 1920x1080
   '';
 
-  my.desktop.enable = true;
+  desktop.enable = true;
   programs.wayland.autologin = false;
 }

@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkDefault mkEnableOption mkIf;
-  cfg = config.my.desktop;
+  cfg = config.desktop;
 in
 {
-  options.my.desktop = {
+  options.desktop = {
     enable = mkEnableOption "desktop";
   };
 

@@ -43,7 +43,7 @@
   # };
 
   # services.evdevhook.enable = true;
-  my.desktop.enable = true;
+  desktop.enable = true;
   programs.dualsensectl.enable = true;
   services.hass.enable = true;
   hardware.intelGpu.enable = true;

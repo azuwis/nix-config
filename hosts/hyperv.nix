@@ -69,6 +69,6 @@
     output * mode 1600x900
   '';
 
-  my.desktop.enable = true;
+  desktop.enable = true;
   zramSwap.enable = true;
 }

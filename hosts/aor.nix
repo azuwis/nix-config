@@ -55,7 +55,7 @@
   networking.hostName = "aor";
 
   programs.cemu.enable = true;
-  my.desktop.enable = true;
+  desktop.enable = true;
   programs.dualsensectl.enable = true;
   hardware.nvidia.enable = lib.mkDefault true;
   hardware.nvidia.open = true;
