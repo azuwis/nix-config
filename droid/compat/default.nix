@@ -19,6 +19,7 @@ in
     "/misc/extra-arguments.nix"
     "/misc/meta.nix"
     "/programs/bash/bash.nix"
+    "/programs/command-not-found/command-not-found.nix"
     "/programs/direnv.nix"
     "/programs/fish.nix"
     "/programs/git.nix"
