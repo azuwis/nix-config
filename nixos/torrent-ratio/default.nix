@@ -13,10 +13,10 @@ let
     optionalString
     types
     ;
-  cfg = config.my.torrent-ratio;
+  cfg = config.services.torrent-ratio;
 in
 {
-  options.my.torrent-ratio = {
+  options.services.torrent-ratio = {
     enable = mkEnableOption "torrent-ratio";
     nginx = mkEnableOption "nginx" // {
       default = true;

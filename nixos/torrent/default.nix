@@ -52,7 +52,7 @@ in
       "a+ ${config.my.qbittorrent.dataDir} - - - - u:${config.my.user}:r-x"
     ];
 
-    my.torrent-ratio.enable = cfg.torrent-ratio;
+    services.torrent-ratio.enable = cfg.torrent-ratio;
     my.qbittorrent.enable = true;
     my.qbittorrent.user = cfg.user;
     my.qbittorrent.group = cfg.user;
@@ -74,7 +74,7 @@ in
       };
       Network = {
         "Proxy\\IP" = "127.0.0.1";
-        "Proxy\\Port" = config.my.torrent-ratio.port;
+        "Proxy\\Port" = config.services.torrent-ratio.port;
         "Proxy\\Type" = if cfg.torrent-ratio then "HTTP" else "None";
       };
       Preferences = {
