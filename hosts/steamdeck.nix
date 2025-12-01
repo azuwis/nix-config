@@ -18,7 +18,7 @@ in
     ./hardware-steamdeck.nix
   ];
 
-  settings.registry.entries = [ "jovian-nixos" ];
+  registry.entries = [ "jovian-nixos" ];
 
   nixpkgs.overlays = [ (import ../overlays/jovian.nix) ];
 

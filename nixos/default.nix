@@ -32,7 +32,7 @@ in
 
   environment.systemPackages = [ pkgs.agenix ];
 
-  settings.registry.entries = [ "disko" ];
+  registry.entries = [ "disko" ];
 
   # Use information from npins to set system version suffix
   system.nixos.versionSuffix =

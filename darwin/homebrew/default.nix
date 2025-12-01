@@ -12,7 +12,7 @@ in
 {
   imports = [ (inputs.nix-homebrew.outPath + "/modules") ];
 
-  settings.registry.entries = [
+  registry.entries = [
     "brew-src"
     "homebrew-cask"
     "nix-homebrew"

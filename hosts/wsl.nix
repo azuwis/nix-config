@@ -21,7 +21,7 @@ in
     (inputs.nixos-wsl.outPath + "/modules")
   ];
 
-  settings.registry.entries = [ "nixos-wsl" ];
+  registry.entries = [ "nixos-wsl" ];
 
   nixpkgs.hostPlatform = "x86_64-linux";
 

@@ -18,7 +18,7 @@ in
   ]
   ++ getModules [ ./. ];
 
-  settings.registry.entries = [ "nix-darwin" ];
+  registry.entries = [ "nix-darwin" ];
 
   environment.systemPackages = [ pkgs.agenix ];
 

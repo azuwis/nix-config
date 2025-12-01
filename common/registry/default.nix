@@ -7,7 +7,7 @@
 }:
 
 let
-  cfg = config.settings.registry;
+  cfg = config.registry;
 
   inputs' =
     lib.filterAttrs
@@ -27,7 +27,7 @@ let
 in
 
 {
-  options.settings.registry = {
+  options.registry = {
     enable = lib.mkEnableOption "registry" // {
       default = true;
     };
@@ -63,7 +63,7 @@ in
       };
     }) inputs';
 
-    settings.registry.entries = [
+    registry.entries = [
       "agenix"
       "nixpkgs"
     ];
