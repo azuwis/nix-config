@@ -302,9 +302,10 @@ layout {
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
 
 // Wallpaper
-spawn-at-startup "swaybg" "--image" "@wallpaper-blur@"
 spawn-at-startup "swww-daemon"
 spawn-at-startup "swww" "img" "--transition-type" "none" "@wallpaper@"
+spawn-at-startup "swww-daemon" "--namespace" "overview"
+spawn-at-startup "swww" "img" "--namespace" "overview" "--transition-type" "none" "@wallpaper-blur@"
 
 // Niri set XCURSOR_SIZE and XCURSOR_THEME, but does not import them to systemd and dbus
 // https://github.com/YaLTeR/niri/blob/79e41d7d88de44356b48400515076bf5593544e8/src/cursor.rs#L191-L192
@@ -375,7 +376,7 @@ layer-rule {
 
 // Put swaybg inside the overview backdrop.
 layer-rule {
-    match namespace="^wallpaper$"
+    match namespace="^swww-daemonoverview$"
     place-within-backdrop true
 }
 
