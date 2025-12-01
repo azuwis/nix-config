@@ -8,12 +8,12 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.nix-builder;
+  cfg = config.services.nix-builder;
 in
 {
   imports = [ ./client.nix ];
 
-  options.my.nix-builder = {
+  options.services.nix-builder = {
     enable = mkEnableOption "nix-builder";
   };
 

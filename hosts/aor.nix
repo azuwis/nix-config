@@ -60,7 +60,7 @@
   hardware.nvidia.enable = lib.mkDefault true;
   hardware.nvidia.open = true;
   virtualisation.libvirtd.enable = true;
-  my.nix-builder.enable = true;
+  services.nix-builder.enable = true;
   my.pn532.enable = true;
   programs.retroarch.enable = true;
   programs.wayland.scale = 2;
