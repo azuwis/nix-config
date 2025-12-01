@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.hammerspoon;
+  cfg = config.programs.hammerspoon;
 in
 {
-  options.my.hammerspoon = {
+  options.programs.hammerspoon = {
     enable = mkEnableOption "hammerspoon";
   };
 

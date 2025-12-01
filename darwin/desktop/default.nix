@@ -16,7 +16,7 @@ in
 
   config = mkIf cfg.enable {
     # programs.emacs.enable = true;
-    # my.hammerspoon.enable = true;
+    # programs.hammerspoon.enable = true;
 
     programs.firefox.enable = true;
     programs.mpv.enable = true;
