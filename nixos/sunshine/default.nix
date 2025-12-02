@@ -41,7 +41,7 @@ let
         output HEADLESS-1 mode ${cfg.mode}
         output HEADLESS-1 scale ${cfg.scale}
 
-        assign [app_id="^sunshine-terminal$"] 9
+        assign [app_id="^sunshine-terminal$"] 4
         exec foot --app-id=sunshine-terminal
 
         exec ${lib.getExe (pkgs.sunshine.override { inherit (cfg) cudaSupport; })} "$SUNSHINE_CONFIG"

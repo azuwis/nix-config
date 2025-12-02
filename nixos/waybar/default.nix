@@ -22,49 +22,83 @@ in
 
     environment.etc."xdg/waybar/style.css".source = ./style.css;
 
-    programs.waybar.settings = [
-      {
-        layer = "top";
-        height = 26;
-        modules-left = [
-          "niri/workspaces"
-          "sway/workspaces"
-        ];
-        modules-center = [
-          "niri/window"
-          "sway/window"
-        ];
-        modules-right = [
-          "custom/network"
-          "cpu"
-          "memory"
-          "pulseaudio"
-          "clock"
-        ];
-        "niri/window" = {
+    programs.waybar.settings =
+      let
+        window = {
           format = "{app_id}";
+          rewrite = {
+            # https://www.nerdfonts.com/cheat-sheet
+            # Need an extra space so waybar dont crop it
+            "(.*)" = "<span text-transform='capitalize'>$1</span>";
+            "(Info\\.Cemu\\.)?Cemu" = "󰜭 ";
+            "(com\\.moonlight_stream\\.)?Moonlight" = "󰺵 ";
+            "(dev\\.eden_emu\\.)?eden" = "󰟡 ";
+            "foot(client)?|Sunshine-Terminal" = " ";
+            chromium-browser = " ";
+            firefox = " ";
+            mpv = " ";
+          };
         };
-        "sway/window" = {
-          format = "{app_id}";
-        };
-        "custom/network" = {
-          exec = "${./netspeed.sh}";
-        };
-        cpu = {
-          format = "󰓅 {usage}%";
-        };
-        memory = {
-          format = "󰍛 {percentage}%";
-        };
-        pulseaudio = {
-          format = "󰕾 {volume}%";
-          format-muted = "󰖁 {volume}%";
-        };
-        clock = {
-          format = " {:%a %m-%d %H:%M}";
-        };
-      }
-    ];
+      in
+      [
+        {
+          layer = "top";
+          height = 26;
+          modules-left = [
+            "niri/window"
+            "sway/window"
+          ];
+          modules-center = [
+            "niri/workspaces"
+            "sway/workspaces"
+          ];
+          modules-right = [
+            "custom/network"
+            "cpu"
+            "memory"
+            "pulseaudio"
+            "clock"
+          ];
+          "niri/window" = window;
+          "sway/window" = window;
+          "niri/workspaces" = {
+            format = "{icon}";
+            format-icons = {
+              default = "";
+              focused = "";
+            };
+          };
+          "sway/workspaces" = {
+            format = "{icon}";
+            format-icons = {
+              default = "";
+              focused = "";
+            };
+            persistent-workspaces = {
+              "1" = [ ];
+              "2" = [ ];
+              "3" = [ ];
+              "4" = [ ];
+            };
+          };
+          "custom/network" = {
+            exec = "${./netspeed.sh}";
+          };
+          cpu = {
+            format = "󰓅 {usage}%";
+          };
+          memory = {
+            format = "󰍛 {percentage}%";
+          };
+          pulseaudio = {
+            format = "󰕾 {volume}%";
+            format-muted = "󰖁 {volume}%";
+          };
+          clock = {
+            format = " {:%a %m-%d %H:%M}";
+          };
+        }
+      ];
 
     programs.wayland.startup.waybar = [ "waybar" ];
 

@@ -16,8 +16,8 @@ window#waybar {
     color: #ffffff;
 }
 
-#workspaces button.active {
-    color: #ebcb8b;
+#workspaces button.empty {
+    opacity: 0.5;
 }
 
 #workspaces button.urgent {
@@ -30,11 +30,14 @@ window#waybar {
     opacity: 0;
 }
 
-#clock,
-#cpu,
+box.modules-left,
+box.modules-right {
+    padding: 0 12px;
+}
+
 #custom-network,
+#cpu,
 #memory,
-#pulseaudio,
-#workspaces {
-    padding: 0 6px;
+#pulseaudio {
+    padding-right: 12px;
 }
