@@ -2,7 +2,7 @@
   outputs =
     _:
     let
-      lib = import ../lib;
+      lib = import ./lib;
       systems = [
         "x86_64-linux"
         "aarch64-darwin"
@@ -13,19 +13,19 @@
           system:
           f rec {
             inherit system;
-            pkgs = import ../pkgs { inherit system; };
+            pkgs = import ./pkgs { inherit system; };
           }
         );
     in
-    import ./default.nix
+    import ./flakes
     // {
-      devShells = eachSystem ({ pkgs, ... }: import ../devshells { inherit pkgs; });
+      devShells = eachSystem ({ pkgs, ... }: import ./devshells { inherit pkgs; });
       apps = eachSystem (
         { pkgs, ... }:
         builtins.mapAttrs (name: drv: {
           type = "app";
           program = lib.getExe drv;
-        }) (import ../apps { inherit pkgs; })
+        }) (import ./apps { inherit pkgs; })
       );
     };
 }

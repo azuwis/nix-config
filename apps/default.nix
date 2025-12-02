@@ -20,8 +20,8 @@ let
 in
 
 # nix run -f apps <name>
-# nix run ./flakes#<name>
-# nix run 'github:azuwis/nix-config?dir=flakes#<name>'
+# nix run .#<name>
+# nix run github:azuwis/nix-config#<name>
 removeAttrs (lib.packagesFromDirectoryRecursive {
   inherit (pkgs) callPackage;
   directory = ./.;
