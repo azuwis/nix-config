@@ -24,6 +24,12 @@ window#waybar {
     color: #bf616a;
 }
 
+/* Niri always insert an extra workspace, hide it */
+#workspaces button.empty:last-child {
+    margin: -17px;
+    opacity: 0;
+}
+
 #clock,
 #cpu,
 #custom-network,
