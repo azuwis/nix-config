@@ -64,15 +64,13 @@ in
           "niri/workspaces" = {
             format = "{icon}";
             format-icons = {
-              default = "";
-              focused = "";
+              default = "";
             };
           };
           "sway/workspaces" = {
             format = "{icon}";
             format-icons = {
-              default = "";
-              focused = "";
+              default = "";
             };
             persistent-workspaces = {
               "1" = [ ];
