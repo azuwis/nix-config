@@ -45,6 +45,7 @@ in
           layer = "top";
           height = 26;
           modules-left = [
+            "custom/menu"
             "niri/window"
             "sway/window"
           ];
@@ -59,6 +60,11 @@ in
             "pulseaudio"
             "clock"
           ];
+          "custom/menu" = {
+            format = " ";
+            on-click = "fuzzel";
+            tooltip = false;
+          };
           "niri/window" = window;
           "sway/window" = window;
           "niri/workspaces" = {

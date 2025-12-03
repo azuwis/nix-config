@@ -35,6 +35,12 @@ window#waybar {
     opacity: 0;
 }
 
+/* Hide the menu if workspace is not empty */
+window#waybar:not(.empty) #custom-menu {
+    margin: -17px;
+    opacity: 0;
+}
+
 box.modules-left,
 box.modules-right {
     padding: 0 12px;
