@@ -32,8 +32,8 @@ for i = 1, 10, 1 do
     associated_space = i,
     icon = {
       string = icons.space,
-      padding_left = 5,
-      padding_right = 5,
+      padding_left = 4,
+      padding_right = 4,
     },
     label = {
       drawing = false,
