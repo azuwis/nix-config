@@ -41,6 +41,17 @@ window#waybar:not(.empty) #custom-menu {
     opacity: 0;
 }
 
+#custom-dot {
+    color: #808080;
+}
+
+/* Show a dot if the space have multiple windows */
+window#waybar.empty #custom-dot,
+window#waybar.solo #custom-dot {
+    margin: -17px;
+    opacity: 0;
+}
+
 box.modules-left,
 box.modules-right {
     padding: 0 12px;

@@ -48,6 +48,7 @@ in
             "custom/menu"
             "niri/window"
             "sway/window"
+            "custom/dot"
           ];
           modules-center = [
             "niri/workspaces"
@@ -67,6 +68,10 @@ in
           };
           "niri/window" = window;
           "sway/window" = window;
+          "custom/dot" = {
+            format = "<span size='x-small' rise='-22pt'> </span>";
+            tooltip = false;
+          };
           "niri/workspaces" = {
             format = "{icon}";
             format-icons = {
