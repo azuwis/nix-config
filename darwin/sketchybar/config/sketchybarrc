@@ -1,0 +1,12 @@
+#!/usr/bin/env lua
+
+sbar = require("sketchybar")
+
+sbar.begin_config()
+require("init")
+-- Useful for devel, don't need on nix-darwin, nix-darwin will restart the
+-- service if config changed, the config dir in /nix/store is readonly anyway
+-- sbar.hotload(true)
+sbar.end_config()
+
+sbar.event_loop()
