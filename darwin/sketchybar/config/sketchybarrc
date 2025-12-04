@@ -4,9 +4,10 @@ sbar = require("sketchybar")
 
 sbar.begin_config()
 require("init")
--- Useful for devel, don't need on nix-darwin, nix-darwin will restart the
--- service if config changed, the config dir in /nix/store is readonly anyway
--- sbar.hotload(true)
+-- Enable hotload if not running from /nix/store, useful for devel, don't need
+-- hotload on nix-darwin, nix-darwin will restart the service if config
+-- changed, and the config dir in /nix/store is readonly anyway
+sbar.hotload(debug.getinfo(1, "S").source:sub(1, 12) ~= "@/nix/store/")
 sbar.end_config()
 
 sbar.event_loop()
