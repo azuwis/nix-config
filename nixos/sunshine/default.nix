@@ -175,6 +175,20 @@ in
       settings = {
         channels = 2;
         fps = "[30, 60]";
+        global_prep_cmd =
+          let
+            do = pkgs.writeShellScript "sunshine-do" ''
+              scale=$((SUNSHINE_CLIENT_WIDTH * 10 / 1920))
+              scale="''${scale:0:''${#scale}-1}.''${scale: -1}"
+              swaymsg output HEADLESS-1 mode "$SUNSHINE_CLIENT_WIDTH"x"$SUNSHINE_CLIENT_HEIGHT"@"$SUNSHINE_CLIENT_FPS"Hz
+              swaymsg output HEADLESS-1 scale "$scale"
+            '';
+            undo = pkgs.writeShellScript "sunshine-undo" ''
+              swaymsg output HEADLESS-1 mode ${cfg.mode}
+              swaymsg output HEADLESS-1 scale ${cfg.scale}
+            '';
+          in
+          ''[{"do":"${do}","undo":"${undo}"}]'';
         origin_web_ui_allowed = "pc";
         resolutions = "[1280x720, 1920x1080, 3840x2160]";
         vaapi_strict_rc_buffer = "enabled";
