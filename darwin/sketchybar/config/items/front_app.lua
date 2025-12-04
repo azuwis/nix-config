@@ -1,3 +1,5 @@
+local icons = require("icons")
+
 local front_app = sbar.add("item", {
   icon = {
     drawing = false,
@@ -6,6 +8,6 @@ local front_app = sbar.add("item", {
 
 front_app:subscribe("front_app_switched", function(env)
   front_app:set({
-    label = env.INFO:gsub("^%l", string.upper),
+    label = icons.apps[env.INFO] or env.INFO:gsub("^%l", string.upper),
   })
 end)
