@@ -80,7 +80,8 @@ in
             };
           };
           "sway/workspaces" = {
-            cursor = true;
+            # waybar crash in Niri if cursor is true here
+            # cursor = true;
             format = "{icon}";
             format-icons = {
               default = "";
