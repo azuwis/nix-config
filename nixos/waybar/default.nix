@@ -69,7 +69,7 @@ in
           "niri/window" = window;
           "sway/window" = window;
           "custom/dot" = {
-            format = "<span size='x-small' rise='-22pt'> </span>";
+            format = "<span size='x-small' rise='-21pt'> </span>";
             tooltip = false;
           };
           "niri/workspaces" = {
