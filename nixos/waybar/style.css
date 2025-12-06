@@ -35,9 +35,12 @@ window#waybar {
     color: #bf616a;
 }
 
-/* Niri always insert an extra workspace, hide it */
+/* Niri always append an extra workspace, hide the last button, and adjust
+ * margin to make the workspaces align center */
+#workspaces {
+    margin-left: 17px;
+}
 #workspaces button.empty:last-child {
-    margin: -17px;
     opacity: 0;
 }
 
