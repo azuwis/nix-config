@@ -73,12 +73,14 @@ in
             tooltip = false;
           };
           "niri/workspaces" = {
+            cursor = true;
             format = "{icon}";
             format-icons = {
               default = "";
             };
           };
           "sway/workspaces" = {
+            cursor = true;
             format = "{icon}";
             format-icons = {
               default = "";

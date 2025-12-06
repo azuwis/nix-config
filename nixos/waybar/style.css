@@ -17,6 +17,12 @@ window#waybar {
     color: #eeeeee;
 }
 
+/* Remove hover effect, already enable cursor in config */
+#workspaces button:hover {
+    box-shadow: inherit;
+    text-shadow: inherit;
+}
+
 #workspaces button.empty {
     color: #808080;
 }
