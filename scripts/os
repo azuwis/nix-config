@@ -303,6 +303,13 @@ direnv-gcroots() {
   nix-store --gc --print-roots | awk '/flake-profile/ {print $1}' | xargs -o nix-tree
 }
 
+# System like SteamOS does not have `hostname` command
+if ! command -v hostname &>/dev/null; then
+  hostname() {
+    cat /proc/sys/kernel/hostname
+  }
+fi
+
 # Variables for all
 CONFIG=$(readlink -f "${BASH_SOURCE[0]}")
 CONFIG=${CONFIG%/*/*}
