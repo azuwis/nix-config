@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 lazy_plugins() {
-  nvim --headless -c ':lua for _, plugin in ipairs(require("lazy").plugins()) do if plugin.name ~= "lazy.nvim" then print(plugin.name) end end' -c 'q' 2>&1 | sort
+  nvim -i NONE --headless -c ':lua for _, plugin in ipairs(require("lazy").plugins()) do if plugin.name ~= "lazy.nvim" then io.stdout:write(plugin.name .. "\n") end end' -c 'q' | sort
 }
 
 nix_plugins() {
@@ -9,4 +9,5 @@ nix_plugins() {
   ls -1 "$dir" | sort
 }
 
-diff -w -u --label nix <(nix_plugins) --label lazy <(lazy_plugins)
+echo "Comparing plugins provided by Nix and required by LazyVim, should output nothing:"
+diff -u --label provided_by_nix <(nix_plugins) --label required_by_lazyvim <(lazy_plugins)
