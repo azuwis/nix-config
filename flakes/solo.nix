@@ -13,4 +13,5 @@ in
 lib.genAttrs [
   "solo"
   "solo-shell"
+  "solo-single"
 ] mkSolo

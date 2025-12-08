@@ -407,7 +407,11 @@ if builtins.hasAttr hostname attr.soloConfigurations then
 else
   false
 ')" = false ]; then
-  HOSTNAME=solo
+  if [ -O /nix/store ]; then
+    HOSTNAME=solo-single
+  else
+    HOSTNAME=solo
+  fi
 fi
 
 case "$action" in

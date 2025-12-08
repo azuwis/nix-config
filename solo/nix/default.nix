@@ -14,9 +14,19 @@ in
     enable = lib.mkEnableOption "nix" // {
       default = true;
     };
+    singleUser = lib.mkEnableOption "nix single user";
   };
 
-  config = lib.mkIf cfg.enable {
-    home.file.".config/nix/registry.json".source = config.environment.etc."nix/registry.json".source;
-  };
+  config = lib.mkIf cfg.enable (
+    lib.mkMerge [
+      {
+        home.file.".config/nix/registry.json".source = config.environment.etc."nix/registry.json".source;
+      }
+
+      (lib.mkIf cfg.singleUser {
+        environment.pathsToLink = [ "/etc/profile.d" ];
+        environment.systemPackages = [ pkgs.nix ];
+      })
+    ]
+  );
 }
