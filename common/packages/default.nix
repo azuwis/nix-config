@@ -36,7 +36,6 @@
     nvd
     openssh
     openssl
-    p7zip
     python3
     ripgrep
     rsync
@@ -46,7 +45,6 @@
     tree
     ugrep
     unar
-    unzip
     watch
     xz
     zstd
