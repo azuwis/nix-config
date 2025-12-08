@@ -30,6 +30,14 @@ try_update() {
   test "$(git rev-parse HEAD)" != "$saved_commit"
 }
 
+list_packages() {
+  if [ "$GITHUB_EVENT_NAME" = push ]; then
+    git for-each-ref --format="%(refname:lstrip=-1)" "refs/remotes/origin/update/*"
+  else
+    ./scripts/update -la
+  fi
+}
+
 update_package() {
   package="$1"
   update_branch="update/$package"
@@ -77,6 +85,6 @@ update_package() {
   echo "::endgroup::"
 }
 
-./scripts/update -la | while read -r package; do
+list_packages | while read -r package; do
   update_package "$package"
 done
