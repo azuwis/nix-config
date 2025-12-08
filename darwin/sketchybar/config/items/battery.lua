@@ -1,6 +1,6 @@
 local icons = require("icons")
 
-local battery = sbar.add("item", {
+local battery = sbar.add("item", "battery", {
   position = "right",
   update_freq = 120,
 })

@@ -1,6 +1,6 @@
 local icons = require("icons")
 
-local front_app = sbar.add("item", {
+local front_app = sbar.add("item", "front_app", {
   icon = {
     drawing = false,
   },
