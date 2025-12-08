@@ -407,7 +407,8 @@ if builtins.hasAttr hostname attr.soloConfigurations then
 else
   false
 ')" = false ]; then
-  if [ -O /nix/store ]; then
+  # https://discourse.nixos.org/t/13882/4
+  if [ -O /nix/store ] && [ ! -k /nix/store ]; then
     HOSTNAME=solo-single
   else
     HOSTNAME=solo
