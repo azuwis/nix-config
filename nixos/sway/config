@@ -219,7 +219,8 @@ bindsym $mod+Tab workspace back_and_forth
 bindsym $mod+c floating toggle; resize set 75 ppt 75 ppt; move absolute position center
 bindsym --release --no-repeat $mod+Escape exec swaylockx
 
-client.focused #4c7899 #285577 #ffffff #2e9ef4 #002b36
+client.focused #2e344080 #2e344080 #eeeeee
+client.unfocused #2e344080 #2e344080 #808080
 
 default_border pixel 1
 default_floating_border pixel 2
