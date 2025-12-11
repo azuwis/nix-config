@@ -13,7 +13,11 @@
     ./zoxide.nix
   ];
 
-  config = lib.mkIf config.programs.zsh.enable {
+  options.programs.zsh = {
+    enhance = lib.mkEnableOption "and enhance zsh";
+  };
+
+  config = lib.mkIf config.programs.zsh.enhance {
     environment.shellAliases = {
       cr = ''cd "$(git rev-parse --show-toplevel)"'';
       l = "ls --color=auto -l";
@@ -27,6 +31,7 @@
     ];
 
     programs.zsh = {
+      enable = true;
       histSize = 20000;
 
       setOptions = [

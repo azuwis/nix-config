@@ -40,7 +40,7 @@ in
   programs.less.enable = true;
   programs.nix-index.enable = true;
   programs.yazi.enhance = true;
-  programs.zsh.enable = true;
+  programs.zsh.enhance = true;
   programs.zsh.fzf.enable = true;
   programs.zsh.pure-prompt.enable = true;
   programs.zsh.zoxide.enable = true;
