@@ -37,7 +37,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    virtualisation.libvirtd.enable = true;
+    virtualisation.libvirtd.enhance = true;
 
     boot = {
       kernelModules = [
