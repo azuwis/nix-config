@@ -29,7 +29,7 @@ in
     programs.bluetooth.enable = true;
     programs.chromium.enable = true;
     programs.fcitx5.enable = true;
-    programs.firefox.enable = true;
+    programs.firefox.enhance = true;
     programs.gnupg.agent = {
       enable = true;
       # Keyboard typing on pinentry-gnome3 stucks

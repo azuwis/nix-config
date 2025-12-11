@@ -18,7 +18,7 @@ in
     # programs.emacs.enable = true;
     # programs.hammerspoon.enable = true;
 
-    programs.firefox.enable = true;
+    programs.firefox.enhance = true;
     programs.mpv.enable = true;
     programs.rime.enable = true;
 

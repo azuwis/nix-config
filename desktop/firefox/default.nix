@@ -20,6 +20,7 @@ in
   ];
 
   options.programs.firefox = {
+    enhance = lib.mkEnableOption "and enhance Firefox";
     env = lib.mkOption {
       type =
         with lib.types;
@@ -53,13 +54,14 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.enhance {
     # `programs.firefox.policies` generates `/etc/firefox/policies/policies.json`,
     # but Firefox on darwin does not read it, disable it and use `extraPolicies`
     # to handle that, see bellow
     environment.etc."firefox/policies/policies.json".enable = false;
 
     programs.firefox = {
+      enable = true;
       autoConfig =
         let
           prefValue =
