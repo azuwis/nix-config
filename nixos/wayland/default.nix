@@ -124,7 +124,7 @@ in
         };
       };
 
-      programs.waybar.enable = true;
+      programs.waybar.enhance = true;
 
       services.greetd = {
         enable = true;

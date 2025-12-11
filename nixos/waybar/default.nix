@@ -11,17 +11,19 @@ let
 in
 {
   options.programs.waybar = {
+    enhance = lib.mkEnableOption "and enhance waybar";
     settings = lib.mkOption {
       type = jsonFormat.type;
       default = [ ];
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.enhance {
     environment.etc."xdg/waybar/config".source = jsonFormat.generate "waybar-config.json" cfg.settings;
 
     environment.etc."xdg/waybar/style.css".source = ./style.css;
 
+    programs.waybar.enable = true;
     programs.waybar.settings =
       let
         window = {
