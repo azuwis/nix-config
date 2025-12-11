@@ -10,7 +10,12 @@ let
 in
 
 {
-  config = lib.mkIf cfg.enable {
+  options.programs.yazi = {
+    enhance = lib.mkEnableOption "and enhance yazi";
+  };
+
+  config = lib.mkIf cfg.enhance {
+    programs.yazi.enable = true;
     programs.yazi.package = pkgs.yazi.override {
       optionalDeps = [ ];
     };

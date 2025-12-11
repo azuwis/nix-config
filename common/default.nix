@@ -39,7 +39,7 @@ in
   # programs.lazyvim.yaml.enable = true;
   programs.less.enable = true;
   programs.nix-index.enable = true;
-  programs.yazi.enable = true;
+  programs.yazi.enhance = true;
   programs.zsh.enable = true;
   programs.zsh.fzf.enable = true;
   programs.zsh.pure-prompt.enable = true;
