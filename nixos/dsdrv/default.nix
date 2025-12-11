@@ -6,61 +6,54 @@
 }:
 
 let
-  inherit (lib)
-    mkEnableOption
-    mkIf
-    mkOption
-    mkPackageOption
-    optionalAttrs
-    types
-    ;
-  cfg = config.my.dsdrv;
+  cfg = config.services.dsdrv;
 in
+
 {
-  options.my.dsdrv = {
-    enable = mkEnableOption "dsdrv";
+  options.services.dsdrv = {
+    enable = lib.mkEnableOption "dsdrv";
 
-    package = mkPackageOption pkgs "dsdrv-cemuhook" { };
+    package = lib.mkPackageOption pkgs "dsdrv-cemuhook" { };
 
-    openFirewall = mkEnableOption "openFirewall" // {
+    openFirewall = lib.mkEnableOption "openFirewall" // {
       default = cfg.settings.host != "127.0.0.1";
     };
 
-    user = mkOption {
-      type = types.str;
+    user = lib.mkOption {
+      type = lib.types.str;
       default = "dsdrv";
     };
 
-    group = mkOption {
-      type = types.str;
+    group = lib.mkOption {
+      type = lib.types.str;
       default = "dsdrv";
     };
 
-    settings = mkOption {
+    settings = lib.mkOption {
       default = { };
-      type = types.submodule {
-        options.host = mkOption {
-          type = types.str;
+      type = lib.types.submodule {
+        options.host = lib.mkOption {
+          type = lib.types.str;
           default = "127.0.0.1";
         };
 
-        options.port = mkOption {
-          type = types.port;
+        options.port = lib.mkOption {
+          type = lib.types.port;
           default = 26760;
         };
 
-        options.extraArgs = mkOption {
-          type = types.str;
+        options.extraArgs = lib.mkOption {
+          type = lib.types.str;
           default = "--udp-remap-buttons";
         };
       };
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     hardware.uinput.enable = true;
 
-    users.users = optionalAttrs (cfg.user == "dsdrv") {
+    users.users = lib.optionalAttrs (cfg.user == "dsdrv") {
       dsdrv = {
         isSystemUser = true;
         group = cfg.group;
@@ -68,7 +61,7 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "dsdrv") { dsdrv = { }; };
+    users.groups = lib.optionalAttrs (cfg.group == "dsdrv") { dsdrv = { }; };
 
     services.udev.extraRules = ''
       KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="054c", ATTRS{idProduct}=="05c4", OWNER="${cfg.user}"
@@ -93,6 +86,6 @@ in
       };
     };
 
-    networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [ 26760 ];
+    networking.firewall.allowedUDPPorts = lib.mkIf cfg.openFirewall [ 26760 ];
   };
 }
