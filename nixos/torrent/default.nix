@@ -79,14 +79,14 @@ in
       };
       Preferences = {
         "WebUI\\Address" = "127.0.0.1";
-        "WebUI\\CSRFProtection" = !config.my.nginx.enable;
+        "WebUI\\CSRFProtection" = !config.services.nginx.enhance;
         "WebUI\\Port" = 8080;
         "WebUI\\SessionTimeout" = 86400;
         "WebUI\\UseUPnP" = false;
       };
     };
 
-    my.nginx.enable = mkDefault true;
+    services.nginx.enhance = mkDefault true;
     services.nginx.virtualHosts.torrent = {
       serverName = "q.${domain}";
       onlySSL = true;

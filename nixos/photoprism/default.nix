@@ -29,7 +29,7 @@ in
       };
     };
 
-    my.nginx.enable = mkDefault true;
+    services.nginx.enhance = mkDefault true;
     services.nginx.virtualHosts.photoprism = {
       serverName = "p.${config.my.domain}";
       onlySSL = true;

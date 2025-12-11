@@ -97,7 +97,7 @@ in
       automation = "!include /etc/home-assistant/automations.yaml";
     };
 
-    my.nginx.enable = mkDefault true;
+    services.nginx.enhance = mkDefault true;
     services.nginx.virtualHosts.hass = {
       serverName = "h.${config.my.domain}";
       onlySSL = true;

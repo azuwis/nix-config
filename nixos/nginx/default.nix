@@ -6,20 +6,18 @@
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.nginx;
-
-  inherit (config.my) domain;
+  cfg = config.services.nginx;
 in
+
 {
-  options.my.nginx = {
-    enable = mkEnableOption "nginx";
-    openFirewall = mkEnableOption "openFirewall" // {
+  options.services.nginx = {
+    enhance = lib.mkEnableOption "nginx";
+    openFirewall = lib.mkEnableOption "openFirewall" // {
       default = true;
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enhance {
     security.acme.enhance = true;
 
     services.nginx = {
@@ -36,6 +34,6 @@ in
       };
     };
 
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ 443 ];
+    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [ 443 ];
   };
 }
