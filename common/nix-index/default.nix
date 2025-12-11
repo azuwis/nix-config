@@ -24,8 +24,13 @@ let
 in
 
 {
-  config = lib.mkIf config.programs.nix-index.enable {
-    registry.entries = [ "nix-index-database" ];
+  options.programs.nix-index = {
+    enhance = lib.mkEnableOption "and enhance nix-index";
+  };
+
+  config = lib.mkIf config.programs.nix-index.enhance {
+    programs.nix-index.enable = true;
     programs.nix-index.package = nix-index;
+    registry.entries = [ "nix-index-database" ];
   };
 }
