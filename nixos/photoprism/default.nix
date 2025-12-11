@@ -6,15 +6,14 @@
 }:
 
 let
-  inherit (lib) mkDefault mkEnableOption mkIf;
-  cfg = config.my.photoprism;
+  cfg = config.services.photoprism;
 in
 {
-  options.my.photoprism = {
-    enable = mkEnableOption "photoprism";
+  options.services.photoprism = {
+    enhance = lib.mkEnableOption "photoprism";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enhance {
     services.photoprism = {
       enable = true;
       originalsPath = "/srv/photos/originals";
@@ -29,7 +28,7 @@ in
       };
     };
 
-    services.nginx.enhance = mkDefault true;
+    services.nginx.enhance = lib.mkDefault true;
     services.nginx.virtualHosts.photoprism = {
       serverName = "p.${config.my.domain}";
       onlySSL = true;

@@ -48,7 +48,7 @@
   services.hass.enable = true;
   hardware.intelGpu.enable = true;
   services.nix-builder.client.enable = true;
-  # my.photoprism.enable = true;
+  # services.photoprism.enhance = true;
   programs.retroarch.enable = true;
   my.torrent.enable = true;
   # programs.uxplay.enable = true;
