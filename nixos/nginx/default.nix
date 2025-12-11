@@ -20,7 +20,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    my.acme.enable = true;
+    security.acme.enhance = true;
 
     services.nginx = {
       enable = true;

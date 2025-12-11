@@ -7,16 +7,16 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.acme;
+  cfg = config.security.acme;
 
   inherit (config.my) domain;
 in
 {
-  options.my.acme = {
-    enable = mkEnableOption "acme";
+  options.security.acme = {
+    enhance = mkEnableOption "and enhance acme";
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf cfg.enhance {
     security.acme = {
       acceptTerms = true;
       defaults = {
