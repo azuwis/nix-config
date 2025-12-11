@@ -8,8 +8,14 @@
 let
   cfg = config.programs.less;
 in
+
 {
-  config = lib.mkIf cfg.enable {
+  options.programs.less = {
+    enhance = lib.mkEnableOption "and enhance less";
+  };
+
+  config = lib.mkIf cfg.enhance {
+    programs.less.enable = true;
     environment.variables.PAGER = "less";
     programs.less.envVariables.LESS = "-FRX#5";
   };
