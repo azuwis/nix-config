@@ -64,7 +64,7 @@
   my.pn532.enable = true;
   programs.retroarch.enable = true;
   programs.wayland.scale = 2;
-  programs.steam.enable = true;
+  programs.steam.enhance = true;
   # programs.steam.gamescope-intel-fix = true;
   # programs.steam.gamescope-git = true;
   # programs.steam.nvidia-offload = true;
