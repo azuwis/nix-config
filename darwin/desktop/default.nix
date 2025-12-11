@@ -19,7 +19,7 @@ in
     # programs.hammerspoon.enable = true;
 
     programs.firefox.enhance = true;
-    programs.mpv.enable = true;
+    programs.mpv.enhance = true;
     programs.rime.enable = true;
 
     # Suppress login message

@@ -6,7 +6,6 @@
 }:
 
 let
-  inherit (lib) mkIf;
   cfg = config.programs.mpv;
 in
 {
@@ -17,13 +16,18 @@ in
     ./uosc.nix
   ];
 
-  config = mkIf cfg.enable {
+  options.programs.mpv = {
+    enhance = lib.mkEnableOption "and enhance mpv";
+  };
+
+  config = lib.mkIf cfg.enhance {
     environment.systemPackages = with pkgs; [
       ffmpeg-headless
       yt-dlp
     ];
 
     programs.mpv = {
+      enable = true;
       bindings = {
         # https://github.com/mpv-player/mpv/blob/master/etc/input.conf
         R = "cycle_values window-scale 2 0.5 1"; # switch between 2x, 1/2, unresized window size

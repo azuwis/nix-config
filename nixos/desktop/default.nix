@@ -39,7 +39,7 @@ in
         max-cache-ttl = 14400;
       };
     };
-    programs.mpv.enable = true;
+    programs.mpv.enhance = true;
     programs.niri.enable = true;
     # programs.sway.enable = true;
     programs.wayland.session = mkDefault "niri-session";
