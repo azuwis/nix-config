@@ -64,6 +64,8 @@ let
 in
 {
   options.services.sunshine = {
+    enhance = lib.mkEnableOption "and enhance sunshine";
+
     cudaSupport = lib.mkEnableOption "cuda";
 
     mode = lib.mkOption {
@@ -82,7 +84,7 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.enhance {
     boot.kernelModules = [ "uhid" ];
 
     # Disable sunshine virtual events for real display
@@ -123,6 +125,7 @@ in
     ];
 
     services.sunshine = {
+      enable = true;
       autoStart = true;
       openFirewall = true;
 
