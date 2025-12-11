@@ -90,7 +90,7 @@ in
         grim
       ];
 
-      programs.foot.enable = true;
+      programs.foot.enhance = true;
 
       programs.fuzzel = {
         enable = true;
