@@ -57,7 +57,7 @@
   programs.cemu.enable = true;
   desktop.enable = true;
   programs.dualsensectl.enable = true;
-  hardware.nvidia.enable = lib.mkDefault true;
+  hardware.nvidia.enhance = lib.mkDefault true;
   hardware.nvidia.open = true;
   virtualisation.libvirtd.enhance = true;
   services.nix-builder.enable = true;
@@ -89,7 +89,7 @@
   # Eval time will be multiplied by specialisations count
   # specialisation.vfio.configuration = {
   #   system.nixos.tags = [ "vfio" ];
-  #   hardware.nvidia.enable = false;
+  #   hardware.nvidia.enhance = false;
   #   hardware.vfio = {
   #     enable = true;
   #     platform = "amd";
