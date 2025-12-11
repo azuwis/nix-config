@@ -115,7 +115,7 @@ in
       SUBSYSTEM=="input", KERNEL=="event*", ATTRS{id/vendor}=="beef", ATTRS{id/product}=="dead", ATTRS{name}=="* passthrough*", MODE="0660", GROUP="uinput"
     '';
 
-    programs.sway.enable = true;
+    programs.sway.enhance = true;
 
     # Make avahi optional
     services.avahi.enable = lib.mkOverride 999 false;

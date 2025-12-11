@@ -6,22 +6,19 @@
 }:
 
 let
-  inherit (lib)
-    mkEnableOption
-    mkIf
-    mkOption
-    ;
   cfg = config.programs.sway;
 in
+
 {
   options.programs.sway = {
-    extraConfig = mkOption {
+    enhance = lib.mkEnableOption "and enhance sway";
+    extraConfig = lib.mkOption {
       type = lib.types.lines;
       default = "";
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enhance {
     programs.wayland.enable = true;
 
     # vim -d "$(nix path-info n#sway-unwrapped)/etc/sway/config" ./config
@@ -47,6 +44,7 @@ in
       '';
 
     programs.sway = {
+      enable = true;
       wrapperFeatures.gtk = true;
       # sway complains even nvidia GPU is only used for offload
       extraOptions = [ "--unsupported-gpu" ];

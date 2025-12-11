@@ -41,7 +41,7 @@ in
     };
     programs.mpv.enhance = true;
     programs.niri.enable = true;
-    # programs.sway.enable = true;
+    # programs.sway.enhance = true;
     programs.wayland.session = mkDefault "niri-session";
     # programs.wayland.session = "sway";
 
