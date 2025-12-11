@@ -68,6 +68,9 @@ in
 
     cudaSupport = lib.mkEnableOption "cuda";
 
+    # MangoHud cause vulkan app to segfault as of version 0.8.1
+    mangohud = lib.mkEnableOption "mangohud";
+
     mode = lib.mkOption {
       type = lib.types.str;
       default = "3840x2160@60Hz";
@@ -101,6 +104,8 @@ in
       MatchName=Sunshine * (virtual) pad*
       AttrEventCode=-EV_ABS;-EV_KEY;-EV_MSC;-EV_REL;-EV_SW;-EV_SYN
     '';
+
+    environment.systemPackages = lib.mkIf cfg.mangohud [ pkgs.mangohud ];
 
     hardware.uinput.enable = true;
     users.users.${cfg.user}.extraGroups = [ "uinput" ];
@@ -198,8 +203,14 @@ in
       };
 
       applications = {
-        # moonlight see no apps if env not set
-        env = { };
+        # NOTE: The Z_Desktop app will not pickup env set here
+        env = {
+          # Moonlight see no apps if env not set, at least keep an empty env
+        }
+        // lib.optionalAttrs cfg.mangohud {
+          MANGOHUD = "1";
+          MANGOHUD_CONFIG = "preset=1+2+-1+3+4+0";
+        };
         apps =
           let
             mkImage =
