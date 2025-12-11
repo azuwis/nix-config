@@ -10,8 +10,6 @@ let
 in
 
 {
-  disabledModules = [ ../nixos/steam/default.nix ];
-
   imports = [
     ../nixos
     (inputs.jovian-nixos.outPath + "/modules")
