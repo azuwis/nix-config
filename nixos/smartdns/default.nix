@@ -10,7 +10,11 @@ let
 in
 
 {
-  config = lib.mkIf cfg.enable {
+  options.services.smartdns = {
+    enhance = lib.mkEnableOption "and enhance smartdns";
+  };
+
+  config = lib.mkIf cfg.enhance {
     environment.etc."resolv.conf".text = lib.mkForce ''
       nameserver ${builtins.elemAt cfg.settings.bind 0}
     '';
@@ -23,6 +27,7 @@ in
     # This make tools like `dig` and `ping` have almost the same result.
     system.nssDatabases.hosts = lib.mkBefore [ "dns [!UNAVAIL=return]" ];
 
+    services.smartdns.enable = true;
     services.smartdns.settings = {
       bind = "127.0.0.52";
       cache-size = 4096;

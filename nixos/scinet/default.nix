@@ -17,7 +17,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.smartdns.enable = true;
+    services.smartdns.enhance = true;
 
     age.secrets."shadowsocks-rust-redir.json".file = "${inputs.my.outPath}/shadowsocks-rust-redir.json";
     systemd.services.shadowsocks-rust =
