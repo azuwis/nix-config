@@ -6,12 +6,15 @@
 }:
 
 let
-  inherit (lib) mkIf;
   cfg = config.programs.git;
   scripts = ./scripts;
 in
 {
-  config = mkIf cfg.enable {
+  options.programs.git = {
+    enhance = lib.mkEnableOption "and enhance git";
+  };
+
+  config = lib.mkIf cfg.enhance {
     environment.systemPackages = with pkgs; [
       git-crypt
       git-remote-gcrypt
@@ -19,10 +22,11 @@ in
 
     # sysconfdir is "$out/etc" on Darwin, but "/etc" on all other platforms
     # https://github.com/NixOS/nixpkgs/issues/93784
-    environment.variables = mkIf (pkgs.stdenv.hostPlatform.isDarwin) {
+    environment.variables = lib.mkIf (pkgs.stdenv.hostPlatform.isDarwin) {
       GIT_CONFIG_GLOBAL = "/etc/gitconfig";
     };
 
+    programs.git.enable = true;
     programs.git.config = {
       user = { inherit (config.my) email name; };
       alias = {

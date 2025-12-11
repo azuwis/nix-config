@@ -22,7 +22,7 @@ in
   programs.direnv.nix-direnv.enable = true;
   # programs.emacs.enable = true;
   programs.editorconfig.enable = true;
-  programs.git.enable = true;
+  programs.git.enhance = true;
   programs.jujutsu.enable = true;
   programs.lazyvim.ansible.enable = true;
   programs.lazyvim.bash.enable = true;
