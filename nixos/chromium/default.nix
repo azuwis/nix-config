@@ -11,13 +11,15 @@ in
 
 {
   options.programs.chromium = {
+    enhance = lib.mkEnableOption "and enhance Chromium";
     package = lib.mkPackageOption pkgs "chromium" { };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.enhance {
     environment.systemPackages = [ cfg.package ];
 
     programs.chromium = {
+      enable = true;
       extraOpts = {
         BookmarkBarEnabled = false;
         BrowserSignin = 0;

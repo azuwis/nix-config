@@ -27,7 +27,7 @@ in
 
     programs.android.enable = true;
     programs.bluetooth.enable = true;
-    programs.chromium.enable = true;
+    programs.chromium.enhance = true;
     programs.fcitx5.enable = true;
     programs.firefox.enhance = true;
     programs.gnupg.agent = {
