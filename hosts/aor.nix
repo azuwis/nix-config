@@ -79,6 +79,8 @@
   services.evsieve.enable = true;
   services.scinet.enable = true;
   services.sunshine.enhance = true;
+  # Have to use mangohud git HEAD version, see overlays/default.nix
+  services.sunshine.mangohud = true;
   # After update to 25.11, sunshine crash when using AMD vaapi encoder, may related to mesa bump
   # https://github.com/LizardByte/Sunshine/issues/4358
   # services.sunshine.settings.adapter_name = "/dev/dri/by-path/pci-0000:11:00.0-render";
