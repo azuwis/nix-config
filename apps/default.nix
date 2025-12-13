@@ -15,18 +15,16 @@ let
       }
     ];
   };
-
-  mkSoloPackage = name: eval.config.programs.${name}.finalPackage;
+  packages = builtins.filter (
+    package: package.meta ? mainProgram
+  ) eval.config.environment.systemPackages;
 in
 
 # nix run -f apps <name>
 # nix run .#<name>
 # nix run github:azuwis/nix-config#<name>
-removeAttrs (lib.packagesFromDirectoryRecursive {
+lib.genAttrs' packages (package: lib.nameValuePair package.meta.mainProgram package)
+// removeAttrs (lib.packagesFromDirectoryRecursive {
   inherit (pkgs) callPackage;
   directory = ./.;
 }) [ "default" ]
-// lib.genAttrs [
-  "jujutsu"
-  "lazyvim"
-] mkSoloPackage
