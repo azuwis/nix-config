@@ -8,6 +8,7 @@
 {
   environment.systemPackages = with pkgs; [
     (pass.withExtensions (ext: [ ext.pass-otp ]))
+    _7zz
     age
     borgbackup
     bzip2
