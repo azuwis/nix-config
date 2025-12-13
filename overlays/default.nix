@@ -38,6 +38,7 @@ in
         hash = "sha256-SOXoSBx+OWvtWlr4dNeaje6ktp6/A+MauQ29a1FgQ2M=";
       };
       buildInputs = final.lib.subtractLists [ final.nlohmann_json final.glew ] old.buildInputs;
+      passthru.updateScript = final.nix-update-script { extraArgs = [ "--version=branch" ]; };
     });
 
     # https://github.com/nix-community/nix-zsh-completions/pull/52
