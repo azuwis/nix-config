@@ -31,7 +31,7 @@ in
 
     # 0.8.1 make vulkan app segfault when closing, 0.8.2 make vulkan unusable `corrupted double-linked list`
     mangohud = prev.mangohud.overrideAttrs (old: {
-      version = "0.8.2-unstable-2025-12-10";
+      version = "0.8.2-unstable-2025-12-09";
       src = old.src.override {
         tag = null;
         rev = "744cb9150f8edaa69c45e87fc976afd87757fc66";
