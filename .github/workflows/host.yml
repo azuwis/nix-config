@@ -117,6 +117,7 @@ jobs:
           {
             sed -e '1s/,/ | /g; 1p; 1s/[^ |]\+/---/g; q' data.csv
             numfmt --header --delimiter=, --field 4- --to=iec --format='%.2f' <data.csv | tail -n 21 | sed -e '1d; s/,/ | /g'
+            sed -e '1s/,/ | /g; s/time/|/; q' data.csv
             echo
             echo "https://azuwis.github.io/nix-config"
           } >"$GITHUB_STEP_SUMMARY"
