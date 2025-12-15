@@ -13,7 +13,7 @@ in
   imports = [
     ../nixos
     (inputs.jovian-nixos.outPath + "/modules")
-    ./hardware-steamdeck.nix
+    ./hardware-jovian.nix
   ];
 
   registry.entries = [ "jovian-nixos" ];
@@ -28,7 +28,7 @@ in
   # Use dualboot for now, let SteamOS handle microcode update
   hardware.cpu.amd.updateMicrocode = false;
 
-  networking.hostName = "steamdeck";
+  networking.hostName = "jovian";
   # networkmanager is required to complete the first-time setup process
   networking.networkmanager.enable = true;
   networking.useNetworkd = false;

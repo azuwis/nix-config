@@ -27,7 +27,7 @@ on:
         type: choice
         options:
           - nuc
-          - steamdeck
+          - jovian
           - droid
           - solo
           - wsl
@@ -48,17 +48,17 @@ jobs:
         host: >-
           ${{ fromJSON(
             inputs.host == 'nuc' && '["nuc"]' || (
-            inputs.host == 'steamdeck' && '["steamdeck"]' || (
+            inputs.host == 'jovian' && '["jovian"]' || (
             inputs.host == 'droid' && '["droid"]' || (
             inputs.host == 'solo' && '["solo"]' || (
             inputs.host == 'wsl' && '["wsl"]' || (
             inputs.host == 'mbp' && '["mbp"]' || (
-            '["nuc", "steamdeck", "droid", "solo", "wsl", "mbp"]'
+            '["nuc", "jovian", "droid", "solo", "wsl", "mbp"]'
           ))))))) }}
         exclude:
           - {os: ubuntu-latest, host: mbp}
           - {os: macos-latest, host: nuc}
-          - {os: macos-latest, host: steamdeck}
+          - {os: macos-latest, host: jovian}
           - {os: macos-latest, host: droid}
           - {os: macos-latest, host: solo}
           - {os: macos-latest, host: wsl}

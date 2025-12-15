@@ -18,8 +18,8 @@ in
 lib.genAttrs [
   "aor"
   "hyperv"
+  "jovian"
   "nuc"
-  "steamdeck"
   "utm"
   "wsl"
 ] mkNixos
