@@ -31,7 +31,7 @@ in
         # since none of the parent devices of bluetooth event has `idVendor` `idProduct`
         # Also exclude `*virtual*` devices created by Sunshine
         services.udev.extraRules = ''
-          ACTION=="add", SUBSYSTEM=="input", KERNEL=="event*", ATTRS{id/vendor}=="054c", ATTRS{id/product}=="0ce6", ATTRS{name}!="*virtual*", ENV{ID_INPUT_JOYSTICK}=="1", ENV{SYSTEMD_USER_WANTS}+="evsieve@%s{id/vendor}%s{id/product}-%k.service", TAG+="systemd"
+          ACTION=="add", SUBSYSTEM=="input", KERNEL=="event*", ATTRS{id/vendor}=="054c", ATTRS{id/product}=="0ce6", ATTRS{name}!="*virtual*", ENV{ID_INPUT_JOYSTICK}=="1", ENV{SYSTEMD_USER_WANTS}+="evsieve@$attr{id/vendor}$attr{id/product}-$kernel.service", TAG+="systemd"
         '';
 
         systemd.user.services."evsieve@" = {

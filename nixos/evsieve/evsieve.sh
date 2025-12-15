@@ -5,7 +5,7 @@ IFS='-' read -r id kernel <<<"$1"
 case "$id" in
 054c0ce6) # dualsense
   # rightshift+f10: MangoHud cycle between presets
-  exec evsieve --input "/dev/input/$kernel" \
+  exec evsieve --input "/dev/input/$kernel" persist=exit \
     --hook btn:mode btn:north exec-shell="gamefzf" \
     --hook btn:mode btn:east send-key=key:esc@kb \
     --hook btn:mode btn:west send-key=key:space@kb \
