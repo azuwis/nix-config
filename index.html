@@ -61,7 +61,7 @@ d3.csv("data.csv").then(data => {
         };
 
         // Extract closure size fields
-        ["nuc", "steamdeck", "droid", "solo", "wsl", "mbp"].forEach(device => {
+        ["nuc", "jovian", "droid", "solo", "wsl", "mbp"].forEach(device => {
             item[device] = +d[device];
         });
 
@@ -70,7 +70,7 @@ d3.csv("data.csv").then(data => {
 
     // Convert to long format
     const longData = processedData.flatMap(d => 
-        ["nuc", "steamdeck", "droid", "solo", "wsl", "mbp"].map(device => ({
+        ["nuc", "jovian", "droid", "solo", "wsl", "mbp"].map(device => ({
             time: d.time,
             device,
             value: d[device],
@@ -109,7 +109,7 @@ d3.csv("data.csv").then(data => {
 
     // Color scale
     const color = d3.scaleOrdinal()
-        .domain(["nuc", "steamdeck", "droid", "solo", "wsl", "mbp"])
+        .domain(["nuc", "jovian", "droid", "solo", "wsl", "mbp"])
         .range(d3.schemeTableau10);
 
     // Draw lines
