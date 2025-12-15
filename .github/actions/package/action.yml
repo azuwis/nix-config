@@ -49,7 +49,7 @@ runs:
         tree -a result
         echo "::endgroup::"
     - uses: azuwis/actions/nix/post@main
-    - uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+    - uses: actions/cache/save@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
       if: ${{ env.CACHE_NEED_UPDATE == 'no' }}
       with:
         key: package-skip-build-${{ inputs.package }}-${{ runner.os }}-${{ runner.arch }}
