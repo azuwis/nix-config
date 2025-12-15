@@ -55,6 +55,7 @@
   programs.wayland.startup.initlock = lib.mkForce [ ];
   services.evsieve.enable = true;
   services.evsieve.dualsense = true;
+  services.evsieve.mskb = true;
   services.scinet.enable = true;
   zramSwap.enable = true;
 

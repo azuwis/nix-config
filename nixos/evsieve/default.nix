@@ -13,6 +13,7 @@ in
   options.services.evsieve = {
     enable = lib.mkEnableOption "evsieve";
     dualsense = lib.mkEnableOption "evsieve for dualsense";
+    mskb = lib.mkEnableOption "evsieve for MS keyboard";
   };
 
   config = lib.mkIf cfg.enable (
@@ -41,6 +42,28 @@ in
           path = lib.mkForce [ ];
           serviceConfig = {
             ExecStart = "${./evsieve.sh} %i";
+            SyslogIdentifier = "evsieve";
+          };
+        };
+      })
+
+      (lib.mkIf cfg.mskb {
+        services.udev.extraRules = ''
+          ACTION=="add", SUBSYSTEM=="input", KERNEL=="event*", ATTRS{id/vendor}=="045e", ATTRS{id/product}=="0800", ENV{ID_INPUT_MOUSE}=="1", ENV{SYSTEMD_WANTS}+="evsieve@$attr{id/vendor}$attr{id/product}-$kernel.service", TAG+="systemd"
+        '';
+
+        systemd.services."evsieve@" = {
+          path = with pkgs; [
+            bash
+            evsieve
+          ];
+          serviceConfig = {
+            ExecStart = "${./evsieve.sh} %i";
+            DynamicUser = true;
+            SupplementaryGroups = [
+              "input"
+              "uinput"
+            ];
             SyslogIdentifier = "evsieve";
           };
         };
