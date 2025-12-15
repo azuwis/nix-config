@@ -77,6 +77,7 @@
   ];
   # programs.steam.remotePlay.openFirewall = true;
   services.evsieve.enable = true;
+  services.evsieve.dualsense = true;
   services.scinet.enable = true;
   services.sunshine.enhance = true;
   # Have to use mangohud git HEAD version, see overlays/default.nix
