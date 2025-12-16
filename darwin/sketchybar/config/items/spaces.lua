@@ -25,6 +25,8 @@ local function space_windows_change(env)
       sbar.set(env.NAME, {
         icon = {
           color = is_empty and colors.dim or colors.default,
+          -- Restore default icon when space is empty, may set to  by skhd `lalt - f`
+          string = is_empty and icons.space or nil,
         },
       })
     end
