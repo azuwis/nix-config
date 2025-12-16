@@ -29,7 +29,8 @@
     less
     lsof
     man
-    netcat
+    # Higher priority than libressl.nc # https://github.com/NixOS/nixpkgs/pull/470191
+    (lib.hiPrio netcat)
     ncurses # clear, reset
     # nix-output-monitor
     nix-tree
