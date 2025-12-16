@@ -20,10 +20,10 @@ case "$id" in
   ;;
 045e0800) # mskb
   exec evsieve --input "/dev/input/$kernel" persist=exit \
-    --map rel:hwheel_hi_res:~150..151~ key:back:1@kb \
-    --map rel:hwheel_hi_res:151~..~150 key:back:0@kb \
-    --map rel:hwheel_hi_res:-150~..~-151 key:forward:1@kb \
-    --map rel:hwheel_hi_res:~-151..-150~ key:forward:0@kb \
+    --map rel:hwheel_hi_res:-150~..~-151 key:back:1@kb \
+    --map rel:hwheel_hi_res:~-151..-150~ key:back:0@kb \
+    --map rel:hwheel_hi_res:~150..151~ key:forward:1@kb \
+    --map rel:hwheel_hi_res:151~..~150 key:forward:0@kb \
     --output @kb
   ;;
 esac
