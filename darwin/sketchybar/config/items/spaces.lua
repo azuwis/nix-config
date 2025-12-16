@@ -1,5 +1,6 @@
 local colors = require("colors")
 local icons = require("icons")
+local spaces = {}
 
 local function mouse_click(env)
   if env.BUTTON == "right" then
@@ -18,11 +19,15 @@ end
 
 local function space_windows_change(env)
   if env.INFO.space == tonumber(env.SID) then
-    sbar.set(env.NAME, {
-      icon = {
-        color = next(env.INFO.apps) == nil and colors.dim or colors.default,
-      },
-    })
+    local is_empty = next(env.INFO.apps) == nil
+    if spaces[env.INFO.space] ~= is_empty then
+      spaces[env.INFO.space] = is_empty
+      sbar.set(env.NAME, {
+        icon = {
+          color = is_empty and colors.dim or colors.default,
+        },
+      })
+    end
   end
 end
 
@@ -31,6 +36,7 @@ for i = 1, 10, 1 do
     position = "center",
     associated_space = i,
     icon = {
+      color = colors.dim,
       string = icons.space,
       padding_left = 4,
       padding_right = 4,
