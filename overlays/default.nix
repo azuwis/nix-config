@@ -41,17 +41,16 @@ in
       passthru.updateScript = final.nix-update-script { extraArgs = [ "--version=branch" ]; };
     });
 
-    # https://github.com/nix-community/nix-zsh-completions/pull/52
     # https://github.com/nix-community/nix-zsh-completions/pull/55
     nix-zsh-completions = prev.nix-zsh-completions.overrideAttrs (old: {
-      version = "0.5.1-unstable-2025-03-26";
+      version = "0.5.1-unstable-2025-12-14";
       src = old.src.override {
         tag = null;
-        rev = "c2553ae08a6e688e82a7e0b65f51203eb4ab8a45";
-        hash = "sha256-4g0lJ+vkr0H0AgSQS2kDiidHCChKNh1VphU/mKFkioQ=";
+        rev = "4e544362fdc766835dd1a6151d49299c7ad014ed";
+        hash = "sha256-4wcINY3L9BZ4dtcqcP+d0OgE/Q2UHnu0GilgMokrzcI=";
       };
       passthru = (old.passthru or { }) // {
-        updateScript = final.nix-update-script { extraArgs = [ "--version=branch=pull/55/head" ]; };
+        updateScript = final.nix-update-script { extraArgs = [ "--version=branch=pull/55/merge" ]; };
       };
     });
 
