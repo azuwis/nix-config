@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -eo pipefail
 
 usage() {
   local cmd
@@ -15,7 +15,8 @@ USAGE:
   $cmd l|list
   $cmd r|run <apps>
   $cmd s|switch [<host>]
-  $cmd u|update|nu|npins-update [-a] [<input>] [<commit>]
+  $cmd u|update|lu|nixlock-update [<input>]
+  $cmd nu|npins-update [-a] [<input>] [<commit>]
   $cmd fu|flake-update [-a] [<input>] [<commit>]
   $cmd dg|direnv-gcroots
   $cmd [--] <darwin-rebuild/nix-on-droid/nixos-rebuild args>
@@ -263,6 +264,16 @@ flake-update() {
   run_command nix --extra-experimental-features "flakes nix-command" flake update --flake "$CONFIG" "${args[@]}" "$@"
 }
 
+nixlock-update() {
+  target=$1
+  if nix-instantiate --option tarball-ttl 1 --impure --strict --eval --argstr target "$target" "$CONFIG/inputs/update.nix" | nixfmt >"$CONFIG/inputs/lock.tmp"; then
+    mv "$CONFIG/inputs/lock.tmp" "$CONFIG/inputs/lock.lock"
+    git diff "$CONFIG/inputs/lock.lock"
+  else
+    echo "Update failed, check $CONFIG/inputs/lock.tmp"
+  fi
+}
+
 npins-update() {
   local args
   args=(update)
@@ -350,7 +361,8 @@ fu) action="flake-update" ;;
 h | -h) action="usage" ;;
 hw) action="hardware" ;;
 l) action="list" ;;
-nu | u | update) action="npins-update" ;;
+lu | u | update) action="nixlock-update" ;;
+nu) action="npins-update" ;;
 r | run) action="run" ;;
 s | switch)
   SWITCH=true
@@ -359,7 +371,7 @@ s | switch)
 esac
 
 case "$action" in
-clean | direnv-gcroots | flake-update | hardware | npins-update | run | usage)
+clean | direnv-gcroots | flake-update | hardware | npins-update | nixlock-update | run | usage)
   "$action" "$@"
   exit $?
   ;;
