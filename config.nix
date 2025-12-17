@@ -17,7 +17,9 @@ in
       "nvidia-settings"
       "nvidia-x11"
       "steam"
+      "steam-jupiter-unwrapped"
       "steam-unwrapped"
+      "steamdeck-hw-theme"
     ]
     || _cuda.lib.allowUnfreeCudaPredicate pkg
   );
