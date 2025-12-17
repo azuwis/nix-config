@@ -106,7 +106,7 @@ build() {
   esac
 
   if [ "$CI" = true ]; then
-    export NPINS_OVERRIDE_my="$CONFIG/test"
+    export NIXLOCK_OVERRIDE_my="$CONFIG/test"
     nix=(nix-build)
   fi
 
