@@ -9,16 +9,6 @@
     shortRev = "fcdea22";
     submodules = false;
   };
-  brew-src = {
-    lastModified = 1765874862;
-    lastModifiedDate = "20251216084742";
-    narHash = "sha256-To75DTVjFAvkheFVPDFtdfhhlLAE/qDeh/yWUn0ME8Y=";
-    outPath = "/nix/store/4zv82l8n8wvdmj3w65hmf7sm5acixvr1-brew-src";
-    rev = "d28a8210ba87786bd2553a1d1d410c40ebd18c9f";
-    revCount = 0;
-    shortRev = "d28a821";
-    submodules = false;
-  };
   devshell = {
     lastModified = 1764011051;
     lastModifiedDate = "20251124190411";

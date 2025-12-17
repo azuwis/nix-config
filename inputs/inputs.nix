@@ -7,8 +7,6 @@ in
 
 {
   agenix = github "ryantm/agenix" { };
-  # Need to manually update tag from https://github.com/Homebrew/brew/tags
-  brew-src = github "Homebrew/brew" { ref = "refs/tags/5.0.6"; };
   devshell = github "numtide/devshell" { };
   disko = github "nix-community/disko" { ref = "refs/tags/latest"; };
   homebrew-cask = github "Homebrew/homebrew-cask" { };
