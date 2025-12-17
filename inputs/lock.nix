@@ -48,7 +48,20 @@ builtins.mapAttrs (
     if isPure then
       lock
       // {
-        inherit (fetchGits) outPath;
+        # Hack here, builtins.fetchGit always fetch even if narHash provided,
+        # use fetchTarball to produce the outPath if already in nix store
+        # https://github.com/nikstur/lon/pull/3#issuecomment-2797643718
+        outPath =
+          if builtins.pathExists lock.outPath then
+            builtins.fetchTarball {
+              inherit name;
+              url = "";
+              sha256 = lock.narHash;
+            }
+          else
+            fetchGits.outPath;
+        # If the problem fixed in nix, should use the following code instead
+        # inherit (fetchGits) outPath;
       }
     else
       fetchGits
