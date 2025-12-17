@@ -13,7 +13,6 @@ in
   imports = [ (inputs.nix-homebrew.outPath + "/modules") ];
 
   registry.entries = [
-    "brew-src"
     "homebrew-cask"
     "nix-homebrew"
   ];
@@ -28,9 +27,21 @@ in
       HOMEBREW_NO_ANALYTICS = "1";
     };
     mutableTaps = false;
-    package = inputs.brew-src // {
-      name = "brew-${inputs.brew-src.version}";
-    };
+    # https://github.com/zhaofengli/nix-homebrew/blob/6a8ab60bfd66154feeaa1021fc3b32684814a62a/flake.nix
+    package =
+      let
+        flakeLock = builtins.fromJSON (builtins.readFile (inputs.nix-homebrew.outPath + "/flake.lock"));
+        brewVersion = flakeLock.nodes.brew-src.original.ref;
+        locked = flakeLock.nodes.brew-src.locked;
+      in
+      {
+        name = "brew-${brewVersion}";
+        version = brewVersion;
+        outPath = builtins.fetchTarball {
+          url = "https://github.com/${locked.owner}/${locked.repo}/archive/${locked.rev}.tar.gz";
+          sha256 = locked.narHash;
+        };
+      };
     # Add `homebrew-cask = github "Homebrew/homebrew-core" { };` to inputs/inputs.nix, run `os update homebrew-core`
     taps = {
       # "homebrew/homebrew-core" = inputs.homebrew-core;
