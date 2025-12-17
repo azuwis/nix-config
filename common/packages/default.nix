@@ -34,6 +34,7 @@
     ncurses # clear, reset
     # nix-output-monitor
     nix-tree
+    nixfmt # ./scripts/os
     nvd
     openssh
     openssl
