@@ -16,7 +16,6 @@ USAGE:
   $cmd r|run <apps>
   $cmd s|switch [<host>]
   $cmd u|update|lu|nixlock-update [<input>]
-  $cmd nu|npins-update [-a] [<input>] [<commit>]
   $cmd fu|flake-update [-a] [<input>] [<commit>]
   $cmd dg|direnv-gcroots
   $cmd [--] <darwin-rebuild/nix-on-droid/nixos-rebuild args>
@@ -274,41 +273,6 @@ nixlock-update() {
   fi
 }
 
-npins-update() {
-  local args
-  args=(update)
-  if [ -n "$1" ]; then
-    input="$1"
-    shift
-    if [ "$input" = "-a" ]; then
-      update_all=true
-      input="$1"
-      shift
-    fi
-    if [ -n "$1" ]; then
-      hash="$1"
-      {
-        read -r type
-        read -r owner
-        read -r repo
-        read -r branch
-        read -r submodules
-      } < <(jq -r ".pins.\"${input}\" | (.repository.type | ascii_downcase), .repository.owner, .repository.repo, .branch, .submodules" inputs/sources.json)
-      args=(add --name "$input" "$type" --branch "$branch" --at "$hash" "$owner" "$repo")
-      if [ "$submodules" = true ]; then
-        args+=(--submodules)
-      fi
-      if [ "$update_all" = true ]; then
-        mapfile -t inputs < <(jq -r '.pins | to_entries | map(select(.key!="'"$input"'")).[].key' inputs/sources.json)
-        run_command npins update "${inputs[@]}"
-      fi
-    else
-      args+=("$input")
-    fi
-  fi
-  run_command npins "${args[@]}"
-}
-
 # See all nix-direnv gcroots
 direnv-gcroots() {
   nix-store --gc --print-roots | awk '/flake-profile/ {print $1}' | xargs -o nix-tree
@@ -362,7 +326,6 @@ h | -h) action="usage" ;;
 hw) action="hardware" ;;
 l) action="list" ;;
 lu | u | update) action="nixlock-update" ;;
-nu) action="npins-update" ;;
 r | run) action="run" ;;
 s | switch)
   SWITCH=true
@@ -371,7 +334,7 @@ s | switch)
 esac
 
 case "$action" in
-clean | direnv-gcroots | flake-update | hardware | npins-update | nixlock-update | run | usage)
+clean | direnv-gcroots | flake-update | hardware | nixlock-update | run | usage)
   "$action" "$@"
   exit $?
   ;;
