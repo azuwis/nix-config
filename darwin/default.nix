@@ -28,5 +28,7 @@ in
   nixpkgs.source = inputs.nixpkgs.outPath;
   system.checks.verifyNixPath = lib.mkDefault false;
   # Use information from inputs to set system version suffix
-  system.darwinVersionSuffix = lib.mkIf (inputs.nixpkgs ? shortRev) ".${inputs.nixpkgs.shortRev}";
+  system.darwinVersionSuffix = lib.mkIf (
+    inputs.nixpkgs ? lastModifiedDate && inputs.nixpkgs ? shortRev
+  ) ".${lib.substring 0 8 inputs.nixpkgs.lastModifiedDate}.${inputs.nixpkgs.shortRev}";
 }

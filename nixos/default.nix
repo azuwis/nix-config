@@ -35,5 +35,7 @@ in
   registry.entries = [ "disko" ];
 
   # Use information from inputs to set system version suffix
-  system.nixos.versionSuffix = lib.mkIf (inputs.nixpkgs ? shortRev) ".${inputs.nixpkgs.shortRev}";
+  system.nixos.versionSuffix = lib.mkIf (
+    inputs.nixpkgs ? lastModifiedDate && inputs.nixpkgs ? shortRev
+  ) ".${lib.substring 0 8 inputs.nixpkgs.lastModifiedDate}.${inputs.nixpkgs.shortRev}";
 }
