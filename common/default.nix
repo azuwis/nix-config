@@ -7,8 +7,7 @@
 
 let
   inherit (import ../lib/my.nix) getModules;
-  # inputs = import ../inputs;
-  inputs = builtins.mapAttrs (_: p: p { inherit pkgs; }) (import ../inputs);
+  inputs = import ../inputs;
 in
 
 {

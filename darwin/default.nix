@@ -27,8 +27,6 @@ in
   # See nix-darwin/flake.nix
   nixpkgs.source = inputs.nixpkgs.outPath;
   system.checks.verifyNixPath = lib.mkDefault false;
-  # Use information from npins to set system version suffix
-  system.darwinVersionSuffix =
-    lib.mkIf (inputs.nixpkgs ? revision)
-      ".${lib.substring 0 7 inputs.nixpkgs.revision}";
+  # Use information from inputs to set system version suffix
+  system.darwinVersionSuffix = lib.mkIf (inputs.nixpkgs ? shortRev) ".${inputs.nixpkgs.shortRev}";
 }
