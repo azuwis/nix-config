@@ -15,7 +15,7 @@ USAGE:
   $cmd l|list
   $cmd r|run <apps>
   $cmd s|switch [<host>]
-  $cmd u|update|lu|nixlock-update [<input>]
+  $cmd u|update|lu|nixlock-update -a [<input>] [<input>=false] ...
   $cmd fu|flake-update [-a] [<input>] [<commit>]
   $cmd dg|direnv-gcroots
   $cmd [--] <darwin-rebuild/nix-on-droid/nixos-rebuild args>
@@ -264,8 +264,26 @@ flake-update() {
 }
 
 nixlock-update() {
-  target=$1
-  if nix-instantiate --option tarball-ttl 1 --impure --strict --eval --argstr target "$target" "$CONFIG/inputs/update.nix" | nixfmt >"$CONFIG/inputs/lock.tmp"; then
+  local args
+  if [ "$1" = "-a" ]; then
+    shift
+    args=(--arg update true)
+  fi
+  if [ -n "$1" ]; then
+    targets="{"
+    for target in "$@"; do
+      if [[ "$target" != *=* ]]; then
+        target="$target=true"
+      fi
+      targets="$targets$target;"
+    done
+    targets="$targets}"
+    args+=(--arg targets "$targets")
+  else
+    args=(--arg update true)
+  fi
+  if nix-instantiate --option tarball-ttl 1 --impure --strict --eval "${args[@]}" \
+    "$CONFIG/inputs/lock.nix" | nixfmt >"$CONFIG/inputs/lock.tmp"; then
     mv "$CONFIG/inputs/lock.tmp" "$CONFIG/inputs/lock.lock"
     git diff "$CONFIG/inputs/lock.lock"
   else

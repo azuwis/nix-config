@@ -1,5 +1,6 @@
 {
-  pure ? true,
+  update ? false,
+  targets ? { },
 }:
 let
   lockFile = import ./lock.lock;
@@ -9,7 +10,7 @@ builtins.mapAttrs (
   name: meta:
   let
     lock = lockFile.${name} or { };
-    isPure = pure && lock != { };
+    isPure = (targets.${name} or update) == false && lock != { };
     isType = t: meta.type == t;
     fetchGitArgs = {
       inherit name;
