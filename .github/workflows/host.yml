@@ -83,7 +83,8 @@ jobs:
           mkdir -p /tmp/report
           nix path-info --closure-size ~/.local/state/nix/profiles/"$HOST" | awk '{print $2}' > /tmp/report/"$HOST"
           echo "${GITHUB_SHA::8}" > /tmp/report/nix-config
-          nix-instantiate --eval --raw --expr 'builtins.substring 0 8 (import ./inputs/lock.nix { }).nixpkgs.rev' > /tmp/report/nixpkgs
+          nixpkgs=$(nix-instantiate --eval --raw --expr '(import ./inputs/lock.nix { }).nixpkgs.rev')
+          echo "${nixpkgs::8}" > /tmp/report/nixpkgs
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: report-${{ matrix.host }}
