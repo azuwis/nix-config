@@ -13,22 +13,19 @@ builtins.mapAttrs (
     isType = t: meta.type == t;
     fetchGitArgs = {
       inherit name;
+      shallow = true;
     }
-    // (if meta ? url then { inherit (meta) url; } else { })
-    // (if meta ? rev then { inherit (meta) rev; } else { })
-    // (if meta ? ref then { inherit (meta) ref; } else { })
-    // (if meta ? submodules then { inherit (meta) submodules; } else { })
-    // (if meta ? exportIgnore then { inherit (meta) exportIgnore; } else { })
-    // (if meta ? shallow then { inherit (meta) shallow; } else { shallow = true; })
-    // (if meta ? lfs then { inherit (meta) lfs; } else { })
-    // (if meta ? allRefs then { inherit (meta) allRefs; } else { })
-    // (if meta ? lastModified then { inherit (meta) lastModified; } else { })
-    // (if meta ? revCount then { inherit (meta) revCount; } else { })
-    // (if isPure then { inherit (lock) narHash; } else { })
-    // (if isPure && lock ? rev then { inherit (lock) rev; } else { })
-    // (if isPure && lock ? submodules then { inherit (lock) submodules; } else { })
-    // (if isPure && lock ? lastModified then { inherit (lock) lastModified; } else { })
-    // (if isPure && lock ? revCount then { inherit (lock) revCount; } else { });
+    // removeAttrs meta [ "type" ]
+    // (
+      if isPure then
+        removeAttrs lock [
+          "lastModifiedDate"
+          "outPath"
+          "shortRev"
+        ]
+      else
+        { }
+    );
     fetchGits =
       builtins.trace "fetchGit ${builtins.toJSON fetchGitArgs}" builtins.fetchGit
         fetchGitArgs;
