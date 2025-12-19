@@ -22,6 +22,9 @@ in
     '';
 
     systemd.services."hwheel2swipe@" = {
+      environment = {
+        IDLE_TIMEOUT_MS = "350";
+      };
       serviceConfig = {
         ExecStart = "${lib.getExe pkgs.hwheel2swipe} /dev/input/%i";
         DynamicUser = true;
