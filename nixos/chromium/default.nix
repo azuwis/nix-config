@@ -13,10 +13,15 @@ in
   options.programs.chromium = {
     enhance = lib.mkEnableOption "and enhance Chromium";
     package = lib.mkPackageOption pkgs "chromium" { };
+    override = lib.mkOption {
+      default = { };
+    };
   };
 
   config = lib.mkIf cfg.enhance {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [
+      (cfg.package.override cfg.override)
+    ];
 
     programs.chromium = {
       enable = true;
@@ -36,6 +41,9 @@ in
           "en-US"
         ];
         RestoreOnStartup = 1; # 1 = Restore the last session
+      };
+      override = {
+        commandLineArgs = "--enable-features=TouchpadOverscrollHistoryNavigation";
       };
     };
   };
