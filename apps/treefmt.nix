@@ -18,6 +18,8 @@ treefmt-nix.mkWrapper pkgs {
     enable = true;
     # Use settings in .editorconfig
     indent_size = null;
+    # https://github.com/numtide/treefmt-nix/pull/443
+    simplify = false;
   };
   settings.formatter.shfmt = {
     includes = [
