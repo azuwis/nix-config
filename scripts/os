@@ -13,6 +13,7 @@ USAGE:
   $cmd dp|deploy [<host>]
   $cmd hw|hardware
   $cmd l|list
+  $cmd ns|nixlock-show
   $cmd r|run <apps>
   $cmd s|switch [<host>]
   $cmd u|update|lu|nixlock-update -a [<input>] [<input>=false] ...
@@ -263,6 +264,10 @@ flake-update() {
   run_command nix --extra-experimental-features "flakes nix-command" flake update --flake "$CONFIG" "${args[@]}" "$@"
 }
 
+nixlock-show() {
+  nix-instantiate --strict --eval --raw "$CONFIG/inputs/show.nix" | column -t
+}
+
 nixlock-update() {
   local args
   if [ "$1" = "-a" ]; then
@@ -344,6 +349,7 @@ h | -h) action="usage" ;;
 hw) action="hardware" ;;
 l) action="list" ;;
 lu | u | update) action="nixlock-update" ;;
+ns | nixlock-show) action="nixlock-show" ;;
 r | run) action="run" ;;
 s | switch)
   SWITCH=true
@@ -352,7 +358,7 @@ s | switch)
 esac
 
 case "$action" in
-clean | direnv-gcroots | flake-update | hardware | nixlock-update | run | usage)
+clean | direnv-gcroots | flake-update | hardware | nixlock-show | nixlock-update | run | usage)
   "$action" "$@"
   exit $?
   ;;
