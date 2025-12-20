@@ -18,7 +18,7 @@ in
     hardware.uinput.enable = true;
 
     services.udev.extraRules = ''
-      ACTION=="add", SUBSYSTEM=="input", KERNEL=="event*", ATTRS{id/vendor}=="045e", ATTRS{id/product}=="0800", ENV{ID_INPUT_MOUSE}=="1", ENV{SYSTEMD_WANTS}+="mskb@$kernel.service", TAG+="systemd"
+      ACTION=="add", SUBSYSTEM=="input", KERNEL=="event*", ATTRS{id/vendor}=="045e", ATTRS{id/product}=="0800", ENV{ID_INPUT_MOUSE}=="1", MODE="0660", GROUP="uinput", ENV{SYSTEMD_WANTS}+="mskb@$kernel.service", TAG+="systemd"
     '';
 
     systemd.services."mskb@" = {
@@ -31,10 +31,7 @@ in
       serviceConfig = {
         ExecStart = "${lib.getExe pkgs.wheelswipe} /dev/input/%i";
         DynamicUser = true;
-        SupplementaryGroups = [
-          "input"
-          "uinput"
-        ];
+        SupplementaryGroups = [ "uinput" ];
       };
     };
   };
