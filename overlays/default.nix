@@ -37,7 +37,10 @@ in
         rev = "744cb9150f8edaa69c45e87fc976afd87757fc66";
         hash = "sha256-SOXoSBx+OWvtWlr4dNeaje6ktp6/A+MauQ29a1FgQ2M=";
       };
+      # Remove buildIntputs when 0.8.2 hit nixos-25.11
       buildInputs = final.lib.subtractLists [ final.nlohmann_json final.glew ] old.buildInputs;
+      # Currently broke after 0.8.2-unstable-2025-12-17, due to vulkan-headers subproject bump
+      passthru.enable = false;
       passthru.updateScript = final.nix-update-script { extraArgs = [ "--version=branch" ]; };
     });
 
