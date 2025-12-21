@@ -42,10 +42,9 @@ builtins.mapAttrs (
     replacement = builtins.getEnv "NIXLOCK_OVERRIDE_${name}";
   in
   if replacement != "" then
-    lock
-    // {
-      # https://github.com/nikstur/lon/blob/main/lon.nix
-      # Override with a path defined in an environment variable.
+    # https://github.com/andir/npins/blob/5eb1bde1898a3c32a3aacb36ae120897a58c9ed8/src/default.nix#L36
+    # Override with a path defined in an environment variable.
+    let
       # this turns the string into an actual Nix path (for both absolute and
       # relative paths)
       outPath =
@@ -53,7 +52,12 @@ builtins.mapAttrs (
           /. + replacement
         else
           /. + builtins.getEnv "PWD" + "/${replacement}";
-    }
+    in
+    lock
+    //
+      builtins.trace
+        "Overriding path of \"${name}\" with \"${toString outPath}\" due to set NIXLOCK_OVERRIDE_${name}"
+        { inherit outPath; }
   else if input.type == "archive" then
     if isLocked then
       lock
