@@ -269,28 +269,15 @@ nixlock-show() {
 }
 
 nixlock-update() {
-  local args
-  if [ "$1" = "-a" ]; then
-    shift
-    args=(--arg update true)
-  fi
   if [ -n "$1" ]; then
-    targets="{"
-    for target in "$@"; do
-      if [[ "$target" != *=* ]]; then
-        target="$target=true"
-      fi
-      targets="$targets$target;"
-    done
-    targets="$targets}"
-    args+=(--arg targets "$targets")
+    update="$*"
   else
-    args=(--arg update true)
+    update="all"
   fi
-  if nix-instantiate --option tarball-ttl 1 --impure --strict --eval "${args[@]}" \
-    "$CONFIG/inputs/lock.nix" | nixfmt >"$CONFIG/inputs/lock.tmp"; then
-    mv "$CONFIG/inputs/lock.tmp" "$CONFIG/inputs/lock.lock"
-    git diff "$CONFIG/inputs/lock.lock"
+  if NIXLOCK_UPDATE="$update" nix-instantiate --option tarball-ttl 1 --impure --strict --eval "${args[@]}" \
+    "$CONFIG/inputs" | nixfmt >"$CONFIG/inputs/lock.tmp"; then
+    mv "$CONFIG/inputs/lock.tmp" "$CONFIG/inputs/lock.nix"
+    git diff "$CONFIG/inputs/lock.nix"
   else
     echo "Update failed, check $CONFIG/inputs/lock.tmp"
   fi

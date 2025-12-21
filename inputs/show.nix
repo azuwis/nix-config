@@ -1,6 +1,5 @@
 let
-  lockFile = import ./lock.lock;
-  inputsFile = import ./inputs.nix;
+  allLock = import ./lock.nix;
 in
 
 let
@@ -11,7 +10,7 @@ let
       // {
         inherit name;
       }
-    ) inputsFile
+    ) (import ./inputs.nix)
   );
   line = map (
     input:
@@ -21,7 +20,7 @@ let
         builtins.replaceStrings [ "https://github.com/" "https://codeberg.org/" ] [ "github:" "codeberg:" ]
           input.url;
       ref = if input ? ref then "@${input.ref}" else "";
-      lock = lockFile.${name} or { };
+      lock = allLock.${name} or { };
       date =
         if lock ? lastModifiedDate then
           let

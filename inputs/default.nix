@@ -1,26 +1,92 @@
-# https://codeberg.org/FrdrCkII/nixlock
+# Inspired by https://codeberg.org/FrdrCkII/nixlock
 
 let
-  # https://github.com/nikstur/lon/blob/main/lon.nix
-  # Override with a path defined in an environment variable. If no variable is
-  # set, the original path is used.
-  overrideFromEnv =
-    name: path:
-    let
-      replacement = builtins.getEnv "NIXLOCK_OVERRIDE_${name}";
-    in
-    if replacement == "" then
-      path
+  allLock = import ./lock.nix;
+  updateTargets = builtins.filter builtins.isString (
+    builtins.split " " (builtins.getEnv "NIXLOCK_UPDATE")
+  );
+  updateAll = builtins.elem "all" updateTargets;
+  needUpdate =
+    name:
+    if builtins.elem name updateTargets then
+      true
+    else if builtins.elem "-${name}" updateTargets then
+      false
     else
+      updateAll;
+in
+
+builtins.mapAttrs (
+  name: input:
+  let
+    lock = allLock.${name} or { };
+    isLocked = needUpdate name == false && lock != { };
+    fetchGitArgs = {
+      inherit name;
+      shallow = true;
+    }
+    // removeAttrs input [ "type" ]
+    // (
+      if isLocked then
+        removeAttrs lock [
+          "lastModifiedDate"
+          "outPath"
+          "shortRev"
+        ]
+      else
+        { }
+    );
+    fetchInput =
+      builtins.trace "fetchGit ${builtins.toJSON fetchGitArgs}" builtins.fetchGit
+        fetchGitArgs;
+    replacement = builtins.getEnv "NIXLOCK_OVERRIDE_${name}";
+  in
+  if replacement != "" then
+    lock
+    // {
+      # https://github.com/nikstur/lon/blob/main/lon.nix
+      # Override with a path defined in an environment variable.
       # this turns the string into an actual Nix path (for both absolute and
       # relative paths)
-      path
+      outPath =
+        if builtins.substring 0 1 replacement == "/" then
+          /. + replacement
+        else
+          /. + builtins.getEnv "PWD" + "/${replacement}";
+    }
+  else if input.type == "archive" then
+    if isLocked then
+      lock
       // {
+        outPath = builtins.fetchTarball {
+          inherit name;
+          url = input.url + "/archive/" + lock.rev + ".tar.gz";
+          sha256 = lock.narHash;
+        };
+      }
+    else
+      fetchInput
+  else if input.type == "git" then
+    if isLocked then
+      lock
+      // {
+        # Hack here, builtins.fetchGit always fetch even if narHash provided,
+        # use fetchTarball to produce the outPath if already in nix store
+        # https://github.com/nikstur/lon/pull/3#issuecomment-2797643718
         outPath =
-          if builtins.substring 0 1 replacement == "/" then
-            /. + replacement
+          if builtins.pathExists lock.outPath then
+            builtins.fetchTarball {
+              inherit name;
+              url = "";
+              sha256 = lock.narHash;
+            }
           else
-            /. + builtins.getEnv "PWD" + "/${replacement}";
-      };
-in
-builtins.mapAttrs overrideFromEnv (import ./lock.nix { })
+            fetchInput.outPath;
+        # If the problem fixed in nix, should use the following code instead
+        # inherit (fetchInput) outPath;
+      }
+    else
+      fetchInput
+  else
+    { }
+) (import ./inputs.nix)
