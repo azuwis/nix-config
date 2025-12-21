@@ -17,7 +17,9 @@ let
     input:
     let
       inherit (input) name;
-      url = builtins.replaceStrings [ "https://github.com/" ] [ "github:" ] input.url;
+      url =
+        builtins.replaceStrings [ "https://github.com/" "https://codeberg.org/" ] [ "github:" "codeberg:" ]
+          input.url;
       ref = if input ? ref then "@${input.ref}" else "";
       lock = lockFile.${name} or { };
       date =
@@ -34,4 +36,4 @@ let
     "${name} ${date} ${rev} ${url}${ref}"
   ) inputsList;
 in
-builtins.concatStringsSep "\n" line
+builtins.concatStringsSep "\n" line + "\n"
