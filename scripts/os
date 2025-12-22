@@ -16,7 +16,7 @@ USAGE:
   $cmd ns|nixlock-show
   $cmd r|run <apps>
   $cmd s|switch [<host>]
-  $cmd u|update|lu|nixlock-update -a [<input>] [<input>=false] ...
+  $cmd u|update|lu|nixlock-update [all] [<input1>] [-<input2>] ...
   $cmd fu|flake-update [-a] [<input>] [<commit>]
   $cmd dg|direnv-gcroots
   $cmd [--] <darwin-rebuild/nix-on-droid/nixos-rebuild args>
@@ -284,8 +284,8 @@ nixlock-update() {
   else
     update="all"
   fi
-  if NIXLOCK_UPDATE="$update" nix-instantiate --option tarball-ttl 1 --impure --strict --eval "${args[@]}" \
-    "$CONFIG/inputs" | nixlock-format >"$CONFIG/inputs/lock.tmp"; then
+  if NIXLOCK_UPDATE="$update" nix-instantiate --option tarball-ttl 1 --strict --eval "$CONFIG/inputs" |
+    nixlock-format >"$CONFIG/inputs/lock.tmp"; then
     mv "$CONFIG/inputs/lock.tmp" "$CONFIG/inputs/lock.nix"
     git diff "$CONFIG/inputs/lock.nix"
   else
