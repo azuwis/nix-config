@@ -61,11 +61,14 @@ builtins.mapAttrs (
   name: input:
   let
     lock = allLock.${name} or { };
-    isLocked = needUpdate name == false && lock != { };
+    isLocked = needUpdate name == false && lock != { } || (input.freeze or false) == true;
     fetchGitArgs = {
       shallow = true;
     }
-    // removeAttrs input [ "type" ]
+    // removeAttrs input [
+      "freeze"
+      "type"
+    ]
     // (
       if isLocked then
         removeAttrs lock [

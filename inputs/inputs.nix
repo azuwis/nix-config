@@ -16,9 +16,7 @@ in
   nix-homebrew = github "zhaofengli/nix-homebrew" { };
   nix-index-database = github "azuwis/nix-index-database" { };
   nix-on-droid = github "nix-community/nix-on-droid" { };
-  nix-openwrt-imagebuilder = github "astro/nix-openwrt-imagebuilder" {
-    rev = "d2f4c07ca221cc0b5a4385f2dc9af46ea88a198c"; # freeze
-  };
+  nix-openwrt-imagebuilder = github "astro/nix-openwrt-imagebuilder" { freeze = true; };
   nixos-wsl = github "nix-community/NixOS-WSL" { };
   nixpkgs = github "NixOS/nixpkgs" { ref = "nixos-25.11"; };
 }
