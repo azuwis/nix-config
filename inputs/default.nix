@@ -1,5 +1,10 @@
 # Inspired by https://codeberg.org/FrdrCkII/nixlock
 
+# NOTE: Do not add `name` arg to fetchGit or fetchTarball, keep default name to
+# `source`, which is special to nix. If changed, nix may copy inputs already in
+# nix store when using `nix shell nixpkgs#foo` or similar commands
+# https://github.com/NixOS/nix/issues/11228#issuecomment-2261087599
+
 let
   allLock = import ./lock.nix;
   updateTargets = builtins.filter builtins.isString (
@@ -22,7 +27,6 @@ builtins.mapAttrs (
     lock = allLock.${name} or { };
     isLocked = needUpdate name == false && lock != { };
     fetchGitArgs = {
-      inherit name;
       shallow = true;
     }
     // removeAttrs input [ "type" ]
@@ -63,7 +67,6 @@ builtins.mapAttrs (
       lock
       // {
         outPath = builtins.fetchTarball {
-          inherit name;
           url = input.url + "/archive/" + lock.rev + ".tar.gz";
           sha256 = lock.narHash;
         };
@@ -80,7 +83,6 @@ builtins.mapAttrs (
         outPath =
           if builtins.pathExists lock.outPath then
             builtins.fetchTarball {
-              inherit name;
               url = "";
               sha256 = lock.narHash;
             }
