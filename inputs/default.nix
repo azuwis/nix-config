@@ -22,6 +22,27 @@
 
 let
   allLock = import ./lock.nix;
+  argsToString =
+    args:
+    builtins.concatStringsSep "" (
+      [ "{" ]
+      ++ builtins.attrValues (
+        builtins.mapAttrs (
+          name: value:
+          let
+            valueString =
+              if builtins.isBool value then
+                if value then "true" else "false"
+              else if builtins.isInt value then
+                toString value
+              else
+                "\"${toString value}\"";
+          in
+          "${name}=${valueString};"
+        ) args
+      )
+      ++ [ "}" ]
+    );
   updateTargets = builtins.filter builtins.isString (
     builtins.split " " (builtins.getEnv "NIXLOCK_UPDATE")
   );
@@ -55,7 +76,7 @@ builtins.mapAttrs (
       else
         { }
     );
-    fetchInput = builtins.trace "fetchGit ${builtins.toJSON fetchGitArgs}" (
+    fetchInput = builtins.trace "${name} = builtins.fetchGit ${argsToString fetchGitArgs}" (
       builtins.fetchGit fetchGitArgs
     );
     replacement = builtins.getEnv "NIXLOCK_OVERRIDE_${name}";
