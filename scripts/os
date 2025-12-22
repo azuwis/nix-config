@@ -264,6 +264,15 @@ flake-update() {
   run_command nix --extra-experimental-features "flakes nix-command" flake update --flake "$CONFIG" "${args[@]}" "$@"
 }
 
+nixlock-format() {
+  if command -v nixfmt &>/dev/null; then
+    nixfmt
+  else
+    sed $'s/{ /{\\\n/g; s/}; }/};\\\n}/g; s/; /;\\\n/g' |
+      sed '/^[a-z].*= {$/s/^/  /; /^};$/s/^/  /; /^[a-z].*;$/s/^/    /'
+  fi
+}
+
 nixlock-show() {
   # NOTE: column command is not portable, check `man /usr/bin/column` on darwin
   nix-instantiate --strict --eval --raw "$CONFIG/inputs/show.nix" | column -s, -t
@@ -276,7 +285,7 @@ nixlock-update() {
     update="all"
   fi
   if NIXLOCK_UPDATE="$update" nix-instantiate --option tarball-ttl 1 --impure --strict --eval "${args[@]}" \
-    "$CONFIG/inputs" | nixfmt >"$CONFIG/inputs/lock.tmp"; then
+    "$CONFIG/inputs" | nixlock-format >"$CONFIG/inputs/lock.tmp"; then
     mv "$CONFIG/inputs/lock.tmp" "$CONFIG/inputs/lock.nix"
     git diff "$CONFIG/inputs/lock.nix"
   else
