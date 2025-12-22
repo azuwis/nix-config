@@ -275,7 +275,8 @@ nixlock-format() {
 
 nixlock-show() {
   # NOTE: column command is not portable, check `man /usr/bin/column` on darwin
-  nix-instantiate --strict --eval --raw "$CONFIG/inputs/show.nix" | column -s, -t
+  # Darwin's column does not handle empty column, use sed to workaround
+  nix-instantiate --strict --eval --raw "$CONFIG/inputs/show.nix" | sed 's/,,/, ,/g; s/,,/, ,/' | column -s, -t
 }
 
 nixlock-update() {
