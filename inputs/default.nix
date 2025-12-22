@@ -1,5 +1,20 @@
 # Inspired by https://codeberg.org/FrdrCkII/nixlock
 
+# Update all inputs:
+# NIXLOCK_UPDATE=all nix-instantiate --strict --eval default.nix | nixfmt > lock.tmp
+# mv lock.tmp lock.nix
+
+# Update some inputs:
+# NIXLOCK_UPDATE="<input1> <input2>" ...
+# Update all expect some inputs:
+# NIXLOCK_UPDATE="all -<input1> -<input2>" ...
+
+# Show:
+# nix-instantiate --strict --eval --raw show.nix | column -s, -t
+
+# Override input:
+# NIXLOCK_OVERRIDE_<input1>="/home/user/src/<input1>" nix-build ...
+
 # NOTE: Do not add `name` arg to fetchGit or fetchTarball, keep default name to
 # `source`, which is special to nix. If changed, nix may copy inputs already in
 # nix store when using `nix shell nixpkgs#foo` or similar commands
