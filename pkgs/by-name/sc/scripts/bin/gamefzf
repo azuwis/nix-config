@@ -116,7 +116,7 @@ select_game() {
 
   keys=("${!apps[@]}")
   selected=$(printf "%s\n" "${keys[@]}" | sort | fuzzel --dmenu --lines=10)
-  if [[ -n "$selected" ]]; then
+  if [ -n "$selected" ]; then
     command="${apps[$selected]}"
     eval "$command"
   fi
