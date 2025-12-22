@@ -12,7 +12,10 @@ let
       }
     ) (import ./inputs.nix)
   );
-  line = map (
+  line = [
+    "Name,Date,Rev,Cache,URL"
+  ]
+  ++ map (
     input:
     let
       inherit (input) name;
@@ -33,7 +36,7 @@ let
       rev = if lock ? shortRev then lock.shortRev else "";
       cache = if lock ? outPath && builtins.pathExists lock.outPath then "yes" else "";
     in
-    "${name} ${date} ${rev} ${cache} ${url}${ref}"
+    "${name},${date},${rev},${cache},${url}${ref}"
   ) inputsList;
 in
 builtins.concatStringsSep "\n" line + "\n"

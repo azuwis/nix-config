@@ -265,7 +265,8 @@ flake-update() {
 }
 
 nixlock-show() {
-  nix-instantiate --strict --eval --raw "$CONFIG/inputs/show.nix" | column -t
+  # NOTE: column command is not portable, check `man /usr/bin/column` on darwin
+  nix-instantiate --strict --eval --raw "$CONFIG/inputs/show.nix" | column -s, -t
 }
 
 nixlock-update() {
