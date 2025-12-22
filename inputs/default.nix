@@ -55,9 +55,9 @@ builtins.mapAttrs (
       else
         { }
     );
-    fetchInput =
-      builtins.trace "fetchGit ${builtins.toJSON fetchGitArgs}" builtins.fetchGit
-        fetchGitArgs;
+    fetchInput = builtins.trace "fetchGit ${builtins.toJSON fetchGitArgs}" (
+      builtins.fetchGit fetchGitArgs
+    );
     replacement = builtins.getEnv "NIXLOCK_OVERRIDE_${name}";
   in
   if replacement != "" then
