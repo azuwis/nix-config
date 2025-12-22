@@ -129,14 +129,4 @@
     shortRev = "c6f52eb";
     submodules = false;
   };
-  treefmt-nix = {
-    lastModified = 1766000401;
-    lastModifiedDate = "20251217194001";
-    narHash = "sha256-+cqN4PJz9y0JQXfAK5J1drd0U05D5fcAGhzhfVrDlsI=";
-    outPath = "/nix/store/j2wzjpy3yyr56yv1klygrm7mya0kb2f0-source";
-    rev = "42d96e75aa56a3f70cab7e7dc4a32868db28e8fd";
-    revCount = 0;
-    shortRev = "42d96e7";
-    submodules = false;
-  };
 }

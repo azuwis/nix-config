@@ -21,5 +21,4 @@ in
   };
   nixos-wsl = github "nix-community/NixOS-WSL" { };
   nixpkgs = github "NixOS/nixpkgs" { ref = "nixos-25.11"; };
-  treefmt-nix = github "numtide/treefmt-nix" { };
 }
