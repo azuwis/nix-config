@@ -9,6 +9,9 @@
   nrfutil,
   writableTmpDirAsHomeHook,
   zip,
+  bubblewrap,
+  writeClosure,
+  writeShellApplication,
   nix-update-script,
   deviceType ? "ultra",
 }:
@@ -72,6 +75,42 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  passthru.flasher =
+    let
+      closureInfo = writeClosure [
+        finalAttrs.finalPackage
+        nrfutil'
+      ];
+      nrfutil' = (
+        nrfutil.override {
+          extensions = [ "nrfutil-device" ];
+          segger-jlink-headless = emptyDirectory;
+        }
+      );
+    in
+    writeShellApplication {
+      name = "chameleon-${deviceType}-firmware-flasher";
+
+      text = ''
+        BWRAP_ARGS=(
+          --unshare-all
+          --clearenv --setenv HOME "$HOME"
+          --proc /proc
+          --dev-bind-try /dev/ttyACM0 /dev/ttyACM0
+          --dev-bind-try /dev/ttyACM1 /dev/ttyACM1
+          --ro-bind /sys/bus/usb/devices /sys/bus/usb/devices
+          --ro-bind /sys/class/tty /sys/class/tty
+          --ro-bind /sys/devices/pci0000:00 /sys/devices/pci0000:00
+        )
+        mapfile -t paths <${closureInfo}
+        for path in "''${paths[@]}"; do
+          BWRAP_ARGS+=(--ro-bind "$path" "$path")
+        done
+        ${lib.getExe bubblewrap} "''${BWRAP_ARGS[@]}" -- ${lib.getExe nrfutil'} device program \
+          --firmware "${finalAttrs.finalPackage}/${deviceType}-dfu-app.zip" --traits nordicDfu
+      '';
+    };
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
