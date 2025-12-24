@@ -95,7 +95,7 @@ stdenv.mkDerivation (finalAttrs: {
       text = ''
         BWRAP_ARGS=(
           --unshare-all
-          --clearenv --setenv HOME "$HOME"
+          --clearenv --setenv HOME "/tmp"
           --proc /proc
           --ro-bind /sys/bus/usb/devices /sys/bus/usb/devices
           --ro-bind /sys/class/tty /sys/class/tty
