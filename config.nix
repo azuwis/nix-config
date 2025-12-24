@@ -13,7 +13,9 @@ in
   allowUnfreePredicate = (
     pkg:
     builtins.elem (lib.getName pkg) [
+      # nixos/retroarch
       "libretro-genesis-plus-gx"
+      # pkgs/by-name/ch/chameleon-ultra-firmware
       "nrf-command-line-tools"
       "nrfutil"
       "nrfutil-completion"
@@ -21,11 +23,13 @@ in
       "nrfutil-nrf5sdk-tools"
       "nvidia-settings"
       "nvidia-x11"
+      # nixos/steam, hosts/jovian.nix
       "steam"
       "steam-jupiter-unwrapped"
       "steam-unwrapped"
       "steamdeck-hw-theme"
     ]
+    # nixos/nvidia
     || _cuda.lib.allowUnfreeCudaPredicate pkg
   );
   android_sdk.accept_license = true;
