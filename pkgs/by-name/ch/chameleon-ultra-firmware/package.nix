@@ -97,12 +97,13 @@ stdenv.mkDerivation (finalAttrs: {
           --unshare-all
           --clearenv --setenv HOME "$HOME"
           --proc /proc
-          --dev-bind-try /dev/ttyACM0 /dev/ttyACM0
-          --dev-bind-try /dev/ttyACM1 /dev/ttyACM1
           --ro-bind /sys/bus/usb/devices /sys/bus/usb/devices
           --ro-bind /sys/class/tty /sys/class/tty
           --ro-bind /sys/devices/pci0000:00 /sys/devices/pci0000:00
         )
+        for path in /dev/ttyACM*; do
+          BWRAP_ARGS+=(--dev-bind "$path" "$path")
+        done
         mapfile -t paths <${closureInfo}
         for path in "''${paths[@]}"; do
           BWRAP_ARGS+=(--ro-bind "$path" "$path")
