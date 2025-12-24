@@ -14,6 +14,11 @@ in
     pkg:
     builtins.elem (lib.getName pkg) [
       "libretro-genesis-plus-gx"
+      "nrf-command-line-tools"
+      "nrfutil"
+      "nrfutil-completion"
+      "nrfutil-device"
+      "nrfutil-nrf5sdk-tools"
       "nvidia-settings"
       "nvidia-x11"
       "steam"
