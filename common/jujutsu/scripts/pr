@@ -3,6 +3,6 @@ set -eu
 
 pr=${1##*/}
 
-git fetch origin "pull/$pr/head:review/$pr"
-jj new "review/$pr"
+git fetch origin "pull/$pr/head:pr/$pr"
+jj new "pr/$pr"
 #jj bookmark delete "review/$pr"

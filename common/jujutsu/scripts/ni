@@ -1,40 +1,26 @@
 #!/usr/bin/env bash
 
-finish() {
-  echo
-  jj log --revisions "${from}-..${to}"
-  exit
-}
-
 jj op log --limit 1
 echo
 
-from=$1
-if [ -z "$from" ]; then
-  from="immutable_heads()"
-fi
-
-to=$2
-if [ -z "$to" ]; then
-  to="@"
-fi
-
-if [ -z "$1" ]; then
-  new_from=""
+revsets=$1
+if [ -z "$revsets" ]; then
+  revsets=""
   while read -r hour rev; do
     if [ "$hour" -lt 19 ]; then
-      new_from="${rev}-"
+      revsets="$rev::@"
       break
     fi
-  done < <(jj log --no-graph --reversed --template 'committer.timestamp().format("%-H") ++ " " ++ change_id ++ "\n"' --revisions "${from}..${to}")
-  if [ -n "$new_from" ]; then
-    from="$new_from"
-  else
-    finish
+  done < <(jj log --no-graph --reversed --template 'committer.timestamp().format("%-H") ++ " " ++ change_id ++ "\n"' --revisions "mutable()::@")
+  if [ -z "$revsets" ]; then
+    jj log --revisions "mutable()::@"
+    echo
+    echo "No need to modify"
+    exit
   fi
 fi
 
-last=$(jj log --color never --no-graph --limit 1 --template 'committer.timestamp().format("%s")' --revisions "roots(${from}..${to})-")
+last=$(jj log --color never --no-graph --limit 1 --template 'committer.timestamp().format("%s")' --revisions "roots($revsets)-")
 
 night="$(date +%s --date=19:00:00)"
 new="$((night - 86400))"
@@ -53,6 +39,7 @@ while read -r rev same; do
   fi
   JJ_TIMESTAMP="$timestamp" jj metaedit --ignore-immutable --force-rewrite "${args[@]}" "$rev"
   mod=600
-done < <(jj log --no-graph --reversed --template 'change_id ++ " " ++ author.email() == committer.email() ++ "\n"' --revisions "${from}..${to}")
+done < <(jj log --no-graph --reversed --template 'change_id ++ " " ++ author.email() == committer.email() ++ "\n"' --revisions "$revsets")
 
-finish
+echo
+jj log --revisions "$revsets"
