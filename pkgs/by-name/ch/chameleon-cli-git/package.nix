@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchpatch,
   cmake,
   makeWrapper,
   xz,
@@ -23,32 +22,15 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "chameleon-cli";
-  version = "2.1.0-unstable-2025-10-13";
+  version = "2.1.0-unstable-2025-12-24";
 
   src = fetchFromGitHub {
-    owner = "RfidResearchGroup";
+    owner = "azuwis";
     repo = "ChameleonUltra";
-    rev = "97dfe5b9a41a6ea5535c6842afbe420098c4844b";
-    sparseCheckout = [ "software" ];
-    hash = "sha256-zFExh0vhzNcf02izgO4P4cWq3LoQpEHb4ZW7hsHZqNA=";
+    rev = "77fdc184040b0078569c94d6362c988ac678d723";
+    rootDir = "software";
+    hash = "sha256-xzehEtuYJMouHoydkOA20V70sxrhH6woajoeRzTfLHM=";
   };
-
-  sourceRoot = "${finalAttrs.src.name}/software";
-
-  patches = [
-    # https://github.com/RfidResearchGroup/ChameleonUltra/pull/308
-    (fetchpatch {
-      url = "https://github.com/RfidResearchGroup/ChameleonUltra/commit/c14e6ccba22a5ce6fc93d2664fbfc5ccda8e1e6f.diff";
-      relative = "software";
-      hash = "sha256-GDgR6Pj4jT49sB7J5KyilbEFtbtmEsd3y1LKiYJRgdo=";
-    })
-    # https://github.com/RfidResearchGroup/ChameleonUltra/pull/307
-    (fetchpatch {
-      url = "https://github.com/RfidResearchGroup/ChameleonUltra/commit/dc212693a7d5b98d693d8dc630cf28c4959ef631.diff";
-      relative = "software";
-      hash = "sha256-YNZPLcSmfzq0xhpEmtl+hkPrnlxoF+ZdcH8BREsQT0A=";
-    })
-  ];
 
   postPatch = ''
     substituteInPlace src/CMakeLists.txt \
