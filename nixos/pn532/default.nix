@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.my.pn532;
+  cfg = config.hardware.pn532;
 in
 {
-  options.my.pn532 = {
+  options.hardware.pn532 = {
     enable = mkEnableOption "pn532";
   };
 

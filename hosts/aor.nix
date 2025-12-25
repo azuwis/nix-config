@@ -61,7 +61,7 @@
   hardware.nvidia.open = true;
   virtualisation.libvirtd.enhance = true;
   services.nix-builder.enable = true;
-  my.pn532.enable = true;
+  hardware.pn532.enable = true;
   programs.retroarch.enable = true;
   programs.wayland.scale = 2;
   programs.steam.enhance = true;
