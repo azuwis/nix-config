@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "macchanger";
-  version = "0-unstable-2025-04-05";
+  version = "0.2.1-unstable-2025-12-27";
 
   src = fetchFromGitHub {
     owner = "shilch";
     repo = "macchanger";
-    rev = "fd253f2df97f6f42421b9fc002f827012b5ecf72";
-    hash = "sha256-Y4hhmuELvVOzOGF3CbWWQedA5OPNSTY+Ur6rwcuOQl0=";
+    rev = "583593a7194b390adb306f03ca791e018b0f0d0d";
+    hash = "sha256-IKwLH8kmBUjK0fAF0iQFs+vzsSZC48fa/t0v0QAFoak=";
   };
 
   buildInputs = [ apple-sdk ];
