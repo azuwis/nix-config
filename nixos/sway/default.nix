@@ -26,8 +26,6 @@ in
       inherit (cfg) extraConfig;
       inherit (config.programs.wayland) terminal;
       wallpaper = pkgs.wallpapers.default;
-      DEFAULT_AUDIO_SINK = null;
-      DEFAULT_AUDIO_SOURCE = null;
     };
 
     environment.etc."swaynag/config".text = ''

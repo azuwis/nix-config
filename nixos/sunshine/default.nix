@@ -22,8 +22,6 @@ let
     replacements = {
       inherit (config.programs.wayland) terminal;
       wallpaper = pkgs.wallpapers.default;
-      DEFAULT_AUDIO_SINK = null;
-      DEFAULT_AUDIO_SOURCE = null;
       # swaymsg -s /run/user/*/sway-ipc.*.sock --pretty --type get_inputs | awk '/Identifier:/ {print $2}'
       extraConfig = ''
         default_border normal
