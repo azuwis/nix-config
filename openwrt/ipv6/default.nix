@@ -20,5 +20,9 @@ in
     files.file."etc/sysctl.conf".text = ''
       net.ipv6.conf.default.disable_ipv6=1
     '';
+    packages = [
+      "-odhcp6c"
+      "-odhcpd-ipv6only"
+    ];
   };
 }
