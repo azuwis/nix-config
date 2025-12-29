@@ -1,5 +1,6 @@
 let
   inputs = import ../inputs;
+  lib = import ../lib;
   pkgs = import ../pkgs {
     # openwrt-imagebuilder runs only in x86_64-linux
     # https://openwrt.org/docs/guide-user/additional-software/imagebuilder
@@ -9,18 +10,21 @@ let
   openwrt-imagebuilder = inputs.nix-openwrt-imagebuilder.outPath;
 
   mkOpenwrt =
-    {
-      profile,
-      config ? { },
-      ignoreHashUrlRegex ? "",
-    }:
+    host:
     let
+      config =
+        (lib.evalModules {
+          modules = [
+            { _module.args = { inherit pkgs; }; }
+            (../hosts + "/${host}.nix")
+          ];
+        }).config;
       fetchurl =
         args:
         if
           builtins ? currentSystem # Not in pure mode
-          && ignoreHashUrlRegex != ""
-          && builtins.match ignoreHashUrlRegex args.url != null
+          && config.ignoreHashUrlRegex != ""
+          && builtins.match config.ignoreHashUrlRegex args.url != null
         then
           # Override pkgs.fetchurl with builtins.fetchurl, remove sha256 arg to let it
           # works in impure mode, another way to workaround hash mismatch problem
@@ -34,14 +38,12 @@ let
         };
       };
     in
-    import (openwrt-imagebuilder + "/builder.nix") (profiles.identifyProfile profile // config);
+    import (openwrt-imagebuilder + "/builder.nix") (
+      profiles.identifyProfile config.profile // config.builder
+    );
 in
 
-{
-  wg3526 = mkOpenwrt {
-    profile = "zbtlink_zbt-wg3526-16m";
-    # ignoreHashUrlRegex = "https://downloads\.openwrt\.org/.*/[a-z]+/Packages";
-  };
-
-  xr500 = mkOpenwrt { profile = "netgear_xr500"; };
-}
+lib.genAttrs [
+  "wg3526"
+  "xr500"
+] mkOpenwrt
