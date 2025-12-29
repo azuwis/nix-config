@@ -19,23 +19,8 @@ let
             (../hosts + "/${host}.nix")
           ];
         }).config;
-      fetchurl =
-        args:
-        if
-          builtins ? currentSystem # Not in pure mode
-          && config.ignoreHashUrlRegex != ""
-          && builtins.match config.ignoreHashUrlRegex args.url != null
-        then
-          # Override pkgs.fetchurl with builtins.fetchurl, remove sha256 arg to let it
-          # works in impure mode, another way to workaround hash mismatch problem
-          # https://github.com/astro/nix-openwrt-imagebuilder/?tab=readme-ov-file#refreshing-hashes
-          builtins.trace "Ignore hash of ${args.url}" (builtins.fetchurl (removeAttrs args [ "sha256" ]))
-        else
-          pkgs.fetchurl args;
       profiles = import (openwrt-imagebuilder + "/profiles.nix") {
-        pkgs = pkgs // {
-          inherit fetchurl;
-        };
+        inherit (config.builder) pkgs;
       };
     in
     import (openwrt-imagebuilder + "/builder.nix") (
