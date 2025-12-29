@@ -10,20 +10,20 @@ let
   activate = pkgs.writeShellScript "activate-home" ''
     set -euo pipefail
 
-    realhome="$1"
-    oldhome="$realhome/.local/state/home"
+    realdir="$1"
+    olddir="$realdir/.local/state/home"
 
-    echo "setting up $realhome"
+    echo "setting up $realdir"
 
-    if [ ! -w "$realhome" ]; then
-      echo "$realhome not writable, exit"
+    if [ ! -w "$realdir" ]; then
+      echo "$realdir not writable, exit"
       exit
     fi
 
-    newhome="${home}"
+    newdir="${home}"
     while read -r -d $'\0' file; do
-      source=$(readlink -f "$newhome/$file")
-      target="$realhome/$file"
+      source=$(readlink -f "$newdir/$file")
+      target="$realdir/$file"
       if [ ! -e "$target" ]; then
         echo "new: $target -> $source"
         mkdir -p "$(dirname "$target")"
@@ -40,35 +40,35 @@ let
           echo "skip replace: $target, not a symlink"
         fi
       fi
-    done < <(find "$newhome/" -type l -printf '%P\0')
+    done < <(find "$newdir/" -type l -printf '%P\0')
 
-    if [ -e "$oldhome" ]; then
+    if [ -e "$olddir" ]; then
       while read -r -d $'\0' file; do
-        if [ ! -e "$newhome/$file" ]; then
-          if [ -L "$realhome/$file" ]; then
-            echo "remove: $realhome/$file"
-            rm "$realhome/$file"
+        if [ ! -e "$newdir/$file" ]; then
+          if [ -L "$realdir/$file" ]; then
+            echo "remove: $realdir/$file"
+            rm "$realdir/$file"
           else
-            echo "skip remove: $realhome/$file, not a symlink"
+            echo "skip remove: $realdir/$file, not a symlink"
           fi
         fi
-      done < <(find "$oldhome/" -type l -printf '%P\0')
+      done < <(find "$olddir/" -type l -printf '%P\0')
 
       while read -r -d $'\0' dir; do
-        if [ -d "$realhome/$dir" ]; then
-          rmdir --ignore-fail-on-non-empty "$realhome/$dir"
+        if [ -d "$realdir/$dir" ]; then
+          rmdir --ignore-fail-on-non-empty "$realdir/$dir"
         fi
-      done < <(find "$oldhome/" -depth -mindepth 1 -type d -printf '%P\0')
+      done < <(find "$olddir/" -depth -mindepth 1 -type d -printf '%P\0')
     fi
 
-    mkdir -p "$(dirname "$oldhome")"
-    ln -sfn "$newhome" "$oldhome"
+    mkdir -p "$(dirname "$olddir")"
+    ln -sfn "$newdir" "$olddir"
   '';
 
   home = pkgs.runCommandLocal "home" { } ''
     set -euo pipefail
 
-    makeHomeEntry() {
+    makeEntry() {
       src="$1"
       target="$2"
 
@@ -94,12 +94,12 @@ let
 
     mkdir "$out"
     ${lib.concatMapStringsSep "\n" (
-      homeEntry:
+      entry:
       lib.escapeShellArgs [
-        "makeHomeEntry"
+        "makeEntry"
         # Force local source paths to be added to the store
-        "${homeEntry.source}"
-        homeEntry.target
+        "${entry.source}"
+        entry.target
       ]
     ) (lib.filter (f: f.enable) (lib.attrValues config.home.file))}
   '';
