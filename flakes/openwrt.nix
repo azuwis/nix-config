@@ -26,6 +26,15 @@ let
     import (openwrt-imagebuilder + "/builder.nix") (
       profiles.identifyProfile config.profile // config.builder
     );
+  # (import (openwrt-imagebuilder + "/builder.nix") (
+  #   profiles.identifyProfile config.profile // config.builder
+  # )).overrideAttrs
+  #   (old: {
+  #     nativeBuildInputs = old.nativeBuildInputs ++ [ pkgs.breakpointHook ];
+  #     postInstall = old.postInstall + ''
+  #       exit 1
+  #     '';
+  #   });
 in
 
 lib.genAttrs [
