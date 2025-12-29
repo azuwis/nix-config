@@ -11,4 +11,8 @@ in
 
 {
   imports = getModules [ ./. ];
+
+  config = {
+    ipv6.enable = false;
+  };
 }
