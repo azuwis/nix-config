@@ -47,6 +47,8 @@ in
       serve-expired = true;
       server = "127.0.0.54 -group local";
       server-quic = "223.5.5.5";
+      # https://pymumu.github.io/smartdns/config/edns-client-subnet/
+      # server-tls = "9.9.9.9 -group global -subnet 202.101.172.35";
       server-tls = "1.0.0.1 -group global";
       user = "nobody";
     };
