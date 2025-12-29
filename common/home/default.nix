@@ -20,7 +20,7 @@ let
       exit
     fi
 
-    newhome="${home}/home"
+    newhome="${home}"
     while read -r -d $'\0' file; do
       source=$(readlink -f "$newhome/$file")
       target="$realhome/$file"
@@ -74,25 +74,25 @@ let
 
       if [[ "$src" = *'*'* ]]; then
         # If the source name contains '*', perform globbing.
-        mkdir -p "$out/home/$target"
+        mkdir -p "$out/$target"
         for fn in $src; do
-            ln -s "$fn" "$out/home/$target/"
+            ln -s "$fn" "$out/$target/"
         done
       else
-        mkdir -p "$out/home/$(dirname "$target")"
-        if ! [ -e "$out/home/$target" ]; then
-          ln -s "$src" "$out/home/$target"
+        mkdir -p "$out/$(dirname "$target")"
+        if ! [ -e "$out/$target" ]; then
+          ln -s "$src" "$out/$target"
         else
           echo "duplicate entry $target -> $src"
-          if [ "$(readlink "$out/home/$target")" != "$src" ]; then
-            echo "mismatched duplicate entry $(readlink "$out/home/$target") <-> $src"
+          if [ "$(readlink "$out/$target")" != "$src" ]; then
+            echo "mismatched duplicate entry $(readlink "$out/$target") <-> $src"
             ret=1
           fi
         fi
       fi
     }
 
-    mkdir -p "$out/home"
+    mkdir "$out"
     ${lib.concatMapStringsSep "\n" (
       homeEntry:
       lib.escapeShellArgs [
