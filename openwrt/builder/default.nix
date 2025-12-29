@@ -59,6 +59,12 @@
           pkgs
         else
           pkgs // { inherit fetchurl; };
+      # Dereference files and make them writable
+      postConfigure = ''
+        cp --recursive --dereference --no-preserve=all files/ files.copy/
+        rm -r files
+        mv files.copy files
+      '';
     };
   };
 }
