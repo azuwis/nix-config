@@ -10,9 +10,10 @@ let
 in
 
 {
-  imports = getModules [ ./. ];
+  imports = [ ../common/my ] ++ getModules [ ./. ];
 
   config = {
     ipv6.enable = false;
+    system.enable = true;
   };
 }
