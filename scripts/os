@@ -264,6 +264,24 @@ flake-update() {
   run_command nix --extra-experimental-features "flakes nix-command" flake update --flake "$CONFIG" "${args[@]}" "$@"
 }
 
+nixlock-column() {
+  awk -F, '
+    {
+      for (i=1; i<=NF; i++) {
+        if (length($i) > w[i]) w[i] = length($i)
+        d[NR,i] = $i
+      }
+      c[NR] = NF
+    }
+    END {
+      for (r=1; r<=NR; r++) {
+        for (j=1; j<=c[r]; j++) printf "%-*s", w[j]+2, d[r,j]
+        print ""
+      }
+    }
+  '
+}
+
 nixlock-format() {
   if command -v nixfmt &>/dev/null; then
     nixfmt
@@ -274,9 +292,7 @@ nixlock-format() {
 }
 
 nixlock-show() {
-  # NOTE: column command is not portable, check `man /usr/bin/column` on darwin
-  # Darwin's column does not handle empty column, use sed to workaround
-  nix-instantiate --strict --eval --raw "$CONFIG/inputs/show.nix" | sed 's/,,/, ,/g; s/,,/, ,/' | column -s, -t
+  nix-instantiate --strict --eval --raw "$CONFIG/inputs/show.nix" | nixlock-column
 }
 
 nixlock-update() {
