@@ -30,23 +30,23 @@
     submodules = false;
   };
   homebrew-cask = {
-    lastModified = 1766530651;
-    lastModifiedDate = "20251223225731";
-    narHash = "sha256-cKuCo+MiljW7x4hjo4GI+Ww36xsbYVFIjQdkBZRKGrs=";
-    outPath = "/nix/store/g87mwkad62f2pdm0lq2cnr8xwx7lmrlh-source";
-    rev = "13b3dd5f367abb48b16541a6d5b7f9261a613154";
+    lastModified = 1767146280;
+    lastModifiedDate = "20251231015800";
+    narHash = "sha256-ygZ6MOot+XW/f7VjHriHAznheqZoS/il2y9XpLE6a4U=";
+    outPath = "/nix/store/19pf94icna6xbp8x198j47fchs0m2wik-source";
+    rev = "11d56c646d822319153da91bd0ab007d24b6725e";
     revCount = 0;
-    shortRev = "13b3dd5";
+    shortRev = "11d56c6";
     submodules = false;
   };
   jovian-nixos = {
-    lastModified = 1766225187;
-    lastModifiedDate = "20251220100627";
-    narHash = "sha256-6hcaU8qtmixsaEUbjPiOFd5aJPZxAIBokl5d7dkab3k=";
-    outPath = "/nix/store/prc77002q48jh8ki1phxmnyvb31l6fn5-source";
-    rev = "bb53a85db9210204a98f771f10f1f5b4e06ccb2d";
+    lastModified = 1767082077;
+    lastModifiedDate = "20251230080757";
+    narHash = "sha256-2tL1mRb9uFJThUNfuDm/ehrnPvImL/QDtCxfn71IEz4=";
+    outPath = "/nix/store/cbn1gmwa1gk9f9xyq2kb9ajkc86bds6x-source";
+    rev = "efd4b22e6fdc6d7fb4e186ae333a4b74e03da440";
     revCount = 0;
-    shortRev = "bb53a85";
+    shortRev = "efd4b22";
     submodules = false;
   };
   my = {
@@ -80,13 +80,13 @@
     submodules = false;
   };
   nix-index-database = {
-    lastModified = 1766291530;
-    lastModifiedDate = "20251221043210";
-    narHash = "sha256-PV28HgFy44qONzqfYUusuS7U+Mu1qN56B7mCUGdZo8g=";
-    outPath = "/nix/store/ywzjchwf55c8hah2pp0hx6s1rhc3h136-source";
-    rev = "dea1b35804078cdcc42de967b671b06beb71bd4d";
+    lastModified = 1766897153;
+    lastModifiedDate = "20251228044553";
+    narHash = "sha256-z/2IpWKny5WQUms+2VlBC6S9/32GU5mPIiW9esPmEEo=";
+    outPath = "/nix/store/f36k72ffha4xdlvwdsr57hhjsnjgcq4s-source";
+    rev = "e8f283f86e86f5af0f2294f58813b9e2610a8c49";
     revCount = 0;
-    shortRev = "dea1b35";
+    shortRev = "e8f283f";
     submodules = false;
   };
   nix-on-droid = {
@@ -120,13 +120,13 @@
     submodules = false;
   };
   nixpkgs = {
-    lastModified = 1766473571;
-    lastModifiedDate = "20251223070611";
-    narHash = "sha256-5G1NDO2PulBx1RoaA6U1YoUDX0qZslpPxv+n5GX6Qto=";
-    outPath = "/nix/store/sp6j7b4q48hd2672kdsmr5pdsbznzx9w-source";
-    rev = "76701a179d3a98b07653e2b0409847499b2a07d3";
+    lastModified = 1766885793;
+    lastModifiedDate = "20251228013633";
+    narHash = "sha256-P6RVkrM9JLCW6xBjSwHfgTOQ1JwBUma5xe5LI8xAPC0=";
+    outPath = "/nix/store/xhgq6c23wj99i1yb77vjb12i95dkbf30-source";
+    rev = "9ef261221d1e72399f2036786498d78c38185c46";
     revCount = 0;
-    shortRev = "76701a1";
+    shortRev = "9ef2612";
     submodules = false;
   };
 }
