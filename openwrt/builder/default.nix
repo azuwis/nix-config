@@ -65,6 +65,10 @@
         rm -r files
         mv files.copy files
       '';
+      postInstall = ''
+        cp -r ./files $out
+        find files \( -type d -printf "%M %4s %p/\n" \) -o \( -type f -printf "%M %4s %p\n" \) >$out/files.list
+      '';
     };
   };
 }
