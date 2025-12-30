@@ -2,17 +2,17 @@
   config,
   lib,
   pkgs,
-  name,
-  dir ? "",
+  optionName,
+  realDir ? "",
 }:
 
 let
   # Ref: nixpkgs/nixos/modules/system/etc/etc.nix
-  activate = pkgs.writeShellScript "activate-${name}" ''
+  activate = pkgs.writeShellScript "activate-${optionName}" ''
     set -euo pipefail
 
-    realdir="''${1:-${dir}}"
-    olddir="$realdir/.local/state/linkdir/${name}"
+    realdir="''${1:-${realDir}}"
+    olddir="$realdir/.local/state/linkdir/${optionName}"
 
     echo "setting up $realdir"
 
@@ -66,7 +66,7 @@ let
     ln -sfn "$newdir" "$olddir"
   '';
 
-  path = pkgs.runCommandLocal name { } ''
+  path = pkgs.runCommandLocal optionName { } ''
     set -euo pipefail
 
     makeEntry() {
@@ -102,16 +102,16 @@ let
         "${entry.source}"
         entry.target
       ]
-    ) (lib.filter (f: f.enable) (lib.attrValues config.${name}.file))}
+    ) (lib.filter (f: f.enable) (lib.attrValues config.${optionName}.file))}
   '';
 in
 
 {
-  ${name} = {
+  ${optionName} = {
     file = lib.mkOption {
       default = { };
       description = ''
-        Set of files that have to be linked in {file}`${dir}`.
+        Set of files that have to be linked in {file}`${realDir}`.
       '';
 
       type =
@@ -137,7 +137,7 @@ in
                 target = lib.mkOption {
                   type = lib.types.str;
                   description = ''
-                    Name of symlink (relative to {file}`${dir}`). Defaults to the attribute name.
+                    Name of symlink (relative to {file}`${realDir}`). Defaults to the attribute name.
                   '';
                 };
 
@@ -157,7 +157,7 @@ in
                 target = lib.mkDefault name;
                 source = lib.mkIf (config.text != null) (
                   let
-                    name' = "${name}-" + lib.replaceStrings [ "/" ] [ "-" ] name;
+                    name' = "${optionName}-" + lib.replaceStrings [ "/" ] [ "-" ] name;
                   in
                   lib.mkDerivedConfig options.text (pkgs.writeText name')
                 );

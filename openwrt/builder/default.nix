@@ -9,7 +9,7 @@
   options =
     import ../../lib/linkdir.nix {
       inherit config lib pkgs;
-      name = "files";
+      optionName = "files";
     }
     // {
       builder = lib.mkOption { };
