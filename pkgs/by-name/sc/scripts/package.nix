@@ -4,7 +4,7 @@ let
   bin = ./bin;
 in
 
-runCommand "scripts" { } ''
+runCommand "scripts" { preferLocalBuild = true; } ''
   mkdir -p $out/bin
   cp ${bin}/* $out/bin
   chmod +x $out/bin/*

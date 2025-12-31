@@ -24,7 +24,7 @@ in
   config = mkIf cfg.enable (mkMerge [
     ({
       home.packages = with pkgs; [
-        (runCommand "rofi-dmenu" { } ''
+        (runCommand "rofi-dmenu" { preferLocalBuild = true; } ''
           mkdir -p $out/bin
           ln -s ${rofi}/bin/rofi $out/bin/dmenu
         '')

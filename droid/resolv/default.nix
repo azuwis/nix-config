@@ -32,7 +32,7 @@ in
     # https://github.com/termux/termux-packages/issues/1174
     environment.etc."resolv.conf".enable = false;
     environment.packages = [
-      (pkgs.runCommand "resolvconf" { } ''
+      (pkgs.runCommand "resolvconf" { preferLocalBuild = true; } ''
         mkdir -p $out/bin
         install -m 0755 ${./resolv-${cfg.implement}.sh} $out/bin/resolv
       '')

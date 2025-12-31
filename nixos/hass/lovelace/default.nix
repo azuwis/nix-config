@@ -14,7 +14,7 @@ let
     hash = "sha256-QTEBgQ/kIFIBIogEBNH46JImnmpq+i4A6YD2XvYy7js=";
   };
 
-  generated = pkgs.runCommand "lovelace-generated" { } ''
+  generated = pkgs.runCommand "lovelace-generated" { preferLocalBuild = true; } ''
     mkdir $out
     for i in az tf yq; do
       ${pkgs.imagemagick}/bin/magick -background transparent -fill "#ff9800" -font ${font} -size 128x128 -gravity center label:"''${i^^}" "$out/$i.png"

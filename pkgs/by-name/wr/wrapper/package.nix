@@ -45,6 +45,8 @@ runCommand package.name
     ]
     ++ (lib.optional hasMan "man");
 
+    preferLocalBuild = true;
+
     meta = (package.meta or { }) // {
       outputsToInstall = [
         "out"

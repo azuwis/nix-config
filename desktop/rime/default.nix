@@ -42,9 +42,11 @@ in
 
   config = mkIf cfg.enable {
     home.file."${cfg.dir}/cn_dicts".source = "${pkgs.rime-ice}/share/rime-data/cn_dicts";
-    home.file."${cfg.dir}/rime_ice.dict.yaml".source = pkgs.runCommand "rime_ice.dict.yaml" { } ''
-      sed '/^\.\.\.$/q' ${pkgs.rime-ice}/share/rime-data/rime_ice.dict.yaml > $out
-    '';
+    home.file."${cfg.dir}/rime_ice.dict.yaml".source =
+      pkgs.runCommand "rime_ice.dict.yaml" { preferLocalBuild = true; }
+        ''
+          sed '/^\.\.\.$/q' ${pkgs.rime-ice}/share/rime-data/rime_ice.dict.yaml > $out
+        '';
 
     home.file."${cfg.dir}/default.custom.yaml".text = ''
       patch:

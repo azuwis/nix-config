@@ -12,7 +12,7 @@ let
   zdotdir = pkgs.linkFarm "zsh-zdotdir" {
     ".zprofile" = cfge.zprofile.source;
     ".zshenv" = cfge.zshenv.source;
-    ".zshrc" = pkgs.runCommand "zsh-zshrc" { } ''
+    ".zshrc" = pkgs.runCommand "zsh-zshrc" { preferLocalBuild = true; } ''
       substitute ${cfge.zshrc.source} $out --replace-fail /etc/zinputrc "${cfge.zinputrc.source}"
       sed -i '/^HOST=/d' $out
     '';
