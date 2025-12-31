@@ -15,6 +15,7 @@ USAGE:
   $cmd l|list
   $cmd ns|nixlock-show
   $cmd r|run <apps>
+  $cmd slb|show-local-builds [<path>]
   $cmd s|switch [<host>]
   $cmd u|update|lu|nixlock-update [all] [<input1>] [-<input2>] ...
   $cmd fu|flake-update [-a] [<input>] [<commit>]
@@ -315,6 +316,36 @@ direnv-gcroots() {
   nix-store --gc --print-roots | awk '/flake-profile/ {print $1}' | xargs -o nix-tree
 }
 
+show-local-builds() {
+  path="${1:-/run/current-system}"
+  nix path-info --sigs --recursive --json "$path" |
+    jq -r '.[] | select(.ultimate) | .deriver' | sort -u |
+    xargs -r nix derivation show |
+    jq -r 'to_entries[]
+      | (.value.inputDrvs | keys) as $inputs
+      | (.value.name // "") as $name
+      | select((
+        (
+          ($inputs | any(
+            contains("make-shell-wrapper-hook") or
+            contains("make-binary-wrapper-hook"))
+          ) and
+          (($inputs | any(contains("-source.drv"))) | not)
+        ) or
+        ($name == "YAZI_CONFIG_HOME") or
+        ($name == "configuration.yaml") or
+        ($name == "fonts.conf") or
+        ($name == "pipewire-extra-config") or
+        ($name == "qemu-ovmf-metadata") or
+        ($name == "sshd.conf-final") or
+        ($name == "ui-lovelace.yaml") or
+        ($name | test("(-fhsenv-rootfs|^homeassistant-[0-9.]+|^linux-[0-9.]+-modules-shrunk)$")) or
+        ($name | test("^(initrd-linux|security-wrapper|vimplugin|unit-script)-")) or
+        (.value.env.preferLocalBuild == "1") or
+        (.value.outputs | map(has("hash")) | any)
+      ) | not) | .key'
+}
+
 # System like SteamOS does not have `hostname` command
 if ! command -v hostname &>/dev/null; then
   hostname() {
@@ -369,10 +400,11 @@ s | switch)
   SWITCH=true
   action="build"
   ;;
+slb) action="show-local-builds" ;;
 esac
 
 case "$action" in
-clean | direnv-gcroots | flake-update | hardware | nixlock-show | nixlock-update | run | usage)
+clean | direnv-gcroots | flake-update | hardware | nixlock-show | nixlock-update | run | show-local-builds | usage)
   "$action" "$@"
   exit $?
   ;;
