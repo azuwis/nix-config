@@ -104,6 +104,7 @@ build() {
   darwin) args=("darwinConfigurations.\"$HOSTNAME\".system") ;;
   droid) args=("nixOnDroidConfigurations.\"$HOSTNAME\".activationPackage") ;;
   nixos) args=("nixosConfigurations.\"$HOSTNAME\".config.system.build.toplevel") ;;
+  openwrt) args=("openwrtConfigurations.\"$HOSTNAME\"") ;;
   solo) args=("soloConfigurations.\"$HOSTNAME\".config.solo.path") ;;
   esac
 
@@ -435,6 +436,8 @@ else if builtins.hasAttr hostname attr.nixosConfigurations then
   "nixos"
 else if builtins.hasAttr hostname attr.nixOnDroidConfigurations then
   "droid"
+else if builtins.hasAttr hostname attr.openwrtConfigurations then
+  "openwrt"
 else
   "solo"
 ')
