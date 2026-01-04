@@ -23,7 +23,8 @@ in
     systemd.services.shadowsocks-rust =
       let
         # https://en.wikipedia.org/wiki/Reserved_IP_addresses
-        setupNftables = pkgs.writeScript "shadowsocks-rust-setup-nftables" ''
+        setupNftables = pkgs.runCommand "shadowsocks-rust-setup-nftables" { preferLocalBuild = true; } ''
+          cat <<EOF >$out
           #! ${pkgs.nftables}/bin/nft -f
           include "${clearNftables}"
           table ip shadowsocks-rust {
@@ -48,7 +49,9 @@ in
                 224.0.0.0/4,
                 240.0.0.0/4,
                 255.255.255.255/32,
-                ${builtins.replaceStrings [ "\n" ] [ "," ] (builtins.readFile pkgs.chnroutes2)}
+          EOF
+                tr '\n' , <${pkgs.chnroutes2} >>$out
+          cat <<EOF >>$out
               }
             }
             chain output {
@@ -58,6 +61,8 @@ in
               tcp dport { 20-1023, 3000, 5222, 5228, 8000, 32200 } dnat to 127.0.0.1:7071
             }
           }
+          EOF
+          chmod +x $out
         '';
         clearNftables = pkgs.writeScript "shadowsocks-rust-clear-nftables" ''
           #! ${pkgs.nftables}/bin/nft -f
