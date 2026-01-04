@@ -277,7 +277,7 @@ in
                 (state "binary_sensor.dced8387eef4_occupancy" "45.5" "25.5")
                 (state' "climate.yeelink_v6_af1f_ptc_bath_heater" "45.5" "20" {
                   card_mod.style."state-badge $ ha-state-icon" = ''
-                    ha-state-icon[data-state="ventilate"] {
+                    ha-state-icon[data-state="auto"], ha-state-icon[data-state="ventilate"]{
                       color: var(--state-climate-cool-color) !important;
                     }
                   '';
