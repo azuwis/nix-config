@@ -204,27 +204,33 @@ in
         triggers:
           - trigger: state
             entity_id: climate.yeelink_v6_af1f_ptc_bath_heater
-            to: ventilate
+            attribute: preset_mode
+            to: Ventilate
             for: "00:10:00"
         conditions:
           - condition: state
             entity_id: sun.sun
             state: above_horizon
         actions:
-          - action: climate.turn_off
+          - action: climate.set_preset_mode
             target:
               entity_id: climate.yeelink_v6_af1f_ptc_bath_heater
+            data:
+              preset_mode: Idle
 
       - alias: Bath heater ventilate auto off
         triggers:
           - trigger: state
             entity_id: climate.yeelink_v6_af1f_ptc_bath_heater
-            to: ventilate
+            attribute: preset_mode
+            to: Ventilate
             for: "00:15:00"
         actions:
-          - action: climate.turn_off
+          - action: climate.set_preset_mode
             target:
               entity_id: climate.yeelink_v6_af1f_ptc_bath_heater
+            data:
+              preset_mode: Idle
 
       - alias: Fan dining room off when fan light dining room off
         triggers:
