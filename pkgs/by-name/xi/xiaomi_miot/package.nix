@@ -1,4 +1,8 @@
-{ home-assistant-custom-components, nix-update-script }:
+{
+  home-assistant-custom-components,
+  fetchpatch,
+  nix-update-script,
+}:
 
 home-assistant-custom-components.xiaomi_miot.overridePythonAttrs (old: rec {
   version = "1.1.1";
@@ -7,6 +11,14 @@ home-assistant-custom-components.xiaomi_miot.overridePythonAttrs (old: rec {
     rev = "v${version}";
     hash = "sha256-0B+rG2h2OMb363t0529/XjqZ9ORaT7XXk4qVyEAfNx8=";
   };
+
+  patches = (old.patches or [ ]) ++ [
+    # https://github.com/al-one/hass-xiaomi-miot/issues/2688
+    (fetchpatch {
+      url = "https://github.com/al-one/hass-xiaomi-miot/commit/f130bd155ef8cb128fe7790ca51468740b7232f2.patch";
+      hash = "sha256-NAHqUC9VOhn96lJdPLmwBUvS489CX/g4is+5pZau80k=";
+    })
+  ];
 
   passthru = (old.passthru or { }) // {
     enable = true;
