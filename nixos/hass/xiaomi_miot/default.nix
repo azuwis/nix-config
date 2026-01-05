@@ -196,9 +196,11 @@ in
               - heat
             for: "00:30:00"
         actions:
-          - action: climate.turn_off
+          - action: climate.set_preset_mode
             target:
               entity_id: climate.yeelink_v6_af1f_ptc_bath_heater
+            data:
+              preset_mode: Idle
 
       - alias: Bath heater ventilate auto off day
         triggers:
