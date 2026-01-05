@@ -8,7 +8,8 @@ let
     import (nixpkgs + "/nixos/lib/eval-config.nix") {
       # No need to pass nixpkgs or pkgs, eval-config.nix will import the same
       # nixpkgs that contains it, see nixpkgs/nixos/modules/misc/nixpkgs.nix
-      system = null;
+      # for how `_module.args.pkgs` is defined
+      system = null; # compatible with pure mode, system is set in hardware-*.nix
       modules = [
         (../hosts + "/${host}.nix") # compatible syntax with nix 2.3
       ];
