@@ -8,5 +8,5 @@
 {
   imports = [ ../openwrt ];
 
-  profile = "netgear_xr500";
+  builder.profile = "netgear_xr500";
 }
