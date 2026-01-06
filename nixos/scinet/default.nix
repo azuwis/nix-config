@@ -94,6 +94,7 @@ in
         description = "shadowsocks-rust Daemon";
         after = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
+        restartTriggers = [ config.age.secrets."shadowsocks-rust-redir.json".file ];
         serviceConfig = {
           DynamicUser = true;
           # Needed for udp tproxy
