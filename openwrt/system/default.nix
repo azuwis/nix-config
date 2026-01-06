@@ -12,6 +12,10 @@ in
 {
   options.system = {
     enable = lib.mkEnableOption "system";
+    hostname = lib.mkOption {
+      type = lib.types.str;
+      default = "OpenWrt";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -25,6 +29,7 @@ in
       add_list dhcp.@dnsmasq[0].rebind_domain='/netease.com/'
       set dropbear.@dropbear[0].PasswordAuth='0'
       set dropbear.@dropbear[0].RootPasswordAuth='0'
+      set system.@system[0].hostname='${cfg.hostname}'
       set system.@system[0].log_buffer_size='256'
       set system.@system[0].timezone='CST-8'
       set system.@system[0].zonename='Asia/Shanghai'
