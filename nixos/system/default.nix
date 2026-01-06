@@ -38,7 +38,7 @@
   environment.systemPackages = lib.optionals (config.boot.loader.grub.enable == true) [
     pkgs.grub-reboot-menu
   ];
-  # Disable user profiles, they're for `nix-env` `nix profile install`, should not be used
+  # Disable user profiles, they're for `home-manager` `nix-env` `nix profile install`, not used here
   environment.profiles = lib.mkForce [ "/run/current-system/sw" ];
   # https://github.com/orgs/NixOS/projects/66
   # boot.initrd.systemd.enable = true;

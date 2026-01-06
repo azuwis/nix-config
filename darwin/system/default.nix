@@ -9,6 +9,8 @@
   # https://github.com/nix-darwin/nix-darwin/pull/1341
   system.primaryUser = config.my.user;
   users.users.${config.my.user}.home = "/Users/${config.my.user}";
+  # Disable user profiles, they're for `home-manager` `nix-env` `nix profile install`, not used here
+  environment.profiles = lib.mkForce [ "/run/current-system/sw" ];
   environment.variables = {
     LANG = "en_US.UTF-8";
     LC_ALL = "en_US.UTF-8";
