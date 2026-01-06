@@ -72,8 +72,6 @@
     serviceConfig.WorkingDirectory = config.users.users.${config.my.user}.home;
   };
 
-  launchd.user.agents.skhd.path = lib.mkForce [ config.my.systemPath ];
-
   # launchd.user.agents.skhd.serviceConfig = {
   #   StandardErrorPath = "/tmp/skhd.log";
   #   StandardOutPath = "/tmp/skhd.log";

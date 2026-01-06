@@ -16,10 +16,7 @@ in
   #   StandardOutPath = "/tmp/sketchybar.log";
   # };
   services.sketchybar.enable = true;
-  launchd.user.agents.sketchybar.path = lib.mkForce [
-    lua
-    config.my.systemPath
-  ];
+  launchd.user.agents.sketchybar.path = lib.mkBefore [ lua ];
   launchd.user.agents.sketchybar.serviceConfig.ProgramArguments = lib.mkAfter [
     "--config"
     "${./config}/sketchybarrc"
