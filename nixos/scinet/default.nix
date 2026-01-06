@@ -54,11 +54,21 @@ in
           cat <<EOF >>$out
               }
             }
-            chain output {
+            chain tcp_redir {
               type nat hook output priority filter; policy accept;
               oif lo accept
               ip daddr @local accept
               tcp dport { 20-1023, 3000, 5222, 5228, 8000, 32200 } dnat to 127.0.0.1:7071
+            }
+            chain udp_mark {
+              type route hook output priority mangle; policy accept;
+              ip daddr @local accept
+              udp dport { 53, 443 } meta mark set 0x5358
+            }
+            chain udp_redir {
+              type filter hook prerouting priority mangle; policy accept;
+              ip daddr @local accept
+              udp dport { 53, 443 } meta mark 0x5358 tproxy to 127.0.0.1:7071
             }
           }
           EOF
@@ -69,6 +79,16 @@ in
           table ip shadowsocks-rust
           delete table ip shadowsocks-rust
         '';
+        setupIpRule = pkgs.writeScript "shadowsocks-rust-setup-iprule" ''
+          #! ${pkgs.iproute2}/bin/ip -batch
+          rule add fwmark 0x5358 lookup 5358
+          route add local 0.0.0.0/0 dev lo table 5358
+        '';
+        clearIpRule = pkgs.writeScript "shadowsocks-rust-clear-iprule" ''
+          #! ${pkgs.iproute2}/bin/ip -batch
+          rule delete fwmark 0x5358 lookup 5358
+          route delete local 0.0.0.0/0 dev lo table 5358
+        '';
       in
       {
         description = "shadowsocks-rust Daemon";
@@ -76,11 +96,20 @@ in
         wantedBy = [ "multi-user.target" ];
         serviceConfig = {
           DynamicUser = true;
+          # Needed for udp tproxy
+          CapabilityBoundingSet = [ "CAP_NET_RAW" ];
+          AmbientCapabilities = [ "CAP_NET_RAW" ];
           LoadCredential = "config.json:${config.age.secrets."shadowsocks-rust-redir.json".path}";
           ExecStart = "${lib.getBin cfg.package}/bin/sslocal --config \${CREDENTIALS_DIRECTORY}/config.json";
           # `+` run commands as root
-          ExecStartPost = "+${setupNftables}";
-          ExecStopPost = "+${clearNftables}";
+          ExecStartPost = [
+            "+${setupIpRule}"
+            "+${setupNftables}"
+          ];
+          ExecStopPost = [
+            "+${clearIpRule}"
+            "+${clearNftables}"
+          ];
         };
       };
   };
