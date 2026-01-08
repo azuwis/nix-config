@@ -27,6 +27,9 @@ in
       uci batch <<EOF
       set dhcp.@dnsmasq[0].cachesize=1024
       add_list dhcp.@dnsmasq[0].rebind_domain='/netease.com/'
+      set dhcp.lan.start='10'
+      set dhcp.lan.limit='245'
+      set dhcp.lan.leasetime='72h'
       set dropbear.@dropbear[0].PasswordAuth='0'
       set dropbear.@dropbear[0].RootPasswordAuth='0'
       set system.@system[0].hostname='${cfg.hostname}'
