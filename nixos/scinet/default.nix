@@ -12,7 +12,10 @@ in
 
 {
   options.services.scinet = {
-    enable = lib.mkEnableOption "services.scinet";
+    enable = lib.mkEnableOption "scinet";
+    udp = lib.mkEnableOption "scinet udp support" // {
+      default = true;
+    };
     package = lib.mkPackageOption pkgs "shadowsocks-rust" { };
   };
 
@@ -60,6 +63,13 @@ in
               ip daddr @local accept
               tcp dport { 20-1023, 3000, 5222, 5228, 8000, 32200 } dnat to 127.0.0.1:7071
             }
+          }
+          EOF
+          chmod +x $out
+        '';
+        setupNftablesUdp = pkgs.writeScript "shadowsocks-rust-setup-nftables-udp" ''
+          #! ${pkgs.nftables}/bin/nft -f
+          table ip shadowsocks-rust {
             chain udp_mark {
               type route hook output priority mangle; policy accept;
               ip daddr @local accept
@@ -71,8 +81,6 @@ in
               udp dport { 53, 443 } meta mark 0x5358 tproxy to 127.0.0.1:7071
             }
           }
-          EOF
-          chmod +x $out
         '';
         clearNftables = pkgs.writeScript "shadowsocks-rust-clear-nftables" ''
           #! ${pkgs.nftables}/bin/nft -f
@@ -98,18 +106,23 @@ in
         serviceConfig = {
           DynamicUser = true;
           # Needed for udp tproxy
-          CapabilityBoundingSet = [ "CAP_NET_RAW" ];
-          AmbientCapabilities = [ "CAP_NET_RAW" ];
+          CapabilityBoundingSet = lib.optionals cfg.udp [ "CAP_NET_RAW" ];
+          AmbientCapabilities = lib.optionals cfg.udp [ "CAP_NET_RAW" ];
           LoadCredential = "config.json:${config.age.secrets."shadowsocks-rust-redir.json".path}";
           ExecStart = "${lib.getBin cfg.package}/bin/sslocal --config \${CREDENTIALS_DIRECTORY}/config.json";
           # `+` run commands as root
           ExecStartPost = [
-            "+${setupIpRule}"
             "+${setupNftables}"
+          ]
+          ++ lib.optionals cfg.udp [
+            "+${setupNftablesUdp}"
+            "+${setupIpRule}"
           ];
           ExecStopPost = [
-            "+${clearIpRule}"
             "+${clearNftables}"
+          ]
+          ++ lib.optionals cfg.udp [
+            "+${clearIpRule}"
           ];
         };
       };
