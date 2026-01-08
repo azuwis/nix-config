@@ -4,6 +4,7 @@ let
   mkSolo =
     host:
     lib.evalModules {
+      class = "solo";
       modules = [
         (../hosts + "/${host}.nix")
       ];
