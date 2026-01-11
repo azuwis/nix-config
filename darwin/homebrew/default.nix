@@ -42,7 +42,7 @@ in
           sha256 = locked.narHash;
         };
       };
-    # Add `homebrew-cask = github "Homebrew/homebrew-core" { };` to inputs/inputs.nix, run `os update homebrew-core`
+    # Add `homebrew-core = github "Homebrew/homebrew-core" { };` to inputs/inputs.nix, run `os update homebrew-core`
     taps = {
       # "homebrew/homebrew-core" = inputs.homebrew-core;
       "homebrew/homebrew-cask" = inputs.homebrew-cask;
