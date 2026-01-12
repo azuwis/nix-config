@@ -247,10 +247,8 @@ in
               performance = {
                 rtp = {
                   -- Needed for [lazyvim config](https://www.lazyvim.org/configuration/general)
-                  -- and treesitter parsers
                   paths = {
                     "${lazyvimConfig}",
-                    "${treesitterParsers}",
                   },
                 },
               },
