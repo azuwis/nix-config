@@ -61,7 +61,10 @@ in
     services.home-assistant = {
       enable = true;
       # Override default value [ "default_config" "met" "esphome" ], may cause problem for onboarding
-      extraComponents = [ "default_config" ];
+      extraComponents = [
+        "default_config"
+        "isal" # speedup zlib compression, websocket connections https://www.home-assistant.io/integrations/isal
+      ];
       extraPackages = ps: with ps; [ holidays ];
     };
 
