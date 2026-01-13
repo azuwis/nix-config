@@ -26,7 +26,7 @@ in
     #
     # `Adwaita:dark`, gtk3 builtin, only works in GTK_THEME env var, works without gnome-themes-extra
     #
-    # environment.variables.GTK_THEME = "Adwaita:dark";
+    # environment.sessionVariables.GTK_THEME = "Adwaita:dark";
     #
     # `Adwaita-dark` is provided in gnome-themes-extra, support gtk2/gtk3
     #
