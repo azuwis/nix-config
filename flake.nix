@@ -19,7 +19,7 @@
     in
     import ./flakes
     // {
-      devShells = eachSystem ({ pkgs, ... }: import ./devshells { inherit pkgs; });
+      devShells = eachSystem ({ pkgs, ... }: import ./shell.nix { inherit pkgs; });
       apps = eachSystem (
         { pkgs, ... }:
         builtins.mapAttrs (name: drv: {
