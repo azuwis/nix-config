@@ -22,6 +22,11 @@ in
   # /var/lib/qbittorrent/
   # /var/lib/torrent-ratio/
   # /var/lib/zigbee2mqtt/
+
+  # environment.variables vs environment.sessionVariables:
+  # environment.variables -> /etc/profile -> shell -> CLI tools
+  # environment.sessionVariables -> /etc/pam/environment -> login -> GUI apps
+  # environment.sessionVariables also merged to environment.variables
   imports = [
     (inputs.agenix.outPath + "/modules/age.nix")
     (inputs.disko.outPath + "/module.nix")
