@@ -42,6 +42,11 @@ let
         assign [app_id="^sunshine-terminal$"] 4
         exec foot --app-id=sunshine-terminal
 
+        # Import the most important environment variables into the D-Bus, for xdg-desktop-portal-gtk
+        # and others, see also /etc/sway/config.d/nixos.conf
+        # Do not import those variables to systemd, it will affect the real display
+        exec dbus-update-activation-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+
         exec ${lib.getExe (pkgs.sunshine.override { inherit (cfg) cudaSupport; })} "$SUNSHINE_CONFIG"
       ''
       + lib.concatMapStrings (entry: "exec ${lib.concatStringsSep " " entry}\n") (
