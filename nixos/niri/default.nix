@@ -13,6 +13,10 @@ in
   options.programs.niri = {
     enhance = lib.mkEnableOption "and enhance niri";
 
+    gtk3 = lib.mkEnableOption "gtk3 wrapper for niri" // {
+      default = true;
+    };
+
     # No specific input device configuration yet, at least provide per-host setting our own
     # https://github.com/YaLTeR/niri/issues/371
     settings.input.mouse = lib.mkOption {
@@ -36,6 +40,39 @@ in
     # xdg.portal.extraPortals = lib.mkForce [ pkgs.xdg-desktop-portal-gtk ];
     # or disable xdg portal entirely:
     # xdg.portal.enable = lib.mkForce false;
+
+    # Similar to programs.sway.wrapperFeatures.gtk, see nixpkgs/pkgs/by-name/sw/sway/package.nix
+    programs.niri.package = lib.mkIf cfg.gtk3 (
+      pkgs.symlinkJoin {
+        inherit (pkgs.niri)
+          passthru
+          meta
+          pname
+          version
+          ;
+
+        paths = [ pkgs.niri ];
+
+        strictDeps = false;
+        nativeBuildInputs = [ pkgs.wrapGAppsHook3 ];
+
+        buildInputs = [
+          pkgs.gdk-pixbuf
+          pkgs.glib
+          pkgs.gtk3
+        ];
+
+        dontWrapGApps = true;
+
+        postBuild = ''
+          gappsWrapperArgsHook
+          wrapGApp $out/bin/${pkgs.niri.meta.mainProgram}
+          rm $out/share/systemd/user/niri.service
+          substitute ${pkgs.niri}/share/systemd/user/niri.service $out/share/systemd/user/niri.service \
+            --replace-fail "${pkgs.niri}" "${placeholder "out"}"
+        '';
+      }
+    );
 
     # https://github.com/YaLTeR/niri/raw/refs/tags/v25.11/resources/default-config.kdl
     environment.etc."niri/config.kdl".source =
