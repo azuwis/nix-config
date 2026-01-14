@@ -20,6 +20,17 @@ in
       evtest
     ];
 
+    environment.etc."xdg/user-dirs.defaults".text = ''
+      DESKTOP=/dev/null
+      DOCUMENTS=documents
+      DOWNLOAD=downloads
+      MUSIC=music
+      PICTURES=pictures
+      PUBLICSHARE=/dev/null
+      TEMPLATES=/dev/null
+      VIDEOS=videos
+    '';
+
     nix = {
       daemonCPUSchedPolicy = "idle";
       daemonIOSchedClass = "idle";
