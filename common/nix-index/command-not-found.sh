@@ -34,21 +34,13 @@ command_not_found_handle() {
     # these will not return 127 if they worked correctly
 
     if [ -n "${NIX_AUTO_RUN-}" ]; then
-      if out=$(nix-build --no-out-link -A "$attrs" "<$toplevel>"); then
-        shift
-        "$out/bin/$cmd" "$@"
-        return $?
-      else
-        >&2 cat <<EOF
-Failed to install $toplevel.$attrs.
-$cmd: command not found
-EOF
-      fi
+      nix shell "$toplevel#${attrs%.out}" --command "$@"
+      return $?
     else
       >&2 cat <<EOF
 The program '$cmd' is not installed. Run it once with:
 
-  nix-shell -p ${attrs%.out} --run '$cmd ...'
+  nix shell $toplevel#${attrs%.out} --command $cmd
 EOF
     fi
     ;;
@@ -59,7 +51,7 @@ The program '$cmd' is not installed. It is provided by several packages. Run it 
 EOF
 
     while read -r attr; do
-      >&2 echo "  nix-shell -p ${attr%.out} --run '$cmd ...'"
+      >&2 echo "  nix shell $toplevel#${attr%.out} --command $cmd"
     done <<<"$attrs"
     ;;
   esac
