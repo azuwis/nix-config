@@ -21,6 +21,7 @@ in
       "nrfutil-completion"
       "nrfutil-device"
       "nrfutil-nrf5sdk-tools"
+      # nixos/nvidia
       "nvidia-settings"
       "nvidia-x11"
       # nixos/steam, hosts/jovian.nix
