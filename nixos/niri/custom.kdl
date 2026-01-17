@@ -1,4 +1,5 @@
 // vim: set tabstop=4 softtabstop=4 shiftwidth=4 expandtab:
+// https://yalter.github.io/niri/Configuration%3A-Include.html
 
 input {
     keyboard {
@@ -48,6 +49,8 @@ hotkey-overlay {
 }
 
 prefer-no-csd
+
+screenshot-path "~/pictures/screenshots/screenshot-%Y-%m-%d-%H-%M-%S.png"
 
 animations {
     // Turn off workspace switch animation
