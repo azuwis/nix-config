@@ -118,6 +118,11 @@ builtins.mapAttrs (
         # https://github.com/nikstur/lon/pull/3#issuecomment-2797643718
         outPath =
           if builtins.pathExists lock.outPath then
+            # Can not directly use lock.outPath here, it lacks string context:
+            # $ nix-instantiate --eval --expr 'builtins.getContext (import ./inputs).nixpkgs.outPath'
+            # { "/nix/store/...-source" = { path = true; }; }
+            # $ nix-instantiate --eval --expr 'builtins.getContext (import ./inputs/lock.nix).nixpkgs.outPath'
+            # { }
             builtins.fetchTarball {
               url = "";
               sha256 = lock.narHash;
