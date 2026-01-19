@@ -8,11 +8,33 @@ each_cidr() {
   action="$1"
   shift
   for cidr in 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 1.1.1.0/24; do
-    route -q -n "$action" "$cidr" "$@" 1>/dev/null 2>/dev/null
+    route -q -n "$action" "$cidr" "$@" 1>/dev/null 2>/dev/null || {
+      [ "$action" = "change" ] &&
+        route -q -n add "$cidr" "$@" 1>/dev/null 2>/dev/null
+    }
   done
   while read -r cidr; do
-    route -q -n "$action" "$cidr" "$@" 1>/dev/null 2>/dev/null
+    route -q -n "$action" "$cidr" "$@" 1>/dev/null 2>/dev/null || {
+      [ "$action" = "change" ] &&
+        route -q -n add "$cidr" "$@" 1>/dev/null 2>/dev/null
+    }
   done <"$local_cidr"
+}
+
+delete_route_by_gateway() {
+  gateway=$1
+  # Convert classful to CIDR
+  netstat -rnf inet | awk '$1 != "default" && $2 == "'"$gateway"'" {
+    dst=$1; 
+    if (index(dst, "/") == 0) {
+      n=split(dst, a, "."); 
+      m=n*8; while(n<4) { dst=dst".0"; n++ }
+      dst=dst"/"m
+    }
+    print dst
+  }' | while read -r cidr; do
+    route -q -n delete "$cidr" "$gateway" 1>/dev/null 2>/dev/null
+  done
 }
 
 start() {
@@ -27,6 +49,7 @@ start() {
     if [ "$gateway" != "$old_gateway" ]; then
       echo "Change local cidr gateway to $gateway"
       each_cidr change "$gateway"
+      delete_route_by_gateway "$old_gateway"
     fi
   fi
   route -n add 0.0.0.0/1 -interface "$interface"
@@ -52,6 +75,8 @@ disable)
   stop
   launchctl unload "$launchd_plist"
   each_cidr delete
+  gateway="$(route -n get default 2>/dev/null | awk '/gateway/ {print $2}')"
+  delete_route_by_gateway "$gateway"
   ;;
 *)
   if grep -q '^nameserver ' /var/run/resolv.conf; then
