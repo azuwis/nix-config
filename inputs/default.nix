@@ -46,22 +46,23 @@ let
   updateTargets = builtins.filter builtins.isString (
     builtins.split " " (builtins.getEnv "NIXLOCK_UPDATE")
   );
-  updateAll = builtins.elem "all" updateTargets;
-  needUpdate =
-    name:
-    if builtins.elem name updateTargets then
-      true
-    else if builtins.elem "-${name}" updateTargets then
-      false
-    else
-      updateAll;
 in
 
 builtins.mapAttrs (
   name: input:
   let
     lock = allLock.${name} or { };
-    isLocked = needUpdate name == false && lock != { } || (input.freeze or false) == true;
+    isLocked =
+      if lock == { } then
+        false
+      else if builtins.elem name updateTargets then
+        false
+      else if builtins.elem "-${name}" updateTargets then
+        true
+      else if builtins.elem "all" updateTargets then
+        input.freeze or false
+      else
+        true;
     fetchGitArgs = {
       shallow = true;
     }
