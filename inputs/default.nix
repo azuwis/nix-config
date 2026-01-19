@@ -24,7 +24,7 @@ let
   allLock = import ./lock.nix;
   argsToString =
     args:
-    builtins.concatStringsSep "" (
+    builtins.concatStringsSep " " (
       [ "{" ]
       ++ builtins.attrValues (
         builtins.mapAttrs (
