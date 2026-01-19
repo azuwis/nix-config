@@ -15,6 +15,8 @@
     LANG = "en_US.UTF-8";
     LC_ALL = "en_US.UTF-8";
   };
+  documentation.doc.enable = false;
+  documentation.info.enable = false;
   fonts.packages = with pkgs; [ nerd-fonts.jetbrains-mono ];
   nix.settings = {
     allowed-users = [ config.my.user ];
