@@ -335,6 +335,8 @@ show-local-builds() {
         ) or
         ($name == "YAZI_CONFIG_HOME") or
         ($name == "configuration.yaml") or
+        ($name == "darwin-manpages") or
+        ($name == "darwin-uninstaller") or
         ($name == "fonts.conf") or
         ($name == "pipewire-extra-config") or
         ($name == "qemu-ovmf-metadata") or
