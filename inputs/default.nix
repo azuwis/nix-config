@@ -113,19 +113,16 @@ builtins.mapAttrs (
     if isLocked then
       lock
       // {
-        # Hack here, builtins.fetchGit always fetch even if narHash provided,
-        # use fetchTarball to produce the outPath if already in nix store
+        # `builtins.fetchGit` always fetch even if narHash provided.
+        # If the outPath is already in nix store, directly use it, but need to
+        # use `builtins.appendContext` to restore the string context
         # https://github.com/nikstur/lon/pull/3#issuecomment-2797643718
         outPath =
           if builtins.pathExists lock.outPath then
-            # Can not directly use lock.outPath here, it lacks string context:
-            # $ nix-instantiate --eval --expr 'builtins.getContext (import ./inputs).nixpkgs.outPath'
-            # { "/nix/store/...-source" = { path = true; }; }
-            # $ nix-instantiate --eval --expr 'builtins.getContext (import ./inputs/lock.nix).nixpkgs.outPath'
-            # { }
-            builtins.fetchTarball {
-              url = "";
-              sha256 = lock.narHash;
+            builtins.appendContext lock.outPath {
+              "${lock.outPath}" = {
+                path = true;
+              };
             }
           else
             fetchInput.outPath;
