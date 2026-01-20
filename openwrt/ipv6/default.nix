@@ -17,9 +17,7 @@ in
   };
 
   config = lib.mkIf (!cfg.enable) {
-    files.file."etc/sysctl.conf".text = ''
-      net.ipv6.conf.default.disable_ipv6=1
-    '';
+    files.file."etc/sysctl.conf".text = "net.ipv6.conf.default.disable_ipv6=1";
     builder.packages = [
       "-odhcp6c"
       "-odhcpd-ipv6only"

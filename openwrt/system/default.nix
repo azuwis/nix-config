@@ -16,9 +16,7 @@ in
 
   config = lib.mkIf cfg.enable {
     files.file."etc/dropbear/authorized_keys".text = lib.concatStringsSep "\n" config.my.keys;
-    files.file."etc/sysctl.conf".text = ''
-      net.netfilter.nf_conntrack_max=32768
-    '';
+    files.file."etc/sysctl.conf".text = "net.netfilter.nf_conntrack_max=32768";
     uci = {
       dhcp."@dnsmasq[0]".cachesize = "1024";
       dhcp."@dnsmasq[0]".rebind_domain = [ "/netease.com/" ];
