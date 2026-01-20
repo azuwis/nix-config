@@ -51,6 +51,7 @@ in
         text = ''
           uci batch <<EOF
           ${lib.concatStringsSep "\n" uciList}
+          commit ${name}
           EOF
         '';
       }
