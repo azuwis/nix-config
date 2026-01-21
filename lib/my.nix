@@ -14,4 +14,17 @@ in
   inherit getPaths;
   getModules = builtins.concatMap (getPaths "default.nix");
   getHmModules = builtins.concatMap (getPaths "home.nix");
+
+  # Example:
+  # imports = [
+  #   (mkReplaceStringsModule [ ''"bzip2"'' ] [ "" ] (modulesPath + "/config/system-path.nix"))
+  # ];
+  mkReplaceStringsModule = from: to: module: {
+    disabledModules = [ module ];
+    imports = [
+      (builtins.toFile (builtins.unsafeDiscardStringContext (baseNameOf module)) (
+        builtins.replaceStrings from to (builtins.readFile module)
+      ))
+    ];
+  };
 }
