@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  options,
   pkgs,
   ...
 }:
@@ -14,6 +15,28 @@ in
     enhance = lib.mkEnableOption "and enhance smartdns";
   };
 
+  # Remove `resolve [!UNAVAIL=return]` (added by `services.resolved.enable`) from /etc/nsswitch.conf, see bellow for details
+  # Idea from https://discourse.nixos.org/t/73289/20
+  options.system.nssDatabases.hosts = lib.mkOption {
+    apply =
+      defns:
+      if cfg.enhance then
+        let
+          item = "resolve [!UNAVAIL=return]";
+        in
+        if builtins.elem item defns then
+          lib.filter (x: x != item) defns
+        else
+          throw ''
+            Error trying to remove non-existing element `${item}` from config.system.nssDatabases.hosts.
+
+            Check the value of `system.nssDatabases.hosts` in ${builtins.head options.services.resolved.enable.declarations},
+            and update `options.system.nssDatabases.hosts` in ${__curPos.file} accordingly.
+          ''
+      else
+        defns;
+  };
+
   config = lib.mkIf cfg.enhance {
     environment.etc."resolv.conf".text = lib.mkForce ''
       nameserver ${builtins.elemAt cfg.settings.bind 0}
@@ -22,10 +45,10 @@ in
     services.resolved.enable = true;
     # When resolved enabled, /etc/nsswitch.conf will have `hosts: mymachines resolve [!UNAVAIL=return] files myhostname dns`,
     # which will make gethostbyname (apps like `ping` `firefox`) prefer systemd-resolved, and ignore /etc/resolv.conf.
-    # Can not easily remove `resolve [!UNAVAIL=return]`, so prepend `dns [!UNAVAIL=return]`, and make
-    # smartdns behave like `files myhostname dns`.
-    # This make tools like `dig` and `ping` have almost the same result.
-    system.nssDatabases.hosts = lib.mkBefore [ "dns [!UNAVAIL=return]" ];
+    # Currently using custom `options.system.nssDatabases.hosts` hack (see above) to remove `resolve [!UNAVAIL=return]`,
+    # make tools like `dig` and `ping` have almost the same result.
+    # Another fix is prepending `files myhostname dns [!UNAVAIL=return]`:
+    # system.nssDatabases.hosts = lib.mkBefore [ "files myhostname dns [!UNAVAIL=return]" ];
 
     services.smartdns.enable = true;
     services.smartdns.settings = {
@@ -33,7 +56,7 @@ in
       cache-size = 4096;
       force-AAAA-SOA = true;
       force-qtype-SOA = 65;
-      # Support /etc/hosts, so don't need `files` in nsswitch.conf
+      # Support /etc/hosts as fallback, for apps that skip nss, or false nsswitch.conf config like missing `files`
       hosts-file = "/etc/hosts";
       nameserver = [
         "/detectportal.firefox.com/local"
