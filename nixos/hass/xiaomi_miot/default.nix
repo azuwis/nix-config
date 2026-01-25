@@ -28,6 +28,23 @@ in
     ];
 
     services.home-assistant.config = {
+      template = [
+        {
+          sensor = [
+            {
+              name = "Bath Heater";
+              state = ''
+                {% set preset_mode = state_attr('climate.yeelink_v6_af1f_ptc_bath_heater', 'preset_mode') %}
+                {% if preset_mode %}
+                {{ preset_mode }}
+                {% else %}
+                {{ states('climate.yeelink_v6_af1f_ptc_bath_heater') }}
+                {% endif %}
+              '';
+            }
+          ];
+        }
+      ];
       xiaomi_miot.device_customizes = {
         "deye.derh.z20".ignore_offline = true;
         "leshow.humidifier.jsq1".ignore_offline = true;

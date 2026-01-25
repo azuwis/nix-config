@@ -95,7 +95,7 @@ let
         layout.mode.headings = false;
       };
     };
-  climate' = entity: card: recursiveUpdate (climate entity) { inherit card; };
+  climate' = entity: extra: recursiveUpdate (climate entity) extra;
 
   conditional = entity: elements: {
     inherit elements;
@@ -291,6 +291,10 @@ in
                         {%- endif %}
                     }
                   '';
+                  hold_action = {
+                    action = "more-info";
+                    entity = "sensor.bath_heater";
+                  };
                 })
                 (state' "binary_sensor.0x00158d00028f9af8_contact" "45.5" "14.7" {
                   # Reverse on/off color, https://www.home-assistant.io/integrations/frontend/#state-color
@@ -320,10 +324,16 @@ in
             #   show_source = "small";
             # })
             (climate' "climate.yeelink_v6_af1f_ptc_bath_heater" {
-              hide.state = true;
+              conditions = [
+                {
+                  entity = "sensor.bath_heater";
+                  state_not = "off";
+                }
+              ];
+              card.hide.state = true;
             })
             (climate' "climate.gree_climate_9424b8123fe900" {
-              control = [ "hvac" ];
+              card.control = [ "hvac" ];
             })
             (climate "climate.xiaomi_mt0_bedd_air_conditioner")
             (climate "climate.xiaomi_mt0_cdd0_air_conditioner")
