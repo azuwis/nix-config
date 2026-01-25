@@ -20,33 +20,33 @@
     submodules = false;
   };
   disko = {
-    lastModified = 1746728054;
-    lastModifiedDate = "20250508181414";
-    narHash = "sha256-eDoSOhxGEm2PykZFa/x9QG5eTH0MJdiJ9aR00VAofXE=";
-    outPath = "/nix/store/hn0yisb1xpf0cf89i1av3qk7i59fkxk2-source";
-    rev = "ff442f5d1425feb86344c028298548024f21256d";
+    lastModified = 1768920986;
+    lastModifiedDate = "20260120145626";
+    narHash = "sha256-CNzzBsRhq7gg4BMBuTDObiWDH/rFYHEuDRVOwCcwXw4=";
+    outPath = "/nix/store/z2bsz1xw44k3gbkb4ks4ds8p0gyspvwb-source";
+    rev = "de5708739256238fb912c62f03988815db89ec9a";
     revCount = 0;
-    shortRev = "ff442f5";
+    shortRev = "de57087";
     submodules = false;
   };
   homebrew-cask = {
-    lastModified = 1768873648;
-    lastModifiedDate = "20260120014728";
-    narHash = "sha256-vJI8Gm7YhhyJCFhTQoa5eWARKvdr9PBC0EtOekWPC2U=";
-    outPath = "/nix/store/n4ss8vp417v97sz8a46fmp5p7ywhglay-source";
-    rev = "1a02efed0cce7f3465752ec7d59667530d12f358";
+    lastModified = 1769383740;
+    lastModifiedDate = "20260125232900";
+    narHash = "sha256-9rrgRhedSha8Hbbgp/17jgMTAzSXI4a70RyM0/epdac=";
+    outPath = "/nix/store/7a5v47k435q6xc8bzf14b11vqg9hsy45-source";
+    rev = "8f75a0bab052464eb7a80a9fd7bcdb5ef2cb0260";
     revCount = 0;
-    shortRev = "1a02efe";
+    shortRev = "8f75a0b";
     submodules = false;
   };
   jovian-nixos = {
-    lastModified = 1768646298;
-    lastModifiedDate = "20260117103818";
-    narHash = "sha256-+76oVL4ut4piR677yp9vsJ7UdQM4IjR1K3eX9q3kn6E=";
-    outPath = "/nix/store/3jdziljaq0kicw2ywig18ka0bybp7xpz-source";
-    rev = "6e911aeee2ab046584fffe67b64d730c7c0df921";
+    lastModified = 1769273817;
+    lastModifiedDate = "20260124165657";
+    narHash = "sha256-+iyLihi/ynJokMgJZMRXuMuI6DPGUQRajz5ztNCHgnI=";
+    outPath = "/nix/store/a32l2875l4146q88dpzw80x03zy64ki9-source";
+    rev = "98f988ad46e31f9956c5f6874dfb3580a7ff3969";
     revCount = 0;
-    shortRev = "6e911ae";
+    shortRev = "98f988a";
     submodules = false;
   };
   my = {
@@ -80,13 +80,13 @@
     submodules = false;
   };
   nix-index-database = {
-    lastModified = 1768711275;
-    lastModifiedDate = "20260118044115";
-    narHash = "sha256-6+9jN4W6PcskiyZKxW9DxHqrzt8QxLu6iNgpVqH5CLw=";
-    outPath = "/nix/store/aa29yxn8ac8wnizzp2lgg090p8pfcvvg-source";
-    rev = "81c31d3f950482f8a2b9354ba8f3b0df99ebc857";
+    lastModified = 1769316615;
+    lastModifiedDate = "20260125045015";
+    narHash = "sha256-7KBh6sm2XKdebI89s1tgrV/VWjCrJn6DFlHW1p4EWP0=";
+    outPath = "/nix/store/wbbk4b4xrg2p0bgm4dh8p5kd4p83pf9z-source";
+    rev = "96d9fe159dd4054d7603c6ed907d2fd0d46a6464";
     revCount = 0;
-    shortRev = "81c31d3";
+    shortRev = "96d9fe1";
     submodules = false;
   };
   nix-on-droid = {
@@ -110,23 +110,23 @@
     submodules = false;
   };
   nixos-wsl = {
-    lastModified = 1768840529;
-    lastModifiedDate = "20260119163529";
-    narHash = "sha256-e22ou8nikeThx9x9/y29VdMEW4Fm7DBzlhp9ndDJUGE=";
-    outPath = "/nix/store/c67jqwyh5rfaz15w38lfacj8y62mxfv5-source";
-    rev = "b8e9a758fa2e08d8ac5c3be5d4b1fcc92fd3ce84";
+    lastModified = 1769217863;
+    lastModifiedDate = "20260124012423";
+    narHash = "sha256-RY9kJDXD6+2Td/59LkZ0PFSereCXHdBX9wIkbYjRKCY=";
+    outPath = "/nix/store/822apnbrxw0flm4dp21024cvmmc7z97w-source";
+    rev = "38a5250e57f583662eac3b944830e4b9e169e965";
     revCount = 0;
-    shortRev = "b8e9a75";
+    shortRev = "38a5250";
     submodules = false;
   };
   nixpkgs = {
-    lastModified = 1768773494;
-    lastModifiedDate = "20260118215814";
-    narHash = "sha256-XsM7GP3jHlephymxhDE+/TKKO1Q16phz/vQiLBGhpF4=";
-    outPath = "/nix/store/k2qc4rkw61g6927q0wf040vssy7z51a1-source";
-    rev = "77ef7a29d276c6d8303aece3444d61118ef71ac2";
+    lastModified = 1769089682;
+    lastModifiedDate = "20260122134802";
+    narHash = "sha256-9yA/LIuAVQq0lXelrZPjLuLVuZdm03p8tfmHhnDIkms=";
+    outPath = "/nix/store/ws6jqxhhvy2nzjqmp7h8a1546ygrsfk6-source";
+    rev = "078d69f03934859a181e81ba987c2bb033eebfc5";
     revCount = 0;
-    shortRev = "77ef7a2";
+    shortRev = "078d69f";
     submodules = false;
   };
 }
