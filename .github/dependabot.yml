@@ -8,3 +8,7 @@ updates:
       - /.github/actions/package
     schedule:
       interval: weekly
+    groups:
+      github-actions:
+        patterns:
+          - '*'
