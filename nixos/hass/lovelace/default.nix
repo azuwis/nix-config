@@ -277,8 +277,18 @@ in
                 (state "binary_sensor.dced8387eef4_occupancy" "45.5" "25.5")
                 (state' "climate.yeelink_v6_af1f_ptc_bath_heater" "45.5" "20" {
                   card_mod.style."state-badge $ ha-state-icon" = ''
-                    ha-state-icon[data-state="auto"], ha-state-icon[data-state="ventilate"]{
-                      color: var(--state-climate-cool-color) !important;
+                    ha-state-icon {
+                      color:
+                        {%- set preset_mode = state_attr(config.entity, 'preset_mode') %}
+                        {%- if preset_mode == 'Ventilate' %}
+                          var(--state-climate-cool-color) !important;
+                        {%- elif preset_mode == 'Quick Heat' %}
+                          var(--state-climate-heat-color) !important;
+                        {%- elif preset_mode in [ 'Defog', 'Quick Defog'] %}
+                          var(--state-climate-heat-cool-color) !important;
+                        {%- else %}
+                          var(--state-icon-color);
+                        {%- endif %}
                     }
                   '';
                 })
