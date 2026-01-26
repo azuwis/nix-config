@@ -91,4 +91,6 @@
     swapLeftCommandAndLeftAlt = true;
   };
   system.stateVersion = 4;
+  # Reduse closure size, use `nix run nix-darwin#darwin-uninstaller` if needed
+  system.tools.darwin-uninstaller.enable = false;
 }
