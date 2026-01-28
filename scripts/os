@@ -10,7 +10,7 @@ USAGE:
   $cmd b|build [<nix-build args>] [<host>]
   $cmd c|clean
   $cmd d|diff [<host>]
-  $cmd dp|deploy [<host>]
+  $cmd dp|deploy [-f] [<host>]
   $cmd hw|hardware
   $cmd l|list
   $cmd ns|nixlock-show
@@ -383,6 +383,10 @@ ci)
   ;;
 dp | deploy)
   ASK=true
+  if [ "$1" = "-f" ]; then
+    shift
+    ASK=false
+  fi
   DEPLOY=true
   SWITCH=true
   action="build"
