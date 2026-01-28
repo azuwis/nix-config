@@ -75,7 +75,7 @@ in
       - alias: Climate close all at morning workdays
         triggers:
           - trigger: time
-            at: "08:30:00"
+            at: "08:00:00"
         conditions:
           - condition: state
             entity_id: binary_sensor.workday_sensor
@@ -211,7 +211,15 @@ in
               - dry
               - fan_only
               - heat
-            for: "00:30:00"
+            for: "00:20:00"
+          - trigger: state
+            entity_id: climate.yeelink_v6_af1f_ptc_bath_heater
+            attribute: preset_mode
+            to:
+              - Defog
+              - Quick Defog
+              - Quick Heat
+            for: "00:20:00"
         actions:
           - action: climate.set_preset_mode
             target:
