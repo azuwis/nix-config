@@ -14,6 +14,7 @@ in
 
   config = {
     ipv6.enable = false;
+    sops.enable = true;
     system.enable = true;
   };
 }
