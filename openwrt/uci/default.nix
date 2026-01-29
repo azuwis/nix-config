@@ -47,7 +47,7 @@ in
           ) attrs
         );
       in
-      lib.nameValuePair "etc/uci-defaults/99-${name}" {
+      lib.nameValuePair "etc/uci-defaults/90-${name}" {
         text = ''
           uci batch <<EOF
           ${lib.concatStringsSep "\n" uciList}
