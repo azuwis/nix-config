@@ -72,36 +72,39 @@ in
 
   config = {
     image =
-      let
-        profiles = import (inputs.nix-openwrt-imagebuilder.outPath + "/profiles.nix") {
-          inherit (cfg) pkgs;
-        };
-      in
-      (import (inputs.nix-openwrt-imagebuilder.outPath + "/builder.nix") (
-        profiles.identifyProfile cfg.profile
-        // {
-          inherit (cfg) disabledServices packages;
-          files = config.files.path;
-          # Dereference files and make them writable
-          postConfigure = ''
-            cp --recursive --dereference --no-preserve=all files/ files.copy/
-            rm -r files
-            mv files.copy files
-          '';
-          postInstall = ''
-            cp -r ./files $out
-            find files \( -type d -printf "%M %4s %p/\n" \) -o \( -type f -printf "%M %4s %p\n" \) >$out/files.list
-          '';
-        }
-      )).overrideAttrs
-        (
-          old:
-          lib.optionalAttrs cfg.debug {
-            nativeBuildInputs = old.nativeBuildInputs ++ [ pkgs.breakpointHook ];
-            postInstall = old.postInstall + ''
-              exit 1
+      if cfg.pkgs.stdenv.buildPlatform.system != "x86_64-linux" then
+        throw "openwrt-imagebuilder runs only in x86_64-linux, see https://openwrt.org/docs/guide-user/additional-software/imagebuilder"
+      else
+        let
+          profiles = import (inputs.nix-openwrt-imagebuilder.outPath + "/profiles.nix") {
+            inherit (cfg) pkgs;
+          };
+        in
+        (import (inputs.nix-openwrt-imagebuilder.outPath + "/builder.nix") (
+          profiles.identifyProfile cfg.profile
+          // {
+            inherit (cfg) disabledServices packages;
+            files = config.files.path;
+            # Dereference files and make them writable
+            postConfigure = ''
+              cp --recursive --dereference --no-preserve=all files/ files.copy/
+              rm -r files
+              mv files.copy files
+            '';
+            postInstall = ''
+              cp -r ./files $out
+              find files \( -type d -printf "%M %4s %p/\n" \) -o \( -type f -printf "%M %4s %p\n" \) >$out/files.list
             '';
           }
-        );
+        )).overrideAttrs
+          (
+            old:
+            lib.optionalAttrs cfg.debug {
+              nativeBuildInputs = old.nativeBuildInputs ++ [ pkgs.breakpointHook ];
+              postInstall = old.postInstall + ''
+                exit 1
+              '';
+            }
+          );
   };
 }
