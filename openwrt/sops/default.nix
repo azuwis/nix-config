@@ -37,17 +37,17 @@ in
     uciEncryptedKeys = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [
-        "^wireless\..*\.key"
         "password"
         "preshared_key"
         "private_key"
+        ''^wireless\..*\.key''
       ];
     };
 
     uciKeys = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = cfg.uciEncryptedKeys ++ [
-        "^network\.wg"
+        ''^network\.wg''
       ];
     };
   };
