@@ -40,8 +40,9 @@ in
                 if (lib.length path) == 1 then "@${name}[0].${lib.head path}" else lib.concatStringsSep "." path;
             in
             if lib.isList value then
-              "delete ${name}.${pathStr}\n"
-              + lib.concatMapStringsSep "\n" (x: "add_list ${name}.${pathStr}='${toString x}'") value
+              lib.concatMapStringsSep "\n" (
+                x: "del_list ${name}.${pathStr}='${toString x}'\nadd_list ${name}.${pathStr}='${toString x}'"
+              ) value
             else
               "set ${name}.${pathStr}='${toString value}'"
           ) attrs
