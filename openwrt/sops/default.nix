@@ -63,33 +63,24 @@ in
       set -euo pipefail
 
       file=${cfg.file}
-      hostname=${cfg.hostname}
-
-      while getopts ":h:" opt; do
-        case "$opt" in
-        h) hostname="$OPTARG" ;;
-        esac
-      done
-      shift $((OPTIND - 1))
+      args=(${cfg.hostname})
+      if [ "$#" -gt 0 ]; then
+        args=("$@")
+      fi
 
       ${lib.getExe pkgs.sops} decrypt "$file" | sed -e 's/^/set /' -e '$a changes\ncommit' \
-        | ssh "$hostname" "$@" 'uci batch; reload_config'
+        | ssh "''${args[@]}" 'uci batch; reload_config'
     '';
 
     sops.save = pkgs.writeShellScriptBin "openwrt-sops-save" ''
       set -euo pipefail
 
-      file=${cfg.file}
-      hostname=${cfg.hostname}
+      args=(${cfg.hostname})
+      if [ "$#" -gt 0 ]; then
+        args=("$@")
+      fi
 
-      while getopts ":h:" opt; do
-        case "$opt" in
-        h) hostname="$OPTARG" ;;
-        esac
-      done
-      shift $((OPTIND - 1))
-
-      ssh "$hostname" "$@" 'uci show' | grep -E "${lib.concatStringsSep "|" cfg.uciKeys}" \
+      ssh "''${args[@]}" 'uci show' | grep -E "${lib.concatStringsSep "|" cfg.uciKeys}" \
         | ${lib.getExe pkgs.sops} encrypt --encrypted-regex "${lib.concatStringsSep "|" cfg.uciEncryptedKeys}" \
           --filename-override .env --input-type dotenv > "${config.uci.system.hostname}.env" 
     '';
