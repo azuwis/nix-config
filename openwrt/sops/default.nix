@@ -68,8 +68,21 @@ in
         args=("$@")
       fi
 
-      ${lib.getExe pkgs.sops} decrypt "$file" | sed -e 's/^/set /' -e '$a changes\ncommit' \
-        | ssh "''${args[@]}" 'uci batch; reload_config'
+      ${lib.getExe pkgs.sops} decrypt "$file" | sed -e 's/^/set /' -e '$a changes' \
+        | ssh "''${args[@]}" 'echo; echo "uci changes:"; uci batch'
+      ssh "''${args[@]}" '
+      echo
+      echo -n "Commit?[Yn]"
+      read -r answer
+      if [ -n "$answer" ] && [ "$answer" != "Y" ]; then
+        set -x
+        rm /tmp/.uci/*
+      else
+        set -x
+        uci commit
+        reload_config
+      fi
+      '
     '';
 
     sops.save = pkgs.writeShellScriptBin "openwrt-sops-save" ''
