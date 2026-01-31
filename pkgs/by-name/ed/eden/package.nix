@@ -42,14 +42,14 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "eden";
-  version = "0.0.4";
+  version = "0.1.1";
 
   src = fetchFromGitea {
     domain = "git.eden-emu.dev";
     owner = "eden-emu";
     repo = "eden";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-z+YEb3VjRyzrOXfL25jGPzn7s24p0oJKcHBrU6yIOfE=";
+    hash = "sha256-tkro7ZHgn2809Utf/Li5+OiseywyQKH15eqphxlJZQQ=";
   };
 
   deps = stdenv.mkDerivation {
@@ -71,7 +71,7 @@ stdenv.mkDerivation (finalAttrs: {
         -czf $out .cache/cpm
     '';
 
-    outputHash = "sha256-zzpRNERPGdknfhZtkPTX8ndyOGJ4sqkU3Aru2XaDRBE=";
+    outputHash = "sha256-8RoIKZvEMLhqpfc/BkR1IAfN3SSZRkCzWsJTnHyceGs=";
     outputHashAlgo = "sha256";
   };
 
@@ -95,7 +95,7 @@ stdenv.mkDerivation (finalAttrs: {
     # intentionally omitted: catch2_3 - only used for tests
     cpp-jwt
     cubeb
-    discord-rpc
+    # intentionally omitted: discord-rpc - 0.1.0 need newer version
     # intentionally omitted: dynarmic - prefer vendored version for compatibility
     enet
     ffmpeg-headless
@@ -137,7 +137,7 @@ stdenv.mkDerivation (finalAttrs: {
   __structuredAttrs = true;
   cmakeFlags = [
     # actually has a noticeable performance impact
-    (lib.cmakeBool "YUZU_ENABLE_LTO" true)
+    (lib.cmakeBool "ENABLE_LTO" true)
     (lib.cmakeBool "DYNARMIC_ENABLE_LTO" true)
 
     # use system libraries
