@@ -9,6 +9,7 @@
   imports = [ ../openwrt ];
 
   builder.profile = "zbtlink_zbt-wg3526-16m";
+  wireguard.enable = true;
   uci = {
     system.hostname = "wg3526";
     wireless.radio0.disabled = "1";
