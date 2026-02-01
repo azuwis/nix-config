@@ -97,8 +97,8 @@ select_game() {
   declare -A apps
 
   if command -v eden >/dev/null; then
-    apps['Eden']='eden'
-    for nsp in ~/Games/Switch/*.nsp; do
+    apps['Eden']='eden -f -qlaunch'
+    for nsp in ~/games/Switch/*.nsp; do
       app=${nsp##*/}
       app=${app%.nsp}
       apps[$app]="eden -f -g \"$nsp\""
