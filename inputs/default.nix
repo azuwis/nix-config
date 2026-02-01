@@ -86,13 +86,16 @@ builtins.mapAttrs (
     replacement = builtins.getEnv "NIXLOCK_OVERRIDE_${name}";
   in
   if replacement != "" then
+    # https://github.com/andir/npins/blob/5eb1bde1898a3c32a3aacb36ae120897a58c9ed8/src/default.nix#L36
     # Override with a path defined in an environment variable.
     let
+      # this turns the string into an actual Nix path (for both absolute and
+      # relative paths)
       outPath =
         if builtins.substring 0 1 replacement == "/" then
-          replacement
+          /. + replacement
         else
-          builtins.getEnv "PWD" + "/${replacement}";
+          /. + builtins.getEnv "PWD" + "/${replacement}";
     in
     lock
     //
