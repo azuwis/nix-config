@@ -93,7 +93,7 @@ in
         args=("$@")
       fi
 
-      ssh "''${args[@]}" 'uci show' | grep -E "${lib.concatStringsSep "|" cfg.uciKeys}" \
+      ssh "''${args[@]}" 'uci show' | grep -E "${lib.concatStringsSep "|" cfg.uciKeys}" | LC_ALL=C sort -t'=' -k1,1 -k2,2r \
         | ${lib.getExe pkgs.sops} encrypt --encrypted-regex "${lib.concatStringsSep "|" cfg.uciEncryptedKeys}" \
           --filename-override .env --input-type dotenv > "${config.uci.system.hostname}.env" 
     '';
