@@ -74,6 +74,7 @@ in
 
     registry.entries = [
       "agenix"
+      "devshell"
       "nixpkgs"
     ];
   };
