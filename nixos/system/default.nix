@@ -94,7 +94,8 @@
      KEYBOARD_KEY_db=leftalt
 
     # USB keyboard, capslock <-> leftctrl, leftmeta <-> leftalt
-    evdev:input:b0003v*
+    # `,l?,` match numlock/capslock/... LEDs, mouse and virtual keyboards often lack this
+    evdev:input:b0003v*p*e*-e*k*,l?,*
      KEYBOARD_KEY_70039=leftctrl
      KEYBOARD_KEY_700e0=capslock
      KEYBOARD_KEY_700e2=leftmeta
