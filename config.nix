@@ -3,7 +3,7 @@
 # Also used by `common/nixpkgs/default.nix` `pkgs/default.nix`
 
 let
-  inputs = import ./inputs;
+  inputs = import ./inputs { };
   lib = import ./lib;
   _cuda = import (inputs.nixpkgs.outPath + "/pkgs/development/cuda-modules/_cuda/default.nix");
 in

@@ -3,7 +3,7 @@
 # Also used by `common/nixpkgs/default.nix` `pkgs/default.nix` `scripts/update.nix`
 
 let
-  inputs = import ../inputs;
+  inputs = import ../inputs { };
 in
 
 # https://discourse.nixos.org/t/in-overlays-when-to-use-self-vs-super/2968/12

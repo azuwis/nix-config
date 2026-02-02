@@ -3,7 +3,7 @@ final: prev: {
   linux_jovian = prev.linux_jovian.override {
     argsOverride.structuredExtraConfig =
       let
-        inputs = import ../inputs;
+        inputs = import ../inputs { };
         prevArgs = (
           final.callPackage "${inputs.jovian-nixos.outPath}/pkgs/linux-jovian" { buildLinux = x: x; }
         );

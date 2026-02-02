@@ -8,7 +8,7 @@
 # rm -r ~/.config/containers
 # rm -r ~/.local/share/containers
 let
-  inputs = import ../inputs;
+  inputs = import ../inputs { };
   devshell = import inputs.devshell.outPath { nixpkgs = pkgs; };
 in
 

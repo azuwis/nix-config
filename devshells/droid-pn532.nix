@@ -4,7 +4,7 @@
 }:
 
 let
-  inputs = import ../inputs;
+  inputs = import ../inputs { };
   devshell = import inputs.devshell.outPath { nixpkgs = pkgs; };
 in
 

@@ -303,7 +303,7 @@ nixlock-update() {
   else
     update="all"
   fi
-  if NIXLOCK_UPDATE="$update" nix-instantiate --option tarball-ttl 1 --strict --eval "$CONFIG/inputs" |
+  if nix-instantiate --option tarball-ttl 1 --strict --eval --argstr update "$update" "$CONFIG/inputs" |
     nixlock-format >"$CONFIG/inputs/lock.tmp"; then
     mv "$CONFIG/inputs/lock.tmp" "$CONFIG/inputs/lock.nix"
     git diff "$CONFIG/inputs/lock.nix"

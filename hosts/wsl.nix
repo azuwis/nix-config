@@ -6,7 +6,7 @@
 }:
 
 let
-  inputs = import ../inputs;
+  inputs = import ../inputs { };
 in
 
 {

@@ -11,7 +11,7 @@ let
   # nixpkgs/nixos/lib/eval-config.nix, but to be compatible with non-flake usage
   # of nixos-rebuild/darwin-rebuild/nix-on-droid, `import ../inputs` is much
   # simpler solution
-  inputs = import ../inputs;
+  inputs = import ../inputs { };
 in
 
 {

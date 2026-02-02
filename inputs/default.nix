@@ -1,13 +1,13 @@
-# Inspired by https://codeberg.org/FrdrCkII/nixlock
+# Inspired by https://codeberg.org/FrdrCkII/nixlock/src/branch/main/v1
 
 # Update all inputs:
-# NIXLOCK_UPDATE=all nix-instantiate --strict --eval default.nix | nixfmt > lock.tmp
+# nix-instantiate --strict --eval --argstr update all default.nix | nixfmt > lock.tmp
 # mv lock.tmp lock.nix
 
 # Update some inputs:
-# NIXLOCK_UPDATE="<input1> <input2>" ...
+# --argstr update "<input1> <input2>"
 # Update all expect some inputs:
-# NIXLOCK_UPDATE="all -<input1> -<input2>" ...
+# --argstr update "all -<input1> -<input2>" ...
 
 # Show:
 # nix-instantiate --strict --eval --raw show.nix | column -s, -t
@@ -19,6 +19,10 @@
 # `source`, which is special to nix. If changed, nix may copy inputs already in
 # nix store when using `nix shell nixpkgs#foo` or similar commands
 # https://github.com/NixOS/nix/issues/11228#issuecomment-2261087599
+
+{
+  update ? "",
+}:
 
 let
   allLock = import ./lock.nix;
@@ -43,9 +47,7 @@ let
       )
       ++ [ "}" ]
     );
-  updateTargets = builtins.filter builtins.isString (
-    builtins.split " " (builtins.getEnv "NIXLOCK_UPDATE")
-  );
+  updateTargets = builtins.filter builtins.isString (builtins.split " " update);
 in
 
 builtins.mapAttrs (

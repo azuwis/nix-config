@@ -10,7 +10,7 @@
 
 let
   inherit (pkgs) lib;
-  inputs = import ../inputs;
+  inputs = import ../inputs { };
   pkgs = import ../pkgs { };
   nixpkgs = inputs.nixpkgs.outPath;
 

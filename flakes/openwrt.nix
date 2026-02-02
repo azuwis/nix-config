@@ -1,5 +1,5 @@
 let
-  inputs = import ../inputs;
+  inputs = import ../inputs { };
   lib = import ../lib;
   pkgs = import ../pkgs { };
 

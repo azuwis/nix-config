@@ -1,7 +1,7 @@
 { ... }@args:
 
 let
-  inputs = import ../inputs;
+  inputs = import ../inputs { };
   pkgs = import inputs.nixpkgs.outPath (
     args
     // {
