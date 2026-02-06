@@ -5,9 +5,9 @@
 # mv lock.tmp lock.nix
 
 # Update some inputs:
-# --argstr update "<input1> <input2>"
+# ... --argstr update "<input1> <input2>" ...
 # Update all expect some inputs:
-# --argstr update "all -<input1> -<input2>" ...
+# ... --argstr update "all -<input1> -<input2>" ...
 
 # Show:
 # nix-instantiate --strict --eval --raw show.nix | column -s, -t
