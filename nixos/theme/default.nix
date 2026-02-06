@@ -26,7 +26,7 @@ in
     #
     # `Adwaita:dark`, gtk3 builtin, only works in GTK_THEME env var, works without gnome-themes-extra
     #
-    # environment.sessionVariables.GTK_THEME = "Adwaita:dark";
+    environment.sessionVariables.GTK_THEME = "Adwaita:dark";
     #
     # `Adwaita-dark` is provided in gnome-themes-extra, support gtk2/gtk3
     #
@@ -78,7 +78,7 @@ in
       # Setting platformTheme to gnome will make Qt apps to use xdg portal for file opening dialog,
       # it make cause problem for Sunshine if xdg portals use wrong DISPLAY WAYLAND_DISPLAY env var
       platformTheme = "gnome";
-      style = "adwaita";
+      style = "adwaita-dark";
     };
   };
 }
