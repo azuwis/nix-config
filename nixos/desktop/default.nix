@@ -53,6 +53,7 @@ in
     programs.mpv.enhance = true;
     programs.niri.enhance = true;
     # programs.sway.enhance = true;
+    programs.termfilechooser.enable = true;
     programs.wayland.session = mkDefault "niri-session";
     # programs.wayland.session = "sway";
 
