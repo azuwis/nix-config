@@ -4,6 +4,7 @@
   fetchFromGitHub,
   cmake,
   makeWrapper,
+  openssl,
   xz,
   python3,
   nix-update-script,
@@ -22,14 +23,14 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "chameleon-cli";
-  version = "2.1.0-unstable-2025-12-24";
+  version = "2.1.0-unstable-2026-02-06";
 
   src = fetchFromGitHub {
-    owner = "azuwis";
+    owner = "RfidResearchGroup";
     repo = "ChameleonUltra";
-    rev = "77fdc184040b0078569c94d6362c988ac678d723";
+    rev = "2c7c3eeb4df8eee7451aff7c5ddae5d10cd0c34d";
     rootDir = "software";
-    hash = "sha256-xzehEtuYJMouHoydkOA20V70sxrhH6woajoeRzTfLHM=";
+    hash = "sha256-5QlJGmUjJKWc7e53zMXNoNXTBhwpepThKn9xMKpF16s=";
   };
 
   postPatch = ''
@@ -44,6 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs = [
+    openssl
     xz
   ];
 
