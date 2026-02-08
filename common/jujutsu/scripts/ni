@@ -1,7 +1,18 @@
 #!/usr/bin/env bash
 
-jj op log --limit 1
-echo
+op_id_file="$(jj root)/.jj/ni-op-id"
+
+if [ "$1" = "restore" ]; then
+  if [ -e "$op_id_file" ]; then
+    jj op restore "$(cat "$op_id_file")"
+    exit $?
+  else
+    echo "$op_id_file does not exist"
+    exit 1
+  fi
+fi
+
+jj op log --no-graph --template id --limit 1 >"$op_id_file"
 
 revsets=$1
 if [ -z "$revsets" ]; then
