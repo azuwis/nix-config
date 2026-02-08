@@ -33,7 +33,10 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.finalPackage ];
+    environment.systemPackages = [
+      cfg.finalPackage
+      pkgs.jjui
+    ];
 
     programs.jujutsu.finalPackage = pkgs.wrapper {
       package = pkgs.jujutsu;
