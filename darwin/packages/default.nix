@@ -17,6 +17,6 @@
     # gimp2
     iproute2mac
     pstree
-    qbittorrent
+    # qbittorrent
   ];
 }
