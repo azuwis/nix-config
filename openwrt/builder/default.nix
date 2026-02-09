@@ -88,6 +88,7 @@ in
             # Dereference files and make them writable
             postConfigure = ''
               cp --recursive --dereference --no-preserve=all files/ files.copy/
+              find -L files/ -type f -executable -printf "%P\0" | xargs -0 -I {} chmod +x "files.copy/{}"
               rm -r files
               mv files.copy files
             '';
