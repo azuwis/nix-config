@@ -17,12 +17,15 @@ in
   };
 
   config = mkIf cfg.enable {
+    # For manpage
+    environment.systemPackages = [ pkgs.netproc ];
+
     security.wrappers.netproc = {
       source = "${pkgs.netproc}/bin/netproc";
       owner = "root";
       group = "wheel";
-      permissions = "0750";
-      capabilities = "cap_net_admin,cap_net_raw=ep";
+      permissions = "u+rx,g+x";
+      capabilities = "cap_dac_read_search,cap_net_admin,cap_net_raw,cap_sys_ptrace+ep";
     };
   };
 }
