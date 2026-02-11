@@ -38,6 +38,7 @@ in
   # programs.lazyvim.yaml.enable = true;
   programs.less.enhance = true;
   programs.nix-index.enhance = true;
+  programs.nps.enable = true;
   programs.yazi.enhance = true;
   programs.zsh.enhance = true;
   programs.zsh.fzf.enable = true;

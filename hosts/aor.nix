@@ -102,7 +102,6 @@
 
   environment.systemPackages = with pkgs; [
     eden
-    nix-search
   ];
   # Fix yuzu fullscreen framerate
   # programs.sway.extraConfig = ''
