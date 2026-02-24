@@ -28,7 +28,7 @@ let
       if [ ! -e "$target" ]; then
         echo "new: $target -> $source"
         mkdir -p "$(dirname "$target")"
-        ln -sn "$source" "$target"
+        ln -sfn "$source" "$target"
       else
         if [ -L "$target" ]; then
           if [ "$(readlink "$target")" != "$source" ]; then
