@@ -3,7 +3,6 @@
 {
   lib,
   stdenv,
-  fetchFromGitHub,
   fetchFromGitea,
   cacert,
   cmake,
@@ -15,7 +14,6 @@
   boost,
   cpp-jwt,
   cubeb,
-  discord-rpc,
   enet,
   ffmpeg-headless,
   fmt,
