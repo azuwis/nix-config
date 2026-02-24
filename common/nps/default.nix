@@ -19,13 +19,18 @@ let
         ];
         preferLocalBuild = true;
       }
+      # ref: nixpkgs/lib/path/tests/default.nix
       ''
-        export NIX_CONFIG="
+        export NIX_CONF_DIR=$HOME/etc
+        export NIX_STATE_DIR=$HOME/state
+        export NIX_STORE_DIR=$HOME/store
+        mkdir -p "$NIX_CONF_DIR"
+        cat >"$NIX_CONF_DIR/nix.conf" <<EOF
         experimental-features = nix-command flakes
         flake-registry =
-        "
+        EOF
         nix registry add nixpkgs path:${inputs.nixpkgs.outPath}
-        NIX_PACKAGE_SEARCH_EXPERIMENTAL=true nps --refresh
+        NIX_PACKAGE_SEARCH_EXPERIMENTAL=true nps --refresh -dd
         cp -r "$HOME/.nix-package-search" "$out"
       '';
 
