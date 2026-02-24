@@ -31,7 +31,6 @@
   simpleini,
   spirv-headers,
   spirv-tools,
-  unordered_dense,
   vulkan-memory-allocator,
   vulkan-utility-libraries,
   zlib,
@@ -115,7 +114,7 @@ stdenv.mkDerivation (finalAttrs: {
     simpleini
     spirv-headers
     spirv-tools
-    unordered_dense
+    # intentionally omitted: unordered_dense - cpm still download it even provided
     vulkan-memory-allocator
     vulkan-utility-libraries
     # intentionally omitted: xbyak - prefer vendored version for compatibility
