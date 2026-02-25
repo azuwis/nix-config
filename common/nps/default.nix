@@ -30,17 +30,18 @@ let
         preferLocalBuild = true;
       }
       ''
+        export NIX_CONF_DIR="$HOME/nix/conf"
         export NIX_STATE_DIR="$HOME/nix/state"
         export NIX_STORE_DIR="$HOME/nix/store"
 
-        mkdir -p "$HOME/.config/nix"
+        mkdir -p "$NIX_CONF_DIR"
 
-        cat >"$HOME/.config/nix/nix.conf" <<EOF
+        cat >"$NIX_CONF_DIR/nix.conf" <<EOF
         experimental-features = nix-command flakes
         flake-registry =
         EOF
 
-        cat >"$HOME/.config/nix/registry.json" <<EOF
+        cat >"$NIX_CONF_DIR/registry.json" <<EOF
         {
           "flakes": [
             {
