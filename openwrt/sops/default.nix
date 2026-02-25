@@ -50,8 +50,12 @@ in
         "password"
         "preshared_key"
         "private_key"
-        ''^wireless\..*\.key''
+        ''^firewall\.redirect_''
+        ''^network\.(lan|wan)\.(proto|netmask|ipaddr)$''
         ''^network\.wg''
+        ''^shadowsocks-libev\.''
+        ''^wireless\.default_radio[0-9]\.(ssid|encryption|key|hidden)$''
+        ''^wireless\.radio[0-9]\.(channel|htmode|disabled|country)$''
       ];
     };
   };
