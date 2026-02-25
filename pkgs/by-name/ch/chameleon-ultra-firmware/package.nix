@@ -18,13 +18,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "chameleon-${deviceType}-firmware";
-  version = "2.1.0-unstable-2026-02-07";
+  version = "2.1.0-unstable-2026-02-24";
 
   src = fetchFromGitHub {
     owner = "RfidResearchGroup";
     repo = "ChameleonUltra";
-    rev = "b108c84af9b473c840ddcae6f769502adb6c5aa5";
-    hash = "sha256-KiK1HRdPy9NIvVFf+CXYNhtxgNb6W+ZbAFPHsoJ9C94=";
+    rev = "7846bca44bccdaff0dc77484c6c28f757a87cc65";
+    hash = "sha256-lwfVw2Gx+4LqmKE06GuNQKI7KCMjCw2ll00+AVR81Ls=";
   };
 
   postPatch = ''
