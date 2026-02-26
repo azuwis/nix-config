@@ -44,6 +44,11 @@ in
       ];
     };
 
+    sysupgrade = lib.mkOption {
+      type = lib.types.package;
+      readOnly = true;
+    };
+
     uciKeys = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [
@@ -126,6 +131,51 @@ in
       ssh "''${args[@]}" 'ucode - "${lib.concatStringsSep "|" cfg.uciKeys}"' <${./uci-export.js} \
         | ${lib.getExe pkgs.sops} encrypt --encrypted-regex "^(${lib.concatStringsSep "|" cfg.sopsEncryptedRegex})$" \
           --filename-override "${config.uci.system.hostname}.json" --output "${config.uci.system.hostname}.json"
+    '';
+
+    sops.sysupgrade = pkgs.writeShellScriptBin "openwrt-sops-sysupgrade" ''
+      set -euo pipefail
+
+      PATH="${
+        lib.makeBinPath [
+          pkgs.jq
+          pkgs.sops
+        ]
+      }:$PATH"
+
+      file=${cfg.file}
+      args=(${cfg.hostname})
+      if [ "$#" -gt 0 ]; then
+        args=("$@")
+      fi
+
+      ssh "''${args[@]}" 'rm -rf /tmp/sysupgrade; mkdir -p /tmp/sysupgrade/config/etc/uci-defaults/'
+
+      images=("${config.image}"/openwrt-*-sysupgrade.bin)
+      image=''${images[0]}
+      cat "$image" | ssh "''${args[@]}" 'cat >/tmp/sysupgrade/sysupgrade.bin'
+
+      decrypt() {
+        if [ -r /etc/ssh/ssh_host_ed25519_key.pub ] && grep -q "$(cut -d' ' -f 1-2 /etc/ssh/ssh_host_ed25519_key.pub)" "$file"; then
+          sudo SOPS_AGE_SSH_PRIVATE_KEY_FILE=/etc/ssh/ssh_host_ed25519_key sops decrypt "$file"
+        else
+          sops decrypt "$file"
+        fi
+      }
+
+      ssh "''${args[@]}" 'echo "uci-import <<EOF" >/tmp/sysupgrade/config/etc/uci-defaults/99-sops-enc'
+      decrypt | jq --arg regex "$(jq -r '.sops.encrypted_regex' "$file")" '
+      del(.sops) | map_values(
+        map_values(
+          with_entries(select(.key == ".type" or (.key | test($regex))))
+          | select(any(keys_unsorted[]; test($regex)))
+        ) | select(length > 0)
+      ) | select(length > 0)
+      ' | ssh "''${args[@]}" 'cat >>/tmp/sysupgrade/config/etc/uci-defaults/99-sops-enc'
+      ssh "''${args[@]}" 'echo "EOF" >>/tmp/sysupgrade/config/etc/uci-defaults/99-sops-enc'
+      ssh "''${args[@]}" 'echo "uci commit" >>/tmp/sysupgrade/config/etc/uci-defaults/99-sops-enc'
+      ssh "''${args[@]}" 'tar -czf /tmp/sysupgrade/config.tar.gz -C /tmp/sysupgrade/config etc'
+      ssh "''${args[@]}" 'sysupgrade -f /tmp/sysupgrade/config.tar.gz --test /tmp/sysupgrade/sysupgrade.bin && sysupgrade -f /tmp/sysupgrade/config.tar.gz -n /tmp/sysupgrade/sysupgrade.bin'
     '';
   };
 }
