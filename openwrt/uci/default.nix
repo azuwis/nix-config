@@ -29,33 +29,39 @@ in
   };
 
   config = {
-    files.file = lib.mapAttrs' (
-      name: attrs:
-      let
-        uciList = lib.collect lib.isString (
-          lib.mapAttrsRecursive (
-            path: value:
-            let
-              pathStr =
-                if (lib.length path) == 1 then "@${name}[0].${lib.head path}" else lib.concatStringsSep "." path;
-            in
-            if lib.isList value then
-              lib.concatMapStringsSep "\n" (
-                x: "del_list ${name}.${pathStr}='${toString x}'\nadd_list ${name}.${pathStr}='${toString x}'"
-              ) value
-            else
-              "set ${name}.${pathStr}='${toString value}'"
-          ) attrs
-        );
-      in
-      lib.nameValuePair "etc/uci-defaults/90-${name}" {
-        text = ''
-          uci batch <<EOF
-          ${lib.concatStringsSep "\n" uciList}
-          commit ${name}
-          EOF
+    files.file =
+      lib.mapAttrs' (
+        name: attrs:
+        let
+          uciList = lib.collect lib.isString (
+            lib.mapAttrsRecursive (
+              path: value:
+              let
+                pathStr =
+                  if (lib.length path) == 1 then "@${name}[0].${lib.head path}" else lib.concatStringsSep "." path;
+              in
+              if lib.isList value then
+                lib.concatMapStringsSep "\n" (
+                  x: "del_list ${name}.${pathStr}='${toString x}'\nadd_list ${name}.${pathStr}='${toString x}'"
+                ) value
+              else
+                "set ${name}.${pathStr}='${toString value}'"
+            ) attrs
+          );
+        in
+        lib.nameValuePair "etc/uci-defaults/90-${name}" {
+          text = ''
+            uci batch <<EOF
+            ${lib.concatStringsSep "\n" uciList}
+            commit ${name}
+            EOF
+          '';
+        }
+      ) cfg
+      // {
+        "etc/uci-defaults/99-chmod-etc-config".text = ''
+          chmod 600 /etc/config/*
         '';
-      }
-    ) cfg;
+      };
   };
 }
