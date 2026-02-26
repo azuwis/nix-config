@@ -80,14 +80,24 @@ in
     sops.apply = pkgs.writeShellScriptBin "openwrt-sops-apply" ''
       set -euo pipefail
 
+      PATH="${lib.makeBinPath [ pkgs.sops ]}:$PATH"
+
       file=${cfg.file}
       args=(${cfg.hostname})
       if [ "$#" -gt 0 ]; then
         args=("$@")
       fi
 
+      decrypt() {
+        if [ -r /etc/ssh/ssh_host_ed25519_key.pub ] && grep -q "$(cut -d' ' -f 1-2 /etc/ssh/ssh_host_ed25519_key.pub)" "$file"; then
+          sudo SOPS_AGE_SSH_PRIVATE_KEY_FILE=/etc/ssh/ssh_host_ed25519_key sops decrypt "$file"
+        else
+          sops decrypt "$file"
+        fi
+      }
+
       ssh "''${args[@]}" 'cat >/tmp/uci-import.js' <${./uci-import.js}
-      ${lib.getExe pkgs.sops} decrypt "$file" | ssh "''${args[@]}" 'ucode /tmp/uci-import.js'
+      decrypt | ssh "''${args[@]}" 'ucode /tmp/uci-import.js'
       ssh "''${args[@]}" '
       echo
       uci changes
