@@ -149,7 +149,11 @@ in
         args=("$@")
       fi
 
-      ssh "''${args[@]}" 'rm -rf /tmp/sysupgrade; mkdir -p /tmp/sysupgrade/config/etc/uci-defaults/'
+      ssh "''${args[@]}" '
+      rm -rf /tmp/sysupgrade
+      mkdir -p /tmp/sysupgrade/config/etc/dropbear /tmp/sysupgrade/config/etc/uci-defaults
+      cp /etc/dropbear/dropbear_* /tmp/sysupgrade/config/etc/dropbear/
+      '
 
       images=("${config.image}"/openwrt-*-sysupgrade.bin)
       image=''${images[0]}
@@ -174,6 +178,7 @@ in
       ' | ssh "''${args[@]}" 'cat >>/tmp/sysupgrade/config/etc/uci-defaults/99-sops-enc'
       ssh "''${args[@]}" 'echo "EOF" >>/tmp/sysupgrade/config/etc/uci-defaults/99-sops-enc'
       ssh "''${args[@]}" 'echo "uci commit" >>/tmp/sysupgrade/config/etc/uci-defaults/99-sops-enc'
+
       ssh "''${args[@]}" 'tar -czf /tmp/sysupgrade/config.tar.gz -C /tmp/sysupgrade/config etc'
       ssh "''${args[@]}" 'sysupgrade -f /tmp/sysupgrade/config.tar.gz --test /tmp/sysupgrade/sysupgrade.bin && sysupgrade -f /tmp/sysupgrade/config.tar.gz -n /tmp/sysupgrade/sysupgrade.bin'
     '';
