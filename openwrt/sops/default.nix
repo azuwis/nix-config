@@ -115,7 +115,7 @@ in
 
       ssh "''${args[@]}" 'ucode - "${lib.concatStringsSep "|" cfg.uciKeys}"' <${./uci-export.js} \
         | ${lib.getExe pkgs.sops} encrypt --encrypted-regex "^(${lib.concatStringsSep "|" cfg.sopsEncryptedRegex})$" \
-          --filename-override .json --input-type json > "${config.uci.system.hostname}.json" 
+          --filename-override "${config.uci.system.hostname}.json" --output "${config.uci.system.hostname}.json"
     '';
   };
 }
