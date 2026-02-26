@@ -176,11 +176,15 @@ in
         ) | select(length > 0)
       ) | select(length > 0)
       ' | ssh "''${args[@]}" 'cat >>/tmp/sysupgrade/config/etc/uci-defaults/99-sops-enc'
-      ssh "''${args[@]}" 'echo "EOF" >>/tmp/sysupgrade/config/etc/uci-defaults/99-sops-enc'
-      ssh "''${args[@]}" 'echo "uci commit" >>/tmp/sysupgrade/config/etc/uci-defaults/99-sops-enc'
+      ssh "''${args[@]}" '
+      echo "EOF" >>/tmp/sysupgrade/config/etc/uci-defaults/99-sops-enc
+      echo "uci commit" >>/tmp/sysupgrade/config/etc/uci-defaults/99-sops-enc
+      '
 
-      ssh "''${args[@]}" 'tar -czf /tmp/sysupgrade/config.tar.gz -C /tmp/sysupgrade/config etc'
-      ssh "''${args[@]}" 'sysupgrade -f /tmp/sysupgrade/config.tar.gz --test /tmp/sysupgrade/sysupgrade.bin && sysupgrade -f /tmp/sysupgrade/config.tar.gz -n /tmp/sysupgrade/sysupgrade.bin'
+      ssh "''${args[@]}" '
+      tar -czf /tmp/sysupgrade/config.tar.gz -C /tmp/sysupgrade/config etc
+      sysupgrade -f /tmp/sysupgrade/config.tar.gz --test /tmp/sysupgrade/sysupgrade.bin && sysupgrade -f /tmp/sysupgrade/config.tar.gz -n /tmp/sysupgrade/sysupgrade.bin
+      '
     '';
   };
 }
