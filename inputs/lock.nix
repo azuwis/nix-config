@@ -50,13 +50,13 @@
     submodules = false;
   };
   my = {
-    lastModified = 1770108377;
-    lastModifiedDate = "20260203084617";
-    narHash = "sha256-JxB5kD+wODVOoNzVx2z5BJtHGAHj4Jy4JDOFCJPw3NQ=";
-    outPath = "/nix/store/k9mcg3wnbvp86sqszl8xz8b4yl7qdg95-source";
-    rev = "016196f9aaefbc59c396c2bbc0624c9f49f55121";
+    lastModified = 1772162660;
+    lastModifiedDate = "20260227032420";
+    narHash = "sha256-vkE0aXJW3sHr7erRds7yiYb7+4xEBIj51V5rpxqoeHA=";
+    outPath = "/nix/store/h1787c469kf60r03hy53zk8pgalhvwh4-source";
+    rev = "bb119cacdb2ef675e045c8f1c57a42651ca10bb9";
     revCount = 0;
-    shortRev = "016196f";
+    shortRev = "bb119ca";
     submodules = false;
   };
   nix-darwin = {
