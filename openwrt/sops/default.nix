@@ -67,8 +67,8 @@ in
 
   config = lib.mkIf cfg.enable {
     files.file."usr/bin/uci-import".source = ./uci-import.js;
-    files.file."etc/uci-defaults/99-sops".source =
-      pkgs.runCommand "files-etc-uci-defaults-99-sops" { preferLocalBuild = true; }
+    files.file."etc/uci-defaults/95-sops".source =
+      pkgs.runCommand "files-etc-uci-defaults-95-sops" { preferLocalBuild = true; }
         ''
           echo 'uci-import <<EOF' >$out
           cat ${cfg.file} | ${lib.getExe pkgs.jq} '
@@ -167,7 +167,7 @@ in
         fi
       }
 
-      ssh "''${args[@]}" 'echo "uci-import <<EOF" >/tmp/sysupgrade/config/etc/uci-defaults/99-sops-enc'
+      ssh "''${args[@]}" 'echo "uci-import <<EOF" >/tmp/sysupgrade/config/etc/uci-defaults/95-sops-enc'
       decrypt | jq --arg regex "$(jq -r '.sops.encrypted_regex' "$file")" '
       del(.sops) | map_values(
         map_values(
@@ -175,10 +175,10 @@ in
           | select(any(keys_unsorted[]; test($regex)))
         ) | select(length > 0)
       ) | select(length > 0)
-      ' | ssh "''${args[@]}" 'cat >>/tmp/sysupgrade/config/etc/uci-defaults/99-sops-enc'
+      ' | ssh "''${args[@]}" 'cat >>/tmp/sysupgrade/config/etc/uci-defaults/95-sops-enc'
       ssh "''${args[@]}" '
-      echo "EOF" >>/tmp/sysupgrade/config/etc/uci-defaults/99-sops-enc
-      echo "uci commit" >>/tmp/sysupgrade/config/etc/uci-defaults/99-sops-enc
+      echo "EOF" >>/tmp/sysupgrade/config/etc/uci-defaults/95-sops-enc
+      echo "uci commit" >>/tmp/sysupgrade/config/etc/uci-defaults/95-sops-enc
       '
 
       ssh "''${args[@]}" '
