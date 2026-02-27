@@ -55,6 +55,7 @@ in
         "password"
         "preshared_key"
         "private_key"
+        ''^etherwake\.@target''
         ''^firewall\.redirect_''
         ''^network\.(lan|wan)\.(proto|netmask|ipaddr)$''
         ''^network\.wg''
