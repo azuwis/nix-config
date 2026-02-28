@@ -148,9 +148,13 @@ build() {
       fi
     fi
     if [ "$DEPLOY" = true ]; then
-      rebuild switch --target-host "$HOSTNAME" "$@"
-      if [ -L ./result ]; then
-        rm ./result
+      if [ "$OS" = nixos ]; then
+        rebuild switch --target-host "$HOSTNAME" "$@"
+        if [ -L ./result ]; then
+          rm ./result
+        fi
+      elif [ "$OS" = openwrt ]; then
+        nix --extra-experimental-features nix-command run --file "$CONFIG/flakes" "openwrtConfigurations.\"$HOSTNAME\".config.sops.sysupgrade" -- "$@"
       fi
     elif [ "$(type -t "${OS}_switch")" = function ]; then
       "${OS}_switch" switch
