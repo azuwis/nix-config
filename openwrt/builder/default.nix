@@ -28,7 +28,7 @@ in
         ignoreHashUrlRegex = lib.mkOption {
           type = lib.types.str;
           # default = ''https://downloads\.openwrt\.org/.*/Packages'';
-          default = ''https://downloads\.openwrt\.org/.*/packages/.*/Packages'';
+          default = ''https://downloads\.openwrt\.org/.*/packages/.*/(Packages|sha256sums)'';
         };
 
         packages = lib.mkOption {
@@ -46,7 +46,10 @@ in
                   # Override pkgs.fetchurl with builtins.fetchurl, remove sha256 arg to let it
                   # works in impure mode, another way to workaround hash mismatch problem
                   # https://github.com/astro/nix-openwrt-imagebuilder/?tab=readme-ov-file#refreshing-hashes
-                  builtins.trace "Ignore hash of ${args.url}" (builtins.fetchurl (removeAttrs args [ "sha256" ]))
+                  builtins.trace "Ignore hash of ${args.url}" {
+                    inherit (args) name;
+                    outPath = builtins.fetchurl (removeAttrs args [ "hash" ]);
+                  }
                 else
                   pkgs.fetchurl args;
             in
@@ -83,7 +86,7 @@ in
         (import (inputs.nix-openwrt-imagebuilder.outPath + "/builder.nix") (
           profiles.identifyProfile cfg.profile
           // {
-            inherit (cfg) disabledServices packages;
+            inherit (cfg) disabledServices packages pkgs;
             files = config.files.path;
             # Dereference files and make them writable
             postConfigure = ''
