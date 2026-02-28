@@ -51,22 +51,23 @@ in
 
     uciKeys = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [
-        "password"
-        "preshared_key"
-        "private_key"
-        ''^etherwake\.@target''
-        ''^firewall\.redirect_''
-        ''^network\.(lan|wan)\.(proto|netmask|ipaddr)$''
-        ''^network\.wg''
-        ''^shadowsocks-libev\.''
-        ''^wireless\.default_radio[0-9]\.(ssid|encryption|key|hidden)$''
-        ''^wireless\.radio[0-9]\.(channel|htmode|disabled|country)$''
-      ];
     };
   };
 
   config = lib.mkIf cfg.enable {
+    sops.uciKeys = [
+      "password"
+      "preshared_key"
+      "private_key"
+      ''^etherwake\.@target''
+      ''^firewall\.(redirect_|rule_)''
+      ''^network\.(lan|wan)\.(netmask|ipaddr|netmask|proto|username)$''
+      ''^network\.wg''
+      ''^shadowsocks-libev\.''
+      ''^wireless\.default_radio[0-9]\.(ssid|encryption|key|hidden)$''
+      ''^wireless\.radio[0-9]\.(channel|htmode|disabled|country)$''
+    ];
+
     files.file."usr/bin/uci-import".source = ./uci-import.js;
     files.file."etc/uci-defaults/95-sops".source =
       pkgs.runCommand "files-etc-uci-defaults-95-sops" { preferLocalBuild = true; }
