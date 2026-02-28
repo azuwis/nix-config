@@ -71,7 +71,7 @@ in
     files.file."etc/uci-defaults/95-sops".source =
       pkgs.runCommand "files-etc-uci-defaults-95-sops" { preferLocalBuild = true; }
         ''
-          echo 'uci-import <<EOF' >$out
+          echo "uci-import <<'EOF'" >$out
           cat ${cfg.file} | ${lib.getExe pkgs.jq} '
           del(.sops) | walk(
             if type == "object" then
@@ -168,7 +168,7 @@ in
         fi
       }
 
-      ssh "''${args[@]}" 'echo "uci-import <<EOF" >/tmp/sysupgrade/config/etc/uci-defaults/95-sops-enc'
+      ssh "''${args[@]}" 'echo "uci-import <<'EOF'" >/tmp/sysupgrade/config/etc/uci-defaults/95-sops-enc'
       decrypt | jq --arg regex "$(jq -r '.sops.encrypted_regex' "$file")" '
       del(.sops) | map_values(
         map_values(

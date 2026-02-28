@@ -51,7 +51,7 @@ in
         in
         lib.nameValuePair "etc/uci-defaults/90-${name}" {
           text = ''
-            uci batch <<EOF
+            uci batch <<'EOF'
             ${lib.concatStringsSep "\n" uciList}
             commit ${name}
             EOF
