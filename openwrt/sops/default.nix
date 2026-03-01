@@ -21,12 +21,12 @@ in
 
     file = lib.mkOption {
       type = lib.types.path;
-      default = "${inputs.my.outPath}/${config.uci.system.hostname}.json";
+      default = "${inputs.my.outPath}/${config.uci.system."@system[0]".hostname}.json";
     };
 
     hostname = lib.mkOption {
       type = lib.types.str;
-      default = config.uci.system.hostname;
+      default = config.uci.system."@system[0]".hostname;
     };
 
     save = lib.mkOption {
@@ -132,7 +132,8 @@ in
 
       ssh "''${args[@]}" 'ucode - "${lib.concatStringsSep "|" cfg.uciKeys}"' <${./uci-export.js} \
         | ${lib.getExe pkgs.sops} encrypt --encrypted-regex "^(${lib.concatStringsSep "|" cfg.sopsEncryptedRegex})$" \
-          --filename-override "${config.uci.system.hostname}.json" --output "${config.uci.system.hostname}.json"
+          --filename-override "${config.uci.system."@system[0]".hostname}.json" \
+          --output "${config.uci.system."@system[0]".hostname}.json"
     '';
 
     sops.sysupgrade = pkgs.writeShellScriptBin "openwrt-sops-sysupgrade" ''

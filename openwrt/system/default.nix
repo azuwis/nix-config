@@ -33,11 +33,11 @@ in
       dhcp.lan.leasetime = "72h";
       dhcp.lan.limit = "245";
       dhcp.lan.start = "10";
-      dropbear.PasswordAuth = "0";
-      dropbear.RootPasswordAuth = "0";
-      system.log_buffer_size = "256";
-      system.timezone = "CST-8";
-      system.zonename = "Asia/Shanghai";
+      dropbear."@dropbear[0]".PasswordAuth = "0";
+      dropbear."@dropbear[0]".RootPasswordAuth = "0";
+      system."@system[0]".log_buffer_size = "256";
+      system."@system[0]".timezone = "CST-8";
+      system."@system[0]".zonename = "Asia/Shanghai";
     };
   };
 }

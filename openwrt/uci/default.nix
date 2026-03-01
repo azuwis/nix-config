@@ -15,16 +15,12 @@ in
     type =
       with lib.types;
       attrsOf (
-        attrsOf (oneOf [
-          (oneOf [
-            str
-            (listOf str)
-          ])
+        attrsOf (
           (attrsOf (oneOf [
             str
             (listOf str)
           ]))
-        ])
+        )
       );
   };
 
@@ -37,8 +33,7 @@ in
             lib.mapAttrsRecursive (
               path: value:
               let
-                pathStr =
-                  if (lib.length path) == 1 then "@${name}[0].${lib.head path}" else lib.concatStringsSep "." path;
+                pathStr = lib.concatStringsSep "." path;
               in
               if lib.isList value then
                 lib.concatMapStringsSep "\n" (
