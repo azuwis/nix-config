@@ -33,12 +33,19 @@ in
             lib.mapAttrsRecursive (
               path: value:
               let
-                pathStr = lib.concatStringsSep "." path;
+                pathStr =
+                  # XXX: Depend on .type is the first option of a section
+                  if lib.last path == ".type" then
+                    lib.concatStringsSep "." (lib.init path)
+                  else
+                    lib.concatStringsSep "." path;
               in
               if lib.isList value then
                 lib.concatMapStringsSep "\n" (
                   x: "del_list ${name}.${pathStr}='${toString x}'\nadd_list ${name}.${pathStr}='${toString x}'"
                 ) value
+              else if value == "-" then
+                "delete ${name}.${pathStr}"
               else
                 "set ${name}.${pathStr}='${toString value}'"
             ) attrs
