@@ -33,12 +33,16 @@ in
       }
     '';
     uci = {
-      rpcd."@login[0]".username = "hass";
-      rpcd."@login[0]".read = [
-        "hass"
-        "unauthenticated"
-      ];
-      rpcd."@login[0]".write = [ ];
+      # https://github.com/openwrt/openwrt/blob/main/package/system/rpcd/files/rpcd.config
+      rpcd."@login[0]".".type" = "-";
+      rpcd.hass = {
+        ".type" = "login";
+        username = "hass";
+        read = [
+          "hass"
+          "unauthenticated"
+        ];
+      };
       uhttpd.main.redirect_https = "0";
     };
   };
