@@ -12,12 +12,11 @@ let
   inputs' =
     lib.filterAttrs
       (
-        # Only set nix flake registry if in nix store
+        # Only set nix flake registry if is store path
         # When NIXLOCK_OVERRIDE_nixpkgs is used, nixpkgs registry will be something like
         # `path:/home/user/src/nixpkgs`, and then `nix run nixpkgs#foo` will copy the
         # entire nixpkgs repo into nix store
-        # Use `toString` to avoid coping path to nix store by accident
-        name: value: builtins.elem name cfg.entries && lib.hasPrefix builtins.storeDir (toString value)
+        name: value: builtins.elem name cfg.entries && lib.isStorePath value
       )
       # NOTE: Make sure inputs are all strings, not paths, nix.registry use
       # builtins.toJSON, which will also copy paths to nix store
