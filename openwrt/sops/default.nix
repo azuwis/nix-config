@@ -170,7 +170,7 @@ in
         fi
       }
 
-      ssh "''${args[@]}" 'echo "uci-import <<'EOF'" >/tmp/sysupgrade/config/etc/uci-defaults/95-sops-enc'
+      ssh "''${args[@]}" 'echo "uci-import <<\EOF" >/tmp/sysupgrade/config/etc/uci-defaults/95-sops-enc'
       decrypt | jq --arg regex "$(jq -r '.sops.encrypted_regex' "$file")" '
       del(.sops) | map_values(
         map_values(
