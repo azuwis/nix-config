@@ -12,7 +12,8 @@ for (let conf_name in sort(uci.configs())) {
   // Track counts per section type for this specific config file
   let type_counters = {};
 
-  for (let sect_name, data in sections) {
+  for (let sect_name in sort(keys(sections))) {
+    let data = sections[sect_name];
     let stype = data[".type"];
 
     // Increment counter for this type
