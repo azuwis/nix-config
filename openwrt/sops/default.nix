@@ -186,7 +186,15 @@ in
 
       ssh "''${args[@]}" '
       tar -czf /tmp/sysupgrade/config.tar.gz -C /tmp/sysupgrade/config etc
-      sysupgrade -f /tmp/sysupgrade/config.tar.gz --test /tmp/sysupgrade/sysupgrade.bin && sysupgrade -f /tmp/sysupgrade/config.tar.gz -n /tmp/sysupgrade/sysupgrade.bin
+      sysupgrade -f /tmp/sysupgrade/config.tar.gz --test /tmp/sysupgrade/sysupgrade.bin
+      '
+
+      ssh "''${args[@]}" '
+      echo -n "Sysupgrade?[yN]"
+      read -r answer
+      if [ -n "$answer" ] && [ "$answer" == "Y" ]; then
+        sysupgrade -f /tmp/sysupgrade/config.tar.gz -n /tmp/sysupgrade/sysupgrade.bin
+      fi
       '
     '';
   };
