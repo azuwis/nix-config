@@ -18,12 +18,22 @@ in
     }
     // {
       builder = {
+        buildInputs = lib.mkOption {
+          type = lib.types.listOf lib.types.package;
+          default = [ ];
+        };
+
         disabledServices = lib.mkOption {
           type = lib.types.listOf lib.types.str;
           default = [ ];
         };
 
         debug = lib.mkEnableOption "debug";
+
+        extraPackages = lib.mkOption {
+          type = lib.types.attrsOf lib.types.attrs;
+          default = { };
+        };
 
         ignoreHashUrlRegex = lib.mkOption {
           type = lib.types.str;
@@ -86,29 +96,38 @@ in
         (import (inputs.nix-openwrt-imagebuilder.outPath + "/builder.nix") (
           profiles.identifyProfile cfg.profile
           // {
-            inherit (cfg) disabledServices packages pkgs;
+            inherit (cfg)
+              disabledServices
+              extraPackages
+              packages
+              pkgs
+              ;
             files = config.files.path;
+          }
+        )).overrideAttrs
+          (old: {
+            nativeBuildInputs =
+              (old.nativeBuildInputs or [ ]) ++ lib.optionals cfg.debug [ pkgs.breakpointHook ];
+
+            buildInputs = (old.buildInputs or [ ]) ++ cfg.buildInputs;
+
             # Dereference files and make them writable
-            postConfigure = ''
+            postConfigure = (old.postConfigure or "") + ''
               cp --recursive --dereference --no-preserve=all files/ files.copy/
               find -L files/ -type f -executable -printf "%P\0" | xargs -0 -I {} chmod +x "files.copy/{}"
               rm -r files
               mv files.copy files
             '';
-            postInstall = ''
-              cp -r ./files $out
-              find files \( -type d -printf "%M %4s %p/\n" \) -o \( -type f -printf "%M %4s %p\n" \) >$out/files.list
-            '';
-          }
-        )).overrideAttrs
-          (
-            old:
-            lib.optionalAttrs cfg.debug {
-              nativeBuildInputs = old.nativeBuildInputs ++ [ pkgs.breakpointHook ];
-              postInstall = old.postInstall + ''
+
+            postInstall =
+              (old.postInstall or "")
+              + ''
+                cp -r ./files $out
+                find files \( -type d -printf "%M %4s %p/\n" \) -o \( -type f -printf "%M %4s %p\n" \) >$out/files.list
+              ''
+              + lib.optionalString cfg.debug ''
                 exit 1
               '';
-            }
-          );
+          });
   };
 }
