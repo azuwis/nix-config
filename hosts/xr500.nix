@@ -15,7 +15,6 @@
   hass.enable = true;
 
   # https://openwrt.org/toh/netgear/r7800#performance_tuning
-  uci.firewall."@defaults[0]".flow_offloading = "1";
   uci.network.globals.packet_steering = "2";
   uci.network.globals.steering_flows = "128";
 
