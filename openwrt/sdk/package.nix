@@ -1,6 +1,8 @@
 {
   lib,
   stdenv,
+  buildFHSEnv,
+  bash,
   cacert,
   file,
   git,
@@ -15,13 +17,34 @@
   zlib,
   zstd,
   breakpointHook,
-  runtimeShell,
-  coreutils,
   src,
   feeds,
   packages,
   downloadHash,
 }:
+
+let
+  fhs = buildFHSEnv {
+    name = "openwrt-sdk-fhs";
+    targetPkgs = pkgs: [
+      bash
+      file
+      git
+      ncurses
+      ncurses.dev
+      perl
+      python3
+      rsync
+      unzip
+      util-linux
+      wget
+      which
+      zlib
+      zstd
+    ];
+    runScript = "bash -euo pipefail";
+  };
+in
 
 stdenv.mkDerivation (finalAttrs: {
   name = "openwrt-sdk";
@@ -31,17 +54,26 @@ stdenv.mkDerivation (finalAttrs: {
   download = stdenv.mkDerivation {
     name = "openwrt-sdk-download";
 
-    inherit (finalAttrs) src;
+    inherit (finalAttrs) src configurePhase;
 
     nativeBuildInputs = finalAttrs.nativeBuildInputs ++ [ cacert ];
 
-    inherit (finalAttrs) postPatch configurePhase;
+    buildPhase = ''
+      runHook preBuild
+      ${lib.getExe fhs} <<'EOS'
 
-    dontBuild = true;
+      make ${lib.concatMapStringsSep " " (x: "package/${x}/download") packages} V=s
+
+      EOS
+      runHook postBuild
+    '';
 
     installPhase = ''
-      make ${lib.concatMapStringsSep " " (x: "package/${x}/download") packages} V=s
+      runHook preInstall
+
       cp -r dl $out
+
+      runHook postInstall
     '';
 
     outputHash = downloadHash;
@@ -50,17 +82,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs = [
-    file
-    git
-    ncurses
-    perl
-    python3
-    rsync
-    unzip
-    util-linux
-    wget
-    which
-    zlib
+    fhs
     zstd
     # breakpointHook
   ];
@@ -68,18 +90,9 @@ stdenv.mkDerivation (finalAttrs: {
   # Disable hardening to prevent Nix from interfering with the SDK toolchain
   hardeningDisable = [ "all" ];
 
-  # Ref: https://github.com/astro/nix-openwrt-imagebuilder/blob/main/builder.nix
-  postPatch = ''
-    patchShebangs scripts staging_dir
-
-    substituteInPlace rules.mk \
-      --replace-quiet "/usr/bin/env bash" "${runtimeShell}" \
-      --replace-quiet "/usr/bin/env true" "${coreutils}/bin/true" \
-      --replace-quiet "/usr/bin/env false" "${coreutils}/bin/false"
-  '';
-
   configurePhase = ''
     runHook preConfigure
+    ${lib.getExe fhs} <<'EOS'
 
     cat <<'EOF' >feeds.conf
     ${lib.concatMapAttrsStringSep "\n" (name: value: "src-link ${name} ${value}") feeds}
@@ -94,23 +107,27 @@ stdenv.mkDerivation (finalAttrs: {
     EOF
     make defconfig
 
+    EOS
     runHook postConfigure
   '';
 
   buildPhase = ''
     runHook preBuild
+    ${lib.getExe fhs} <<'EOS'
 
     rmdir dl
-    ln -s "$download" dl
-    make ${lib.concatMapStringsSep " " (x: "package/${x}/compile") packages} V=s
+    ln -s "${finalAttrs.download}" dl
 
+    make ${lib.concatMapStringsSep " " (x: "package/${x}/compile") packages} V=s
+    make package/index CONFIG_SIGNED_PACKAGES= V=s
+
+    EOS
     runHook postBuild
   '';
 
   installPhase = ''
     runHook preInstall
 
-    make package/index CONFIG_SIGNED_PACKAGES= V=s
     cp -r bin/packages/* $out
 
     runHook postInstall
