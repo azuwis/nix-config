@@ -14,6 +14,11 @@
   ddns.enable = true;
   hass.enable = true;
 
+  # https://openwrt.org/toh/netgear/r7800#performance_tuning
+  uci.firewall."@defaults[0]".flow_offloading = "1";
+  uci.network.globals.packet_steering = "2";
+  uci.network.globals.steering_flows = "128";
+
   wireguard.enable = true;
   uci.firewall."@zone[0]".network = [ "wg1" ];
   uci.firewall."@zone[1]".network = [ "wg0" ];
