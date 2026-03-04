@@ -22,7 +22,7 @@ in
       (lib.mkAfter "")
     ];
     files.file."etc/uci-defaults/96-root-password".text = ''
-      root_password_hash=$(uci get 'system.@system[0].password')
+      root_password_hash=$(uci -q get 'system.@system[0].password')
       if [ -n "$root_password_hash" ]; then
         sed -i "s|^root:[^:]*|root:$root_password_hash|g" /etc/shadow
       fi

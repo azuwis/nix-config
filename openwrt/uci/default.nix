@@ -64,7 +64,7 @@ in
         # radio0 and radio1 are not consistent between fresh install, swap them
         # to make sure radio0 is always 2g
         "etc/uci-defaults/90-wireless-order".text = ''
-          if [ "$(uci get wireless.radio1.band)" = 2g ]; then
+          if [ "$(uci -q get wireless.radio1.band)" = 2g ]; then
             uci batch <<'EOF'
             set wireless.default_radio0.device=radio1
             set wireless.default_radio1.device=radio0
