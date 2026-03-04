@@ -134,6 +134,11 @@ in
         | ${lib.getExe pkgs.sops} encrypt --encrypted-regex "^(${lib.concatStringsSep "|" cfg.sopsEncryptedRegex})$" \
           --filename-override "${config.uci.system."@system[0]".hostname}.json" \
           --output "${config.uci.system."@system[0]".hostname}.json"
+
+      ssh "''${args[@]}" 'ucode - ".*"' <${./uci-export.js} \
+        | ${lib.getExe pkgs.sops} encrypt --encrypted-regex "^(${lib.concatStringsSep "|" cfg.sopsEncryptedRegex})$" \
+          --filename-override "${config.uci.system."@system[0]".hostname}-full.json" \
+          --output "${config.uci.system."@system[0]".hostname}-full.json"
     '';
 
     sops.sysupgrade = pkgs.writeShellScriptBin "openwrt-sops-sysupgrade" ''
