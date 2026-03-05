@@ -32,11 +32,6 @@ in
     '';
 
     sdk.enable = true;
-    sdk.builds = [
-      {
-        downloadHash = "sha256-1GdnxoH183ETtYLjrirrwbcUAKfptCQwv++I2Bly5ok=";
-        packages = [ "vlmcsd" ];
-      }
-    ];
+    sdk.packages = [ "vlmcsd" ];
   };
 }
