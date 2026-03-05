@@ -68,7 +68,25 @@ in
                   prefix = "";
                 });
           in
-          lib.mergeAttrsList (builtins.concatMap (pkg: map (feed2nix pkg) pkg.feeds) openwrtPackages);
+          lib.mergeAttrsList (
+            builtins.concatMap (
+              pkg:
+              map (feed2nix pkg) (
+                # Prefer packages from default feeds from nix-openwrt-imagebuilder,
+                # only add packages from openwrtPackages of custom feeds to extraPackages,
+                builtins.filter (
+                  feed:
+                  !builtins.elem feed [
+                    "base"
+                    "luci"
+                    "packages"
+                    "routing"
+                    "telephony"
+                  ]
+                ) pkg.feeds
+              )
+            ) openwrtPackages
+          );
       };
   };
 }
