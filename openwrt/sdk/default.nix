@@ -29,24 +29,9 @@ in
         buildInputs = openwrtPackages;
         extraPackages =
           let
-            packages2nix = pkgs.callPackage (inputs.nix-openwrt-imagebuilder.outPath + "/packages2nix.nix") { };
-            callPackages2nix =
-              {
-                mode,
-                packages,
-                sha256sums,
-                prefix,
-              }:
-              let
-                drv = pkgs.runCommand "${packages.name}-ifd" { } ''
-                  if [ "$(cat ${packages} | wc -l)" -gt 1 ]; then
-                    ${packages2nix}/bin/packages2nix ${mode} ${packages} ${sha256sums} ${prefix} > $out
-                  else
-                    echo '{}' > $out
-                  fi
-                '';
-              in
-              import drv;
+            callPackages2nix = pkgs.callPackage (
+              inputs.nix-openwrt-imagebuilder.outPath + "/call-packages2nix.nix"
+            ) { };
             feed2nix =
               output: feed:
               lib.mapAttrs
