@@ -95,10 +95,11 @@ stdenv.mkDerivation (finalAttrs: {
     ${lib.getExe fhs} <<'EOS'
 
     cat <<'EOF' >feeds.conf
-    ${lib.concatMapAttrsStringSep "\n" (name: value: "src-link ${name} ${value}") feeds}
+    ${lib.concatMapAttrsStringSep "\n" (name: value: "src-cpy ${name} ${value}") feeds}
     EOF
 
     ./scripts/feeds update -a
+    chmod -R u+w feeds
     ./scripts/feeds install ${lib.concatStringsSep " " packages}
 
     make defconfig
