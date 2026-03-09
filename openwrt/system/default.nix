@@ -29,6 +29,7 @@ in
     '';
     uci = {
       dhcp."@dnsmasq[0]".cachesize = "1024";
+      dhcp."@dnsmasq[0]".localuse = "1"; # Always use dnsmasq as nameserver in resolv.conf
       dhcp."@dnsmasq[0]".rebind_domain = [ "/netease.com/" ];
       dhcp.lan.leasetime = "72h";
       dhcp.lan.limit = "245";
