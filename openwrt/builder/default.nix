@@ -38,7 +38,7 @@ in
         ignoreHashUrlRegex = lib.mkOption {
           type = lib.types.str;
           # default = ''https://downloads\.openwrt\.org/.*/Packages'';
-          default = ''https://downloads\.openwrt\.org/.*/packages/.*/(Packages|sha256sums)'';
+          default = ''https://downloads\.openwrt\.org/.*/packages/.*/(Packages|sha256sums|packages\.adb)'';
         };
 
         packages = lib.mkOption {

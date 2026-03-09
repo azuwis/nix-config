@@ -1,7 +1,14 @@
 let
   inputs = import ../inputs { };
   lib = import ../lib;
-  pkgs = import ../pkgs { };
+  pkgs = import ../pkgs {
+    # TODO: Remove when nixos 26.05 release
+    overlays = [
+      (final: prev: {
+        apk-tools = final.callPackage ../openwrt/builder/apk-tools.nix { };
+      })
+    ];
+  };
 
   mkOpenwrt =
     host:
