@@ -21,27 +21,27 @@
   openwrtPackages,
   breakpointHook,
   src ? fetchurl {
-    url = "https://downloads.openwrt.org/releases/24.10.5/targets/ramips/mt7621/openwrt-sdk-24.10.5-ramips-mt7621_gcc-13.3.0_musl.Linux-x86_64.tar.zst";
-    hash = "sha256-8BqooKQ1VnpR74xhc/j+oh8DTWn8eZXKDQDlk+rK8nk=";
+    url = "https://downloads.openwrt.org/releases/25.12.0/targets/ramips/mt7621/openwrt-sdk-25.12.0-ramips-mt7621_gcc-14.3.0_musl.Linux-x86_64.tar.zst";
+    hash = "sha256-NUna8RwYMkFEjpZfqihZ4m+6Gmdqdpv62ruiK2XJRpY=";
   },
   feeds ? {
     azuwis = fetchFromGitHub {
       owner = "azuwis";
       repo = "openwrt-azuwis";
-      rev = "28bc9f81fc198d56eb987f28da3c4df43abd67e9";
-      hash = "sha256-+a7ArFSGEI9R/7vabrvEwBZ5Atpdrydzky/Qj6swPF8=";
+      rev = "25701dc34df3d38c1a620a32866987c9cb354dbe";
+      hash = "sha256-TYEEui5IeFYpbyoG16++0ImSBm0Pa7V8rTNM/Zee5xI=";
     };
     base = fetchFromGitHub {
       owner = "openwrt";
       repo = "openwrt";
-      tag = "v24.10.5";
-      hash = "sha256-gtrbBmR0dM6j+KKLd0Zv/x2cqeEs/jHtptlM1v4Kvaw=";
+      tag = "v25.12.0";
+      hash = "sha256-v1Mw3DOnIYDQEbqwBryTzP4ZvBRPKPWmXl7URSxgdBE=";
     };
     packages = fetchFromGitHub {
       owner = "openwrt";
       repo = "packages";
-      rev = "953b6d47b4e9f0ad3c39547c6d3f9a828f10e206";
-      hash = "sha256-tae7UKBydzLmszomkjRUqNKGDQbWJLcJPmDdc3z5fLg=";
+      rev = "506c37591d7cd9b3cfd812e69e708349268f9865";
+      hash = "sha256-HIuG+NLZeowphz438c5lXC3ZFuywnhnZ5G0ot4qv6Oc=";
     };
   },
   installs ? [ ],
@@ -178,11 +178,11 @@ stdenv.mkDerivation (finalAttrs: {
             CONFIG_PACKAGE_shadowsocks-libev-ss-server=m
             CONFIG_PACKAGE_shadowsocks-libev-ss-tunnel=m
           '';
-          downloadHash = "sha256-7g//IJVN1xigTi4PqTY9kXw8C5MoPDx/8o7UfBjlGiw=";
+          downloadHash = "sha256-8PK0wpa0i/eDgq5TvQUmC+8iHDmEeyIqacIjvvlUJdo=";
           installs = [ "shadowsocks-libev" ];
         };
         vlmcsd = {
-          downloadHash = "sha256-1GdnxoH183ETtYLjrirrwbcUAKfptCQwv++I2Bly5ok=";
+          downloadHash = "sha256-3H7EPdauRNbzJYge8JXmjFKyhVSLK0k9yFCrQrEnBOg=";
           installs = [ "vlmcsd" ];
         };
       };
@@ -192,8 +192,8 @@ stdenv.mkDerivation (finalAttrs: {
         };
         ipq806x.generic = {
           src = fetchurl {
-            url = "https://downloads.openwrt.org/releases/24.10.5/targets/ipq806x/generic/openwrt-sdk-24.10.5-ipq806x-generic_gcc-13.3.0_musl_eabi.Linux-x86_64.tar.zst";
-            hash = "sha256-cD8CY5a0SbrrHSNMxJv7dQHOz99FQJ+huT1HcfpOkHQ=";
+            url = "https://downloads.openwrt.org/releases/25.12.0/targets/ipq806x/generic/openwrt-sdk-25.12.0-ipq806x-generic_gcc-14.3.0_musl_eabi.Linux-x86_64.tar.zst";
+            hash = "sha256-gykaGjk0c+NNVubp/1HwtAxs9YorP5IrDyzweYeIK70=";
           };
         };
       };
