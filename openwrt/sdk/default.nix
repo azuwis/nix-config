@@ -47,9 +47,11 @@ in
                   mode = if lib.versionAtLeast release "25" then "apk" else "opkg";
                   packages = {
                     name = feed;
-                    outPath = "${output}/${feed}/Packages";
+                    outPath = "${output}/${feed}/${
+                      if lib.versionAtLeast release "25" then "packages.adb" else "Packages"
+                    }";
                   };
-                  sha256sums = "";
+                  sha256sums = "${output}/sha256sums";
                   prefix = "";
                 });
           in
@@ -67,6 +69,7 @@ in
                     "packages"
                     "routing"
                     "telephony"
+                    "video"
                   ]
                 ) pkg.feeds
               )
