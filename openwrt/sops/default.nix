@@ -62,9 +62,10 @@ in
       ''^etherwake\.@target''
       ''^firewall\.(redirect_|rule_)''
       ''^network\.(lan|wan)\.(netmask|ipaddr|netmask|proto|username)$''
+      ''^network\.globals\.''
       ''^network\.wg''
       ''^shadowsocks-libev\.''
-      ''^wireless\.default_radio[0-9]\.(ssid|encryption|key|hidden)$''
+      ''^wireless\.default_radio[0-9]\.(ssid|encryption|disabled|key|hidden)$''
       ''^wireless\.radio[0-9]\.(channel|htmode|disabled|country)$''
     ];
 
