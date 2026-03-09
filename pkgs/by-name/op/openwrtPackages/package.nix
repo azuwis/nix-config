@@ -163,10 +163,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru = {
-    feeds = builtins.attrNames feeds;
-  }
-  // (
+  passthru =
     let
       packages = {
         shadowsocks-libev = {
@@ -198,12 +195,24 @@ stdenv.mkDerivation (finalAttrs: {
         };
       };
     in
-    builtins.mapAttrs (
+    {
+      feeds = builtins.attrNames feeds;
+    }
+    # For `nix-update --version=skip openwrtPackages.<package>`
+    // (builtins.mapAttrs (
+      pkgName: pkgDef:
+      stdenv.mkDerivation {
+        pname = "download-update";
+        version = "0";
+        src = (openwrtPackages.override pkgDef).download;
+      }
+    ) packages)
+    # For `nix-build -A openwrtPackages.<target>.<variant>.<package>`
+    // (builtins.mapAttrs (
       targetName: targetDef:
       builtins.mapAttrs (
         variantName: variantDef:
         builtins.mapAttrs (pkgName: pkgDef: openwrtPackages.override (variantDef // pkgDef)) packages
       ) targetDef
-    ) sdks
-  );
+    ) sdks);
 })
