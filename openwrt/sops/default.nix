@@ -21,7 +21,7 @@ in
 
     file = lib.mkOption {
       type = lib.types.path;
-      default = "${inputs.my.outPath}/${config.uci.system."@system[0]".hostname}.json";
+      default = "${inputs.my.outPath}/${config.uci.system."@system[0]".hostname}.yaml";
     };
 
     hostname = lib.mkOption {
@@ -71,10 +71,17 @@ in
 
     files.file."usr/bin/uci-import".source = ./uci-import.js;
     files.file."etc/uci-defaults/95-sops".source =
-      pkgs.runCommand "files-etc-uci-defaults-95-sops" { preferLocalBuild = true; }
+      pkgs.runCommand "files-etc-uci-defaults-95-sops"
+        {
+          nativeBuildInputs = with pkgs; [
+            jq
+            remarshal
+          ];
+          preferLocalBuild = true;
+        }
         ''
           echo "uci-import <<'EOF'" >$out
-          cat ${cfg.file} | ${lib.getExe pkgs.jq} '
+          yaml2json ${cfg.file} | jq '
           del(.sops) | walk(
             if type == "object" then
               with_entries(select(.value | (type == "string" and startswith("ENC[")) | not)) |
@@ -88,7 +95,15 @@ in
     sops.apply = pkgs.writeShellScriptBin "openwrt-sops-apply" ''
       set -euo pipefail
 
-      PATH="${lib.makeBinPath [ pkgs.sops ]}:$PATH"
+      PATH="${
+        lib.makeBinPath (
+          with pkgs;
+          [
+            remarshal
+            sops
+          ]
+        )
+      }:$PATH"
 
       file=${cfg.file}
       args=(${cfg.hostname})
@@ -105,7 +120,7 @@ in
       }
 
       ssh "''${args[@]}" 'cat >/tmp/uci-import.js' <${./uci-import.js}
-      decrypt | ssh "''${args[@]}" 'ucode /tmp/uci-import.js'
+      decrypt | yaml2json | ssh "''${args[@]}" 'ucode /tmp/uci-import.js'
       ssh "''${args[@]}" '
       echo
       uci changes
@@ -126,30 +141,46 @@ in
     sops.save = pkgs.writeShellScriptBin "openwrt-sops-save" ''
       set -euo pipefail
 
+      PATH="${
+        lib.makeBinPath (
+          with pkgs;
+          [
+            remarshal
+            sops
+          ]
+        )
+      }:$PATH"
+
       args=(${cfg.hostname})
       if [ "$#" -gt 0 ]; then
         args=("$@")
       fi
 
       ssh "''${args[@]}" 'ucode - "${lib.concatStringsSep "|" cfg.uciKeys}"' <${./uci-export.js} \
-        | ${lib.getExe pkgs.sops} encrypt --encrypted-regex "^(${lib.concatStringsSep "|" cfg.sopsEncryptedRegex})$" \
-          --filename-override "${config.uci.system."@system[0]".hostname}.json" \
-          --output "${config.uci.system."@system[0]".hostname}.json"
+        | json2yaml \
+        | sops encrypt --encrypted-regex "^(${lib.concatStringsSep "|" cfg.sopsEncryptedRegex})$" \
+          --filename-override "${config.uci.system."@system[0]".hostname}.yaml" \
+          --output "${config.uci.system."@system[0]".hostname}.yaml"
 
       ssh "''${args[@]}" 'ucode - ".*"' <${./uci-export.js} \
-        | ${lib.getExe pkgs.sops} encrypt --encrypted-regex "^(${lib.concatStringsSep "|" cfg.sopsEncryptedRegex})$" \
-          --filename-override "${config.uci.system."@system[0]".hostname}-full.json" \
-          --output "${config.uci.system."@system[0]".hostname}-full.json"
+        | json2yaml \
+        | sops encrypt --encrypted-regex "^(${lib.concatStringsSep "|" cfg.sopsEncryptedRegex})$" \
+          --filename-override "${config.uci.system."@system[0]".hostname}-full.yaml" \
+          --output "${config.uci.system."@system[0]".hostname}-full.yaml"
     '';
 
     sops.sysupgrade = pkgs.writeShellScriptBin "openwrt-sops-sysupgrade" ''
       set -euo pipefail
 
       PATH="${
-        lib.makeBinPath [
-          pkgs.jq
-          pkgs.sops
-        ]
+        lib.makeBinPath (
+          with pkgs;
+          [
+            jq
+            remarshal
+            sops
+          ]
+        )
       }:$PATH"
 
       file=${cfg.file}
@@ -177,7 +208,7 @@ in
       }
 
       ssh "''${args[@]}" 'echo "uci-import <<\EOF" >/tmp/sysupgrade/config/etc/uci-defaults/95-sops-enc'
-      decrypt | jq --arg regex "$(jq -r '.sops.encrypted_regex' "$file")" '
+      decrypt | yaml2json | jq --arg regex "$(yaml2json "$file" | jq -r '.sops.encrypted_regex')" '
       del(.sops) | map_values(
         map_values(
           with_entries(select(.key == ".type" or (.key | test($regex))))
