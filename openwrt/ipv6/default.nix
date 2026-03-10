@@ -22,5 +22,10 @@ in
       "-odhcp6c"
       "-odhcpd-ipv6only"
     ];
+    uci.network = {
+      globals.ula_prefix = "-";
+      lan.ipv6 = "0";
+      wan.ipv6 = "0";
+    };
   };
 }
