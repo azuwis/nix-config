@@ -100,13 +100,13 @@
     submodules = false;
   };
   nix-openwrt-imagebuilder = {
-    lastModified = 1773055804;
-    lastModifiedDate = "20260309113004";
-    narHash = "sha256-UvzVLiLH3Tfa4JMV2MUUqh8vn7ZUde4Y/226kwC3FDI=";
-    outPath = "/nix/store/8qg5l1dwcflaa8ikgwbpjmx3ahcs7v6i-source";
-    rev = "0ecc642fca92a6f6df8b1af5c8e6d36fecf1b838";
+    lastModified = 1773267299;
+    lastModifiedDate = "20260311221459";
+    narHash = "sha256-0FhOSJGSXoFkcpWVjM5t7Pv9Pji9Ozo2DNZk1UHiy6E=";
+    outPath = "/nix/store/kms000jfvm8da6im6hr01ra2pawyck7m-source";
+    rev = "82f7d9250a372eb7ed698f52bc9b923bf7e10507";
     revCount = 0;
-    shortRev = "0ecc642";
+    shortRev = "82f7d92";
     submodules = false;
   };
   nixos-wsl = {
