@@ -75,6 +75,11 @@ in
         profile = lib.mkOption {
           type = lib.types.str;
         };
+
+        release = lib.mkOption {
+          type = lib.types.str;
+          default = "";
+        };
       };
 
       image = lib.mkOption {
@@ -89,9 +94,14 @@ in
         throw "openwrt-imagebuilder runs only in x86_64-linux, see https://openwrt.org/docs/guide-user/additional-software/imagebuilder"
       else
         let
-          profiles = import (inputs.nix-openwrt-imagebuilder.outPath + "/profiles.nix") {
-            inherit (cfg) pkgs;
-          };
+          profiles = import (inputs.nix-openwrt-imagebuilder.outPath + "/profiles.nix") (
+            {
+              inherit (cfg) pkgs;
+            }
+            // lib.optionalAttrs (cfg.release != "") {
+              inherit (cfg) release;
+            }
+          );
         in
         (import (inputs.nix-openwrt-imagebuilder.outPath + "/builder.nix") (
           profiles.identifyProfile cfg.profile
