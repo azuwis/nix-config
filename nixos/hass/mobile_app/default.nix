@@ -9,6 +9,7 @@ let
   cfg = config.services.hass;
 in
 
+# Settings -> Companion app -> Manage Sensors -> Last Notification -> Enable -> Allow List -> Add <apps>
 {
   options.services.hass = {
     mobile_app = lib.mkEnableOption "mobile_app";
@@ -17,7 +18,7 @@ in
   config = lib.mkIf (cfg.enable && cfg.mobile_app) {
     services.home-assistant.config.mobile_app = { };
     hass.automations = ''
-      - alias: Run action from notification
+      - alias: Mobile App run action from notification
         triggers:
           - trigger: state
             entity_id: sensor.az_last_notification
@@ -29,11 +30,18 @@ in
                  state_attr(trigger.entity_id, "android.text").startswith("HASS ") }}
         action:
           - variables:
-              msg_parts: >-
+              parts: >-
                 {{ state_attr(trigger.entity_id, "android.text").split(" ") }}
-          - action: "{{ msg_parts[1] }}"
+              action: "{{ parts[1] }}"
+              entity_id: >-
+                {{ parts[2].split(",") }}
+              data: >-
+                {% set json_str = parts[3:] | join(" ") %}
+                {{ json_str | from_json if json_str | length > 0 else {} }}
+          - action: "{{ action }}"
             target:
-              entity_id: "{{ msg_parts[2] }}"
+              entity_id: "{{ entity_id }}"
+            data: "{{ data }}"
     '';
   };
 }
