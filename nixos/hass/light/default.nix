@@ -93,19 +93,19 @@
             {% endif %}
           color_temp: >-
             {{ "color_temp" in state_attr(trigger.entity_id, "supported_color_modes") }}
-          kelvin: 5235
+          color_temp_kelvin: 5235
         conditions:
           - condition: template
             value_template: >-
               {{ (state_attr(trigger.entity_id, "brightness") != brightness) or
-                 (color_temp and (state_attr(trigger.entity_id, "color_temp_kelvin") != kelvin))
+                 (color_temp and (state_attr(trigger.entity_id, "color_temp_kelvin") != color_temp_kelvin))
               }}
         actions:
           - action: light.turn_on
             target:
               entity_id: "{{ trigger.entity_id }}"
             data: >-
-              {"brightness": {{ brightness }}{% if color_temp %}, "kelvin": {{ kelvin }}{% endif %}}
+              {"brightness": {{ brightness }}{% if color_temp %}, "color_temp_kelvin": {{ color_temp_kelvin }}{% endif %}}
 
       - alias: Light set brightness once
         triggers:
