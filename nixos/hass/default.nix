@@ -40,6 +40,7 @@ in
       # gree = true;
       gree2 = true;
       mini-media-player = true;
+      mobile_app = true;
       # python_script = true;
       simple-thermostat = true;
       smartir = true;
@@ -94,7 +95,6 @@ in
       };
       history = { };
       logbook = { };
-      mobile_app = { };
       sun = { };
       logger.default = "warning";
       automation = "!include /etc/home-assistant/automations.yaml";
