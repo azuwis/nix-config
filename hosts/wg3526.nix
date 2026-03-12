@@ -12,6 +12,7 @@
   uci.system."@system[0]".hostname = "wg3526";
 
   wireguard.enable = true;
+  wireguard.cron = true;
   uci.firewall."@zone[0]".network = [ "wg0" ];
 
   builder.packages = [ "etherwake" ];

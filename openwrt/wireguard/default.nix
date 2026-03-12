@@ -12,10 +12,11 @@ in
 {
   options.wireguard = {
     enable = lib.mkEnableOption "wireguard";
+    cron = lib.mkEnableOption "wireguard cron";
   };
 
   config = lib.mkIf cfg.enable {
     builder.packages = [ "wireguard-tools" ];
-    files.file."etc/crontabs/root".text = "* * * * * /usr/bin/wireguard_watchdog";
+    files.file."etc/crontabs/root".text = lib.mkIf cfg.cron "* * * * * /usr/bin/wireguard_watchdog";
   };
 }
