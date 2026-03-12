@@ -18,7 +18,10 @@
     sqm.enable = true;
     uci.sqm.wifi = {
       ".type" = "queue";
-      download = "200000"; # Download for wifi interface is upload for wifi clients
+      # Download for wifi interface is upload for wifi clients, result max
+      # upload speed: 236 Mb/s to devices ln lan, 106 Mb/s to devices on wan,
+      # softirq is the bottleneck
+      download = "300000";
       enabled = "1";
       interface = "phy1-ap0";
       script = "piece_of_cake.qos";
