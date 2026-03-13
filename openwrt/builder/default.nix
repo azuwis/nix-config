@@ -116,9 +116,6 @@ in
           }
         )).overrideAttrs
           (old: {
-            # https://github.com/astro/nix-openwrt-imagebuilder/pull/74
-            cachePath = null;
-
             nativeBuildInputs =
               (old.nativeBuildInputs or [ ]) ++ lib.optionals cfg.debug [ pkgs.breakpointHook ];
 
