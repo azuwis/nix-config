@@ -12,13 +12,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "amber-editor";
-  version = "1.0.1";
+  version = "1.1.0";
 
   src = fetchFromGitHub {
     owner = "baptisterajaut";
     repo = "amber";
     tag = "v${finalAttrs.version}";
-    sha256 = "sha256-ZyrVGi6hWEOvhdXm8A52L+dE7FBf4q9y6MHuKMSd0ec=";
+    sha256 = "sha256-vQI9l83IhfQEZfe6jWUPeBwJYB34B85cwj/LZ0dj+DY=";
   };
 
   postPatch = ''
