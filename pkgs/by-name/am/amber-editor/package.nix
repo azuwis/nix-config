@@ -21,6 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-vQI9l83IhfQEZfe6jWUPeBwJYB34B85cwj/LZ0dj+DY=";
   };
 
+  # Fix `Could NOT find FFMPEG`
   postPatch = ''
     substituteInPlace src/cmake/FindFFMPEG.cmake \
       --replace "NO_CMAKE_PATH NO_CMAKE_ENVIRONMENT_PATH" ""
@@ -44,6 +45,45 @@ stdenv.mkDerivation (finalAttrs: {
     "-S"
     "../src"
   ];
+
+  # https://github.com/baptisterajaut/amber/blob/0.1.x/.github/workflows/build.yml
+  # `Create .app bundle` step
+  installPhase = lib.optionalString stdenv.hostPlatform.isDarwin ''
+    runHook preInstall
+
+    mkdir -p Amber.app/Contents/MacOS
+    mkdir -p Amber.app/Contents/Resources
+    cp Amber Amber.app/Contents/MacOS/Amber
+    cp ../packaging/macos/olive.icns Amber.app/Contents/Resources/amber.icns
+    cat > Amber.app/Contents/Info.plist <<PLIST
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+    <plist version="1.0">
+    <dict>
+      <key>CFBundleExecutable</key>
+      <string>Amber</string>
+      <key>CFBundleName</key>
+      <string>Amber</string>
+      <key>CFBundleIdentifier</key>
+      <string>org.ambervideoeditor.Amber</string>
+      <key>CFBundleVersion</key>
+      <string>${finalAttrs.version}</string>
+      <key>CFBundleShortVersionString</key>
+      <string>${finalAttrs.version}</string>
+      <key>CFBundleIconFile</key>
+      <string>amber.icns</string>
+      <key>CFBundlePackageType</key>
+      <string>APPL</string>
+    </dict>
+    </plist>
+    PLIST
+
+    mkdir -p $out/Applications $out/bin
+    mv Amber.app $out/Applications
+    ln -s $out/Applications/Amber.app/Contents/MacOS/Amber $out/bin/${lib.getExe finalAttrs.finalPackage}
+
+    runHook postInstall
+  '';
 
   passthru.updateScript = nix-update-script { };
 
