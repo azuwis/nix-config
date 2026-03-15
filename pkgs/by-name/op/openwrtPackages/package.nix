@@ -34,14 +34,14 @@
     base = fetchFromGitHub {
       owner = "openwrt";
       repo = "openwrt";
-      tag = "v25.12.0";
+      rev = "4da53efc2fe744601e6189492dbd06b8930d72b8";
       hash = "sha256-v1Mw3DOnIYDQEbqwBryTzP4ZvBRPKPWmXl7URSxgdBE=";
     };
     packages = fetchFromGitHub {
       owner = "openwrt";
       repo = "packages";
-      rev = "506c37591d7cd9b3cfd812e69e708349268f9865";
-      hash = "sha256-HIuG+NLZeowphz438c5lXC3ZFuywnhnZ5G0ot4qv6Oc=";
+      rev = "83b7ce07d513a220343f85e653cdf3a394ea19c3";
+      hash = "sha256-bLyAfEsWHswz8MTMjXvSPw3lu2dtm5UPsjkKZAV8hWY=";
     };
   },
   installs ? [ ],
@@ -197,6 +197,26 @@ stdenv.mkDerivation (finalAttrs: {
     in
     {
       feeds = builtins.attrNames feeds;
+      feedsUpdate = {
+        # nix-update --version=branch openwrtPackages.feedsUpdate.azuwis
+        azuwis = stdenv.mkDerivation {
+          pname = "azuwis-update";
+          version = "0-unstable-2026-03-09";
+          src = feeds.azuwis;
+        };
+        # nix-update --version=branch=v25.12.0 openwrtPackages.feedsUpdate.base
+        base = stdenv.mkDerivation {
+          pname = "base-update";
+          version = "25.12.0-unstable-2026-03-03";
+          src = feeds.base;
+        };
+        # nix-update --version=branch=openwrt-25.12 --version-regex='(0-unstable-.*)' openwrtPackages.feedsUpdate.packages
+        packages = stdenv.mkDerivation {
+          pname = "packages-update";
+          version = "0-unstable-2026-03-15";
+          src = feeds.packages;
+        };
+      };
     }
     # For `nix-update --version=skip openwrtPackages.<package>`
     // (builtins.mapAttrs (
