@@ -3,21 +3,9 @@
   stdenv,
   fetchurl,
   fetchFromGitHub,
-  buildFHSEnv,
-  bash,
   cacert,
-  file,
-  git,
-  ncurses,
-  perl,
-  python3,
-  rsync,
-  unzip,
-  util-linux,
-  wget,
-  which,
-  zlib,
   zstd,
+  openwrtFhsHook,
   openwrtPackages,
   breakpointHook,
   src ? fetchurl {
@@ -49,29 +37,6 @@
   downloadHash ? "sha256-pQpattmS9VmO3ZIQUFn66az8GSmB4IvYhTTCFn6SUmo=",
 }:
 
-let
-  fhs = buildFHSEnv {
-    name = "openwrt-sdk-fhs";
-    targetPkgs = pkgs: [
-      bash
-      file
-      git
-      ncurses
-      ncurses.dev
-      perl
-      python3
-      rsync
-      unzip
-      util-linux
-      wget
-      which
-      zlib
-      zstd
-    ];
-    runScript = "bash -euo pipefail";
-  };
-in
-
 stdenv.mkDerivation (finalAttrs: {
   name = "openwrt-packages";
 
@@ -85,15 +50,9 @@ stdenv.mkDerivation (finalAttrs: {
     nativeBuildInputs = finalAttrs.nativeBuildInputs ++ [ cacert ];
 
     buildPhase = ''
-      runHook preBuild
-      ${lib.getExe fhs} <<'EOS'
-
       for package in package/feeds/*/*; do
         make "$package/download"
       done
-
-      EOS
-      runHook postBuild
     '';
 
     installPhase = ''
@@ -110,7 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs = [
-    fhs
+    openwrtFhsHook
     zstd
     # breakpointHook
   ];
@@ -119,9 +78,6 @@ stdenv.mkDerivation (finalAttrs: {
   hardeningDisable = [ "all" ];
 
   configurePhase = ''
-    runHook preConfigure
-    ${lib.getExe fhs} <<'EOS'
-
     cat <<'EOF' >feeds.conf
     ${lib.concatMapAttrsStringSep "\n" (name: value: "src-cpy ${name} ${value}") feeds}
     EOF
@@ -136,23 +92,14 @@ stdenv.mkDerivation (finalAttrs: {
     ${configText}
     EOF
     make defconfig
-
-    EOS
-    runHook postConfigure
   '';
 
   buildPhase = ''
-    runHook preBuild
-    ${lib.getExe fhs} <<'EOS'
-
     rmdir dl
     ln -s "${finalAttrs.download}" dl
 
     make ${lib.concatMapStringsSep " " (x: "package/${x}/compile") installs}
     make package/index
-
-    EOS
-    runHook postBuild
   '';
 
   installPhase = ''
