@@ -17,6 +17,27 @@
 
   builder.packages = [ "etherwake" ];
 
+  files.file."etc/hotplug.d/iface/99-wan-check".text = ''
+    if [ "$ACTION" = ifup ] && [ "$INTERFACE" = wan ]; then
+      RETRY_COUNT=0
+      MAX_RETRIES=10
+      while [ "$RETRY_COUNT" -lt "$MAX_RETRIES" ]; do
+        RESULT=$(wget -q -O - http://www.baidu.com | grep -c "baidu")
+        if [ "$RESULT" -ge 5 ]; then
+          logger -t wan-check "Success: Found $RESULT matches"
+          break
+        else
+          RETRY_COUNT=$((RETRY_COUNT + 1))
+          logger -t wan-check "Check failed (found $RESULT). Retry $RETRY_COUNT/$MAX_RETRIES in 30s..."
+          sleep 30
+        fi
+      done
+      if [ "$RETRY_COUNT" -eq "$MAX_RETRIES" ]; then
+        logger -t wan-check "Failed: Reached max $MAX_RETRIES retries"
+      fi
+    fi
+  '';
+
   # >900Mb/s NAT, low CPU usage, may break SQM on wan
   uci.firewall."@defaults[0]".flow_offloading_hw = "1";
 
