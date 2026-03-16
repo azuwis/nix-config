@@ -80,7 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     mkdir -p $out/Applications $out/bin
     mv Amber.app $out/Applications
-    ln -s $out/Applications/Amber.app/Contents/MacOS/Amber $out/bin/${lib.getExe finalAttrs.finalPackage}
+    ln -s $out/Applications/Amber.app/Contents/MacOS/Amber $out/bin/${finalAttrs.meta.mainProgram}
 
     runHook postInstall
   '';
