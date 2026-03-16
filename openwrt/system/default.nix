@@ -16,6 +16,10 @@ in
 
   config = lib.mkIf cfg.enable {
     files.file."etc/dropbear/authorized_keys".text = lib.concatStringsSep "\n" config.my.keys;
+    # Empty file /etc/profile.d/apk-cheatsheet.hush will skip load /etc/profile.d/apk-cheatsheet.sh
+    # TODO: Remove when openwrt 26 releases
+    # https://github.com/openwrt/openwrt/blob/df45ed2da0afb3c2c4dce567338eaa3ef099217a/package/base-files/files/etc/profile#L35
+    files.file."etc/profile.d/apk-cheatsheet.hush".text = "";
     files.file."etc/sysctl.conf".text = lib.mkMerge [
       "net.netfilter.nf_conntrack_max=32768"
       (lib.mkAfter "") # Add trailing newline
