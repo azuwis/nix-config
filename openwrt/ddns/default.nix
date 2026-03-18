@@ -18,7 +18,6 @@ in
     builder.packages = [
       "ca-bundle"
       "ddns-scripts"
-      "ip-tiny"
     ];
     sops.uciKeys = [ ''^ddns\.service_'' ];
     uci.ddns = {
