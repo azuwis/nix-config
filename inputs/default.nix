@@ -85,7 +85,7 @@ builtins.mapAttrs (
     fetchInput = builtins.trace "${name} = builtins.fetchGit ${argsToString fetchGitArgs}" (
       builtins.fetchGit fetchGitArgs
     );
-    replacement = builtins.getEnv "NIXLOCK_OVERRIDE_${name}";
+    replacement = builtins.getEnv "NIXLOCK_OVERRIDE_${builtins.replaceStrings [ "-" ] [ "_" ] name}";
   in
   if replacement != "" then
     # https://github.com/andir/npins/blob/5eb1bde1898a3c32a3aacb36ae120897a58c9ed8/src/default.nix#L36
