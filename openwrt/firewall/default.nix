@@ -15,7 +15,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # https://github.com/openwrt/openwrt/blob/main/package/network/config/firewall/files/firewall.config
+    # https://github.com/openwrt/firewall4/blob/master/root/etc/config/firewall
     uci = {
       # For >800Mb/s NAT
       firewall."@defaults[0]".flow_offloading = "1";
