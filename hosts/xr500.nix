@@ -18,7 +18,10 @@
   uci.firewall."@zone[0]".network = [ "wg1" ];
   uci.firewall."@zone[1]".network = [ "wg0" ];
 
-  builder.packages = [ "etherwake" ];
+  builder.packages = [
+    "dnsmasq-full" # Need nftset for policy-based routing
+    "etherwake"
+  ];
 
   files.file."etc/crontabs/root".text = "0 3 */3 * * /usr/bin/killall -HUP pppd";
 
