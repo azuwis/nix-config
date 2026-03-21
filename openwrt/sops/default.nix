@@ -60,6 +60,7 @@ in
       "preshared_key"
       "private_key"
       ''^dhcp\.@dnsmasq\[0\]\.(rebind_domain|server)$''
+      ''^dhcp\.ipset_''
       ''^etherwake\.@target''
       ''^firewall\.(ipset_|redirect_|rule_)''
       ''^network\.(lan|wan)\.(netmask|ipaddr|netmask|proto|username)$''
