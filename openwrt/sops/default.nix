@@ -59,11 +59,11 @@ in
       "password"
       "preshared_key"
       "private_key"
+      ''^dhcp\.@dnsmasq\[0\]\.(rebind_domain|server)$''
       ''^etherwake\.@target''
-      ''^firewall\.(redirect_|rule_)''
+      ''^firewall\.(ipset_|redirect_|rule_)''
       ''^network\.(lan|wan)\.(netmask|ipaddr|netmask|proto|username)$''
-      ''^network\.globals\.''
-      ''^network\.wg''
+      ''^network\.(globals\.|wg|rule_|route_)''
       ''^shadowsocks-libev\.''
       ''^wireless\.default_radio[0-9]\.(ssid|encryption|disabled|key|hidden)$''
       ''^wireless\.radio[0-9]\.(channel|htmode|disabled|country)$''
