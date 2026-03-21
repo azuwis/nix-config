@@ -17,6 +17,7 @@
 
   wireguard.enable = true;
   wireguard.cron = true;
+  uci.dhcp."@dnsmasq[0]".localservice = "0"; # Response on wg0
   uci.firewall."@zone[0]".network = [ "wg0" ];
 
   builder.packages = [ "etherwake" ];
