@@ -1,4 +1,5 @@
 {
+  lib,
   stdenv,
   fetchFromGitHub,
   nix-update-script,
@@ -11,8 +12,8 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "azuwis";
     repo = "wheelswipe";
-    rev = "d1104a571bac293901351df8d51a98854ea295d9";
-    hash = "sha256-f7H5yuRT5Jr1CoN+5HeLp72w38wPZ4EBAHiWG8qidek=";
+    rev = "67eb9a03140619f9849b9eb171cc6e3e96418412";
+    hash = "sha256-4KHLmryxUkY9uinQkBxbCVIGgUKwvttCvSEPc9Ev5vw=";
   };
 
   installPhase = ''
@@ -30,5 +31,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Linux utility that converts horizontal mouse scroll wheel events to touchpad two-finger swipe gestures";
     homepage = "https://github.com/azuwis/wheelswipe";
     mainProgram = "wheelswipe";
+    platforms = lib.platforms.linux;
   };
 })
