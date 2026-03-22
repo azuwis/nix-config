@@ -33,11 +33,6 @@ in
       }
     '';
     uci = {
-      dhcp.dis_gree_com = {
-        ".type" = "cname";
-        cname = "dis.gree.com";
-        target = "nuc.lan";
-      };
       # https://github.com/openwrt/openwrt/blob/main/package/system/rpcd/files/rpcd.config
       rpcd."@login[0]".".type" = "-";
       rpcd.hass = {
