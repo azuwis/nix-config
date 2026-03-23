@@ -23,7 +23,6 @@
   libusb1,
   openssl,
   lz4,
-  mbedtls,
   nlohmann_json,
   SDL2,
   simpleini,
@@ -39,14 +38,14 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "eden";
-  version = "0.2.0-rc1";
+  version = "0.2.0-rc2";
 
   src = fetchFromGitea {
     domain = "git.eden-emu.dev";
     owner = "eden-emu";
     repo = "eden";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-6vUtNI4lqPffcCpctVv0tDfoqTShaUDGNPEOmfmnkbU=";
+    hash = "sha256-keLkB5qeQch+tM2J6zVh9oQGhP5TuxItqrZRN24apJw=";
   };
 
   deps = stdenv.mkDerivation {
@@ -68,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
         -czf $out .cache/cpm
     '';
 
-    outputHash = "sha256-ct8Zz3CKaO7i4EO1DWbMUlcXGp5x+03PVGgHTIWGvC8=";
+    outputHash = "sha256-YrAkpnrJw90p3ajHK1c5VbAo7Wfk1E82mYWH/WvOWZc=";
     outputHashAlgo = "sha256";
   };
 
@@ -104,7 +103,6 @@ stdenv.mkDerivation (finalAttrs: {
     openssl
     # intentionally omitted: LLVM - heavy, only used for stack traces in the debugger
     lz4
-    mbedtls
     nlohmann_json
     # intentionally omitted: renderdoc - heavy, developer only
     SDL2
@@ -121,6 +119,7 @@ stdenv.mkDerivation (finalAttrs: {
   ]
   ++ (with qt6Packages; [
     qtbase
+    qtcharts
     qtmultimedia
     qtwayland
     qtwebengine
@@ -132,8 +131,17 @@ stdenv.mkDerivation (finalAttrs: {
     tar -xf "$deps" -C "$sourceRoot"
   '';
 
+  # Workaround for old vulkan-headers
+  postPatch = ''
+    substituteInPlace src/video_core/vulkan_common/vulkan_wrapper.cpp \
+      --replace-fail 'case VK_DRIVER_ID_MESA_KOSMICKRISP:' "" \
+      --replace-fail 'return "KosmicKrisp";' ""
+  '';
+
   __structuredAttrs = true;
   cmakeFlags = [
+    (lib.cmakeFeature "YUZU_BUILD_PRESET" "v3")
+
     # actually has a noticeable performance impact
     (lib.cmakeBool "ENABLE_LTO" true)
     (lib.cmakeBool "DYNARMIC_ENABLE_LTO" true)
@@ -145,18 +153,12 @@ stdenv.mkDerivation (finalAttrs: {
 
     # enable some optional features
     (lib.cmakeBool "ENABLE_QT_TRANSLATION" true)
-    (lib.cmakeBool "USE_DISCORD_PRESENCE" true)
     (lib.cmakeBool "YUZU_USE_QT_MULTIMEDIA" true)
     (lib.cmakeBool "YUZU_USE_QT_WEB_ENGINE" true)
 
     (lib.cmakeFeature "TITLE_BAR_FORMAT_IDLE" "eden | ${finalAttrs.version} (nixpkgs) {}")
     (lib.cmakeFeature "TITLE_BAR_FORMAT_RUNNING" "eden | ${finalAttrs.version} (nixpkgs) | {}")
   ];
-
-  env = {
-    # Does some handrolled SIMD
-    NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isx86_64 "-msse4.2";
-  };
 
   qtWrapperArgs = [
     # Fixes vulkan detection.
