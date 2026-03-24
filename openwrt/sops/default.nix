@@ -21,7 +21,7 @@ in
 
     file = lib.mkOption {
       type = lib.types.path;
-      default = "${inputs.my.outPath}/${config.uci.system."@system[0]".hostname}.yaml";
+      default = "${inputs.my.outPath}/${config.uci.system."@system[0]".hostname}.json";
     };
 
     hostname = lib.mkOption {
@@ -76,13 +76,12 @@ in
         {
           nativeBuildInputs = with pkgs; [
             jq
-            remarshal
           ];
           preferLocalBuild = true;
         }
         ''
           echo "uci-import <<'EOF'" >$out
-          yaml2json ${cfg.file} | jq '
+          cat ${cfg.file} | jq '
           del(.sops) | walk(
             if type == "object" then
               with_entries(select(.value | (type == "string" and startswith("ENC[")) | not)) |
@@ -100,7 +99,6 @@ in
         lib.makeBinPath (
           with pkgs;
           [
-            remarshal
             sops
           ]
         )
@@ -121,7 +119,7 @@ in
       }
 
       ssh "''${args[@]}" 'cat >/tmp/uci-import.js' <${./uci-import.js}
-      decrypt | yaml2json | ssh "''${args[@]}" 'ucode /tmp/uci-import.js'
+      decrypt | ssh "''${args[@]}" 'ucode /tmp/uci-import.js'
       ssh "''${args[@]}" '
       echo
       uci changes
@@ -146,7 +144,6 @@ in
         lib.makeBinPath (
           with pkgs;
           [
-            remarshal
             sops
           ]
         )
@@ -158,16 +155,14 @@ in
       fi
 
       ssh "''${args[@]}" 'ucode - "${lib.concatStringsSep "|" cfg.uciKeys}"' <${./uci-export.js} \
-        | json2yaml \
         | sops encrypt --encrypted-regex "^(${lib.concatStringsSep "|" cfg.sopsEncryptedRegex})$" \
-          --filename-override "${config.uci.system."@system[0]".hostname}.yaml" \
-          --output "${config.uci.system."@system[0]".hostname}.yaml"
+          --filename-override "${config.uci.system."@system[0]".hostname}.json" \
+          --output "${config.uci.system."@system[0]".hostname}.json"
 
       ssh "''${args[@]}" 'ucode - ".*"' <${./uci-export.js} \
-        | json2yaml \
         | sops encrypt --encrypted-regex "^(${lib.concatStringsSep "|" cfg.sopsEncryptedRegex})$" \
-          --filename-override "${config.uci.system."@system[0]".hostname}-full.yaml" \
-          --output "${config.uci.system."@system[0]".hostname}-full.yaml"
+          --filename-override "${config.uci.system."@system[0]".hostname}-full.json" \
+          --output "${config.uci.system."@system[0]".hostname}-full.json"
     '';
 
     sops.sysupgrade = pkgs.writeShellScriptBin "openwrt-sops-sysupgrade" ''
@@ -178,7 +173,6 @@ in
           with pkgs;
           [
             jq
-            remarshal
             sops
           ]
         )
@@ -209,7 +203,7 @@ in
       }
 
       ssh "''${args[@]}" 'echo "uci-import <<\EOF" >/tmp/sysupgrade/config/etc/uci-defaults/95-sops-enc'
-      decrypt | yaml2json | jq --arg regex "$(yaml2json "$file" | jq -r '.sops.encrypted_regex')" '
+      decrypt | jq --arg regex "$(cat "$file" | jq -r '.sops.encrypted_regex')" '
       del(.sops) | map_values(
         map_values(
           with_entries(select(.key == ".type" or (.key | test($regex))))
