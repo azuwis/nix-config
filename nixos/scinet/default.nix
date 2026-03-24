@@ -22,7 +22,7 @@ in
   config = lib.mkIf cfg.enable {
     services.smartdns.enhance = true;
 
-    age.secrets."shadowsocks-rust-redir.json".file = "${inputs.my.outPath}/shadowsocks-rust-redir.json";
+    age.secrets.shadowsocks-rust.file = "${inputs.my.outPath}/shadowsocks-rust.age";
     systemd.services.shadowsocks-rust =
       let
         # https://en.wikipedia.org/wiki/Reserved_IP_addresses
@@ -102,13 +102,13 @@ in
         description = "shadowsocks-rust Daemon";
         after = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
-        restartTriggers = [ config.age.secrets."shadowsocks-rust-redir.json".file ];
+        restartTriggers = [ config.age.secrets.shadowsocks-rust.file ];
         serviceConfig = {
           DynamicUser = true;
           # Needed for udp tproxy
           CapabilityBoundingSet = lib.optionals cfg.udp [ "CAP_NET_RAW" ];
           AmbientCapabilities = lib.optionals cfg.udp [ "CAP_NET_RAW" ];
-          LoadCredential = "config.json:${config.age.secrets."shadowsocks-rust-redir.json".path}";
+          LoadCredential = "config.json:${config.age.secrets.shadowsocks-rust.path}";
           ExecStart = "${lib.getBin cfg.package}/bin/sslocal --config \${CREDENTIALS_DIRECTORY}/config.json";
           # `+` run commands as root
           ExecStartPost = [
