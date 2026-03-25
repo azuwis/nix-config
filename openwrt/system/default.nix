@@ -15,6 +15,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    builder.packages = [
+      "diffutils"
+      "tcpdump"
+    ];
     files.file."etc/dropbear/authorized_keys".text = lib.concatStringsSep "\n" config.my.keys;
     # Empty file /etc/profile.d/apk-cheatsheet.hush will skip load /etc/profile.d/apk-cheatsheet.sh
     # TODO: Remove when openwrt 26 releases
