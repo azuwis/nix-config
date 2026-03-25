@@ -8,6 +8,28 @@
 
 let
   cfg = config.sops;
+
+  sopsDecrypt = ''
+    decrypt() {
+      file="$1"
+      if [ -r /etc/ssh/ssh_host_ed25519_key.pub ] && grep -q "$(cut -d' ' -f 1-2 /etc/ssh/ssh_host_ed25519_key.pub)" "$file"; then
+        sudo SOPS_AGE_SSH_PRIVATE_KEY_FILE=/etc/ssh/ssh_host_ed25519_key sops decrypt "$file"
+      else
+        sops decrypt "$file"
+      fi
+    }
+
+    filter_encrypted() {
+      jq --arg regex '^(${lib.concatStringsSep "|" cfg.sopsEncryptedRegex})$' '
+    map_values(
+      map_values(
+        with_entries(select(.key == ".type" or (.key | test($regex))))
+        | select(any(keys_unsorted[]; test($regex)))
+      ) | select(length > 0)
+    ) | select(length > 0)
+    '
+    }
+  '';
 in
 
 {
@@ -17,11 +39,6 @@ in
     apply = lib.mkOption {
       type = lib.types.package;
       readOnly = true;
-    };
-
-    file = lib.mkOption {
-      type = lib.types.path;
-      default = inputs.my.outPath + "/${config.builder.hostname}.json";
     };
 
     save = lib.mkOption {
@@ -65,28 +82,6 @@ in
       ''^wireless\.radio[0-9]\.(channel|htmode|disabled|country)$''
     ];
 
-    files.file."usr/bin/uci-import".source = ./uci-import.js;
-    files.file."etc/uci-defaults/95-sops".source =
-      pkgs.runCommand "files-etc-uci-defaults-95-sops"
-        {
-          nativeBuildInputs = with pkgs; [
-            jq
-          ];
-          preferLocalBuild = true;
-        }
-        ''
-          echo "uci-import <<'EOF'" >$out
-          cat ${cfg.file} | jq '
-          del(.sops) | walk(
-            if type == "object" then
-              with_entries(select(.value | (type == "string" and startswith("ENC[")) | not)) |
-              select(keys != [".type"] and length > 0)
-            else . end
-          )' >>$out
-          echo 'EOF' >>$out
-          echo 'uci commit' >>$out
-        '';
-
     sops.apply = pkgs.writeShellScriptBin "openwrt-sops-apply" ''
       set -euo pipefail
 
@@ -99,22 +94,19 @@ in
         )
       }:$PATH"
 
-      file=${cfg.file}
+      file="${config.builder.hostname}.json"
       args=(${config.builder.hostname})
       if [ "$#" -gt 0 ]; then
         args=("$@")
       fi
 
-      decrypt() {
-        if [ -r /etc/ssh/ssh_host_ed25519_key.pub ] && grep -q "$(cut -d' ' -f 1-2 /etc/ssh/ssh_host_ed25519_key.pub)" "$file"; then
-          sudo SOPS_AGE_SSH_PRIVATE_KEY_FILE=/etc/ssh/ssh_host_ed25519_key sops decrypt "$file"
-        else
-          sops decrypt "$file"
-        fi
-      }
+      ${sopsDecrypt}
 
-      ssh "''${args[@]}" 'cat >/tmp/uci-import.js' <${./uci-import.js}
-      decrypt | ssh "''${args[@]}" 'ucode /tmp/uci-import.js'
+      ssh "''${args[@]}" 'cat >/tmp/uci-import.js' <${../uci/uci-import.js}
+      ssh "''${args[@]}" 'ucode /tmp/uci-import.js' <<'EOF'
+      ${builtins.toJSON config.uci}
+      EOF
+      decrypt "$file" | ssh "''${args[@]}" 'ucode /tmp/uci-import.js'
       ssh "''${args[@]}" '
       echo
       uci changes
@@ -173,7 +165,7 @@ in
         )
       }:$PATH"
 
-      file=${cfg.file}
+      file=${inputs.my.outPath + "/${config.builder.hostname}.json"}
       args=(${config.builder.hostname})
       if [ "$#" -gt 0 ]; then
         args=("$@")
@@ -189,23 +181,10 @@ in
       image=''${images[0]}
       cat "$image" | ssh "''${args[@]}" 'cat >/tmp/sysupgrade/sysupgrade.bin'
 
-      decrypt() {
-        if [ -r /etc/ssh/ssh_host_ed25519_key.pub ] && grep -q "$(cut -d' ' -f 1-2 /etc/ssh/ssh_host_ed25519_key.pub)" "$file"; then
-          sudo SOPS_AGE_SSH_PRIVATE_KEY_FILE=/etc/ssh/ssh_host_ed25519_key sops decrypt "$file"
-        else
-          sops decrypt "$file"
-        fi
-      }
+      ${sopsDecrypt}
 
       ssh "''${args[@]}" 'echo "uci-import <<\EOF" >/tmp/sysupgrade/config/etc/uci-defaults/95-sops-enc'
-      decrypt | jq --arg regex "$(cat "$file" | jq -r '.sops.encrypted_regex')" '
-      del(.sops) | map_values(
-        map_values(
-          with_entries(select(.key == ".type" or (.key | test($regex))))
-          | select(any(keys_unsorted[]; test($regex)))
-        ) | select(length > 0)
-      ) | select(length > 0)
-      ' | ssh "''${args[@]}" 'cat >>/tmp/sysupgrade/config/etc/uci-defaults/95-sops-enc'
+      decrypt "$file" | filter_encrypted | ssh "''${args[@]}" 'cat >>/tmp/sysupgrade/config/etc/uci-defaults/95-sops-enc'
       ssh "''${args[@]}" '
       echo "EOF" >>/tmp/sysupgrade/config/etc/uci-defaults/95-sops-enc
       echo "uci commit" >>/tmp/sysupgrade/config/etc/uci-defaults/95-sops-enc
@@ -224,5 +203,9 @@ in
       fi
       '
     '';
+
+    uci = lib.filterAttrsRecursive (
+      name: value: name != "sops" && !(builtins.isString value && lib.hasPrefix "ENC[" value)
+    ) (lib.importJSON (inputs.my.outPath + "/${config.builder.hostname}.json"));
   };
 }

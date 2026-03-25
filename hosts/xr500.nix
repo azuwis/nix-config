@@ -15,8 +15,8 @@
   hass.enable = true;
 
   wireguard.enable = true;
-  uci.firewall."@zone[0]".network = [ "wg1" ];
-  uci.firewall."@zone[1]".network = [ "wg0" ];
+  uci.firewall."@zone[0]"."network+" = [ "wg1" ];
+  uci.firewall."@zone[1]"."network+" = [ "wg0" ];
 
   builder.packages = [
     "dnsmasq-full" # Need nftset for policy-based routing
