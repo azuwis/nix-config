@@ -21,12 +21,7 @@ in
 
     file = lib.mkOption {
       type = lib.types.path;
-      default = "${inputs.my.outPath}/${config.uci.system."@system[0]".hostname}.json";
-    };
-
-    hostname = lib.mkOption {
-      type = lib.types.str;
-      default = config.uci.system."@system[0]".hostname;
+      default = inputs.my.outPath + "/${config.builder.hostname}.json";
     };
 
     save = lib.mkOption {
@@ -105,7 +100,7 @@ in
       }:$PATH"
 
       file=${cfg.file}
-      args=(${cfg.hostname})
+      args=(${config.builder.hostname})
       if [ "$#" -gt 0 ]; then
         args=("$@")
       fi
@@ -149,20 +144,20 @@ in
         )
       }:$PATH"
 
-      args=(${cfg.hostname})
+      args=(${config.builder.hostname})
       if [ "$#" -gt 0 ]; then
         args=("$@")
       fi
 
       ssh "''${args[@]}" 'ucode - "${lib.concatStringsSep "|" cfg.uciKeys}"' <${./uci-export.js} \
         | sops encrypt --encrypted-regex "^(${lib.concatStringsSep "|" cfg.sopsEncryptedRegex})$" \
-          --filename-override "${config.uci.system."@system[0]".hostname}.json" \
-          --output "${config.uci.system."@system[0]".hostname}.json"
+          --filename-override "${config.builder.hostname}.json" \
+          --output "${config.builder.hostname}.json"
 
       ssh "''${args[@]}" 'ucode - ".*"' <${./uci-export.js} \
         | sops encrypt --encrypted-regex "^(${lib.concatStringsSep "|" cfg.sopsEncryptedRegex})$" \
-          --filename-override "${config.uci.system."@system[0]".hostname}-full.json" \
-          --output "${config.uci.system."@system[0]".hostname}-full.json"
+          --filename-override "${config.builder.hostname}-full.json" \
+          --output "${config.builder.hostname}-full.json"
     '';
 
     sops.sysupgrade = pkgs.writeShellScriptBin "openwrt-sops-sysupgrade" ''
@@ -179,7 +174,7 @@ in
       }:$PATH"
 
       file=${cfg.file}
-      args=(${cfg.hostname})
+      args=(${config.builder.hostname})
       if [ "$#" -gt 0 ]; then
         args=("$@")
       fi

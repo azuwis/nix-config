@@ -8,8 +8,8 @@
 {
   imports = [ ../openwrt ];
 
+  builder.hostname = "xr500";
   builder.profile = "netgear_xr500";
-  uci.system."@system[0]".hostname = "xr500";
 
   ddns.enable = true;
   hass.enable = true;

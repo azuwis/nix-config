@@ -82,5 +82,7 @@ in
           chmod 600 /etc/config/*
         '';
       };
+
+    uci.system."@system[0]".hostname = config.builder.hostname;
   };
 }

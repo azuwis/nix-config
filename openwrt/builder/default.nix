@@ -41,6 +41,10 @@ in
           default = ''https://downloads\.openwrt\.org/.*/packages/.*/(Packages|sha256sums|packages\.adb)'';
         };
 
+        hostname = lib.mkOption {
+          type = lib.types.str;
+        };
+
         packages = lib.mkOption {
           type = lib.types.listOf lib.types.str;
           default = [ ];
