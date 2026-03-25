@@ -52,7 +52,28 @@ for (let conf, sections in data) {
           }
         }
       } else {
-        uci.set(conf, sect, k, v);
+        let existing = uci.get(conf, sect, k);
+        let changed = false;
+
+        if (type(v) == "array") {
+          let current_list = (type(existing) == "array") ? existing : (existing != null ? [existing] : []);
+          if (length(v) != length(current_list)) {
+            changed = true;
+          } else {
+            for (let i = 0; i < length(v); i++) {
+              if (v[i] != current_list[i]) {
+                changed = true;
+                break;
+              }
+            }
+          }
+        } else {
+          if (existing != v) changed = true;
+        }
+
+        if (changed) {
+          uci.set(conf, sect, k, v);
+        }
       }
     }
   }
