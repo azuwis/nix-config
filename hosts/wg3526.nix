@@ -61,4 +61,13 @@
     script = "simplest.qos";
     upload = "0";
   };
+  # Fix timing issue when the wifi iface is brought up too late, often occur right after sysupgrade
+  # The iface hotplug script does not run for phy1-ap0, manully add a net hotplug script
+  files.file."etc/hotplug.d/net/50-sqm-wifi".text = ''
+    if [ "$ACTION" = "add" ] && [ "$DEVICENAME" = "phy1-ap0" ]; then
+      logger -t "sqm-hotplug" "Starting SQM for $DEVICENAME"
+      sleep 2
+      /usr/lib/sqm/run.sh start "$DEVICENAME"
+    fi
+  '';
 }
