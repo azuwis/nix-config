@@ -39,7 +39,7 @@ in
       dhcp.lan.start = "10"; # Static IP 1~9
       dropbear."@dropbear[0]".PasswordAuth = "0";
       dropbear."@dropbear[0]".RootPasswordAuth = "0";
-      system."@system[0]".log_buffer_size = "256"; # Size in KiB, for logread
+      system."@system[0]".log_buffer_size = "1024"; # Size in KiB, for logread
       system."@system[0]".timezone = "CST-8";
       system."@system[0]".zonename = "Asia/Shanghai";
     };
