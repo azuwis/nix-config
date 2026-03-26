@@ -20,8 +20,8 @@ for (let conf, sections in data) {
       if (sec_type == "-") {
         // For @type[N] references, only delete anonymous sections
         if (match(sect, /^@(.+)\[(\d+)\]$/)) {
-          let s = uci.get_all(conf, sect);
-          if (s && !s[".anonymous"])
+          let section = uci.get_all(conf, sect);
+          if (section && !section[".anonymous"])
             continue;
         }
         uci.delete(conf, sect);
@@ -30,29 +30,29 @@ for (let conf, sections in data) {
       uci.set(conf, sect, sec_type);
     }
 
-    for (let k, v in opts) {
-      if (k == ".type") continue;
-      let k_suffix = substr(k, -1);
+    for (let key, val in opts) {
+      if (key == ".type") continue;
+      let key_suffix = substr(key, -1);
 
-      if (v == "-") {
-        uci.delete(conf, sect, k);
-      } else if ((k_suffix == "+" || k_suffix == "-") && type(v) == "array") {
-        let real_key = substr(k, 0, -1);
+      if (val == "-") {
+        uci.delete(conf, sect, key);
+      } else if ((key_suffix == "+" || key_suffix == "-") && type(val) == "array") {
+        let real_key = substr(key, 0, -1);
         let existing = uci.get(conf, sect, real_key);
         if (type(existing) != "array") {
           existing = (existing != null) ? [existing] : [];
         }
-        for (let item in v) {
-          if (k_suffix == "+" && !(item in existing)) {
+        for (let item in val) {
+          if (key_suffix == "+" && !(item in existing)) {
             uci.list_append(conf, sect, real_key, item);
-          } else if (k_suffix == "-" && item in existing) {
+          } else if (key_suffix == "-" && item in existing) {
             uci.list_remove(conf, sect, real_key, item);
           }
         }
       } else {
-        let existing = uci.get(conf, sect, k);
-        if (sprintf('%J', existing) != sprintf('%J', v)) {
-          uci.set(conf, sect, k, v);
+        let existing = uci.get(conf, sect, key);
+        if (sprintf('%J', existing) != sprintf('%J', val)) {
+          uci.set(conf, sect, key, val);
         }
       }
     }
