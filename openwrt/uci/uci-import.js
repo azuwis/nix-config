@@ -32,28 +32,21 @@ for (let conf, sections in data) {
 
     for (let k, v in opts) {
       if (k == ".type") continue;
+      let k_suffix = substr(k, -1);
 
       if (v == "-") {
         uci.delete(conf, sect, k);
-      } else if (substr(k, -1) == "+" && type(v) == "array") {
+      } else if ((k_suffix == "+" || k_suffix == "-") && type(v) == "array") {
         let real_key = substr(k, 0, -1);
         let existing = uci.get(conf, sect, real_key);
         if (type(existing) != "array") {
           existing = (existing != null) ? [existing] : [];
         }
         for (let item in v) {
-          if (!(item in existing)) {
+          if (k_suffix == "+" && !(item in existing)) {
             uci.list_append(conf, sect, real_key, item);
-          }
-        }
-      } else if (substr(k, -1) == "-" && type(v) == "array") {
-        let real_key = substr(k, 0, -1);
-        let existing = uci.get(conf, sect, real_key);
-        if (type(existing) == "array") {
-          for (let item in v) {
-            if (item in existing) {
-              uci.list_remove(conf, sect, real_key, item);
-            }
+          } else if (k_suffix == "-" && item in existing) {
+            uci.list_remove(conf, sect, real_key, item);
           }
         }
       } else {
