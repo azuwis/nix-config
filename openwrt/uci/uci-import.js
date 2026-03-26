@@ -38,17 +38,12 @@ for (let conf, sections in data) {
       } else if (substr(k, -1) == "+" && type(v) == "array") {
         let real_key = substr(k, 0, -1);
         let existing = uci.get(conf, sect, real_key);
-        if (type(existing) == "array") {
-          for (let item in v) {
-            if (!(item in existing)) {
-              uci.list_append(conf, sect, real_key, item);
-            }
-          }
-        } else {
-          for (let item in v) {
-            if (item != existing) {
-              uci.list_append(conf, sect, real_key, item);
-            }
+        if (type(existing) != "array") {
+          existing = (existing != null) ? [existing] : [];
+        }
+        for (let item in v) {
+          if (!(item in existing)) {
+            uci.list_append(conf, sect, real_key, item);
           }
         }
       } else if (substr(k, -1) == "-" && type(v) == "array") {
@@ -63,26 +58,7 @@ for (let conf, sections in data) {
         }
       } else {
         let existing = uci.get(conf, sect, k);
-        let changed = false;
-
-        if (type(v) == "array") {
-          if (type(existing) != "array") {
-            changed = true;
-          } else if (length(v) != length(existing)) {
-            changed = true;
-          } else {
-            for (let i = 0; i < length(v); i++) {
-              if (v[i] != existing[i]) {
-                changed = true;
-                break;
-              }
-            }
-          }
-        } else {
-          if (existing != v) changed = true;
-        }
-
-        if (changed) {
+        if (sprintf('%J', existing) != sprintf('%J', v)) {
           uci.set(conf, sect, k, v);
         }
       }
