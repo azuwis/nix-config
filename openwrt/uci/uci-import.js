@@ -19,6 +19,12 @@ for (let conf, sections in data) {
       // ".type": "-type_name" deletes the existing section and recreates it as type "type_name"
       // ".type": "-" deletes the section without recreating
       if (substr(sec_type, 0, 1) == "-") {
+        // For @type[N] references, skip if section is not anonymous
+        if (match(sect, /^@(.+)\[(\d+)\]$/)) {
+          let s = uci.get_all(conf, sect);
+          if (s && !s[".anonymous"])
+            continue;
+        }
         uci.delete(conf, sect);
         sec_type = substr(sec_type, 1);
       }
