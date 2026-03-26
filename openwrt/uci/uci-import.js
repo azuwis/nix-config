@@ -16,23 +16,18 @@ for (let conf, sections in data) {
     let sec_type = opts[".type"];
 
     if (sec_type) {
-      // ".type": "-type_name" deletes the existing section and recreates it as type "type_name"
-      // ".type": "-" deletes the section without recreating
-      if (substr(sec_type, 0, 1) == "-") {
-        // For @type[N] references, skip if section is not anonymous
+      // ".type": "-" deletes the section
+      if (sec_type == "-") {
+        // For @type[N] references, only delete anonymous sections
         if (match(sect, /^@(.+)\[(\d+)\]$/)) {
           let s = uci.get_all(conf, sect);
           if (s && !s[".anonymous"])
             continue;
         }
         uci.delete(conf, sect);
-        sec_type = substr(sec_type, 1);
+        continue;
       }
-      if (sec_type == "") {
-        continue; // Section was just "-", skip processing options
-      } else {
-        uci.set(conf, sect, sec_type);
-      }
+      uci.set(conf, sect, sec_type);
     }
 
     for (let k, v in opts) {
