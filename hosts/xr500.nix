@@ -13,6 +13,7 @@
 
   ddns.enable = true;
   hass.enable = true;
+  wanlimit.enable = true;
 
   wireguard.enable = true;
   uci.firewall."@zone[0]"."network+" = [ "wg1" ];
