@@ -16,6 +16,7 @@ in
 
   config = lib.mkIf cfg.enable {
     files.file."etc/firewall.wanlimit.sh".source = ./firewall.wanlimit.sh;
+    sops.uciKeys = [ ''^wanlimit\.'' ];
     uci.firewall.wanlimit = {
       ".type" = "include";
       path = "/etc/firewall.wanlimit.sh";
