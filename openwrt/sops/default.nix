@@ -133,10 +133,10 @@ in
       fi
 
       ssh "''${args[@]}" 'ucode - "${lib.concatStringsSep "|" cfg.uciKeys}" "${lib.concatStringsSep "|" cfg.encryptedUciKeys}"' <${./uci-export.js} \
-        | json2toml > "${config.builder.hostname}.toml"
+        | json2toml --multiline 2 > "${config.builder.hostname}.toml"
 
       ssh "''${args[@]}" 'ucode - ".*" "${lib.concatStringsSep "|" cfg.encryptedUciKeys}"' <${./uci-export.js} \
-        | json2toml > "${config.builder.hostname}-full.toml"
+        | json2toml --multiline 2 > "${config.builder.hostname}-full.toml"
 
       ssh "''${args[@]}" 'ucode - "${lib.concatStringsSep "|" cfg.encryptedUciKeys}"' <${./uci-export.js} \
         | sops encrypt --filename-override "${config.builder.hostname}.json" \
