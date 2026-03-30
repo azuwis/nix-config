@@ -18,17 +18,6 @@ let
         sops decrypt "$file"
       fi
     }
-
-    filter_encrypted() {
-      jq --arg regex '^(${lib.concatStringsSep "|" cfg.sopsEncryptedRegex})$' '
-    map_values(
-      map_values(
-        with_entries(select(.key == ".type" or (.key | test($regex))))
-        | select(any(keys_unsorted[]; test($regex)))
-      ) | select(length > 0)
-    ) | select(length > 0)
-    '
-    }
   '';
 in
 
@@ -41,19 +30,13 @@ in
       readOnly = true;
     };
 
+    encryptedUciKeys = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+    };
+
     save = lib.mkOption {
       type = lib.types.package;
       readOnly = true;
-    };
-
-    sopsEncryptedRegex = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
-      default = [
-        "password"
-        "preshared_key"
-        "private_key"
-        "key"
-      ];
     };
 
     sysupgrade = lib.mkOption {
@@ -67,6 +50,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    sops.encryptedUciKeys = [
+      ''\.(password|preshared_key|private_key)$''
+      ''^wireless\..*\.key$''
+    ];
+
     sops.uciKeys = [
       "password"
       "preshared_key"
@@ -78,7 +66,7 @@ in
       ''^network\.(lan|wan)\.(netmask|ipaddr|netmask|proto|username)$''
       ''^network\.(globals\.|wg|rule_|route_)''
       ''^shadowsocks-libev\.''
-      ''^wireless\.default_radio[0-9]\.(ssid|encryption|disabled|key|hidden)$''
+      ''^wireless\.default_radio[0-9]\.(ssid|encryption|disabled|hidden)$''
       ''^wireless\.radio[0-9]\.(channel|htmode|disabled|country)$''
     ];
 
@@ -90,6 +78,7 @@ in
           with pkgs;
           [
             sops
+            remarshal
           ]
         )
       }:$PATH"
@@ -106,6 +95,7 @@ in
       ssh "''${args[@]}" 'ucode /tmp/uci-import.js' <<'EOF'
       ${builtins.toJSON config.uci}
       EOF
+      toml2json "${config.builder.hostname}.toml" | ssh "''${args[@]}" 'ucode /tmp/uci-import.js'
       decrypt "$file" | ssh "''${args[@]}" 'ucode /tmp/uci-import.js'
       ssh "''${args[@]}" '
       echo
@@ -131,6 +121,7 @@ in
         lib.makeBinPath (
           with pkgs;
           [
+            remarshal
             sops
           ]
         )
@@ -141,15 +132,15 @@ in
         args=("$@")
       fi
 
-      ssh "''${args[@]}" 'ucode - "${lib.concatStringsSep "|" cfg.uciKeys}"' <${./uci-export.js} \
-        | sops encrypt --encrypted-regex "^(${lib.concatStringsSep "|" cfg.sopsEncryptedRegex})$" \
-          --filename-override "${config.builder.hostname}.json" \
-          --output "${config.builder.hostname}.json"
+      ssh "''${args[@]}" 'ucode - "${lib.concatStringsSep "|" cfg.uciKeys}" "${lib.concatStringsSep "|" cfg.encryptedUciKeys}"' <${./uci-export.js} \
+        | json2toml > "${config.builder.hostname}.toml"
 
-      ssh "''${args[@]}" 'ucode - ".*"' <${./uci-export.js} \
-        | sops encrypt --encrypted-regex "^(${lib.concatStringsSep "|" cfg.sopsEncryptedRegex})$" \
-          --filename-override "${config.builder.hostname}-full.json" \
-          --output "${config.builder.hostname}-full.json"
+      ssh "''${args[@]}" 'ucode - ".*" "${lib.concatStringsSep "|" cfg.encryptedUciKeys}"' <${./uci-export.js} \
+        | json2toml > "${config.builder.hostname}-full.toml"
+
+      ssh "''${args[@]}" 'ucode - "${lib.concatStringsSep "|" cfg.encryptedUciKeys}"' <${./uci-export.js} \
+        | sops encrypt --filename-override "${config.builder.hostname}.json" \
+          --output "${config.builder.hostname}.json"
     '';
 
     sops.sysupgrade = pkgs.writeShellScriptBin "openwrt-sops-sysupgrade" ''
@@ -159,7 +150,6 @@ in
         lib.makeBinPath (
           with pkgs;
           [
-            jq
             sops
           ]
         )
@@ -184,7 +174,7 @@ in
       ${sopsDecrypt}
 
       ssh "''${args[@]}" 'echo "uci-import <<\EOF" >/tmp/sysupgrade/config/etc/uci-defaults/95-sops-enc'
-      decrypt "$file" | filter_encrypted | ssh "''${args[@]}" 'cat >>/tmp/sysupgrade/config/etc/uci-defaults/95-sops-enc'
+      decrypt "$file" | ssh "''${args[@]}" 'cat >>/tmp/sysupgrade/config/etc/uci-defaults/95-sops-enc'
       ssh "''${args[@]}" '
       echo "EOF" >>/tmp/sysupgrade/config/etc/uci-defaults/95-sops-enc
       echo "uci commit" >>/tmp/sysupgrade/config/etc/uci-defaults/95-sops-enc
@@ -204,8 +194,6 @@ in
       '
     '';
 
-    uci = lib.filterAttrsRecursive (
-      name: value: name != "sops" && !(builtins.isString value && lib.hasPrefix "ENC[" value)
-    ) (lib.importJSON (inputs.my.outPath + "/${config.builder.hostname}.json"));
+    uci = lib.importTOML (inputs.my.outPath + "/${config.builder.hostname}.toml");
   };
 }

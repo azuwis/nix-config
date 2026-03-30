@@ -3,7 +3,8 @@
 import { cursor } from 'uci';
 
 const uci = cursor();
-const filter_pattern = (length(ARGV) > 0) ? regexp(ARGV[0]) : /.*/;
+const include_pattern = (length(ARGV) > 0) ? regexp(ARGV[0]) : /.*/;
+const exclude_pattern = (length(ARGV) > 1) ? regexp(ARGV[1]) : /^$/;
 
 let output_tree = {};
 for (let conf_name in sort(uci.configs())) {
@@ -31,7 +32,8 @@ for (let conf_name in sort(uci.configs())) {
     for (let k in sort(keys(data))) {
       if (match(k, /^\./)) continue;
       let v = data[k];
-      if (match(`${conf_name}.${display_name}.${k}`, filter_pattern)) {
+      let full_name = `${conf_name}.${display_name}.${k}`;
+      if (match(full_name, include_pattern) && !match(full_name, exclude_pattern)) {
         matched_opts[k] = v;
         has_match = true;
       }
