@@ -28,6 +28,7 @@
       subEntryOptions = "";
     };
     limine = {
+      maxGenerations = 50;
       style = {
         backdrop = "000000";
         wallpapers = [ ];
