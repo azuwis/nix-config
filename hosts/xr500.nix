@@ -12,6 +12,7 @@
   builder.profile = "netgear_xr500";
 
   ddns.enable = true;
+  etherwake.enable = true;
   hass.enable = true;
   wanlimit.enable = true;
 
@@ -21,7 +22,6 @@
 
   builder.packages = [
     "dnsmasq-full" # Need nftset for policy-based routing
-    "etherwake"
   ];
 
   files.file."etc/crontabs/root".text = "0 3 */3 * * /usr/bin/killall -HUP pppd";

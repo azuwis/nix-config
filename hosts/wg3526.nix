@@ -15,12 +15,12 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII9x/ifv+vbaglzQ4rs3LNt39cxUkMtQSnD1uRJ8kaNS"
   ];
 
+  etherwake.enable = true;
+
   wireguard.enable = true;
   wireguard.cron = true;
   uci.dhcp."@dnsmasq[0]".localservice = "0"; # Response on wg0
   uci.firewall."@zone[0]"."network+" = [ "wg0" ];
-
-  builder.packages = [ "etherwake" ];
 
   files.file."etc/hotplug.d/iface/99-wan-check".text = ''
     if [ "$ACTION" = ifup ] && [ "$INTERFACE" = wan ]; then

@@ -61,7 +61,7 @@ in
       "private_key"
       ''^dhcp\.@dnsmasq\[0\]\.(address|rebind_domain|server)$''
       ''^dhcp\.ipset_''
-      ''^etherwake\.@target''
+      ''^etherwake\.target_''
       ''^firewall\.(ipset_|redirect_|rule_)''
       ''^network\.(lan|wan)\.(netmask|ipaddr|netmask|proto|username)$''
       ''^network\.(globals\.|wg|rule_|route_)''
