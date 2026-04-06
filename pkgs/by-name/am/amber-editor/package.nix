@@ -88,6 +88,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
+    changelog = "https://github.com/baptisterajaut/amber/releases/tag/v${finalAttrs.version}";
     description = "Amber Video Editor — free open-source non-linear video editor";
     homepage = "https://github.com/baptisterajaut/amber";
     license = lib.licenses.gpl3Plus;
