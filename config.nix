@@ -13,6 +13,8 @@ in
   allowUnfreePredicate = (
     pkg:
     builtins.elem (lib.getName pkg) [
+      # apps/claude.nix
+      "claude-code"
       # nixos/retroarch
       "libretro-genesis-plus-gx"
       # pkgs/by-name/ch/chameleon-ultra-firmware
