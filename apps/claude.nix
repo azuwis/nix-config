@@ -58,8 +58,14 @@ let
               "~/.claude.json"
             ];
             denyRead = [
+              "/boot"
+              "/etc"
+              "/mnt"
+              "/root"
               "/run"
+              "/srv"
               "/sys"
+              "/var"
             ];
           };
         };
@@ -67,7 +73,7 @@ let
       ''
         jq '
           (.closure | map(.path) | sort) as $paths |
-          .settings | .filesystem.allowRead = $paths
+          .settings | .filesystem.allowRead += $paths
         ' "$NIX_ATTRS_JSON_FILE" > "$out"
       '';
 in
