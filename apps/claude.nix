@@ -68,6 +68,28 @@ let
               "/var"
             ];
           };
+          # Default have no network access, uncomment to use anthropic API:
+          # network = {
+          #   allowedDomains = [
+          #     "*.anthropic.com"
+          #   ];
+          #   deniedDomains = [
+          #     "statsig.anthropic.com"
+          #     "*.sentry.io"
+          #   ];
+          # };
+          #
+          # Additional config can be set in ~/.config/fence/fence.json, like:
+          # {
+          #   "network": {
+          #     "allowedDomains": [
+          #       "your.api.address"
+          #     ]
+          #   }
+          # }
+          #
+          # See https://github.com/Use-Tusk/fence/blob/main/docs/configuration.md
+          # and https://github.com/Use-Tusk/fence/tree/main/internal/templates
         };
       }
       ''
