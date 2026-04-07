@@ -13,6 +13,18 @@ in
   allowUnfreePredicate = (
     pkg:
     builtins.elem (lib.getName pkg) [
+      # devshell/android-sdk.nix
+      "android-sdk-build-tools"
+      "android-sdk-cmdline-tools"
+      "android-sdk-platform-tools"
+      "android-sdk-platforms"
+      "android-sdk-tools"
+      "build-tools"
+      "cmake"
+      "cmdline-tools"
+      "platform-tools"
+      "platforms"
+      "tools"
       # apps/claude.nix
       "claude-code"
       # nixos/retroarch
