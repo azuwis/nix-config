@@ -78,6 +78,7 @@ let
       '';
 in
 
+# Add `"hasCompletedOnboarding": true` to ~/.claude.json if fail to startup for first time
 runCommand "claude-wrapped"
   {
     nativeBuildInputs = [
@@ -90,5 +91,5 @@ runCommand "claude-wrapped"
     makeWrapper "${lib.getExe fence}" "$out/bin/claude" \
       --set NIX_SSL_CERT_FILE "${cacert}/etc/ssl/certs/ca-bundle.crt" \
       --set PATH "${lib.makeBinPath packages}" \
-      --add-flags "--settings ${fenceSettings} ${lib.getExe claude-code}"
+      --append-flags "--settings ${fenceSettings} ${lib.getExe claude-code}"
   ''
