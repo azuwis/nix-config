@@ -1,7 +1,7 @@
 {
   lib,
-  makeWrapper,
   runCommand,
+  writeShellApplication,
   bash,
   cacert,
   claude-code,
@@ -98,18 +98,33 @@ let
       '';
 in
 
+# nix run -f apps claude -- <claude_args> -- <fence_args>
 # Add `"hasCompletedOnboarding": true` to ~/.claude.json if fail to startup for first time
-runCommand "claude-wrapped"
-  {
-    nativeBuildInputs = [
-      makeWrapper
-    ];
-    preferLocalBuild = true;
-    meta.mainProgram = "claude";
-  }
-  ''
-    makeWrapper "${lib.getExe fence}" "$out/bin/claude" \
-      --set NIX_SSL_CERT_FILE "${cacert}/etc/ssl/certs/ca-bundle.crt" \
-      --set PATH "${lib.makeBinPath packages}" \
-      --append-flags "--settings ${fenceSettings} ${lib.getExe claude-code}"
-  ''
+writeShellApplication {
+  name = "claude";
+  derivationArgs.preferLocalBuild = true;
+  inheritPath = false;
+  runtimeEnv = {
+    NIX_SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
+  };
+  runtimeInputs = packages;
+  text = ''
+    claude_args=()
+    fence_args=()
+    found_sep=false
+    for arg in "$@"; do
+      if [ "$found_sep" = false ]; then
+        if [ "$arg" = "--" ]; then
+          found_sep=true
+        else
+          claude_args+=("$arg")
+        fi
+      else
+        fence_args+=("$arg")
+      fi
+    done
+
+    exec ${lib.getExe fence} --settings ${fenceSettings} "''${fence_args[@]}" -- \
+      ${lib.getExe claude-code} --allow-dangerously-skip-permissions "''${claude_args[@]}"
+  '';
+}
