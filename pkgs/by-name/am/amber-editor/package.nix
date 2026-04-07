@@ -12,13 +12,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "amber-editor";
-  version = "1.4.1";
+  version = "1.5.5";
 
   src = fetchFromGitHub {
     owner = "baptisterajaut";
     repo = "amber";
     tag = "v${finalAttrs.version}";
-    sha256 = "sha256-6KxeAmMe3IclSAG2sTPeDnFaZ1VRwFHh5M/rEPdT4Dc=";
+    sha256 = "sha256-3ILMLz4f3NPfBzY2W2EyOWrlu/nMiedroFI1JwtisZM=";
   };
 
   # Fix `Could NOT find FFMPEG`
