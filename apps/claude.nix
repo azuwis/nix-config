@@ -42,6 +42,16 @@ let
 
         exportReferencesGraph.closure = packages;
 
+        # https://github.com/Use-Tusk/fence/blob/main/docs/configuration.md
+        # https://github.com/Use-Tusk/fence/tree/main/internal/templates
+        # Additional config can be set in ~/.config/fence/fence.json, like:
+        # {
+        #   "network": {
+        #     "allowedDomains": [
+        #       "your.api.address"
+        #     ]
+        #   }
+        # }
         settings = {
           extends = "@base";
           allowPty = true;
@@ -78,18 +88,6 @@ let
           #     "*.sentry.io"
           #   ];
           # };
-          #
-          # Additional config can be set in ~/.config/fence/fence.json, like:
-          # {
-          #   "network": {
-          #     "allowedDomains": [
-          #       "your.api.address"
-          #     ]
-          #   }
-          # }
-          #
-          # See https://github.com/Use-Tusk/fence/blob/main/docs/configuration.md
-          # and https://github.com/Use-Tusk/fence/tree/main/internal/templates
         };
       }
       ''
