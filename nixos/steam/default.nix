@@ -27,7 +27,7 @@ in
 
         programs.gamescope = {
           enable = true;
-          capSysNice = true;
+          # capSysNice = true; # capSysNice need to enable setuid bwrap, may have some security issues
         };
 
         programs.steam = {
@@ -69,11 +69,11 @@ in
               echo "no_display" > /run/user/$UID/steam/mangohud.conf
             '';
             extraBwrapArgs = [
-              ''--unshare-all --share-net''
-              ''--tmpfs /.host-etc/nixos''
+              "--unshare-all --share-net"
+              "--tmpfs /.host-etc/nixos"
               ''--bind "$HOME/steam" /home''
               # ''--ro-bind "${pkgs.noto-fonts-cjk-sans}/share/fonts/opentype/noto-cjk" "/home/$USER/.fonts"''
-              ''--tmpfs /run/user''
+              "--tmpfs /run/user"
               ''--bind-try "/run/user/$UID/bus" "/run/user/$UID/bus"''
               ''--bind-try "/run/user/$UID/gamescope-0" "/run/user/$UID/gamescope-0"''
               ''--bind-try "/run/user/$UID/pulse" "/run/user/$UID/pulse"''
