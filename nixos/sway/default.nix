@@ -52,6 +52,10 @@ in
         sway-contrib.grimshot
         swaybg
       ];
+      extraSessionCommands = ''
+        # Let Qt apps use gtk theme
+        export XDG_CURRENT_DESKTOP="sway:GNOME"
+      '';
     };
   };
 }

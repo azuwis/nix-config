@@ -1,6 +1,11 @@
 // vim: set tabstop=4 softtabstop=4 shiftwidth=4 expandtab:
 // https://yalter.github.io/niri/Configuration%3A-Include.html
 
+environment {
+    // Let Qt apps use gtk theme
+    XDG_CURRENT_DESKTOP "niri:GNOME"
+}
+
 input {
     keyboard {
         repeat-delay 300

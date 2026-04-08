@@ -15,6 +15,8 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    environment.sessionVariables.QT_QPA_PLATFORMTHEME = "xdgdesktopportal";
+
     programs.firefox.settings."widget.use-xdg-desktop-portal.file-picker" = 1; # 0 - Never, 1 - Always, 2 - Auto
 
     # Normally should use this config:
