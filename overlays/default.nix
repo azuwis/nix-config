@@ -12,10 +12,13 @@ in
   (import (inputs.nixpkgs.outPath + "/pkgs/top-level/by-name-overlay.nix") ../pkgs/by-name)
 
   (final: prev: {
-    # disable fcitx5-configtool
+    # disable fcitx5-configtool and fcitx5-qt5
     qt6Packages = prev.qt6Packages.overrideScope (
       qt6final: qt6prev: {
-        fcitx5-with-addons = qt6prev.fcitx5-with-addons.override { withConfigtool = false; };
+        fcitx5-with-addons = qt6prev.fcitx5-with-addons.override {
+          libsForQt5.fcitx5-qt = final.emptyDirectory;
+          withConfigtool = false;
+        };
       }
     );
 

@@ -81,7 +81,6 @@ in
         '')
         foot
         pulsemixer
-        qt5.qtwayland
         qt6.qtwayland
         wev
         wl-clipboard # neovim
