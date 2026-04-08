@@ -98,10 +98,10 @@ let
       '';
 in
 
-# nix run -f apps claude -- <claude_args> -- <fence_args>
+# fence-claude <claude_args> -- <fence_args>
 # Add `"hasCompletedOnboarding": true` to ~/.claude.json if fail to startup for first time
 writeShellApplication {
-  name = "claude";
+  name = "fence-claude";
   derivationArgs.preferLocalBuild = true;
   inheritPath = false;
   runtimeEnv = {
