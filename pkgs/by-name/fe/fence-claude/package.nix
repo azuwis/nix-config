@@ -1,5 +1,6 @@
 {
   lib,
+  makeWrapper,
   runCommand,
   writeShellApplication,
   bash,
@@ -18,7 +19,7 @@
 }:
 
 let
-  packages = [
+  fencePackages = [
     bash
     cacert
     claude-code
@@ -40,7 +41,7 @@ let
         nativeBuildInputs = [ jq ];
         preferLocalBuild = true;
 
-        exportReferencesGraph.closure = packages;
+        exportReferencesGraph.closure = fencePackages;
 
         # https://github.com/Use-Tusk/fence/blob/main/docs/configuration.md
         # https://github.com/Use-Tusk/fence/tree/main/internal/templates
@@ -96,6 +97,20 @@ let
           .settings | .filesystem.allowRead += $paths
         ' "$NIX_ATTRS_JSON_FILE" > "$out"
       '';
+
+  fenceShell =
+    runCommand "fence-shell"
+      {
+        nativeBuildInputs = [
+          makeWrapper
+        ];
+        preferLocalBuild = true;
+      }
+      ''
+        makeWrapper "${lib.getExe bash}" "$out/bin/bash" \
+          --set NIX_SSL_CERT_FILE "${cacert}/etc/ssl/certs/ca-bundle.crt" \
+          --set PATH "${lib.makeBinPath fencePackages}"
+      '';
 in
 
 # fence-claude <claude_args> -- <fence_args>
@@ -103,11 +118,24 @@ in
 writeShellApplication {
   name = "fence-claude";
   derivationArgs.preferLocalBuild = true;
-  inheritPath = false;
-  runtimeEnv = {
-    NIX_SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
-  };
-  runtimeInputs = packages;
+  # fence use bash found in PATH to run helper script inside bwrap to setup
+  # proxy etc., the helper script need tools like `mkdir` `rm`, since inside
+  # the bwrap, only the closure of fencePackages are accessible, provide a
+  # fenceShell with correct PATH, so those tools can be found, instead of
+  # trying to use tools outside of bwrap
+  runtimeInputs = [ fenceShell ];
+  # When using something like this the give CAP_BPF to fence:
+  # security.wrappers.claude = {
+  #   source = "${lib.getExe pkgs.fence-claude}";
+  #   owner = "root";
+  #   group = "wheel";
+  #   permissions = "u+rx,g+x";
+  #   capabilities = "cap_bpf+ep";
+  # };
+  # bwrap will refuse to run if not setuid, error: `bwrap: Unexpected
+  # capabilities but not setuid`, so do not override PATH in this
+  # ShellApplication, so the setuid bwrap in system PATH is used, like
+  # /run/wrappers/bin/bwrap in NixOS if exist
   text = ''
     claude_args=()
     fence_args=()
