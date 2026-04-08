@@ -27,5 +27,13 @@
           program = lib.getExe drv;
         }) (import ./apps { inherit pkgs; })
       );
+      packages = eachSystem (
+        { pkgs, ... }:
+        let
+          overlayAttrs = lib.composeManyExtensions (import ./overlays) null null;
+          drvAttrs = lib.filterAttrs (name: _: lib.isDerivation pkgs.${name}) overlayAttrs;
+        in
+        builtins.mapAttrs (name: _: pkgs.${name}) drvAttrs
+      );
     };
 }
