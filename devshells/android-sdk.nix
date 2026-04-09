@@ -12,9 +12,9 @@ let
   androidsdk =
     (pkgs.androidenv.composeAndroidPackages {
       # match `android.compileSdk` in app/build.gradle
-      platformVersions = [ "34" ];
+      platformVersions = [ "36" ];
       # match `android.buildToolsVersion` in app/build.gradle
-      buildToolsVersions = [ "34.0.0" ];
+      buildToolsVersions = [ "36.0.0" ];
     }).androidsdk;
   androidHome = "${androidsdk}/libexec/android-sdk";
   gradle = pkgs.writeShellScriptBin "gradle" ''
@@ -24,7 +24,7 @@ let
     if [ -e "$file" ]; then
       args=("-Dorg.gradle.project.android.aapt2FromMavenOverride=$file")
     fi
-    ${pkgs.gradle}/bin/gradle "''${args[@]}" "$@"
+    ${pkgs.lib.getExe pkgs.gradle_9} "''${args[@]}" "$@"
   '';
 in
 
