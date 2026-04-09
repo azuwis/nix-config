@@ -2,9 +2,10 @@
 # shellcheck disable=SC1091,SC3043,SC3060
 
 . /lib/functions.sh
+. /lib/functions/network.sh
 
-METER_TIMEOUT=$(uci -q get wanlimit.@wanlimit[0].meter_timeout || echo "2m")
-BAN_TIMEOUTS=$(uci -q get wanlimit.@wanlimit[0].ban_timeouts || echo "1m 10m 1h 24h")
+METER_TIMEOUT=$(uci -q get wanlimit.@wanlimit[0].meter_timeout || echo "1h")
+BAN_TIMEOUTS=$(uci -q get wanlimit.@wanlimit[0].ban_timeouts || echo "1h 1d 7d")
 DEFAULT_LIMIT_RATE=$(uci -q get wanlimit.@wanlimit[0].limit_rate)
 
 wanlimit_rules=""
@@ -18,9 +19,36 @@ handle_firewall_redirect() {
   [ -n "$limit_rate" ] || return
   nft_proto="meta l4proto { ${proto// /, } }"
   wanlimit_rules="$wanlimit_rules
-		iifname \"wan\" $nft_proto th dport $src_dport ct state new add @wanlimit_meter { ip saddr . th dport limit rate over $limit_rate } goto wanlimit_escalate"
+		$iif_match $nft_proto th dport $src_dport ct state new add @wanlimit_meter { ip saddr . th dport limit rate over $limit_rate } goto wanlimit_escalate"
 }
 config_load firewall
+
+# Resolve wan zone device names
+wan_devices=""
+_add_wan_device() {
+  local dev
+  network_get_device dev "$1" || return
+  [ -n "$dev" ] || return
+  case " $wan_devices " in
+    *" $dev "*) return ;;
+  esac
+  wan_devices="$wan_devices $dev"
+}
+_handle_wan_zone() {
+  local name
+  config_get name "$1" name
+  [ "$name" = "wan" ] || return
+  config_list_foreach "$1" network _add_wan_device
+}
+config_foreach _handle_wan_zone zone
+
+nft_iifname=""
+for dev in $wan_devices; do
+  nft_iifname="${nft_iifname:+$nft_iifname, }\"$dev\""
+done
+[ -z "$nft_iifname" ] && exit 0
+iif_match="iifname { $nft_iifname }"
+
 config_foreach handle_firewall_redirect redirect
 
 [ -z "$wanlimit_rules" ] && exit 0
@@ -40,7 +68,7 @@ while [ $# -gt 0 ]; do
   level_sets="$level_sets
 	set wanlimit_level${level} {
 		type ipv4_addr
-		flags timeout
+		flags dynamic, timeout
 		timeout $1
 	}
 "
@@ -60,7 +88,7 @@ nft -f - <<EOF
 table inet fw4 {
 	set wanlimit_ban {
 		type ipv4_addr
-		flags timeout
+		flags dynamic, timeout
 	}
 $level_sets
 	set wanlimit_meter {
@@ -75,7 +103,7 @@ $escalate_rules
 
 	chain wanlimit {
 		type filter hook prerouting priority -110; policy accept;
-		iifname "wan" ip saddr @wanlimit_ban counter drop
+		$iif_match ip saddr @wanlimit_ban log prefix "wanlimit ban " counter drop
 $wanlimit_rules
 	}
 }
