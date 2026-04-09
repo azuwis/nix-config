@@ -16,17 +16,13 @@ let
   lockCommand = "blurlock";
   timeoutCommand = toString (
     pkgs.writeShellScript "swayidle-timeout-command" ''
-      case "$XDG_CURRENT_DESKTOP" in
-      niri) niri msg action power-off-monitors ;;
-      sway) swaymsg "output * power off" ;;
-      esac
+      [[ ":$XDG_CURRENT_DESKTOP:" == *":niri:"* ]] && niri msg action power-off-monitors
+      [[ ":$XDG_CURRENT_DESKTOP:" == *":sway:"* ]] && swaymsg "output * power off"
     ''
   );
   resumeCommand = toString (
     pkgs.writeShellScript "swayidle-resume-command" ''
-      case "$XDG_CURRENT_DESKTOP" in
-      sway) swaymsg "output * power on" ;;
-      esac
+      [[ ":$XDG_CURRENT_DESKTOP:" == *":sway:"* ]] && swaymsg "output * power on"
     ''
   );
 in

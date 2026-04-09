@@ -2,8 +2,7 @@
 
 shopt -s nullglob
 
-case "$XDG_CURRENT_DESKTOP" in
-i3)
+[[ ":$XDG_CURRENT_DESKTOP:" == *":i3:"* ]] && {
   firefox_toggle_play() {
     if [ "$(i3-msg -t get_tree | jq -r '.. | select(.type?) | select(.focused==true and .fullscreen_mode==1) | .window_properties.class')" = firefox ]; then
       xdotool key space
@@ -20,9 +19,9 @@ i3)
   get_focused_app() {
     i3-msg -t get_tree | jq -r '.. | select(.type?) | select(.focused==true) | .window_properties.class'
   }
-  ;;
+}
 
-niri)
+[[ ":$XDG_CURRENT_DESKTOP:" == *":niri:"* ]] && {
   firefox_toggle_play() {
     if [ "$(niri msg --json focused-window | jq -r '[.app_id, .layout.window_size[0], .layout.window_size[1]] | join(" ")')" = "firefox $(niri msg --json focused-output | jq -r '[.logical.width, .logical.height] | join(" ")')" ]; then
       # wtype does not work on Firefox in Niri, but `wlrctl keyboard type " "` works, why?
@@ -42,9 +41,9 @@ niri)
   get_focused_app() {
     niri msg --json focused-window | jq -r '.app_id'
   }
-  ;;
+}
 
-sway)
+[[ ":$XDG_CURRENT_DESKTOP:" == *":sway:"* ]] && {
   firefox_toggle_play() {
     if [ "$(swaymsg -t get_tree | jq -r '.. | select(.type?) | select(.focused==true and .fullscreen_mode==1) | .app_id // .window_properties.class')" = firefox ]; then
       wlrctl keyboard type " "
@@ -62,8 +61,7 @@ sway)
   get_focused_app() {
     swaymsg -t get_tree | jq -r '.. | select(.type?) | select(.focused==true) | .app_id // .window_properties.class'
   }
-  ;;
-esac
+}
 
 is_app_focused() {
   case "$(get_focused_app)" in
