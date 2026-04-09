@@ -19,7 +19,7 @@ handle_firewall_redirect() {
   [ -n "$limit_rate" ] || return
   nft_proto="meta l4proto { ${proto// /, } }"
   wanlimit_rules="$wanlimit_rules
-		$iif_match $nft_proto th dport $src_dport ct state new add @wanlimit_meter { ip saddr . th dport limit rate over $limit_rate } goto wanlimit_escalate"
+		$iif_match $nft_proto th dport $src_dport ct state new add @wanlimit_meter { ip saddr limit rate over $limit_rate } goto wanlimit_escalate"
 }
 config_load firewall
 
@@ -92,7 +92,7 @@ table inet fw4 {
 	}
 $level_sets
 	set wanlimit_meter {
-		type ipv4_addr . inet_service
+		type ipv4_addr
 		flags dynamic, timeout
 		timeout $METER_TIMEOUT
 	}
