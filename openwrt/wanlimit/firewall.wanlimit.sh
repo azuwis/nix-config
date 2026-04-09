@@ -30,7 +30,7 @@ _add_wan_device() {
   network_get_device dev "$1" || return
   [ -n "$dev" ] || return
   case " $wan_devices " in
-    *" $dev "*) return ;;
+  *" $dev "*) return ;;
   esac
   wan_devices="$wan_devices $dev"
 }
