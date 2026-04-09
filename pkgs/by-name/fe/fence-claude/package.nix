@@ -117,6 +117,14 @@ in
 # Add `"hasCompletedOnboarding": true` to ~/.claude.json if fail to startup for first time
 writeShellApplication {
   name = "fence-claude";
+  derivationArgs.passthru.shell = writeShellApplication {
+    name = "fence-shell";
+    derivationArgs.preferLocalBuild = true;
+    runtimeInputs = [ fenceShell ];
+    text = ''
+      exec ${lib.getExe fence} --settings ${fenceSettings} ${lib.getExe bash}
+    '';
+  };
   derivationArgs.preferLocalBuild = true;
   # fence use bash found in PATH to run helper script inside bwrap to setup
   # proxy etc., the helper script need tools like `mkdir` `rm`, since inside
