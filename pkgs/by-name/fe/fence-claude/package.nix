@@ -1,5 +1,6 @@
 {
   lib,
+  stdenv,
   makeWrapper,
   runCommand,
   writeShellApplication,
@@ -42,7 +43,7 @@ let
         nativeBuildInputs = [ jq ];
         preferLocalBuild = true;
 
-        exportReferencesGraph.closure = fencePackages;
+        exportReferencesGraph.closure = fencePackages ++ [ fenceShell ];
 
         # https://github.com/Use-Tusk/fence/blob/main/docs/configuration.md
         # https://github.com/Use-Tusk/fence/tree/main/internal/templates
@@ -63,9 +64,11 @@ let
           devices = {
             mode = "minimal";
           };
-          filesystem = {
+          filesystem = rec {
             StrictDenyRead = true;
             allowGitConfig = true;
+            # Also add to allowRead on Darwin for listing dir contents
+            allowRead = lib.optionals stdenv.hostPlatform.isDarwin allowWrite;
             allowWrite = [
               "."
               "~/.claude"
@@ -99,14 +102,23 @@ let
         ];
         preferLocalBuild = true;
       }
-      ''
-        makeWrapper "${lib.getExe bash}" "$out/bin/bash" \
+      (
+        ''
+          makeWrapper "${lib.getExe bash}" "$out/bin/bash" \
+        ''
+        + lib.optionalString stdenv.hostPlatform.isDarwin ''
+          --run 'export CLAUDE_CODE_TMPDIR="$HOME/.claude/tmp"' \
+        ''
+        + ''
           --set NIX_SSL_CERT_FILE "${cacert}/etc/ssl/certs/ca-bundle.crt" \
           --set PATH "${lib.makeBinPath fencePackages}" \
           --set SHELL "${lib.getExe bash}"
-        makeWrapper "${lib.getExe bubblewrap}" "$out/bin/bwrap" \
-          --add-flags '--clearenv --setenv HOME "$HOME" --setenv TERM "$TERM"'
-      '';
+        ''
+        + lib.optionalString stdenv.hostPlatform.isLinux ''
+          makeWrapper "${lib.getExe bubblewrap}" "$out/bin/bwrap" \
+            --add-flags '--clearenv --setenv HOME "$HOME" --setenv TERM "$TERM"'
+        ''
+      );
 in
 
 # fence-claude <claude_args> -- <fence_args>
