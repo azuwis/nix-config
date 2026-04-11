@@ -8,7 +8,6 @@
   claude-code,
   coreutils,
   fd,
-  fence,
   findutils,
   git,
   gnugrep,
@@ -16,6 +15,8 @@
   jq,
   ripgrep,
   which,
+  bubblewrap,
+  fence,
 }:
 
 let
@@ -63,20 +64,12 @@ let
             mode = "minimal";
           };
           filesystem = {
+            StrictDenyRead = true;
+            allowGitConfig = true;
             allowWrite = [
               "."
               "~/.claude"
               "~/.claude.json"
-            ];
-            denyRead = [
-              "/boot"
-              "/etc"
-              "/mnt"
-              "/root"
-              "/run"
-              "/srv"
-              "/sys"
-              "/var"
             ];
           };
           # Default have no network access, uncomment to use anthropic API:
@@ -109,7 +102,10 @@ let
       ''
         makeWrapper "${lib.getExe bash}" "$out/bin/bash" \
           --set NIX_SSL_CERT_FILE "${cacert}/etc/ssl/certs/ca-bundle.crt" \
-          --set PATH "${lib.makeBinPath fencePackages}"
+          --set PATH "${lib.makeBinPath fencePackages}" \
+          --set SHELL "${lib.getExe bash}"
+        makeWrapper "${lib.getExe bubblewrap}" "$out/bin/bwrap" \
+          --add-flags '--clearenv --setenv HOME "$HOME" --setenv TERM "$TERM"'
       '';
 in
 
@@ -122,7 +118,7 @@ writeShellApplication {
     derivationArgs.preferLocalBuild = true;
     runtimeInputs = [ fenceShell ];
     text = ''
-      exec ${lib.getExe fence} --settings ${fenceSettings} ${lib.getExe bash}
+      exec ${lib.getExe fence} --settings ${fenceSettings} "$@" ${lib.getExe bash}
     '';
   };
   derivationArgs.preferLocalBuild = true;
