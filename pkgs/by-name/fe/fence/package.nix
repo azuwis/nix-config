@@ -14,20 +14,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "fence";
-  version = "0.1.42";
+  version = "0-unstable-2026-04-11";
 
   src = fetchFromGitHub {
-    owner = "Use-Tusk";
+    owner = "azuwis";
     repo = "fence";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-TxSUgU32Y+IScFtAgWnB32OgyLaC7kWRVmYiM986nVo=";
+    rev = "220e28e8fe7f5e7f951c3adf24dc6bdf943c1673";
+    hash = "sha256-ZopCNc/VGmDzYcvvSBYb/xMQE1kF7tLxKyEzoiSYyPU=";
   };
 
   vendorHash = "sha256-P30NCXYX27R7F/dNhWSwiLg8T2f6J0/hlu6G3wlENFI=";
-
-  postPatch = ''
-    substituteInPlace internal/sandbox/linux_features.go --replace-fail '"/bin/true"' '"true"'
-  '';
 
   ldflags = [
     "-s"
@@ -70,7 +66,7 @@ buildGoModule (finalAttrs: {
         }
     '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = {
     description = "Lightweight, container-free sandbox for running commands with network and filesystem restrictions";
