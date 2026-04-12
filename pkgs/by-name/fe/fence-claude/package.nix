@@ -143,7 +143,7 @@ writeShellApplication {
     derivationArgs.preferLocalBuild = true;
     runtimeInputs = [ fenceShell ];
     text = ''
-      exec ${lib.getExe fence} --settings ${fenceSettings} "$@" ${lib.getExe bash}
+      exec ${lib.getExe fence} --settings ${fenceSettings} "$@" -- ${lib.getExe bash} --norc
     '';
   };
   derivationArgs.preferLocalBuild = true;
