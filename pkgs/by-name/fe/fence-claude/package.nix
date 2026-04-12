@@ -72,6 +72,7 @@ let
             allowRead = lib.optionals stdenv.hostPlatform.isDarwin (
               allowWrite
               ++ [
+                "/etc/localtime"
                 "/usr/share/locale"
               ]
             );
