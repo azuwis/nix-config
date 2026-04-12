@@ -14,13 +14,13 @@
 
 buildGoModule (finalAttrs: {
   pname = "fence";
-  version = "0-unstable-2026-04-11";
+  version = "0.1.46";
 
   src = fetchFromGitHub {
-    owner = "azuwis";
+    owner = "Use-Tusk";
     repo = "fence";
-    rev = "220e28e8fe7f5e7f951c3adf24dc6bdf943c1673";
-    hash = "sha256-ZopCNc/VGmDzYcvvSBYb/xMQE1kF7tLxKyEzoiSYyPU=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-IoWnA7gUfp6wyVBkqtH0How6DqHnaO78GlxknA5Y8+w=";
   };
 
   vendorHash = "sha256-P30NCXYX27R7F/dNhWSwiLg8T2f6J0/hlu6G3wlENFI=";
@@ -66,7 +66,7 @@ buildGoModule (finalAttrs: {
         }
     '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Lightweight, container-free sandbox for running commands with network and filesystem restrictions";
