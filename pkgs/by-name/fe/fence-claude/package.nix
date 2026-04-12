@@ -69,7 +69,12 @@ let
             StrictDenyRead = true;
             allowGitConfig = true;
             # Also add to allowRead on Darwin for listing dir contents
-            allowRead = lib.optionals stdenv.hostPlatform.isDarwin allowWrite;
+            allowRead = lib.optionals stdenv.hostPlatform.isDarwin (
+              allowWrite
+              ++ [
+                "/usr/share/locale"
+              ]
+            );
             allowWrite = [
               "."
               "~/.claude"
