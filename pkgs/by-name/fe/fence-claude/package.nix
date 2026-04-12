@@ -116,7 +116,7 @@ let
         ''
         + lib.optionalString stdenv.hostPlatform.isLinux ''
           makeWrapper "${lib.getExe bubblewrap}" "$out/bin/bwrap" \
-            --add-flags '--clearenv --setenv HOME "$HOME" --setenv TERM "$TERM"'
+            --add-flags '--unshare-all --hostname fence --clearenv --setenv HOME "$HOME" --setenv TERM "$TERM"'
         ''
       );
 in
