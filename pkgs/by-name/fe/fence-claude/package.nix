@@ -18,6 +18,7 @@
   which,
   bubblewrap,
   fence,
+  glibcLocales,
 }:
 
 let
@@ -109,7 +110,11 @@ let
         + lib.optionalString stdenv.hostPlatform.isDarwin ''
           --run 'export CLAUDE_CODE_TMPDIR="$HOME/.claude/tmp"' \
         ''
+        + lib.optionalString stdenv.hostPlatform.isLinux ''
+          --set LOCALE_ARCHIVE "${glibcLocales}/lib/locale/locale-archive" \
+        ''
         + ''
+          --set LANG "en_US.UTF-8" \
           --set NIX_SSL_CERT_FILE "${cacert}/etc/ssl/certs/ca-bundle.crt" \
           --set PATH "${lib.makeBinPath fencePackages}" \
           --set SHELL "${lib.getExe bash}"
