@@ -121,7 +121,9 @@ let
         ''
         + lib.optionalString stdenv.hostPlatform.isLinux ''
           makeWrapper "${lib.getExe bubblewrap}" "$out/bin/bwrap" \
-            --add-flags '--unshare-all --hostname fence --clearenv --setenv HOME "$HOME" --setenv TERM "$TERM" --ro-bind /etc/localtime /etc/localtime'
+            --add-flags '--unshare-all --hostname fence' \
+            --add-flags '--clearenv --setenv HOME "$HOME" --setenv TERM "$TERM"' \
+            --add-flags '--ro-bind /etc/localtime /etc/localtime'
         ''
       );
 in
