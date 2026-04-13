@@ -12,6 +12,16 @@ in
   (import (inputs.nixpkgs.outPath + "/pkgs/top-level/by-name-overlay.nix") ../pkgs/by-name)
 
   (final: prev: {
+    # https://github.com/whoozle/android-file-transfer-linux/pull/360
+    # https://github.com/whoozle/android-file-transfer-linux/pull/361
+    android-file-transfer = prev.android-file-transfer.overrideAttrs (old: {
+      src = old.src.override {
+        tag = null;
+        rev = "582a8aacf16b05b847f4dd0bed6fd6def02cf8d2";
+        sha256 = "sha256-rk1QXq8JiLRZu+dz9HvWkOj5JyaLMXzTybByl46obE8=";
+      };
+    });
+
     # disable fcitx5-configtool and fcitx5-qt5
     qt6Packages = prev.qt6Packages.overrideScope (
       qt6final: qt6prev: {
