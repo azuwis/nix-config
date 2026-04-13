@@ -12,6 +12,11 @@ in
   (import (inputs.nixpkgs.outPath + "/pkgs/top-level/by-name-overlay.nix") ../pkgs/by-name)
 
   (final: prev: {
+    # https://github.com/NixOS/nixpkgs/issues/507531
+    direnv = prev.direnv.overrideAttrs (
+      final.lib.optionalAttrs final.stdenv.hostPlatform.isDarwin { doCheck = false; }
+    );
+
     # https://github.com/whoozle/android-file-transfer-linux/pull/360
     # https://github.com/whoozle/android-file-transfer-linux/pull/361
     android-file-transfer = prev.android-file-transfer.overrideAttrs (old: {
