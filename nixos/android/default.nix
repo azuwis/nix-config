@@ -15,11 +15,11 @@ in
   };
 
   config = mkIf cfg.enable {
-    programs.adb.enable = true;
-    environment.systemPackages = [ pkgs.android-file-transfer ];
-    services.udev.extraRules = ''
-      # Huawei phones in MTP mode
-      SUBSYSTEM=="usb", ATTR{idVendor}=="12d1", ENV{ID_USB_INTERFACES}=="*:ffff00:*", ENV{ID_MEDIA_PLAYER}="1"
-    '';
+    environment.systemPackages = [
+      pkgs.android-file-transfer
+      pkgs.android-tools
+    ];
+    # Grant uaccess to MTP devices
+    services.udev.packages = [ pkgs.libmtp.out ];
   };
 }
