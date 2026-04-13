@@ -58,9 +58,9 @@ level_sets=""
 # shellcheck disable=SC2086
 set -- $BAN_TIMEOUTS
 if [ $# -eq 1 ]; then
-  escalate_rules="		update @wanlimit_ban { ip saddr timeout $1 } counter drop"
+  escalate_rules="		update @wanlimit_ban { ip saddr timeout $1 } log prefix \"wanlimit ban $1 \" counter drop"
 else
-  escalate_rules="		add @wanlimit_level0 { ip saddr } update @wanlimit_ban { ip saddr timeout $1 } counter drop"
+  escalate_rules="		add @wanlimit_level0 { ip saddr } update @wanlimit_ban { ip saddr timeout $1 } log prefix \"wanlimit ban $1 \" counter drop"
 fi
 shift
 level=0
@@ -73,11 +73,11 @@ while [ $# -gt 0 ]; do
 	}
 "
   if [ $# -eq 1 ]; then
-    escalate_rules="		ip saddr @wanlimit_level${level} update @wanlimit_ban { ip saddr timeout $1 } counter drop
+    escalate_rules="		ip saddr @wanlimit_level${level} update @wanlimit_ban { ip saddr timeout $1 } log prefix \"wanlimit ban $1 \" counter drop
 $escalate_rules"
   else
     next_level=$((level + 1))
-    escalate_rules="		ip saddr @wanlimit_level${level} add @wanlimit_level${next_level} { ip saddr } update @wanlimit_ban { ip saddr timeout $1 } counter drop
+    escalate_rules="		ip saddr @wanlimit_level${level} add @wanlimit_level${next_level} { ip saddr } update @wanlimit_ban { ip saddr timeout $1 } log prefix \"wanlimit ban $1 \" counter drop
 $escalate_rules"
   fi
   level=$((level + 1))
@@ -103,7 +103,7 @@ $escalate_rules
 
 	chain wanlimit {
 		type filter hook prerouting priority -110; policy accept;
-		$iif_match ip saddr @wanlimit_ban log prefix "wanlimit ban " counter drop
+		$iif_match ip saddr @wanlimit_ban counter drop
 $wanlimit_rules
 	}
 }
