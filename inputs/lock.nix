@@ -50,13 +50,13 @@
     submodules = false;
   };
   my = {
-    lastModified = 1775180288;
-    lastModifiedDate = "20260403013808";
-    narHash = "sha256-lZX5JY25xocHzWUB0BWulTA1EUpxzc1xvnRbTCYNVL4=";
-    outPath = "/nix/store/ffhdq0q4h8axp9f006js1vb4l12jkbgi-source";
-    rev = "27a32d3bbbbf9d50ab4dc4f8750db4ea897eb7a0";
+    lastModified = 1776155073;
+    lastModifiedDate = "20260414082433";
+    narHash = "sha256-5JhF/ym90mlaKh7hh8qfMYegUxj40vv4E+RWykP+b/c=";
+    outPath = "/nix/store/r7n0c6ni7lgisxcaz5ssw3a7mq9j7ljw-source";
+    rev = "25412366b419f6cb44a18d978b0a2b7a55ae1a8e";
     revCount = 0;
-    shortRev = "27a32d3";
+    shortRev = "2541236";
     submodules = false;
   };
   nix-darwin = {
@@ -100,13 +100,13 @@
     submodules = false;
   };
   nix-openwrt-imagebuilder = {
-    lastModified = 1774429576;
-    lastModifiedDate = "20260325090616";
-    narHash = "sha256-CWVdjEhaZuaz7tuCT8YMkmWRiWXqp4aR911dRqAGVyM=";
-    outPath = "/nix/store/qna0cnq41d33w3jx3pz18jjldhh7fvwj-source";
-    rev = "1b141dc36691dfe341f6a2ca44bdbcc9bbb96e45";
+    lastModified = 1776159259;
+    lastModifiedDate = "20260414093419";
+    narHash = "sha256-uOP9QUOz9BkUK7HKQ40TlnXtDqmDGalc7DD/H6UqHhI=";
+    outPath = "/nix/store/p0vzqqj3ppfir46cc5hjlnjka02hrxyx-source";
+    rev = "3424ee98d2be3a5c41b0b83d0dd26542211b3865";
     revCount = 0;
-    shortRev = "1b141dc";
+    shortRev = "3424ee9";
     submodules = false;
   };
   nixos-wsl = {
