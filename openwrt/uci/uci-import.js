@@ -12,6 +12,10 @@ if (!data) {
 }
 
 for (let conf, sections in data) {
+  let conf_path = `/etc/config/${conf}`;
+  if (!fs.stat(conf_path))
+    fs.writefile(conf_path, "");
+
   for (let sect, opts in sections) {
     let sec_type = opts[".type"];
 
