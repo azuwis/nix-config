@@ -16,6 +16,7 @@ in
 
   config = lib.mkIf cfg.enable {
     builder.packages = [ "etherwake" ];
+    sops.uciKeys = [ ''^etherwake\.target_'' ];
     uci.etherwake."@target[0]".".type" = "-";
     uci.etherwake.setup.interface = "br-lan";
   };
