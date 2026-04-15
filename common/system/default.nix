@@ -20,6 +20,9 @@
       "nix-command"
     ];
     flake-registry = "";
+    # Use multiple TCP connections to substituters, increase download speed
+    # https://discourse.nixos.org/t/77064
+    http2 = false;
     # This keep build time paths like compilers and source tarballs, may require
     # 20G+ after keeping multiple direnv profiles
     # keep-outputs = true;
