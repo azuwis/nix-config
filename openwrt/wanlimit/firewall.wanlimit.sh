@@ -8,6 +8,13 @@ METER_TIMEOUT=$(uci -q get wanlimit.default.meter_timeout || echo "1h")
 BAN_TIMEOUTS=$(uci -q get wanlimit.default.ban_timeouts || echo "1h 1d 7d")
 DEFAULT_LIMIT_RATE=$(uci -q get wanlimit.default.limit_rate)
 
+whitelist_elements=""
+_add_whitelist() {
+  whitelist_elements="${whitelist_elements:+$whitelist_elements, }$1"
+}
+config_load wanlimit
+config_list_foreach default whitelist _add_whitelist
+
 wanlimit_rules=""
 handle_firewall_redirect() {
   local src src_dport proto limit_rate nft_proto
@@ -84,9 +91,22 @@ $escalate_rules"
   shift
 done
 
+whitelist_set=""
+whitelist_rule=""
+if [ -n "$whitelist_elements" ]; then
+  whitelist_set="	set wanlimit_whitelist {
+		type ipv4_addr
+		flags interval
+		elements = { $whitelist_elements }
+	}
+"
+  whitelist_rule="		ip saddr @wanlimit_whitelist accept
+"
+fi
+
 nft -f - <<EOF
 table inet fw4 {
-	set wanlimit_ban {
+$whitelist_set	set wanlimit_ban {
 		type ipv4_addr
 		flags dynamic, timeout
 	}
@@ -103,7 +123,7 @@ $escalate_rules
 
 	chain wanlimit {
 		type filter hook prerouting priority -110; policy accept;
-		$iif_match ip saddr @wanlimit_ban counter drop
+$whitelist_rule		$iif_match ip saddr @wanlimit_ban counter drop
 $wanlimit_rules
 	}
 }
