@@ -4,9 +4,9 @@
 . /lib/functions.sh
 . /lib/functions/network.sh
 
-METER_TIMEOUT=$(uci -q get wanlimit.@wanlimit[0].meter_timeout || echo "1h")
-BAN_TIMEOUTS=$(uci -q get wanlimit.@wanlimit[0].ban_timeouts || echo "1h 1d 7d")
-DEFAULT_LIMIT_RATE=$(uci -q get wanlimit.@wanlimit[0].limit_rate)
+METER_TIMEOUT=$(uci -q get wanlimit.default.meter_timeout || echo "1h")
+BAN_TIMEOUTS=$(uci -q get wanlimit.default.ban_timeouts || echo "1h 1d 7d")
+DEFAULT_LIMIT_RATE=$(uci -q get wanlimit.default.limit_rate)
 
 wanlimit_rules=""
 handle_firewall_redirect() {
@@ -15,7 +15,7 @@ handle_firewall_redirect() {
   config_get src_dport "$1" src_dport
   config_get proto "$1" proto "tcp udp"
   [ "$src" = "wan" ] && [ -n "$src_dport" ] || return
-  limit_rate=$(uci -q get "wanlimit.@wanlimit[0].limit_rate_${src_dport}" || echo "$DEFAULT_LIMIT_RATE")
+  limit_rate=$(uci -q get "wanlimit.${src_dport}.limit_rate" || echo "$DEFAULT_LIMIT_RATE")
   [ -n "$limit_rate" ] || return
   nft_proto="meta l4proto { ${proto// /, } }"
   wanlimit_rules="$wanlimit_rules
