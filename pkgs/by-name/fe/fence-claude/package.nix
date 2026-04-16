@@ -135,7 +135,6 @@ let
 in
 
 # fence-claude <claude_args> -- <fence_args>
-# Add `"hasCompletedOnboarding": true` to ~/.claude.json if fail to startup for first time
 writeShellApplication {
   name = "fence-claude";
   derivationArgs.passthru.shell = writeShellApplication {
@@ -166,6 +165,15 @@ writeShellApplication {
   # ShellApplication, so the setuid bwrap in system PATH is used, like
   # /run/wrappers/bin/bwrap in NixOS if exist
   text = ''
+    # Ensure ~/.claude.json exists to prevent fence/bubblewrap from hanging
+    # on a bind-mount of a nonexistent file.
+    # hasCompletedOnboarding skips the onboarding flow, which would fail
+    # with ERR_BAD_REQUEST inside the sandbox due to no network access.
+    if [ ! -f ~/.claude.json ]; then
+      echo '{"hasCompletedOnboarding": true}' > ~/.claude.json
+    fi
+    mkdir -p ~/.claude
+
     claude_args=()
     fence_args=()
     found_sep=false
