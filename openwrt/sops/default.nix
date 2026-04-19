@@ -59,7 +59,8 @@ in
       "password"
       "preshared_key"
       "private_key"
-      ''^dhcp\.@dnsmasq\[0\]\.(address|rebind_domain|server)$''
+      ''^dhcp\.(@dnsmasq\[0\]|main)\.(address|rebind_domain|server)$''
+      ''^dhcp\.dnsmasq_''
       ''^dhcp\.ipset_''
       ''^firewall\.(ipset_|redirect_|rule_)''
       ''^network\.(lan|wan)\.(netmask|ipaddr|netmask|proto|username)$''

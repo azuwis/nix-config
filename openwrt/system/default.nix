@@ -28,6 +28,19 @@ in
       "net.netfilter.nf_conntrack_max=32768"
       (lib.mkAfter "") # Add trailing newline
     ];
+    files.file."etc/uci-defaults/91-dnsmasq-rename".text = ''
+      ucode -e '
+      import { cursor } from "uci";
+      const uci = cursor();
+      for (let name, s in uci.get_all("dhcp")) {
+      	if (s[".type"] == "dnsmasq" && s[".anonymous"]) {
+      		uci.rename("dhcp", name, "main");
+      		uci.save("dhcp");
+      		break;
+      	}
+      }
+      '
+    '';
     files.file."etc/uci-defaults/96-root-password".text = ''
       root_password_hash=$(uci -q get 'system.@system[0].password')
       if [ -n "$root_password_hash" ]; then
@@ -35,12 +48,14 @@ in
       fi
     '';
     uci = {
-      dhcp."@dnsmasq[0]".cachesize = "1024";
-      dhcp."@dnsmasq[0]".localuse = "1"; # Always use dnsmasq as nameserver in resolv.conf
+      dhcp.main.cachesize = "1024";
+      dhcp.main.localuse = "1"; # Always use dnsmasq as nameserver in resolv.conf
       dhcp.lan.force = "1"; # Skip checking other DHCP servers in lan to reduce startup time
+      dhcp.lan.instance = "main"; # Only apply to main dnsmasq
       dhcp.lan.leasetime = "72h";
       dhcp.lan.limit = "245"; # DHCP IP 10~254, 245 total
       dhcp.lan.start = "10"; # Static IP 1~9
+      dhcp.wan.instance = "main"; # Only apply to main dnsmasq
       dropbear."@dropbear[0]".PasswordAuth = "0";
       dropbear."@dropbear[0]".RootPasswordAuth = "0";
       system."@system[0]".log_buffer_size = "1024"; # Size in KiB, for logread
