@@ -120,6 +120,7 @@ let
           --set LOCALE_ARCHIVE "${glibcLocales}/lib/locale/locale-archive" \
         ''
         + ''
+          --set CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC "1" \
           --set LANG "en_US.UTF-8" \
           --set NIX_SSL_CERT_FILE "${cacert}/etc/ssl/certs/ca-bundle.crt" \
           --set PATH "${lib.makeBinPath fencePackages}" \
