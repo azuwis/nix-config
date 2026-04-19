@@ -38,6 +38,7 @@ in
       dhcp."@dnsmasq[0]".cachesize = "1024";
       dhcp."@dnsmasq[0]".localuse = "1"; # Always use dnsmasq as nameserver in resolv.conf
       dhcp.lan.force = "1"; # Skip checking other DHCP servers in lan to reduce startup time
+      dhcp.lan.instance = "dnsmasq"; # Only apply to main dnsmasq instance dhcp.@dnsmasq[0]
       dhcp.lan.leasetime = "72h";
       dhcp.lan.limit = "245"; # DHCP IP 10~254, 245 total
       dhcp.lan.start = "10"; # Static IP 1~9
