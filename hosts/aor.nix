@@ -116,6 +116,15 @@
 
   services.ollama = {
     enable = true;
-    acceleration = "cuda";
+    # https://github.com/NixOS/nixpkgs/blob/master/pkgs/by-name/ol/ollama/package.nix
+    package = pkgs.ollama-cuda.overrideAttrs (old: {
+      version = "0.21.0";
+      src = old.src.override {
+        hash = "sha256-DtrYopNtndQXq9Xjriw5Bqell9A8RHPOvgDF8BlKtdU=";
+      };
+      vendorHash = "sha256-Lc1Ktdqtv2VhJQssk8K1UOimeEjVNvDWePE9WkamCos=";
+      proxyVendor = true;
+      doCheck = false;
+    });
   };
 }
