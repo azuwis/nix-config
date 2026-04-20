@@ -19,34 +19,40 @@ in
       "diffutils"
       "tcpdump"
     ];
-    files.file."etc/dropbear/authorized_keys".text = lib.concatStringsSep "\n" config.my.keys;
-    # Empty file /etc/profile.d/apk-cheatsheet.hush will skip load /etc/profile.d/apk-cheatsheet.sh
-    # TODO: Remove when openwrt 26 releases
-    # https://github.com/openwrt/openwrt/blob/df45ed2da0afb3c2c4dce567338eaa3ef099217a/package/base-files/files/etc/profile#L35
-    files.file."etc/profile.d/apk-cheatsheet.hush".text = "";
-    files.file."etc/sysctl.conf".text = lib.mkMerge [
-      "net.netfilter.nf_conntrack_max=32768"
-      (lib.mkAfter "") # Add trailing newline
-    ];
-    files.file."etc/uci-defaults/91-dnsmasq-rename".text = ''
-      ucode -e '
-      import { cursor } from "uci";
-      const uci = cursor();
-      for (let name, s in uci.get_all("dhcp")) {
-      	if (s[".type"] == "dnsmasq" && s[".anonymous"]) {
-      		uci.rename("dhcp", name, "main");
-      		uci.save("dhcp");
-      		break;
-      	}
-      }
-      '
-    '';
-    files.file."etc/uci-defaults/96-root-password".text = ''
-      root_password_hash=$(uci -q get 'system.@system[0].password')
-      if [ -n "$root_password_hash" ]; then
-        sed -i "s|^root:[^:]*|root:$root_password_hash|g" /etc/shadow
-      fi
-    '';
+    files.file = {
+      "etc/dropbear/authorized_keys".text = lib.concatStringsSep "\n" config.my.keys;
+
+      # Empty file /etc/profile.d/apk-cheatsheet.hush will skip load /etc/profile.d/apk-cheatsheet.sh
+      # TODO: Remove when openwrt 26 releases
+      # https://github.com/openwrt/openwrt/blob/df45ed2da0afb3c2c4dce567338eaa3ef099217a/package/base-files/files/etc/profile#L35
+      "etc/profile.d/apk-cheatsheet.hush".text = "";
+
+      "etc/sysctl.conf".text = lib.mkMerge [
+        "net.netfilter.nf_conntrack_max=32768"
+        (lib.mkAfter "") # Add trailing newline
+      ];
+
+      "etc/uci-defaults/91-dnsmasq-rename".text = ''
+        ucode -e '
+        import { cursor } from "uci";
+        const uci = cursor();
+        for (let name, s in uci.get_all("dhcp")) {
+        	if (s[".type"] == "dnsmasq" && s[".anonymous"]) {
+        		uci.rename("dhcp", name, "main");
+        		uci.save("dhcp");
+        		break;
+        	}
+        }
+        '
+      '';
+
+      "etc/uci-defaults/96-root-password".text = ''
+        root_password_hash=$(uci -q get 'system.@system[0].password')
+        if [ -n "$root_password_hash" ]; then
+          sed -i "s|^root:[^:]*|root:$root_password_hash|g" /etc/shadow
+        fi
+      '';
+    };
     uci = {
       dhcp.main.cachesize = "1024";
       dhcp.main.localuse = "1"; # Always use dnsmasq as nameserver in resolv.conf
