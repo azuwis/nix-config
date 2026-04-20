@@ -64,6 +64,9 @@ in
         '
       '';
 
+      # etc/uci-defaults/92-uci-import, in ../uci/default.nix
+      # etc/uci-defaults/95-sops-enc, in ../sops/default.nix
+
       "etc/uci-defaults/96-root-password".text = ''
         root_password_hash=$(uci -q get 'system.@system[0].password')
         if [ -n "$root_password_hash" ]; then
