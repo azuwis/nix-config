@@ -32,6 +32,21 @@ in
         (lib.mkAfter "") # Add trailing newline
       ];
 
+      # Rename dhcp.@dnsmasq[0] to dhcp.main, for `uci.dhcp.lan.instance` and `uci.dhcp.wan.instance`
+      "etc/uci-defaults/90-dnsmasq-rename".text = ''
+        ucode -e '
+        import { cursor } from "uci";
+        const uci = cursor();
+        for (let name, s in uci.get_all("dhcp")) {
+        	if (s[".type"] == "dnsmasq" && s[".anonymous"]) {
+        		uci.rename("dhcp", name, "main");
+        		uci.commit("dhcp");
+        		break;
+        	}
+        }
+        '
+      '';
+
       # radio0 and radio1 are not consistent between fresh install, swap them
       # if needed to make sure radio0 is always 2g
       "etc/uci-defaults/90-wireless-order".text = ''
@@ -48,20 +63,6 @@ in
         commit wireless
         EOF
         fi
-      '';
-
-      "etc/uci-defaults/91-dnsmasq-rename".text = ''
-        ucode -e '
-        import { cursor } from "uci";
-        const uci = cursor();
-        for (let name, s in uci.get_all("dhcp")) {
-        	if (s[".type"] == "dnsmasq" && s[".anonymous"]) {
-        		uci.rename("dhcp", name, "main");
-        		uci.save("dhcp");
-        		break;
-        	}
-        }
-        '
       '';
 
       # etc/uci-defaults/92-uci-import, in ../uci/default.nix
