@@ -33,18 +33,9 @@ in
       ];
 
       # Rename dhcp.@dnsmasq[0] to dhcp.main, for `uci.dhcp.lan.instance` and `uci.dhcp.wan.instance`
-      "etc/uci-defaults/90-dnsmasq-rename".text = ''
-        ucode -e '
-        import { cursor } from "uci";
-        const uci = cursor();
-        for (let name, s in uci.get_all("dhcp")) {
-        	if (s[".type"] == "dnsmasq" && s[".anonymous"]) {
-        		uci.rename("dhcp", name, "main");
-        		uci.commit("dhcp");
-        		break;
-        	}
-        }
-        '
+      "usr/libexec/uci-defaults/dhcp-dnsmasq-rename.uc".source = ./dhcp-dnsmasq-rename.uc;
+      "etc/uci-defaults/90-dhcp-dnsmasq-rename".text = ''
+        ucode /usr/libexec/uci-defaults/dhcp-dnsmasq-rename.uc
       '';
 
       # Radios are not consistent between fresh install, sort them by band (2g,
