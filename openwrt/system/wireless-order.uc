@@ -1,4 +1,4 @@
-ucode -e '
+#!/usr/bin/ucode
 import { cursor } from "uci";
 
 const uci = cursor();
@@ -30,4 +30,3 @@ for (let i = 0; i < length(sorted); i++) {
 }
 
 uci.commit("wireless");
-'

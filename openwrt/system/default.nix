@@ -49,7 +49,10 @@ in
 
       # Radios are not consistent between fresh install, sort them by band (2g,
       # 5g, 6g) so radio0 is always 2g, radio1 is 5g, etc.
-      "etc/uci-defaults/90-wireless-order".source = ./wireless-order.sh;
+      "usr/libexec/uci-defaults/wireless-order.uc".source = ./wireless-order.uc;
+      "etc/uci-defaults/90-wireless-order".text = ''
+        ucode /usr/libexec/uci-defaults/wireless-order.uc
+      '';
 
       # etc/uci-defaults/92-uci-import, in ../uci/default.nix
       # etc/uci-defaults/95-sops-enc, in ../sops/default.nix
