@@ -6,16 +6,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "torrent-ratio";
-  version = "0.9";
+  version = "0.10";
 
   src = fetchFromGitHub {
     owner = "azuwis";
     repo = "torrent-ratio";
     rev = "v${finalAttrs.version}";
-    sha256 = "sha256-v2qP3zklL/qs9pD63VkTrVhLNm34RQzDc1NvSXX8ZhU=";
+    sha256 = "sha256-itIvizeedkN6VoTyHrraDV1yLC4v8dO8vzt5K0KRzq4=";
   };
 
-  vendorHash = "sha256-RH38kK6r357K9YgjgyHxd9iSlBK7i1MgwETN9NNeVU4=";
+  vendorHash = "sha256-+eqtiSDnAXlFqjOVunEDD862gf4k569/DLpmshQBJog=";
 
   passthru.updateScript = nix-update-script { };
 })
