@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "wheelswipe";
-  version = "0-unstable-2026-03-21";
+  version = "0-unstable-2026-04-27";
 
   src = fetchFromGitHub {
     owner = "azuwis";
     repo = "wheelswipe";
-    rev = "67eb9a03140619f9849b9eb171cc6e3e96418412";
-    hash = "sha256-4KHLmryxUkY9uinQkBxbCVIGgUKwvttCvSEPc9Ev5vw=";
+    rev = "79f388f1c2e03e721c081e4c81c456c92a1507ce";
+    hash = "sha256-WVCVQyQGgXcbXgIuhLKPV7KxTlScFQKSHIf/4jw+dCM=";
   };
 
   installPhase = ''
