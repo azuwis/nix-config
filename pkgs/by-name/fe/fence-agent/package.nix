@@ -17,6 +17,7 @@
   gnused,
   jq,
   ripgrep,
+  tinyxxd,
   which,
   bubblewrap,
   fence,
@@ -44,6 +45,7 @@
     gnused
     jq
     ripgrep
+    tinyxxd
     which
   ], # packages available inside the sandbox
   extraFencePackages ? [ ], # additional packages to add to fencePackages
