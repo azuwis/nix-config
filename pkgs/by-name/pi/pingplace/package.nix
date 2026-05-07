@@ -9,13 +9,13 @@
 
 swiftPackages.stdenv.mkDerivation (finalAttrs: {
   pname = "pingplace";
-  version = "1.3.1";
+  version = "1.4.0";
 
   src = fetchFromGitHub {
     owner = "NotWadeGrimridge";
     repo = "PingPlace";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-yuifAi0Ce9/kwEAFpNL7G3exJ6qYW0gVqCbW32rvncs=";
+    hash = "sha256-msBdoWznfgfptWwYVQcLiLOJQErs46Vp3AMloRm+9yU=";
   };
 
   nativeBuildInputs = [
