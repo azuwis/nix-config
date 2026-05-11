@@ -12,12 +12,15 @@
   fd,
   file,
   findutils,
+  gawk,
   git,
   gnugrep,
   gnused,
   jq,
+  python3,
   ripgrep,
   tinyxxd,
+  unzip,
   which,
   bubblewrap,
   fence,
@@ -40,12 +43,15 @@
     fd
     file
     findutils
+    gawk
     git
     gnugrep
     gnused
     jq
+    python3
     ripgrep
     tinyxxd
+    unzip
     which
   ], # packages available inside the sandbox
   extraFencePackages ? [ ], # additional packages to add to fencePackages
