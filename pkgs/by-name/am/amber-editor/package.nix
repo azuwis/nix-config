@@ -46,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     "../src"
   ];
 
-  # https://github.com/baptisterajaut/amber/blob/0.1.x/.github/workflows/build.yml
+  # https://github.com/baptisterajaut/amber/blob/main/.github/workflows/build.yml
   # `Create .app bundle` step
   installPhase = lib.optionalString stdenv.hostPlatform.isDarwin ''
     runHook preInstall
@@ -55,6 +55,14 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p Amber.app/Contents/Resources
     cp Amber Amber.app/Contents/MacOS/Amber
     cp ../packaging/macos/olive.icns Amber.app/Contents/Resources/amber.icns
+    # License
+    cp ../LICENSE Amber.app/Contents/Resources/LICENSE
+    # Shader effects (XML + GLSL)
+    mkdir -p Amber.app/Contents/Effects
+    cp effects/*.xml effects/*.frag effects/*.vert Amber.app/Contents/Effects/ 2>/dev/null || true
+    # Export presets
+    mkdir -p Amber.app/Contents/ExportPresets
+    cp ../src/exportpresets/* Amber.app/Contents/ExportPresets/ 2>/dev/null || true
     cat > Amber.app/Contents/Info.plist <<PLIST
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
