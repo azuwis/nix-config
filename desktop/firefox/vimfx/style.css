@@ -6,9 +6,13 @@
     z-index: 2 !important;
   }
 
-  /* show nav-bar when hover */
-  #navigator-toolbox:focus-within > .browser-toolbar,
-  #nav-bar:hover {
+  /* when menubar is active, remove nav-bar so they don't overlap */
+  #toolbar-menubar:not([inactive]) ~ #nav-bar {
+    display: none;
+  }
+
+  /* show nav-bar when urlbar focused */
+  #nav-bar:focus-within {
     margin: 0 0 0 !important;
     position: fixed !important;
     top: 0 !important;
