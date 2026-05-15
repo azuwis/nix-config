@@ -10,7 +10,10 @@ in
   devshell = github "numtide/devshell" { };
   disko = github "nix-community/disko" { ref = "refs/tags/latest"; };
   homebrew-cask = github "Homebrew/homebrew-cask" { };
-  jovian-nixos = github "Jovian-Experiments/Jovian-NixOS" { };
+  jovian-nixos = github "Jovian-Experiments/Jovian-NixOS" {
+    # last version compatible with nixos-25.11
+    rev = "6d7bfd32efacd9a06c36df65f47c875395547977";
+  };
   my = git "ssh://nuc/~/repo/my" { };
   nix-darwin = github "nix-darwin/nix-darwin" { ref = "nix-darwin-25.11"; };
   nix-homebrew = github "zhaofengli/nix-homebrew" { };

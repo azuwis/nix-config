@@ -40,13 +40,13 @@
     submodules = false;
   };
   jovian-nixos = {
-    lastModified = 1778656613;
-    lastModifiedDate = "20260513071653";
-    narHash = "sha256-msfEuGxdU3hMykJKkkKfE+kT1Us/3o4XLjdOaQLyYHA=";
-    outPath = "/nix/store/yyxzgbh52d4sm6kdw4gfkr3yd6c8fwj9-source";
-    rev = "98800e4d24a3be2d5e9fa47e0dc7c5a1982f99a7";
+    lastModified = 1778408709;
+    lastModifiedDate = "20260510102509";
+    narHash = "sha256-DKIuvXXnv4+2wN+AY1qGfQ4uv/2dsOluMCCDEJCJ00g=";
+    outPath = "/nix/store/xnaw9dqgrzq31avyamx3x0n8lwjxhdj7-source";
+    rev = "6d7bfd32efacd9a06c36df65f47c875395547977";
     revCount = 0;
-    shortRev = "98800e4";
+    shortRev = "6d7bfd3";
     submodules = false;
   };
   my = {
