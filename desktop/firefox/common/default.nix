@@ -172,6 +172,7 @@ in
         "media.peerconnection.enabled" = false;
         # others
         "devtools.chrome.enabled" = true; # enable browser console command line
+        "devtools.debugger.remote-enabled" = true; # enable browser toolbox, debug Firefox itself
         "full-screen-api.warning.timeout" = 1;
         "security.dialog_enable_delay" = 0;
         "ui.caretBlinkTime" = 0; # disable cursor blinking
