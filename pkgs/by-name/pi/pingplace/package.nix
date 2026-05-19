@@ -52,6 +52,8 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
     codesign --entitlements src/PingPlace.entitlements -f -s - $out/Applications/PingPlace.app/Contents/MacOS/PingPlace
   '';
 
+  # v1.4.0 requires macOS 26.4.1 or later
+  passthru.enable = false;
   passthru.updateScript = nix-update-script { };
 
   meta = {
