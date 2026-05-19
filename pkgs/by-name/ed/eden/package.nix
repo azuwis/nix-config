@@ -27,12 +27,12 @@
   SDL2,
   simpleini,
   spirv-headers,
-  spirv-tools,
   vulkan-memory-allocator,
   vulkan-utility-libraries,
   zlib,
   zstd,
   vulkan-loader,
+  pipewire,
   nix-update-script,
 }:
 
@@ -109,7 +109,6 @@ stdenv.mkDerivation (finalAttrs: {
     # intentionally omitted: stb - header only libraries, vendor uses git snapshot
     simpleini
     spirv-headers
-    spirv-tools
     # intentionally omitted: unordered_dense - cpm still download it even provided
     vulkan-memory-allocator
     vulkan-utility-libraries
@@ -146,11 +145,6 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "ENABLE_LTO" true)
     (lib.cmakeBool "DYNARMIC_ENABLE_LTO" true)
 
-    # use system libraries
-    # NB: "external" here means "from the externals/ directory in the source",
-    # so "false" means "use system"
-    (lib.cmakeBool "YUZU_USE_EXTERNAL_SDL2" false)
-
     # enable some optional features
     (lib.cmakeBool "ENABLE_QT_TRANSLATION" true)
     (lib.cmakeBool "YUZU_USE_QT_MULTIMEDIA" true)
@@ -160,14 +154,17 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeFeature "TITLE_BAR_FORMAT_RUNNING" "eden | ${finalAttrs.version} (nixpkgs) | {}")
   ];
 
-  qtWrapperArgs = [
-    # Fixes vulkan detection.
-    # FIXME: patchelf --add-rpath corrupts the binary for some reason, investigate
-    "--prefix LD_LIBRARY_PATH : ${vulkan-loader}/lib"
-  ];
-
   postInstall = ''
     install -Dm444 "$src/dist/72-yuzu-input.rules" "$out/lib/udev/rules.d/72-yuzu-input.rules"
+  '';
+
+  preFixup = ''
+    qtWrapperArgs+=(--prefix LD_LIBRARY_PATH : ${
+      lib.makeLibraryPath [
+        vulkan-loader
+        pipewire
+      ]
+    })
   '';
 
   passthru = {
