@@ -26,7 +26,7 @@ in
     services.hass.mqtt = true;
 
     systemd.services.home-assistant.preStart = ''
-      mkdir ${config.services.home-assistant.configDir}/packages
+      mkdir -p ${config.services.home-assistant.configDir}/packages
       ln -fns ${./zigbee2mqtt.yaml} ${config.services.home-assistant.configDir}/packages/zigbee2mqtt.yaml
     '';
 
