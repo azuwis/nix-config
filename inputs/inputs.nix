@@ -12,7 +12,7 @@ in
   homebrew-cask = github "Homebrew/homebrew-cask" { };
   jovian-nixos = github "Jovian-Experiments/Jovian-NixOS" {
     # last version compatible with nixos-25.11
-    rev = "6d7bfd32efacd9a06c36df65f47c875395547977";
+    rev = "3251531a37b09db4b03f48fbf1bc9348ea9ac045";
   };
   my = git "ssh://nuc/~/repo/my" { };
   nix-darwin = github "nix-darwin/nix-darwin" { ref = "nix-darwin-25.11"; };
