@@ -18,6 +18,7 @@ let
     mkdir $out
     for i in az tf yq; do
       ${pkgs.imagemagick}/bin/magick -background transparent -fill "#ff9800" -font ${font} -size 128x128 -gravity center label:"''${i^^}" "$out/$i.png"
+      ${pkgs.imagemagick}/bin/magick -background transparent -fill "#44739e" -font ${font} -size 128x128 -gravity center label:"''${i^^}" "$out/''${i}_away.png"
     done
     ln -fns ${card-mod}/${card-mod.entrypoint} $out/
   '';
@@ -146,8 +147,7 @@ let
     type = "image";
     entity = "device_tracker.${id}";
     image = "/local/generated/${id}.png";
-    # https://angel-rs.github.io/css-color-filter-generator/
-    state_filter.not_home = "brightness(0) saturate(100%) invert(44%) sepia(11%) saturate(1915%) hue-rotate(167deg) brightness(93%) contrast(95%)";
+    state_image.not_home = "/local/generated/${id}_away.png";
     style = {
       left = "4%";
       top = "${top}%";
