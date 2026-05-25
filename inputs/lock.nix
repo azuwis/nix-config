@@ -30,13 +30,13 @@
     submodules = false;
   };
   homebrew-cask = {
-    lastModified = 1779245577;
-    lastModifiedDate = "20260520025257";
-    narHash = "sha256-Db7fhXVxV71nZo86DCfR+bPLQA9Dl/tRpy74frYpLWI=";
-    outPath = "/nix/store/jj7n7xv5w3lf24hfmbfxkj2rp19nb8rs-source";
-    rev = "46a18e6da0ef9a87d8ac5addcc4938e03ea457de";
+    lastModified = 1779702056;
+    lastModifiedDate = "20260525094056";
+    narHash = "sha256-bytNyP9tlb3Jv75mbw3KCypmJCeFYX2XSVFHhEqBCbs=";
+    outPath = "/nix/store/89g8pbwa7f5fb2lnnaii0zmk0n5wshyy-source";
+    rev = "3f8d5e66a67ab1296cab3e7092dfcbd1c0d39c23";
     revCount = 0;
-    shortRev = "46a18e6";
+    shortRev = "3f8d5e6";
     submodules = false;
   };
   jovian-nixos = {
@@ -80,13 +80,13 @@
     submodules = false;
   };
   nix-index-database = {
-    lastModified = 1778999996;
-    lastModifiedDate = "20260517063956";
-    narHash = "sha256-J0XIyVi3G3wPo17gOvp6dVupwxPQlMfCg7F7rBmWx9M=";
-    outPath = "/nix/store/d4pyyx9wqmc4ykrskpv6f8qbcz13mppk-source";
-    rev = "d44030cfaaa395fc6f57127839e1d25815a206fa";
+    lastModified = 1779603823;
+    lastModifiedDate = "20260524062343";
+    narHash = "sha256-47cDJHXRQVn0MMPmb6eOKPmbB8bGcq2y7ClZDRGH88E=";
+    outPath = "/nix/store/q9xcbdwgci3lgml74ksfzlyn11il8b4v-source";
+    rev = "e70525a8d9cf6ad0220beefb1975e438378ff990";
     revCount = 0;
-    shortRev = "d44030c";
+    shortRev = "e70525a";
     submodules = false;
   };
   nix-on-droid = {
@@ -120,13 +120,13 @@
     submodules = false;
   };
   nixpkgs = {
-    lastModified = 1779102034;
-    lastModifiedDate = "20260518110034";
-    narHash = "sha256-vZJZjLo513IeI8hjzHFc6TDezUd4uCE2Eq4SNO3DNNg=";
-    outPath = "/nix/store/0mrdxm84242xz3anvbrvdllp3p24b1jy-source";
-    rev = "687f05a9184cad4eaf905c48b63649e3a86f5433";
+    lastModified = 1779467186;
+    lastModifiedDate = "20260522162626";
+    narHash = "sha256-nOesoDCiXcUftqbRBMz9tt4blI5PvljMWbm3kuCA+0s=";
+    outPath = "/nix/store/whpmnfw6wj42iy2r38i53kfiqd84mfw7-source";
+    rev = "b77b3de8775677f84492abe84635f87b0e153f0f";
     revCount = 0;
-    shortRev = "687f05a";
+    shortRev = "b77b3de";
     submodules = false;
   };
 }
