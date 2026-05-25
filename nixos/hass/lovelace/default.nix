@@ -442,6 +442,14 @@ in
                 }
                 {
                   type = "call-service";
+                  name = "Hass reload lovelace resources";
+                  icon = "mdi:home-assistant";
+                  action_name = "Resources";
+                  service = "lovelace.reload_resources";
+                  service_data = { };
+                }
+                {
+                  type = "call-service";
                   name = "Hass reload scripts";
                   icon = "mdi:home-assistant";
                   action_name = "Scripts";
