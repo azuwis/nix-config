@@ -55,6 +55,10 @@
   # services.resolved.extraConfig = ''
   #   ResolveUnicastSingleLabel=true
   # '';
+  # Disable DUID
+  # - Compatible with other DHCP client like NetworkManager (get the same IP)
+  # - Do not depends on machine-id, which is often not available in initrd (LUKS remote unlock)
+  systemd.network.config.dhcpV4Config.ClientIdentifier = "mac";
   # systemd.network.wait-online.anyInterface = config.networking.useDHCP;
   nix.settings.allowed-users = [ config.my.user ];
   nix.channel.enable = false;

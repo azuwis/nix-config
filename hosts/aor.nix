@@ -33,19 +33,23 @@
   # ssh-keygen -t ed25519 -N "" -f /etc/secrets/initrd/ssh_host_ed25519_key
   boot.initrd = {
     availableKernelModules = [ "r8125" ];
-    network = {
+    network.ssh = {
       enable = true;
-      udhcpc.enable = true;
-      ssh = {
+      port = 2222;
+      authorizedKeys = config.my.keys;
+      hostKeys = [ "/etc/secrets/initrd/ssh_host_ed25519_key" ];
+    };
+    systemd = {
+      network = {
         enable = true;
-        port = 2222;
-        authorizedKeys = config.my.keys;
-        hostKeys = [ "/etc/secrets/initrd/ssh_host_ed25519_key" ];
+        # Sync boot.initrd.systemd.network.config to systemd.network.config, see ../nixos/system/default.nix
+        # Initrd generates temporary /etc/machine-id, produces different DUID in each stage, and get different DHCP IP
+        # Setting both systemd.network.config.dhcpV4Config.ClientIdentifier and
+        # boot.initrd.systemd.network.config.dhcpV4Config.ClientIdentifier to "mac" to avoid this.
+        config = config.systemd.network.config;
       };
-      postCommands = ''
-        # Automatically ask for the password on SSH login
-        echo 'cryptsetup-askpass || echo "Unlock was successful; exiting SSH session" && exit 1' >> /root/.profile
-      '';
+      # Automatically ask for the password on SSH login
+      users.root.shell = "/bin/systemd-tty-ask-password-agent";
     };
   };
 
