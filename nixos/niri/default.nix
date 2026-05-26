@@ -93,7 +93,7 @@ in
     };
 
     environment.systemPackages = with pkgs; [
-      swww
+      awww
       playerctl
       xwayland-satellite
     ];
