@@ -99,10 +99,6 @@ in
     programs.mpv = {
       enable = lib.mkEnableOption "mpv";
 
-      package = lib.mkPackageOption pkgs "mpv" {
-        example = "pkgs.mpv-unwrapped.wrapper { mpv = pkgs.mpv-unwrapped.override { vapoursynthSupport = true; }; youtubeSupport = true; }";
-      };
-
       finalPackage = mkOption {
         type = types.package;
         readOnly = true;
@@ -235,21 +231,9 @@ in
     };
   };
 
-  config = mkIf cfg.enable (
-    lib.mkMerge [
-      {
-        assertions = [
-          {
-            assertion = (cfg.scripts == [ ]) || (cfg.package == pkgs.mpv);
-            message = ''The programs.mpv "package" option is mutually exclusive with "scripts" option.'';
-          }
-        ];
-      }
-      {
-        programs.mpv.finalPackage = mpvPackage;
+  config = mkIf cfg.enable ({
+    programs.mpv.finalPackage = mpvPackage;
 
-        environment.systemPackages = [ mpvPackage ];
-      }
-    ]
-  );
+    environment.systemPackages = [ mpvPackage ];
+  });
 }
