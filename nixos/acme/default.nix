@@ -22,7 +22,7 @@ in
       defaults = {
         inherit (config.my) email;
         # DYNU_API_KEY=
-        credentialsFile = /etc/secrets/acme;
+        environmentFile = /etc/secrets/acme;
       };
       certs = {
         default = {
