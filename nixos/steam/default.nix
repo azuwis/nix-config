@@ -20,8 +20,9 @@ in
   config = lib.mkIf cfg.enhance (
     lib.mkMerge [
       {
-        networking.networkmanager.enable = true;
-        networking.useNetworkd = false;
+
+        # Needed only for landing, but currently breaks remote LUKS unlocking
+        # networking.networkmanager.enable = true;
 
         environment.systemPackages = with pkgs; [ mangohud ];
 
