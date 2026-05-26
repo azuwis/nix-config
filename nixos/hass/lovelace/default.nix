@@ -184,8 +184,21 @@ in
 
     services.home-assistant.config.lovelace.resource_mode = "yaml";
 
-    # services.home-assistant.customLovelaceModules conflict with services.home-assistant.config.lovelace.resources
-    # as of github:NixOS/nixpkgs/2873a73123077953f3e6f34964466018876d87c4
+    services.home-assistant.config.lovelace.resources =
+      # If services.home-assistant.config.lovelace.resources is defined,
+      # services.home-assistant.customLovelaceModules has no effect, need to
+      # manually add back, see nixpkgs/nixos/modules/services/home-automation/home-assistant.nix
+      map (card: {
+        url = "/local/nixos-lovelace-modules/${card.entrypoint or (card.pname + ".js")}?${card.version}";
+        type = "module";
+      }) config.services.home-assistant.customLovelaceModules
+      ++ [
+        {
+          type = "module";
+          url = "/local/static/floorplan-fix.js?v=36";
+        }
+      ];
+
     # services.home-assistant.config.lovelace.resources =
     #   let
     #     mkModule =
@@ -215,6 +228,7 @@ in
             {
               type = "picture-elements";
               image = "/local/static/floorplan.png?v=3";
+              aspect_ratio = "960x1500";
               elements = [
                 # living room
                 (state "light.living_room" "75.3" "72.8")
