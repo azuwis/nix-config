@@ -45,7 +45,7 @@ in
     xdg.portal = {
       config.common."org.freedesktop.impl.portal.FileChooser" = "termfilechooser";
       # niri NixOS module set to gtk, need to override
-      config.niri."org.freedesktop.impl.portal.FileChooser" = "termfilechooser";
+      config.niri."org.freedesktop.impl.portal.FileChooser" = lib.mkForce "termfilechooser";
       extraPortals = [ pkgs.xdg-desktop-portal-termfilechooser ];
     };
   };
