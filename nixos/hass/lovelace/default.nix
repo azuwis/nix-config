@@ -182,7 +182,7 @@ in
       "/local/generated/${card-mod.entrypoint}?${card-mod.version}"
     ];
 
-    services.home-assistant.config.lovelace.mode = "yaml";
+    services.home-assistant.config.lovelace.resource_mode = "yaml";
 
     # services.home-assistant.customLovelaceModules conflict with services.home-assistant.config.lovelace.resources
     # as of github:NixOS/nixpkgs/2873a73123077953f3e6f34964466018876d87c4
