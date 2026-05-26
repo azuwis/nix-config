@@ -74,7 +74,7 @@ in
       }
     );
 
-    # https://github.com/YaLTeR/niri/raw/refs/tags/v25.11/resources/default-config.kdl
+    # https://github.com/niri-wm/niri/raw/refs/tags/v26.04/resources/default-config.kdl
     environment.etc."niri/config.kdl".source =
       pkgs.runCommand "niri-default-config.kdl" { preferLocalBuild = true; }
         ''
