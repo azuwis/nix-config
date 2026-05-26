@@ -31,7 +31,7 @@ in
   ];
 
   options = {
-    documentation.man.generateCaches = mkOption { };
+    documentation.man.cache = mkOption { };
     environment.pathsToLink = mkOption { };
     environment.profileRelativeSessionVariables = mkOption { default = { }; };
     networking.fqdnOrHostName = mkOption { default = "droid"; };
