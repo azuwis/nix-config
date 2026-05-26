@@ -54,29 +54,8 @@ in
           nui-nvim
           nvim-lint
           nvim-lspconfig
-          # LazyVim uses nvim-treesitter's main branch
-          # https://github.com/NixOS/nixpkgs/issues/415438
-          (nvim-treesitter.overrideAttrs (old: {
-            src = old.src.override {
-              rev = "c5871d9d870c866fea9f271f1a3b3f29049a4793";
-              sha256 = "sha256-oXHJxYFDqZ72C/sJGSMFVwkRRCXipVjE+xz+5eeCX30=";
-            };
-            postPatch = "";
-            # `queries` moved to `runtime/queries` in main branch
-            # Needed by `LazyVim.treesitter.have(ft, query)` -> `vim.treesitter.query.get(lang, query)`
-            # https://github.com/LazyVim/LazyVim/blob/c64a61734fc9d45470a72603395c02137802bc6f/lua/lazyvim/plugins/treesitter.lua#L115
-            # https://github.com/LazyVim/LazyVim/blob/c64a61734fc9d45470a72603395c02137802bc6f/lua/lazyvim/util/treesitter.lua#L23
-            postInstall = ''
-              ln -s $out/runtime/queries $out/queries
-            '';
-            nvimSkipModules = [ "nvim-treesitter._meta.parsers" ];
-          }))
-          (nvim-treesitter-textobjects.overrideAttrs (old: {
-            src = old.src.override {
-              rev = "227165aaeb07b567fb9c066f224816aa8f3ce63f";
-              sha256 = "sha256-VUrpzaazSSo5KYJ/oOi2WH/QtpFDNFKs9CqqgO/tnmw=";
-            };
-          }))
+          nvim-treesitter
+          nvim-treesitter-textobjects
           nvim-ts-autotag
           persistence-nvim
           plenary-nvim
@@ -166,7 +145,7 @@ in
 
       treesitterParsers = [
         "csv"
-        "jsonc"
+        "json5"
         "regex"
       ];
 
