@@ -10,16 +10,13 @@ in
   devshell = github "numtide/devshell" { };
   disko = github "nix-community/disko" { ref = "refs/tags/latest"; };
   homebrew-cask = github "Homebrew/homebrew-cask" { };
-  jovian-nixos = github "Jovian-Experiments/Jovian-NixOS" {
-    # last version compatible with nixos-25.11
-    rev = "3251531a37b09db4b03f48fbf1bc9348ea9ac045";
-  };
+  jovian-nixos = github "Jovian-Experiments/Jovian-NixOS" { };
   my = git "ssh://nuc/~/repo/my" { };
-  nix-darwin = github "nix-darwin/nix-darwin" { ref = "nix-darwin-25.11"; };
+  nix-darwin = github "nix-darwin/nix-darwin" { };
   nix-homebrew = github "zhaofengli/nix-homebrew" { };
   nix-index-database = github "azuwis/nix-index-database" { };
   nix-on-droid = github "nix-community/nix-on-droid" { };
   nix-openwrt-imagebuilder = github "astro/nix-openwrt-imagebuilder" { freeze = true; };
   nixos-wsl = github "nix-community/NixOS-WSL" { };
-  nixpkgs = github "NixOS/nixpkgs" { ref = "nixos-25.11"; };
+  nixpkgs = github "NixOS/nixpkgs" { ref = "nixos-26.05"; };
 }
