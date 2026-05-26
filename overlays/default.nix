@@ -12,21 +12,6 @@ in
   (import (inputs.nixpkgs.outPath + "/pkgs/top-level/by-name-overlay.nix") ../pkgs/by-name)
 
   (final: prev: {
-    # https://github.com/NixOS/nixpkgs/issues/507531
-    direnv = prev.direnv.overrideAttrs (
-      final.lib.optionalAttrs final.stdenv.hostPlatform.isDarwin { doCheck = false; }
-    );
-
-    # https://github.com/whoozle/android-file-transfer-linux/pull/360
-    # https://github.com/whoozle/android-file-transfer-linux/pull/361
-    android-file-transfer = prev.android-file-transfer.overrideAttrs (old: {
-      src = old.src.override {
-        tag = null;
-        rev = "582a8aacf16b05b847f4dd0bed6fd6def02cf8d2";
-        sha256 = "sha256-rk1QXq8JiLRZu+dz9HvWkOj5JyaLMXzTybByl46obE8=";
-      };
-    });
-
     # disable fcitx5-configtool and fcitx5-qt5
     qt6Packages = prev.qt6Packages.overrideScope (
       qt6final: qt6prev: {
@@ -46,19 +31,6 @@ in
     #     };
     # };
     # luaPackages = final.lua.pkgs;
-
-    # 0.8.1 make vulkan app segfault when closing, 0.8.2 make vulkan unusable `corrupted double-linked list`
-    mangohud = prev.mangohud.overrideAttrs (old: {
-      version = "0.8.2-unstable-2025-12-09";
-      src = old.src.override {
-        tag = null;
-        rev = "744cb9150f8edaa69c45e87fc976afd87757fc66";
-        hash = "sha256-SOXoSBx+OWvtWlr4dNeaje6ktp6/A+MauQ29a1FgQ2M=";
-      };
-      # Currently broke after 0.8.2-unstable-2025-12-17, due to vulkan-headers subproject bump
-      passthru.enable = false;
-      passthru.updateScript = final.nix-update-script { extraArgs = [ "--version=branch" ]; };
-    });
 
     # https://github.com/nix-community/nix-zsh-completions/pull/55
     nix-zsh-completions = prev.nix-zsh-completions.overrideAttrs (old: {
