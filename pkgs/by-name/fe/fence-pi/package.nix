@@ -19,5 +19,13 @@ fence-agent {
     "."
     "~/.pi"
   ];
+  extraWrapperArgs = [
+    "--set"
+    "PI_OFFLINE"
+    "true"
+    "--set"
+    "PI_TELEMETRY"
+    "false"
+  ];
   preExecScript = "mkdir -p ~/.pi";
 }
