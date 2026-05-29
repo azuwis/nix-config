@@ -83,6 +83,10 @@ build() {
     profile="$HOME/.local/state/nix/profiles/$HOSTNAME"
     SYSTEM=$(readlink -f "$profile" || true)
 
+    if [ "$DEPLOY" = true ] && [ "$OS" = nixos ]; then
+      SYSTEM=$(ssh "$HOSTNAME" readlink -f /run/current-system || true)
+    fi
+
     if [ "$OS" = droid ]; then
       proot=$(nix-instantiate --eval "$CONFIG/flakes" --attr "nixOnDroidConfigurations.\"$HOSTNAME\".config.environment.files.prootStatic.outPath")
       proot=${proot#\"}
@@ -142,14 +146,14 @@ build() {
         echoerr "Skip switch"
         exit
       fi
-      read -p "Switch? [Yn]" -r answer
-      if [ -n "$answer" ] && [ "$answer" != "Y" ]; then
-        exit 1
-      fi
+      read -p "Choose action(boot/switch/test), default switch: " -r ACTION
+    fi
+    if [ -z "$ACTION" ]; then
+      ACTION=switch
     fi
     if [ "$DEPLOY" = true ]; then
       if [ "$OS" = nixos ]; then
-        rebuild switch --target-host "$HOSTNAME" "$@"
+        rebuild "$ACTION" --target-host "$HOSTNAME" "$@"
         if [ -L ./result ]; then
           rm ./result
         fi
@@ -157,9 +161,9 @@ build() {
         nix --extra-experimental-features nix-command run --file "$CONFIG/flakes" "openwrtConfigurations.\"$HOSTNAME\".config.sops.sysupgrade" -- "$@"
       fi
     elif [ "$(type -t "${OS}_switch")" = function ]; then
-      "${OS}_switch" switch
+      "${OS}_switch" "$ACTION" "$@"
     else
-      rebuild switch "$@"
+      rebuild "$ACTION" "$@"
     fi
   fi
 }
