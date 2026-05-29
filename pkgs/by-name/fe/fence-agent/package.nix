@@ -31,7 +31,6 @@
   name, # wrapper name, e.g. "fence-claude"
   agentPackage, # the agent binary package, e.g. claude-code
   allowWrite, # filesystem paths writable inside sandbox, e.g. ["." "~/.claude"]
-  agentArgs ? "", # extra CLI args appended after the agent binary
   preExecScript ? "", # shell code to run before exec (mkdir, config init, etc.)
   fencePackages ? [
     bash
@@ -173,7 +172,6 @@ writeShellApplication {
   # ShellApplication, so the setuid bwrap in system PATH is used, like
   # /run/wrappers/bin/bwrap in NixOS if exist
   text = ''
-    ${preExecScript}
     agent_args=()
     fence_args=()
     found_sep=false
@@ -189,7 +187,8 @@ writeShellApplication {
       fi
     done
 
+    ${preExecScript}
     exec ${lib.getExe fence} --settings ${fenceSettings} "''${fence_args[@]}" -- \
-      ${lib.getExe agentPackage} ${agentArgs} "''${agent_args[@]}"
+      ${lib.getExe agentPackage} "''${agent_args[@]}"
   '';
 }
