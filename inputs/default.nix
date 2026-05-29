@@ -85,7 +85,8 @@ builtins.mapAttrs (
     fetchInput = builtins.trace "${name} = builtins.fetchGit ${argsToString fetchGitArgs}" (
       builtins.fetchGit fetchGitArgs
     );
-    replacement = builtins.getEnv "NIXLOCK_OVERRIDE_${builtins.replaceStrings [ "-" ] [ "_" ] name}";
+    nixlockOverrideEnv = "NIXLOCK_OVERRIDE_${builtins.replaceStrings [ "-" ] [ "_" ] name}";
+    replacement = builtins.getEnv nixlockOverrideEnv;
   in
   if replacement != "" then
     # https://github.com/andir/npins/blob/5eb1bde1898a3c32a3aacb36ae120897a58c9ed8/src/default.nix#L36
@@ -102,7 +103,7 @@ builtins.mapAttrs (
     lock
     //
       builtins.trace
-        "Overriding path of \"${name}\" with \"${toString outPath}\" due to set NIXLOCK_OVERRIDE_${name}"
+        "Overriding path of \"${name}\" with \"${toString outPath}\" due to set ${nixlockOverrideEnv}"
         { inherit outPath; }
   else if input.type == "archive" then
     if isLocked then
