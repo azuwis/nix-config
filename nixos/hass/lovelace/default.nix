@@ -82,12 +82,13 @@ let
       type = "conditional";
       conditions = [
         {
+          condition = "state";
           inherit entity;
-          state_not = "off";
-        }
-        {
-          inherit entity;
-          state_not = "unavailable";
+          state_not = [
+            "off"
+            "unavailable"
+            "unknown"
+          ];
         }
       ];
       card = {
@@ -103,8 +104,12 @@ let
     type = "conditional";
     conditions = [
       {
+        condition = "state";
         inherit entity;
-        state_not = "unavailable";
+        state_not = [
+          "unavailable"
+          "unknown"
+        ];
       }
     ];
   };
@@ -159,6 +164,7 @@ let
     type = "conditional";
     conditions = [
       {
+        condition = "state";
         inherit entity;
         state = "on";
       }
@@ -340,6 +346,7 @@ in
             (climate' "climate.yeelink_v6_af1f_ptc_bath_heater" {
               conditions = [
                 {
+                  condition = "state";
                   entity = "sensor.bath_heater";
                   state_not = "off";
                 }
