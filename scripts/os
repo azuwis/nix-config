@@ -159,6 +159,9 @@ build() {
         fi
       elif [ "$OS" = openwrt ]; then
         nix --extra-experimental-features nix-command run --file "$CONFIG/flakes" "openwrtConfigurations.\"$HOSTNAME\".config.sops.sysupgrade" -- "$@"
+      else
+        echoerr "os deploy is only supported for NixOS and OpenWrt hosts, not $OS"
+        exit 1
       fi
     elif [ "$(type -t "${OS}_switch")" = function ]; then
       "${OS}_switch" "$ACTION" "$@"
