@@ -28,7 +28,14 @@ in
 
     programs.git.enable = true;
     programs.git.config = {
-      user = { inherit (config.my) email name; };
+      user =
+        let
+          inherit (config.my) user;
+        in
+        {
+          name = user;
+          email = "${user}@users.noreply.github.com";
+        };
       alias = {
         br = "branch";
         ci = "commit";
