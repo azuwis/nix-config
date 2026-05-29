@@ -56,10 +56,10 @@ if [ -n "$info" ]; then
 fi
 
 if [ "$#" -eq 1 ]; then
-  command+=(--argstr package)
+  command+=(--argstr package "$1")
+else
+  command+=("$@")
 fi
-
-command+=("$@")
 
 if [ "$filter_stderr" = "true" ]; then
   "${command[@]}" 2> >(grep -v ^fetching >&2)
