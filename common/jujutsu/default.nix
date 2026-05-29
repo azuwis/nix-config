@@ -63,9 +63,14 @@ in
             "${scripts}/pr"
           ];
         };
-        user = {
-          inherit (config.my) email name;
-        };
+        user =
+          let
+            inherit (config.my) user;
+          in
+          {
+            name = user;
+            email = "${user}@users.noreply.github.com";
+          };
       }
     ];
   };
