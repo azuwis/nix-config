@@ -103,6 +103,7 @@ let
         entry.target
       ]
     ) (lib.filter (f: f.enable) (lib.attrValues config.${optionName}.file))}
+    exit ''${ret:-0}
   '';
 in
 
