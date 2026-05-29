@@ -462,7 +462,7 @@ else
 OS=${OS#\"}
 OS=${OS%\"}
 
-if [ "$OS" = solo ] &&
+if [ "$FOROTHER" != true ] && [ "$OS" = solo ] &&
   [ "$(nix-instantiate --argstr hostname "$HOSTNAME" --argstr flakes "$CONFIG/flakes" --eval --expr '
 { flakes, hostname }:
 let
