@@ -7,11 +7,11 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "simple-thermostat";
-  version = "2.2.7";
+  version = "3.1.3";
 
   src = fetchurl {
-    url = "https://github.com/nickdos/simple-thermostat/releases/download/v${finalAttrs.version}/simple-thermostat.js";
-    hash = "sha256-kHVUWiYjEumdPUPxbs6GjRdwC988Z863OhXtuZ+ibCI=";
+    url = "https://github.com/Wheemer/simple-thermostat/releases/download/v${finalAttrs.version}/simple-thermostat.js";
+    hash = "sha256-osc6qANehx0AD85tFq1vf60U+6OmjvSdx/p+GQcD3ms=";
   };
 
   dontUnpack = true;
@@ -26,7 +26,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   meta = {
     description = "A different take on the thermostat card for Home Assistant";
-    homepage = "https://github.com/nervetattoo/simple-thermostat";
+    homepage = "https://github.com/Wheemer/simple-thermostat";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ azuwis ];
   };
