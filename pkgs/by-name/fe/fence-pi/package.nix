@@ -27,5 +27,8 @@ fence-agent {
     "PI_TELEMETRY"
     "false"
   ];
-  preExecScript = "mkdir -p ~/.pi";
+  preExecScript = ''
+    mkdir -p ~/.pi
+    agent_args+=(--extension "${pi-coding-agent}/lib/node_modules/pi-monorepo/examples/extensions/subagent")
+  '';
 }
