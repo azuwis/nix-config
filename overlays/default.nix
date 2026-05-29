@@ -45,6 +45,20 @@ in
       };
     });
 
+    # https://github.com/azuwis/nvd
+    nvd = prev.nvd.overrideAttrs (old: {
+      version = "0-unstable-2026-05-28";
+      src = final.fetchFromGitHub {
+        owner = "azuwis";
+        repo = "nvd";
+        rev = "960f0c8332eeab065561012076027cf1e9537e30";
+        sha256 = "sha256-AFGVfAaAVA/PkaH5vT5dK5RCtn3K+qBiqzHDgcLO0Jc=";
+      };
+      passthru = (old.passthru or { }) // {
+        updateScript = final.nix-update-script { extraArgs = [ "--version=branch" ]; };
+      };
+    });
+
     # python3 = prev.python3.override {
     #   packageOverrides =
     #     pyfinal: pyprev:
