@@ -5,9 +5,13 @@
 # mv lock.tmp lock.nix
 
 # Update some inputs:
-# ... --argstr update "<input1> <input2>" ...
+# ... --argstr update "<input1> <input2> ..."
 # Update all expect some inputs:
-# ... --argstr update "all -<input1> -<input2>" ...
+# ... --argstr update "all -<input1> -<input2> ..."
+# Update some inputs to a specific revision:
+# ... --argstr update "<input1>=<rev>"
+# Update all and set some inputs to a specific revision
+# ... --argstr update "all <input1>=<rev1> <input2>=<rev2> ..."
 
 # Show:
 # nix-instantiate --strict --eval --raw show.nix | column -s, -t
@@ -48,6 +52,24 @@ let
       ++ [ "}" ]
     );
   updateTargets = builtins.filter builtins.isString (builtins.split " " update);
+  # Parse <input>=<rev> entries
+  updateRevs = builtins.listToAttrs (
+    builtins.concatMap (
+      target:
+      let
+        parts = builtins.match "([^=]+)=(.+)" target;
+      in
+      if parts != null then
+        [
+          {
+            name = builtins.elemAt parts 0;
+            value = builtins.elemAt parts 1;
+          }
+        ]
+      else
+        [ ]
+    ) updateTargets
+  );
 in
 
 builtins.mapAttrs (
@@ -56,6 +78,8 @@ builtins.mapAttrs (
     lock = allLock.${name} or { };
     isLocked =
       if lock == { } then
+        false
+      else if updateRevs ? ${name} then
         false
       else if builtins.elem name updateTargets then
         false
@@ -79,6 +103,8 @@ builtins.mapAttrs (
           "outPath"
           "shortRev"
         ]
+      else if updateRevs ? ${name} then
+        { rev = updateRevs.${name}; }
       else
         { }
     );
