@@ -41,8 +41,6 @@
   ];
   # Disable user profiles, they're for `home-manager` `nix-env` `nix profile install`, not used here
   environment.profiles = lib.mkForce [ "/run/current-system/sw" ];
-  # https://github.com/orgs/NixOS/projects/66
-  # boot.initrd.systemd.enable = true;
   documentation.doc.enable = false;
   documentation.info.enable = false;
   # explicitly enable nixos docs, system like nixos-wsl does not enable this
