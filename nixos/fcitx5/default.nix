@@ -60,6 +60,16 @@ in
 
     environment.etc."xdg/fcitx5/pinyin/sp.dat".source = ./sp.dat;
 
+    environment.sessionVariables = {
+      # fcitx5 writes ~/.config/fcitx5 on exit, which would overwrite the
+      # declarative config from /etc/xdg/fcitx5/. Redirecting FCITX_CONFIG_HOME
+      # to a read-only empty store path prevents this.
+      #
+      # Prefer this over i18n.inputMethod.fcitx5.ignoreUserConfig, which sets SKIP_FCITX_USER_PATH=1
+      # and blocks both config and data — user dictionaries would be lost.
+      FCITX_CONFIG_HOME = "${pkgs.emptyDirectory}";
+    };
+
     programs.wayland.startup.fcitx5 = [ "fcitx5" ];
   };
 }
