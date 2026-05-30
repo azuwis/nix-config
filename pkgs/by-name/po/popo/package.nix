@@ -26,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     targetPkgs =
       pkgs: with pkgs; [
-        xorg.libXrandr
+        libXrandr
         xdg-utils
         fontconfig
         freetype
@@ -53,18 +53,18 @@ stdenv.mkDerivation (finalAttrs: {
         pango
         udev
         wayland
-        xorg.libX11
-        xorg.libXScrnSaver
-        xorg.libXcomposite
-        xorg.libXcursor
-        xorg.libXdamage
-        xorg.libXext
-        xorg.libXfixes
-        xorg.libXi
-        xorg.libXrender
-        xorg.libXtst
-        xorg.libxcb
-        xorg.libxshmfence
+        libX11
+        libXScrnSaver
+        libXcomposite
+        libXcursor
+        libXdamage
+        libXext
+        libXfixes
+        libXi
+        libXrender
+        libXtst
+        libxcb
+        libxshmfence
         zlib
       ];
   };
