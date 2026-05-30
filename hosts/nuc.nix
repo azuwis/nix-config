@@ -11,8 +11,8 @@
     ./hardware-nuc.nix
   ];
 
-  # On kernel 6.12, DualSense controller only works on first pair, will not connect after.
-  # Kernel 6.17 works without problem.
+  # On nuc, DualSense controller only worked on first pair on kernel 6.12, fixed in >= 6.17.
+  # 26.05 defaults to 6.18, workaround no longer needed.
   # Bluetooth adapter: 0bda:a725 Realtek Semiconductor Corp. Bluetooth Radio
   # boot.kernelPackages = pkgs.linuxPackages_latest;
 
