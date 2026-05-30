@@ -30,33 +30,33 @@
     submodules = false;
   };
   homebrew-cask = {
-    lastModified = 1780034322;
-    lastModifiedDate = "20260529055842";
-    narHash = "sha256-TzqchTxNJqvPyK47kn0UmmG25JBZkOVaJeOBQKOj8o4=";
-    outPath = "/nix/store/bmlakzxwzqr6qfzw3jmqkj5s2d50p9js-source";
-    rev = "629cc9849e3bd4997a19f7cace720614eb62d46e";
+    lastModified = 1780150496;
+    lastModifiedDate = "20260530141456";
+    narHash = "sha256-Cqc7nZTR++V4Ka8w9uPPBZNgiRp1Z8bLw2VrxQ5CYjs=";
+    outPath = "/nix/store/x0jpm1jxbrvg1imkp578miyic45p6p1y-source";
+    rev = "41af02235403c45d18dd1c937576d7140145c550";
     revCount = 0;
-    shortRev = "629cc98";
+    shortRev = "41af022";
     submodules = false;
   };
   jovian-nixos = {
-    lastModified = 1779910845;
-    lastModifiedDate = "20260527194045";
-    narHash = "sha256-K+ugPxAsjCT4soO3vadlKs7MKIfH3WqB5Z4xt/jeWyU=";
-    outPath = "/nix/store/9ikz2fhvbawi45aqghi2x32p82gvamvq-source";
-    rev = "3565a61af78debd93ae92a121a6f4683c952d862";
+    lastModified = 1780129573;
+    lastModifiedDate = "20260530082613";
+    narHash = "sha256-6/S2FvBz+dxEgPfRU7dK+ycLYzRU7L8aN+GjDRyVs/E=";
+    outPath = "/nix/store/17klxh5k4v1x48xnh4kdgynr1frsr3k6-source";
+    rev = "8f97d1dee8c0971b01cd6b17ccf913e8bb70f5d5";
     revCount = 0;
-    shortRev = "3565a61";
+    shortRev = "8f97d1d";
     submodules = false;
   };
   my = {
-    lastModified = 1778854431;
-    lastModifiedDate = "20260515141351";
-    narHash = "sha256-0sNusEXDm125/EWNrc76IYUkKX1Q5B8mhz8uXggBAYA=";
-    outPath = "/nix/store/crvw8zjgrkb4livh6cci9p3g4vxxnq7i-source";
-    rev = "6249a0d614c261d4bb724cb1c007edac6a88c01f";
+    lastModified = 1780151788;
+    lastModifiedDate = "20260530143628";
+    narHash = "sha256-HOsnYX8IDopalKumjjK8ed4xm76SWLSKpBcfjUQdmOk=";
+    outPath = "/nix/store/6bccczsccls533g1qvr9l6015rbc7lr8-source";
+    rev = "3e6e8ad50c965ab803faae2614ec7f6ffb3aa921";
     revCount = 0;
-    shortRev = "6249a0d";
+    shortRev = "3e6e8ad";
     submodules = false;
   };
   nix-darwin = {
@@ -120,13 +120,13 @@
     submodules = false;
   };
   nixpkgs = {
-    lastModified = 1779971959;
-    lastModifiedDate = "20260528123919";
-    narHash = "sha256-R5nauXyqyfRUFiZycFFZdkF7wl6eaUpPLst35+2nJQY=";
-    outPath = "/nix/store/lff22h6g4kvy848a7z8prfb0cgmy2hgy-source";
-    rev = "ec942ba042dad5ef097e2ef3a3effc034241f011";
+    lastModified = 1780051219;
+    lastModifiedDate = "20260529104019";
+    narHash = "sha256-WnxzG4x47uCgjz+uD+vOzbF+Qid+hKyYdJWbduA9w7g=";
+    outPath = "/nix/store/mkjiaa6rqz1rxl9w8h1q56w1kc59ifb7-source";
+    rev = "e8e446a361172fe838243958325845d0b845c5e5";
     revCount = 0;
-    shortRev = "ec942ba";
+    shortRev = "e8e446a";
     submodules = false;
   };
 }
