@@ -50,9 +50,7 @@
   networking.useNetworkd = lib.mkDefault true;
   # Route single-label domains to dnsservers
   # https://github.com/systemd/systemd/issues/28054
-  # services.resolved.extraConfig = ''
-  #   ResolveUnicastSingleLabel=true
-  # '';
+  # services.resolved.settings.ResolveUnicastSingleLabel = true;
   # Disable DUID
   # - Compatible with other DHCP client like NetworkManager (get the same IP)
   # - Do not depends on machine-id, which is often not available in initrd (LUKS remote unlock)
