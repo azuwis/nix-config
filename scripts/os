@@ -146,7 +146,7 @@ build() {
         echoerr "Skip switch"
         exit
       fi
-      read -p "Choose action(boot/switch/test), default switch: " -r ACTION
+      read -p "Action(boot/switch/test, default switch):" -r ACTION
     fi
     if [ -z "$ACTION" ]; then
       ACTION=switch
