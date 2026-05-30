@@ -214,11 +214,10 @@ in
                   "nvim-treesitter/nvim-treesitter",
                   build = false,
                   opts = function(_, opts)
+                    -- function form bypasses LazyVim's opts_extend which would APPEND ensure_installed instead of clearing it
+                    -- nvim-treesitter main ignores ensure_installed, but LazyVim validates it's a table
                     opts.ensure_installed = {}
-                    -- Needed by `LazyVim.treesitter.have(ft)` -> `require("nvim-treesitter").get_installed("parsers")`
-                    -- https://github.com/LazyVim/LazyVim/blob/c64a61734fc9d45470a72603395c02137802bc6f/lua/lazyvim/plugins/treesitter.lua#L105
-                    -- https://github.com/LazyVim/LazyVim/blob/c64a61734fc9d45470a72603395c02137802bc6f/lua/lazyvim/util/treesitter.lua#L11
-                    -- https://github.com/nvim-treesitter/nvim-treesitter/blob/c5871d9d870c866fea9f271f1a3b3f29049a4793/lua/nvim-treesitter/config.lua#L44
+                    -- point to Nix-managed parser/queries bundle so LazyVim.treesitter.get_installed() discovers them
                     opts.install_dir = "${treesitterParsers}"
                   end,
                 },
