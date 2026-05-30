@@ -52,9 +52,9 @@ in
           PinyinInPreedit = "True";
           ShuangpinProfile = "Custom";
         };
-        # punctuation.globalSection = {
-        #   HalfWidthPuncAfterLetterOrNumber = "False";
-        # };
+        punctuation.globalSection = {
+          HalfWidthPuncAfterLetterOrNumber = "False";
+        };
       };
     };
 
