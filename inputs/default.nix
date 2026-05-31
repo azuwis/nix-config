@@ -108,7 +108,7 @@ builtins.mapAttrs (
       else
         { }
     );
-    fetchInput = builtins.trace "${name} = builtins.fetchGit ${argsToString fetchGitArgs}" (
+    fetchInput = builtins.trace "[1;33m${name} = builtins.fetchGit ${argsToString fetchGitArgs}[0m" (
       builtins.fetchGit fetchGitArgs
     );
     nixlockOverrideEnv = "NIXLOCK_OVERRIDE_${builtins.replaceStrings [ "-" ] [ "_" ] name}";
