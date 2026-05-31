@@ -86,7 +86,10 @@ let
           filesystem = rec {
             StrictDenyRead = true;
             allowGitConfig = true;
-            # Also add to allowRead on Darwin for listing dir contents
+            # /etc/localtime is a symlink, fence resolves it and binds the
+            # target instead of creating the symlink path in the sandbox.
+            # Handle it on Linux in the bwrap wrapper below instead.
+            # On Darwin: also add to allowRead for dir listing of allowWrite paths
             allowRead = lib.optionals stdenv.hostPlatform.isDarwin (
               allowWrite
               ++ [
