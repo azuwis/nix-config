@@ -17,6 +17,7 @@
   gnugrep,
   gnused,
   jq,
+  less,
   python3,
   ripgrep,
   tinyxxd,
@@ -47,6 +48,7 @@
     gnugrep
     gnused
     jq
+    less
     python3
     ripgrep
     tinyxxd
@@ -143,7 +145,8 @@ let
           makeWrapper "${lib.getExe bubblewrap}" "$out/bin/bwrap" \
             --add-flags '--unshare-all --hostname fence' \
             --add-flags '--clearenv --setenv HOME "$HOME" --setenv TERM "$TERM"' \
-            --add-flags '--ro-bind /etc/localtime /etc/localtime'
+            --add-flags '--ro-bind /etc/localtime /etc/localtime' \
+            --add-flags '--ro-bind-try /etc/gitconfig /etc/gitconfig'
         ''
       );
 
