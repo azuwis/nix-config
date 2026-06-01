@@ -107,7 +107,7 @@ build() {
   case "$OS" in
   darwin) args=("darwinConfigurations.\"$HOSTNAME\".system") ;;
   droid) args=("nixOnDroidConfigurations.\"$HOSTNAME\".activationPackage") ;;
-  nixos) args=("nixosConfigurations.\"$HOSTNAME\".config.system.build.toplevel") ;;
+  nixos) args=("nixosConfigurations.\"$HOSTNAME\".system") ;;
   openwrt) args=("openwrtConfigurations.\"$HOSTNAME\".config.image") ;;
   solo) args=("soloConfigurations.\"$HOSTNAME\".config.solo.path") ;;
   esac
