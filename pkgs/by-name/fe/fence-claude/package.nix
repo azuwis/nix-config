@@ -3,6 +3,15 @@
   stdenv,
   fence-agent,
   claude-code,
+  claudeSettings ? {
+    attribution = {
+      commit = "";
+      pr = "";
+    };
+    effortLevel = "xhigh";
+    skipDangerousModePermissionPrompt = true;
+    skipWebFetchPreflight = true;
+  },
 }:
 
 # Network access: configure in ~/.config/fence/fence.json, e.g.:
@@ -22,6 +31,10 @@
 #   capabilities = "cap_bpf+ep";
 # };
 
+let
+  claudeSettingsJson = builtins.toFile "claude-settings.json" (builtins.toJSON claudeSettings);
+in
+
 fence-agent {
   name = "fence-claude";
   agentPackage = claude-code;
@@ -37,11 +50,15 @@ fence-agent {
       echo '{"hasCompletedOnboarding": true}' > ~/.claude.json
     fi
     mkdir -p ~/.claude
-    agent_args+=(--dangerously-skip-permissions)
+    agent_args=(--dangerously-skip-permissions --settings ${claudeSettingsJson} "''${agent_args[@]}")
   '';
+  extraClosurePackages = [ claudeSettingsJson ];
   extraWrapperArgs = [
     "--set"
     "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC"
+    "1"
+    "--set"
+    "CLAUDE_CODE_WORKFLOWS"
     "1"
   ]
   # /tmp is not writable on darwin, set CLAUDE_CODE_TMPDIR to workaround

@@ -56,6 +56,7 @@
     which
   ], # packages available inside the sandbox
   extraFencePackages ? [ ], # additional packages to add to fencePackages
+  extraClosurePackages ? [ ], # additional packages to add to the closure, but not PATH
   extraWrapperArgs ? [ ], # extra makeWrapper args for fenceShell
 }:
 
@@ -69,7 +70,7 @@ let
         nativeBuildInputs = [ jq ];
         preferLocalBuild = true;
 
-        exportReferencesGraph.closure = allFencePackages ++ [ fenceShell ];
+        exportReferencesGraph.closure = allFencePackages ++ extraClosurePackages ++ [ fenceShell ];
 
         # https://github.com/Use-Tusk/fence/blob/main/docs/configuration.md
         # https://github.com/Use-Tusk/fence/tree/main/internal/templates
