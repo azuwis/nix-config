@@ -57,7 +57,7 @@
   ], # packages available inside the sandbox
   extraFencePackages ? [ ], # additional packages to add to fencePackages
   extraClosurePackages ? [ ], # additional packages to add to the closure, but not PATH
-  extraWrapperArgs ? [ ], # extra makeWrapper args for fenceShell
+  extraBashWrapperArgs ? [ ], # extra makeWrapper args for fenceShell bash
 }:
 
 let
@@ -110,13 +110,13 @@ let
         ' "$NIX_ATTRS_JSON_FILE" > "$out"
       '';
 
-  makeWrapperArgs =
+  bashWrapperArgs =
     lib.optionals stdenv.hostPlatform.isLinux [
       "--set"
       "LOCALE_ARCHIVE"
       "${glibcLocales}/lib/locale/locale-archive"
     ]
-    ++ extraWrapperArgs
+    ++ extraBashWrapperArgs
     ++ [
       "--set"
       "LANG"
@@ -143,7 +143,7 @@ let
       (
         ''
           makeWrapper "${lib.getExe bash}" "$out/bin/bash" \
-            ${lib.escapeShellArgs makeWrapperArgs}
+            ${lib.escapeShellArgs bashWrapperArgs}
         ''
         + lib.optionalString stdenv.hostPlatform.isLinux ''
           makeWrapper "${lib.getExe bubblewrap}" "$out/bin/bwrap" \

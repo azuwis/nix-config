@@ -53,7 +53,7 @@ fence-agent {
     agent_args=(--dangerously-skip-permissions --settings ${claudeSettingsJson} "''${agent_args[@]}")
   '';
   extraClosurePackages = [ claudeSettingsJson ];
-  extraWrapperArgs = [
+  extraBashWrapperArgs = [
     "--set"
     "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC"
     "1"

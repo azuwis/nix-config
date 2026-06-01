@@ -19,7 +19,7 @@ fence-agent {
     "."
     "~/.pi"
   ];
-  extraWrapperArgs = [
+  extraBashWrapperArgs = [
     "--set"
     "PI_OFFLINE"
     "true"
