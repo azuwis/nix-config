@@ -44,7 +44,7 @@ fence-agent {
   agentPackage = claude-code;
   agentWrapperArgs = [
     "--add-flags"
-    "--dangerously-skip-permissions --settings ${claudeSettingsJson}"
+    "--dangerously-skip-permissions --effort max --settings ${claudeSettingsJson}"
   ]
   # /tmp is not writable on darwin, set CLAUDE_CODE_TMPDIR to workaround
   ++ lib.optionals stdenv.hostPlatform.isDarwin [
