@@ -19,16 +19,17 @@ fence-agent {
     "."
     "~/.pi"
   ];
-  extraBashWrapperArgs = [
+  agentWrapperArgs = [
     "--set"
     "PI_OFFLINE"
     "true"
     "--set"
     "PI_TELEMETRY"
     "false"
+    "--add-flags"
+    "--extension ${pi-coding-agent}/lib/node_modules/pi-monorepo/examples/extensions/subagent"
   ];
   preExecScript = ''
     mkdir -p ~/.pi
-    agent_args+=(--extension "${pi-coding-agent}/lib/node_modules/pi-monorepo/examples/extensions/subagent")
   '';
 }

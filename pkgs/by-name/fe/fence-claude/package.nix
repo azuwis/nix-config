@@ -9,6 +9,10 @@
       pr = "";
     };
     effortLevel = "xhigh";
+    env = {
+      CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "1";
+      CLAUDE_CODE_WORKFLOWS = "1";
+    };
     skipDangerousModePermissionPrompt = true;
     skipWebFetchPreflight = true;
   },
@@ -38,11 +42,21 @@ in
 fence-agent {
   name = "fence-claude";
   agentPackage = claude-code;
+  agentWrapperArgs = [
+    "--add-flags"
+    "--dangerously-skip-permissions --settings ${claudeSettingsJson}"
+  ]
+  # /tmp is not writable on darwin, set CLAUDE_CODE_TMPDIR to workaround
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    "--run"
+    ''export CLAUDE_CODE_TMPDIR="$HOME/.claude/tmp"''
+  ];
   allowWrite = [
     "."
     "~/.claude"
     "~/.claude.json"
   ];
+  extraClosurePackages = [ claudeSettingsJson ];
   # hasCompletedOnboarding skips the onboarding flow, which would fail
   # with ERR_BAD_REQUEST inside the sandbox due to no network access.
   preExecScript = ''
@@ -50,20 +64,5 @@ fence-agent {
       echo '{"hasCompletedOnboarding": true}' > ~/.claude.json
     fi
     mkdir -p ~/.claude
-    agent_args=(--dangerously-skip-permissions --settings ${claudeSettingsJson} "''${agent_args[@]}")
   '';
-  extraClosurePackages = [ claudeSettingsJson ];
-  extraBashWrapperArgs = [
-    "--set"
-    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC"
-    "1"
-    "--set"
-    "CLAUDE_CODE_WORKFLOWS"
-    "1"
-  ]
-  # /tmp is not writable on darwin, set CLAUDE_CODE_TMPDIR to workaround
-  ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    "--run"
-    ''export CLAUDE_CODE_TMPDIR="$HOME/.claude/tmp"''
-  ];
 }

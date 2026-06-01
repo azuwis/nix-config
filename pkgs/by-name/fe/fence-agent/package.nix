@@ -31,12 +31,12 @@
 {
   name, # wrapper name, e.g. "fence-claude"
   agentPackage, # the agent binary package, e.g. claude-code
+  agentWrapperArgs ? [ ], # makeWrapper args for agentPackage
   allowWrite, # filesystem paths writable inside sandbox, e.g. ["." "~/.claude"]
   preExecScript ? "", # shell code to run before exec (mkdir, config init, etc.)
   fencePackages ? [
     bash
     cacert
-    agentPackage
     coreutils
     curl
     diffutils
@@ -61,7 +61,25 @@
 }:
 
 let
-  allFencePackages = fencePackages ++ extraFencePackages;
+  wrappedAgentPackage =
+    if agentWrapperArgs == [ ] then
+      agentPackage
+    else
+      runCommand agentPackage.name
+        {
+          inherit (agentPackage) meta;
+          nativeBuildInputs = [
+            makeWrapper
+          ];
+          preferLocalBuild = true;
+        }
+        ''
+          exe="${lib.getExe agentPackage}"
+          makeWrapper "$exe" "$out/bin/$(basename "$exe")" \
+            ${lib.escapeShellArgs agentWrapperArgs}
+        '';
+
+  allFencePackages = fencePackages ++ extraFencePackages ++ [ wrappedAgentPackage ];
 
   fenceSettings =
     runCommand "fence.json"
@@ -196,6 +214,6 @@ writeShellApplication {
 
     ${preExecScript}
     exec ${lib.getExe fence} --settings ${fenceSettings} "''${fence_args[@]}" -- \
-      ${lib.getExe agentPackage} "''${agent_args[@]}"
+      ${lib.getExe wrappedAgentPackage} "''${agent_args[@]}"
   '';
 }
