@@ -58,7 +58,7 @@
   # systemd.network.wait-online.anyInterface = config.networking.useDHCP;
   nix.settings.allowed-users = [ config.my.user ];
   nix.channel.enable = false;
-  # For nixos-option/nixos-rebuild
+  # For nixos-option
   nix.nixPath = [ "nixos-config=/etc/nixos/hosts/${config.networking.hostName}.nix" ];
   programs.ssh.startAgent = true;
   # CVE-2023-38408
