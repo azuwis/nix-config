@@ -56,7 +56,6 @@ fence-agent {
     "~/.claude"
     "~/.claude.json"
   ];
-  extraClosurePackages = [ claudeSettingsJson ];
   # hasCompletedOnboarding skips the onboarding flow, which would fail
   # with ERR_BAD_REQUEST inside the sandbox due to no network access.
   preExecScript = ''
