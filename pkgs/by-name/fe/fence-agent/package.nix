@@ -112,7 +112,9 @@ let
             allowRead = lib.optionals stdenv.hostPlatform.isDarwin (
               allowWrite
               ++ [
+                "/bin/sh"
                 "/etc/localtime"
+                "/usr/bin/env"
                 "/usr/share/locale"
               ]
             );
@@ -168,7 +170,9 @@ let
             --add-flags '--unshare-all --hostname fence' \
             --add-flags '--clearenv --setenv HOME "$HOME" --setenv TERM "$TERM"' \
             --add-flags '--ro-bind /etc/localtime /etc/localtime' \
-            --add-flags '--ro-bind-try /etc/gitconfig /etc/gitconfig'
+            --add-flags '--ro-bind-try /etc/gitconfig /etc/gitconfig' \
+            --add-flags '--symlink ${lib.getExe bash} /bin/sh' \
+            --add-flags '--symlink ${lib.getExe' coreutils "env"} /usr/bin/env'
         ''
       );
 
