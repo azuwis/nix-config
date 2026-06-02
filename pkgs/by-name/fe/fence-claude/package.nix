@@ -22,6 +22,10 @@
       CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "1";
       CLAUDE_CODE_WORKFLOWS = "1";
     };
+    statusLine = {
+      type = "command";
+      command = ./statusline.jq;
+    };
     skipDangerousModePermissionPrompt = true;
     skipWebFetchPreflight = true;
   },
