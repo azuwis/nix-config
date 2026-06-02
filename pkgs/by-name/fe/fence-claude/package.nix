@@ -3,6 +3,15 @@
   stdenv,
   fence-agent,
   claude-code,
+  fetchFromGitHub,
+  claudePlugins ? [
+    (fetchFromGitHub {
+      owner = "obra";
+      repo = "superpowers";
+      rev = "v5.1.0";
+      hash = "sha256-3E3rO6hR87JUfS3XV1Eaoz6SDWOftleWvN9UPNFEMjw=";
+    })
+  ],
   claudeSettings ? {
     attribution = {
       commit = "";
@@ -44,7 +53,9 @@ fence-agent {
   agentPackage = claude-code;
   agentWrapperArgs = [
     "--add-flags"
-    "--dangerously-skip-permissions --effort max --settings ${claudeSettingsJson}"
+    "--dangerously-skip-permissions --effort max --settings ${claudeSettingsJson} ${
+      lib.concatMapStringsSep " " (p: "--plugin-dir ${p}") claudePlugins
+    }"
   ]
   # /tmp is not writable on darwin, set CLAUDE_CODE_TMPDIR to workaround
   ++ lib.optionals stdenv.hostPlatform.isDarwin [
