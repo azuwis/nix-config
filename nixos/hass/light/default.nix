@@ -41,7 +41,7 @@
       homeassistant.customize =
         let
           customize = {
-            supported_color_modes = [ "brightness" ];
+            supported_color_modes = [ "brightness" "color_temp" ];
           };
         in
         {
