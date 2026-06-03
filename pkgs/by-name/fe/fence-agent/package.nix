@@ -13,6 +13,7 @@
   file,
   findutils,
   gawk,
+  gh,
   git,
   gnugrep,
   gnused,
@@ -44,6 +45,7 @@
     file
     findutils
     gawk
+    gh
     git
     gnugrep
     gnused
@@ -142,7 +144,7 @@ let
       "LANG"
       "en_US.UTF-8"
       "--set"
-      "NIX_SSL_CERT_FILE"
+      "SSL_CERT_FILE"
       "${cacert}/etc/ssl/certs/ca-bundle.crt"
       "--set"
       "PATH"
