@@ -6,6 +6,13 @@
   fetchFromGitHub,
   writeScript,
   claudePlugins ? {
+    mattpocock-skills = fetchFromGitHub {
+      owner = "mattpocock";
+      repo = "skills";
+      version = "0-unstable-2026-05-31";
+      rev = "aaf2453fbdfe7a15c07f11d861224f34ab4b53cb";
+      hash = "sha256-+Px3qIMHGKvi0PK2l5H4j/4YRQ448G9kuWX28cgqPCI=";
+    };
     superpowers = fetchFromGitHub rec {
       owner = "obra";
       repo = "superpowers";
@@ -96,6 +103,7 @@ fence-agent {
 
       set -eu -o pipefail
 
+      nix-update fence-claude.pluginsUpdate.mattpocock-skills --version=branch
       nix-update fence-claude.pluginsUpdate.superpowers
     '';
   };
