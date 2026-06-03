@@ -1,7 +1,4 @@
-{
-  home-assistant-custom-components,
-  nix-update-script,
-}:
+{ home-assistant-custom-components }:
 
 home-assistant-custom-components.xiaomi_miot.overridePythonAttrs (old: rec {
   version = "1.1.4";
@@ -13,7 +10,6 @@ home-assistant-custom-components.xiaomi_miot.overridePythonAttrs (old: rec {
 
   passthru = (old.passthru or { }) // {
     enable = true;
-    updateScript = nix-update-script { extraArgs = [ "--version-regex=^v([0-9.]+)$" ]; };
   };
 
   meta = (old.meta or { }) // {
