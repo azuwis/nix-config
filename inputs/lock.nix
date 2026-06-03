@@ -30,23 +30,23 @@
     submodules = false;
   };
   homebrew-cask = {
-    lastModified = 1780535367;
-    lastModifiedDate = "20260604010927";
-    narHash = "sha256-29uWtApIiBVP57UMhntCXGd6c3gyASor2Fg6alO23fw=";
-    outPath = "/nix/store/4ps2i3dvf294vn12503fm7q6fnsslvnr-source";
-    rev = "61f0bbf21fe15fd5abcf289bb10afe28c590cac0";
+    lastModified = 1780553988;
+    lastModifiedDate = "20260604061948";
+    narHash = "sha256-kk5duf+LJGB4kBJ+oMdvIIoXLNAjGy04oGwb/2sd/qc=";
+    outPath = "/nix/store/wvlbw5jb3a7m09rlv85y3adbiadj3d31-source";
+    rev = "0f7ad68ec15cd8e8e6c7f6e422114deb30b1dc51";
     revCount = 0;
-    shortRev = "61f0bbf";
+    shortRev = "0f7ad68";
     submodules = false;
   };
   jovian-nixos = {
-    lastModified = 1780404594;
-    lastModifiedDate = "20260602124954";
-    narHash = "sha256-I3st/jjG3VfdnJ0ij0VTLsNNWDyCZVeqHoyC9piPIqo=";
-    outPath = "/nix/store/n9lnlzzqkbdl6868yzr31n946vk4zjrb-source";
-    rev = "181c21d94c3a8c6f2198fa240e4012f0674628f7";
+    lastModified = 1780129573;
+    lastModifiedDate = "20260530082613";
+    narHash = "sha256-6/S2FvBz+dxEgPfRU7dK+ycLYzRU7L8aN+GjDRyVs/E=";
+    outPath = "/nix/store/17klxh5k4v1x48xnh4kdgynr1frsr3k6-source";
+    rev = "8f97d1dee8c0971b01cd6b17ccf913e8bb70f5d5";
     revCount = 0;
-    shortRev = "181c21d";
+    shortRev = "8f97d1d";
     submodules = false;
   };
   my = {
