@@ -30,23 +30,23 @@
     submodules = false;
   };
   homebrew-cask = {
-    lastModified = 1780150496;
-    lastModifiedDate = "20260530141456";
-    narHash = "sha256-Cqc7nZTR++V4Ka8w9uPPBZNgiRp1Z8bLw2VrxQ5CYjs=";
-    outPath = "/nix/store/x0jpm1jxbrvg1imkp578miyic45p6p1y-source";
-    rev = "41af02235403c45d18dd1c937576d7140145c550";
+    lastModified = 1780535367;
+    lastModifiedDate = "20260604010927";
+    narHash = "sha256-29uWtApIiBVP57UMhntCXGd6c3gyASor2Fg6alO23fw=";
+    outPath = "/nix/store/4ps2i3dvf294vn12503fm7q6fnsslvnr-source";
+    rev = "61f0bbf21fe15fd5abcf289bb10afe28c590cac0";
     revCount = 0;
-    shortRev = "41af022";
+    shortRev = "61f0bbf";
     submodules = false;
   };
   jovian-nixos = {
-    lastModified = 1780129573;
-    lastModifiedDate = "20260530082613";
-    narHash = "sha256-6/S2FvBz+dxEgPfRU7dK+ycLYzRU7L8aN+GjDRyVs/E=";
-    outPath = "/nix/store/17klxh5k4v1x48xnh4kdgynr1frsr3k6-source";
-    rev = "8f97d1dee8c0971b01cd6b17ccf913e8bb70f5d5";
+    lastModified = 1780404594;
+    lastModifiedDate = "20260602124954";
+    narHash = "sha256-I3st/jjG3VfdnJ0ij0VTLsNNWDyCZVeqHoyC9piPIqo=";
+    outPath = "/nix/store/n9lnlzzqkbdl6868yzr31n946vk4zjrb-source";
+    rev = "181c21d94c3a8c6f2198fa240e4012f0674628f7";
     revCount = 0;
-    shortRev = "8f97d1d";
+    shortRev = "181c21d";
     submodules = false;
   };
   my = {
@@ -70,23 +70,23 @@
     submodules = false;
   };
   nix-homebrew = {
-    lastModified = 1778851564;
-    lastModifiedDate = "20260515132604";
-    narHash = "sha256-p8wzcnpB2Iys+QzAKM9/Eyw/pUyqCO3sw/NCnDH4dTE=";
-    outPath = "/nix/store/f0mdakvvdm4xs3vv85fzm66cpkfrgdzm-source";
-    rev = "b3a87b4793205cc111f3c61e25e018ffac3b8039";
+    lastModified = 1780492467;
+    lastModifiedDate = "20260603131427";
+    narHash = "sha256-zMEJwtQPmsPPgPczFkyjWHgd1z0HagOPS2Wt2WDYLJY=";
+    outPath = "/nix/store/7igrnil32hig13f352svs19kyh496c79-source";
+    rev = "562332f97de9f5ba51aa647d70462e88222b2988";
     revCount = 0;
-    shortRev = "b3a87b4";
+    shortRev = "562332f";
     submodules = false;
   };
   nix-index-database = {
-    lastModified = 1779603823;
-    lastModifiedDate = "20260524062343";
-    narHash = "sha256-47cDJHXRQVn0MMPmb6eOKPmbB8bGcq2y7ClZDRGH88E=";
-    outPath = "/nix/store/q9xcbdwgci3lgml74ksfzlyn11il8b4v-source";
-    rev = "e70525a8d9cf6ad0220beefb1975e438378ff990";
+    lastModified = 1780367070;
+    lastModifiedDate = "20260602022430";
+    narHash = "sha256-MhWAaJq6SNz6hLDMA5so9wx9FCHh7fTOZodxVZVATO4=";
+    outPath = "/nix/store/bbzlm3hkx0p301vmlc1rr1bv23n9g18a-source";
+    rev = "cbf24a673358b47ab96c9a5968f10caabe6fec11";
     revCount = 0;
-    shortRev = "e70525a";
+    shortRev = "cbf24a6";
     submodules = false;
   };
   nix-on-droid = {
@@ -110,23 +110,23 @@
     submodules = false;
   };
   nixos-wsl = {
-    lastModified = 1777732699;
-    lastModifiedDate = "20260502143819";
-    narHash = "sha256-2uX/XtOWZ/oy2rerRynVhqVA//ZXZ3Fo60PikLHEPQc=";
-    outPath = "/nix/store/9v7ncmh6mgk2snd8qlhjrpyib605x50k-source";
-    rev = "5482f113fd31ebac131d1ebeb2ae90bf0d5e41f5";
+    lastModified = 1780525334;
+    lastModifiedDate = "20260603222214";
+    narHash = "sha256-IsKkAEN/9x0MRIrZduykgLJxME8L70KNknC+3iII6Yo=";
+    outPath = "/nix/store/2f1mpx27rmic2yaaqrmjkx915xg22g37-source";
+    rev = "cde346714cb46261648cac80c361dbd388f82f20";
     revCount = 0;
-    shortRev = "5482f11";
+    shortRev = "cde3467";
     submodules = false;
   };
   nixpkgs = {
-    lastModified = 1780051219;
-    lastModifiedDate = "20260529104019";
-    narHash = "sha256-WnxzG4x47uCgjz+uD+vOzbF+Qid+hKyYdJWbduA9w7g=";
-    outPath = "/nix/store/mkjiaa6rqz1rxl9w8h1q56w1kc59ifb7-source";
-    rev = "e8e446a361172fe838243958325845d0b845c5e5";
+    lastModified = 1780453794;
+    lastModifiedDate = "20260603022954";
+    narHash = "sha256-bXMRa9VTsHSPXL4Cw8R6JJLQeY3Y/IP4+YJCYVmQ7FY=";
+    outPath = "/nix/store/snzg7swkp0vsd2qch9izsbmxnyb13ca0-source";
+    rev = "6b316287bae2ee04c9b93c8c858d930fd07d7338";
     revCount = 0;
-    shortRev = "e8e446a";
+    shortRev = "6b31628";
     submodules = false;
   };
 }
