@@ -60,6 +60,7 @@
   extraFencePackages ? [ ], # additional packages to add to fencePackages
   extraClosurePackages ? [ ], # additional packages to add to the closure, but not PATH
   extraBashWrapperArgs ? [ ], # extra makeWrapper args for fenceShell bash
+  extraPassthru ? { }, # extra passthru attrs merged into the resulting derivation
 }:
 
 let
@@ -183,15 +184,20 @@ in
 # ${name} <agent_args> -- <fence_args>
 writeShellApplication {
   inherit name;
-  derivationArgs.passthru.shell = writeShellApplication {
-    name = "fence-shell";
-    derivationArgs.preferLocalBuild = true;
-    runtimeInputs = [ fenceShell ];
-    text = ''
-      exec ${lib.getExe fence} --settings ${fenceSettings} "$@" -- ${lib.getExe bash} --norc
-    '';
+  derivationArgs = {
+    passthru = {
+      shell = writeShellApplication {
+        name = "fence-shell";
+        derivationArgs.preferLocalBuild = true;
+        runtimeInputs = [ fenceShell ];
+        text = ''
+          exec ${lib.getExe fence} --settings ${fenceSettings} "$@" -- ${lib.getExe bash} --norc
+        '';
+      };
+    }
+    // extraPassthru;
+    preferLocalBuild = true;
   };
-  derivationArgs.preferLocalBuild = true;
   # fence use bash found in PATH to run helper script inside bwrap to setup
   # proxy etc., the helper script need tools like `mkdir` `rm`, since inside
   # the bwrap, only the closure of fencePackages are accessible, provide a
