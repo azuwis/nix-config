@@ -9,7 +9,8 @@
   config = lib.mkIf config.services.hass.enable {
     services.home-assistant.config = {
       logger.logs."homeassistant.components.yeelight" = "critical";
-      # miiocli cloud
+      # `miiocli cloud` does not work https://github.com/rytilahti/python-miio/issues/2038
+      # See https://github.com/al-one/hass-xiaomi-miot#obtain-miio-token to get token
       # miiocli yeelight --ip IP_OF_DEVICE --token TOKEN_OF_DEVICE set_developer_mode 1
       yeelight.devices = {
         "yeelink-light-ceiling12_mibtEA04.lan" = {
@@ -41,7 +42,10 @@
       homeassistant.customize =
         let
           customize = {
-            supported_color_modes = [ "brightness" "color_temp" ];
+            supported_color_modes = [
+              "brightness"
+              "color_temp"
+            ];
           };
         in
         {
