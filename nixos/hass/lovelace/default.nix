@@ -201,7 +201,7 @@ in
       ++ [
         {
           type = "module";
-          url = "/local/static/floorplan-fix.js?v=36";
+          url = "/local/static/floorplan-fix.js?v=38";
         }
       ];
 
