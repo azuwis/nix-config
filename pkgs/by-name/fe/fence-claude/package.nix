@@ -4,14 +4,16 @@
   fence-agent,
   claude-code,
   fetchFromGitHub,
-  claudePlugins ? [
-    (fetchFromGitHub {
+  writeScript,
+  claudePlugins ? {
+    superpowers = fetchFromGitHub rec {
       owner = "obra";
       repo = "superpowers";
-      rev = "v5.1.0";
+      version = "5.1.0";
+      tag = "v${version}";
       hash = "sha256-3E3rO6hR87JUfS3XV1Eaoz6SDWOftleWvN9UPNFEMjw=";
-    })
-  ],
+    };
+  },
   claudeSettings ? {
     attribution = {
       commit = "";
@@ -58,7 +60,7 @@ fence-agent {
   agentWrapperArgs = [
     "--add-flags"
     "--dangerously-skip-permissions --effort max --settings ${claudeSettingsJson} ${
-      lib.concatMapStringsSep " " (p: "--plugin-dir ${p}") claudePlugins
+      lib.concatMapAttrsStringSep " " (_: p: "--plugin-dir ${p}") claudePlugins
     }"
   ]
   # /tmp is not writable on darwin, set CLAUDE_CODE_TMPDIR to workaround
@@ -79,4 +81,22 @@ fence-agent {
     fi
     mkdir -p ~/.claude
   '';
+  extraPassthru = {
+    pluginsUpdate = builtins.mapAttrs (
+      name: plugin:
+      stdenv.mkDerivation {
+        inherit (plugin) version;
+        pname = "claude-plugin-${name}";
+        src = plugin;
+      }
+    ) claudePlugins;
+    updateScript = writeScript "update-eden" ''
+      #!/usr/bin/env nix-shell
+      #!nix-shell -i bash -p nix-update
+
+      set -eu -o pipefail
+
+      nix-update fence-claude.pluginsUpdate.superpowers
+    '';
+  };
 }
