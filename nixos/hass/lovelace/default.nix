@@ -118,14 +118,6 @@ let
     ];
   };
 
-  lightStateIcon = {
-    card_mod.style = ''
-      :host {
-        --card-mod-icon: {% if is_state(config.entity, 'on') %}mdi:lightbulb{% else %}mdi:lightbulb-off{% endif %};
-      }
-    '';
-  };
-
   state =
     entity: left: top:
     let
@@ -250,12 +242,12 @@ in
               elements = [
                 # living room
                 (state "light.living_room" "75.3" "72.8")
-                (state' "light.1660a6874242f000_group" "93" "72.8" lightStateIcon)
+                (state "light.1660a6874242f000_group" "93" "72.8")
                 (state "climate.gree_climate_9424b8123fe900" "88" "72.6")
                 (state "sensor.0x00158d000215c127_humidity" "61.5" "76.7")
                 (state "sensor.0x00158d000215c127_temperature" "62.5" "78.7")
                 # dining room
-                (state' "light.16609ab46d42b000_group" "63" "43" lightStateIcon)
+                (state "light.16609ab46d42b000_group" "63" "43")
                 (state "light.yeelink_fancl5_e358_switch_status" "80" "51.8")
                 (state "fan.yeelink_fancl5_e358_switch_status_2" "75" "51.8")
                 (state "humidifier.deye_z20_81f8_dehumidifier" "43.2" "42.9")
@@ -284,7 +276,7 @@ in
                 (state "sensor.0x00158d0001e81c40_temperature" "25.2" "64.7")
                 # secondary bedroom
                 (state "light.secondary_bedroom" "20.3" "23")
-                (state' "light.1697cc678402b000_group" "36.5" "21" lightStateIcon)
+                (state "light.1697cc678402b000_group" "36.5" "21")
                 (state "climate.xiaomi_mt0_cdd0_air_conditioner" "8" "17.5")
                 (state "fan.xiaomi_mt0_cdd0_switch_status" "8" "13.5")
                 (state "sensor.xiaomi_mt0_cdd0_temperature" "19" "16")
@@ -302,7 +294,7 @@ in
                 (state "sensor.kids_room_temperature" "10" "43.9")
                 (state "cover.lumi_hmcn01_ea01_motor_control" "11.3" "59")
                 # kitchen
-                (state' "light.kitchen" "71" "16" lightStateIcon)
+                (state "light.kitchen" "71" "16")
                 (state "binary_sensor.a4c138694c34_occupancy" "71" "9")
                 # bathroom
                 (state "light.bathroom" "51" "23")

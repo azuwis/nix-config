@@ -83,7 +83,12 @@ in
         latitude = "!secret latitude";
         longitude = "!secret longitude";
         elevation = "!secret elevation";
+        # Keep icon unchanged across on/off states (color still reflects state)
         customize_domain.climate.icon = "mdi:air-conditioner";
+        customize_domain.fan.icon = "mdi:fan";
+        customize_domain.humidifier.icon = "mdi:air-humidifier";
+        customize_domain.light.icon = "mdi:lightbulb";
+        customize_domain.switch.icon = "mdi:toggle-switch-variant";
         packages = "!include_dir_named packages";
       };
       frontend = { };

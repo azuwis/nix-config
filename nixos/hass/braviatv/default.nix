@@ -15,6 +15,10 @@ in
   };
 
   config = mkIf (cfg.enable && cfg.braviatv) {
+    # Keep icon unchanged across on/off states
+    services.home-assistant.config.homeassistant.customize."media_player.sony_kdl_55w800b".icon =
+      "mdi:television";
+
     services.home-assistant.extraPackages = ps: [ ps.pybravia ];
 
     hass.automations = ''
