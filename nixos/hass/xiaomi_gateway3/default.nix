@@ -40,7 +40,6 @@ in
     services.home-assistant.config = {
       homeassistant.customize_glob = {
         "binary_sensor.*_occupancy".icon = "mdi:motion-sensor";
-        "light.*_group".icon = "mdi:lightbulb";
       };
       shell_command.mijia_hub_init = mijia_hub_init;
       template = [

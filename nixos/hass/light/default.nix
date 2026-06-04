@@ -44,9 +44,6 @@
           model = "lamp3";
         };
       };
-      homeassistant.customize = {
-        "light.kitchen".icon = "mdi:lightbulb";
-      };
       light = [
         {
           platform = "group";
