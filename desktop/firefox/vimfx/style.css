@@ -6,9 +6,11 @@
     z-index: 2 !important;
   }
 
-  /* when menubar is active, remove nav-bar so they don't overlap */
-  #toolbar-menubar:not([inactive]) ~ #nav-bar {
-    display: none;
+  /* when menubar is active, hide nav-bar to avoid overlap (non-macOS only) */
+  @media (-moz-platform: linux), (-moz-platform: windows) {
+    #toolbar-menubar:not([inactive]) ~ #nav-bar {
+      display: none;
+    }
   }
 
   /* show nav-bar when urlbar focused */
