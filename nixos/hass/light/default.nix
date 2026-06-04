@@ -31,26 +31,22 @@
         };
         "yeelink-light-panel1_mibt6379.lan" = {
           name = "Kitchen door";
+          # panel1 auto-detects as WhiteTemp (color_temp), force White (brightness-only)
+          # NOTE: changing model requires deleting the device in HA and restarting
+          model = "lamp3";
         };
         "yeelink-light-panel1_mibt4C93.lan" = {
           name = "Kitchen window";
+          model = "lamp3";
         };
         "yeelink-light-panel1_mibt98B7.lan" = {
           name = "Bathroom";
+          model = "lamp3";
         };
       };
-      homeassistant.customize =
-        let
-          customize = {
-            supported_color_modes = [ "brightness" ];
-          };
-        in
-        {
-          "light.kitchen".icon = "mdi:lightbulb";
-          "light.bathroom" = customize;
-          "light.kitchen_door" = customize;
-          "light.kitchen_window" = customize;
-        };
+      homeassistant.customize = {
+        "light.kitchen".icon = "mdi:lightbulb";
+      };
       light = [
         {
           platform = "group";
