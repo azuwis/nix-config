@@ -11,16 +11,27 @@ let
     mkEnableOption
     mkIf
     mkMerge
+    mkOption
+    types
     ;
-  cfg = config.my.i3;
+  cfg = config.programs.i3;
 in
 {
-  options.my.i3 = {
+  options.programs.i3 = {
     enable = mkEnableOption "i3";
     autologin = mkEnableOption "autologin" // {
       default = true;
     };
+    initlock = mkEnableOption "initlock";
     xdgAutostart = mkEnableOption "xdgAutostart";
+    extraConfig = mkOption {
+      type = types.lines;
+      default = "";
+    };
+    terminal = mkOption {
+      type = types.str;
+      default = "wezterm";
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -50,6 +61,33 @@ in
         pulse.enable = true;
       };
       security.rtkit.enable = lib.mkDefault config.services.pipewire.enable;
+
+      environment.systemPackages = with pkgs; [
+        (runCommand "rofi-dmenu" { preferLocalBuild = true; } ''
+          mkdir -p $out/bin
+          ln -s ${rofi}/bin/rofi $out/bin/dmenu
+        '')
+        hsetroot
+        i3lock
+        pulsemixer
+        rofi
+        wezterm
+        xdotool
+      ];
+
+      environment.etc."i3/config".source = pkgs.replaceVars ./config {
+        inherit (cfg) extraConfig terminal;
+      };
+
+      programs.i3.extraConfig =
+        lib.optionalString cfg.initlock ''
+          exec i3lock --nofork --ignore-empty-password --color=2e3440
+        ''
+        + lib.optionalString cfg.xdgAutostart ''
+          exec systemctl --user start xdg-autostart-if-no-desktop-manager.target
+        '';
+
+      services.xserver.windowManager.i3.enable = true;
     })
 
     (mkIf cfg.autologin {
@@ -60,6 +98,8 @@ in
       };
     })
 
-    (mkIf cfg.xdgAutostart { services.xserver.desktopManager.runXdgAutostartIfNone = true; })
+    (mkIf cfg.xdgAutostart {
+      services.xserver.desktopManager.runXdgAutostartIfNone = true;
+    })
   ]);
 }
