@@ -179,7 +179,7 @@ clean() {
 }
 
 darwin_switch() {
-  # https://github.com/nix-darwin/nix-darwin/blob/nix-darwin-25.11/pkgs/nix-tools/darwin-rebuild.sh#L240-L249
+  # https://github.com/nix-darwin/nix-darwin/blob/nix-darwin-26.05/pkgs/nix-tools/darwin-rebuild.sh#L240-L249
   # Need `--set-home` or warning: $HOME ('/Users/azuwis') is not owned by you, falling back to the one defined in the 'passwd' file ('/var/root')
   run_command sudo --set-home nix-env --profile /nix/var/nix/profiles/system --set "$BUILT"
   run_command sudo "$BUILT/activate"
@@ -191,22 +191,27 @@ droid_switch() {
 }
 
 nixos_switch() {
-  # https://github.com/NixOS/nixpkgs/blob/nixos-25.11/pkgs/by-name/ni/nixos-rebuild-ng/src/nixos_rebuild/nix.py#L634
+  # https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/by-name/ni/nixos-rebuild-ng/src/nixos_rebuild/nix.py#L669
   run_command sudo nix-env --profile /nix/var/nix/profiles/system --set "$BUILT"
-  # https://github.com/NixOS/nixpkgs/blob/nixos-25.11/pkgs/by-name/ni/nixos-rebuild-ng/src/nixos_rebuild/nix.py#L32-L46
+  # https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/by-name/ni/nixos-rebuild-ng/src/nixos_rebuild/nix.py#L33-L49
   cmd=(
     "systemd-run"
-    "-E" "LOCALE_ARCHIVE" # Will be set to new value early in switch-to-configuration script, but interpreter starts out with old value
-    "-E" "NIXOS_INSTALL_BOOTLOADER"
+    "-E"
+    # Will be set to new value early in switch-to-configuration script
+    # but interpreter starts out with old value
+    "LOCALE_ARCHIVE"
+    "-E"
+    "NIXOS_INSTALL_BOOTLOADER"
+    "-E"
+    "NIXOS_NO_CHECK"
     "--collect"
     "--no-ask-password"
     "--pipe"
     "--quiet"
     "--service-type=exec"
     "--unit=nixos-rebuild-switch-to-configuration"
-    "--wait"
   )
-  run_command sudo "${cmd[@]}" "$BUILT/bin/switch-to-configuration" "$@"
+  run_command sudo "${cmd[@]}" --wait "$BUILT/bin/switch-to-configuration" "$@"
 }
 
 solo_switch() {
