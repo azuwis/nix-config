@@ -27,6 +27,7 @@ let
   # (/(static|frontend_latest|frontend_es5)/) would match it and send requests
   # to a different cache bucket instead of file-cache.
   assets = ./assets;
+  assetsHash = builtins.substring 0 32 (builtins.baseNameOf "${assets}");
 
   climate =
     entity:
@@ -212,7 +213,7 @@ in
       ++ [
         {
           type = "module";
-          url = "/local/assets/floorplan-fix.js?1";
+          url = "/local/assets/floorplan-fix.js?${assetsHash}";
         }
       ];
 
@@ -244,7 +245,7 @@ in
           cards = [
             {
               type = "picture-elements";
-              image = "/local/assets/floorplan.png?1";
+              image = "/local/assets/floorplan.png?${assetsHash}";
               aspect_ratio = "960x1500";
               elements = [
                 # living room
