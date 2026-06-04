@@ -23,7 +23,10 @@ let
     ln -fns ${card-mod}/${card-mod.entrypoint} $out/
   '';
 
-  static = ./static;
+  # Don't name this "static", service worker route 1
+  # (/(static|frontend_latest|frontend_es5)/) would match it and send requests
+  # to a different cache bucket instead of file-cache.
+  assets = ./assets;
 
   climate =
     entity:
@@ -188,7 +191,7 @@ in
 {
   config = lib.mkIf config.services.hass.enable {
     systemd.services.home-assistant.preStart = ''
-      ln -fns ${static} ${config.services.home-assistant.configDir}/www/static
+      ln -fns ${assets} ${config.services.home-assistant.configDir}/www/assets
       ln -fns ${generated} ${config.services.home-assistant.configDir}/www/generated
     '';
 
@@ -209,7 +212,7 @@ in
       ++ [
         {
           type = "module";
-          url = "/local/static/floorplan-fix.js?v=38";
+          url = "/local/assets/floorplan-fix.js?1";
         }
       ];
 
@@ -241,7 +244,7 @@ in
           cards = [
             {
               type = "picture-elements";
-              image = "/local/static/floorplan.png?v=3";
+              image = "/local/assets/floorplan.png?1";
               aspect_ratio = "960x1500";
               elements = [
                 # living room
