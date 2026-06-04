@@ -73,5 +73,12 @@ in
           };
       }
     ];
+
+    # clap's _jj completion uses #compdef jj but names the function
+    # _clap_dynamic_completer_jj. zsh autoload expects _jj, so the first
+    # Tab press fails. Pre-source to let compdef fix the registration.
+    programs.zsh.interactiveShellInit = ''
+      . ${cfg.finalPackage}/share/zsh/site-functions/_jj
+    '';
   };
 }
