@@ -47,12 +47,12 @@ in
 
     # https://github.com/azuwis/nvd
     nvd = prev.nvd.overrideAttrs (old: {
-      version = "0-unstable-2026-05-28";
+      version = "0.2.4-unstable-2026-05-31";
       src = final.fetchFromGitHub {
         owner = "azuwis";
         repo = "nvd";
-        rev = "960f0c8332eeab065561012076027cf1e9537e30";
-        sha256 = "sha256-AFGVfAaAVA/PkaH5vT5dK5RCtn3K+qBiqzHDgcLO0Jc=";
+        rev = "3c24946a832e6cf29770dced1e11c87129390423";
+        sha256 = "sha256-juuPRSXQE7gHWn2MnHkdjQ2QM2td5gRdWkvDELeWihQ=";
       };
       passthru = (old.passthru or { }) // {
         updateScript = final.nix-update-script { extraArgs = [ "--version=branch" ]; };
