@@ -7,11 +7,11 @@
 stdenv.mkDerivation (finalAttrs: {
   pname = "vimfx";
 
-  version = "0.27.5";
+  version = "0.27.6";
 
   src = fetchurl {
     url = "https://github.com/akhodakivskiy/VimFx/releases/download/v${finalAttrs.version}/VimFx.xpi";
-    hash = "sha256-j/vO197mWo0r++4N1KqlHMHnnEn6meuz1Fx94A/L3W4=";
+    hash = "sha256-tC/98IKleMBZPdtEYVY8H2KmGKz3CyRhKjGSK2yUdx8=";
   };
 
   dontUnpack = true;
