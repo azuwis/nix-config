@@ -84,18 +84,17 @@ in
         '';
         clearNftables = pkgs.writeScript "shadowsocks-rust-clear-nftables" ''
           #! ${pkgs.nftables}/bin/nft -f
-          table ip shadowsocks-rust
-          delete table ip shadowsocks-rust
+          destroy table ip shadowsocks-rust
         '';
-        setupIpRule = pkgs.writeScript "shadowsocks-rust-setup-iprule" ''
-          #! ${pkgs.iproute2}/bin/ip -batch
-          rule add fwmark 0x5358 lookup 5358
-          route add local 0.0.0.0/0 dev lo table 5358
+        setupIpRule = pkgs.writeShellScript "shadowsocks-rust-setup-iprule" ''
+          ${pkgs.iproute2}/bin/ip rule del fwmark 0x5358 lookup 5358 || true
+          ${pkgs.iproute2}/bin/ip route del local 0.0.0.0/0 dev lo table 5358 || true
+          ${pkgs.iproute2}/bin/ip rule add fwmark 0x5358 lookup 5358
+          ${pkgs.iproute2}/bin/ip route add local 0.0.0.0/0 dev lo table 5358
         '';
-        clearIpRule = pkgs.writeScript "shadowsocks-rust-clear-iprule" ''
-          #! ${pkgs.iproute2}/bin/ip -batch
-          rule delete fwmark 0x5358 lookup 5358
-          route delete local 0.0.0.0/0 dev lo table 5358
+        clearIpRule = pkgs.writeShellScript "shadowsocks-rust-clear-iprule" ''
+          ${pkgs.iproute2}/bin/ip rule del fwmark 0x5358 lookup 5358 || true
+          ${pkgs.iproute2}/bin/ip route del local 0.0.0.0/0 dev lo table 5358 || true
         '';
       in
       {
