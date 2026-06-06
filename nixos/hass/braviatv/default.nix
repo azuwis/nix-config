@@ -19,6 +19,9 @@ in
     services.home-assistant.config.homeassistant.customize."media_player.sony_kdl_55w800b".icon =
       "mdi:television";
 
+    # https://github.com/home-assistant/core/issues/170121
+    services.home-assistant.config.ssdp = { };
+
     services.home-assistant.extraPackages = ps: [ ps.pybravia ];
 
     hass.automations = ''
