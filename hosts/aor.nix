@@ -116,6 +116,44 @@
     openssh.authorizedKeys.keys = config.my.keys;
   };
 
+  services.llama-cpp = {
+    enable = true;
+    package = pkgs.llama-cpp.override { cudaSupport = true; };
+    modelsPreset = {
+      "*" = {
+        models-max = "1";
+        sleep-idle-seconds = "600";
+      };
+      # https://unsloth.ai/docs/models/qwen3.6#mtp-qwen3.6-35b-a3b
+      # https://knightli.com/en/2026/05/26/rtx-3060-llama-cpp-n-cpu-moe-local-35b/
+      "qwen3.6" = {
+        alias = "qwen3.6";
+        # download
+        hf-repo = "unsloth/Qwen3.6-35B-A3B-MTP-GGUF";
+        hf-file = "Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf"; # 22.9G
+        # sampling
+        temperature = "1.0";
+        top-p = "0.95";
+        top-k = "20";
+        min-p = "0.00";
+        jinja = true; # use embedded chat template
+        reasoning-format = "deepseek"; # parse <think> tags
+        # engine
+        flash-attn = "on";
+        n-gpu-layers = "99"; # all layers to GPU
+        n-cpu-moe = "36"; # MoE experts on CPU (key for 12GB VRAM)
+        spec-type = "draft-mtp"; # MTP speculative decoding (~65-75 t/s)
+        spec-draft-n-max = "2";
+        # memory
+        ctx-size = "262144"; # 256K
+        cache-type-k = "q8_0"; # K cache must stay >= q8_0 for Qwen (q4_0 = catastrophic)
+        cache-type-v = "q8_0"; # V cache can drop to q4_0 if VRAM tight (~0.3% PPL)
+        parallel = "1"; # single user, save ~700MB VRAM (no extra KV cache slots)
+        no-context-shift = true; # stop at context limit instead of evicting old messages
+      };
+    };
+  };
+
   services.ollama = {
     enable = true;
     package = pkgs.ollama-cuda;
