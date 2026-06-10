@@ -119,9 +119,13 @@
   services.llama-cpp = {
     enable = true;
     package = pkgs.llama-cpp.override { cudaSupport = true; };
+    extraFlags = [
+      # `models-max` does not work in modelsPreset."*"
+      "--models-max"
+      "1"
+    ];
     modelsPreset = {
       "*" = {
-        models-max = "1";
         sleep-idle-seconds = "600";
       };
       # https://unsloth.ai/docs/models/qwen3.6#mtp-qwen3.6-35b-a3b
