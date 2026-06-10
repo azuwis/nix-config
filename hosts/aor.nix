@@ -128,15 +128,14 @@
       "*" = {
         sleep-idle-seconds = "600";
       };
-      # https://unsloth.ai/docs/models/qwen3.6#mtp-qwen3.6-35b-a3b
+      # https://unsloth.ai/docs/models/qwen3.6
       # https://knightli.com/en/2026/05/26/rtx-3060-llama-cpp-n-cpu-moe-local-35b/
       "qwen3.6" = {
         alias = "qwen3.6";
         # download
-        hf-repo = "unsloth/Qwen3.6-35B-A3B-MTP-GGUF";
-        hf-file = "Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf"; # 22.9G
+        hf-repo = "unsloth/Qwen3.6-35B-A3B-GGUF:UD-Q4_K_XL"; # 22.4G
         # sampling
-        temperature = "1.0";
+        temperature = "0.6";
         top-p = "0.95";
         top-k = "20";
         min-p = "0.00";
@@ -145,9 +144,7 @@
         # engine
         flash-attn = "on";
         n-gpu-layers = "99"; # all layers to GPU
-        n-cpu-moe = "36"; # MoE experts on CPU (key for 12GB VRAM)
-        spec-type = "draft-mtp"; # MTP speculative decoding (~65-75 t/s)
-        spec-draft-n-max = "2";
+        n-cpu-moe = "32"; # MoE experts on CPU (key for 12GB VRAM)
         # memory
         ctx-size = "262144"; # 256K
         cache-type-k = "q8_0"; # K cache must stay >= q8_0 for Qwen (q4_0 = catastrophic)
