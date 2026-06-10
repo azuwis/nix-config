@@ -6,18 +6,22 @@
   fetchFromGitHub,
   writeScript,
   claudePlugins ? {
-    mattpocock-skills = fetchFromGitHub {
+    mattpocock-skills = {
+      version = "0-unstable-2026-05-31";
+    }
+    // fetchFromGitHub {
       owner = "mattpocock";
       repo = "skills";
-      version = "0-unstable-2026-05-31";
       rev = "aaf2453fbdfe7a15c07f11d861224f34ab4b53cb";
       hash = "sha256-+Px3qIMHGKvi0PK2l5H4j/4YRQ448G9kuWX28cgqPCI=";
     };
-    superpowers = fetchFromGitHub rec {
+    superpowers = {
+      version = "5.1.0";
+    }
+    // fetchFromGitHub {
       owner = "obra";
       repo = "superpowers";
-      version = "5.1.0";
-      tag = "v${version}";
+      tag = "v5.1.0";
       hash = "sha256-3E3rO6hR87JUfS3XV1Eaoz6SDWOftleWvN9UPNFEMjw=";
     };
   },
