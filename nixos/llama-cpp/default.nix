@@ -43,7 +43,7 @@ in
           # engine
           flash-attn = "on";
           n-gpu-layers = "99"; # all layers to GPU
-          n-cpu-moe = "32"; # MoE experts on CPU (key for 12GB VRAM)
+          n-cpu-moe = "33"; # MoE experts on CPU (key for 12GB VRAM)
           # memory
           ctx-size = "262144"; # 256K
           cache-type-k = "q8_0"; # K cache must stay >= q8_0 for Qwen (q4_0 = catastrophic)
@@ -66,7 +66,7 @@ in
           # engine
           flash-attn = "on";
           n-gpu-layers = "99";
-          n-cpu-moe = "32";
+          n-cpu-moe = "34";
           # memory
           ctx-size = "262144";
           cache-type-k = "q8_0";
