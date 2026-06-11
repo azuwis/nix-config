@@ -17,7 +17,14 @@ in
   config = lib.mkIf cfg.enhance {
     services.llama-cpp = {
       enable = true;
-      package = pkgs.llama-cpp.override { cudaSupport = true; };
+      # https://github.com/NixOS/nixpkgs/blob/master/pkgs/by-name/ll/llama-cpp/package.nix
+      package = (pkgs.llama-cpp.override { cudaSupport = true; }).overrideAttrs (old: {
+        version = "9503";
+        src = old.src.override {
+          hash = "sha256-SnPK7hCfA7svxXhPji7Cuf7H8eHFjdTJSpNR1otPO4c=";
+        };
+        npmDepsHash = "sha256-1iM0LGeI9e+gZEHk46lkBe51DxIhiimfAm9o3Z3m9Ik=";
+      });
       extraFlags = [
         # `models-max` does not work in modelsPreset."*"
         "--models-max"
