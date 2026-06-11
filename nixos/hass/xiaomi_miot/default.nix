@@ -28,6 +28,24 @@ in
     ];
 
     services.home-assistant.config = {
+      script.bath_heater.sequence = [
+        {
+          "if" = {
+            condition = "template";
+            value_template = "{{ state_attr('climate.yeelink_v6_af1f_ptc_bath_heater', 'preset_mode') == None and states('climate.yeelink_v6_af1f_ptc_bath_heater') == 'off' }}";
+          };
+          "then" = {
+            action = "climate.set_preset_mode";
+            target.entity_id = "climate.yeelink_v6_af1f_ptc_bath_heater";
+            data.preset_mode = "Ventilate";
+          };
+          "else" = {
+            action = "climate.set_preset_mode";
+            target.entity_id = "climate.yeelink_v6_af1f_ptc_bath_heater";
+            data.preset_mode = "Idle";
+          };
+        }
+      ];
       template = [
         {
           sensor = [

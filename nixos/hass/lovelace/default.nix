@@ -315,9 +315,13 @@ in
                         {%- endif %}
                     }
                   '';
-                  hold_action = {
+                  double_tap_action = {
                     action = "more-info";
                     entity = "sensor.bath_heater";
+                  };
+                  hold_action = {
+                    action = "perform-action";
+                    perform_action = "script.bath_heater";
                   };
                 })
                 (state' "binary_sensor.0x00158d00028f9af8_contact" "45.5" "14.7" {
