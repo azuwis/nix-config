@@ -356,7 +356,11 @@ in
                 {
                   condition = "state";
                   entity = "sensor.bath_heater";
-                  state_not = "off";
+                  state_not = [
+                    "off"
+                    "unavailable"
+                    "unknown"
+                  ];
                 }
               ];
               card.hide.state = true;
