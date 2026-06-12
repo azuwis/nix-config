@@ -29,6 +29,12 @@ in
         # `models-max` does not work in modelsPreset."*"
         "--models-max"
         "1"
+        # Server slots (n_parallel), per-model `parallel` overrides this.
+        # Set here to suppress the misleading "n_parallel is set to auto/4"
+        # at init, model-level values log later as `load: --parallel`.
+        # Single user, save ~700MB VRAM (no extra KV cache slots)
+        "--parallel"
+        "1"
       ];
       modelsPreset = {
         "*" = {
@@ -55,7 +61,6 @@ in
           ctx-size = "262144"; # 256K
           cache-type-k = "q8_0"; # K cache must stay >= q8_0 for Qwen (q4_0 = catastrophic)
           cache-type-v = "q8_0"; # V cache can drop to q4_0 if VRAM tight (~0.3% PPL)
-          parallel = "1"; # single user, save ~700MB VRAM (no extra KV cache slots)
           no-context-shift = true; # stop at context limit instead of evicting old messages
         };
         # https://huggingface.co/HauhauCS/Qwen3.6-35B-A3B-Uncensored-HauhauCS-Aggressive
@@ -78,7 +83,6 @@ in
           ctx-size = "262144";
           cache-type-k = "q8_0";
           cache-type-v = "q8_0";
-          parallel = "1";
           no-context-shift = true;
         };
       };
