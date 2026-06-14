@@ -62,6 +62,9 @@ in
           cache-type-k = "q8_0"; # K cache must stay >= q8_0 for Qwen (q4_0 = catastrophic)
           cache-type-v = "q8_0"; # V cache can drop to q4_0 if VRAM tight (~0.3% PPL)
           no-context-shift = true; # stop at context limit instead of evicting old messages
+          reasoning-budget = "16384"; # cap thinking tokens, 54t/s ~5min
+          reasoning-budget-message = "... reasoning budget exceeded, answering now.";
+          chat-template-kwargs = ''{"preserve_thinking": true}''; # keep reasoning across turns
         };
         # https://huggingface.co/HauhauCS/Qwen3.6-35B-A3B-Uncensored-HauhauCS-Aggressive
         "qwen3.6-hau" = {
@@ -84,6 +87,9 @@ in
           cache-type-k = "q8_0";
           cache-type-v = "q8_0";
           no-context-shift = true;
+          reasoning-budget = "16384";
+          reasoning-budget-message = "... reasoning budget exceeded, answering now.";
+          chat-template-kwargs = ''{"preserve_thinking": true}'';
         };
       };
     };
