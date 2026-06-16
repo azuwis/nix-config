@@ -1,0 +1,18 @@
+browserLaunch:
+  # Open the browser automatically on server startup.
+  enabled: false
+
+# Server port
+port: 8045
+
+logging:
+  # Enable access logging to access.log file and console output
+  # Records new connections with timestamp, IP address and user agent
+  enableAccessLog: false
+
+performance:
+  # The maximum amount of memory that parsed character cards can use. Set to 0 to disable memory caching.
+  memoryCacheCapacity: '500mb'
+  # Configures gzip compression for client requests with large payloads (e.g. settings or chat saves).
+  requestCompression:
+    enabled: true
