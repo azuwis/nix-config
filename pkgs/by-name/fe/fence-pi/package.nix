@@ -16,6 +16,13 @@
       rootDir = "packages/pi-exa-mcp";
       hash = "sha256-Wqw+Gp7skL5S4xB9Ktq9rs6F6ulA1XAuXb9PKe2pQV0=";
     };
+    pi-hashline-edit = fetchFromGitHub {
+      owner = "JoshMock";
+      repo = "the-agency";
+      tag = "pi-hashline-edit-v0.2.1";
+      rootDir = "packages/hashline-edit";
+      hash = "sha256-iIR2+7GD1aH+AXKYHcpA0ZKW3283GIXq+YQO/5X0V1A=";
+    };
     pi-superpowers = {
       version = "0-unstable-2026-03-05";
     }
