@@ -69,8 +69,8 @@ fence-agent {
     extensionsUpdate = builtins.mapAttrs (
       name: plugin:
       stdenv.mkDerivation {
-        inherit (plugin) version;
         pname = "pi-plugin-${name}";
+        version = plugin.version or "0";
         src = plugin;
       }
     ) piExtensions;
