@@ -36,12 +36,12 @@ in
         "--parallel"
         "1"
       ];
+      # https://knightli.com/en/2026/05/26/rtx-3060-llama-cpp-n-cpu-moe-local-35b/
       modelsPreset = {
         "*" = {
           sleep-idle-seconds = "600";
         };
         # https://unsloth.ai/docs/models/qwen3.6
-        # https://knightli.com/en/2026/05/26/rtx-3060-llama-cpp-n-cpu-moe-local-35b/
         "qwen3.6" = {
           alias = "qwen3.6";
           # download
@@ -90,6 +90,30 @@ in
           reasoning-budget = "16384";
           reasoning-budget-message = "... reasoning budget exceeded, answering now.";
           chat-template-kwargs = ''{"preserve_thinking": true}'';
+        };
+        # https://huggingface.co/HauhauCS/Qwen3.5-35B-A3B-Uncensored-HauhauCS-Aggressive
+        "qwen3.5-hau" = {
+          alias = "qwen3.5-hau";
+          # download
+          hf-repo = "HauhauCS/Qwen3.5-35B-A3B-Uncensored-HauhauCS-Aggressive:Q4_K_M"; # 21.2G
+          # sampling
+          temperature = "1.0";
+          top-p = "0.95";
+          top-k = "20";
+          min-p = "0.00";
+          jinja = true;
+          reasoning-format = "deepseek";
+          # engine
+          flash-attn = "on";
+          n-gpu-layers = "99";
+          n-cpu-moe = "32";
+          # memory
+          ctx-size = "262144"; # 256K
+          cache-type-k = "q8_0";
+          cache-type-v = "q8_0";
+          no-context-shift = true;
+          reasoning-budget = "16384";
+          reasoning-budget-message = "... reasoning budget exceeded, answering now.";
         };
       };
     };
