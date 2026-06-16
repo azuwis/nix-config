@@ -5,6 +5,29 @@
   ...
 }:
 
+# ~/.pi/agent/models.json
+# {
+#   "providers": {
+#     "llama": {
+#       "baseUrl": "http://127.0.0.1:8080/v1",
+#       "api": "openai-completions",
+#       "apiKey": "llama",
+#       "models": [
+#         {
+#           "id": "qwen3.6",
+#           "reasoning": true,
+#           "input": ["text", "image"],
+#           "contextWindow": 256000,
+#           "maxTokens": 16384,
+#           "compat": {
+#             "supportsDeveloperRole": false,
+#             "thinkingFormat": "qwen-chat-template"
+#           }
+#         }
+#       ]
+#     }
+# }
+
 let
   cfg = config.services.llama-cpp;
 in
