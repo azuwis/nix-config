@@ -11,7 +11,7 @@ in
 
 {
   options.services.llama-cpp = {
-    enhance = lib.mkEnableOption "enable and enhance llama server";
+    enhance = lib.mkEnableOption "and enhance llama server";
   };
 
   config = lib.mkIf cfg.enhance {
