@@ -3,6 +3,7 @@
   stdenv,
   fence-agent,
   fetchFromGitHub,
+  linkFarm,
   pi-coding-agent,
   writeScript,
   piExtensions ? {
@@ -32,6 +33,7 @@
       rev = "efe1d158691bf064c24f0460fd4e46ca58de0055";
       hash = "sha256-cwGs/Hdbk3h9Yk+vEMtXSyAgy+grxEc6eZAHZZjpcDk=";
     };
+    pi-monorepo-subagent = "${pi-coding-agent}/lib/node_modules/pi-monorepo/examples/extensions/subagent";
   },
 }:
 
@@ -42,6 +44,10 @@
 #     "deniedDomains": ["*.sentry.io"]
 #   }
 # }
+
+let
+  extensionsDir = linkFarm "pi-extensions" piExtensions;
+in
 
 fence-agent {
   name = "fence-pi";
@@ -58,9 +64,7 @@ fence-agent {
     "PI_TELEMETRY"
     "false"
     "--add-flags"
-    "--extension ${pi-coding-agent}/lib/node_modules/pi-monorepo/examples/extensions/subagent ${
-      lib.concatMapAttrsStringSep " " (_: p: "--extension ${p}") piExtensions
-    }"
+    "${lib.concatMapAttrsStringSep " " (name: _: "--extension ${extensionsDir}/${name}") piExtensions}"
   ];
   preExecScript = ''
     mkdir -p ~/.pi
