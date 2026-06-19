@@ -7,16 +7,16 @@
   writeScript,
   claudePlugins ? {
     mattpocock-skills = {
-      version = "0-unstable-2026-05-31";
+      version = "1.0.1-unstable-2026-06-18";
     }
     // fetchFromGitHub {
       owner = "mattpocock";
       repo = "skills";
-      rev = "aaf2453fbdfe7a15c07f11d861224f34ab4b53cb";
-      hash = "sha256-+Px3qIMHGKvi0PK2l5H4j/4YRQ448G9kuWX28cgqPCI=";
+      rev = "6eeb81b5fcfeeb5bd531dd47ab2f9f2bbea27461";
+      hash = "sha256-6T0KwZcUIIbd6kpkQXPCnnJPVY2mEjxYjed4FjKnRAw=";
     };
     superpowers = {
-      version = "5.1.0";
+      version = "6.0.3";
     }
     // fetchFromGitHub {
       owner = "obra";
