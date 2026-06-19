@@ -8,12 +8,12 @@
   writeScript,
   piExtensions ? {
     pi-exa-mcp = {
-      version = "2026-06-08";
+      version = "2026-06-18";
     }
     // fetchFromGitHub {
       owner = "ben-vargas";
       repo = "pi-packages";
-      tag = "2026-06-08";
+      tag = "2026-06-18";
       rootDir = "packages/pi-exa-mcp";
       hash = "sha256-Wqw+Gp7skL5S4xB9Ktq9rs6F6ulA1XAuXb9PKe2pQV0=";
     };
