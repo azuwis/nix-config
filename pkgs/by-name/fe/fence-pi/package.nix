@@ -99,11 +99,14 @@ fence-agent {
   extraPassthru = {
     extensionsUpdate = builtins.mapAttrs (
       name: plugin:
-      stdenv.mkDerivation {
-        pname = "pi-plugin-${name}";
-        version = plugin.version or "0";
-        src = plugin.src or plugin;
-      }
+      if plugin ? src then
+        plugin
+      else
+        stdenv.mkDerivation {
+          pname = "pi-plugin-${name}";
+          version = plugin.version or "0";
+          src = plugin;
+        }
     ) piExtensions;
     updateScript = writeScript "update-fence-pi-plugins" ''
       #!/usr/bin/env nix-shell
