@@ -6,24 +6,32 @@
   fetchFromGitHub,
   writeScript,
   claudePlugins ? {
-    mattpocock-skills = {
-      version = "0-unstable-2026-05-31";
-    }
-    // fetchFromGitHub {
-      owner = "mattpocock";
-      repo = "skills";
-      rev = "aaf2453fbdfe7a15c07f11d861224f34ab4b53cb";
-      hash = "sha256-+Px3qIMHGKvi0PK2l5H4j/4YRQ448G9kuWX28cgqPCI=";
-    };
-    superpowers = {
-      version = "5.1.0";
-    }
-    // fetchFromGitHub {
-      owner = "obra";
-      repo = "superpowers";
-      tag = "v5.1.0";
-      hash = "sha256-3E3rO6hR87JUfS3XV1Eaoz6SDWOftleWvN9UPNFEMjw=";
-    };
+    mattpocock-skills =
+      let
+        version = "1.0.1";
+      in
+      {
+        inherit version;
+      }
+      // fetchFromGitHub {
+        owner = "mattpocock";
+        repo = "skills";
+        tag = "v${version}";
+        hash = "sha256-nuHQ+SG5UerKs334Yk5nsxHOncGXQKF1yVdnwwVpLZ8=";
+      };
+    superpowers =
+      let
+        version = "6.0.3";
+      in
+      {
+        inherit version;
+      }
+      // fetchFromGitHub {
+        owner = "obra";
+        repo = "superpowers";
+        tag = "v${version}";
+        hash = "sha256-+lT2a/qq0SF4k0PgnEDKiuidVlZX2p0vEso4d/5T1os=";
+      };
   },
   claudeSettings ? {
     attribution = {
@@ -107,7 +115,7 @@ fence-agent {
 
       set -eu -o pipefail
 
-      nix-update fence-claude.pluginsUpdate.mattpocock-skills --version=branch
+      nix-update fence-claude.pluginsUpdate.mattpocock-skills
       nix-update fence-claude.pluginsUpdate.superpowers
     '';
   };
