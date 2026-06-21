@@ -78,9 +78,12 @@ in
     environment.etc."niri/config.kdl".source =
       pkgs.runCommand "niri-default-config.kdl" { preferLocalBuild = true; }
         ''
-          sed -e '/ Mod+T /d' -e '/spawn-at-startup "waybar"/d' -e '/+WheelScroll/d' ${./default-config.kdl} > $out
-          echo >> $out
-          echo 'include "custom.kdl"' >> $out
+          sed \
+            -e '/ Mod+T /d' \
+            -e '/spawn-at-startup "waybar"/d' \
+            -e '/+WheelScroll/d' \
+            -e '$a\\ninclude "custom.kdl"' \
+            ${./default-config.kdl} > $out
         '';
 
     environment.etc."niri/custom.kdl".source = pkgs.replaceVars ./custom.kdl {
