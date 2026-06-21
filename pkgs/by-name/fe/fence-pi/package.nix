@@ -22,12 +22,12 @@
     };
     pi-hashline-edit-pro = stdenv.mkDerivation (finalAttrs: {
       pname = "pi-hashline-edit-pro";
-      version = "0-unstable-2026-06-18";
+      version = "0-unstable-2026-06-21";
       src = fetchFromGitHub {
         owner = "YuGiMob";
         repo = "pi-hashline-edit-pro";
-        rev = "3c6608e64a7d3342699781b0c87d6335f1b6491d";
-        hash = "sha256-bfMbiv+7jFqLPBc9qMj1eEOymxQQSR89R2T3+37Rm/Y=";
+        rev = "d91d7eedc063e7c3b1f4d43e636ebaa99babbf8a";
+        hash = "sha256-9dRKAjHZx52z3h154IU6jJT7pi1aX5K49eomswtTQ6A=";
       };
       npmDeps = fetchNpmDeps {
         inherit (finalAttrs) src;
