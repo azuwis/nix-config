@@ -1,12 +1,10 @@
 {
   lib,
   stdenv,
+  buildNpmPackage,
   fence-agent,
   fetchFromGitHub,
-  fetchNpmDeps,
   linkFarm,
-  nodejs,
-  npmHooks,
   pi-coding-agent,
   writeScript,
   piExtensions ? {
@@ -24,7 +22,7 @@
         rootDir = "packages/pi-exa-mcp";
         hash = "sha256-Wqw+Gp7skL5S4xB9Ktq9rs6F6ulA1XAuXb9PKe2pQV0=";
       };
-    pi-hashline-edit-pro = stdenv.mkDerivation (finalAttrs: {
+    pi-hashline-edit-pro = buildNpmPackage (finalAttrs: {
       pname = "pi-hashline-edit-pro";
       version = "0-unstable-2026-06-21";
       src = fetchFromGitHub {
@@ -33,18 +31,12 @@
         rev = "d91d7eedc063e7c3b1f4d43e636ebaa99babbf8a";
         hash = "sha256-9dRKAjHZx52z3h154IU6jJT7pi1aX5K49eomswtTQ6A=";
       };
-      npmDeps = fetchNpmDeps {
-        inherit (finalAttrs) src;
-        hash = "sha256-g4bOvPnPSMPTgNDaYioNdJjJPg6Nhjzl5Y0ZYEP1MjY=";
-      };
-      nativeBuildInputs = [
-        nodejs
-        npmHooks.npmConfigHook
-      ];
+      npmDepsHash = "sha256-knCX9f1fk6OIVKjrku1tawV1JYlHGOFgGtfCFzQdvfA=";
       npmInstallFlags = [
         "--omit=dev"
         "--omit=peer"
       ];
+      dontNpmBuild = true;
       installPhase = ''
         runHook preInstall
         cp -r . $out
