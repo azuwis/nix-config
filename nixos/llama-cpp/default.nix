@@ -140,5 +140,8 @@ in
         };
       };
     };
+
+    # SIGKILL after 10s instead of default 90s when process hangs
+    systemd.services.llama-cpp.serviceConfig.TimeoutStopSec = 10;
   };
 }
