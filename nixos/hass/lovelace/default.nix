@@ -300,7 +300,7 @@ in
                 (state "light.bathroom" "51" "23")
                 (state "binary_sensor.dced8387eef4_occupancy" "45.5" "25.5")
                 (state' "climate.yeelink_v6_af1f_ptc_bath_heater" "45.5" "20" {
-                  card_mod.style."state-badge $ ha-state-icon" = ''
+                  card_mod.style."state-badge $" = ''
                     ha-state-icon {
                       color:
                         {%- set preset_mode = state_attr(config.entity, 'preset_mode') %}
