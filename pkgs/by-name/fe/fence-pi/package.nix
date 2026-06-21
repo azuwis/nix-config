@@ -3,7 +3,10 @@
   stdenv,
   fence-agent,
   fetchFromGitHub,
+  fetchNpmDeps,
   linkFarm,
+  nodejs,
+  npmHooks,
   pi-coding-agent,
   writeScript,
   piExtensions ? {
@@ -17,13 +20,33 @@
       rootDir = "packages/pi-exa-mcp";
       hash = "sha256-Wqw+Gp7skL5S4xB9Ktq9rs6F6ulA1XAuXb9PKe2pQV0=";
     };
-    pi-hashline-edit = fetchFromGitHub {
-      owner = "JoshMock";
-      repo = "the-agency";
-      tag = "pi-hashline-edit-v0.2.1";
-      rootDir = "packages/hashline-edit";
-      hash = "sha256-iIR2+7GD1aH+AXKYHcpA0ZKW3283GIXq+YQO/5X0V1A=";
-    };
+    pi-hashline-edit-pro = stdenv.mkDerivation (finalAttrs: {
+      pname = "pi-hashline-edit-pro";
+      version = "0-unstable-2026-06-18";
+      src = fetchFromGitHub {
+        owner = "YuGiMob";
+        repo = "pi-hashline-edit-pro";
+        rev = "3c6608e64a7d3342699781b0c87d6335f1b6491d";
+        hash = "sha256-bfMbiv+7jFqLPBc9qMj1eEOymxQQSR89R2T3+37Rm/Y=";
+      };
+      npmDeps = fetchNpmDeps {
+        inherit (finalAttrs) src;
+        hash = "sha256-g4bOvPnPSMPTgNDaYioNdJjJPg6Nhjzl5Y0ZYEP1MjY=";
+      };
+      nativeBuildInputs = [
+        nodejs
+        npmHooks.npmConfigHook
+      ];
+      npmInstallFlags = [
+        "--omit=dev"
+        "--omit=peer"
+      ];
+      installPhase = ''
+        runHook preInstall
+        cp -r . $out
+        runHook postInstall
+      '';
+    });
     pi-superpowers = {
       version = "0-unstable-2026-03-05";
     }
@@ -75,7 +98,7 @@ fence-agent {
       stdenv.mkDerivation {
         pname = "pi-plugin-${name}";
         version = plugin.version or "0";
-        src = plugin;
+        src = plugin.src or plugin;
       }
     ) piExtensions;
     updateScript = writeScript "update-fence-pi-plugins" ''
@@ -85,6 +108,7 @@ fence-agent {
       set -eu -o pipefail
 
       nix-update fence-pi.extensionsUpdate.pi-exa-mcp
+      nix-update fence-pi.extensionsUpdate.pi-hashline-edit-pro --version=branch
       nix-update fence-pi.extensionsUpdate.pi-superpowers --version=branch
     '';
   };
