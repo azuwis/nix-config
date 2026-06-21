@@ -18,7 +18,7 @@
 #           "reasoning": true,
 #           "input": ["text", "image"],
 #           "contextWindow": 256000,
-#           "maxTokens": 16384,
+#           "maxTokens": 32000,
 #           "compat": {
 #             "supportsDeveloperRole": false,
 #             "thinkingFormat": "qwen-chat-template"
