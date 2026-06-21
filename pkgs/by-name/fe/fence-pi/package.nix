@@ -10,16 +10,20 @@
   pi-coding-agent,
   writeScript,
   piExtensions ? {
-    pi-exa-mcp = {
-      version = "2026-06-08";
-    }
-    // fetchFromGitHub {
-      owner = "ben-vargas";
-      repo = "pi-packages";
-      tag = "2026-06-08";
-      rootDir = "packages/pi-exa-mcp";
-      hash = "sha256-Wqw+Gp7skL5S4xB9Ktq9rs6F6ulA1XAuXb9PKe2pQV0=";
-    };
+    pi-exa-mcp =
+      let
+        version = "2026-06-18";
+      in
+      {
+        inherit version;
+      }
+      // fetchFromGitHub {
+        owner = "ben-vargas";
+        repo = "pi-packages";
+        tag = version;
+        rootDir = "packages/pi-exa-mcp";
+        hash = "sha256-Wqw+Gp7skL5S4xB9Ktq9rs6F6ulA1XAuXb9PKe2pQV0=";
+      };
     pi-hashline-edit-pro = stdenv.mkDerivation (finalAttrs: {
       pname = "pi-hashline-edit-pro";
       version = "0-unstable-2026-06-21";
