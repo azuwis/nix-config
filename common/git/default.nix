@@ -51,11 +51,14 @@ in
         st = "status";
         rewind = "!f() { git update-ref refs/heads/$1 \${2:-HEAD}; }; f";
       };
-      core.excludesFile = pkgs.writeText "git-excludes-file" ''
-        .*.sw?
-        .direnv/
-        .envrc
-      '';
+      core = {
+        excludesFile = pkgs.writeText "git-excludes-file" ''
+          .*.sw?
+          .direnv/
+          .envrc
+        '';
+        quotePath = false;
+      };
       diff.algorithm = "histogram";
       rebase = {
         autosquash = true;
