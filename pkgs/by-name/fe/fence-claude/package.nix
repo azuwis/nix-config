@@ -103,11 +103,14 @@ fence-agent {
   extraPassthru = {
     pluginsUpdate = builtins.mapAttrs (
       name: plugin:
-      stdenv.mkDerivation {
-        inherit (plugin) version;
-        pname = "claude-plugin-${name}";
-        src = plugin;
-      }
+      if plugin ? src then
+        plugin
+      else
+        stdenv.mkDerivation {
+          pname = "claude-plugin-${name}";
+          version = plugin.version or "0";
+          src = plugin;
+        }
     ) claudePlugins;
     updateScript = writeScript "update-eden" ''
       #!/usr/bin/env nix-shell
