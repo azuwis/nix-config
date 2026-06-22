@@ -19,6 +19,19 @@
         tag = "v${version}";
         hash = "sha256-nuHQ+SG5UerKs334Yk5nsxHOncGXQKF1yVdnwwVpLZ8=";
       };
+    ponytail =
+      let
+        version = "4.8.0";
+      in
+      {
+        inherit version;
+      }
+      // fetchFromGitHub {
+        owner = "DietrichGebert";
+        repo = "ponytail";
+        tag = "v${version}";
+        hash = "sha256-YUHjZfCTOIWrHJUUvnuoRSNG/l7wBuMQx/EdRdbLO3w=";
+      };
     superpowers =
       let
         version = "6.0.3";
@@ -119,6 +132,7 @@ fence-agent {
       set -eu -o pipefail
 
       nix-update fence-claude.pluginsUpdate.mattpocock-skills
+      nix-update fence-claude.pluginsUpdate.ponytail
       nix-update fence-claude.pluginsUpdate.superpowers
     '';
   };
