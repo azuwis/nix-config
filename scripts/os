@@ -299,7 +299,7 @@ nixlock-column() {
 
 nixlock-format() {
   if command -v nixfmt &>/dev/null; then
-    nixfmt
+    nixfmt -
   else
     sed $'s/{ /{\\\n/g; s/}; }/};\\\n}/g; s/; /;\\\n/g' |
       sed '/^[a-z].*= {$/s/^/  /; /^};$/s/^/  /; /^[a-z].*;$/s/^/    /'
