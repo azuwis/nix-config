@@ -124,6 +124,7 @@ in
           top-p = "0.95";
           top-k = "20";
           min-p = "0.00";
+          repeat-penalty = "1.08";
           jinja = true;
           reasoning-format = "deepseek";
           # engine
