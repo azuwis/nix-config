@@ -160,10 +160,6 @@ in
         # Eden recommand xcb backend, good old fruit give black screen without it
         export QT_QPA_PLATFORM=xcb
 
-        # The wrapped sway automatically use dbus-run-session if DBUS_SESSION_BUS_ADDRESS unset
-        # https://github.com/NixOS/nixpkgs/blob/c5d2fe68dd3fdfe532d493d4fb8d169e4fe237e9/pkgs/by-name/sw/sway/package.nix#L41-L46
-        unset DBUS_SESSION_BUS_ADDRESS
-
         # The WM on real display like niri-session may import the following env vars to systemd
         # user service manager, sunshine run as systemd user service will inherit them.
         # Need to unset before calling sway/dbus-run-session, or some processes like
@@ -178,7 +174,10 @@ in
         unset XDG_VTNR
 
         export SUNSHINE_CONFIG="$1"
-        exec sway --config ${swayConfig}
+        # Use dbus-run-session explicitly to create another dbus session
+        # Check https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/by-name/sw/sway/package.nix#L35-L51
+        # for the wrapped sway script
+        exec dbus-run-session sway --config ${swayConfig}
       '';
 
       # https://docs.lizardbyte.dev/projects/sunshine/latest/md_docs_2configuration.html
@@ -192,6 +191,8 @@ in
       # Use `vainfo --display drm --device /dev/dri/renderD12x` to find out.
       # https://docs.lizardbyte.dev/projects/sunshine/latest/md_docs_2configuration.html#adapter_name
       settings = {
+        # Use wlgrab directly, skip portalgrab which needs extra setup in the headless session
+        capture = "wlr";
         channels = 2;
         fps = "[30, 60]";
         global_prep_cmd =

@@ -91,6 +91,9 @@
   # Workaround: use nvenc.
   services.sunshine.cudaSupport = true;
   services.sunshine.settings.encoder = "nvenc";
+  # Pin headless sway rendering to the same GPU via adapter_name to avoiding
+  # cross-vendor import failure: `Error: [wayland] Frame capture failed`
+  services.sunshine.settings.adapter_name = "/dev/dri/by-path/pci-0000:01:00.0-render";
   zramSwap.enable = true;
 
   # Eval time will be multiplied by specialisations count
