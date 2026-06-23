@@ -84,16 +84,17 @@
   services.sunshine.enhance = true;
   # Have to use mangohud git HEAD version, see overlays/default.nix
   services.sunshine.mangohud = true;
-  # AMD Raphael iGPU VAAPI unusable: mesa 26.x GBM allocator produces DMABUFs
-  # whose modifiers EGL import rejects with EGL_BAD_MATCH even on the same GPU.
+  # Use vaapi:
+  # Pin headless sway rendering to the same GPU via adapter_name for zero-copy and
+  # avoiding cross-vendor import failure: `Error: [wayland] Frame capture failed`
+  # Previously VAAPI was broken on mesa 26.x (EGL_BAD_MATCH even same-GPU):
   # https://github.com/LizardByte/Sunshine/issues/4100
   # services.sunshine.settings.adapter_name = "/dev/dri/by-path/pci-0000:11:00.0-render";
-  # Workaround: use nvenc.
+  # services.sunshine.settings.encoder = "vaapi";
+  # Use nvenc:
   services.sunshine.cudaSupport = true;
-  services.sunshine.settings.encoder = "nvenc";
-  # Pin headless sway rendering to the same GPU via adapter_name to avoiding
-  # cross-vendor import failure: `Error: [wayland] Frame capture failed`
   services.sunshine.settings.adapter_name = "/dev/dri/by-path/pci-0000:01:00.0-render";
+  services.sunshine.settings.encoder = "nvenc";
   zramSwap.enable = true;
 
   # Eval time will be multiplied by specialisations count
