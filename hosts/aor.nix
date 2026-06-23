@@ -89,12 +89,12 @@
   # avoiding cross-vendor import failure: `Error: [wayland] Frame capture failed`
   # Previously VAAPI was broken on mesa 26.x (EGL_BAD_MATCH even same-GPU):
   # https://github.com/LizardByte/Sunshine/issues/4100
-  # services.sunshine.settings.adapter_name = "/dev/dri/by-path/pci-0000:11:00.0-render";
-  # services.sunshine.settings.encoder = "vaapi";
+  services.sunshine.settings.adapter_name = "/dev/dri/by-path/pci-0000:11:00.0-render";
+  services.sunshine.settings.encoder = "vaapi";
   # Use nvenc:
-  services.sunshine.cudaSupport = true;
-  services.sunshine.settings.adapter_name = "/dev/dri/by-path/pci-0000:01:00.0-render";
-  services.sunshine.settings.encoder = "nvenc";
+  # services.sunshine.cudaSupport = true;
+  # services.sunshine.settings.adapter_name = "/dev/dri/by-path/pci-0000:01:00.0-render";
+  # services.sunshine.settings.encoder = "nvenc";
   zramSwap.enable = true;
 
   # Eval time will be multiplied by specialisations count
