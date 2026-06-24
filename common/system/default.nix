@@ -28,7 +28,6 @@
     # keep-outputs = true;
     log-lines = 25;
     tarball-ttl = 43200;
-    trusted-users = [ config.my.user ];
   };
   nix.package = pkgs.nix;
   time.timeZone = "Asia/Shanghai";
