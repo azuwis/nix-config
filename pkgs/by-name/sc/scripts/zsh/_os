@@ -1,0 +1,186 @@
+#compdef os
+
+zstyle ":completion:*:*:os:*" use-cache on
+
+_os() {
+  local curcontext="$curcontext" state line ret=1
+  typeset -A opt_args
+
+  _arguments -C \
+    '1: :->command' \
+    '*:: :->args' \
+    && ret=0
+
+  case "$state" in
+  command)
+    _os_subcommands && ret=0
+    ;;
+  args)
+    _os_dispatch "${line[1]}" && ret=0
+    ;;
+  esac
+
+  return ret
+}
+
+_os_subcommands() {
+  local -a cmds
+  cmds=(
+    'b:alias for build'
+    'build:build a host configuration'
+    'c:alias for clean'
+    'clean:clean broken gcroots symlinks'
+    'ci:CI build with test overrides'
+    'd:alias for diff'
+    'diff:build and show detailed diff'
+    'deploy:build and deploy to remote host'
+    'dp:alias for deploy'
+    'dg:alias for direnv-gcroots'
+    'direnv-gcroots:list all nix-direnv gcroots'
+    'dry:dry run a command'
+    'hw:alias for hardware'
+    'hardware:generate hardware config'
+    'l:alias for list'
+    'list:list system generations'
+    'lu:alias for nixlock-update'
+    'ns:alias for nixlock-show'
+    'nixlock-show:show input lock as table'
+    'r:alias for run'
+    'run:run an app'
+    's:alias for switch'
+    'switch:build and activate'
+    'slb:alias for show-local-builds'
+    'show-local-builds:show derivations built locally'
+    'u:alias for nixlock-update'
+    'update:alias for nixlock-update'
+    'nixlock-update:update input lock'
+  )
+  _describe -t commands 'os command' cmds
+}
+
+_os_dispatch() {
+  case "$1" in
+  b|build|s|switch|d|diff|l|list|ci)
+    _os_hosts
+    ;;
+  dp|deploy)
+    _arguments \
+      '-f[skip confirmation]' \
+      '::host:_os_hosts'
+    ;;
+  dry)
+    _os_dry
+    ;;
+  r|run)
+    _os_apps
+    ;;
+  u|lu|update|nixlock-update)
+    _os_inputs
+    ;;
+  slb|show-local-builds)
+    _files
+    ;;
+  esac
+}
+
+_os_dry() {
+  local curcontext="$curcontext" state line ret=1
+  typeset -A opt_args
+
+  _arguments -C \
+    '1: :->dry_command' \
+    '*:: :->dry_args' \
+    && ret=0
+
+  case "$state" in
+  dry_command)
+    local -a cmd
+    cmd=(
+      'build:dry run build'
+      'b:alias for build'
+      'switch:dry run switch'
+      's:alias for switch'
+      'diff:dry run diff'
+      'd:alias for diff'
+      'deploy:dry run deploy'
+      'dp:alias for deploy'
+      'hardware:dry run hardware config'
+      'hw:alias for hardware'
+      'ci:dry run CI build'
+    )
+    _describe -t commands 'command' cmd && ret=0
+    ;;
+  dry_args)
+    _os_dispatch "${line[1]}" && ret=0
+    ;;
+  esac
+
+  return ret
+}
+
+_os_config() {
+  if [[ -n $_os_config_cache ]]; then
+    echo "$_os_config_cache"
+    return
+  fi
+  local script last_line
+  script=${commands[os]:A}
+  last_line=${${(f)"$(<$script)"}[-1]}
+  if [[ $last_line == exec\ * ]]; then
+    script=${last_line#exec }
+    script=${script% \"\$@\"}
+    script=${script:A}
+  fi
+  _os_config_cache=${script:h:h}
+  echo "$_os_config_cache"
+}
+
+_os_hosts() {
+  local config hosts
+  config=$(_os_config)
+  hosts=(${config}/hosts/*.nix(N:t:r))
+  hosts=(${hosts:#hardware-*})
+  hosts=(${hosts:#disk-*})
+  hosts+=(droid droid-arm)
+  _describe -t hosts 'host' hosts
+}
+
+_os_apps() {
+  local config apps cache_id
+  config=$(_os_config)
+  cache_id="os-apps"
+
+  if ! _retrieve_cache "$cache_id"; then
+    apps=(${(f)"$(
+      nix-instantiate --eval --raw --expr "
+        let
+          pkgs = import $config/pkgs { };
+          inherit (pkgs) lib;
+          overlayAttrs = lib.composeManyExtensions (import $config/overlays) { } { };
+          runnable = builtins.filter (name:
+            pkgs.\${name}.meta.mainProgram or null != null
+          ) (builtins.attrNames overlayAttrs);
+          appNames = builtins.attrNames (import $config/apps { inherit pkgs; });
+        in
+        builtins.concatStringsSep \"\n\" (lib.unique (appNames ++ runnable))
+      " 2>/dev/null
+    )"})
+    _store_cache "$cache_id" apps
+  fi
+
+  _describe -t apps 'app' apps
+}
+
+_os_inputs() {
+  local config inputs
+  config=$(_os_config)
+  inputs=(${(f)"$(
+    nix-instantiate --eval --raw --expr "
+      builtins.concatStringsSep \"\n\" ([\"all\"] ++ builtins.attrNames (import $config/inputs/inputs.nix))
+    " 2>/dev/null
+  )"})
+  inputs+=(${${inputs:#all}/#/-})
+  _describe -t inputs 'input' inputs
+}
+
+_os "$@"
