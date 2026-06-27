@@ -153,7 +153,7 @@ build() {
     fi
     if [ "$DEPLOY" = true ]; then
       if [ "$OS" = nixos ]; then
-        rebuild "$ACTION" --target-host "$HOSTNAME" "$@"
+        NIX_SSHOPTS="-o Compression=yes" rebuild "$ACTION" --target-host "$HOSTNAME" "$@"
       elif [ "$OS" = openwrt ]; then
         nix --extra-experimental-features nix-command run --file "$CONFIG/flakes" "openwrtConfigurations.\"$HOSTNAME\".config.sops.sysupgrade" -- "$@"
       else
