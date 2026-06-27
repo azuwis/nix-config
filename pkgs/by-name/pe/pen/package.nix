@@ -130,7 +130,21 @@ let
     sanitized_cwd="''${PWD//\//_}"
     rootdir="$HOME/.cache/pen/$sanitized_cwd"
 
-    mkdir -p "$rootdir$HOME" "$rootdir/tmp"
+    mkdir -p "$rootdir$HOME" "$rootdir/tmp" "$rootdir/etc"
+
+    if [ ! -e "$rootdir/etc/group" ]; then
+      cat >"$rootdir/etc/group" <<EOF
+    root:x:0:
+    $(id -gn):x:$(id -g):
+    EOF
+    fi
+
+    if [ ! -e "$rootdir/etc/passwd" ]; then
+      cat >"$rootdir/etc/passwd" <<EOF
+    root:x:0:0:root:/root:/bin/sh
+    $(id -un):x:$(id -u):$(id -g):$(id -un):$HOME:/bin/sh
+    EOF
+    fi
 
     # Import closure into nix db on first run
     if [ ! -e "$rootdir/nix/var/nix/db/db.sqlite" ]; then
@@ -146,11 +160,13 @@ let
       --setenv HOME "$HOME"
       --setenv LANG "en_US.UTF-8"
       --setenv LOCALE_ARCHIVE "${glibcLocales}/lib/locale/locale-archive"
+      --setenv LOGNAME "''${LOGNAME:-$(id -un)}"
       --setenv NIX_PATH "nixpkgs=flake:nixpkgs"
       --setenv PATH "${penPath}"
       --setenv SHELL /bin/sh
       --setenv SSL_CERT_FILE "${cacert}/etc/ssl/certs/ca-bundle.crt"
       --setenv TERM "$TERM"
+      --setenv USER "''${USER:-$(id -un)}"
       --bind "$rootdir" /
       --proc /proc
       --dev /dev
