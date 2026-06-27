@@ -44,6 +44,8 @@ in
       default = "";
     };
 
+    basePackage = lib.mkPackageOption pkgs "firefox" { };
+
     settings = lib.mkOption {
       type = lib.types.attrsOf jsonFormat.type;
     };
@@ -101,7 +103,7 @@ in
             entry: "ln -s \"${entry}/${entry.extid}.xpi\" \"$libDir/distribution/extensions/\"\n"
           ) cfg.extensions;
         in
-        (pkgs.firefox.override (old: {
+        (cfg.basePackage.override (old: {
           # `programs.firefox.policies` generates `/etc/firefox/policies/policies.json`,
           # but Firefox on darwin does not read it.
           # Use `extraPolicies` to handle `programs.firefox.policies`, it will generate
