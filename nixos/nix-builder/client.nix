@@ -60,7 +60,7 @@ in
       ];
       settings = {
         builders-use-substitutes = true;
-        substituters = [ "ssh-ng://builder?compress=true" ];
+        substituters = [ "ssh-ng://builder" ];
         trusted-public-keys = [ "builder:FgfOazPpnj8isRyReiBcix6ThpZO8SPo+PrWAKinN48=" ];
       };
     };
@@ -75,6 +75,7 @@ in
         IdentityFile ${config.age.secrets.nix-ssh.path}
         Port 22
         User nix-ssh
+        Compression yes
         ControlMaster auto
         ControlPath ~/.ssh/nix-builder-%C
         ControlPersist 10s
