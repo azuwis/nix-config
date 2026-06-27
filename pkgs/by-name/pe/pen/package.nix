@@ -104,10 +104,12 @@ let
 
   penNixConf = runCommandLocal "pen-nix-conf" { } ''
     mkdir -p "$out"
+
     cat >"$out/nix.conf" <<EOF
     experimental-features = nix-command flakes
-    flake-registry = $out/registry.json
+    flake-registry =
     EOF
+
     cat >"$out/registry.json" <<EOF
     {
       "flakes": [
