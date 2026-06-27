@@ -24,7 +24,7 @@ in
       climate = [
         {
           platform = "gree2";
-          host = "192.168.2.189";
+          host = "192.168.2.188";
           scan_interval = 20;
           fake_server = "0.0.0.0";
           temp_step = 0.5;
