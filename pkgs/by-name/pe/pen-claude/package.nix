@@ -95,15 +95,33 @@ pen {
           src = plugin;
         }
     ) claudePlugins;
-    updateScript = writeScript "update-eden" ''
-      #!/usr/bin/env nix-shell
-      #!nix-shell -i bash -p nix-update
+    updateScript = {
+      command = writeScript "update-pen-claude" ''
+        #!/usr/bin/env nix-shell
+        #!nix-shell -i bash -p gawk gitMinimal nix-update
 
-      set -eu -o pipefail
+        set -euo pipefail
 
-      nix-update pen-claude.pluginsUpdate.mattpocock-skills
-      nix-update pen-claude.pluginsUpdate.ponytail
-      nix-update pen-claude.pluginsUpdate.superpowers
-    '';
+        nix-update pen-claude.pluginsUpdate.mattpocock-skills >&2
+        nix-update pen-claude.pluginsUpdate.ponytail >&2
+        nix-update pen-claude.pluginsUpdate.superpowers >&2
+
+        git diff HEAD | awk '
+          /^ +[a-z][-a-z0-9]* =$/       { name = $1 }
+          /^-\s+version =/              { split($0, a, "\""); old = a[2] }
+          /^\+\s+version =/ {
+            split($0, a, "\"")
+            if (old != a[2]) {
+              if (msg) msg = msg ", "
+              msg = msg name " " old " -> " a[2]
+            }
+          }
+          END {
+            if (!msg) print "[]"
+            else printf "[{\"commitMessage\":\"pen-claude: %s\"}]\n", msg
+          }'
+      '';
+      supportedFeatures = [ "commit" ];
+    };
   };
 }
