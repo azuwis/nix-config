@@ -24,11 +24,14 @@ in
 
       extensions = [ pkgs.vimfx ];
 
+      # https://searchfox.org/mozilla-central/source/extensions/pref/autoconfig/src/nsReadConfig.cpp#140
+      # nsReadConfig.cpp defaults sandboxEnabled by MOZ_UPDATE_CHANNEL:
+      #   true  for "release" | "beta"       (e.g. pkgs.firefox-bin)
+      #   false for "default" | "nightly"    (e.g. pkgs.firefox)
+      # Explictly set to false for vimfx
       # https://github.com/girst/LegacyFox-mirror-of-git.gir.st/blob/master/defaults/pref/config-prefs.js
-      # According to the above file, the following command is needed, but VimFx works without it in real test:
-      #
-      # echo 'pref("general.config.sandbox_enabled", false);' >> "$prefsDir/autoconfig.js"
       extraBuildCommand = ''
+        echo 'pref("general.config.sandbox_enabled", false);' >> "$prefsDir/autoconfig.js"
         ln -s ${pkgs.legacyfox}/lib/firefox/legacy $libDir/
         ln -s ${pkgs.legacyfox}/lib/firefox/legacy.manifest $libDir/
       '';
