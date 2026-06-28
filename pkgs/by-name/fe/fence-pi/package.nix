@@ -100,15 +100,33 @@ fence-agent {
           src = plugin;
         }
     ) piExtensions;
-    updateScript = writeScript "update-fence-pi-plugins" ''
-      #!/usr/bin/env nix-shell
-      #!nix-shell -i bash -p nix-update
+    updateScript = {
+      command = writeScript "update-fence-pi" ''
+        #!/usr/bin/env nix-shell
+        #!nix-shell -i bash -p gawk gitMinimal nix-update
 
-      set -eu -o pipefail
+        set -euo pipefail
 
-      nix-update fence-pi.extensionsUpdate.pi-exa-mcp
-      nix-update fence-pi.extensionsUpdate.pi-hashline-edit-pro --version=branch
-      nix-update fence-pi.extensionsUpdate.pi-superpowers --version=branch
-    '';
+        nix-update fence-pi.extensionsUpdate.pi-exa-mcp >&2
+        nix-update fence-pi.extensionsUpdate.pi-hashline-edit-pro --version=branch >&2
+        nix-update fence-pi.extensionsUpdate.pi-superpowers --version=branch >&2
+
+        git diff HEAD | awk '
+          /^ +[a-z][-a-z0-9]* =$/       { name = $1 }
+          /^-\s+version =/              { split($0, a, "\""); old = a[2] }
+          /^\+\s+version =/ {
+            split($0, a, "\"")
+            if (old != a[2]) {
+              if (msg) msg = msg ", "
+              msg = msg name " " old " -> " a[2]
+            }
+          }
+          END {
+            if (!msg) print "[]"
+            else printf "[{\"commitMessage\":\"fence-pi: %s\"}]\n", msg
+          }'
+      '';
+      supportedFeatures = [ "commit" ];
+    };
   };
 }
