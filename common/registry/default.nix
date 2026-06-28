@@ -12,10 +12,10 @@ let
   inputs' =
     lib.filterAttrs
       (
-        # Only set nix flake registry if is store path
-        # When NIXLOCK_OVERRIDE_nixpkgs is used, nixpkgs registry will be something like
-        # `path:/home/user/src/nixpkgs`, and then `nix run nixpkgs#foo` will copy the
-        # entire nixpkgs repo into nix store
+        # Only set nix flake registry if the value is a Nix store path.
+        # Non-store paths (e.g. from NIXLOCK_OVERRIDE_nixpkgs) force Nix to hash
+        # the whole source tree on each evaluation, potentially also copying it
+        # into the store.
         name: value: builtins.elem name cfg.entries && lib.isStorePath value
       )
       # NOTE: Make sure inputs are all strings, not paths, nix.registry use
@@ -57,8 +57,7 @@ in
     // builtins.mapAttrs (
       _: value:
       if builtins.isAttrs value then
-        # Add lastModified/narHash/rev extra infomations, this may avoid some Nix bugs
-        # https://github.com/NixOS/nix/issues/11228#issuecomment-2707657924
+        # Add lastModified/narHash/rev extra informations
         {
           flake = value;
         }
