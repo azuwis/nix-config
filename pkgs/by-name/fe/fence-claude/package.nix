@@ -125,15 +125,33 @@ fence-agent {
           src = plugin;
         }
     ) claudePlugins;
-    updateScript = writeScript "update-eden" ''
-      #!/usr/bin/env nix-shell
-      #!nix-shell -i bash -p nix-update
+    updateScript = {
+      command = writeScript "update-fence-claude" ''
+        #!/usr/bin/env nix-shell
+        #!nix-shell -i bash -p gawk gitMinimal nix-update
 
-      set -eu -o pipefail
+        set -euo pipefail
 
-      nix-update fence-claude.pluginsUpdate.mattpocock-skills
-      nix-update fence-claude.pluginsUpdate.ponytail
-      nix-update fence-claude.pluginsUpdate.superpowers
-    '';
+        nix-update fence-claude.pluginsUpdate.mattpocock-skills >&2
+        nix-update fence-claude.pluginsUpdate.ponytail >&2
+        nix-update fence-claude.pluginsUpdate.superpowers >&2
+
+        git diff HEAD | awk '
+          /^ +[a-z][-a-z0-9]* =$/       { name = $1 }
+          /^-\s+version =/              { split($0, a, "\""); old = a[2] }
+          /^\+\s+version =/ {
+            split($0, a, "\"")
+            if (old != a[2]) {
+              if (msg) msg = msg ", "
+              msg = msg name " " old " -> " a[2]
+            }
+          }
+          END {
+            if (!msg) print "[]"
+            else printf "[{\"commitMessage\":\"fence-claude: %s\"}]\n", msg
+          }'
+      '';
+      supportedFeatures = [ "commit" ];
+    };
   };
 }
