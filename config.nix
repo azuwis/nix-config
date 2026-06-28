@@ -27,6 +27,9 @@ in
       "tools"
       # apps/claude.nix
       "claude-code"
+      # darwin/desktop
+      "firefox-bin"
+      "firefox-bin-unwrapped"
       # nixos/retroarch
       "libretro-genesis-plus-gx"
       # pkgs/by-name/ch/chameleon-ultra-firmware
