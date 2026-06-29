@@ -21,7 +21,7 @@
       };
     ponytail =
       let
-        version = "4.8.0";
+        version = "4.8.4";
       in
       {
         inherit version;
@@ -30,7 +30,7 @@
         owner = "DietrichGebert";
         repo = "ponytail";
         tag = "v${version}";
-        hash = "sha256-YUHjZfCTOIWrHJUUvnuoRSNG/l7wBuMQx/EdRdbLO3w=";
+        hash = "sha256-1A9GkjCuiqwd6Wxl18CZUGYekxrbeTLVDapNUua8ihg=";
       };
     superpowers =
       let
