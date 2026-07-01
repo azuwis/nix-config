@@ -9,6 +9,7 @@ usage() {
 USAGE:
   $cmd b|build [<nix-build args>] [<host>]
   $cmd c|clean
+  $cmd cd|configdiff [<host1>] [<host2>] [--new-module '{ ... }'] [--old-module '{ ... }']
   $cmd d|diff [<host>]
   $cmd dp|deploy [-f] [<host>]
   $cmd hw|hardware
@@ -176,6 +177,98 @@ clean() {
       rm -v "$i"
     fi
   done
+}
+
+configdiff() {
+  local old_host new_host old_module="{ }" new_module="{ }"
+
+  while [ $# -gt 0 ]; do
+    case "$1" in
+    --old-module)
+      old_module="$2"
+      shift 2
+      ;;
+    --new-module)
+      new_module="$2"
+      shift 2
+      ;;
+    -*)
+      echoerr "Unknown flag: $1"
+      return 1
+      ;;
+    *)
+      if [ -z "$old_host" ]; then
+        old_host="$1"
+      elif [ -z "$new_host" ]; then
+        new_host="$1"
+      else
+        echoerr "Too many host arguments"
+        return 1
+      fi
+      shift
+      ;;
+    esac
+  done
+
+  if [ -z "$old_host" ]; then
+    echoerr "Usage: os configdiff <host> [<host2>] [--new-module '{ ... }'] [--old-module '{ ... }']"
+    return 1
+  fi
+
+  if [ -z "$new_host" ]; then
+    if [ "$old_module" = "{ }" ] && [ "$new_module" = "{ }" ]; then
+      echoerr "Usage: os configdiff <host> <host2>, or <host> --new-module/--old-module"
+      return 1
+    fi
+    new_host="$old_host"
+  fi
+
+  trace_cmd() {
+    local host="$1" extra_module="$2"
+    local output
+    # shellcheck disable=SC2016
+    output=$(nix-instantiate --argstr hostname "$host" --argstr flakes "$CONFIG/flakes" --arg extraModule "$extra_module" --eval --expr '
+      { hostname, flakes, extraModule }:
+      let
+        attr = import flakes;
+        os =
+          if builtins.hasAttr hostname attr.darwinConfigurations then
+            "darwin"
+          else if builtins.hasAttr hostname attr.nixosConfigurations then
+            "nixos"
+          else if builtins.hasAttr hostname attr.nixOnDroidConfigurations then
+            "droid"
+          else if builtins.hasAttr hostname attr.openwrtConfigurations then
+            "openwrt"
+          else
+            "solo";
+        config = (import (flakes + "/${os}.nix") { extraModules = [ extraModule ]; }).${hostname}.config;
+        configdiff = import (flakes + "/../lib/configdiff.nix");
+      in
+      configdiff { inherit config; }
+    ' 2>&1 >/dev/null)
+    local rc=$?
+    local traces
+    traces=$(echo "$output" | sed -n 's/^trace: CONFIGDIFF//p' | sort)
+    if [ -z "$traces" ]; then
+      echoerr "configdiff: nix-instantiate failed for host $host:"
+      echoerr "$output"
+      return 1
+    fi
+    if [ $rc -ne 0 ]; then
+      echoerr "configdiff: nix-instantiate exited non-zero for host $host, showing partial diff"
+    fi
+    echo "$traces" | jq -r '(.[0] | sub("^jobs\\."; "systemd.services.")) + " = " + .[1]'
+  }
+
+  local old_output new_output
+  old_output=$(trace_cmd "$old_host" "$old_module") || return 1
+  new_output=$(trace_cmd "$new_host" "$new_module") || return 1
+
+  diff --unified --color=always --show-function-line='^[a-z]' \
+    --label old <(echo "$old_output") \
+    --label new <(echo "$new_output") |
+    ${PAGER:-less -R}
 }
 
 darwin_switch() {
@@ -391,10 +484,12 @@ fi
 case "$action" in
 b) action="build" ;;
 c) action="clean" ;;
+cd) action="configdiff" ;;
 ci)
   CI=true
   action="build"
   ;;
+configdiff) action="configdiff" ;;
 dp | deploy)
   ASK=true
   if [ "$1" = "-f" ]; then
@@ -425,7 +520,7 @@ slb) action="show-local-builds" ;;
 esac
 
 case "$action" in
-clean | direnv-gcroots | flake-update | hardware | nixlock-show | nixlock-update | run | show-local-builds | usage)
+clean | configdiff | direnv-gcroots | flake-update | hardware | nixlock-show | nixlock-update | run | show-local-builds | usage)
   "$action" "$@"
   exit $?
   ;;
