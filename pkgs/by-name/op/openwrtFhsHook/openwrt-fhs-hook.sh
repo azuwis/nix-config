@@ -1,4 +1,4 @@
-# shellcheck shell=bash disable=2154,2329
+# shellcheck shell=bash disable=SC2154,SC2329
 
 overrideConfigurePhase() {
   openwrtConfigurePhase="$configurePhase"
