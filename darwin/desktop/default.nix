@@ -19,7 +19,6 @@ in
     # programs.hammerspoon.enable = true;
 
     programs.firefox.enhance = true;
-    programs.firefox.basePackage = pkgs.firefox-bin;
     programs.mpv.enhance = true;
     programs.rime.enable = true;
 
