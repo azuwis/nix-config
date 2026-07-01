@@ -39,7 +39,7 @@ in
         in
         termcmd;
       # Remove `Environment="PATH=..."`, so PATH imported by `systemctl --user import-environment` will be used
-      path = lib.mkForce [ ];
+      enableDefaultPath = false;
     };
 
     xdg.portal = {
