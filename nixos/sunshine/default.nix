@@ -128,17 +128,18 @@ in
     # Make avahi optional
     services.avahi.enable = lib.mkOverride 999 false;
 
-    # systemd.user.services has no `environment` option, use serviceConfig
-    systemd.user.services.sunshine.serviceConfig.Environment = [
-      "PATH=/run/wrappers/bin:/run/current-system/sw/bin"
-    ]
+    systemd.user.services.sunshine.environment = {
+      # `PATH = lib.mkForce null` in nixpkgs/nixos/modules/services/networking/sunshine.nix,
+      # need to override it using lib.mkOverride 49
+      PATH = lib.mkOverride 49 "/run/wrappers/bin:/run/current-system/sw/bin";
+    }
     # When adapter_name is set, pin headless sway's renderer to the same
     # GPU that sunshine uses for encoding. Same-GPU DMABUF import is zero-copy
     # and supports vendor-specific tiled modifiers; cross-vendor import (e.g.
     # NVIDIA -> AMD) degrades to linear or fails entirely with EGL_BAD_MATCH.
-    ++ lib.optionals (cfg.settings ? adapter_name) [
-      "WLR_RENDER_DRM_DEVICE=${cfg.settings.adapter_name}"
-    ];
+    // lib.optionalAttrs (cfg.settings ? adapter_name) {
+      WLR_RENDER_DRM_DEVICE = cfg.settings.adapter_name;
+    };
 
     services.sunshine = {
       enable = true;
