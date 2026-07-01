@@ -25,7 +25,7 @@ EOF
   exit
 }
 
-command=(nix-shell "$root/scripts/update.nix")
+command=(nix-shell "$root/lib/update.nix")
 while getopts ":aci:jhlpw:-:" opt; do
   case "$opt" in
   a) command+=(--argstr all true) ;;
@@ -48,7 +48,7 @@ done
 shift $((OPTIND - 1))
 
 if [ -n "$info" ]; then
-  output=$(nix-instantiate --eval --argstr path "$info" "$root/scripts/info.nix")
+  output=$(nix-instantiate --eval --argstr path "$info" "$root/lib/info.nix")
   output=${output#\"}
   output=${output%\"}
   echo -e -n "$output"
