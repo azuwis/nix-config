@@ -12,24 +12,16 @@ let
   cfg = config.services.hass;
 in
 {
-  imports = [
-    (lib.mkAliasOptionModule
-      [
-        "hass"
-        "automations"
-      ]
-      [
-        "environment"
-        "etc"
-        "home-assistant/automations.yaml"
-        "text"
-      ]
-    )
-  ]
-  ++ getModules [ ./. ];
+  imports = getModules [ ./. ];
 
   options.services.hass = {
     enable = mkEnableOption "hass";
+
+    automations = lib.mkOption {
+      type = lib.types.lines;
+      default = "";
+      description = "Home Assistant automations YAML content";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -51,6 +43,8 @@ in
       # zigbee2mqtt = true;
       # zigbee2mqtt-networkmap = true;
     };
+
+    environment.etc."home-assistant/automations.yaml".text = cfg.automations;
 
     # let my.user read data dir
     users.users.hass.homeMode = "0750";

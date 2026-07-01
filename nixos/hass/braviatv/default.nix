@@ -24,7 +24,7 @@ in
 
     services.home-assistant.extraPackages = ps: [ ps.pybravia ];
 
-    hass.automations = ''
+    services.hass.automations = ''
       - alias: TV living room off when light living room off
         triggers:
           - trigger: state

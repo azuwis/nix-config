@@ -13,7 +13,7 @@
         modes.dark.state-icon-active-color = "#F57F17";
       };
     };
-    hass.automations = ''
+    services.hass.automations = ''
       - alias: Theme set to custom when start
         triggers:
           - trigger: homeassistant

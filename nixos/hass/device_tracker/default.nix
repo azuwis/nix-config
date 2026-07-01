@@ -27,7 +27,7 @@ in
       }
     ];
 
-    hass.automations = ''
+    services.hass.automations = ''
       - alias: Scene primary bedroom movie on
         triggers:
           - trigger: state

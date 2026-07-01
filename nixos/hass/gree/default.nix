@@ -34,7 +34,7 @@ in
       # logger.logs."custom_components.gree.climate" = "debug";
     };
 
-    hass.automations = ''
+    services.hass.automations = ''
       - alias: Climate living room off when light living room off
         triggers:
           - trigger: state

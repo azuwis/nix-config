@@ -70,7 +70,7 @@ in
       logger.logs."custom_components.xiaomi_miot" = "critical";
     };
 
-    hass.automations = ''
+    services.hass.automations = ''
       - alias: Climate set fan speed when on
         triggers:
           - trigger: state

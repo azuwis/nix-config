@@ -17,7 +17,7 @@ in
 
   config = lib.mkIf (cfg.enable && cfg.mobile_app) {
     services.home-assistant.config.mobile_app = { };
-    hass.automations = ''
+    services.hass.automations = ''
       - alias: Mobile App run action from notification
         triggers:
           - trigger: state

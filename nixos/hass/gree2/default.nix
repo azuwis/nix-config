@@ -42,7 +42,7 @@ in
 
     networking.firewall.allowedTCPPorts = [ 1812 ];
 
-    hass.automations = ''
+    services.hass.automations = ''
       - alias: Climate living room off when light living room off
         triggers:
           - trigger: state

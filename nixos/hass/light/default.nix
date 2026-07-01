@@ -56,7 +56,7 @@
       ];
     };
 
-    hass.automations = ''
+    services.hass.automations = ''
       - alias: Light brightness
         mode: parallel
         triggers:

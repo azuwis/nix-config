@@ -71,7 +71,7 @@ in
       # logger.logs."custom_components.xiaomi_gateway3" = "debug";
     };
 
-    hass.automations = ''
+    services.hass.automations = ''
       - alias: XiaomiGateway set iptables when start
         triggers:
           - trigger: homeassistant
