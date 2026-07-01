@@ -1,3 +1,6 @@
+{
+  extraModules ? [ ],
+}:
 let
   inputs = import ../inputs { };
   lib = import ../lib;
@@ -10,7 +13,8 @@ let
       modules = [
         { _module.args = { inherit inputs pkgs; }; }
         (../hosts + "/${host}.nix")
-      ];
+      ]
+      ++ extraModules;
     };
 in
 
