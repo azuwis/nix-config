@@ -34,7 +34,7 @@
       };
     superpowers =
       let
-        version = "6.0.3";
+        version = "6.1.1";
       in
       {
         inherit version;
@@ -43,7 +43,7 @@
         owner = "obra";
         repo = "superpowers";
         tag = "v${version}";
-        hash = "sha256-+lT2a/qq0SF4k0PgnEDKiuidVlZX2p0vEso4d/5T1os=";
+        hash = "sha256-kHdQ9e44doBk2yYW88tMSCqVG8ycYcvJSZlrIziXhpA=";
       };
   },
   claudeSettings ? {
