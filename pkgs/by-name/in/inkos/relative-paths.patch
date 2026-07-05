@@ -1,0 +1,56 @@
+diff --git a/packages/core/src/agents/composer.ts b/packages/core/src/agents/composer.ts
+index b2c2ba8..85b5c8a 100644
+--- a/packages/core/src/agents/composer.ts
++++ b/packages/core/src/agents/composer.ts
+@@ -1,5 +1,5 @@
+ import { readFile, readdir, mkdir } from "node:fs/promises";
+-import { dirname, join } from "node:path";
++import { dirname, join, relative } from "node:path";
+ import { BaseAgent } from "./base.js";
+ import type { BookConfig } from "../models/book.js";
+ import {
+@@ -105,7 +105,7 @@ export async function composeGovernedChapter(input: ComposeChapterInput): Promis
+     chapterNumber: input.chapterNumber,
+     plan: input.plan,
+     contextPackage,
+-    composerInputs: [input.plan.runtimePath],
++    composerInputs: [relative(input.bookDir, input.plan.runtimePath).replaceAll("\\", "/")],
+     notes: budgeted.notes,
+   });
+   const {
+diff --git a/packages/core/src/utils/planning-materials.ts b/packages/core/src/utils/planning-materials.ts
+index e94744c..e2579b7 100644
+--- a/packages/core/src/utils/planning-materials.ts
++++ b/packages/core/src/utils/planning-materials.ts
+@@ -1,5 +1,5 @@
+ import { readFile, readdir } from "node:fs/promises";
+-import { join } from "node:path";
++import { join, relative } from "node:path";
+ import type { StoredHook, StoredSummary } from "../state/memory-db.js";
+ import {
+   parseChapterSummariesMarkdown,
+@@ -171,15 +171,15 @@ export async function gatherPlanningMaterials(params: {
+     activeHooks: memorySelection.activeHooks,
+     memorySelection,
+     plannerInputs: [
+-      join(seed.storyDir, "author_intent.md"),
+-      join(seed.storyDir, "current_focus.md"),
+-      join(seed.storyDir, "outline", "story_frame.md"),
+-      join(seed.storyDir, "outline", "volume_map.md"),
+-      join(seed.storyDir, "chapter_summaries.md"),
+-      join(seed.storyDir, "book_rules.md"),
+-      join(seed.storyDir, "current_state.md"),
+-      join(seed.storyDir, "pending_hooks.md"),
+-      ...(memorySelection.dbPath ? [memorySelection.dbPath] : []),
++      "story/author_intent.md",
++      "story/current_focus.md",
++      "story/outline/story_frame.md",
++      "story/outline/volume_map.md",
++      "story/chapter_summaries.md",
++      "story/book_rules.md",
++      "story/current_state.md",
++      "story/pending_hooks.md",
++      ...(memorySelection.dbPath ? [relative(params.bookDir, memorySelection.dbPath).replaceAll("\\", "/")] : []),
+     ],
+   };
+ }

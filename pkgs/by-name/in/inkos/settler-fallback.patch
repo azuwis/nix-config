@@ -1,0 +1,35 @@
+diff --git a/packages/core/src/agents/settler-prompts.ts b/packages/core/src/agents/settler-prompts.ts
+index 111c144..789d39b 100644
+--- a/packages/core/src/agents/settler-prompts.ts
++++ b/packages/core/src/agents/settler-prompts.ts
+@@ -156,7 +156,29 @@ function buildSettlerOutputFormat(gp: GenreProfile): string {
+ 5. 如果旧 hook 只是被提到、没有真实状态变化，把它放进 mention，不要更新 lastAdvancedChapter
+ 6. 如果本章推进了旧 hook，lastAdvancedChapter 必须等于当前章号
+ 7. 如果回收或延后 hook，必须放在 resolve / defer 数组里
+-8. chapterSummary.chapter 必须等于当前章节号`;
++8. chapterSummary.chapter 必须等于当前章节号
++
++=== UPDATED_STATE ===
++（Markdown 格式状态卡——作为 JSON delta 的回退。只输出状态表格，不要输出其他说明。）
++| 字段 | 值 |
++|------|-----|
++| 当前章节 | {chapter} |
++| 当前位置 | ... |
++| 主角状态 | ... |
++| 当前目标 | ... |
++| 当前限制 | ... |
++| 当前敌我 | ... |
++| 当前冲突 | ... |
++
++=== UPDATED_HOOKS ===
++（Markdown 格式伏笔池——作为 JSON delta 的回退。输出完整伏笔表格。）
++| hook_id | 起始章节 | 类型 | 状态 | 最近推进 | 预期回收 | 回收节奏 | 备注 |
++|---------|---------|------|------|---------|---------|---------|------|
++
++=== CHAPTER_SUMMARY ===
++（Markdown 格式章节摘要行——作为 JSON delta 的回退。）
++| 章节 | 标题 | 出场人物 | 关键事件 | 状态变化 | 伏笔动态 | 情绪基调 | 章节类型 |
++|------|------|---------|---------|---------|---------|---------|---------|`;
+ }
+ 
+ export function buildSettlerUserPrompt(params: {

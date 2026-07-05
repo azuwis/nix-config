@@ -1,0 +1,22 @@
+diff --git a/packages/core/src/agents/chapter-analyzer.ts b/packages/core/src/agents/chapter-analyzer.ts
+index 33d73d1..2f0702c 100644
+--- a/packages/core/src/agents/chapter-analyzer.ts
++++ b/packages/core/src/agents/chapter-analyzer.ts
+@@ -264,7 +264,7 @@ Use === TAG === delimiters exactly as shown:
+ (Extract or infer the chapter title. Output title text only.)
+ 
+ === CHAPTER_CONTENT ===
+-(Repeat the original chapter content exactly. Do not rewrite.)
++(Leave empty. The system already has the full chapter text — do not echo it.)
+ 
+ === PRE_WRITE_CHECK ===
+ (Leave empty in analysis mode.)
+@@ -371,7 +371,7 @@ ${bookRulesBody ? `## 本书规则\n\n${bookRulesBody}` : ""}
+ （从正文标题行提取或推断章节标题，只输出标题文字）
+ 
+ === CHAPTER_CONTENT ===
+-（原样输出正文内容，不做任何修改）
++（留空。系统已有完整正文，不需要回显。）
+ 
+ === PRE_WRITE_CHECK ===
+ （留空，分析模式不需要写作自检）

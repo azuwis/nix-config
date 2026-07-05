@@ -1,0 +1,43 @@
+diff --git a/packages/cli/src/commands/book.ts b/packages/cli/src/commands/book.ts
+index 10c7a9e..984c386 100644
+--- a/packages/cli/src/commands/book.ts
++++ b/packages/cli/src/commands/book.ts
+@@ -26,6 +26,7 @@ bookCommand
+   .option("--chapter-words <n>", "Words per chapter", "3000")
+   .option("--brief <path>", "Path to creative brief file (.md/.txt) — Architect builds from your ideas instead of generating from scratch")
+   .option("--lang <language>", "Writing language: zh (Chinese) or en (English). Defaults from genre.")
++  .option("--bare", "Create an empty book skeleton without AI-generated foundation (useful before importing existing chapters)")
+   .option("--json", "Output JSON")
+   .action(async (opts) => {
+     try {
+@@ -62,6 +63,30 @@ bookCommand
+       };
+       const language = resolveCliLanguage(book.language);
+ 
++      if (opts.bare) {
++        const state = new StateManager(root);
++        await state.saveBookConfig(bookId, book);
++        await state.saveChapterIndex(bookId, []);
++
++        if (opts.json) {
++          log(JSON.stringify({
++            bookId,
++            title: book.title,
++            genre: book.genre,
++            platform: book.platform,
++            bare: true,
++            location: `books/${bookId}/`,
++            nextStep: `inkos import chapters ${bookId} --from <path>`,
++          }, null, 2));
++        } else {
++          log(formatBookCreateCreated(language, bookId));
++          log(formatBookCreateLocation(language, bookId));
++          log(`Bare skeleton created — no AI-generated foundation.`);
++          log(`Next: inkos import chapters ${bookId} --from <your-novel.txt>`);
++        }
++        return;
++      }
++
+       if (!opts.json) log(formatBookCreateCreating(language, book.title, book.genre, book.platform));
+ 
+       const brief = opts.brief

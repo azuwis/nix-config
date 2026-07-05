@@ -28,6 +28,14 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-1ESVyjbOPrKtjCbKz+5CoXa9+KkMyooZw3xWPq6AtHU=";
   };
 
+  patches = [
+    ./relative-paths.patch
+    ./create-bare.patch
+    ./import-roles.patch
+    ./analyzer-no-echo.patch
+    ./settler-fallback.patch
+  ];
+
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     inherit pnpm;

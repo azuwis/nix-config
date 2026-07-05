@@ -1,0 +1,32 @@
+diff --git a/packages/core/src/agents/architect.ts b/packages/core/src/agents/architect.ts
+index 86ab2c9..7d69ba2 100644
+--- a/packages/core/src/agents/architect.ts
++++ b/packages/core/src/agents/architect.ts
+@@ -1060,6 +1060,13 @@ ${continuationDirective}
+ ## Output contract
+ Follow the consolidated 5-section === SECTION: === layout: story_frame, volume_map, roles, book_rules, pending_hooks. Do NOT emit rhythm_principles or current_state — rhythm principles live in the last paragraph of volume_map; character initial status lives in roles.Current_State; initial hooks live in pending_hooks start_chapter=0 rows; era / setting anchors (only when the genre pins to a real year) are woven into story_frame's world-tonal-ground paragraph.
+ 
++Within the roles section, separate each character with ---ROLE--- / ---CONTENT--- blocks:
++---ROLE---
++tier: major|minor
++name: <character name>
++---CONTENT---
++(prose character sheet: Core Tags, Contrasting Detail, Backstory, Arc (protagonist only: Start→End→Cost), Current Status, Relationship Network, Inner Drive, Growth Arc. Minor characters: Core Tags, Contrasting Detail, Current Status, Relationship with Protagonist only.)
++
+ All prose must be derived from the source package. Do not invent settings. If the package says it is compressed, treat chapter catalog + excerpts as evidence for the foundation; the full chapters will be replayed later for detailed truth files. For volume_map, treat existing chapters as "review" (one paragraph) and continuation as prose chapter-level planning. Hook extraction must be complete for the evidence provided.
+ 
+ All output MUST be written in English.`
+@@ -1081,6 +1088,13 @@ ${continuationDirective}
+ ## 输出契约
+ 合并后的 5 段 === SECTION: === 结构：story_frame / volume_map / roles / book_rules / pending_hooks。**不要输出 rhythm_principles 或 current_state 两个 section**——节奏原则合并进 volume_map 尾段，角色初始状态合并进 roles.当前现状，初始钩子写在 pending_hooks startChapter=0 行；环境/时代锚（只有年代文 / 历史同人 / 都市重生等真实年份题材需要）织进 story_frame.世界观底色，其他题材直接省略。
+ 
++在 roles 段内，每个角色用 ---ROLE--- / ---CONTENT--- 块分隔：
++---ROLE---
++tier: major|minor
++name: <角色名>
++---CONTENT---
++（散文角色卡：核心标签 / 反差细节 / 人物小传 / 主角弧线（仅主角） / 当前现状 / 关系网络 / 内在驱动 / 成长弧光。次要角色简化：核心标签 / 反差细节 / 当前现状 / 与主角关系即可。）
++
+ 所有 prose 必须从资料包中推导，不得臆造。若资料包声明为压缩包，把章节目录和正文摘录当作基础设定证据；完整章节会在后续回放阶段逐章进入 truth files。volume_map 中，已有章节作为"回顾段"（一段散文），续写部分写到章级 prose。伏笔识别以资料包提供的证据为准，尽量完整。`;
+ 
+     const userMessage = resolvedLanguage === "en"
