@@ -1,1 +1,1 @@
-import ./flakes/nixos.nix { }
+import ./flakes/nixos.nix

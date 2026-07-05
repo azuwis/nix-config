@@ -206,7 +206,7 @@ configdiff() {
             "openwrt"
           else
             "solo";
-        config = (import (flakes + "/${os}.nix") { }).${hostname}.config;
+        config = (import (flakes + "/${os}.nix")).${hostname}.config;
         configdiff = import (flakes + "/../lib/configdiff.nix");
       in
       configdiff { inherit config; }

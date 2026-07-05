@@ -1,6 +1,3 @@
-{
-  extraModules ? [ ],
-}:
 let
   inputs = import ../inputs { };
 
@@ -15,8 +12,7 @@ let
       config.imports = [
         ../droid
       ]
-      ++ modules
-      ++ extraModules;
+      ++ modules;
       # Prevent nix-on-droid from using <nixpkgs>, see nix-on-droid/modules/nixpkgs/config.nix
       isFlake = true;
     };

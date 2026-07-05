@@ -1,6 +1,3 @@
-{
-  extraModules ? [ ],
-}:
 let
   lib = import ../lib;
 
@@ -10,8 +7,7 @@ let
       class = "solo";
       modules = [
         (../hosts + "/${host}.nix")
-      ]
-      ++ extraModules;
+      ];
     };
 in
 

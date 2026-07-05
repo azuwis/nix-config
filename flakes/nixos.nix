@@ -1,6 +1,3 @@
-{
-  extraModules ? [ ],
-}:
 let
   inputs = import ../inputs { };
   nixpkgs = inputs.nixpkgs.outPath;
@@ -13,12 +10,7 @@ let
       # nixpkgs that contains it, see nixpkgs/nixos/modules/misc/nixpkgs.nix
       # for how `_module.args.pkgs` is defined
       system = null; # compatible with pure mode, system is set in hardware-*.nix
-      configuration = {
-        imports = [
-          (../hosts + "/${host}.nix")
-        ] # compatible syntax with nix 2.3
-        ++ extraModules;
-      };
+      configuration = ../hosts + "/${host}.nix"; # compatible syntax with nix 2.3
     };
 in
 
