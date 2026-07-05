@@ -9,7 +9,7 @@ usage() {
 USAGE:
   $cmd b|build [<nix-build args>] [<host>]
   $cmd c|clean
-  $cmd cd|configdiff [<host1>] [<host2>] [--new-module '{ ... }'] [--old-module '{ ... }']
+  $cmd cd|configdiff [<host1>] [<host2>]
   $cmd d|diff [<host>]
   $cmd dp|deploy [-f] [<host>]
   $cmd hw|hardware
@@ -180,47 +180,19 @@ clean() {
 }
 
 configdiff() {
-  local old_host new_host old_module="{ }" new_module="{ }"
+  local old_host="$1" new_host="$2"
 
-  while [ $# -gt 0 ]; do
-    case "$1" in
-    --old-module)
-      old_module="$2"
-      shift 2
-      ;;
-    --new-module)
-      new_module="$2"
-      shift 2
-      ;;
-    -*)
-      echoerr "Unknown flag: $1"
-      return 1
-      ;;
-    *)
-      if [ -z "$old_host" ]; then
-        old_host="$1"
-      elif [ -z "$new_host" ]; then
-        new_host="$1"
-      else
-        echoerr "Too many host arguments"
-        return 1
-      fi
-      shift
-      ;;
-    esac
-  done
-
-  if [ -z "$old_host" ]; then
-    echoerr "Usage: os configdiff <host> [<host2>] [--new-module '{ ... }'] [--old-module '{ ... }']"
+  if [ $# -gt 2 ] || [ -z "$old_host" ]; then
+    echoerr "Usage: os configdiff <host> [<host2>]"
     return 1
   fi
 
   trace_cmd() {
-    local host="$1" extra_module="$2"
+    local host="$1"
     local output
     # shellcheck disable=SC2016
-    output=$(nix-instantiate --argstr hostname "$host" --argstr flakes "$CONFIG/flakes" --arg extraModule "$extra_module" --eval --expr '
-      { hostname, flakes, extraModule }:
+    output=$(nix-instantiate --argstr hostname "$host" --argstr flakes "$CONFIG/flakes" --eval --expr '
+      { hostname, flakes }:
       let
         attr = import flakes;
         os =
@@ -234,7 +206,7 @@ configdiff() {
             "openwrt"
           else
             "solo";
-        config = (import (flakes + "/${os}.nix") { extraModules = [ extraModule ]; }).${hostname}.config;
+        config = (import (flakes + "/${os}.nix") { }).${hostname}.config;
         configdiff = import (flakes + "/../lib/configdiff.nix");
       in
       configdiff { inherit config; }
@@ -253,30 +225,23 @@ configdiff() {
     echo "$traces" | jq -r '(.[0] | sub("^jobs\\."; "systemd.services.")) + " = " + .[1]'
   }
 
-  local old_output new_output stash
+  local old_output new_output
 
   if [ -z "$new_host" ]; then
-    new_host="$old_host"
-    if [ "$old_module" = "{ }" ] && [ "$new_module" = "{ }" ]; then
-      if [ -z "$(git -C "$CONFIG" status --porcelain --untracked-files=no)" ]; then
-        echoerr "No uncommitted changes, use <host2> or --new-module/--old-module"
-        return 1
-      fi
-      git -C "$CONFIG" stash push --quiet
-      stash=1
+    if [ -z "$(git -C "$CONFIG" status --porcelain --untracked-files=no)" ]; then
+      echoerr "No uncommitted changes, use <host2> to compare two hosts"
+      return 1
     fi
-  fi
-
-  if [ "$stash" = 1 ]; then
-    old_output=$(trace_cmd "$old_host" "{ }") || {
+    git -C "$CONFIG" stash push --quiet
+    old_output=$(trace_cmd "$old_host") || {
       git -C "$CONFIG" stash pop --quiet
       return 1
     }
     git -C "$CONFIG" stash pop --quiet
-    new_output=$(trace_cmd "$old_host" "{ }") || return 1
+    new_output=$(trace_cmd "$old_host") || return 1
   else
-    old_output=$(trace_cmd "$old_host" "$old_module") || return 1
-    new_output=$(trace_cmd "$new_host" "$new_module") || return 1
+    old_output=$(trace_cmd "$old_host") || return 1
+    new_output=$(trace_cmd "$new_host") || return 1
   fi
 
   diff --unified --color=always --show-function-line='^[a-z]' \
