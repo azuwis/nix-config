@@ -215,14 +215,6 @@ configdiff() {
     return 1
   fi
 
-  if [ -z "$new_host" ]; then
-    if [ "$old_module" = "{ }" ] && [ "$new_module" = "{ }" ]; then
-      echoerr "Usage: os configdiff <host> <host2>, or <host> --new-module/--old-module"
-      return 1
-    fi
-    new_host="$old_host"
-  fi
-
   trace_cmd() {
     local host="$1" extra_module="$2"
     local output
@@ -261,9 +253,31 @@ configdiff() {
     echo "$traces" | jq -r '(.[0] | sub("^jobs\\."; "systemd.services.")) + " = " + .[1]'
   }
 
-  local old_output new_output
-  old_output=$(trace_cmd "$old_host" "$old_module") || return 1
-  new_output=$(trace_cmd "$new_host" "$new_module") || return 1
+  local old_output new_output stash
+
+  if [ -z "$new_host" ]; then
+    new_host="$old_host"
+    if [ "$old_module" = "{ }" ] && [ "$new_module" = "{ }" ]; then
+      if [ -z "$(git -C "$CONFIG" status --porcelain --untracked-files=no)" ]; then
+        echoerr "No uncommitted changes, use <host2> or --new-module/--old-module"
+        return 1
+      fi
+      git -C "$CONFIG" stash push --quiet
+      stash=1
+    fi
+  fi
+
+  if [ "$stash" = 1 ]; then
+    old_output=$(trace_cmd "$old_host" "{ }") || {
+      git -C "$CONFIG" stash pop --quiet
+      return 1
+    }
+    git -C "$CONFIG" stash pop --quiet
+    new_output=$(trace_cmd "$old_host" "{ }") || return 1
+  else
+    old_output=$(trace_cmd "$old_host" "$old_module") || return 1
+    new_output=$(trace_cmd "$new_host" "$new_module") || return 1
+  fi
 
   diff --unified --color=always --show-function-line='^[a-z]' \
     --label old <(echo "$old_output") \
