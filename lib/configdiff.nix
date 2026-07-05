@@ -8,19 +8,28 @@ let
   toPathString = path: lib.concatMapStringsSep "." toPathStringPart path;
 
   force =
-    depth: value:
+    depth: path: value:
     if depth <= 0 then
       value
     else if builtins.isAttrs value && !(value ? outPath && value ? drvPath) then
       builtins.seq (builtins.foldl' (
         acc: name:
         let
-          child = value.${name} or null;
+          childPath = path ++ [ name ];
         in
-        if child != null then (builtins.tryEval (force (depth - 1) child)).value else acc
+        # skip known nixpkgs-internal paths that crash in configdiff's eval context
+        if builtins.elem childPath evalSkipPaths then
+          acc
+        else
+          let
+            child = value.${name} or null;
+          in
+          if child != null then (builtins.tryEval (force (depth - 1) childPath child)).value else acc
       ) null (builtins.attrNames value)) value
     else if builtins.isList value then
-      builtins.seq (builtins.foldl' (acc: e: (builtins.tryEval (force depth e)).value) null value) value
+      builtins.seq (builtins.foldl' (
+        acc: e: (builtins.tryEval (force depth path e)).value
+      ) null value) value
     else
       value;
 
@@ -54,6 +63,16 @@ let
     "passthru"
     "image"
   ];
+
+  # nixpkgs-internal paths that crash in configdiff's isolated eval context
+  # (e.g. importing nixpkgs with `inherit (pkgs) system`). Add new entries
+  # here as discovered rather than skipping the entire parent attrset.
+  evalSkipPaths = [
+    [
+      "system"
+      "build"
+    ]
+  ];
 in
 
 builtins.foldl' (
@@ -65,7 +84,7 @@ builtins.foldl' (
       val = config.${name} or null;
     in
     if val != null && !(val ? outPath && val ? drvPath) && builtins.isAttrs val then
-      (builtins.tryEval (force 10 (trace [ name ] val))).value
+      (builtins.tryEval (force 10 [ name ] (trace [ name ] val))).value
     else
       acc
 ) null (builtins.attrNames config)
