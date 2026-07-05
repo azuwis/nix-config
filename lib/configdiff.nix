@@ -3,7 +3,7 @@
 let
   lib = import ./default.nix;
 
-  toPathStringPart = n: if builtins.isString n then lib.strings.escapeNixIdentifier n else "*";
+  toPathStringPart = n: if builtins.isString n then lib.strings.escapeNixIdentifier n else "[]";
 
   toPathString = path: lib.concatMapStringsSep "." toPathStringPart path;
 
