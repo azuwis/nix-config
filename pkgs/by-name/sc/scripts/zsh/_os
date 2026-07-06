@@ -29,8 +29,10 @@ _os_subcommands() {
     'b:alias for build'
     'build:build a host configuration'
     'c:alias for clean'
-    'clean:clean broken gcroots symlinks'
+    'cd:alias for configdiff'
     'ci:CI build with test overrides'
+    'clean:clean broken gcroots symlinks'
+    'configdiff:show config diff between hosts'
     'd:alias for diff'
     'diff:build and show detailed diff'
     'deploy:build and deploy to remote host'
@@ -38,6 +40,9 @@ _os_subcommands() {
     'dg:alias for direnv-gcroots'
     'direnv-gcroots:list all nix-direnv gcroots'
     'dry:dry run a command'
+    'fu:alias for flake-update'
+    'flake-update:update flake.lock (obsolete)'
+    'h:alias for usage'
     'hw:alias for hardware'
     'hardware:generate hardware config'
     'l:alias for list'
@@ -54,13 +59,14 @@ _os_subcommands() {
     'u:alias for nixlock-update'
     'update:alias for nixlock-update'
     'nixlock-update:update input lock'
+    'usage:show usage'
   )
   _describe -t commands 'os command' cmds
 }
 
 _os_dispatch() {
   case "$1" in
-  b|build|s|switch|d|diff|l|list|ci)
+  b|build|s|switch|d|diff|l|list|ci|cd|configdiff)
     _os_hosts
     ;;
   dp|deploy)
@@ -79,6 +85,8 @@ _os_dispatch() {
     ;;
   slb|show-local-builds)
     _files
+    ;;
+  fu|flake-update)
     ;;
   esac
 }
@@ -104,9 +112,13 @@ _os_dry() {
       'd:alias for diff'
       'deploy:dry run deploy'
       'dp:alias for deploy'
+      'ci:dry run CI build'
+      'list:dry run list generations'
+      'l:alias for list'
       'hardware:dry run hardware config'
       'hw:alias for hardware'
-      'ci:dry run CI build'
+      'flake-update:dry run flake update'
+      'fu:alias for flake-update'
     )
     _describe -t commands 'command' cmd && ret=0
     ;;
