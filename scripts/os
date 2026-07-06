@@ -244,10 +244,8 @@ configdiff() {
     new_output=$(trace_cmd "$new_host") || return 1
   fi
 
-  diff --unified --color=always --show-function-line='^[a-z]' \
-    --label old <(echo "$old_output") \
-    --label new <(echo "$new_output") |
-    ${PAGER:-less -R}
+  git diff --color=always --no-index --src-prefix="old: " --dst-prefix="new: " \
+    <(echo "$old_output") <(echo "$new_output") | ${PAGER:-less -R}
 }
 
 darwin_switch() {
