@@ -126,6 +126,14 @@ let
   penPath = lib.makeBinPath (penPackages ++ extraPenPackages ++ [ wrappedAgentPackage ]);
 
   # Shared bash preamble used by both the main wrapper and passthru.shell
+  #
+  # ~/.config/pen/config.json example:
+  #   {
+  #     "bind": ["~/.android"],
+  #     "ro-bind": ["~/.config/gh", ["/etc/zoneinfo/Etc/GMT-8", "/etc/localtime"]],
+  #     "setenv": [["EDITOR", true], ["GITHUB_TOKEN", "ghp_xxx"]],
+  #     "tmpfs": [["/tmp"]]
+  #   }
   penPreamble = ''
     sanitized_cwd="''${PWD//\//_}"
     rootdir="$HOME/.cache/pen/$sanitized_cwd"
@@ -199,6 +207,16 @@ let
     done
 
     bwrap_args+=(${lib.escapeShellArgs extraBwrapArgs})
+
+    if [ -e ~/.config/pen/config.json ]; then
+      eval "bwrap_args+=($(jq -r '
+        def expand: if startswith("~") then env.HOME + .[1:] else . end;
+        to_entries[] | .key as $k | .value[] |
+          if type == "string" then "--\($k)", (expand | @sh), (expand | @sh)
+          elif $k == "setenv" and .[1] == true then (.[0] as $n | env[$n] // empty | @sh "--\($k) \($n) \(.)")
+          else "--\($k)", (.[] | expand | @sh) end
+      ' ~/.config/pen/config.json))"
+    fi
   '';
 
 in
@@ -213,6 +231,7 @@ writeShellApplication {
         runtimeInputs = [
           bubblewrap
           coreutils
+          jq
           nix
         ];
         text = penPreamble + ''
@@ -228,6 +247,7 @@ writeShellApplication {
   runtimeInputs = [
     bubblewrap
     coreutils
+    jq
     nix
   ];
 
