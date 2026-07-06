@@ -13,7 +13,7 @@ Additional `hosts/` files (`hardware-*.nix`, `disk-aor.nix`) are supporting conf
 
 `desktop/` provides desktop environment configurations; use `ls desktop/` to see current modules. Imported by `nixos/` and `darwin/`.
 
-The `scripts/os` command (on PATH via `.envrc`) is the primary operational interface for all hosts.
+`scripts/os` is the primary operational interface for all hosts.
 
 Most commands have short aliases: `b` (build), `s` (switch), `d` (diff), `cd` (configdiff), `dp` (deploy), `r` (run), `l` (list), `u`/`lu` (update), `ns` (nixlock-show). `os build` and `os switch` accept extra nix-build arguments before the hostname. `os -- <args>` passes arguments directly to the underlying rebuild tool (`darwin-rebuild`, `nix-on-droid`, or `nixos-rebuild`).
 
@@ -21,37 +21,36 @@ Most commands have short aliases: `b` (build), `s` (switch), `d` (diff), `cd` (c
 
 ```bash
 # Build a host (auto-detects OS type from hostname)
-os build [<host>]                  # build only, show diff vs current system
-os switch [<host>]                 # build and activate
-os deploy [-f] [<host>]            # build and deploy to remote host (NixOS/OpenWrt), -f skips confirmation
-os diff [<host>]                   # build and show detailed diff
-os configdiff <host> [<host2>]     # diff NixOS option values between hosts (single host: diff against git HEAD)
-os run <app>                       # run an app (looked up in apps/, then pkgs/)
+./scripts/os build [<host>]                  # build only, show diff vs current system
+./scripts/os switch [<host>]                 # build and activate
+./scripts/os deploy [-f] [<host>]            # build and deploy to remote host (NixOS/OpenWrt), -f skips confirmation
+./scripts/os diff [<host>]                   # build and show detailed diff
+./scripts/os configdiff <host> [<host2>]     # diff NixOS option values between hosts (single host: diff against git HEAD)
+./scripts/os run <app>                       # run an app (looked up in apps/, then pkgs/)
 
 # Update package pins (custom input system, not flake inputs)
-os update [all] [<input>] [<input>=<rev>] [-<exclude-input>]
+./scripts/os update [all] [<input>] [<input>=<rev>] [-<exclude-input>]
 
 # Generate hardware config for current machine (NixOS only)
-os hw
+./scripts/os hw
 
 # List system generations
-os list
+./scripts/os list
 ```
 
 ### Updating custom packages
 
 ```bash
-update -la                         # list packages with update scripts
-update -a                          # update all
-update -a -c                       # update all and auto-commit
-update <package-name>              # update a single package
-update -i <path>                   # show package info (homepage, changelog, etc.)
+./scripts/update -la                         # list packages with update scripts
+./scripts/update -a                          # update all
+./scripts/update -a -c                       # update all and auto-commit
+./scripts/update <package-name>              # update a single package
 ```
 
 ### Custom input lock display
 
 ```bash
-os ns                              # show custom input lock as a table (name, date, rev, cached?, url)
+./scripts/os ns                              # show custom input lock as a table (name, date, rev, cached?, url)
 ```
 
 Renders locked input revisions using `inputs/show.nix`. This is the **custom input system** (not flake.lock).
@@ -59,14 +58,14 @@ Renders locked input revisions using `inputs/show.nix`. This is the **custom inp
 ### Obsolete commands
 
 ```bash
-os fu [<input>]                    # (obsolete) update flake.lock, no longer used; repo uses the custom input system instead
+./scripts/os fu [<input>]                    # (obsolete) update flake.lock, no longer used; repo uses the custom input system instead
 ```
 
 ### Dry run
 
 ```bash
-os dry build <host>                # show what would be built and the diff, without executing
-os dry switch <host>               # show what would be activated, without switching
+./scripts/os dry build <host>                # show what would be built and the diff, without executing
+./scripts/os dry switch <host>               # show what would be activated, without switching
 ```
 
 Prepends `Dry run:` to commands and prints them without execution. Only affects commands routed through `run_command` (the build pipeline); standalone utility commands execute normally.
@@ -74,16 +73,16 @@ Prepends `Dry run:` to commands and prints them without execution. Only affects 
 ### Other useful commands
 
 ```bash
-os c                               # clean broken gcroots symlinks
-os slb [<path>]                    # show derivations built locally (not substituted) in a closure
-os dg                              # list all nix-direnv gcroots via nix-tree
+./scripts/os c                               # clean broken gcroots symlinks
+./scripts/os slb [<path>]                    # show derivations built locally (not substituted) in a closure
+./scripts/os dg                              # list all nix-direnv gcroots via nix-tree
 ```
 
 ### solo (non-NixOS environments)
 
 ```bash
-os switch                          # auto-detects solo (any hostname not in other configuration attrsets)
-solo-shell                         # drop into a sub-shell with the solo environment
+./scripts/os switch                          # auto-detects solo (any hostname not in other configuration attrsets)
+./scripts/solo-shell                         # drop into a sub-shell with the solo environment
 ```
 
 Any hostname not found in other configuration attrsets (nixos, darwin, droid, openwrt) falls through to solo. The script then auto-detects solo vs solo-single by checking `/nix/store` ownership and sticky bit.
@@ -100,7 +99,7 @@ Configuration lives in `apps/treefmt.nix`. Uses `treefmt` with nixfmt, shfmt, st
 
 ```bash
 # CI-style build with test overrides (sets NIXLOCK_OVERRIDE_my=./test)
-os ci <host>
+./scripts/os ci <host>
 ```
 
 The `test/` directory provides a minimal `default.nix` used as an override for the `my` input during CI builds, so CI doesn't depend on private data from the real `my` input.
@@ -108,7 +107,7 @@ The `test/` directory provides a minimal `default.nix` used as an override for t
 ### Package info
 
 ```bash
-update -i <attrpath>               # show package info (homepage, changelog, git repo, description)
+./scripts/update -i <attrpath>               # show package info (homepage, changelog, git repo, description)
 ```
 
 Looks up metadata via `lib/info.nix` for a package attribute path like `nvd` or `luaPackages.lualine-nvim`.
@@ -229,10 +228,6 @@ Solo submodules live in `solo/`; use `ls solo/` to see current ones.
 The script auto-detects which variant to use: any hostname not found in other configuration attrsets falls through to solo. If no hostname was explicitly given and the hostname also isn't in `soloConfigurations`, it checks `/nix/store`: if owned by user and not sticky, solo-single; otherwise, solo. This means `os switch` on a non-NixOS machine just works without specifying a hostname. Passing an explicit hostname argument skips auto-detection and uses that configuration directly.
 
 `solo/compat/default.nix` bridges the gap between NixOS modules and non-NixOS systems: it imports selected NixOS modules and stubs out NixOS-specific options to prevent evaluation errors. It also disables `common/system/default.nix` via `disabledModules` to avoid conflicts with nixpkgs NixOS modules.
-
-### Git hooks
-
-Hook scripts live in `.githooks/` but are **not currently active**. `core.hooksPath` is configured via `.envrc`, but the hook files use descriptive suffixes (`.nix-fmt`, `.git-ni`) rather than the standard names (`pre-commit`, `pre-push`) that Git expects. To activate, strip the suffix (e.g., `pre-commit.nix-fmt` → `pre-commit`); the files are already executable. The pre-commit hook runs `treefmt` on staged files and aborts if formatting changes are needed. The pre-push hook modifies commit dates and rebases before pushing.
 
 ### CI
 
