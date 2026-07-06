@@ -15,7 +15,7 @@ Additional `hosts/` files (`hardware-*.nix`, `disk-aor.nix`) are supporting conf
 
 `scripts/os` is the primary operational interface for all hosts.
 
-Most commands have short aliases: `b` (build), `s` (switch), `d` (diff), `cd` (configdiff), `dp` (deploy), `r` (run), `l` (list), `u`/`lu` (update), `ns` (nixlock-show). `os build` and `os switch` accept extra nix-build arguments before the hostname. `os -- <args>` passes arguments directly to the underlying rebuild tool (`darwin-rebuild`, `nix-on-droid`, or `nixos-rebuild`).
+Most commands have short aliases: `b` (build), `s` (switch), `d` (diff), `cd` (configdiff), `dp` (deploy), `r` (run), `l` (list), `u`/`lu` (update), `ns` (nixlock-show), `c` (clean), `hw` (hardware), `dg` (direnv-gcroots), `slb` (show-local-builds). `os build` and `os switch` accept extra nix-build arguments before the hostname. `os -- <args>` passes arguments directly to the underlying rebuild tool (`darwin-rebuild`, `nix-on-droid`, or `nixos-rebuild`).
 
 ## Common commands
 
@@ -120,11 +120,11 @@ Host files in `hosts/` are the entry points. Except for nix-on-droid (whose conf
 
 `nixos/` imports modules from external inputs (agenix for secrets, disko for partitioning); `darwin/` imports agenix. `desktop/` is imported by `nixos/` and `darwin/`, but not by `solo/`, `droid/`, or `openwrt/`.
 
-`common/` modules are auto-discovered by `lib.my.getModules`. Each program or infrastructure concern lives in its own subdirectory with a `default.nix`. `common/default.nix` activates them via `programs.<name>.enable` flags (for programs) or equivalent enable mechanisms (for infrastructure modules). Use `ls common/` to see current modules. The only inline exception is `direnv`, configured directly in `common/default.nix` rather than a subdirectory (its config is coupled to the shell hook setup in the same file). `common/my/` provides user identity options and is the only common module imported by OpenWrt (which doesn't need desktop tools).
+`common/` modules are auto-discovered by `lib.my.getModules`. Each program or infrastructure concern lives in its own subdirectory with a `default.nix`. `common/default.nix` activates them via `programs.<name>.enable` flags (for programs) or equivalent enable mechanisms (for infrastructure modules). Use `ls common/` to see current modules. The only inline exception is `direnv`, configured directly in `common/default.nix` rather than a subdirectory (only two lines; not worth a separate module). `common/my/` provides user identity options and is the only common module imported by OpenWrt (which doesn't need desktop tools).
 
 To see current modules: `ls -d common/*/ desktop/*/`.
 
-`config.nix` holds nixpkgs configuration, used by both `pkgs/default.nix` (standalone package builds) and `common/nixpkgs/default.nix` (provides nixpkgs config to all modules). Uses `allowUnfreePredicate` with a package-name whitelist (steam, nvidia, android SDK components, etc.) instead of blanket `allowUnfree = true`. Also sets `allowAliases = false` to filter out removed packages from nixpkgs.
+`config.nix` holds nixpkgs configuration, used by both `pkgs/default.nix` (standalone package builds) and `common/nixpkgs/default.nix` (provides nixpkgs config to all modules). Uses `allowUnfreePredicate` with a package-name whitelist instead of blanket `allowUnfree = true`. Also sets `allowAliases = false` to filter out removed packages from nixpkgs.
 
 ### Input availability (two mechanisms)
 
@@ -157,6 +157,15 @@ Nested modules like `common/lazyvim/` call `getModules` themselves from their pa
 - Output uses `git diff` for consistent, colorized diff formatting
 - Excludes systemd option removals to avoid `foldl'` truncation issues
 
+### lib/update.nix (package updates)
+
+`lib/update.nix` drives the package update system invoked by `scripts/update`. It:
+- Defines per-package update instructions (fetch latest release, compute hash, write new expression)
+- Supports the `--argstr list-package`, `--argstr all`, and `--argstr package` flags documented above
+- Returns structured data consumed by `scripts/update` for branch/PR creation
+
+Run `scripts/update -la` to list packages with update scripts, or `cat lib/update.nix` to see the current update logic.
+
 ### Dependency management (inputs)
 
 This repo uses a **custom input system** rather than flake inputs for nixpkgs and other dependencies. Key files:
@@ -185,7 +194,7 @@ Both `nixos/default.nix` and `darwin/default.nix` inject version suffixes from i
 
 - `pkgs/by-name/` : packages using the nixpkgs by-name convention, loaded via upstream nixpkgs' `by-name-overlay.nix`
 - `pkgs/wallpapers/` : wallpaper collections, loaded via `packagesFromDirectoryRecursive` in `overlays/default.nix`
-- `pkgs/python/`, `pkgs/lua/`, `pkgs/vim/` : language-specific example packages (files use `.example` suffix and need renaming + overlay activation to use; the overlay loading code is commented out)
+- `pkgs/python/`, `pkgs/lua/`, `pkgs/vim/` : language-specific example packages (subdirectories with `.example`-suffixed files that need renaming + overlay activation to use; the overlay loading code is commented out)
 - `overlays/default.nix` : custom overrides for packages from various sources, plus a `wallpapers` attribute and agenix overlay import; also has commented-out lua, python, and vim package overlays
 - `overlays/jovian.nix` : per-host overlay for Jovian/Steam Deck, used only by `hosts/jovian.nix`
 - `overlays/lix.nix` : replaces packages with their Lix-built variants; currently commented out in `overlays/default.nix`
@@ -219,7 +228,7 @@ Key capabilities:
 
 Solo submodules live in `solo/`; use `ls solo/` to see current ones.
 
-**solo** : Full user environment for non-NixOS Linux. Builds from `solo/` modules and `common/`, activated via `nix-env --set` (not `nix profile`) followed by the home activation script. `solo.shell` is a wrapped zsh (set by `solo/zsh/default.nix` when `programs.zsh.enable` is true, with `ZDOTDIR` and `LOCALE_ARCHIVE` set). `solo.path` is built by `solo/environment/default.nix` using `pkgs.buildEnv` from `environment.systemPackages`. `hosts/solo.nix` uses `lib.hiPrio config.solo.shell` to prioritize the solo shell over other packages.
+**solo** : Full user environment for non-NixOS Linux. Builds from `solo/` modules and `common/`, activated via `nix-env --set` (not `nix profile`) followed by the home activation script. `solo.shell` is a wrapped shell (see `solo/zsh/default.nix`). `solo.path` is built by `solo/environment/default.nix` using `pkgs.buildEnv` from `environment.systemPackages`. `hosts/solo.nix` uses `lib.hiPrio config.solo.shell` to prioritize the solo shell over other packages.
 
 **solo-shell** : Lightweight variant that only adds `config.solo.path` to PATH, for use with `scripts/solo-shell`. Does not include the shell in `systemPackages` to avoid infinite recursion. Imports `../solo` (the solo module directory).
 
