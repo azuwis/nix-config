@@ -71,7 +71,6 @@ in
 
     cudaSupport = lib.mkEnableOption "cuda";
 
-    # MangoHud cause vulkan app to segfault as of version 0.8.1
     mangohud = lib.mkEnableOption "mangohud";
 
     mode = lib.mkOption {

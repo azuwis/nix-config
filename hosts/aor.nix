@@ -82,7 +82,6 @@
   services.evsieve.dualsense = true;
   services.scinet.enable = true;
   services.sunshine.enhance = true;
-  # Have to use mangohud git HEAD version, see overlays/default.nix
   services.sunshine.mangohud = true;
   # Use vaapi:
   # Pin headless sway rendering to the same GPU via adapter_name for zero-copy and
