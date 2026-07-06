@@ -72,6 +72,26 @@ let
       "system"
       "build"
     ]
+    [
+      "systemd"
+      "enableCgroupAccounting"
+    ]
+    [
+      "systemd"
+      "enableUnifiedCgroupHierarchy"
+    ]
+    [
+      "systemd"
+      "extraConfig"
+    ]
+    [
+      "systemd"
+      "generator-packages"
+    ]
+    [
+      "systemd"
+      "watchdog"
+    ]
   ];
 in
 
