@@ -15,7 +15,7 @@ Additional `hosts/` files (`hardware-*.nix`, `disk-aor.nix`) are supporting conf
 
 The `scripts/os` command (on PATH via `.envrc`) is the primary operational interface for all hosts.
 
-Most commands have short aliases: `b` (build), `s` (switch), `d` (diff), `dp` (deploy), `r` (run), `l` (list), `u`/`lu` (update), `ns` (nixlock-show). `os build` and `os switch` accept extra nix-build arguments before the hostname. `os -- <args>` passes arguments directly to the underlying rebuild tool (`darwin-rebuild`, `nix-on-droid`, or `nixos-rebuild`).
+Most commands have short aliases: `b` (build), `s` (switch), `d` (diff), `cd` (configdiff), `dp` (deploy), `r` (run), `l` (list), `u`/`lu` (update), `ns` (nixlock-show). `os build` and `os switch` accept extra nix-build arguments before the hostname. `os -- <args>` passes arguments directly to the underlying rebuild tool (`darwin-rebuild`, `nix-on-droid`, or `nixos-rebuild`).
 
 ## Common commands
 
@@ -25,6 +25,7 @@ os build [<host>]                  # build only, show diff vs current system
 os switch [<host>]                 # build and activate
 os deploy [-f] [<host>]            # build and deploy to remote host (NixOS/OpenWrt), -f skips confirmation
 os diff [<host>]                   # build and show detailed diff
+os configdiff <host> [<host2>]     # diff NixOS option values between hosts (single host: diff against git HEAD)
 os run <app>                       # run an app (looked up in apps/, then pkgs/)
 
 # Update package pins (custom input system, not flake inputs)
@@ -110,7 +111,7 @@ The `test/` directory provides a minimal `default.nix` used as an override for t
 update -i <attrpath>               # show package info (homepage, changelog, git repo, description)
 ```
 
-Looks up metadata via `scripts/info.nix` for a package attribute path like `nvd` or `luaPackages.lualine-nvim`.
+Looks up metadata via `lib/info.nix` for a package attribute path like `nvd` or `luaPackages.lualine-nvim`.
 
 ## Architecture
 
@@ -146,7 +147,16 @@ Other OS types use different strategies: OpenWrt passes inputs via `_module.args
 - `getHmModules` : same but for `home.nix` (currently unused)
 - `mkReplaceStringsModule` : creates a module that replaces strings in an existing module file (e.g., removing unwanted packages from system-path.nix)
 
-Nested modules like `nixos/hass/acpartner/` and `common/lazyvim/` call `getModules` themselves from their parent `default.nix`. This recursive pattern enables deep module trees without explicit import lists.
+Nested modules like `common/lazyvim/` call `getModules` themselves from their parent `default.nix`, discovering their own sub-modules (ansible/, bash/, custom/, etc.). This recursive pattern enables deep module trees without explicit import lists.
+
+### lib/configdiff.nix (configuration diff)
+
+`lib/configdiff.nix` provides NixOS option-level diffing between hosts. Called by `os configdiff` (`os cd`), it:
+- Deep-evaluates all options via `force()` to produce a sorted key=value listing
+- Uses `evalSkipPaths` to avoid crashing on known nixpkgs-internal paths
+- Supports two modes: single host (diffs against git HEAD's version of the same host) and two-host comparison
+- Output uses `git diff` for consistent, colorized diff formatting
+- Excludes systemd option removals to avoid `foldl'` truncation issues
 
 ### Dependency management (inputs)
 
