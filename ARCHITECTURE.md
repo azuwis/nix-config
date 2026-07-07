@@ -17,6 +17,16 @@ Additional `hosts/` files (`hardware-*.nix`, `disk-aor.nix`) are supporting conf
 
 Most commands have short aliases: `b` (build), `s` (switch), `d` (diff), `cd` (configdiff), `dp` (deploy), `r` (run), `l` (list), `u`/`lu` (update), `ns` (nixlock-show), `c` (clean), `hw` (hardware), `dg` (direnv-gcroots), `slb` (show-local-builds). `os build` and `os switch` accept extra nix-build arguments before the hostname. `os -- <args>` passes arguments directly to the underlying rebuild tool (`darwin-rebuild`, `nix-on-droid`, or `nixos-rebuild`).
 
+## Before committing
+
+After modifying any code, run the formatter:
+
+```bash
+./scripts/os run treefmt
+```
+
+Configuration lives in `apps/treefmt.nix`. Uses `treefmt` with nixfmt, shfmt, stylua, and yamlfmt.
+
 ## Common commands
 
 ```bash
@@ -86,14 +96,6 @@ Prepends `Dry run:` to commands and prints them without execution. Only affects 
 ```
 
 Any hostname not found in other configuration attrsets (nixos, darwin, droid, openwrt) falls through to solo. The script then auto-detects solo vs solo-single by checking `/nix/store` ownership and sticky bit.
-
-### Formatting
-
-```bash
-os run treefmt
-```
-
-Configuration lives in `apps/treefmt.nix`. Uses `treefmt` with nixfmt, shfmt, stylua, and yamlfmt. Excludes lock files, patches, `.gitignore`, and hardware configs. Tree root is detected via `shell.nix`.
 
 ### Testing
 
