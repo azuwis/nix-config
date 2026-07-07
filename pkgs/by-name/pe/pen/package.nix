@@ -206,6 +206,13 @@ let
       fi
     done
 
+    # ro-bind .git/config and .git/hooks if present, to prevent agent from tampering
+    for gitfile in .git/config .git/hooks; do
+      if [ -e "$gitfile" ]; then
+        bwrap_args+=(--ro-bind "$PWD/$gitfile" "$PWD/$gitfile")
+      fi
+    done
+
     bwrap_args+=(${lib.escapeShellArgs extraBwrapArgs})
 
     if [ -e ~/.config/pen/config.json ]; then
