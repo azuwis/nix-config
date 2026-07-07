@@ -12,6 +12,20 @@ in
   (import (inputs.nixpkgs.outPath + "/pkgs/top-level/by-name-overlay.nix") ../pkgs/by-name)
 
   (final: prev: {
+    # https://github.com/NixOS/nixpkgs/blob/master/pkgs/by-name/cl/claude-code/manifest.json
+    claude-code = prev.claude-code.overrideAttrs (old: {
+      version = "2.1.202";
+      src = old.src.overrideAttrs {
+        outputHashAlgo = "sha256";
+        outputHash =
+          {
+            aarch64-darwin = "7414f707861e2fe5afef33a466f888a8d2170e5028f5e9d2858f1d3ef45ffca5";
+            x86_64-linux = "71590202249892db3805ecd5b867f831f04b8129eaabd3f9a5bd4ba16b52c839";
+          }
+          .${final.stdenv.system};
+      };
+    });
+
     # disable fcitx5-configtool and fcitx5-qt5
     qt6Packages = prev.qt6Packages.overrideScope (
       qt6final: qt6prev: {
