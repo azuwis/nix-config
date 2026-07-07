@@ -199,6 +199,15 @@ Both `nixos/default.nix` and `darwin/default.nix` inject version suffixes from i
 - `overlays/jovian.nix` : per-host overlay for Jovian/Steam Deck, used only by `hosts/jovian.nix`
 - `overlays/lix.nix` : replaces packages with their Lix-built variants; currently commented out in `overlays/default.nix`
 
+### `runCommandLocal` vs `runCommand`
+
+`runCommandLocal` = `runCommand` + `preferLocalBuild = true` + `allowSubstitutes = false`. Use this rule:
+
+- **`runCommandLocal`** for instantaneous derivations (sed, ln, makeWrapper, cp, echo, mkdir -- under ~0.1s). Even when a substitute exists in cache, the network round-trip costs more than just rebuilding locally.
+- **`runCommand`** for derivations with real computation (ImageMagick rendering, `nps --refresh`, etc.) -- the remote builder and caches handle distribution.
+
+To find current patterns to follow: `grep -r runCommandLocal pkgs/ --include='*.nix'` and `grep -r '\brunCommand\b' nixos/ --include='*.nix'` (the few remaining `runCommand` calls in `nixos/` are the heavy ones).
+
 ### The `scripts/os` script
 
 The main operational script. It:
