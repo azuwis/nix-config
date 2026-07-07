@@ -234,7 +234,7 @@ in
               let
                 image = pkgs.fetchurl { inherit url hash; };
               in
-              pkgs.runCommand "${lib.nameFromURL url "."}.png" { preferLocalBuild = true; } ''
+              pkgs.runCommand "${lib.nameFromURL url "."}.png" { } ''
                 ${pkgs.imagemagick}/bin/magick -density 1200 -background none ${image} -resize ${resize} -gravity center -extent 600x800 $out
               '';
             mkCemu =

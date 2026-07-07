@@ -11,10 +11,9 @@ let
 
   # Wrap nix-locate to use full database, nix-locate-small to use small database
   nix-index =
-    pkgs.runCommand "nix-index"
+    pkgs.runCommandLocal "nix-index"
       {
         buildInputs = [ pkgs.makeWrapper ];
-        preferLocalBuild = true;
       }
       ''
         mkdir -p $out/etc/profile.d $out/share/misc/full $out/share/misc/small

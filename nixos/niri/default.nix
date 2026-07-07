@@ -75,21 +75,19 @@ in
     );
 
     # https://github.com/niri-wm/niri/raw/refs/tags/v26.04/resources/default-config.kdl
-    environment.etc."niri/config.kdl".source =
-      pkgs.runCommand "niri-default-config.kdl" { preferLocalBuild = true; }
-        ''
-          sed \
-            -e '/ Mod+T /d' \
-            -e '/spawn-at-startup "waybar"/d' \
-            -e '/+WheelScroll/d' \
-            -e '$a\\ninclude "custom.kdl"' \
-            ${./default-config.kdl} > $out
-        '';
+    environment.etc."niri/config.kdl".source = pkgs.runCommandLocal "niri-default-config.kdl" { } ''
+      sed \
+        -e '/ Mod+T /d' \
+        -e '/spawn-at-startup "waybar"/d' \
+        -e '/+WheelScroll/d' \
+        -e '$a\\ninclude "custom.kdl"' \
+        ${./default-config.kdl} > $out
+    '';
 
     environment.etc."niri/custom.kdl".source = pkgs.replaceVars ./custom.kdl {
       inherit (cfg) extraConfig;
       wallpaper = pkgs.wallpapers.default;
-      wallpaper-blur = pkgs.runCommand "wallpaper-blur.jpg" { preferLocalBuild = true; } ''
+      wallpaper-blur = pkgs.runCommand "wallpaper-blur.jpg" { } ''
         ${lib.getExe pkgs.imagemagick} ${pkgs.wallpapers.default} -blur 0x12 $out
       '';
       input_mouse = lib.concatStringsSep "\n        " cfg.settings.input.mouse;

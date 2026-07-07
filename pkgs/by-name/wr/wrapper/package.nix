@@ -1,6 +1,6 @@
 {
   lib,
-  runCommand,
+  runCommandLocal,
   makeBinaryWrapper,
   makeWrapper,
 }:
@@ -32,7 +32,7 @@ let
     ++ wrapperArgs;
 in
 
-runCommand package.name
+runCommandLocal package.name
   {
     inherit (package) pname version;
 
@@ -44,8 +44,6 @@ runCommand package.name
       "out"
     ]
     ++ (lib.optional hasMan "man");
-
-    preferLocalBuild = true;
 
     meta = (package.meta or { }) // {
       outputsToInstall = [

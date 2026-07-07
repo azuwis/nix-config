@@ -26,7 +26,7 @@ in
     systemd.services.shadowsocks-rust =
       let
         # https://en.wikipedia.org/wiki/Reserved_IP_addresses
-        setupNftables = pkgs.runCommand "shadowsocks-rust-setup-nftables" { preferLocalBuild = true; } ''
+        setupNftables = pkgs.runCommandLocal "shadowsocks-rust-setup-nftables" { } ''
           cat <<EOF >$out
           #! ${pkgs.nftables}/bin/nft -f
           include "${clearNftables}"

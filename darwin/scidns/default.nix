@@ -9,7 +9,7 @@ let
   inherit (lib) mkIf mkOption types;
   cfg = config.services.scidns;
   localDomains = pkgs.chndomains;
-  scidnsConf = pkgs.runCommand "scidns.conf" { preferLocalBuild = true; } ''
+  scidnsConf = pkgs.runCommandLocal "scidns.conf" { } ''
     sed -e 's,^,server=/,' -e 's,$,/${cfg.local.bind}#${toString cfg.local.port},' ${localDomains} >$out
   '';
   scidnsResolvScript = pkgs.replaceVarsWith {

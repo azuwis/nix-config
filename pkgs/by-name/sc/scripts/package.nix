@@ -1,11 +1,11 @@
-{ runCommand, ... }:
+{ runCommandLocal, ... }:
 
 let
   bin = ./bin;
   zsh = ./zsh;
 in
 
-runCommand "scripts" { preferLocalBuild = true; } ''
+runCommandLocal "scripts" { } ''
   mkdir -p $out/bin $out/share/zsh/site-functions
   cp ${bin}/* $out/bin
   chmod +x $out/bin/*

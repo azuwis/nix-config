@@ -2,7 +2,7 @@
   lib,
   stdenv,
   makeWrapper,
-  runCommand,
+  runCommandLocal,
   writeShellApplication,
   bash,
   cacert,
@@ -68,13 +68,12 @@ let
     if agentWrapperArgs == [ ] then
       agentPackage
     else
-      runCommand agentPackage.name
+      runCommandLocal agentPackage.name
         {
           inherit (agentPackage) meta;
           nativeBuildInputs = [
             makeWrapper
           ];
-          preferLocalBuild = true;
         }
         ''
           exe="${lib.getExe agentPackage}"
@@ -85,11 +84,10 @@ let
   allFencePackages = fencePackages ++ extraFencePackages ++ [ wrappedAgentPackage ];
 
   fenceSettings =
-    runCommand "fence.json"
+    runCommandLocal "fence.json"
       {
         __structuredAttrs = true;
         nativeBuildInputs = [ jq ];
-        preferLocalBuild = true;
 
         exportReferencesGraph.closure = allFencePackages ++ extraClosurePackages ++ [ fenceShell ];
 
@@ -156,12 +154,11 @@ let
     ];
 
   fenceShell =
-    runCommand "fence-shell"
+    runCommandLocal "fence-shell"
       {
         nativeBuildInputs = [
           makeWrapper
         ];
-        preferLocalBuild = true;
       }
       (
         ''

@@ -27,7 +27,6 @@ let
           pkgs.nix
           pkgs.writableTmpDirAsHomeHook
         ];
-        preferLocalBuild = true;
       }
       ''
         export NIX_CONF_DIR="$HOME/nix/conf"
@@ -64,13 +63,12 @@ let
       '';
 
   npsWrapped =
-    pkgs.runCommand "nps-wrapped"
+    pkgs.runCommandLocal "nps-wrapped"
       {
         inherit (cfg.package) meta;
         nativeBuildInputs = [
           pkgs.makeWrapper
         ];
-        preferLocalBuild = true;
       }
       ''
         exe="${lib.getExe cfg.package}"

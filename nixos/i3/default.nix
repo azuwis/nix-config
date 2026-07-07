@@ -63,7 +63,7 @@ in
       security.rtkit.enable = lib.mkDefault config.services.pipewire.enable;
 
       environment.systemPackages = with pkgs; [
-        (runCommand "rofi-dmenu" { preferLocalBuild = true; } ''
+        (runCommandLocal "rofi-dmenu" { } ''
           mkdir -p $out/bin
           ln -s ${rofi}/bin/rofi $out/bin/dmenu
         '')
