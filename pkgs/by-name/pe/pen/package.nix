@@ -25,6 +25,8 @@
   nix,
   python3,
   ripgrep,
+  socat,
+  tinyproxy,
   tinyxxd,
   unzip,
   which,
@@ -54,6 +56,7 @@
     nix
     python3
     ripgrep
+    socat
     tinyxxd
     unzip
     which
@@ -98,8 +101,19 @@ let
       ++ [
         glibcLocales
         nixpkgs
+        penInit
         wrappedAgentPackage
       ];
+  };
+
+  penInit = writeShellApplication {
+    name = "pen-init";
+    text = ''
+      if [ -n "$http_proxy" ]; then
+        socat TCP-LISTEN:8888,bind=127.0.0.1,fork UNIX-CONNECT:/tmp/proxy.sock 2>/dev/null &
+      fi
+      exec "$@"
+    '';
   };
 
   penNixConf = runCommandLocal "pen-nix-conf" { } ''
@@ -136,7 +150,8 @@ let
   #   }
   penPreamble = ''
     sanitized_cwd="''${PWD//\//_}"
-    rootdir="$HOME/.cache/pen/$sanitized_cwd"
+    cachedir="$HOME/.cache/pen/$sanitized_cwd"
+    rootdir="$cachedir/rootfs"
 
     mkdir -p "$rootdir$HOME" "$rootdir/tmp" "$rootdir/etc"
 
@@ -162,7 +177,6 @@ let
     bwrap_args+=(
       --die-with-parent
       --unshare-all
-      --share-net
       --hostname pen
       --clearenv
       --setenv HOME "$HOME"
@@ -182,7 +196,6 @@ let
       --ro-bind /etc/hosts /etc/hosts
       --ro-bind /etc/localtime /etc/localtime
       --ro-bind /etc/nsswitch.conf /etc/nsswitch.conf
-      --ro-bind /etc/resolv.conf /etc/resolv.conf
       --ro-bind-try /etc/gitconfig /etc/gitconfig
       --symlink "${lib.getExe bash}" /bin/sh
       --symlink "${lib.getExe' coreutils "env"}" /usr/bin/env
@@ -224,6 +237,56 @@ let
           else "--\($k)", (.[] | expand | @sh) end
       ' ~/.config/pen/config.json))"
     fi
+
+    # Network isolation
+    if [ -f ~/.config/pen/tinyproxy.filter ]; then
+      proxydir="$cachedir/tinyproxy"
+      mkdir -p "$proxydir"
+      started=
+      for _ in {1..5}; do
+        tinyproxy_port=$(( 61000 + RANDOM % 4536 ))
+
+        cat >"$proxydir/tinyproxy.conf" <<EOF
+    Port $tinyproxy_port
+    Listen 127.0.0.1
+    Filter "$HOME/.config/pen/tinyproxy.filter"
+    FilterDefaultDeny Yes
+    FilterType fnmatch
+    FilterURLs On
+    DisableViaHeader Yes
+    LogFile "$proxydir/tinyproxy.log"
+    LogLevel Connect
+    EOF
+
+        tinyproxy -d -c "$proxydir/tinyproxy.conf" &
+        tinyproxy_pid=$!
+        sleep 0.1
+        if kill -0 $tinyproxy_pid 2>/dev/null; then
+          started=1
+          break
+        fi
+      done
+
+      if [ -z "$started" ]; then
+        echo "pen: tinyproxy failed to start after 5 retries, check log at $proxydir/tinyproxy.log" >&2
+        exit 1
+      fi
+
+      socat UNIX-LISTEN:"$proxydir/proxy-$$.sock",unlink-early,fork TCP:127.0.0.1:"$tinyproxy_port" 2>/dev/null &
+      socat_pid=$!
+
+      trap 'kill $tinyproxy_pid $socat_pid 2>/dev/null' EXIT
+      bwrap_args+=(
+        --bind "$proxydir/proxy-$$.sock" /tmp/proxy.sock
+        --setenv http_proxy "http://127.0.0.1:8888"
+        --setenv https_proxy "http://127.0.0.1:8888"
+      )
+    else
+      bwrap_args+=(
+        --share-net
+        --ro-bind /etc/resolv.conf /etc/resolv.conf
+      )
+    fi
   '';
 
 in
@@ -240,9 +303,11 @@ writeShellApplication {
           coreutils
           jq
           nix
+          socat
+          tinyproxy
         ];
         text = penPreamble + ''
-          bwrap "''${bwrap_args[@]}" -- ${lib.getExe bash} --norc "$@"
+          bwrap "''${bwrap_args[@]}" -- ${lib.getExe penInit} ${lib.getExe bash} --norc "$@"
         '';
       };
     }
@@ -256,6 +321,8 @@ writeShellApplication {
     coreutils
     jq
     nix
+    socat
+    tinyproxy
   ];
 
   text = penPreamble + ''
@@ -275,7 +342,7 @@ writeShellApplication {
       fi
     done
 
-    exec bwrap "''${bwrap_args[@]}" "''${bwrap_extra_args[@]}" -- \
-      ${lib.getExe wrappedAgentPackage} "''${agent_args[@]}"
+    bwrap "''${bwrap_args[@]}" "''${bwrap_extra_args[@]}" -- \
+      ${lib.getExe penInit} ${lib.getExe wrappedAgentPackage} "''${agent_args[@]}"
   '';
 }
