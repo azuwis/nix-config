@@ -289,23 +289,24 @@ let
     fi
   '';
 
+  runtimeInputs = [
+    bubblewrap
+    coreutils
+    jq
+    nix
+    socat
+    tinyproxy
+  ];
 in
 
 writeShellApplication {
-  inherit name;
+  inherit name runtimeInputs;
   derivationArgs = {
     passthru = {
       shell = writeShellApplication {
+        inherit runtimeInputs;
         name = "pen-shell";
         derivationArgs.preferLocalBuild = true;
-        runtimeInputs = [
-          bubblewrap
-          coreutils
-          jq
-          nix
-          socat
-          tinyproxy
-        ];
         text = penPreamble + ''
           bwrap "''${bwrap_args[@]}" -- ${lib.getExe penInit} ${lib.getExe bash} --norc "$@"
         '';
@@ -315,15 +316,6 @@ writeShellApplication {
     preferLocalBuild = true;
     meta.platforms = lib.platforms.linux;
   };
-
-  runtimeInputs = [
-    bubblewrap
-    coreutils
-    jq
-    nix
-    socat
-    tinyproxy
-  ];
 
   text = penPreamble + ''
     # Separate --agent args -- --bwrap args
