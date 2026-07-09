@@ -1,0 +1,16 @@
+[[actions]]
+name = "ni"
+lua = '''
+local checked = context.checked_change_ids()
+local revsets = table.concat(checked, " | ")
+local output, err = jj("ni", revsets)
+if err then
+  flash({ text = err, error = true })
+elseif output and #output > 0 then
+  flash(output)
+end
+jjui.revisions.refresh()
+'''
+key = "N"
+scope = "revisions"
+desc = "ni"

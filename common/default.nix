@@ -23,6 +23,7 @@ in
   programs.editorconfig.enable = true;
   programs.git.enhance = true;
   programs.jujutsu.enable = true;
+  programs.jjui.enable = true;
   programs.lazyvim.ansible.enable = true;
   programs.lazyvim.bash.enable = true;
   programs.lazyvim.custom.enable = true;
