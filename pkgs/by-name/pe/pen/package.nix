@@ -175,7 +175,7 @@ let
       NIX_STATE_DIR="$rootdir/nix/var/nix" nix-store --load-db < "${penClosure}/registration"
     fi
 
-    bwrap_args+=(
+    bwrap_args=(
       --die-with-parent
       --unshare-all
       --hostname pen
@@ -196,7 +196,6 @@ let
       --ro-bind "${penNixConf}" /etc/nix
       --ro-bind /etc/hosts /etc/hosts
       --ro-bind /etc/localtime /etc/localtime
-      --ro-bind /etc/nsswitch.conf /etc/nsswitch.conf
       --ro-bind-try /etc/gitconfig /etc/gitconfig
       --symlink "${lib.getExe bash}" /bin/sh
       --symlink "${lib.getExe' coreutils "env"}" /usr/bin/env
