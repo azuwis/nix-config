@@ -249,6 +249,7 @@ let
         --share-net
         --clearenv
         --ro-bind /etc/hosts /etc/hosts
+        --ro-bind /etc/localtime /etc/localtime
         --ro-bind /etc/resolv.conf /etc/resolv.conf
         --bind "$proxydir" "$proxydir"
         --ro-bind ~/.config/pen/tinyproxy.filter ~/.config/pen/tinyproxy.filter
