@@ -78,7 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru.flasher =
     let
-      closureInfo = writeClosure [
+      flasherClosure = writeClosure [
         finalAttrs.finalPackage
         nrfutil'
       ];
@@ -104,10 +104,9 @@ stdenv.mkDerivation (finalAttrs: {
         for path in /dev/ttyACM*; do
           BWRAP_ARGS+=(--dev-bind "$path" "$path")
         done
-        mapfile -t paths <${closureInfo}
-        for path in "''${paths[@]}"; do
+        while IFS= read -r path; do
           BWRAP_ARGS+=(--ro-bind "$path" "$path")
-        done
+        done < ${flasherClosure}
         ${lib.getExe bubblewrap} "''${BWRAP_ARGS[@]}" -- ${lib.getExe nrfutil'} device program \
           --firmware "${finalAttrs.finalPackage}/${deviceType}-dfu-app.zip" --traits nordicDfu
       '';
