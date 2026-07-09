@@ -1,5 +1,6 @@
 {
   lib,
+  buildEnv,
   writeShellApplication,
   bubblewrap,
   closureInfo,
@@ -95,16 +96,18 @@ let
     };
 
   penClosure = closureInfo {
-    rootPaths =
-      penPackages
-      ++ extraPenPackages
-      ++ extraClosurePackages
-      ++ [
-        glibcLocales
-        nixpkgs
-        penInit
-        wrappedAgentPackage
-      ];
+    rootPaths = extraClosurePackages ++ [
+      glibcLocales
+      nixpkgs
+      penEnv
+      penInit
+    ];
+  };
+
+  penEnv = buildEnv {
+    name = "pen-env";
+    paths = penPackages ++ extraPenPackages ++ [ wrappedAgentPackage ];
+    pathsToLink = [ "/bin" ];
   };
 
   penInit = writeShellApplication {
@@ -137,8 +140,6 @@ let
     }
     EOF
   '';
-
-  penPath = lib.makeBinPath (penPackages ++ extraPenPackages ++ [ wrappedAgentPackage ]);
 
   # Shared bash preamble used by both the main wrapper and passthru.shell
   #
@@ -185,7 +186,7 @@ let
       --setenv LOCALE_ARCHIVE "${glibcLocales}/lib/locale/locale-archive"
       --setenv LOGNAME "''${LOGNAME:-$(id -un)}"
       --setenv NIX_PATH "nixpkgs=flake:nixpkgs"
-      --setenv PATH "${penPath}"
+      --setenv PATH /usr/bin
       --setenv SHELL /bin/sh
       --setenv SSL_CERT_FILE "${cacert}/etc/ssl/certs/ca-bundle.crt"
       --setenv TERM "$TERM"
@@ -193,12 +194,12 @@ let
       --bind "$rootdir" /
       --proc /proc
       --dev /dev
+      --ro-bind "${penEnv}" /usr
       --ro-bind "${penNixConf}" /etc/nix
       --ro-bind /etc/hosts /etc/hosts
       --ro-bind /etc/localtime /etc/localtime
       --ro-bind-try /etc/gitconfig /etc/gitconfig
       --symlink "${lib.getExe bash}" /bin/sh
-      --symlink "${lib.getExe' coreutils "env"}" /usr/bin/env
     )
 
     [ -n "''${COLORTERM:-}" ] && bwrap_args+=(--setenv COLORTERM "$COLORTERM")
