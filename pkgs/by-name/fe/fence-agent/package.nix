@@ -1,5 +1,6 @@
 {
   lib,
+  buildEnv,
   stdenv,
   makeWrapper,
   runCommandLocal,
@@ -81,7 +82,11 @@ let
             ${lib.escapeShellArgs agentWrapperArgs}
         '';
 
-  allFencePackages = fencePackages ++ extraFencePackages ++ [ wrappedAgentPackage ];
+  fenceEnv = buildEnv {
+    name = "fence-env";
+    paths = fencePackages ++ extraFencePackages ++ [ wrappedAgentPackage ];
+    pathsToLink = [ "/bin" ];
+  };
 
   fenceSettings =
     runCommandLocal "fence.json"
@@ -89,7 +94,11 @@ let
         __structuredAttrs = true;
         nativeBuildInputs = [ jq ];
 
-        exportReferencesGraph.closure = allFencePackages ++ extraClosurePackages ++ [ fenceShell ];
+        exportReferencesGraph.closure = [
+          fenceEnv
+          fenceShell
+        ]
+        ++ extraClosurePackages;
 
         # https://github.com/Use-Tusk/fence/blob/main/docs/configuration.md
         # https://github.com/Use-Tusk/fence/tree/main/internal/templates
@@ -147,7 +156,7 @@ let
       "${cacert}/etc/ssl/certs/ca-bundle.crt"
       "--set"
       "PATH"
-      "${lib.makeBinPath allFencePackages}"
+      "/usr/bin"
       "--set"
       "SHELL"
       "${lib.getExe bash}"
@@ -169,10 +178,10 @@ let
           makeWrapper "${lib.getExe bubblewrap}" "$out/bin/bwrap" \
             --add-flags '--unshare-all --hostname fence' \
             --add-flags '--clearenv --setenv HOME "$HOME" --setenv TERM "$TERM"' \
+            --add-flags '--ro-bind ${fenceEnv} /usr' \
             --add-flags '--ro-bind /etc/localtime /etc/localtime' \
             --add-flags '--ro-bind-try /etc/gitconfig /etc/gitconfig' \
-            --add-flags '--symlink ${lib.getExe bash} /bin/sh' \
-            --add-flags '--symlink ${lib.getExe' coreutils "env"} /usr/bin/env'
+            --add-flags '--symlink ${lib.getExe bash} /bin/sh'
         ''
       );
 
