@@ -201,6 +201,8 @@ let
       --symlink "${lib.getExe' coreutils "env"}" /usr/bin/env
     )
 
+    [ -n "''${COLORTERM:-}" ] && bwrap_args+=(--setenv COLORTERM "$COLORTERM")
+
     while IFS= read -r storePath; do
       bwrap_args+=(--ro-bind "$storePath" "$storePath")
     done < "${penClosure}/store-paths"
