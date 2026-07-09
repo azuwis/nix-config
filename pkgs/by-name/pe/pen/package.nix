@@ -7,6 +7,7 @@
   makeWrapper,
   path,
   runCommandLocal,
+  writeClosure,
   bash,
   cacert,
   coreutils,
@@ -242,6 +243,21 @@ let
     if [ -f ~/.config/pen/tinyproxy.filter ]; then
       proxydir="$cachedir/tinyproxy"
       mkdir -p "$proxydir"
+
+      tinyproxy_bwrap_args=(
+        --die-with-parent
+        --unshare-all
+        --share-net
+        --clearenv
+        --ro-bind /etc/hosts /etc/hosts
+        --ro-bind /etc/resolv.conf /etc/resolv.conf
+        --bind "$proxydir" "$proxydir"
+        --ro-bind ~/.config/pen/tinyproxy.filter ~/.config/pen/tinyproxy.filter
+      )
+      while IFS= read -r path; do
+        tinyproxy_bwrap_args+=(--ro-bind "$path" "$path")
+      done < "${writeClosure [ tinyproxy ]}"
+
       started=
       for _ in {1..5}; do
         tinyproxy_port=$(( 61000 + RANDOM % 4536 ))
@@ -258,7 +274,7 @@ let
     LogLevel Connect
     EOF
 
-        tinyproxy -d -c "$proxydir/tinyproxy.conf" &
+        bwrap "''${tinyproxy_bwrap_args[@]}" -- ${lib.getExe tinyproxy} -d -c "$proxydir/tinyproxy.conf" &
         tinyproxy_pid=$!
         sleep 0.1
         if kill -0 $tinyproxy_pid 2>/dev/null; then
