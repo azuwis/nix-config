@@ -1,8 +1,9 @@
 {
   lib,
-  buildEnv,
   writeShellApplication,
   bubblewrap,
+  buildEnv,
+  cacert,
   closureInfo,
   glibcLocales,
   makeWrapper,
@@ -10,7 +11,6 @@
   runCommandLocal,
   writeClosure,
   bash,
-  cacert,
   coreutils,
   curl,
   diffutils,
@@ -97,6 +97,7 @@ let
 
   penClosure = closureInfo {
     rootPaths = extraClosurePackages ++ [
+      cacert
       glibcLocales
       nixpkgs
       penEnv
