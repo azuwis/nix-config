@@ -27,8 +27,8 @@
       RETRY_COUNT=0
       MAX_RETRIES=10
       while [ "$RETRY_COUNT" -lt "$MAX_RETRIES" ]; do
-        RESULT=$(wget -q -O - http://www.baidu.com | grep -c "baidu")
-        if [ "$RESULT" -ge 5 ]; then
+        RESULT=$(wget -q -O - http://www.163.com | grep -c "163")
+        if [ "$RESULT" -ge 10 ]; then
           logger -t wan-check "Success: Found $RESULT matches"
           break
         else
