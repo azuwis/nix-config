@@ -171,9 +171,10 @@ let
     EOF
     fi
 
-    # Import closure into nix db on first run
-    if [ ! -e "$rootdir/nix/var/nix/db/db.sqlite" ]; then
+    # Import closure into nix db, only when penClosure changes
+    if [ ! -f "$cachedir/closure-info" ] || [ "$(< "$cachedir/closure-info")" != "${penClosure}" ]; then
       NIX_STATE_DIR="$rootdir/nix/var/nix" nix-store --load-db < "${penClosure}/registration"
+      echo "${penClosure}" > "$cachedir/closure-info"
     fi
 
     bwrap_args=(
