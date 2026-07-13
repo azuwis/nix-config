@@ -32,6 +32,9 @@
     # disable fseventsd on /nix volume
     mkdir -p /nix/.fseventsd
     test -e /nix/.fseventsd/no_log || touch /nix/.fseventsd/no_log
+    # hide /nix from Finder and Spotlight
+    test -e /nix/.metadata_never_index || touch /nix/.metadata_never_index
+    chflags hidden /nix
   '';
   system.defaults = {
     NSGlobalDomain = {
