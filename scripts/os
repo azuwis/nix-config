@@ -406,8 +406,8 @@ show-local-builds() {
   nix path-info --sigs --recursive --json "$path" |
     jq -r '.[] | select(.ultimate) | .deriver' | sort -u |
     xargs -r nix derivation show |
-    jq -r 'to_entries[]
-      | (.value.inputDrvs | keys) as $inputs
+    jq -r '(.derivations // .) | to_entries[]
+      | (.value.inputDrvs // {} | keys) as $inputs
       | (.value.name // "") as $name
       | select((
         (
