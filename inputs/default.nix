@@ -1,5 +1,3 @@
-# Inspired by https://codeberg.org/FrdrCkII/nixlock/src/branch/main/v1
-
 # Update all inputs:
 # nix-instantiate --strict --eval --argstr update all default.nix | nixfmt > lock.tmp
 # mv lock.tmp lock.nix
