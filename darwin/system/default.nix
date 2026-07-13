@@ -70,6 +70,7 @@
       wvous-br-corner = 1; # Disabled
     };
     finder = {
+      AppleShowAllFiles = true;
       AppleShowAllExtensions = true;
       FXDefaultSearchScope = "SCcf";
       FXEnableExtensionChangeWarning = false;
