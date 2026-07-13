@@ -404,33 +404,15 @@ direnv-gcroots() {
 show-local-builds() {
   path="${1:-/run/current-system}"
   nix path-info --sigs --recursive --json "$path" |
-    jq -r '.[] | select(.ultimate) | .deriver' | sort -u |
+    jq -r '[.[] | select(.ultimate and .narSize >= 30000) | .deriver] | unique[]' |
     xargs -r nix derivation show |
     jq -r '(.derivations // .) | to_entries[]
-      | (.value.inputDrvs // {} | keys) as $inputs
       | (.value.name // "") as $name
-      | select((
-        (
-          ($inputs | any(
-            contains("make-shell-wrapper-hook") or
-            contains("make-binary-wrapper-hook"))
-          ) and
-          (($inputs | any(contains("-source.drv"))) | not)
-        ) or
-        ($name == "YAZI_CONFIG_HOME") or
-        ($name == "ca-certificates.crt") or
-        ($name == "configuration.yaml") or
-        ($name == "darwin-manpages") or
-        ($name == "fonts.conf") or
-        ($name == "pipewire-extra-config") or
-        ($name == "qemu-ovmf-metadata") or
-        ($name == "sshd.conf-final") or
-        ($name == "ui-lovelace.yaml") or
-        ($name | test("(-fhsenv-rootfs|^homeassistant-[0-9.]+|^linux-[0-9.]+-modules-shrunk)$")) or
-        ($name | test("^(initrd-linux|security-wrapper|vimplugin|unit-script)-")) or
-        (.value.env.preferLocalBuild == "1") or
-        (.value.outputs | map(has("hash")) | any)
-      ) | not) | .key'
+      | select(
+        ($name | test("^(cuda[0-9.]+|initrd-linux|nvidia|security-wrapper|vimplugin)-"))
+        or (.value.env.preferLocalBuild == "1")
+        or (.value.structuredAttrs.preferLocalBuild == true)
+      | not) | .key'
 }
 
 # System like SteamOS does not have `hostname` command
