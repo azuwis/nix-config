@@ -8,7 +8,7 @@ Personal Nix/NixOS configuration monorepo. Each target type has an OS directory;
 |------|--------|-------|
 | NixOS | `nixos/` | |
 | nix-darwin | `darwin/` | |
-| nix-on-droid | `droid/` | hostnames hardcoded in `flakes/droid.nix` |
+| nix-on-droid | `droid/` | hostnames hardcoded in `flakes/droid.nix` (aarch64 for real devices, x86_64 for local testing on non-ARM machines) |
 | OpenWrt | `openwrt/` | |
 | solo | `solo/` | non-NixOS Linux, no root needed |
 
@@ -39,6 +39,8 @@ Configuration in `apps/treefmt.nix`. Uses treefmt with nixfmt, shfmt, stylua, an
 ./scripts/os ci <host>  # CI-style build (sets NIXLOCK_OVERRIDE_my=./test)
 ./scripts/os ns  # show custom input lock as table
 ```
+
+The `test/` directory provides a minimal `default.nix` stub for the `my` input, so CI builds don't depend on private data.
 
 Dry run: prefix with `dry` -- `./scripts/os dry build <host>`. Only affects commands routed through the build pipeline (build, switch, deploy, diff); standalone utility commands like `clean`, `hw`, `dg`, `ns`, `slb`, `run` execute normally even with `dry` prefix.
 
@@ -116,9 +118,21 @@ Three variants, auto-detected by checking `/nix/store` ownership and sticky bit:
 
 ### Flake wiring
 
-`flake.nix` is a thin wrapper around `flakes/`; run `ls flakes/` to see current structure. `flakes/default.nix` aggregates all OS configurations. `devShells` auto-discover from `devshells/`, `packages` from overlays, `apps` from `apps/default.nix`.
+`flake.nix` is a thin wrapper around `flakes/`; run `ls flakes/` to see current structure. `flakes/default.nix` aggregates all OS configurations. `devShells` auto-discover from `devshells/`, `packages` from overlays (only overlay-defined packages appear, not all of nixpkgs), `apps` from `apps/default.nix`.
 
 Other notable files: `lib/configdiff.nix` (NixOS option-level diff), `overlays/` (custom overrides; run `ls overlays/` for current files), `pkgs/by-name/` (nixpkgs by-name convention packages).
+
+### Custom packages and overlays
+
+Overlays and custom packages follow these conventions:
+
+- `pkgs/by-name/` -- nixpkgs by-name convention, loaded automatically via nixpkgs' `by-name-overlay.nix`
+- `pkgs/wallpapers/` -- wallpaper collections, loaded via `packagesFromDirectoryRecursive` in `overlays/default.nix`
+- `overlays/default.nix` -- central overlay: custom package overrides, wallpapers attr, agenix overlay import; also has commented-out lua/python/vim overlays
+- `overlays/jovian.nix` -- per-host overlay pattern (Steam Deck), used only by `hosts/jovian.nix`
+- `overlays/lix.nix` -- replaces packages with Lix-built variants; currently commented out
+
+Language-specific example packages in `pkgs/python/`, `pkgs/lua/`, `pkgs/vim/` use `.example`-suffixed files that need renaming + overlay activation to use; run `ls -R pkgs/python/ pkgs/lua/ pkgs/vim/` to see them.
 
 ### CI
 
