@@ -97,6 +97,10 @@ let
       ];
       card = {
         inherit entity sensors;
+        control = [
+          "hvac"
+          "fan"
+        ];
         type = "custom:simple-thermostat";
         layout.mode.headings = false;
       };
@@ -363,11 +367,15 @@ in
                   ];
                 }
               ];
-              card.hide.state = true;
+              card = {
+                control = [
+                  "hvac"
+                  "preset"
+                ];
+                hide.state = true;
+              };
             })
-            (climate' "climate.gree_climate_9424b8123fe900" {
-              card.control = [ "hvac" ];
-            })
+            (climate "climate.gree_climate_9424b8123fe900")
             (climate "climate.xiaomi_mt0_bedd_air_conditioner")
             (climate "climate.xiaomi_mt0_cdd0_air_conditioner")
             (climate "climate.xiaomi_mt0_6e25_air_conditioner")
