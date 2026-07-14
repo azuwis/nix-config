@@ -21,6 +21,8 @@
 # `source`, which is special to nix. If changed, nix may copy inputs already in
 # nix store when using `nix shell nixpkgs#foo` or similar commands
 # https://github.com/NixOS/nix/issues/11228#issuecomment-2261087599
+# `builtins.fetchGit` always fetch even if narHash provided.
+# https://github.com/nikstur/lon/pull/3#issuecomment-2797643718
 
 {
   update ? "",
@@ -49,6 +51,7 @@ let
       )
       ++ [ "}" ]
     );
+  hasPrefix = pref: str: builtins.substring 0 (builtins.stringLength pref) str == pref;
   updateTargets = builtins.filter builtins.isString (builtins.split " " update);
   # Parse <input>=<rev> entries
   updateRevs = builtins.listToAttrs (
@@ -92,7 +95,6 @@ builtins.mapAttrs (
     }
     // removeAttrs input [
       "freeze"
-      "type"
     ]
     // (
       if isLocked then
@@ -129,39 +131,30 @@ builtins.mapAttrs (
       builtins.trace
         "Overriding path of \"${name}\" with \"${toString outPath}\" due to set ${nixlockOverrideEnv}"
         { inherit outPath; }
-  else if input.type == "archive" then
-    if isLocked then
-      lock
-      // {
-        outPath = builtins.fetchTarball {
-          url = input.url + "/archive/" + lock.rev + ".tar.gz";
-          sha256 = lock.narHash;
-        };
-      }
-    else
-      fetchInput
-  else if input.type == "git" then
-    if isLocked then
-      lock
-      // {
-        # `builtins.fetchGit` always fetch even if narHash provided.
-        # If the outPath is already in nix store, directly use it, but need to
-        # use `builtins.appendContext` to restore the string context
-        # https://github.com/nikstur/lon/pull/3#issuecomment-2797643718
-        outPath =
-          if builtins.pathExists lock.outPath then
-            builtins.appendContext lock.outPath {
-              "${lock.outPath}" = {
-                path = true;
-              };
-            }
-          else
-            fetchInput.outPath;
-        # If the problem fixed in nix, should use the following code instead
-        # inherit (fetchInput) outPath;
-      }
-    else
-      fetchInput
+  else if isLocked then
+    lock
+    // {
+      outPath =
+        if builtins.pathExists lock.outPath then
+          # outPath is already in nix store, directly use it, but need to use
+          # `builtins.appendContext` to restore the string context
+          builtins.appendContext lock.outPath {
+            "${lock.outPath}" = {
+              path = true;
+            };
+          }
+        else
+        # outPath is not in nix store, need to fetch
+        if hasPrefix "https://github.com/" input.url || hasPrefix "https://codeberg.org/" input.url then
+          # Sites that provides tarballs
+          builtins.fetchTarball {
+            url = input.url + "/archive/" + lock.rev + ".tar.gz";
+            sha256 = lock.narHash;
+          }
+        else
+          # Fallback to fetchGit
+          fetchInput.outPath;
+    }
   else
-    { }
+    fetchInput
 ) (import ./inputs.nix)
