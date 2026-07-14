@@ -3,6 +3,7 @@ let
 in
 
 let
+  hasPrefix = pref: str: builtins.substring 0 (builtins.stringLength pref) str == pref;
   inputsList = builtins.attrValues (
     builtins.mapAttrs (
       name: value:
@@ -18,11 +19,17 @@ let
   ++ map (
     input:
     let
-      inherit (input) name;
-      url =
-        builtins.replaceStrings [ "https://github.com/" "https://codeberg.org/" ] [ "github:" "codeberg:" ]
-          input.url;
-      ref = if input ? ref then "@${input.ref}" else "";
+      inherit (input) name url;
+      ref =
+        if input ? ref then
+          if hasPrefix "https://github.com/" url then
+            "/tree/${input.ref}"
+          else if hasPrefix "https://codeberg.org/" url then
+            "/src/branch/${input.ref}"
+          else
+            "@${input.ref}"
+        else
+          "";
       lock = allLock.${name} or { };
       date =
         if lock ? lastModifiedDate then
