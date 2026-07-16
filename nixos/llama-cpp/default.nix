@@ -139,6 +139,38 @@ in
           reasoning-budget = "16384";
           reasoning-budget-message = "... reasoning budget exceeded, answering now.";
         };
+        # https://huggingface.co/HauhauCS/Gemma4-26B-A4B-QAT-Uncensored-HauhauCS-Balanced-MTP
+        "gemma4" = {
+          alias = "gemma4";
+          # download
+          hf-repo = "HauhauCS/Gemma4-26B-A4B-QAT-Uncensored-HauhauCS-Balanced-MTP:Q4_K_M"; # 16.8G
+          spec-type = "draft-mtp"; # MTP head auto-discovered from same repo, ~35% speedup
+          # sampling (from HF page, tuned for this HauhauCS build)
+          temperature = "0.6";
+          top-k = "64";
+          top-p = "0.9";
+          min-p = "0.05";
+          repeat-penalty = "1.1";
+          jinja = true;
+          # Google's official chat template fixes the <|channel> wrapper bug
+          # that causes "peg-gemma4" parse errors on multi-turn tool calls.
+          chat-template-file = builtins.toString (
+            pkgs.fetchurl {
+              name = "gemma4-chat-template.jinja";
+              url = "https://huggingface.co/google/gemma-4-26B-A4B-it/resolve/01e5b3ee840d3a9e0b0b493c593e85398a30ef75/chat_template.jinja";
+              hash = "sha256-rlNGS/O+JYArOls33vf9iWZwZ9dXcEmzstdMTY3kxtQ=";
+            }
+          );
+          chat-template-kwargs = ''{"preserve_thinking": true}'';
+          # engine
+          flash-attn = "on";
+          n-gpu-layers = "99";
+          n-cpu-moe = "21";
+          # memory
+          ctx-size = "131072";
+          cache-type-k = "q8_0";
+          cache-type-v = "q8_0";
+        };
       };
     };
 
