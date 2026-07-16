@@ -36,7 +36,7 @@
       };
     };
   };
-  environment.systemPackages = lib.optionals (config.boot.loader.grub.enable == true) [
+  environment.systemPackages = lib.optionals config.boot.loader.grub.enable [
     pkgs.grub-reboot-menu
   ];
   # Disable user profiles, they're for `home-manager` `nix-env` `nix profile install`, not used here
