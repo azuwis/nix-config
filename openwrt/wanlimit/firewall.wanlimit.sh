@@ -106,7 +106,8 @@ fi
 
 nft -f - <<EOF
 table inet fw4 {
-$whitelist_set	set wanlimit_ban {
+$whitelist_set
+	set wanlimit_ban {
 		type ipv4_addr
 		flags dynamic, timeout
 	}
@@ -123,7 +124,8 @@ $escalate_rules
 
 	chain wanlimit {
 		type filter hook prerouting priority -110; policy accept;
-$whitelist_rule		$iif_match ip saddr @wanlimit_ban counter drop
+$whitelist_rule
+		$iif_match ip saddr @wanlimit_ban counter drop
 $wanlimit_rules
 	}
 }
