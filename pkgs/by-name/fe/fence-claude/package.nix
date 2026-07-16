@@ -5,6 +5,7 @@
   claude-code,
   fetchFromGitHub,
   writeScript,
+  writeText,
   claudePlugins ? {
     mattpocock-skills =
       let
@@ -83,7 +84,7 @@
 # };
 
 let
-  claudeSettingsJson = builtins.toFile "claude-settings.json" (builtins.toJSON claudeSettings);
+  claudeSettingsJson = writeText "claude-settings.json" (builtins.toJSON claudeSettings);
 in
 
 fence-agent {

@@ -1,6 +1,7 @@
 {
   pen,
   gemini-cli,
+  writeText,
   geminiSettings ? {
     general = {
       enableAutoUpdate = false;
@@ -11,7 +12,7 @@
 }:
 
 let
-  geminiSettingsJson = builtins.toFile "gemini-settings.json" (builtins.toJSON geminiSettings);
+  geminiSettingsJson = writeText "gemini-settings.json" (builtins.toJSON geminiSettings);
 in
 
 pen {
