@@ -71,6 +71,7 @@
   services.openssh = {
     enable = true;
     settings = {
+      AcceptEnv = [ "COLORTERM" ];
       KbdInteractiveAuthentication = false;
       PasswordAuthentication = false;
     };
