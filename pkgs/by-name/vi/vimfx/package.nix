@@ -1,10 +1,10 @@
 {
-  stdenv,
+  stdenvNoCC,
   fetchurl,
   nix-update-script,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "vimfx";
 
   version = "0.27.6";

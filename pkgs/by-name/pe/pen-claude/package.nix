@@ -1,6 +1,6 @@
 {
   lib,
-  stdenv,
+  stdenvNoCC,
   pen,
   claude-code,
   fetchFromGitHub,
@@ -90,7 +90,7 @@ pen {
       if plugin ? src then
         plugin
       else
-        stdenv.mkDerivation {
+        stdenvNoCC.mkDerivation {
           pname = "claude-plugin-${name}";
           version = plugin.version or "0";
           src = plugin;

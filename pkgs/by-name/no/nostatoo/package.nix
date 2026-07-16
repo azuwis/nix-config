@@ -1,5 +1,5 @@
 {
-  stdenv,
+  stdenvNoCC,
   ruby,
   fetchFromGitHub,
   writeScript,
@@ -15,7 +15,7 @@ let
 in
 
 # https://github.com/samueldr/nostatoo/blob/development/nostatoo.nix
-stdenv.mkDerivation (finalAttrs: {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "nostatoo";
   version = "0-unstable-2024-10-17";
 

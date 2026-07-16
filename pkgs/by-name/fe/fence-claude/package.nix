@@ -1,6 +1,6 @@
 {
   lib,
-  stdenv,
+  stdenvNoCC,
   fence-agent,
   claude-code,
   fetchFromGitHub,
@@ -120,7 +120,7 @@ fence-agent {
       if plugin ? src then
         plugin
       else
-        stdenv.mkDerivation {
+        stdenvNoCC.mkDerivation {
           pname = "claude-plugin-${name}";
           version = plugin.version or "0";
           src = plugin;

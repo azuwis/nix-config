@@ -1,6 +1,6 @@
 {
   lib,
-  stdenv,
+  stdenvNoCC,
   buildNpmPackage,
   fence-agent,
   fetchFromGitHub,
@@ -94,7 +94,7 @@ fence-agent {
       if plugin ? src then
         plugin
       else
-        stdenv.mkDerivation {
+        stdenvNoCC.mkDerivation {
           pname = "pi-plugin-${name}";
           version = plugin.version or "0";
           src = plugin;

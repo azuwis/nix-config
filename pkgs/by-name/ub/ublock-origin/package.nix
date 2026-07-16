@@ -1,10 +1,10 @@
 {
-  stdenv,
+  stdenvNoCC,
   fetchurl,
   nix-update-script,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ublock-origin";
 
   version = "1.72.2";
