@@ -10,6 +10,7 @@
   path,
   runCommandLocal,
   writeClosure,
+  writeText,
   bash,
   coreutils,
   curl,
@@ -142,6 +143,14 @@ let
     EOF
   '';
 
+  # /etc/hosts for the tinyproxy sandbox. proxy.local -> 127.0.0.1 lets
+  # agents reach local services through the proxy even when their HTTP
+  # client skips proxy for loopback addresses.
+  penProxyHosts = writeText "pen-proxy-hosts" ''
+    127.0.0.1 localhost
+    127.0.0.1 proxy.local
+  '';
+
   # Shared bash preamble used by both the main wrapper and passthru.shell
   #
   # ~/.config/pen/config.json example:
@@ -253,7 +262,7 @@ let
         --unshare-all
         --share-net
         --clearenv
-        --ro-bind /etc/hosts /etc/hosts
+        --ro-bind "${penProxyHosts}" /etc/hosts
         --ro-bind /etc/localtime /etc/localtime
         --ro-bind /etc/resolv.conf /etc/resolv.conf
         --bind "$proxydir" "$proxydir"
