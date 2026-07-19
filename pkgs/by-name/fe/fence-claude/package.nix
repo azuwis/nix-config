@@ -97,7 +97,7 @@ fence-agent {
     }"
   ]
   # /tmp is not writable on darwin, set CLAUDE_CODE_TMPDIR to workaround
-  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+  ++ lib.optionals stdenvNoCC.hostPlatform.isDarwin [
     "--run"
     ''export CLAUDE_CODE_TMPDIR="$HOME/.claude/tmp"''
   ];
