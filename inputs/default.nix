@@ -135,21 +135,24 @@ builtins.mapAttrs (
     lock
     // {
       outPath =
-        if builtins.pathExists lock.outPath then
-          # outPath is already in nix store, directly use it, but need to use
-          # `builtins.appendContext` to restore the string context
+        if hasPrefix "https://github.com/" input.url || hasPrefix "https://codeberg.org/" input.url then
+          # For sites that provide tarballs, use fetchTarball with sha256, it
+          # is content-addressed, no-op if the output already exists. Don't
+          # check pathExists first: it looks at the filesystem, but import
+          # checks the Nix DB. The two can disagree in CI when the cache is
+          # restored.
+          builtins.fetchTarball {
+            url = input.url + "/archive/" + lock.rev + ".tar.gz";
+            sha256 = lock.narHash;
+          }
+        else if builtins.pathExists lock.outPath then
+          # pathExists looks at the filesystem, not the Nix DB. For git inputs
+          # we keep this for performance rather than correctness, because
+          # fetchGit always refetches even when the rev is already cached.
           builtins.appendContext lock.outPath {
             "${lock.outPath}" = {
               path = true;
             };
-          }
-        else
-        # outPath is not in nix store, need to fetch
-        if hasPrefix "https://github.com/" input.url || hasPrefix "https://codeberg.org/" input.url then
-          # Sites that provides tarballs
-          builtins.fetchTarball {
-            url = input.url + "/archive/" + lock.rev + ".tar.gz";
-            sha256 = lock.narHash;
           }
         else
           # Fallback to fetchGit
