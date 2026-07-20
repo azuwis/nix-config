@@ -23,8 +23,7 @@ let
           --set NIX_INDEX_DATABASE $out/share/misc/full
         makeWrapper ${pkgs.nix-index}/bin/nix-locate $out/bin/nix-locate-small \
           --set NIX_INDEX_DATABASE $out/share/misc/small
-        substitute ${./command-not-found.sh} $out/etc/profile.d/command-not-found.sh \
-          --replace-fail "nix-locate-small" "$out/bin/nix-locate-small"
+        cp ${./command-not-found.sh} $out/etc/profile.d/command-not-found.sh
       '';
 in
 
