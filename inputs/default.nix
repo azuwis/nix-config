@@ -21,8 +21,10 @@
 # `source`, which is special to nix. If changed, nix may copy inputs already in
 # nix store when using `nix shell nixpkgs#foo` or similar commands
 # https://github.com/NixOS/nix/issues/11228#issuecomment-2261087599
-# `builtins.fetchGit` always fetch even if narHash provided.
-# https://github.com/nikstur/lon/pull/3#issuecomment-2797643718
+
+# `builtins.fetchGit` with `rev` skips `git fetch` when the rev is already
+# cached, but still calls `git ls-remote --symref` when `ref` is not provided.
+# Always pass `ref` for ssh inputs in inputs.nix to avoid this.
 
 {
   update ? "",

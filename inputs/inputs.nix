@@ -18,6 +18,7 @@
   };
   my = {
     url = "ssh://nuc/~/repo/my";
+    ref = "master";
   };
   nix-darwin = {
     url = "https://github.com/nix-darwin/nix-darwin";
