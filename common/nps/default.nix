@@ -24,6 +24,7 @@ let
       {
         nativeBuildInputs = [
           cfg.package
+          nixpkgs
           pkgs.nix
           pkgs.writableTmpDirAsHomeHook
         ];
@@ -49,7 +50,7 @@ let
                 "type": "indirect"
               },
               "to": {
-                "path": "${nixpkgs}",
+                "path": "${toString nixpkgs}",
                 "type": "path"
               }
             }
