@@ -110,9 +110,6 @@ builtins.mapAttrs (
       else
         { }
     );
-    fetchInput = builtins.trace "[1;33m${name} = builtins.fetchGit ${argsToString fetchGitArgs}[0m" (
-      builtins.fetchGit fetchGitArgs
-    );
     nixlockOverrideEnv = "NIXLOCK_OVERRIDE_${builtins.replaceStrings [ "-" ] [ "_" ] name}";
     replacement = builtins.getEnv nixlockOverrideEnv;
   in
@@ -139,27 +136,17 @@ builtins.mapAttrs (
       outPath =
         if hasPrefix "https://github.com/" input.url || hasPrefix "https://codeberg.org/" input.url then
           # For sites that provide tarballs, use fetchTarball with sha256, it
-          # is content-addressed, no-op if the output already exists. Don't
-          # check pathExists first: it looks at the filesystem, but import
-          # checks the Nix DB. The two can disagree in CI when the cache is
-          # restored.
+          # is content-addressed, no-op if the output already exists.
           builtins.fetchTarball {
             url = input.url + "/archive/" + lock.rev + ".tar.gz";
             sha256 = lock.narHash;
           }
-        else if builtins.pathExists lock.outPath then
-          # pathExists looks at the filesystem, not the Nix DB. For git inputs
-          # we keep this for performance rather than correctness, because
-          # fetchGit always refetches even when the rev is already cached.
-          builtins.appendContext lock.outPath {
-            "${lock.outPath}" = {
-              path = true;
-            };
-          }
         else
           # Fallback to fetchGit
-          fetchInput.outPath;
+          (builtins.fetchGit fetchGitArgs).outPath;
     }
   else
-    fetchInput
+    builtins.trace "[1;33m${name} = builtins.fetchGit ${argsToString fetchGitArgs}[0m" (
+      builtins.fetchGit fetchGitArgs
+    )
 ) (import ./inputs.nix)
