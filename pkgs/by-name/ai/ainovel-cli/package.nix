@@ -7,16 +7,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "ainovel-cli";
-  version = "0.7.1";
+  version = "0.7.4";
 
   src = fetchFromGitHub {
     owner = "voocel";
     repo = "ainovel-cli";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-wr5DH2Ra/L0AjcqSW8eGTmtVIMBwN7wu+XqqdgsYfsc=";
+    hash = "sha256-kCkB+BuCU7f422RyIUDYznTY8AWoyqVoR9SovQCnwNA=";
   };
 
-  vendorHash = "sha256-eyvChtjgnsJajmcTgQ2R1dWvahwnFSGo2prcZDC4IyE=";
+  vendorHash = "sha256-h+q6SkvVoK8n+KdMDZkx5XEC7d9EVP17NwW7ngahsec=";
 
   subPackages = [ "cmd/ainovel-cli" ];
 
