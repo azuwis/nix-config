@@ -21,6 +21,7 @@
     rev = "8f97d1dee8c0971b01cd6b17ccf913e8bb70f5d5"; # last version compatible with nixos-26.05
   };
   my = {
+    type = "git";
     url = "ssh://nuc/~/repo/my";
     ref = "master";
   };

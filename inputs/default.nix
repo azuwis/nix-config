@@ -53,7 +53,6 @@ let
       )
       ++ [ "}" ]
     );
-  hasPrefix = pref: str: builtins.substring 0 (builtins.stringLength pref) str == pref;
   updateTargets = builtins.filter builtins.isString (builtins.split " " update);
   # Parse <input>=<rev> entries
   updateRevs = builtins.listToAttrs (
@@ -97,6 +96,7 @@ builtins.mapAttrs (
     }
     // removeAttrs input [
       "freeze"
+      "type"
     ]
     // (
       if isLocked then
@@ -131,20 +131,18 @@ builtins.mapAttrs (
         "Overriding path of \"${name}\" with \"${toString outPath}\" due to set ${nixlockOverrideEnv}"
         { inherit outPath; }
   else if isLocked then
-    lock
-    // {
-      outPath =
-        if hasPrefix "https://github.com/" input.url || hasPrefix "https://codeberg.org/" input.url then
-          # For sites that provide tarballs, use fetchTarball with sha256, it
-          # is content-addressed, no-op if the output already exists.
-          builtins.fetchTarball {
-            url = input.url + "/archive/" + lock.rev + ".tar.gz";
-            sha256 = lock.narHash;
-          }
-        else
-          # Fallback to fetchGit
-          (builtins.fetchGit fetchGitArgs).outPath;
-    }
+    if input ? type && input.type == "git" then
+      builtins.fetchGit fetchGitArgs
+    else
+      # Default to sites that provide tarballs, use fetchTarball with sha256, it
+      # is content-addressed, no-op if the output already exists.
+      lock
+      // {
+        outPath = builtins.fetchTarball {
+          url = input.url + "/archive/" + lock.rev + ".tar.gz";
+          sha256 = lock.narHash;
+        };
+      }
   else
     builtins.trace "[1;33m${name} = builtins.fetchGit ${argsToString fetchGitArgs}[0m" (
       builtins.fetchGit fetchGitArgs
