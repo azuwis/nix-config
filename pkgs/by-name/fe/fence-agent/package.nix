@@ -192,6 +192,7 @@ writeShellApplication {
   inherit name;
   derivationArgs = {
     passthru = {
+      enable = false;
       shell = writeShellApplication {
         name = "fence-shell";
         derivationArgs.preferLocalBuild = true;
