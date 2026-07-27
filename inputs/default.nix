@@ -3,13 +3,13 @@
 # mv lock.tmp lock.nix
 
 # Update some inputs:
-# ... --argstr update "<input1> <input2> ..."
+# nix-instantiate --strict --eval --argstr update "<input1> <input2> ..."
 # Update all expect some inputs:
-# ... --argstr update "all -<input1> -<input2> ..."
+# nix-instantiate --strict --eval --argstr update "all -<input1> -<input2> ..."
 # Update some inputs to a specific revision:
-# ... --argstr update "<input1>=<rev>"
+# nix-instantiate --strict --eval --argstr update "<input1>=<rev>"
 # Update all and set some inputs to a specific revision
-# ... --argstr update "all <input1>=<rev1> <input2>=<rev2> ..."
+# nix-instantiate --strict --eval --argstr update "all <input1>=<rev1> <input2>=<rev2> ..."
 
 # Show:
 # nix-instantiate --strict --eval --raw show.nix | column -s, -t
