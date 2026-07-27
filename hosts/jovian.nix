@@ -16,8 +16,6 @@ in
     ./hardware-jovian.nix
   ];
 
-  registry.entries = [ "jovian-nixos" ];
-
   nixpkgs.overlays = [ (import ../overlays/jovian.nix) ];
 
   # workaround for efi entry reset after reboot
