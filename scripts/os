@@ -16,6 +16,7 @@ USAGE:
   $cmd l|list
   $cmd ns|nixlock-show
   $cmd r|run <apps>
+  $cmd shell <apps>
   $cmd slb|show-local-builds [<path>]
   $cmd s|switch [<host>]
   $cmd u|update|lu|nixlock-update [all] [<input1>] [-<input2>] ...
@@ -62,6 +63,17 @@ run_command() {
   >&2 printf '\033[0m\n'
   if [ "$DRY_RUN" != true ]; then
     "${full_command[@]}"
+  fi
+}
+
+shell() {
+  command="$1"
+  shift
+  if [ "$(nix-instantiate --argstr apps "$CONFIG/apps" --argstr command "$command" --eval --expr \
+    '{ apps, command }: if builtins.hasAttr command (import apps { }) then true else false')" = true ]; then
+    nix --extra-experimental-features nix-command shell --file "$CONFIG/apps" "$command" "$@"
+  else
+    nix --extra-experimental-features nix-command shell --file "$CONFIG/pkgs" "$command" "$@"
   fi
 }
 
@@ -479,7 +491,7 @@ slb) action="show-local-builds" ;;
 esac
 
 case "$action" in
-clean | configdiff | direnv-gcroots | flake-update | hardware | nixlock-show | nixlock-update | run | show-local-builds | usage)
+clean | configdiff | direnv-gcroots | flake-update | hardware | nixlock-show | nixlock-update | run | shell | show-local-builds | usage)
   "$action" "$@"
   exit $?
   ;;
