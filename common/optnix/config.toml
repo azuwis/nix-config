@@ -1,0 +1,46 @@
+default_scope = "default"
+
+[scopes.default]
+description = "Default"
+evaluator = '''
+nix-instantiate --argstr hostname "${HOSTNAME:-$(hostname)}" --eval --expr '{ hostname }: let
+  os = builtins.elemAt (builtins.split "-" builtins.currentSystem) 2;
+  file = if os == "darwin" then /etc/nixos/flakes/darwin.nix else /etc/nixos/flakes/nixos.nix;
+  system = (import /etc/nixos/flakes/nixos.nix).${hostname};
+in
+  system.config.{{ .Option }}'
+'''
+
+[scopes.darwin]
+description = "Darwin"
+options-list-cmd = '''
+nix-instantiate --eval --strict --json --expr 'let
+  system = (import /etc/nixos/flakes/darwin.nix).mbp;
+in
+  builtins.filter (v: v.visible && !v.internal) (
+    system.pkgs.lib.optionAttrSetToDocList system.options
+  )'
+'''
+evaluator = '''
+nix-instantiate --argstr hostname "${HOSTNAME:-mbp}" --eval --expr '{ hostname }: let
+  system = (import /etc/nixos/flakes/darwin.nix).${hostname};
+in
+  system.config.{{ .Option }}'
+'''
+
+[scopes.nixos]
+description = "NixOS"
+options-list-cmd = '''
+nix-instantiate --eval --expr --json --strict 'let
+  system = (import /etc/nixos/flakes/nixos.nix).aor;
+in
+  builtins.filter (v: v.visible && !v.internal) (
+    system.pkgs.lib.optionAttrSetToDocList system.options
+  )'
+'''
+evaluator = '''
+nix-instantiate --argstr hostname "${HOSTNAME:-aor}" --eval --expr '{ hostname }: let
+  system = (import /etc/nixos/flakes/nixos.nix).${hostname};
+in
+  system.config.{{ .Option }}'
+'''
