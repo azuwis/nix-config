@@ -14,7 +14,6 @@
     inetutils
     iotop-c
     man-pages
-    nixos-option
     pciutils
     psmisc
     tcpdump
