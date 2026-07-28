@@ -12,10 +12,10 @@ let
     mkOption
     types
     ;
-  cfg = config.my.resolv;
+  cfg = config.services.resolv;
 in
 {
-  options.my.resolv = {
+  options.services.resolv = {
     enable = mkEnableOption "resolv" // {
       default = true;
     };
