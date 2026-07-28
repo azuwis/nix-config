@@ -14,6 +14,9 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "amber-editor";
   version = "1.7.8";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "baptisterajaut";
     repo = "amber";

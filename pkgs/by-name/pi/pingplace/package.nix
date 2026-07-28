@@ -11,6 +11,9 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
   pname = "pingplace";
   version = "1.3.1";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "NotWadeGrimridge";
     repo = "PingPlace";

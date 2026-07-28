@@ -9,6 +9,8 @@ buildGoModule (finalAttrs: {
   pname = "ainovel-cli";
   version = "0.7.4";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "voocel";
     repo = "ainovel-cli";

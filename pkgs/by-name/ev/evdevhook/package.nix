@@ -16,6 +16,9 @@ stdenv.mkDerivation {
   pname = "evdevhook";
   version = "0-unstable-2023-08-03";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "v1993";
     repo = "evdevhook";

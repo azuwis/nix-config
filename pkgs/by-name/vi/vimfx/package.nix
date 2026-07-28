@@ -6,8 +6,10 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "vimfx";
-
   version = "0.27.6";
+
+  strictDeps = true;
+  __structuredAttrs = true;
 
   src = fetchurl {
     url = "https://github.com/akhodakivskiy/VimFx/releases/download/v${finalAttrs.version}/VimFx.xpi";

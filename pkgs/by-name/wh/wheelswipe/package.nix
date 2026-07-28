@@ -9,6 +9,9 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "wheelswipe";
   version = "0-unstable-2026-04-27";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "azuwis";
     repo = "wheelswipe";

@@ -42,6 +42,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   inherit src;
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   download = stdenv.mkDerivation {
     name = "openwrt-packages-download";
 

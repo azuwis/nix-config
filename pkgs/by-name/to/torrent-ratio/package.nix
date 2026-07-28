@@ -8,6 +8,8 @@ buildGoModule (finalAttrs: {
   pname = "torrent-ratio";
   version = "0.11";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "azuwis";
     repo = "torrent-ratio";

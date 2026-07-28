@@ -36,6 +36,9 @@ stdenv.mkDerivation {
   pname = "wolf";
   version = "unstable-2023-09-03";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "games-on-whales";
     repo = "wolf";

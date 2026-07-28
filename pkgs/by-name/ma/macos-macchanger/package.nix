@@ -11,6 +11,9 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "macchanger";
   version = "0.2.1";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "shilch";
     repo = "macchanger";

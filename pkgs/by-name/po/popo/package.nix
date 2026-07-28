@@ -11,6 +11,9 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "popo";
   version = "0";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = requireFile {
     hash = "sha256-Z1G7JJAJ2oZMnzXHqcq3pTBaYW65FHMthNb1kID77y0=";
   };

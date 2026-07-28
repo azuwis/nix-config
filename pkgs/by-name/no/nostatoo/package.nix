@@ -19,6 +19,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "nostatoo";
   version = "0-unstable-2024-10-17";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "samueldr";
     repo = "nostatoo";

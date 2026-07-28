@@ -14,6 +14,9 @@ stdenv.mkDerivation {
   pname = "redsocks2";
   version = "release-0.67-unstable-2021-08-22";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "azuwis";
     repo = "redsocks";

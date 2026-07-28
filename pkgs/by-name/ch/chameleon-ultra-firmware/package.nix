@@ -20,6 +20,9 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "chameleon-${deviceType}-firmware";
   version = "2.2.0-unstable-2026-07-04";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "RfidResearchGroup";
     repo = "ChameleonUltra";

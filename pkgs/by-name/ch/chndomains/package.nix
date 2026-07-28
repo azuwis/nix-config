@@ -10,6 +10,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "chndomains";
   version = "0-unstable-2026-06-04";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "felixonmars";
     repo = "dnsmasq-china-list";

@@ -9,6 +9,9 @@ stdenvNoCC.mkDerivation {
   pname = "nibar";
   version = "0-unstable-2021-08-20";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "azuwis";
     repo = "nibar";

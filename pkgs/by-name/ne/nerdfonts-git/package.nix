@@ -11,6 +11,9 @@ stdenvNoCC.mkDerivation {
   pname = "nerdfonts-git";
   version = "3.2.1-unstable-2024-07-17";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchgit {
     inherit hash;
     url = "https://github.com/ryanoasis/nerd-fonts.git";

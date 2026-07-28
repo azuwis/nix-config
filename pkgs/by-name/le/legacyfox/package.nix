@@ -9,6 +9,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "legacyfox";
   version = "5.0";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "girst";
     repo = "LegacyFox-mirror-of-git.gir.st";

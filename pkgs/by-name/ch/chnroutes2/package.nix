@@ -9,6 +9,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "chnroutes2";
   version = "0-unstable-2026-07-05";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "misakaio";
     repo = "chnroutes2";
