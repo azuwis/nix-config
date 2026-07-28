@@ -16,7 +16,9 @@ let
   cfg = config.my.torrent;
 
   inherit (config.my) domain;
-  port = toString config.my.qbittorrent.settings.Preferences."WebUI\\Port";
+  # Reuse upstream's generated configFile via restartTriggers
+  # XXX: assumes upstream's configFile is the only restartTrigger
+  configFile = builtins.head config.systemd.services.qbittorrent.restartTriggers;
 in
 {
   options.my.torrent = {
@@ -32,6 +34,10 @@ in
       type = types.int;
       default = 20000;
     };
+    webuiPort = mkOption {
+      type = types.port;
+      default = 8080;
+    };
     DefaultSavePath = mkOption {
       type = types.path;
       default = "/srv/torrent";
@@ -42,49 +48,69 @@ in
     users.users.${cfg.user} = {
       uid = cfg.uid;
       group = cfg.user;
-      home = config.my.qbittorrent.dataDir;
-      createHome = true;
-      homeMode = "0750";
       isSystemUser = true;
     };
     users.groups.${cfg.user}.gid = cfg.uid;
+
     systemd.tmpfiles.rules = [
-      "a+ ${config.my.qbittorrent.dataDir} - - - - u:${config.my.user}:r-x"
+      "a+ ${config.services.qbittorrent.profileDir} - - - - u:${config.my.user}:r-x"
     ];
 
     services.torrent-ratio.enable = cfg.torrent-ratio;
-    my.qbittorrent.enable = true;
-    my.qbittorrent.user = cfg.user;
-    my.qbittorrent.group = cfg.user;
-    my.qbittorrent.settings = {
-      BitTorrent = {
-        "Session\\DefaultSavePath" = cfg.DefaultSavePath;
-        "Session\\DisableAutoTMMByDefault" = false;
-        "Session\\DisableAutoTMMTriggers\\CategorySavePathChanged" = false;
-        "Session\\DisableAutoTMMTriggers\\DefaultSavePathChanged" = false;
-        "Session\\GlobalDLSpeedLimit" = 15000;
-        "Session\\GlobalUPSpeedLimit" = 3072;
-        "Session\\MaxActiveDownloads" = 5;
-        "Session\\MaxActiveTorrents" = 150;
-        "Session\\MaxActiveUploads" = 150;
-        "Session\\Preallocation" = true;
-        "Session\\QueueingSystemEnabled" = true;
-        "Session\\SSRFMitigation" = !cfg.torrent-ratio;
-        "Session\\ValidateHTTPSTrackerCertificate" = !cfg.torrent-ratio;
-      };
-      Network = {
-        "Proxy\\IP" = "127.0.0.1";
-        "Proxy\\Port" = config.services.torrent-ratio.port;
-        "Proxy\\Type" = if cfg.torrent-ratio then "HTTP" else "None";
-      };
-      Preferences = {
-        "WebUI\\Address" = "127.0.0.1";
-        "WebUI\\CSRFProtection" = !config.services.nginx.enhance;
-        "WebUI\\Port" = 8080;
-        "WebUI\\SessionTimeout" = 86400;
-        "WebUI\\UseUPnP" = false;
+
+    services.qbittorrent = {
+      enable = true;
+      user = cfg.user;
+      group = cfg.user;
+      openFirewall = true;
+      # services.qbittorrent.webuiPort opens the firewall, but WebUI listens on
+      # 127.0.0.1 and doesn't need it. Use my.torrent.webuiPort instead, passed
+      # via serverConfig.Preferences.WebUI.Port
+      webuiPort = null;
+      torrentingPort = 8999;
+      serverConfig = {
+        BitTorrent.Session = {
+          DefaultSavePath = cfg.DefaultSavePath;
+          DisableAutoTMMByDefault = false;
+          DisableAutoTMMTriggers = {
+            CategorySavePathChanged = false;
+            DefaultSavePathChanged = false;
+          };
+          GlobalDLSpeedLimit = 15000;
+          GlobalUPSpeedLimit = 3072;
+          MaxActiveDownloads = 5;
+          MaxActiveTorrents = 150;
+          MaxActiveUploads = 150;
+          Preallocation = true;
+          QueueingSystemEnabled = true;
+          SSRFMitigation = !cfg.torrent-ratio;
+          ValidateHTTPSTrackerCertificate = !cfg.torrent-ratio;
+        };
+        Network.Proxy = {
+          IP = "127.0.0.1";
+          Port = config.services.torrent-ratio.port;
+          Type = if cfg.torrent-ratio then "HTTP" else "None";
+        };
+        Preferences.WebUI = {
+          Address = "127.0.0.1";
+          Port = cfg.webuiPort;
+          CSRFProtection = !config.services.nginx.enhance;
+          SessionTimeout = 86400;
+          UseUPnP = false;
+        };
       };
     };
+
+    # Use crudini --merge instead of upstream install so manual changes made
+    # via WebUI survive across restarts. Beware removing lines from
+    # serverConfig will NOT effect qBittorrent.conf, only adding and changing
+    # will do.
+    systemd.services.qbittorrent.serviceConfig.ExecStartPre = lib.mkForce (
+      pkgs.writeShellScript "qbittorrent-pre-start" ''
+        mkdir -p "${config.services.qbittorrent.profileDir}/qBittorrent/config"
+        ${lib.getExe pkgs.crudini} --merge "${config.services.qbittorrent.profileDir}/qBittorrent/config/qBittorrent.conf" < ${configFile}
+      ''
+    );
 
     services.nginx.enhance = mkDefault true;
     services.nginx.virtualHosts.torrent = {
@@ -92,7 +118,7 @@ in
       onlySSL = true;
       useACMEHost = "default";
       locations."/" = {
-        proxyPass = "http://127.0.0.1:${port}";
+        proxyPass = "http://127.0.0.1:${toString cfg.webuiPort}";
         extraConfig = ''
           client_max_body_size 10M;
         '';
@@ -105,7 +131,7 @@ in
       useACMEHost = "default";
       root = "${pkgs.vuetorrent}/share/vuetorrent/public";
       locations."/api" = {
-        proxyPass = "http://127.0.0.1:${port}";
+        proxyPass = "http://127.0.0.1:${toString cfg.webuiPort}";
         extraConfig = ''
           client_max_body_size 10M;
         '';
