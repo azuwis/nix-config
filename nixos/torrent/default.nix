@@ -13,7 +13,7 @@ let
     mkOption
     types
     ;
-  cfg = config.my.torrent;
+  cfg = config.services.torrent;
 
   inherit (config.my) domain;
   # Reuse upstream's generated configFile via restartTriggers
@@ -21,7 +21,7 @@ let
   configFile = builtins.head config.systemd.services.qbittorrent.restartTriggers;
 in
 {
-  options.my.torrent = {
+  options.services.torrent = {
     enable = mkEnableOption "torrent";
     torrent-ratio = mkEnableOption "torrent-ratio" // {
       default = true;

@@ -50,7 +50,7 @@
   services.nix-builder.client.enable = true;
   # services.photoprism.enhance = true;
   programs.retroarch.enable = true;
-  my.torrent.enable = true;
+  services.torrent.enable = true;
   # programs.uxplay.enable = true;
   programs.wayland.startup.initlock = lib.mkForce [ ];
   services.evsieve.enable = true;
