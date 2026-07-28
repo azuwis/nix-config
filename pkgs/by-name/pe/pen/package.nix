@@ -210,7 +210,7 @@ let
       --ro-bind /etc/hosts /etc/hosts
       --ro-bind /etc/localtime /etc/localtime
       --ro-bind-try /etc/gitconfig /etc/gitconfig
-      --symlink "${lib.getExe bash}" /bin/sh
+      --symlink /usr/bin/sh /bin/sh
     )
 
     [ -n "''${COLORTERM:-}" ] && bwrap_args+=(--setenv COLORTERM "$COLORTERM")
