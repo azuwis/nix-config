@@ -10,7 +10,7 @@
   piExtensions ? {
     pi-exa-mcp =
       let
-        version = "2026-07-16";
+        version = "2026-07-28";
       in
       {
         inherit version;
@@ -24,14 +24,14 @@
       };
     pi-hashline-edit-pro = buildNpmPackage (finalAttrs: {
       pname = "pi-hashline-edit-pro";
-      version = "0-unstable-2026-07-24";
+      version = "0-unstable-2026-07-28";
       src = fetchFromGitHub {
         owner = "YuGiMob";
         repo = "pi-hashline-edit-pro";
-        rev = "b44477fb62285491b3e23b6b6ac06685f90c5ccb";
-        hash = "sha256-9BfKK2dbmvlUvI7Brx1IYfggwqX1J2lX3wnKZizQ+4Q=";
+        rev = "eaa39b4b6424fd170828cb56fb9840ef7d7ae5d8";
+        hash = "sha256-yUBP8uT32nvTsSrpBUai4hR4HrDQdjQ3GqYACX3ZKVE=";
       };
-      npmDepsHash = "sha256-yRrYeAOW/kk2s16pCRTdsy+aqUJQvr5645vf2Z6GqPw=";
+      npmDepsHash = "sha256-+9TM0uhNzlgpJP20++g5aUCwyI6deY0lwGEJspfIggc=";
       npmInstallFlags = [
         "--omit=dev"
         "--omit=peer"
