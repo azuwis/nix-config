@@ -27,7 +27,8 @@ stdenvNoCC.mkDerivation {
     find "patched-fonts/${font}" -name \*.otf -or -name \*.ttf -exec mv {} "$out/share/fonts/truetype/${font}" \;
   '';
 
-  # passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.enable = false;
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = with lib; {
     description = "Iconic font aggregator, collection, & patcher. 3,600+ icons, 50+ patched fonts";

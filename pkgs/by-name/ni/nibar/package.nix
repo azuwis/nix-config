@@ -29,7 +29,8 @@ stdenvNoCC.mkDerivation {
     cp -r *.jsx config.json lib scripts $out/
   '';
 
-  # passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.enable = false;
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = with lib; {
     description = "Simple Übersicht status bar with yabai support";

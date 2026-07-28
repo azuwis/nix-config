@@ -42,7 +42,8 @@ stdenv.mkDerivation {
     install -m 0755 redsocks2 $out/bin
   '';
 
-  # passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.enable = false;
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = with lib; {
     description = "Transparent redirector of any TCP/UDP connection to proxy";
