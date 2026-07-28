@@ -1,5 +1,4 @@
 {
-  osConfig,
   config,
   lib,
   pkgs,
@@ -20,7 +19,7 @@ in
   options.programs.yambar = {
     enable = lib.mkEnableOption "yambar";
 
-    package = lib.mkPackageOption pkgs "yambar-git" { };
+    package = lib.mkPackageOption pkgs "maybar" { };
 
     settings = lib.mkOption {
       type = yamlFormat.type;
@@ -29,8 +28,8 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.etc."xdg/yambar/config.yml".source =
-      yamlFormat.generate "yambar-config.yml" cfg.settings;
+    environment.etc."xdg/${cfg.package.pname}/config.yml".source =
+      yamlFormat.generate "${cfg.package.pname}-config.yml" cfg.settings;
 
     environment.systemPackages = [
       (pkgs.wrapper {
@@ -39,7 +38,7 @@ in
       })
     ];
 
-    programs.wayland.startup.yambar = [ "yambar" ];
+    programs.wayland.startup.yambar = [ cfg.package.meta.mainProgram ];
 
     programs.yambar.settings.bar = {
       layer = "top";
