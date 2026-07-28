@@ -7,7 +7,7 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "legacyfox";
-  version = "5.0";
+  version = "5.1";
 
   strictDeps = true;
   __structuredAttrs = true;
@@ -16,7 +16,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     owner = "girst";
     repo = "LegacyFox-mirror-of-git.gir.st";
     rev = "v${finalAttrs.version}";
-    sha256 = "sha256-lEwUSfZBZfqrwhwGRrZ6MbuF4aek3besrEsj6wITvGE=";
+    sha256 = "sha256-ePD56OKWJ4Kh6acaxHxhHWeXIjkmRDYlqDFOgnGfOgM=";
   };
 
   installPhase = ''
