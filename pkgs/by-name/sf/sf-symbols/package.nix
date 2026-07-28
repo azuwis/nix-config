@@ -14,19 +14,25 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "sf-symbols";
   version = "5.1";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchurl {
     url = "https://devimages-cdn.apple.com/design/resources/download/SF-Symbols-${finalAttrs.version}.dmg";
     hash = "sha256-7HIOlAYpQHzyoMhW2Jtwq2Tor8ojs4mTHjUjfMKKMM4=";
   };
 
   sourceRoot = ".";
-  buildInputs = [
+
+  nativeBuildInputs = [
     undmg
     xar
     cpio
   ];
+
   installPhase = ''
-    xar -Oxf SF\ Symbols.pkg SFSymbols.pkg/Payload | gzip -d | cpio -i
+    xar -xf SF\ Symbols.pkg -s SFSymbols.pkg/Payload
+    cat SFSymbols.pkg/Payload | gzip -d | cpio -i
   ''
   + lib.optionalString fonts ''
     mkdir -p $out/share/fonts/truetype
