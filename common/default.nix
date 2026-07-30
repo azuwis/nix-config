@@ -29,6 +29,7 @@ in
   programs.lazyvim.custom.enable = true;
   programs.lazyvim.enable = true;
   programs.lazyvim.helm.enable = true;
+  programs.lazyvim.jjui.enable = true;
   programs.lazyvim.mini-files.enable = true;
   programs.lazyvim.neogit.enable = true;
   programs.lazyvim.nil.enable = true;
