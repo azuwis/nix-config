@@ -1,19 +1,14 @@
 {
   lib,
+  stdenv,
+  rustPlatform,
   fetchFromGitHub,
-
+  boost,
   cacert,
   cargo,
   cmake,
-  git,
-  ninja,
-  pkg-config,
-  rustPlatform,
-  rustc,
-  wrapGAppsHook3,
-
-  boost,
   curl,
+  git,
   glib,
   gst_all_1,
   icu,
@@ -24,12 +19,15 @@
   libunwind,
   libxkbcommon,
   mesa,
+  ninja,
   openssl,
   pciutils,
   pcre2,
-  stdenv,
+  pkg-config,
+  rustc,
   udev,
   wayland,
+  wrapGAppsHook3,
 }:
 
 stdenv.mkDerivation {

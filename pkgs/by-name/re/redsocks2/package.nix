@@ -4,9 +4,9 @@
   fetchFromGitHub,
   cacert,
   curl,
+  darwin,
   libevent,
   openssl,
-  darwin,
   nix-update-script,
 }:
 

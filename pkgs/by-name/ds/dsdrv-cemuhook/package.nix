@@ -20,12 +20,12 @@ python3.pkgs.buildPythonPackage {
 
   build-system = with python3.pkgs; [ setuptools ];
 
+  buildInputs = [ bluez ];
+
   dependencies = with python3.pkgs; [
     evdev
     pyudev
   ];
-
-  buildInputs = [ bluez ];
 
   passthru.enable = false;
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };

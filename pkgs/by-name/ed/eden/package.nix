@@ -4,41 +4,43 @@
   lib,
   stdenv,
   fetchFromGitea,
+  SDL2,
+  boost,
   cacert,
   cmake,
-  glslang,
-  pkg-config,
-  python3,
-  qt6Packages,
-  vulkan-headers,
-  boost,
   cpp-jwt,
   cubeb,
   enet,
   ffmpeg-headless,
   fmt,
   gamemode,
+  glslang,
   httplib,
   libopus,
   libusb1,
-  openssl,
   lz4,
   nlohmann_json,
-  SDL2,
+  openssl,
+  pipewire,
+  pkg-config,
+  python3,
+  qt6Packages,
   simpleini,
   spirv-headers,
+  vulkan-headers,
+  vulkan-loader,
   vulkan-memory-allocator,
   vulkan-utility-libraries,
   zlib,
   zstd,
-  vulkan-loader,
-  pipewire,
   nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "eden";
   version = "0.2.1";
+
+  __structuredAttrs = true;
 
   src = fetchFromGitea {
     domain = "git.eden-emu.dev";
@@ -48,28 +50,17 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-79/JmIRWysoc3psJqMFyiNc2gjTY4VhJfdNaiTvisMk=";
   };
 
-  deps = stdenv.mkDerivation {
-    name = "eden-deps-${finalAttrs.version}.tar.gz";
+  postUnpack = ''
+    mkdir -p "$sourceRoot"
+    tar -xf "$deps" -C "$sourceRoot"
+  '';
 
-    inherit (finalAttrs) src;
-
-    nativeBuildInputs = finalAttrs.nativeBuildInputs ++ [ cacert ];
-
-    inherit (finalAttrs) buildInputs __structuredAttrs cmakeFlags;
-
-    dontBuild = true;
-
-    installPhase = ''
-      cd "$cmakeDir"
-      # Build a reproducible tar, per instructions at https://reproducible-builds.org/docs/archives/
-      tar --owner=0 --group=0 --numeric-owner --format=gnu \
-        --sort=name --mtime="@$SOURCE_DATE_EPOCH" \
-        -czf $out .cache/cpm
-    '';
-
-    outputHash = "sha256-cJyRGB74LXr+FI8oPdnGZ7pNa/OYABT4HaXx1Vs8Exg=";
-    outputHashAlgo = "sha256";
-  };
+  # Workaround for old vulkan-headers
+  postPatch = ''
+    substituteInPlace src/video_core/vulkan_common/vulkan_wrapper.cpp \
+      --replace-fail 'case VK_DRIVER_ID_MESA_KOSMICKRISP:' "" \
+      --replace-fail 'return "KosmicKrisp";' ""
+  '';
 
   nativeBuildInputs = [
     cmake
@@ -125,19 +116,6 @@ stdenv.mkDerivation (finalAttrs: {
     quazip
   ]);
 
-  postUnpack = ''
-    mkdir -p "$sourceRoot"
-    tar -xf "$deps" -C "$sourceRoot"
-  '';
-
-  # Workaround for old vulkan-headers
-  postPatch = ''
-    substituteInPlace src/video_core/vulkan_common/vulkan_wrapper.cpp \
-      --replace-fail 'case VK_DRIVER_ID_MESA_KOSMICKRISP:' "" \
-      --replace-fail 'return "KosmicKrisp";' ""
-  '';
-
-  __structuredAttrs = true;
   cmakeFlags = [
     (lib.cmakeFeature "YUZU_BUILD_PRESET" "v3")
 
@@ -167,6 +145,32 @@ stdenv.mkDerivation (finalAttrs: {
     })
   '';
 
+  deps = stdenv.mkDerivation {
+    inherit (finalAttrs)
+      buildInputs
+      __structuredAttrs
+      cmakeFlags
+      src
+      ;
+
+    name = "eden-deps-${finalAttrs.version}.tar.gz";
+
+    nativeBuildInputs = finalAttrs.nativeBuildInputs ++ [ cacert ];
+
+    dontBuild = true;
+
+    installPhase = ''
+      cd "$cmakeDir"
+      # Build a reproducible tar, per instructions at https://reproducible-builds.org/docs/archives/
+      tar --owner=0 --group=0 --numeric-owner --format=gnu \
+        --sort=name --mtime="@$SOURCE_DATE_EPOCH" \
+        -czf $out .cache/cpm
+    '';
+
+    outputHash = "sha256-cJyRGB74LXr+FI8oPdnGZ7pNa/OYABT4HaXx1Vs8Exg=";
+    outputHashAlgo = "sha256";
+  };
+
   passthru = {
     # Hack to make `nix-update --subpackage depsUpdate` works
     depsUpdate = stdenv.mkDerivation {
@@ -184,8 +188,6 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    mainProgram = "eden";
-    platforms = lib.platforms.linux;
     license = with lib.licenses; [
       gpl3Plus
 
@@ -194,5 +196,7 @@ stdenv.mkDerivation (finalAttrs: {
       mit
       cc0
     ];
+    mainProgram = "eden";
+    platforms = lib.platforms.linux;
   };
 })

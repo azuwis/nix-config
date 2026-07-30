@@ -26,7 +26,7 @@ buildHomeAssistantComponent rec {
   meta = {
     description = "Uniform Bot Platform for HomeAssistant";
     homepage = "https://github.com/Yonsm/ZhiBot";
-    maintainers = with lib.maintainers; [ azuwis ];
     license = lib.licenses.gpl3Only;
+    maintainers = with lib.maintainers; [ azuwis ];
   };
 }

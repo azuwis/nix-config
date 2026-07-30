@@ -1,9 +1,10 @@
 {
   lib,
-  buildFHSEnv,
   bash,
+  buildFHSEnv,
   file,
   git,
+  makeSetupHook,
   ncurses,
   perl,
   python3,
@@ -14,7 +15,6 @@
   which,
   zlib,
   zstd,
-  makeSetupHook,
 }:
 
 let

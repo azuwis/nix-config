@@ -1,14 +1,14 @@
 {
-  writeShellApplication,
   fzf,
   grub2,
+  writeShellApplication,
 }:
 
 writeShellApplication {
   name = "grub-reboot-menu";
-  text = builtins.readFile ./grub-reboot-menu.sh;
   runtimeInputs = [
     fzf
     grub2
   ];
+  text = builtins.readFile ./grub-reboot-menu.sh;
 }

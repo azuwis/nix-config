@@ -1,7 +1,7 @@
 {
   stdenvNoCC,
-  ruby,
   fetchFromGitHub,
+  ruby,
   writeScript,
   nix-update-script,
 }:
@@ -29,6 +29,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-UWVI3HofHRpy28hi8z/iFzPLgk0FeAH4K55RsfHL8Es=";
   };
 
+  doCheck = true;
   checkPhase = ''
     runHook preCheck
 
@@ -36,7 +37,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     runHook postCheck
   '';
-  doCheck = true;
 
   installPhase = ''
     runHook preInstall

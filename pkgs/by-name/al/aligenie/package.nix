@@ -25,7 +25,7 @@ buildHomeAssistantComponent {
   meta = with lib; {
     description = "Home assistant custom component for tmall genie";
     homepage = "https://github.com/azuwis/aligenie";
-    maintainers = with maintainers; [ azuwis ];
     license = licenses.mit;
+    maintainers = with maintainers; [ azuwis ];
   };
 }

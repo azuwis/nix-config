@@ -1,17 +1,10 @@
 {
   lib,
-  writeShellApplication,
+  bash,
   bubblewrap,
   buildEnv,
   cacert,
   closureInfo,
-  glibcLocales,
-  makeWrapper,
-  path,
-  runCommandLocal,
-  writeClosure,
-  writeText,
-  bash,
   coreutils,
   curl,
   diffutils,
@@ -21,25 +14,36 @@
   gawk,
   gh,
   git,
+  glibcLocales,
   gnugrep,
   gnused,
   jq,
   less,
+  makeWrapper,
   nix,
+  path,
   python3,
   ripgrep,
+  runCommandLocal,
   socat,
   tinyproxy,
   tinyxxd,
   unzip,
   which,
+  writeClosure,
+  writeShellApplication,
+  writeText,
 }:
 
 {
-  name,
   agentPackage,
+  name,
   agentWrapperArgs ? [ ],
   allowWrite ? [ ],
+  extraBwrapArgs ? [ ],
+  extraClosurePackages ? [ ],
+  extraPassthru ? { },
+  extraPenPackages ? [ ],
   penPackages ? [
     bash
     cacert
@@ -64,10 +68,6 @@
     unzip
     which
   ],
-  extraPenPackages ? [ ],
-  extraClosurePackages ? [ ],
-  extraBwrapArgs ? [ ],
-  extraPassthru ? { },
 }:
 
 let
@@ -332,6 +332,7 @@ in
 writeShellApplication {
   inherit name runtimeInputs;
   derivationArgs = {
+    preferLocalBuild = true;
     passthru = {
       shell = writeShellApplication {
         inherit runtimeInputs;
@@ -343,7 +344,6 @@ writeShellApplication {
       };
     }
     // extraPassthru;
-    preferLocalBuild = true;
     meta.platforms = lib.platforms.linux;
   };
 

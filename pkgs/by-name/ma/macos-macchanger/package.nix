@@ -40,8 +40,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "macchanger for macOS - Spoof / Fake MAC address";
     homepage = "https://github.com/shilch/macchanger";
-    mainProgram = "macchanger";
     maintainers = with lib.maintainers; [ azuwis ];
+    mainProgram = "macchanger";
     platforms = lib.platforms.darwin;
   };
 })

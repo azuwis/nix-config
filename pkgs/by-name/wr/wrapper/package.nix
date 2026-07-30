@@ -1,8 +1,8 @@
 {
   lib,
-  runCommandLocal,
   makeBinaryWrapper,
   makeWrapper,
+  runCommandLocal,
 }:
 
 {
@@ -36,14 +36,14 @@ runCommandLocal package.name
   {
     inherit (package) pname version;
 
-    nativeBuildInputs = [
-      wrapper
-    ];
-
     outputs = [
       "out"
     ]
     ++ (lib.optional hasMan "man");
+
+    nativeBuildInputs = [
+      wrapper
+    ];
 
     meta = (package.meta or { }) // {
       outputsToInstall = [

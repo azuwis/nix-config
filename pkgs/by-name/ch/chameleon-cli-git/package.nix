@@ -5,8 +5,8 @@
   cmake,
   makeWrapper,
   openssl,
-  xz,
   python3,
+  xz,
   nix-update-script,
 }:
 
@@ -82,7 +82,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Command line interface for Chameleon Ultra";
     homepage = "https://github.com/RfidResearchGroup/ChameleonUltra";
     license = lib.licenses.gpl3Only;
-    mainProgram = "chameleon-cli";
     maintainers = with lib.maintainers; [ azuwis ];
+    mainProgram = "chameleon-cli";
   };
 })

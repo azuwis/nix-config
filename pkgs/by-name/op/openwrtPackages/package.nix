@@ -3,15 +3,13 @@
   stdenv,
   fetchurl,
   fetchFromGitHub,
+  breakpointHook,
   cacert,
-  zstd,
   openwrtFhsHook,
   openwrtPackages,
-  breakpointHook,
-  src ? fetchurl {
-    url = "https://downloads.openwrt.org/releases/25.12.0/targets/ramips/mt7621/openwrt-sdk-25.12.0-ramips-mt7621_gcc-14.3.0_musl.Linux-x86_64.tar.zst";
-    hash = "sha256-NUna8RwYMkFEjpZfqihZ4m+6Gmdqdpv62ruiK2XJRpY=";
-  },
+  zstd,
+  configText ? lib.concatMapStringsSep "\n" (x: "CONFIG_PACKAGE_${x}=m") installs,
+  downloadHash ? "sha256-pQpattmS9VmO3ZIQUFn66az8GSmB4IvYhTTCFn6SUmo=",
   feeds ? {
     azuwis = fetchFromGitHub {
       owner = "azuwis";
@@ -33,43 +31,18 @@
     };
   },
   installs ? [ ],
-  configText ? lib.concatMapStringsSep "\n" (x: "CONFIG_PACKAGE_${x}=m") installs,
-  downloadHash ? "sha256-pQpattmS9VmO3ZIQUFn66az8GSmB4IvYhTTCFn6SUmo=",
+  src ? fetchurl {
+    url = "https://downloads.openwrt.org/releases/25.12.0/targets/ramips/mt7621/openwrt-sdk-25.12.0-ramips-mt7621_gcc-14.3.0_musl.Linux-x86_64.tar.zst";
+    hash = "sha256-NUna8RwYMkFEjpZfqihZ4m+6Gmdqdpv62ruiK2XJRpY=";
+  },
 }:
 
 stdenv.mkDerivation (finalAttrs: {
-  name = "openwrt-packages";
-
   inherit src;
+  name = "openwrt-packages";
 
   strictDeps = true;
   __structuredAttrs = true;
-
-  download = stdenv.mkDerivation {
-    name = "openwrt-packages-download";
-
-    inherit (finalAttrs) src configurePhase;
-
-    nativeBuildInputs = finalAttrs.nativeBuildInputs ++ [ cacert ];
-
-    buildPhase = ''
-      for package in package/feeds/*/*; do
-        make "$package/download"
-      done
-    '';
-
-    installPhase = ''
-      runHook preInstall
-
-      cp -r dl $out
-
-      runHook postInstall
-    '';
-
-    outputHash = downloadHash;
-    outputHashAlgo = "sha256";
-    outputHashMode = "recursive";
-  };
 
   nativeBuildInputs = [
     openwrtFhsHook
@@ -113,6 +86,27 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  download = stdenv.mkDerivation {
+    inherit (finalAttrs) src configurePhase;
+    name = "openwrt-packages-download";
+    nativeBuildInputs = finalAttrs.nativeBuildInputs ++ [ cacert ];
+    buildPhase = ''
+      for package in package/feeds/*/*; do
+        make "$package/download"
+      done
+    '';
+    installPhase = ''
+      runHook preInstall
+
+      cp -r dl $out
+
+      runHook postInstall
+    '';
+    outputHash = downloadHash;
+    outputHashAlgo = "sha256";
+    outputHashMode = "recursive";
+  };
+
   passthru =
     let
       packages = {
@@ -134,14 +128,14 @@ stdenv.mkDerivation (finalAttrs: {
         };
       };
       sdks = {
-        ramips.mt7621 = {
-          src = src;
-        };
         ipq806x.generic = {
           src = fetchurl {
             url = "https://downloads.openwrt.org/releases/25.12.0/targets/ipq806x/generic/openwrt-sdk-25.12.0-ipq806x-generic_gcc-14.3.0_musl_eabi.Linux-x86_64.tar.zst";
             hash = "sha256-gykaGjk0c+NNVubp/1HwtAxs9YorP5IrDyzweYeIK70=";
           };
+        };
+        ramips.mt7621 = {
+          src = src;
         };
       };
     in

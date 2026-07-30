@@ -17,6 +17,10 @@ python3.pkgs.buildPythonApplication {
     sha256 = "sha256-SeensfAKYU3HUjGaF3hzrnXZkQYs/15IH3msNEl0iS8=";
   };
 
+  postPatch = ''
+    substituteInPlace setup.py --replace-fail "bs4" "beautifulsoup4"
+  '';
+
   build-system = with python3.pkgs; [ setuptools ];
 
   dependencies = with python3.pkgs; [
@@ -30,10 +34,6 @@ python3.pkgs.buildPythonApplication {
   ];
 
   doCheck = false;
-
-  postPatch = ''
-    substituteInPlace setup.py --replace-fail "bs4" "beautifulsoup4"
-  '';
 
   passthru.enable = false;
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };

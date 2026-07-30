@@ -3,15 +3,15 @@
   stdenv,
   fetchFromGitHub,
   bash,
+  bubblewrap,
   emptyDirectory,
   gcc-arm-embedded,
   nrf-command-line-tools,
   nrfutil,
   writableTmpDirAsHomeHook,
-  zip,
-  bubblewrap,
   writeClosure,
   writeShellApplication,
+  zip,
   nix-update-script,
   deviceType ? "ultra",
 }:
@@ -53,8 +53,8 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   env = rec {
-    CURRENT_DEVICE_TYPE = deviceType;
     APP_FW_SEMVER = lib.versions.majorMinor finalAttrs.version;
+    CURRENT_DEVICE_TYPE = deviceType;
     GIT_VERSION = "v${APP_FW_SEMVER}-1-g${builtins.substring 0 7 finalAttrs.src.rev}";
     GNU_INSTALL_ROOT = "${lib.getBin gcc-arm-embedded}/bin/";
     GNU_VERSION = gcc-arm-embedded.version;

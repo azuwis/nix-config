@@ -82,12 +82,12 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = {
-    homepage = "https://codeberg.org/mathstuf/maybar";
     description = "Modular status panel for Wayland";
+    homepage = "https://codeberg.org/mathstuf/maybar";
     changelog = "https://codeberg.org/mathstuf/maybar/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
     maintainers = [ ];
-    platforms = lib.platforms.linux;
     mainProgram = "maybar";
+    platforms = lib.platforms.linux;
   };
 })

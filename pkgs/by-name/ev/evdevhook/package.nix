@@ -3,10 +3,10 @@
   stdenv,
   fetchFromGitHub,
   cmake,
-  pkg-config,
   glibmm,
   libevdev,
   nlohmann_json,
+  pkg-config,
   udev,
   zlib,
   nix-update-script,
@@ -26,6 +26,10 @@ stdenv.mkDerivation {
     hash = "sha256-oRYR1pbYn+PdBDnkmorjQu+HOmyagYGctOHPOtd8gCI=";
   };
 
+  postPatch = ''
+    substituteInPlace src/main.cpp --replace-fail create_loopback create_any
+  '';
+
   nativeBuildInputs = [
     cmake
     pkg-config
@@ -38,10 +42,6 @@ stdenv.mkDerivation {
     udev
     zlib
   ];
-
-  postPatch = ''
-    substituteInPlace src/main.cpp --replace-fail create_loopback create_any
-  '';
 
   passthru.enable = false;
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };

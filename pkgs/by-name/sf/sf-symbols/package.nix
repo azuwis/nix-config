@@ -2,12 +2,12 @@
   lib,
   stdenvNoCC,
   fetchurl,
+  cpio,
   undmg,
   xar,
-  cpio,
+  app ? false,
   fonts ? true,
   full ? false,
-  app ? false,
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {

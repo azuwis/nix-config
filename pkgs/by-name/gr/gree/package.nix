@@ -28,7 +28,7 @@ buildHomeAssistantComponent rec {
   meta = with lib; {
     description = "Custom Gree climate component written in Python3 for Home Assistant. Controls AC's supporting the Gree protocol.";
     homepage = "https://github.com/RobHofmann/HomeAssistant-GreeClimateComponent";
-    maintainers = with maintainers; [ azuwis ];
     license = licenses.gpl3;
+    maintainers = with maintainers; [ azuwis ];
   };
 }

@@ -27,11 +27,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postBuild
   '';
 
-  passthru.updateScript = nix-update-script { };
   passthru.extid = "VimFx-unlisted@akhodakivskiy.github.com";
+  passthru.updateScript = nix-update-script { };
 
   meta = {
-    homepage = "https://github.com/akhodakivskiy/VimFx";
     description = "Vim keyboard shortcuts for Firefox";
+    homepage = "https://github.com/akhodakivskiy/VimFx";
   };
 })

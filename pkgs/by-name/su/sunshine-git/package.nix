@@ -1,11 +1,11 @@
 {
   lib,
-  sunshine,
   boost186,
   nlohmann_json,
   nodejs,
-  cudaSupport ? false,
+  sunshine,
   nix-update-script,
+  cudaSupport ? false,
 }:
 
 (sunshine.override {
@@ -23,9 +23,9 @@
 
     patches = [ ];
 
-    buildInputs = old.buildInputs ++ [ nlohmann_json ];
-
     nativeBuildInputs = old.nativeBuildInputs ++ [ nodejs ];
+
+    buildInputs = old.buildInputs ++ [ nlohmann_json ];
 
     cmakeFlags = old.cmakeFlags ++ [
       (lib.cmakeFeature "BOOST_USE_STATIC" "OFF")

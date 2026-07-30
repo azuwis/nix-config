@@ -18,8 +18,8 @@ stdenvNoCC.mkDerivation {
     inherit hash;
     url = "https://github.com/ryanoasis/nerd-fonts.git";
     rev = "a2697b0fefe5e8d946c18a167a9496c6f224d7c9";
-    sparseCheckout = [ "patched-fonts/${font}" ];
     nonConeMode = true;
+    sparseCheckout = [ "patched-fonts/${font}" ];
   };
 
   installPhase = ''

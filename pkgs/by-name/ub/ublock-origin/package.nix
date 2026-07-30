@@ -31,8 +31,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { extraArgs = [ "--version-regex=^([0-9.]+)$" ]; };
 
   meta = {
-    changelog = "https://github.com/gorhill/uBlock/releases/tag/${finalAttrs.version}";
     description = "An efficient blocker for Chromium and Firefox";
     homepage = "https://github.com/gorhill/uBlock";
+    changelog = "https://github.com/gorhill/uBlock/releases/tag/${finalAttrs.version}";
   };
 })

@@ -1,8 +1,8 @@
 {
   lib,
   fetchFromGitHub,
-  python3,
   bubblewrap,
+  python3,
   wine64,
   nix-update-script,
 }:

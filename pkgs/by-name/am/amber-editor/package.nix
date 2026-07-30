@@ -3,10 +3,10 @@
   stdenv,
   fetchFromGitHub,
   cmake,
-  pkg-config,
-  qt6,
   ffmpeg-full,
   frei0r,
+  pkg-config,
+  qt6,
   nix-update-script,
 }:
 
@@ -99,12 +99,12 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
-    changelog = "https://github.com/baptisterajaut/amber/releases/tag/v${finalAttrs.version}";
     description = "Amber Video Editor — free open-source non-linear video editor";
     homepage = "https://github.com/baptisterajaut/amber";
+    changelog = "https://github.com/baptisterajaut/amber/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Plus;
-    mainProgram = "amber-editor";
     maintainers = with lib.maintainers; [ azuwis ];
+    mainProgram = "amber-editor";
     platforms = lib.platforms.unix;
   };
 })

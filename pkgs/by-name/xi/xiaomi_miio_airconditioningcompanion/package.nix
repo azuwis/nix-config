@@ -28,10 +28,10 @@ buildHomeAssistantComponent rec {
   passthru.updateScript = nix-update-script { };
 
   meta = {
-    changelog = "https://github.com/syssi/xiaomi_airconditioningcompanion/releases/tag/${version}";
     description = "Xiaomi Mi and Aqara Air Conditioning Companion integration for Home Assistant";
     homepage = "https://github.com/syssi/xiaomi_airconditioningcompanion";
-    maintainers = with lib.maintainers; [ azuwis ];
+    changelog = "https://github.com/syssi/xiaomi_airconditioningcompanion/releases/tag/${version}";
     license = lib.licenses.asl20;
+    maintainers = with lib.maintainers; [ azuwis ];
   };
 }
