@@ -36,16 +36,12 @@ in
     # the whole source tree on each evaluation, potentially also copying it
     # into the store.
     // lib.optionalAttrs (lib.isStorePath inputs.nixpkgs) {
-      nixpkgs.to =
-        let
-          nixpkgsInput = (import ../../inputs/inputs.nix).nixpkgs;
-        in
-        {
-          inherit (nixpkgsInput) url ref;
-          type = "git";
-          shallow = true;
-          rev = inputs.nixpkgs.rev;
-        };
+      nixpkgs.to = {
+        inherit (inputs.nixpkgs) url ref;
+        type = "git";
+        shallow = true;
+        rev = inputs.nixpkgs.rev;
+      };
     };
   };
 }
