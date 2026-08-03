@@ -113,38 +113,41 @@ builtins.mapAttrs (
     nixlockOverrideEnv = "NIXLOCK_OVERRIDE_${builtins.replaceStrings [ "-" ] [ "_" ] name}";
     replacement = builtins.getEnv nixlockOverrideEnv;
   in
-  if replacement != "" then
-    # https://github.com/andir/npins/blob/5eb1bde1898a3c32a3aacb36ae120897a58c9ed8/src/default.nix#L36
-    # Override with a path defined in an environment variable.
-    let
-      # this turns the string into an actual Nix path (for both absolute and
-      # relative paths)
-      outPath =
-        if builtins.substring 0 1 replacement == "/" then
-          /. + replacement
-        else
-          /. + builtins.getEnv "PWD" + "/${replacement}";
-    in
-    lock
-    //
-      builtins.trace
-        "Overriding path of \"${name}\" with \"${toString outPath}\" due to set ${nixlockOverrideEnv}"
-        { inherit outPath; }
-  else if isLocked then
-    if input ? type && input.type == "git" then
-      builtins.fetchGit fetchGitArgs
-    else
-      # Default to sites that provide tarballs, use fetchTarball with sha256, it
-      # is content-addressed, no-op if the output already exists.
+  (if update == "" then input else { })
+  // (
+    if replacement != "" then
+      # https://github.com/andir/npins/blob/5eb1bde1898a3c32a3aacb36ae120897a58c9ed8/src/default.nix#L36
+      # Override with a path defined in an environment variable.
+      let
+        # this turns the string into an actual Nix path (for both absolute and
+        # relative paths)
+        outPath =
+          if builtins.substring 0 1 replacement == "/" then
+            /. + replacement
+          else
+            /. + builtins.getEnv "PWD" + "/${replacement}";
+      in
       lock
-      // {
-        outPath = builtins.fetchTarball {
-          url = input.url + "/archive/" + lock.rev + ".tar.gz";
-          sha256 = lock.narHash;
-        };
-      }
-  else
-    builtins.trace "[1;33m${name} = builtins.fetchGit ${argsToString fetchGitArgs}[0m" (
-      builtins.fetchGit fetchGitArgs
-    )
+      //
+        builtins.trace
+          "Overriding path of \"${name}\" with \"${toString outPath}\" due to set ${nixlockOverrideEnv}"
+          { inherit outPath; }
+    else if isLocked then
+      if input ? type && input.type == "git" then
+        builtins.fetchGit fetchGitArgs
+      else
+        # Default to sites that provide tarballs, use fetchTarball with sha256, it
+        # is content-addressed, no-op if the output already exists.
+        lock
+        // {
+          outPath = builtins.fetchTarball {
+            url = input.url + "/archive/" + lock.rev + ".tar.gz";
+            sha256 = lock.narHash;
+          };
+        }
+    else
+      builtins.trace "[1;33m${name} = builtins.fetchGit ${argsToString fetchGitArgs}[0m" (
+        builtins.fetchGit fetchGitArgs
+      )
+  )
 ) (import ./inputs.nix)
