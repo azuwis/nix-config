@@ -7,12 +7,12 @@
 }:
 
 let
+  cfg = config.programs.nix-index;
   nix-index-database = import inputs.nix-index-database.outPath { inherit pkgs; };
 
   # Wrap nix-locate to use full database, nix-locate-small to use small database
-  isStable = !(lib.hasSuffix "-unstable" inputs.nixpkgs.ref);
-  full-database = "nix-index" + lib.optionalString isStable "-stable" + "-database";
-  small-database = "nix-index" + lib.optionalString isStable "-stable" + "-small-database";
+  full-database = "nix-index" + lib.optionalString (!cfg.unstable) "-stable" + "-database";
+  small-database = "nix-index" + lib.optionalString (!cfg.unstable) "-stable" + "-small-database";
   nix-index =
     pkgs.runCommandLocal "nix-index"
       {
@@ -33,6 +33,9 @@ in
 {
   options.programs.nix-index = {
     enhance = lib.mkEnableOption "and enhance nix-index";
+    unstable = lib.mkEnableOption "nix-index unstable databases" // {
+      default = lib.hasSuffix "-unstable" (inputs.nixpkgs.ref or "-unstable");
+    };
   };
 
   config = lib.mkIf config.programs.nix-index.enhance {
