@@ -37,10 +37,11 @@ in
     # into the store.
     // lib.optionalAttrs (lib.isStorePath inputs.nixpkgs) {
       nixpkgs.to = {
-        inherit (inputs.nixpkgs) url ref;
         type = "git";
-        shallow = true;
+        url = inputs.nixpkgs.url or "https://github.com/NixOS/nixpkgs";
+        ref = inputs.nixpkgs.ref or "nixpkgs-unstable";
         rev = inputs.nixpkgs.rev;
+        shallow = true;
       };
     };
   };
