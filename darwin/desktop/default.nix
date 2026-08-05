@@ -21,6 +21,7 @@ in
     programs.firefox.enhance = true;
     programs.mpv.enhance = true;
     programs.rime.enable = true;
+    programs.thunderbird.enhance = true;
 
     # Suppress login message
     system.activationScripts.postActivation.text = ''

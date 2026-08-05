@@ -15,6 +15,7 @@ in
     "/programs/firefox.nix"
     "/programs/git.nix"
     "/programs/less.nix"
+    "/programs/thunderbird.nix"
     "/programs/yazi.nix"
   ];
 }
