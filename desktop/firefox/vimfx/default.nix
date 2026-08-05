@@ -16,7 +16,7 @@ in
     };
   };
 
-  config = lib.mkIf (cfg.enable && cfg.vimfx.enable) {
+  config = lib.mkIf (cfg.enhance && cfg.vimfx.enable) {
     programs.firefox = {
       autoConfigFiles = [
         "${pkgs.legacyfox}/lib/firefox/config.js"

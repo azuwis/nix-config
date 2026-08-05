@@ -10,7 +10,7 @@ let
 in
 
 {
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.enhance {
     programs.firefox.policies.Bookmarks = builtins.fromJSON (builtins.readFile ./bookmarklets.json);
   };
 }

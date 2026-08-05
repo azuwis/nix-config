@@ -16,7 +16,7 @@ in
     };
   };
 
-  config = lib.mkIf (cfg.enable && cfg.ublock-origin.enable) {
+  config = lib.mkIf (cfg.enhance && cfg.ublock-origin.enable) {
     programs.firefox = {
       extensions = [ pkgs.ublock-origin ];
 

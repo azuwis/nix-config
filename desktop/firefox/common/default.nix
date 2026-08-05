@@ -10,7 +10,7 @@ let
 in
 
 {
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.enhance {
     programs.firefox = {
       # Example how to set default env, but allow exported env var to override
       # env.GDK_BACKEND = "\${GDK_BACKEND:-x11}";
