@@ -11,13 +11,13 @@ async function processFiles() {
   const dir = __dirname;
   const files = fs.readdirSync(dir);
   const jsFiles = files.filter(f => f.endsWith(".js") && f !== path.basename(__filename));
-  
+
   const result = [];
 
   for (const file of jsFiles) {
     const filePath = path.join(dir, file);
     const code = fs.readFileSync(filePath, "utf8");
-    
+
     try {
       const minified = await minify(code, {
         enclose: true
