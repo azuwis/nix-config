@@ -68,10 +68,6 @@ in
             makeWrapperArgs = old.makeWrapperArgs ++ envWrapperArgs;
           });
     };
-
-    settings = lib.mkOption {
-      type = lib.types.attrsOf jsonFormat.type;
-    };
   };
 
   config = lib.mkIf cfg.enhance {
