@@ -50,7 +50,7 @@ in
           "security.sandbox.content.read_path_whitelist" = "${dir}/frame.js";
         };
 
-      style = builtins.readFile ./style.css;
+      userChrome = builtins.readFile ./userChrome.css;
     };
   };
 }

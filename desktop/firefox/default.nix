@@ -50,7 +50,7 @@ in
       type = lib.types.attrsOf jsonFormat.type;
     };
 
-    style = lib.mkOption {
+    userChrome = lib.mkOption {
       type = lib.types.lines;
       default = "";
     };
@@ -78,10 +78,10 @@ in
             pref("${name}", ${prefValue value});
           '') cfg.settings
         )
-        + lib.optionalString (cfg.style != "") ''
+        + lib.optionalString (cfg.userChrome != "") ''
           try {
             const sss = Components.classes["@mozilla.org/content/style-sheet-service;1"].getService(Components.interfaces.nsIStyleSheetService);
-            const uri = Services.io.newURI("file://${pkgs.writeText "userChrome.css" cfg.style}");
+            const uri = Services.io.newURI("file://${pkgs.writeText "userChrome.css" cfg.userChrome}");
             let userChrome = null;
             Services.obs.addObserver((win) => {
               if (win.browsingContext && !win.browsingContext.isContent) {

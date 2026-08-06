@@ -182,7 +182,7 @@ in
         "font.name.monospace.x-western" = "Menlo";
       };
 
-      style = builtins.readFile ./style.css;
+      userChrome = builtins.readFile ./userChrome.css;
     };
   };
 }
