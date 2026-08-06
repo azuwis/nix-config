@@ -83,6 +83,13 @@ in
       policies = {
         DisableTelemetry = true;
         PromptForDownloadLocation = true;
+        # https://thunderbird.github.io/policy-templates/templates/central/#preferences
+        Preferences = {
+          "mail.server.default.check_all_folders_for_new" = {
+            Status = "user";
+            Value = true;
+          };
+        };
         SearchEngines = {
           Add = [
             {
