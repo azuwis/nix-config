@@ -54,6 +54,11 @@ in
       type = lib.types.lines;
       default = "";
     };
+
+    userContent = lib.mkOption {
+      type = lib.types.lines;
+      default = "";
+    };
   };
 
   config = lib.mkIf cfg.enhance {
@@ -78,6 +83,9 @@ in
             pref("${name}", ${prefValue value});
           '') cfg.settings
         )
+        # userChrome.css: In the parent process, observe domwindowopened and
+        # addSheet to chrome windows only (filter !browsingContext.isContent),
+        # to avoid applying it to content documents.
         + lib.optionalString (cfg.userChrome != "") ''
           try {
             const sss = Components.classes["@mozilla.org/content/style-sheet-service;1"].getService(Components.interfaces.nsIStyleSheetService);
@@ -93,6 +101,29 @@ in
                 }, { once: true });
               }
             }, "domwindowopened", false);
+          } catch (ex) {
+            Components.utils.reportError(ex.message);
+          }
+        ''
+        # userContent.css: In child processes (via loadProcessScript), observe
+        # content-document-global-created and addSheet to content documents
+        # only (filter browsingContext.isContent), to avoid applying it to
+        # chrome documents.
+        + lib.optionalString (cfg.userContent != "") ''
+          try {
+            Services.ppmm.loadProcessScript("file://${pkgs.writeText "userContent.js" ''
+              (function() {
+                const sss = Components.classes["@mozilla.org/content/style-sheet-service;1"].getService(Components.interfaces.nsIStyleSheetService);
+                const userContent = sss.preloadSheet(Services.io.newURI("file://${pkgs.writeText "userContent.css" cfg.userContent}"), sss.USER_SHEET);
+                Services.obs.addObserver((win) => {
+                  if (win.browsingContext && win.browsingContext.isContent) {
+                    win.addEventListener("DOMContentLoaded", () => {
+                      win.windowUtils.addSheet(userContent, Components.interfaces.nsIDOMWindowUtils.USER_SHEET);
+                    }, { once: true });
+                  }
+                }, "content-document-global-created");
+              })();
+            ''}", true);
           } catch (ex) {
             Components.utils.reportError(ex.message);
           }
