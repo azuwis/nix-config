@@ -80,12 +80,12 @@ in
         )
         + lib.optionalString (cfg.style != "") ''
           try {
-            let sss = Components.classes["@mozilla.org/content/style-sheet-service;1"].getService(Components.interfaces.nsIStyleSheetService);
-            let uri = Services.io.newURI("file://${pkgs.writeText "userChrome.css" cfg.style}", sss.USER_SHEET);
+            const sss = Components.classes["@mozilla.org/content/style-sheet-service;1"].getService(Components.interfaces.nsIStyleSheetService);
+            const uri = Services.io.newURI("file://${pkgs.writeText "userChrome.css" cfg.style}");
             if (!sss.sheetRegistered(uri, sss.USER_SHEET)) {
               sss.loadAndRegisterSheet(uri, sss.USER_SHEET);
             }
-          } catch(ex){
+          } catch (ex) {
             Components.utils.reportError(ex.message);
           }
         '';
