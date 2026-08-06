@@ -82,9 +82,17 @@ in
           try {
             const sss = Components.classes["@mozilla.org/content/style-sheet-service;1"].getService(Components.interfaces.nsIStyleSheetService);
             const uri = Services.io.newURI("file://${pkgs.writeText "userChrome.css" cfg.style}");
-            if (!sss.sheetRegistered(uri, sss.USER_SHEET)) {
-              sss.loadAndRegisterSheet(uri, sss.USER_SHEET);
-            }
+            let userChrome = null;
+            Services.obs.addObserver((win) => {
+              if (win.browsingContext && !win.browsingContext.isContent) {
+                win.addEventListener("DOMContentLoaded", () => {
+                  if (!userChrome) {
+                    userChrome = sss.preloadSheet(uri, sss.USER_SHEET);
+                  }
+                  win.windowUtils.addSheet(userChrome, Components.interfaces.nsIDOMWindowUtils.USER_SHEET);
+                }, { once: true });
+              }
+            }, "domwindowopened", false);
           } catch (ex) {
             Components.utils.reportError(ex.message);
           }
