@@ -8,7 +8,7 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "chndomains";
-  version = "0-unstable-2026-06-04";
+  version = "0-unstable-2026-08-02";
 
   strictDeps = true;
   __structuredAttrs = true;
@@ -16,8 +16,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "felixonmars";
     repo = "dnsmasq-china-list";
-    rev = "9f9fc96cac1606c966321593f0e0a9dd24c5b0b0";
-    hash = "sha256-g/ZMYMVGanLp1JZId/zbf+GLTXP1wni5ptR1sRvIOso=";
+    rev = "29de573c0f2814c616fc65c154c4cdce06ed7d5b";
+    hash = "sha256-9yKnjai+kvPhTlj861n3S7uIx3Pk7zgPWB2ZWG5u0kM=";
   };
 
   nativeBuildInputs = [ gawk ];
