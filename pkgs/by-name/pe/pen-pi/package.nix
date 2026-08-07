@@ -24,14 +24,14 @@
       };
     pi-hashline-edit-pro = buildNpmPackage (finalAttrs: {
       pname = "pi-hashline-edit-pro";
-      version = "0-unstable-2026-08-02";
+      version = "0-unstable-2026-08-05";
       src = fetchFromGitHub {
         owner = "YuGiMob";
         repo = "pi-hashline-edit-pro";
-        rev = "f8e0dee01f81b6052332655999cb6e77caf799fd";
-        hash = "sha256-MUBvhRadnCbkOJNeIlSLJIDR/Fky5BuJ77pjjEAIW9E=";
+        rev = "554070ba21b52ec63a7d61d0f92b7adc1783b2ae";
+        hash = "sha256-iSJZK/uRcR5W5bJngfznvpN5WbIGDPpVLELrVftT0xg=";
       };
-      npmDepsHash = "sha256-0/1qawTVnkYp8RMapioAwQOulhWjpUkTt+gwrHxF+/A=";
+      npmDepsHash = "sha256-fXnBkeU11C7+YmKmV1PJpYM5pO5gfVvcQQFDnDbwYPo=";
       npmInstallFlags = [
         "--omit=dev"
         "--omit=peer"
