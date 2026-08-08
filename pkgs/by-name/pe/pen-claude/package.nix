@@ -9,7 +9,7 @@
   claudePlugins ? {
     mattpocock-skills =
       let
-        version = "1.1.0";
+        version = "1.2.3";
       in
       {
         inherit version;
@@ -18,11 +18,11 @@
         owner = "mattpocock";
         repo = "skills";
         tag = "v${version}";
-        hash = "sha256-XqF709Y9GMKINzZITlbCTyatG9AxRZh0qn2vcv1Z8yo=";
+        hash = "sha256-I/EXHGW92nXz6JCLp8SKGgzXrbbUTkLAfxv8bc/ThwQ=";
       };
     ponytail =
       let
-        version = "4.8.4";
+        version = "4.9.0";
       in
       {
         inherit version;
@@ -31,7 +31,7 @@
         owner = "DietrichGebert";
         repo = "ponytail";
         tag = "v${version}";
-        hash = "sha256-1A9GkjCuiqwd6Wxl18CZUGYekxrbeTLVDapNUua8ihg=";
+        hash = "sha256-8cYggVltBAlZ/Zj4pl1bOu7mQdZFXCmDGW4RSpvRA+w=";
       };
     superpowers =
       let
