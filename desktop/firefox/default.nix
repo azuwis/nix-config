@@ -83,24 +83,25 @@ in
             pref("${name}", ${prefValue value});
           '') cfg.settings
         )
-        # userChrome.css: In the parent process, observe domwindowopened and
-        # addSheet to chrome windows only (filter !browsingContext.isContent),
-        # to avoid applying it to content documents.
+        # userChrome.css: Observe chrome-document-global-created in the parent
+        # process and addSheet into each chrome document as it is created. The
+        # topic is split by principal, not docshell type: it fires for every
+        # system-principal document, including content docshells in the parent
+        # process (about:config, about:preferences, ...), so filter
+        # !browsingContext.isContent (JS equivalent of IsInChromeDocShell,
+        # which gates native userChrome.css).
         + lib.optionalString (cfg.userChrome != "") ''
           try {
             const sss = Components.classes["@mozilla.org/content/style-sheet-service;1"].getService(Components.interfaces.nsIStyleSheetService);
-            const uri = Services.io.newURI("file://${pkgs.writeText "userChrome.css" cfg.userChrome}");
             let userChrome = null;
             Services.obs.addObserver((win) => {
               if (win.browsingContext && !win.browsingContext.isContent) {
-                win.addEventListener("DOMContentLoaded", () => {
-                  if (!userChrome) {
-                    userChrome = sss.preloadSheet(uri, sss.USER_SHEET);
-                  }
-                  win.windowUtils.addSheet(userChrome, Components.interfaces.nsIDOMWindowUtils.USER_SHEET);
-                }, { once: true });
+                if (!userChrome) {
+                  userChrome = sss.preloadSheet(Services.io.newURI("file://${pkgs.writeText "userChrome.css" cfg.userChrome}"), sss.USER_SHEET);
+                }
+                win.windowUtils.addSheet(userChrome, Components.interfaces.nsIDOMWindowUtils.USER_SHEET);
               }
-            }, "domwindowopened", false);
+            }, "chrome-document-global-created");
           } catch (ex) {
             Components.utils.reportError(ex.message);
           }
