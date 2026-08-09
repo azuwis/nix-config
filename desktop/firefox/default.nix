@@ -105,29 +105,47 @@ in
             Components.utils.reportError(ex.message);
           }
         ''
-        # userContent.css: In child processes (via loadProcessScript), observe
-        # content-document-global-created and addSheet to content documents
-        # only (filter browsingContext.isContent), to avoid applying it to
-        # chrome documents.
-        + lib.optionalString (cfg.userContent != "") ''
-          try {
-            Services.ppmm.loadProcessScript("file://${pkgs.writeText "userContent.js" ''
+        # userContent.css: Autoconfig only runs in the parent process, so
+        # inject into content processes via loadProcessScript
+        # (content-document-global-created covers non-system-principal
+        # documents there) and observe chrome-document-global-created in the
+        # parent filtered by isContent, covering system-principal pages that
+        # load in the parent (about:config, about:preferences, ...).
+        + lib.optionalString (cfg.userContent != "") (
+          let
+            userContentCss = pkgs.writeText "userContent.css" cfg.userContent;
+            userContentJs = pkgs.writeText "userContent.js" ''
               (function() {
                 const sss = Components.classes["@mozilla.org/content/style-sheet-service;1"].getService(Components.interfaces.nsIStyleSheetService);
-                const userContent = sss.preloadSheet(Services.io.newURI("file://${pkgs.writeText "userContent.css" cfg.userContent}"), sss.USER_SHEET);
+                const userContent = sss.preloadSheet(Services.io.newURI("file://${userContentCss}"), sss.USER_SHEET);
                 Services.obs.addObserver((win) => {
-                  if (win.browsingContext && win.browsingContext.isContent) {
-                    win.addEventListener("DOMContentLoaded", () => {
-                      win.windowUtils.addSheet(userContent, Components.interfaces.nsIDOMWindowUtils.USER_SHEET);
-                    }, { once: true });
-                  }
+                  win.windowUtils.addSheet(userContent, Components.interfaces.nsIDOMWindowUtils.USER_SHEET);
                 }, "content-document-global-created");
               })();
-            ''}", true);
-          } catch (ex) {
-            Components.utils.reportError(ex.message);
-          }
-        '';
+            '';
+          in
+          ''
+            try {
+              Services.ppmm.loadProcessScript("file://${userContentJs}", true);
+            } catch (ex) {
+              Components.utils.reportError(ex.message);
+            }
+            try {
+              const sss = Components.classes["@mozilla.org/content/style-sheet-service;1"].getService(Components.interfaces.nsIStyleSheetService);
+              let userContent = null;
+              Services.obs.addObserver((win) => {
+                if (win.browsingContext && win.browsingContext.isContent) {
+                  if (!userContent) {
+                    userContent = sss.preloadSheet(Services.io.newURI("file://${userContentCss}"), sss.USER_SHEET);
+                  }
+                  win.windowUtils.addSheet(userContent, Components.interfaces.nsIDOMWindowUtils.USER_SHEET);
+                }
+              }, "chrome-document-global-created");
+            } catch (ex) {
+              Components.utils.reportError(ex.message);
+            }
+          ''
+        );
 
       package =
         let
