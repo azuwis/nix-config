@@ -7,14 +7,14 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "simple-thermostat";
-  version = "4.1.11";
+  version = "4.2.0";
 
   strictDeps = true;
   __structuredAttrs = true;
 
   src = fetchurl {
     url = "https://github.com/Wheemer/simple-thermostat/releases/download/v${finalAttrs.version}/simple-thermostat.js";
-    hash = "sha256-rV2vFGNT0CSFt0DYrJSXTnvFm7ICcboAi9VTcW7DcfM=";
+    hash = "sha256-r17qy+a9zvCrhRWm3PL3dNNRxMWluljMM7kwgNUAaDs=";
   };
 
   dontUnpack = true;
@@ -25,7 +25,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   passthru.entrypoint = "simple-thermostat.js";
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {
+    # Releases end with .0, others are pre-releases
+    extraArgs = [ "--version-regex=^v([0-9.]+\.0)$" ];
+  };
 
   meta = {
     description = "A different take on the thermostat card for Home Assistant";
