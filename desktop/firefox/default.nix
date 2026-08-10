@@ -83,37 +83,21 @@ in
             pref("${name}", ${prefValue value});
           '') cfg.settings
         )
-        # userChrome.css: Observe chrome-document-global-created in the parent
-        # process and addSheet into each chrome document as it is created. The
-        # topic is split by principal, not docshell type: it fires for every
-        # system-principal document, including content docshells in the parent
-        # process (about:config, about:preferences, ...), so filter
-        # !browsingContext.isContent (JS equivalent of IsInChromeDocShell,
-        # which gates native userChrome.css).
-        + lib.optionalString (cfg.userChrome != "") ''
-          try {
-            const sss = Components.classes["@mozilla.org/content/style-sheet-service;1"].getService(Components.interfaces.nsIStyleSheetService);
-            let userChrome = null;
-            Services.obs.addObserver((win) => {
-              if (win.browsingContext && !win.browsingContext.isContent) {
-                if (!userChrome) {
-                  userChrome = sss.preloadSheet(Services.io.newURI("file://${pkgs.writeText "userChrome.css" cfg.userChrome}"), sss.USER_SHEET);
-                }
-                win.windowUtils.addSheet(userChrome, Components.interfaces.nsIDOMWindowUtils.USER_SHEET);
-              }
-            }, "chrome-document-global-created");
-          } catch (ex) {
-            Components.utils.reportError(ex.message);
-          }
-        ''
-        # userContent.css: Autoconfig only runs in the parent process, so
-        # inject into content processes via loadProcessScript
-        # (content-document-global-created covers non-system-principal
-        # documents there) and observe chrome-document-global-created in the
-        # parent filtered by isContent, covering system-principal pages that
-        # load in the parent (about:config, about:preferences, ...).
-        + lib.optionalString (cfg.userContent != "") (
+        # Firefox selects native userChrome.css/userContent.css by docshell type,
+        # whereas document-global-created topics are selected by principal.
+        #
+        # Browser UI and system-principal content pages (such as about:config and
+        # about:preferences) all emit chrome-document-global-created in the parent.
+        # Use isContent to inject userChrome into browser UI and userContent into
+        # content docshells.
+        #
+        # Non-system-principal documents, including web pages and safe remote about:
+        # pages such as about:newtab, emit content-document-global-created in content
+        # processes. Since autoconfig runs in the parent, install the userContent
+        # observer in content processes with loadProcessScript.
+        + (
           let
+            userChromeCss = pkgs.writeText "userChrome.css" cfg.userChrome;
             userContentCss = pkgs.writeText "userContent.css" cfg.userContent;
             userContentJs = pkgs.writeText "userContent.js" ''
               (function() {
@@ -125,7 +109,25 @@ in
               })();
             '';
           in
+          # Browser UI in the parent process
+          lib.optionalString (cfg.userChrome != "") ''
+            try {
+              const sss = Components.classes["@mozilla.org/content/style-sheet-service;1"].getService(Components.interfaces.nsIStyleSheetService);
+              let userChrome = null;
+              Services.obs.addObserver((win) => {
+                if (win.browsingContext && !win.browsingContext.isContent) {
+                  if (!userChrome) {
+                    userChrome = sss.preloadSheet(Services.io.newURI("file://${userChromeCss}"), sss.USER_SHEET);
+                  }
+                  win.windowUtils.addSheet(userChrome, Components.interfaces.nsIDOMWindowUtils.USER_SHEET);
+                }
+              }, "chrome-document-global-created");
+            } catch (ex) {
+              Components.utils.reportError(ex.message);
+            }
           ''
+          # Content documents in parent and content processes
+          + lib.optionalString (cfg.userContent != "") ''
             try {
               Services.ppmm.loadProcessScript("file://${userContentJs}", true);
             } catch (ex) {
