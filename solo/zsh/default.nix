@@ -20,10 +20,16 @@ let
 
   zsh = pkgs.wrapper {
     package = pkgs.zsh;
-    # Need settting LOCALE_ARCHIVE before running for zsh locale support
-    env.LOCALE_ARCHIVE = config.environment.variables.LOCALE_ARCHIVE;
-    env.SHELL = "${placeholder "out"}/bin/zsh";
-    env.ZDOTDIR = zdotdir;
+    env = {
+      # Need settting LOCALE_ARCHIVE before running for zsh locale support
+      LOCALE_ARCHIVE = config.environment.variables.LOCALE_ARCHIVE;
+      SHELL = "${placeholder "out"}/bin/zsh";
+      ZDOTDIR = zdotdir;
+    }
+    # Infinite recursion if `environment.variables.DIRENV_CONFIG = "${config.system.build.etc}/etc/direnv"`
+    // lib.optionalAttrs config.programs.direnv.enable {
+      DIRENV_CONFIG = "${config.system.build.etc}/etc/direnv";
+    };
     wrapper = pkgs.makeBinaryWrapper;
     wrapperArgs = [ "--inherit-argv0" ];
   };

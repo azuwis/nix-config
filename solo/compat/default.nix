@@ -18,6 +18,7 @@ in
     "/config/nix-flakes.nix"
     "/config/shells-environment.nix"
     "/misc/assertions.nix"
+    "/misc/extra-arguments.nix"
     "/misc/meta.nix"
     "/misc/nixpkgs.nix"
     "/programs/bash/bash-completion.nix"
