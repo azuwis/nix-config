@@ -22,27 +22,27 @@
         rootDir = "packages/pi-exa-mcp";
         hash = "sha256-Wqw+Gp7skL5S4xB9Ktq9rs6F6ulA1XAuXb9PKe2pQV0=";
       };
-    pi-hashline-edit-pro = buildNpmPackage (finalAttrs: {
-      pname = "pi-hashline-edit-pro";
-      version = "0-unstable-2026-08-02";
-      src = fetchFromGitHub {
-        owner = "YuGiMob";
-        repo = "pi-hashline-edit-pro";
-        rev = "f8e0dee01f81b6052332655999cb6e77caf799fd";
-        hash = "sha256-MUBvhRadnCbkOJNeIlSLJIDR/Fky5BuJ77pjjEAIW9E=";
-      };
-      npmDepsHash = "sha256-0/1qawTVnkYp8RMapioAwQOulhWjpUkTt+gwrHxF+/A=";
-      npmInstallFlags = [
-        "--omit=dev"
-        "--omit=peer"
-      ];
-      dontNpmBuild = true;
-      installPhase = ''
-        runHook preInstall
-        cp -r . $out
-        runHook postInstall
-      '';
-    });
+    # pi-hashline-edit-pro = buildNpmPackage (finalAttrs: {
+    #   pname = "pi-hashline-edit-pro";
+    #   version = "0-unstable-2026-08-02";
+    #   src = fetchFromGitHub {
+    #     owner = "YuGiMob";
+    #     repo = "pi-hashline-edit-pro";
+    #     rev = "f8e0dee01f81b6052332655999cb6e77caf799fd";
+    #     hash = "sha256-MUBvhRadnCbkOJNeIlSLJIDR/Fky5BuJ77pjjEAIW9E=";
+    #   };
+    #   npmDepsHash = "sha256-0/1qawTVnkYp8RMapioAwQOulhWjpUkTt+gwrHxF+/A=";
+    #   npmInstallFlags = [
+    #     "--omit=dev"
+    #     "--omit=peer"
+    #   ];
+    #   dontNpmBuild = true;
+    #   installPhase = ''
+    #     runHook preInstall
+    #     cp -r . $out
+    #     runHook postInstall
+    #   '';
+    # });
     pi-superpowers = {
       version = "0-unstable-2026-03-05";
     }
