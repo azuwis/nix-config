@@ -27,7 +27,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   passthru.entrypoint = "simple-thermostat.js";
   passthru.updateScript = nix-update-script {
     # Releases end with .0, others are pre-releases
-    extraArgs = [ "--version-regex=^v([0-9.]+\.0)$" ];
+    extraArgs = [ "--version-regex=^v([0-9.]+\\.0)$" ];
   };
 
   meta = {
