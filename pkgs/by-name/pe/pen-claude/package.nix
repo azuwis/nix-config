@@ -31,7 +31,12 @@
         owner = "DietrichGebert";
         repo = "ponytail";
         tag = "v${version}";
-        hash = "sha256-8cYggVltBAlZ/Zj4pl1bOu7mQdZFXCmDGW4RSpvRA+w=";
+        hash = "sha256-JYrxSUPhwY+cv1FEVIS32ry5sQKv51ALqA843OlCPrM=";
+        # Keep the skills but drop the hooks, hooks need `node`, and ponytail
+        # works without them
+        postFetch = ''
+          rm -rf $out/hooks
+        '';
       };
     superpowers =
       let
