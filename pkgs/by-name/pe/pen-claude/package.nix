@@ -53,6 +53,7 @@
       };
   },
   claudeSettings ? {
+    awaySummaryEnabled = false;
     attribution = {
       commit = "";
       pr = "";
