@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  options,
   pkgs,
   ...
 }:
@@ -19,24 +20,26 @@ let
   };
 
   zsh = pkgs.wrapper {
+    inherit (cfg) env;
     package = pkgs.zsh;
-    env = {
-      # Need settting LOCALE_ARCHIVE before running for zsh locale support
-      LOCALE_ARCHIVE = config.environment.variables.LOCALE_ARCHIVE;
-      SHELL = "${placeholder "out"}/bin/zsh";
-      ZDOTDIR = zdotdir;
-    }
-    # Infinite recursion if `environment.variables.DIRENV_CONFIG = "${config.system.build.etc}/etc/direnv"`
-    // lib.optionalAttrs config.programs.direnv.enable {
-      DIRENV_CONFIG = "${config.system.build.etc}/etc/direnv";
-    };
     wrapper = pkgs.makeBinaryWrapper;
     wrapperArgs = [ "--inherit-argv0" ];
   };
 
 in
 {
+  options = {
+    programs.zsh.env = lib.mkOption {
+      default = { };
+      inherit (options.environment.variables) type apply;
+    };
+  };
+
   config = lib.mkIf cfg.enable {
+    programs.zsh.env = {
+      SHELL = "${placeholder "out"}/bin/zsh";
+      ZDOTDIR = zdotdir;
+    };
     solo.shell = zsh;
   };
 }
