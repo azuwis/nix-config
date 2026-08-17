@@ -18,6 +18,7 @@ USAGE:
 
 options:
   -c Commit automatically
+  -i <attrpath> Show package info
   -j Output packages to update in JSON format
   -l List packages to update
   -w <jobs> Number of jobs in parallel

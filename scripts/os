@@ -9,14 +9,15 @@ usage() {
 USAGE:
   $cmd b|build [<nix-build args>] [<host>]
   $cmd c|clean
-  $cmd cd|configdiff [<host1>] [<host2>]
+  $cmd cd|configdiff <host1> [<host2>]
+  $cmd ci [<nix-build args>] [<host>]
   $cmd d|diff [<host>]
   $cmd dp|deploy [-f] [<host>]
   $cmd hw|hardware
   $cmd l|list
   $cmd ns|nixlock-show
-  $cmd r|run <apps>
-  $cmd shell <apps>
+  $cmd r|run <app> [<args>]
+  $cmd shell <app> [<installables>]
   $cmd slb|show-local-builds [<path>]
   $cmd s|switch [<host>]
   $cmd u|update|lu|nixlock-update [all] [<input1>] [-<input2>] ...
@@ -306,6 +307,10 @@ solo_switch() {
 
 hardware() {
   test -e /etc/NIXOS || exit
+  if [ "$DRY_RUN" = true ]; then
+    run_command sudo nixos-generate-config --show-hardware-config
+    return
+  fi
   run_command sudo nixos-generate-config --show-hardware-config | grep -Ev 'networking.interfaces.macvtap|networking.interfaces.virbr' >"$CONFIG/hosts/hardware-$(hostname).nix"
 }
 
