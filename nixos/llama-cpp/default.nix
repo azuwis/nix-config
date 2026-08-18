@@ -112,6 +112,32 @@ let
         reasoning-budget = "16384";
         reasoning-budget-message = "... reasoning budget exceeded, answering now.";
       };
+      # https://huggingface.co/HauhauCS/GLM-4.7-Flash-Uncensored-HauhauCS-Balanced
+      "glm4.7" = {
+        alias = "glm4.7";
+        # download
+        hf-repo = "HauhauCS/GLM-4.7-Flash-Uncensored-HauhauCS-Balanced:Q4_K_M"; # 18.1G
+        # sampling (from HF page, tuned for this HauhauCS build)
+        temperature = "1.0";
+        top-p = "0.95";
+        min-p = "0.01";
+        repeat-penalty = "1.0"; # Z.ai recommends disabling repeat penalty
+        jinja = true;
+        reasoning-format = "deepseek"; # GLM-4.7-Flash uses <think> tags (deepseek-compatible)
+        # keep reasoning across turns (GLM template uses clear_thinking, not preserve_thinking)
+        chat-template-kwargs = ''{"clear_thinking": false}'';
+        # engine
+        flash-attn = "on";
+        n-gpu-layers = "99";
+        n-cpu-moe = "31";
+        # memory
+        ctx-size = "131072";
+        cache-type-k = "q8_0";
+        cache-type-v = "q8_0";
+        no-context-shift = true;
+        reasoning-budget = "16384";
+        reasoning-budget-message = "... reasoning budget exceeded, answering now.";
+      };
       # https://huggingface.co/HauhauCS/Gemma4-26B-A4B-QAT-Uncensored-HauhauCS-Balanced-MTP
       "gemma4" = {
         alias = "gemma4";
