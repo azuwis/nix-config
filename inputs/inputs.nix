@@ -18,7 +18,6 @@
   jovian-nixos = {
     url = "https://github.com/Jovian-Experiments/Jovian-NixOS";
     ref = "development";
-    rev = "8f97d1dee8c0971b01cd6b17ccf913e8bb70f5d5"; # last version compatible with nixos-26.05
   };
   my = {
     type = "git";
@@ -27,7 +26,7 @@
   };
   nix-darwin = {
     url = "https://github.com/nix-darwin/nix-darwin";
-    ref = "nix-darwin-26.05";
+    ref = "master";
   };
   nix-homebrew = {
     url = "https://github.com/zhaofengli/nix-homebrew";
@@ -52,6 +51,6 @@
   };
   nixpkgs = {
     url = "https://github.com/NixOS/nixpkgs";
-    ref = "nixos-26.05";
+    ref = "nixos-unstable";
   };
 }
