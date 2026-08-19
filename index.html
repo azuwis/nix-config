@@ -174,11 +174,12 @@ d3.csv("data.csv").then(data => {
         .append("text")
             .attr("fill", "#000")
             .attr("transform", "rotate(-90)")
-            .attr("y", 6)
+            .attr("x", -15)
+            .attr("y", -60)
             .attr("dy", "0.71em")
             .text("Closure Size");
 
-    // Legend
+    // Legend (top-right, above the plot so it does not cover the lines)
     const legend = svg.append("g")
         .attr("font-family", "sans-serif")
         .attr("font-size", 10)
@@ -186,7 +187,7 @@ d3.csv("data.csv").then(data => {
         .selectAll("g")
         .data(color.domain())
         .join("g")
-            .attr("transform", (d, i) => `translate(${width - 120},${i * 20 + 20})`);
+            .attr("transform", (d, i) => `translate(${width - margin.right - color.domain().length * 65 + i * 65},18)`);
 
     legend.append("rect")
         .attr("x", 0)
