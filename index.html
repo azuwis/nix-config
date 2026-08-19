@@ -31,9 +31,9 @@
 
 <script>
 // Configuration
-const width = window.innerWidth * 0.8;
-const height = 500;
-const margin = { top: 20, right: 30, bottom: 50, left: 60 };
+const width = window.innerWidth * 0.9;
+const height = 600;
+const margin = { top: 20, right: 50, bottom: 50, left: 60 };
 
 // Create SVG container
 const svg = d3.select("#chart")
@@ -179,27 +179,22 @@ d3.csv("data.csv").then(data => {
             .attr("dy", "0.71em")
             .text("Closure Size");
 
-    // Legend (top-right, above the plot so it does not cover the lines)
-    const legend = svg.append("g")
-        .attr("font-family", "sans-serif")
-        .attr("font-size", 10)
-        .attr("text-anchor", "start")
-        .selectAll("g")
-        .data(color.domain())
-        .join("g")
-            .attr("transform", (d, i) => `translate(${width - margin.right - color.domain().length * 65 + i * 65},18)`);
+    // Host labels at the right end of each line
+    const lastPoints = d3.rollup(
+        longData,
+        v => v.reduce((a, b) => (b.time > a.time ? b : a)),
+        d => d.device
+    );
 
-    legend.append("rect")
-        .attr("x", 0)
-        .attr("width", 19)
-        .attr("height", 19)
-        .attr("fill", color);
-
-    legend.append("text")
-        .attr("x", 24)
-        .attr("y", 9.5)
-        .attr("dy", "0.32em")
-        .text(d => d);
+    svg.selectAll(".host-label")
+        .data(lastPoints)
+        .join("text")
+            .attr("class", "host-label")
+            .attr("x", d => xScale(d[1].time) + 8)
+            .attr("y", d => yScale(d[1].value))
+            .attr("dy", "0.32em")
+            .attr("font-size", 12)
+            .text(d => d[0]);
 });
 
 // Responsive handling
