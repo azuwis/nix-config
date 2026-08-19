@@ -118,6 +118,16 @@ let
       if [ -n "$http_proxy" ]; then
         socat TCP-LISTEN:8888,bind=127.0.0.1,fork UNIX-CONNECT:/tmp/proxy.sock 2>/dev/null &
       fi
+
+      # Sandbox side of the PEN_PORTS bridge, unix sockets in /tmp are
+      # host-visible through $rootdir
+      IFS=, read -r -a pen_ports <<<"''${PEN_PORTS:-}"
+      for entry in "''${pen_ports[@]}"; do
+        port="''${entry##*:}"
+        if [[ "$port" =~ ^[0-9]+$ ]]; then
+          socat UNIX-LISTEN:"/tmp/pen-in-$port.sock",unlink-early,fork TCP:"127.0.0.1:$port" 2>/dev/null &
+        fi
+      done
       exec "$@"
     '';
   };
@@ -303,9 +313,33 @@ let
       fi
 
       socat UNIX-LISTEN:"$proxydir/proxy-$$.sock",unlink-early,fork TCP:127.0.0.1:"$tinyproxy_port" 2>/dev/null &
-      socat_pid=$!
+      socat_pids=($!)
 
-      trap 'kill $tinyproxy_pid $socat_pid 2>/dev/null' EXIT
+      # Host side of the PEN_PORTS bridge, entries are PORT, HOST:SANDBOX,
+      # or ADDR:HOST[:SANDBOX]
+      if [ -n "''${PEN_PORTS:-}" ]; then
+        IFS=, read -r -a host_ports <<<"$PEN_PORTS"
+        for entry in "''${host_ports[@]}"; do
+          first="''${entry%%:*}"
+          port="''${entry##*:}"
+          if [[ "$first" =~ ^[0-9]+$ ]]; then
+            bind=127.0.0.1
+            host_port="$first"
+          else
+            bind="$first"
+            host_port="''${entry#*:}"
+            host_port="''${host_port%%:*}"
+          fi
+          if [[ "$host_port" =~ ^[0-9]+$ ]] && [[ "$port" =~ ^[0-9]+$ ]]; then
+            socat TCP-LISTEN:"$host_port",bind="$bind",fork UNIX-CONNECT:"$rootdir/tmp/pen-in-$port.sock" 2>/dev/null &
+            socat_pids+=($!)
+          fi
+        done
+        bwrap_args+=(--setenv PEN_PORTS "$PEN_PORTS")
+      fi
+
+      trap 'kill $tinyproxy_pid "''${socat_pids[@]}" 2>/dev/null' EXIT
+
       bwrap_args+=(
         --bind "$proxydir/proxy-$$.sock" /tmp/proxy.sock
         --setenv http_proxy "http://127.0.0.1:8888"
