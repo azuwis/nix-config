@@ -144,7 +144,7 @@ d3.csv("data.csv").then(data => {
                     <strong>${d3.timeFormat("%Y-%m-%d %H:%M")(d.time)}</strong><br>
                     ${d.device}: ${d3.format(".2s")(d.value)}B<br>
                     nix-config: ${d.labels["nix-config"].substring(0,8)}<br>
-                    nixpkgs: ${d.labels.nixpkgs.substring(0,8)}
+                    nixpkgs: ${d.labels.nixpkgs}
                 `)
                 .style("left", (event.pageX + 10) + "px")
                 .style("top", (event.pageY - 28) + "px");
