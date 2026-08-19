@@ -87,8 +87,8 @@ jobs:
           mkdir -p /tmp/report
           nix path-info --closure-size ~/.local/state/nix/profiles/"$HOST" | awk '{print $2}' > /tmp/report/"$HOST"
           echo "${GITHUB_SHA::8}" > /tmp/report/nix-config
-          nixpkgs=$(nix-instantiate --eval --raw --expr '(import ./inputs { }).nixpkgs.rev')
-          echo "${nixpkgs::8}" > /tmp/report/nixpkgs
+          nixpkgs=$(nix-instantiate --eval --raw --attr nuc.config.system.nixos.version system.nix)
+          echo "$nixpkgs" > /tmp/report/nixpkgs
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: report-${{ matrix.host }}
