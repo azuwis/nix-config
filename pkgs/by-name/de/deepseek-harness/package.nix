@@ -23,13 +23,13 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "deepseek-harness";
-  version = "0.1.1-rc.1";
+  version = "0.1.1-rc.2";
 
   src = fetchFromGitHub {
     owner = "deepseek-ai";
     repo = "deepseek-harness";
-    rev = "528c682e061696f5a160f363f236ecbf53cbd006";
-    hash = "sha256-daCh+O/lbv5QrJvslyEHfy+p9HcYhgTzda6I1VNnJZk=";
+    rev = "b150a551b8d465e31e418e1b2eaf5e79bbb7d28e";
+    hash = "sha256-rrjXoyccTxKIbZ00Z4Vy7EA9tGZ15WUqLBFnZSgw1YE=";
   };
 
   postPatch = ''
