@@ -7,24 +7,29 @@ usage() {
   cmd=$(basename "$0")
   cat <<EOF
 USAGE:
-  $cmd b|build [<nix-build args>] [<host>]
-  $cmd c|clean
-  $cmd cd|configdiff <host1> [<host2>]
-  $cmd ci [<nix-build args>] [<host>]
-  $cmd d|diff [<host>]
-  $cmd dp|deploy [-f] [<host>]
-  $cmd hw|hardware
-  $cmd l|list
-  $cmd ns|nixlock-show
-  $cmd r|run <app> [<args>]
-  $cmd shell <app> [<installables>]
-  $cmd slb|show-local-builds [<path>]
-  $cmd s|switch [<host>]
-  $cmd u|update|lu|nixlock-update [all] [<input1>] [-<input2>] ...
-  $cmd fu|flake-update [-a] [<input>] [<commit>]
-  $cmd dg|direnv-gcroots
-  $cmd [--] <darwin-rebuild/nix-on-droid/nixos-rebuild args>
-  $cmd dry <command> ...
+  $cmd  # build and switch the current host (asks before switching)
+  $cmd b|build [<nix-build args>] [<host>]  # build; show nvd diff vs the previous system (when one exists)
+  $cmd c|clean  # clean stale gcroots symlinks
+  $cmd cd|configdiff <host1> [<host2>]  # diff options: one host = uncommitted vs git HEAD (dirty tree required); two hosts = host vs host
+  $cmd ci [<nix-build args>] [<host>]  # CI-style build (NIXLOCK_OVERRIDE_my=./test)
+  $cmd d|diff [<host>]  # build + detailed nix-diff
+  $cmd dp|deploy [-f] [<host>]  # build + deploy (NixOS/OpenWrt only); -f skips confirmation
+  $cmd hw|hardware  # generate hardware config (NixOS only)
+  $cmd l|list  # list system generations
+  $cmd ns|nixlock-show  # show the custom input lock as a table
+  $cmd r|run <app> [<args>]  # run an app (apps/, then pkgs/)
+  $cmd shell <app> [<installables>]  # nix shell with an app (apps/, then pkgs/)
+  $cmd slb|show-local-builds [<path>]  # list locally built derivations (default /run/current-system)
+  $cmd s|switch [<host>]  # build and activate
+  $cmd u|update|lu|nixlock-update [all] [<input1>] [-<input2>] ...  # update input pins (all/<input>/<input>=<rev>/-<exclude>)
+  $cmd fu|flake-update [-a] [<input>] [<commit>]  # OBSOLETE, use update
+  $cmd dg|direnv-gcroots  # show nix-direnv gcroots in nix-tree
+  $cmd [--] <darwin-rebuild/nix-on-droid/nixos-rebuild args>  # pass args to the underlying rebuild tool
+  $cmd dry <command> ...  # dry run (honored only via run_command/DRY_RUN)
+
+NOTES:
+  The OS is auto-detected from the hostname; a trailing <host> builds that host (FOROTHER).
+  build/switch/diff/deploy/ci: nix-build args go before <host>.
 EOF
 }
 

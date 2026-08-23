@@ -18,9 +18,9 @@ USAGE:
 
 options:
   -c Commit automatically
-  -i <attrpath> Show package info
+  -i <attrpath> Show package info via lib/info.nix (homepage, changelog, repo, description)
   -j Output packages to update in JSON format
-  -l List packages to update
+  -l List packages to update (with -a or <package>)
   -w <jobs> Number of jobs in parallel
 EOF
   exit
