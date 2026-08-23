@@ -308,10 +308,10 @@ solo_switch() {
 hardware() {
   test -e /etc/NIXOS || exit
   if [ "$DRY_RUN" = true ]; then
-    run_command sudo nixos-generate-config --show-hardware-config
+    run_command sudo nixos-generate-config --show-hardware-config "$@"
     return
   fi
-  run_command sudo nixos-generate-config --show-hardware-config | grep -Ev 'networking.interfaces.macvtap|networking.interfaces.virbr' >"$CONFIG/hosts/hardware-$(hostname).nix"
+  run_command sudo nixos-generate-config --show-hardware-config "$@" | grep -Ev 'networking.interfaces.macvtap|networking.interfaces.virbr' >"$CONFIG/hosts/hardware-$(hostname).nix"
 }
 
 rebuild() {
