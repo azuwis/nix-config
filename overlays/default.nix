@@ -12,6 +12,14 @@ in
   (import (inputs.nixpkgs.outPath + "/pkgs/top-level/by-name-overlay.nix") ../pkgs/by-name)
 
   (final: prev: {
+    # Remove bcachefs-tools reference from nixos-generate-config to reduce closure size
+    # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/installer/tools/tools.nix#L41
+    bcachefs-tools = prev.bcachefs-tools.overrideAttrs (old: {
+      meta = old.meta // {
+        broken = true;
+      };
+    });
+
     # https://github.com/NixOS/nixpkgs/blob/master/pkgs/by-name/cl/claude-code/manifest.json
     # claude-code = prev.claude-code.overrideAttrs (old: {
     #   version = "2.1.202";
