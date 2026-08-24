@@ -84,7 +84,7 @@ shell() {
 }
 
 input() {
-  output=$(nix-instantiate --eval --expr "(import $CONFIG/inputs).$1.outPath")
+  output=$(nix-instantiate --eval --expr "(import $CONFIG/inputs { }).$1.outPath")
   output=${output#\"}
   output=${output%\"}
   echo "$output"
