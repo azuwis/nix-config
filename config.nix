@@ -25,7 +25,7 @@ in
       "platform-tools"
       "platforms"
       "tools"
-      # apps/claude.nix
+      # pkgs/by-name/pe/pen-claude
       "claude-code"
       # nixos/retroarch
       "libretro-genesis-plus-gx"

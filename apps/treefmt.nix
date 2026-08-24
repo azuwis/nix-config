@@ -56,7 +56,7 @@ treefmt.withConfig {
             "..."
           ];
           attrs.first = [
-            # Home Assistant component / pen-claude
+            # buildHomeAssistantComponent
             "url"
             "owner"
             "repo"
