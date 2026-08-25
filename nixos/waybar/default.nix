@@ -30,7 +30,7 @@ in
           format = "{app_id}";
           rewrite = {
             # https://www.nerdfonts.com/cheat-sheet
-            # Need an extra space so waybar dont crop it
+            # Need an extra space so waybar doesn't crop it
             "(.*)" = "<span text-transform='capitalize'>$1</span>";
             "(Info\\.Cemu\\.)?Cemu" = "󰜭 ";
             "(com\\.moonlight_stream\\.)?Moonlight" = "󰺵 ";
@@ -82,7 +82,7 @@ in
             };
           };
           "sway/workspaces" = {
-            # waybar crash in Niri if cursor is true here
+            # waybar crashes in Niri if cursor is true here
             # cursor = true;
             format = "{icon}";
             format-icons = {

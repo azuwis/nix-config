@@ -22,7 +22,7 @@ in
     files.file = {
       "etc/dropbear/authorized_keys".text = lib.concatStringsSep "\n" config.my.keys;
 
-      # Empty file /etc/profile.d/apk-cheatsheet.hush will skip load /etc/profile.d/apk-cheatsheet.sh
+      # Empty file /etc/profile.d/apk-cheatsheet.hush will skip loading /etc/profile.d/apk-cheatsheet.sh
       # TODO: Remove when openwrt 26 releases
       # https://github.com/openwrt/openwrt/blob/df45ed2da0afb3c2c4dce567338eaa3ef099217a/package/base-files/files/etc/profile#L35
       "etc/profile.d/apk-cheatsheet.hush".text = "";
@@ -38,7 +38,7 @@ in
         ucode /usr/libexec/uci-defaults/dhcp-dnsmasq-rename.uc
       '';
 
-      # Radios are not consistent between fresh install, sort them by band (2g,
+      # Radios are not consistent between fresh installs, sort them by band (2g,
       # 5g, 6g) so radio0 is always 2g, radio1 is 5g, etc.
       "usr/libexec/uci-defaults/wireless-order.uc".source = ./wireless-order.uc;
       "etc/uci-defaults/90-wireless-order".text = ''

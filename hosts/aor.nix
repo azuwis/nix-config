@@ -42,7 +42,7 @@
     };
     systemd = {
       # Sync boot.initrd.systemd.network.config to systemd.network.config, see ../nixos/system/default.nix
-      # Initrd generates temporary /etc/machine-id, produces different DUID in each stage, and get different DHCP IP
+      # Initrd generates a temporary /etc/machine-id, produces a different DUID in each stage, and gets a different DHCP IP
       # Setting both systemd.network.config.dhcpV4Config.ClientIdentifier and
       # boot.initrd.systemd.network.config.dhcpV4Config.ClientIdentifier to "mac" to avoid this.
       network.config = config.systemd.network.config;

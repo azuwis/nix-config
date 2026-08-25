@@ -36,7 +36,7 @@ in
       lib.concatMapStrings (entry: "exec ${lib.concatStringsSep " " entry}\n") (
         builtins.attrValues config.programs.wayland.startup
       )
-      # Systemd integration, does not work on multiple sway instances, so not putting to `config` file
+      # Systemd integration does not work on multiple sway instances, so it is not put in the `config` file
       + ''
         include /etc/sway/config.d/*
       '';
@@ -44,9 +44,9 @@ in
     programs.sway = {
       enable = true;
       wrapperFeatures.gtk = true;
-      # sway complains even nvidia GPU is only used for offload
+      # sway complains even when the nvidia GPU is only used for offload
       extraOptions = [ "--unsupported-gpu" ];
-      # override default extraPackages, some packages are already setted in programs.wayland
+      # override default extraPackages, some packages are already set in programs.wayland
       extraPackages = with pkgs; [
         swappy
         sway-contrib.grimshot

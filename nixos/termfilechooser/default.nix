@@ -24,7 +24,7 @@ in
     #   [filechooser]
     #   env=TERMCMD='...'
     # '';
-    # But unfortunately xdg-desktop-portal-termfilechooser look for the wrong config file in NixOS:
+    # But unfortunately xdg-desktop-portal-termfilechooser looks for the wrong config file in NixOS:
     # /nix/store/...-xdg-desktop-portal-termfilechooser-.../etc/xdg/xdg-desktop-portal-termfilechooser/config
     # Use systemd overrides to set TERMCMD instead:
     systemd.user.services.xdg-desktop-portal-termfilechooser = {

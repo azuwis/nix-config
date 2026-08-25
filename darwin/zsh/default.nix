@@ -12,7 +12,7 @@ in
 
 {
   # https://github.com/NixOS/nixpkgs/blob/master/nixos/doc/manual/development/replace-modules.section.md
-  # zsh module from nix-darwin are outdated, use the one from nixos
+  # zsh module from nix-darwin is outdated, use the one from nixos
   disabledModules = [ "programs/zsh" ];
 
   imports = map (path: modulesPath + path) [
@@ -20,8 +20,8 @@ in
   ];
 
   config = lib.mkIf config.programs.zsh.enable {
-    # Important, the zsh module from nixos use `__NIXOS_SET_ENVIRONMENT_DONE`,
-    # but nix-darwin set `__NIX_DARWIN_SET_ENVIRONMENT_DONE`, without this,
+    # Important, the zsh module from nixos uses `__NIXOS_SET_ENVIRONMENT_DONE`,
+    # but nix-darwin sets `__NIX_DARWIN_SET_ENVIRONMENT_DONE`, without this,
     # tools like `nix shell` are broken
     environment.variables.__NIXOS_SET_ENVIRONMENT_DONE = "1";
   };

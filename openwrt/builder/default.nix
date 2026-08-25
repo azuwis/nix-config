@@ -58,7 +58,7 @@ in
                 args:
                 if builtins.match cfg.ignoreHashUrlRegex args.url != null then
                   # Override pkgs.fetchurl with builtins.fetchurl, remove sha256 arg to let it
-                  # works in impure mode, another way to workaround hash mismatch problem
+                  # work in impure mode, another way to work around the hash mismatch problem
                   # https://github.com/astro/nix-openwrt-imagebuilder/?tab=readme-ov-file#refreshing-hashes
                   builtins.trace "Ignore hash of ${args.url}" {
                     inherit (args) name;

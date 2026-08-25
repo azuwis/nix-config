@@ -96,7 +96,7 @@ fence-agent {
       lib.concatMapAttrsStringSep " " (_: p: "--plugin-dir ${p}") claudePlugins
     }"
   ]
-  # /tmp is not writable on darwin, set CLAUDE_CODE_TMPDIR to workaround
+  # /tmp is not writable on darwin, set CLAUDE_CODE_TMPDIR to work around it
   ++ lib.optionals stdenvNoCC.hostPlatform.isDarwin [
     "--run"
     ''export CLAUDE_CODE_TMPDIR="$HOME/.claude/tmp"''

@@ -6,7 +6,7 @@ local function augroup(name)
   return vim.api.nvim_create_augroup("my_" .. name, { clear = true })
 end
 
--- Disable spell for markdown by default, show lots of useless hints
+-- Disable spell for markdown by default, as it shows lots of useless hints
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup("no_spell"),
   pattern = { "markdown" },

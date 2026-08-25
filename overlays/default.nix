@@ -1,6 +1,6 @@
 # https://nixos.org/manual/nixpkgs/stable/#chap-overlays
-# Can be use as `~/.config/nixpkgs/overlays/`.
-# Also used by `common/nixpkgs/default.nix` `pkgs/default.nix` `scripts/update.nix`
+# Can be used as `~/.config/nixpkgs/overlays/`.
+# Also used by `common/nixpkgs/default.nix`, `pkgs/default.nix`, and `scripts/update.nix`
 
 let
   inputs = import ../inputs { };

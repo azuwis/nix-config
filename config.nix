@@ -1,6 +1,6 @@
 # https://nixos.org/manual/nixpkgs/stable/#sec-config-options-reference
-# Can be use as `~/.config/nixpkgs/config.nix`.
-# Also used by `common/nixpkgs/default.nix` `pkgs/default.nix`
+# Can be used as `~/.config/nixpkgs/config.nix`.
+# Also used by `common/nixpkgs/default.nix` and `pkgs/default.nix`
 
 let
   inputs = import ./inputs { };

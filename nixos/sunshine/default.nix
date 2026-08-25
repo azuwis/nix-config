@@ -186,7 +186,7 @@ in
       # adapter_name = "/dev/dri/renderD129";
       # adapter_name = "/dev/dri/by-path/pci-0000:11:00.0-render";
       # ```
-      # Sunshine default to `/dev/dri/renderD128`, which is not always correct, the `renderD128` is
+      # Sunshine defaults to `/dev/dri/renderD128`, which is not always correct, the `renderD128` is
       # not even consistent between different kernel versions.
       # Use `vainfo --display drm --device /dev/dri/renderD12x` to find out.
       # https://docs.lizardbyte.dev/projects/sunshine/latest/md_docs_2configuration.html#adapter_name
@@ -215,7 +215,7 @@ in
       };
 
       applications = {
-        # NOTE: The Z_Desktop app will not pickup env set here
+        # NOTE: The Z_Desktop app will not pick up env set here
         env = {
           # Moonlight see no apps if env not set, at least keep an empty env
         }

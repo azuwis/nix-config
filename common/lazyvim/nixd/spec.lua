@@ -8,7 +8,7 @@ local uv = vim.uv
 -- end
 
 return {
-  -- nixd used to give `nixd: %-32001:` error
+  -- nixd used to give the `nixd: %-32001:` error
   -- {
   --   "folke/noice.nvim",
   --   optional = true,
@@ -35,7 +35,7 @@ return {
               formatting = {
                 command = { "nixfmt" },
               },
-              -- Disable for now, use lots of memory, the default exprs shoud be enough
+              -- Disable for now, uses lots of memory, the default exprs should be enough
               -- https://github.com/nix-community/nixd/blob/065dcb4cb2f8269d6d15d2b2491a79cff47f9550/nixd/lib/Controller/LifeTime.cpp#L26-L37
               -- options = {
               --   nixos = {

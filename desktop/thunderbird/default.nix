@@ -73,7 +73,7 @@ in
   config = lib.mkIf cfg.enhance {
     # `programs.thunderbird.policies` generates `/etc/thunderbird/policies/policies.json`,
     # but Thunderbird on darwin does not read it, disable it and use `extraPolicies`
-    # to handle that, see bellow
+    # to handle that, see below
     environment.etc."thunderbird/policies/policies.json".enable = false;
 
     programs.thunderbird = {

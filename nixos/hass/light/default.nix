@@ -32,7 +32,7 @@
         "yeelink-light-panel1_mibt6379.lan" = {
           name = "Kitchen door";
           # panel1 auto-detects as WhiteTemp (color_temp), force White (brightness-only)
-          # NOTE: changing model requires deleting the device in HA and restarting
+          # NOTE: changing the model requires deleting the device in HA and restarting
           model = "lamp3";
         };
         "yeelink-light-panel1_mibt4C93.lan" = {

@@ -130,7 +130,7 @@ let
             );
             inherit allowWrite;
           };
-          # Default have no network access, configure in ~/.config/fence/fence.json
+          # No network access by default, configure in ~/.config/fence/fence.json
         };
       }
       ''
@@ -205,9 +205,9 @@ writeShellApplication {
     // extraPassthru;
     preferLocalBuild = true;
   };
-  # fence use bash found in PATH to run helper script inside bwrap to setup
-  # proxy etc., the helper script need tools like `mkdir` `rm`, since inside
-  # the bwrap, only the closure of fencePackages are accessible, provide a
+  # fence uses bash found in PATH to run the helper script inside bwrap to set up
+  # proxy etc., the helper script needs tools like `mkdir` `rm`, since inside
+  # the bwrap, only the closure of fencePackages is accessible, provide a
   # fenceShell with correct PATH, so those tools can be found, instead of
   # trying to use tools outside of bwrap
   runtimeInputs = [ fenceShell ];

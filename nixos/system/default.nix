@@ -52,8 +52,8 @@
   # https://github.com/systemd/systemd/issues/28054
   # services.resolved.settings.ResolveUnicastSingleLabel = true;
   # Disable DUID
-  # - Compatible with other DHCP client like NetworkManager (get the same IP)
-  # - Do not depends on machine-id, which is often not available in initrd (LUKS remote unlock)
+  # - Compatible with other DHCP clients like NetworkManager (get the same IP)
+  # - Do not depend on machine-id, which is often not available in initrd (LUKS remote unlock)
   systemd.network.config.dhcpV4Config.ClientIdentifier = "mac";
   # systemd.network.wait-online.anyInterface = config.networking.useDHCP;
   nix.settings.allowed-users = [ config.my.user ];
@@ -76,7 +76,7 @@
       PasswordAuthentication = false;
     };
   };
-  # Switch leftmeta and leftalt, as the window manager global modifier, meta is more often used then alt
+  # Switch leftmeta and leftalt, as the window manager global modifier, meta is more often used than alt
   # https://wiki.archlinux.org/title/map_scancodes_to_keycodes
   # nix shell nixpkgs#evemu nixpkgs#evtest
   # Get DMI/name for `evdev:name:*`: sudo evemu-describe

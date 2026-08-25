@@ -15,7 +15,7 @@ in
     enhance = lib.mkEnableOption "and enhance smartdns";
   };
 
-  # Remove `resolve [!UNAVAIL=return]` (added by `services.resolved.enable`) from /etc/nsswitch.conf, see bellow for details
+  # Remove `resolve [!UNAVAIL=return]` (added by `services.resolved.enable`) from /etc/nsswitch.conf, see below for details
   # Idea from https://discourse.nixos.org/t/73289/20
   options.system.nssDatabases.hosts = lib.mkOption {
     apply =
@@ -43,7 +43,7 @@ in
     '';
 
     services.resolved.enable = true;
-    # When resolved enabled, /etc/nsswitch.conf will have `hosts: mymachines resolve [!UNAVAIL=return] files myhostname dns`,
+    # When resolved is enabled, /etc/nsswitch.conf will have `hosts: mymachines resolve [!UNAVAIL=return] files myhostname dns`,
     # which will make gethostbyname (apps like `ping` `firefox`) prefer systemd-resolved, and ignore /etc/resolv.conf.
     # Currently using custom `options.system.nssDatabases.hosts` hack (see above) to remove `resolve [!UNAVAIL=return]`,
     # make tools like `dig` and `ping` have almost the same result.

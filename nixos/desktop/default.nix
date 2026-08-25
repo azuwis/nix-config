@@ -43,7 +43,7 @@ in
     programs.firefox.enhance = true;
     programs.gnupg.agent = {
       enable = true;
-      # Keyboard typing on pinentry-gnome3 stucks
+      # Keyboard typing on pinentry-gnome3 gets stuck
       pinentryPackage = pkgs.pinentry-qt;
       settings = {
         default-cache-ttl = 14400;

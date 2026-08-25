@@ -43,7 +43,7 @@ spawn-at-startup "awww" "img" "--transition-type" "none" "@wallpaper@"
 spawn-at-startup "awww-daemon" "--namespace" "overview"
 spawn-at-startup "awww" "img" "--namespace" "overview" "--transition-type" "none" "@wallpaper-blur@"
 
-// Niri set XCURSOR_SIZE and XCURSOR_THEME, but does not import them to systemd and dbus
+// Niri sets XCURSOR_SIZE and XCURSOR_THEME, but does not import them to systemd and dbus
 // https://github.com/YaLTeR/niri/blob/79e41d7d88de44356b48400515076bf5593544e8/src/cursor.rs#L191-L192
 // https://github.com/YaLTeR/niri/blob/79e41d7d88de44356b48400515076bf5593544e8/src/main.rs#L272-L278
 spawn-at-startup "systemctl" "--user" "import-environment" "XCURSOR_SIZE" "XCURSOR_THEME"
@@ -123,7 +123,7 @@ window-rule {
         active-color "#2e3440"
         inactive-color "#2e3440"
     }
-    // final radius = geometry-corner-radius + border, to keep final radius consistant,
+    // final radius = geometry-corner-radius + border, to keep final radius consistent,
     // with global default (see first window-rule above), use `6 - 4` here
     geometry-corner-radius 2
     default-column-width { proportion 0.66667; }

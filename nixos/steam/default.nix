@@ -28,7 +28,7 @@ in
 
         programs.gamescope = {
           enable = true;
-          # capSysNice = true; # capSysNice need to enable setuid bwrap, may have some security issues
+          # capSysNice = true; # capSysNice needs to enable setuid bwrap, may have some security issues
         };
 
         programs.steam = {

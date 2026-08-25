@@ -24,7 +24,7 @@ in
     systemd.services."mskb@" = {
       environment = {
         IDLE_TIMEOUT_MS = "350";
-        # The pad default to vertical natural scroll, reverse back, so WM's
+        # The pad defaults to vertical natural scroll, reverse back, so WM's
         # natural-scroll setting works as expected
         SCROLL_RATIO = "-1";
       };

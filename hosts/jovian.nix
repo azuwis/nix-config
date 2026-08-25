@@ -57,7 +57,7 @@ in
     autoStart = true;
     user = "deck";
   };
-  # Not really work for deck, still need overlays/jovian.nix
+  # Does not really work for deck, still need overlays/jovian.nix
   programs.steam.fontPackages = with pkgs; [ noto-fonts-cjk-sans ];
 
   i18n.inputMethod.enable = true;
@@ -97,7 +97,7 @@ in
   jovian.steam.desktopSession = "plasmax11";
 
   # Fix permission of `/`, SteamOS may modify dir permission of the SD card
-  # mount point, and make SSHD refuce any user to login.
+  # mount point, and make SSHD refuse any user to login.
   systemd.tmpfiles.rules = [
     "z / 0755 root root"
   ];
@@ -105,8 +105,8 @@ in
   services.nix-builder.client.enable = true;
   theme.enable = true;
   # Proton is not sandboxed, https://github.com/ValveSoftware/Proton/issues/3979
-  # It even mounts the SD card, and expose it to all games.
-  # SteamOS deck user use uid 1000, create another user with different uid,
-  # so at least games do not have read permission of my.user's HOME dir.
+  # It even mounts the SD card, and exposes it to all games.
+  # SteamOS deck user uses uid 1000, create another user with a different uid,
+  # so at least games do not have read permission on my.user's HOME dir.
   my.uid = lib.mkForce 2000;
 }

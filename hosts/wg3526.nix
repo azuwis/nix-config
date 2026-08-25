@@ -53,7 +53,7 @@
   uci.sqm.wifi = {
     ".type" = "queue";
     # Download for wifi interface is upload for wifi clients, result max
-    # upload speed: 270 Mb/s to devices ln lan, 116 Mb/s to devices on wan,
+    # upload speed: 270 Mb/s to devices on lan, 116 Mb/s to devices on wan,
     # softirq is the bottleneck
     download = "300000";
     enabled = "1";
@@ -61,8 +61,8 @@
     script = "simplest.qos";
     upload = "0";
   };
-  # Fix timing issue when the wifi iface is brought up too late, often occur right after sysupgrade
-  # The iface hotplug script does not run for phy1-ap0, manully add a net hotplug script
+  # Fix timing issue when the wifi iface is brought up too late, often occurs right after sysupgrade
+  # The iface hotplug script does not run for phy1-ap0, manually add a net hotplug script
   files.file."etc/hotplug.d/net/50-sqm-wifi".text = ''
     if [ "$ACTION" = "add" ] && [ "$DEVICENAME" = "phy1-ap0" ]; then
       logger -t "sqm-hotplug" "Starting SQM for $DEVICENAME"

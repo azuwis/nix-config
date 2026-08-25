@@ -10,7 +10,7 @@ let
 in
 
 {
-  # To make ssh accessable from LAN, run in host powershell:
+  # To make ssh accessible from LAN, run in host powershell:
   # ```
   # netsh interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=22 connectaddress=<ip-in-wsl> connectport=22
   # New-NetFirewallRule -DisplayName "WSL OpenSSH Server" -Action Allow -Protocol TCP -LocalPort 22
@@ -39,7 +39,7 @@ in
   };
 
   # programs.sway.extraSessionCommands = ''
-  #   # workaround for XWayland refuses to start
+  #   # workaround for XWayland refusing to start
   #   if [ -L /tmp/.X11-unix ]
   #   then
   #     sudo rm /tmp/.X11-unix

@@ -38,12 +38,12 @@ in
               BTN_MODE-BTN_SOUTH = [ "KEY_ENTER" ];
             };
             commands = {
-              # Makima use `sh -c "systemd-run ..."` to run command, which need full path, and will clear PATH env,
+              # Makima uses `sh -c "systemd-run ..."` to run a command, which needs a full path, and will clear the PATH env,
               # hack to dry-run systemd-run
               # PS+△
               BTN_MODE-BTN_NORTH = [ "--version >/dev/null & gamefzf" ];
             };
-            # Set to `cursor` does not work, comment for now
+            # Setting it to `cursor` does not work, commented out for now
             # settings = {
             #   RSTICK = "cursor";
             #   RSTICK_ACTIVATION_MODIFIERS = "BTN_MODE";

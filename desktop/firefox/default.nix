@@ -64,7 +64,7 @@ in
   config = lib.mkIf cfg.enhance {
     # `programs.firefox.policies` generates `/etc/firefox/policies/policies.json`,
     # but Firefox on darwin does not read it, disable it and use `extraPolicies`
-    # to handle that, see bellow
+    # to handle that, see below
     environment.etc."firefox/policies/policies.json".enable = false;
 
     programs.firefox = {

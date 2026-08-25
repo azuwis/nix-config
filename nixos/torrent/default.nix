@@ -103,7 +103,7 @@ in
 
     # Use crudini --merge instead of upstream install so manual changes made
     # via WebUI survive across restarts. Beware removing lines from
-    # serverConfig will NOT effect qBittorrent.conf, only adding and changing
+    # serverConfig will NOT affect qBittorrent.conf, only adding and changing
     # will do.
     systemd.services.qbittorrent.serviceConfig.ExecStartPre = lib.mkForce (
       pkgs.writeShellScript "qbittorrent-pre-start" ''

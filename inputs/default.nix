@@ -4,7 +4,7 @@
 
 # Update some inputs:
 # nix-instantiate --strict --eval --argstr update "<input1> <input2> ..."
-# Update all expect some inputs:
+# Update all except some inputs:
 # nix-instantiate --strict --eval --argstr update "all -<input1> -<input2> ..."
 # Update some inputs to a specific revision:
 # nix-instantiate --strict --eval --argstr update "<input1>=<rev>"

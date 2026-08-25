@@ -22,7 +22,7 @@ in
   config = lib.mkIf cfg.enable {
     nix.nixPath = [ "nixpkgs=flake:nixpkgs" ];
 
-    # NOTE: Make sure inputs are not non-store paths, nix.registry use
+    # NOTE: Make sure inputs are not non-store paths, nix.registry uses
     # builtins.toJSON, which will copy non-store paths to nix store
     # https://nix.dev/manual/nix/2.26/language/builtins#builtins-toJSON
     nix.registry = {

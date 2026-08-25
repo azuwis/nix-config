@@ -12,7 +12,7 @@ in
 {
   config = lib.mkIf cfg.enhance {
     programs.firefox = {
-      # Example how to set default env, but allow exported env var to override
+      # Example of how to set default env, but allow exported env var to override
       # env.GDK_BACKEND = "\${GDK_BACKEND:-x11}";
       env.MOZ_USE_XINPUT2 = "1";
 
@@ -104,10 +104,10 @@ in
       # When preferences are modified by user:
       # - default: Keep modified
       # - locked: Unable to modify
-      # - user: Reset to value when Firefox restart
+      # - user: Reset to value when Firefox restarts
       preferencesStatus = "user";
 
-      # NOTE: `programs.firefox.preferences` are are whitelisted by prefixes,
+      # NOTE: `programs.firefox.preferences` are whitelisted by prefixes,
       # see https://mozilla.github.io/policy-templates/#preferences
       # preferences = { };
 

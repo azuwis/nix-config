@@ -47,7 +47,7 @@ in
   homebrew = {
     enable = true;
     onActivation = {
-      # When `nix-homebrew.mutableTaps` is false, autoUpdate will have not
+      # When `nix-homebrew.mutableTaps` is false, autoUpdate will have no
       # effect because `HOMEBREW_NO_AUTO_UPDATE=1` set in `brew` wrapper
       # https://github.com/zhaofengli/nix-homebrew/blob/main/modules/default.nix#L126-L128
       # autoUpdate = true;

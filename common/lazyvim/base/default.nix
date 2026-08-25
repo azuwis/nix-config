@@ -131,8 +131,8 @@ in
     environment.variables.EDITOR = "nvim";
 
     programs.lazyvim = {
-      # vscode-langservers-extracted contains css/eslint/html/json/markdown language server,
-      # but need nodejs, add 170M closure size
+      # vscode-langservers-extracted contains css/eslint/html/json/markdown language servers,
+      # but needs nodejs, adding 170M to the closure size
       extraPackages = with pkgs; [
         # LazyVim
         lua-language-server
