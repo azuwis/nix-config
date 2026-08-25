@@ -17,11 +17,14 @@
   glibcLocales,
   gnugrep,
   gnused,
+  gnutar,
+  gzip,
   jq,
   less,
   makeWrapper,
   nix,
   path,
+  procps,
   python3,
   ripgrep,
   runCommandLocal,
@@ -33,6 +36,7 @@
   writeClosure,
   writeShellApplication,
   writeText,
+  xz,
 }:
 
 {
@@ -58,15 +62,19 @@
     git
     gnugrep
     gnused
+    gnutar
+    gzip
     jq
     less
     nix
+    procps
     python3
     ripgrep
     socat
     tinyxxd
     unzip
     which
+    xz
   ],
 }:
 
