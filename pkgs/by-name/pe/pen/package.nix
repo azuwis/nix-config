@@ -20,6 +20,7 @@
   gnutar,
   gzip,
   jq,
+  jujutsu,
   less,
   makeWrapper,
   nix,
@@ -65,6 +66,7 @@
     gnutar
     gzip
     jq
+    jujutsu
     less
     nix
     procps
@@ -228,6 +230,8 @@ let
       --ro-bind /etc/hosts /etc/hosts
       --ro-bind /etc/localtime /etc/localtime
       --ro-bind-try /etc/gitconfig /etc/gitconfig
+      --ro-bind-try /etc/jj/config.toml /etc/jj/config.toml
+      --ro-bind-try "$HOME/.config/jj" "$HOME/.config/jj"
       --symlink /usr/bin/sh /bin/sh
     )
 
