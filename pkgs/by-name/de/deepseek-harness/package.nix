@@ -29,8 +29,9 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "deepseek-ai";
     repo = "deepseek-harness";
-    rev = "0a53fb55bea101816fa226bb964ae2bed71c343b";
-    hash = "sha256-fDLyk09boJGNXVMOBnln2dY1ZSETXGpFBHUVqFBLRk4=";
+    tag = "dsh-v${finalAttrs.version}";
+    hash = "sha256-D6giOM2p9zAFR1jmDNLh+ZDHOl7/xqtFpfAP8bY4aeU=";
+    postCheckout = "git -C $out rev-parse HEAD > $out/.gitrev";
   };
 
   postPatch = ''
@@ -49,11 +50,8 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   preBuild = ''
-    # scripts/build.ts embeds the commit hash in the client build record and
-    # falls back to git, which is not available in the sandbox. This is
-    # upstream's escape hatch for non-Git build environments. The src tracks
-    # the default branch by commit, so derive the value instead of pinning it.
-    export DSH_CLIENT_COMMIT_HASH=${finalAttrs.src.rev}
+    export DSH_CLIENT_COMMIT_HASH="$(< .gitrev)"
+    rm .gitrev
 
     # Same as official releases brand
     export DSH_CLIENT_TITLE="DeepSeek Harness"
@@ -178,10 +176,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
-      # Track the default branch HEAD, but keep the version at the plain
-      # release number (strip the dsh-v prefix and -unstable-<date> suffix).
-      "--version=branch"
-      "--version-regex=dsh-v(.*)-unstable-.*"
+      "--version=unstable"
+      "--version-regex=dsh-v(.*)"
     ];
   };
 
