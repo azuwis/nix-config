@@ -10,6 +10,8 @@
   pnpmBuildHook,
   pnpmConfigHook,
   pnpm_11,
+  testers,
+  runCommand,
   writableTmpDirAsHomeHook,
   nix-update-script,
 }:
@@ -108,18 +110,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   doInstallCheck = true;
 
-  nativeInstallCheckInputs = [
-    curl
-    writableTmpDirAsHomeHook
-  ];
-
+  # Smoke the native modules that pnpmConfigHook skipped: a missing pty.node
+  # would only surface when a terminal session starts, so exercise it here.
   installCheckPhase = ''
-    set -e
-
-    $out/bin/dsh --version
-
-    # Smoke the native modules that pnpmConfigHook skipped: a missing pty.node
-    # would only surface when a terminal session starts, so exercise it here.
     (
       cd $out/libexec/dsh/packages/subprocess/subprocess-local
       SHELL_PATH="${stdenv.shell}" ${nodejs}/bin/node -e '
@@ -132,32 +125,6 @@ stdenv.mkDerivation (finalAttrs: {
         });
       '
     )
-
-    # Boot the web profile and verify it serves HTML. Guards the loader's bare
-    # import() of workspace specifiers, the require.resolve() of the built
-    # frontend dist, and the --expose-internals requirement.
-    tmp=$(mktemp -d)
-    $out/bin/dsh --profile web --no-open --port 0 >"$tmp/server.log" 2>&1 &
-    pid=$!
-    trap 'kill $pid 2>/dev/null || true' EXIT
-
-    # The web profile gates access behind the ?token= launch URL (401
-    # without it); follow it with a cookie jar so -L replays the 303 cookie.
-    # --port 0 avoids clashing with anything already on 3080.
-    for i in $(seq 1 60); do
-      url=$(sed -n 's#.*dsh web: \(http://[^[:space:]]*\).*#\1#p' "$tmp/server.log" | head -1)
-      if [ -n "$url" ]; then
-        if curl --noproxy '*' -fsSL -c "$tmp/cookies.txt" "$url" >"$tmp/page.html" 2>/dev/null \
-          && grep -q '<!doctype html>' "$tmp/page.html"; then
-          exit 0
-        fi
-      fi
-      sleep 1
-    done
-
-    echo "dsh web profile failed to serve ''${url:-its web UI}" >&2
-    cat "$tmp/server.log" >&2
-    exit 1
   '';
 
   pnpmDeps = fetchPnpmDeps {
@@ -174,11 +141,53 @@ stdenv.mkDerivation (finalAttrs: {
     '';
   };
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version=unstable"
-      "--version-regex=dsh-v(.*)"
-    ];
+  passthru = {
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--version=unstable"
+        "--version-regex=dsh-v(.*)"
+      ];
+    };
+
+    tests = {
+      version = testers.testVersion { package = finalAttrs.finalPackage; };
+
+      # Boots the web profile and verifies the server actually serves. Guards the
+      # fragile parts: the loader's bare import() of workspace specifiers and the
+      # --expose-internals requirement.
+      web-boot =
+        runCommand "deepseek-harness-web-boot"
+          {
+            nativeBuildInputs = [
+              curl
+              writableTmpDirAsHomeHook
+            ];
+          }
+          ''
+            ${lib.getExe finalAttrs.finalPackage} --profile web --no-open --port 0 >server.log 2>&1 &
+            pid=$!
+            trap 'kill $pid 2>/dev/null || true' EXIT
+
+            # The web profile gates access behind the ?token= launch URL (401
+            # without it); follow it with a cookie jar so -L replays the 303 cookie.
+            # --port 0 avoids clashing with anything already on 3080.
+            for i in $(seq 1 60); do
+              url=$(sed -n 's#.*dsh web: \(http://[^[:space:]]*\).*#\1#p' server.log | head -1)
+              if [ -n "$url" ]; then
+                if curl --noproxy '*' -fsSL -c cookies.txt "$url" >page.html 2>/dev/null \
+                  && grep -q '<!doctype html>' page.html; then
+                  touch $out
+                  exit 0
+                fi
+              fi
+              sleep 1
+            done
+
+            echo "dsh web profile failed to serve ''${url:-its web UI}" >&2
+            cat server.log >&2
+            exit 1
+          '';
+    };
   };
 
   meta = {
