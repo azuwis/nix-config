@@ -6,12 +6,10 @@
   curl,
   fetchPnpmDeps,
   makeBinaryWrapper,
-  node-gyp,
   nodejs_24,
   pnpmBuildHook,
   pnpmConfigHook,
   pnpm_11,
-  python3,
   writableTmpDirAsHomeHook,
   nix-update-script,
 }:
@@ -24,6 +22,9 @@ in
 stdenv.mkDerivation (finalAttrs: {
   pname = "deepseek-harness";
   version = "0.1.2-alpha.2";
+
+  strictDeps = true;
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "deepseek-ai";
@@ -44,14 +45,9 @@ stdenv.mkDerivation (finalAttrs: {
     pnpm
     pnpmConfigHook
     pnpmBuildHook
-    node-gyp
-    python3
     makeBinaryWrapper
   ];
 
-  # pnpmConfigHook installs with lifecycle scripts disabled. node-pty ships
-  # no Linux prebuild and upstream allowBuilds lists it, so rebuild it to get
-  # a compiled pty.node (node-gyp uses the headers from the nixpkgs nodejs).
   preBuild = ''
     # scripts/build.ts embeds the commit hash in the client build record and
     # falls back to git, which is not available in the sandbox. This is
@@ -59,7 +55,8 @@ stdenv.mkDerivation (finalAttrs: {
     # the default branch by commit, so derive the value instead of pinning it.
     export DSH_CLIENT_COMMIT_HASH=${finalAttrs.src.rev}
 
-    pnpm rebuild node-pty
+    # Same as official releases brand
+    export DSH_CLIENT_TITLE="DeepSeek Harness"
   '';
 
   installPhase = ''
