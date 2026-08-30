@@ -26,21 +26,22 @@ runs:
       shell: bash
       run: |
         package=$PACKAGE
-        if [ "$(nix eval --impure --json --expr "
+        if [ "$(nix-instantiate --argstr package "$package" --eval --json --expr '
+        { package }:
         let
           pkgs = import ./pkgs { };
-          meta = pkgs.$package.meta;
+          meta = pkgs.${package}.meta;
         in
         (meta ? platforms && builtins.elem builtins.currentSystem meta.platforms)
           || !(meta ? platforms)
-        ")" = false ]; then
+        ')" = false ]; then
           echo "::notice::Skip build, wrong platform"
           echo "CACHE_NEED_UPDATE=no" >>"$GITHUB_ENV"
           touch ~/package-skip-build
           exit
         fi
         echo "::group::Build $package"
-        nix -L build -f pkgs "$package"
+        nix-build pkgs --attr "$package"
         echo "::endgroup::"
         echo "::group::Install 'tree'"
         nix-env -f '<nixpkgs>' -iA tree
