@@ -6,6 +6,7 @@
 }:
 
 let
+  inherit (import ../../lib/my.nix) mkReplaceStringsModule;
   inputs = import ../../inputs { };
   modulesPath = inputs.nixpkgs.outPath + "/nixos/modules";
 in
@@ -15,8 +16,16 @@ in
   # zsh module from nix-darwin is outdated, use the one from nixos
   disabledModules = [ "programs/zsh" ];
 
-  imports = map (path: modulesPath + path) [
-    "/programs/zsh/zsh.nix"
+  # `hostname` on macOS does not accept `--fqdn` arg
+  imports = [
+    (mkReplaceStringsModule
+      [ "hostname --fqdn" "./zinputrc" ]
+      [
+        "hostname -f"
+        (modulesPath + "/programs/zsh/zinputrc")
+      ]
+      (modulesPath + "/programs/zsh/zsh.nix")
+    )
   ];
 
   config = lib.mkIf config.programs.zsh.enable {
