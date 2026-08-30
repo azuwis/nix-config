@@ -141,20 +141,27 @@ stdenv.mkDerivation (finalAttrs: {
     # Boot the web profile and verify it serves HTML. Guards the loader's bare
     # import() of workspace specifiers, the require.resolve() of the built
     # frontend dist, and the --expose-internals requirement.
-    $out/bin/dsh --profile web >server.log 2>&1 &
+    tmp=$(mktemp -d)
+    $out/bin/dsh --profile web --no-open --port 0 >"$tmp/server.log" 2>&1 &
     pid=$!
     trap 'kill $pid 2>/dev/null || true' EXIT
 
+    # The web profile gates access behind the ?token= launch URL (401
+    # without it); follow it with a cookie jar so -L replays the 303 cookie.
+    # --port 0 avoids clashing with anything already on 3080.
     for i in $(seq 1 60); do
-      if curl -fsS http://127.0.0.1:3080/ >page.html 2>/dev/null \
-        && grep -q '<!doctype html>' page.html; then
-        exit 0
+      url=$(sed -n 's#.*dsh web: \(http://[^[:space:]]*\).*#\1#p' "$tmp/server.log" | head -1)
+      if [ -n "$url" ]; then
+        if curl --noproxy '*' -fsSL -c "$tmp/cookies.txt" "$url" >"$tmp/page.html" 2>/dev/null \
+          && grep -q '<!doctype html>' "$tmp/page.html"; then
+          exit 0
+        fi
       fi
       sleep 1
     done
 
-    echo "dsh web profile failed to serve http://127.0.0.1:3080/" >&2
-    cat server.log >&2
+    echo "dsh web profile failed to serve ''${url:-its web UI}" >&2
+    cat "$tmp/server.log" >&2
     exit 1
   '';
 
