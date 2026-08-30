@@ -21,10 +21,7 @@ in
   options.programs.jujutsu = {
     enable = mkEnableOption "jujutsu";
 
-    finalPackage = mkOption {
-      type = lib.types.package;
-      readOnly = true;
-    };
+    package = lib.mkPackageOption pkgs "jujutsu" { };
 
     settings = mkOption {
       type = tomlFormat.type;
@@ -33,16 +30,11 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [
-      cfg.finalPackage
-    ];
+    environment.etc."jj/config.toml".source = tomlFormat.generate "jujutsu-config.toml" cfg.settings;
 
-    programs.jujutsu.finalPackage = pkgs.wrapper {
-      package = pkgs.jujutsu;
-      env = {
-        JJ_CONFIG = tomlFormat.generate "jujutsu-config.toml" cfg.settings;
-      };
-    };
+    environment.systemPackages = [
+      cfg.package
+    ];
 
     programs.jujutsu.settings = mkMerge [
       (importTOML ./config.toml)
@@ -77,7 +69,7 @@ in
     # _clap_dynamic_completer_jj. zsh autoload expects _jj, so the first
     # Tab press fails. Pre-source to let compdef fix the registration.
     programs.zsh.interactiveShellInit = ''
-      . ${cfg.finalPackage}/share/zsh/site-functions/_jj
+      . ${cfg.package}/share/zsh/site-functions/_jj
     '';
   };
 }

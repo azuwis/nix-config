@@ -566,16 +566,16 @@ build)
 list)
   case "$OS" in
   darwin)
-    action=--list-generations
+    run_command sudo --set-home nix-env --profile /nix/var/nix/profiles/system --list-generations "$@"
     ;;
-  droid)
-    action=generations
-    ;;
-  nixos)
-    action=list-generations
+  *)
+    case "$OS" in
+    droid) action=generations ;;
+    nixos) action=list-generations ;;
+    esac
+    rebuild "$action" "$@"
     ;;
   esac
-  rebuild "$action" "$@"
   ;;
 --)
   rebuild "$@"

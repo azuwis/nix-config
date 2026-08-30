@@ -17,11 +17,15 @@
   glibcLocales,
   gnugrep,
   gnused,
+  gnutar,
+  gzip,
   jq,
+  jujutsu,
   less,
   makeWrapper,
   nix,
   path,
+  procps,
   python3,
   ripgrep,
   runCommandLocal,
@@ -33,6 +37,7 @@
   writeClosure,
   writeShellApplication,
   writeText,
+  xz,
 }:
 
 {
@@ -58,15 +63,20 @@
     git
     gnugrep
     gnused
+    gnutar
+    gzip
     jq
+    jujutsu
     less
     nix
+    procps
     python3
     ripgrep
     socat
     tinyxxd
     unzip
     which
+    xz
   ],
 }:
 
@@ -220,6 +230,8 @@ let
       --ro-bind /etc/hosts /etc/hosts
       --ro-bind /etc/localtime /etc/localtime
       --ro-bind-try /etc/gitconfig /etc/gitconfig
+      --ro-bind-try /etc/jj/config.toml /etc/jj/config.toml
+      --ro-bind-try "$HOME/.config/jj" "$HOME/.config/jj"
       --symlink /usr/bin/sh /bin/sh
     )
 

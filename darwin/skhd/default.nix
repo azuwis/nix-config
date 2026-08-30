@@ -48,6 +48,7 @@
         lshift + lalt - h : yabai -m window --swap west
         lshift + lalt - k : yabai -m window --swap north
         lshift + lalt - p : ${mkMenu "passfzf"}
+        lshift + lalt - r : killall skhd
         lshift + lalt - 0x29 : yabai -m window --toggle split
         lalt - c : yabai -m window --toggle float && yabai -m window --grid 6:6:1:1:4:4
         lalt - f : yabai -m window --toggle zoom-fullscreen; yabai -m window --grid 1:1:0:0:1:1; \
