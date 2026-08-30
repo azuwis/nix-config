@@ -43,6 +43,17 @@ runs:
         echo "::group::Build $package"
         nix-build pkgs --attr "$package"
         echo "::endgroup::"
+        if [ "$(nix-instantiate --argstr package "$package" --eval --json --expr '
+        { package }:
+        let
+          pkgs = import ./pkgs { };
+        in
+          pkgs.${package} ? tests
+        ')" = true ]; then
+          echo "::group::Test $package"
+          nix-build pkgs --attr "$package.tests"
+          echo "::endgroup::"
+        fi
         echo "::group::Install 'tree'"
         nix-env -f '<nixpkgs>' -iA tree
         echo "::endgroup::"
