@@ -23,13 +23,13 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "deepseek-harness";
-  version = "0.1.1-rc.2";
+  version = "0.1.2-alpha.2";
 
   src = fetchFromGitHub {
     owner = "deepseek-ai";
     repo = "deepseek-harness";
-    rev = "b150a551b8d465e31e418e1b2eaf5e79bbb7d28e";
-    hash = "sha256-rrjXoyccTxKIbZ00Z4Vy7EA9tGZ15WUqLBFnZSgw1YE=";
+    rev = "0a53fb55bea101816fa226bb964ae2bed71c343b";
+    hash = "sha256-fDLyk09boJGNXVMOBnln2dY1ZSETXGpFBHUVqFBLRk4=";
   };
 
   postPatch = ''
@@ -161,7 +161,7 @@ stdenv.mkDerivation (finalAttrs: {
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
-    hash = "sha256-+PsdK9u3ZKv4XtSc8tBKKP48J/95/CGTMIUf8Q8dbok=";
+    hash = "sha256-KK34f9oTm/ofvAR9VV/FGnR1jJAQUyFzQMz7a/Xv6VE=";
     fetcherVersion = 4;
     # The lockfile pulls in large tarballs (rolldown bindings, @openai/codex)
     # for every platform; pnpm's default 60s fetch timeout is not enough on
