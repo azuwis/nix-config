@@ -67,7 +67,7 @@ jobs:
           - {os: macos-latest, host: wg3526}
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - uses: azuwis/actions/nix@main
@@ -75,7 +75,7 @@ jobs:
           key: host-${{ matrix.host }}
           debug: ${{ github.event_name == 'workflow_dispatch' && inputs.debug }}
           btrfs: ${{ matrix.host == 'jovian' }}
-      - uses: cachix/cachix-action@1eb2ef646ac0255473d23a5907ad7b04ce94065c # v17
+      - uses: cachix/cachix-action@f495f3ffa2f3810a92e5cc0abc2c5d6a2a07ec82 # v17
         with:
           name: azuwis
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -102,7 +102,7 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: true # for `git push` in the summary step
           ref: gh-pages

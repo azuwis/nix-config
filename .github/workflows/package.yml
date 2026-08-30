@@ -41,14 +41,14 @@ jobs:
         env:
           PACKAGE: ${{ inputs.package }}
         run: echo "package=${PACKAGE:-${GITHUB_HEAD_REF#update/}}" >> "$GITHUB_OUTPUT"
-      - uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+      - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         id: skip
         with:
           key: package-skip-build-${{ steps.package.outputs.package }}-${{ runner.os }}-${{ runner.arch }}
           path: ~/package-skip-build
       - run: echo "::notice::Early skip build from cache"
         if: ${{ steps.skip.outputs.cache-hit == 'true' }}
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         if: ${{ steps.skip.outputs.cache-hit != 'true' }}
         with:
           persist-credentials: false
