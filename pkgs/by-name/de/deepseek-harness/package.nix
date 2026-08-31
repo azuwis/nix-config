@@ -36,6 +36,11 @@ stdenv.mkDerivation (finalAttrs: {
     postCheckout = "git -C $out rev-parse HEAD > $out/.gitrev";
   };
 
+  # The built-in web fetch resolves DNS locally and pins the connection, which
+  # fails in proxy-only networks. This patch uses global fetch for it when
+  # NODE_USE_ENV_PROXY=1, and keeps the pinned transport otherwise.
+  patches = [ ./web-fetch-proxy.patch ];
+
   postPatch = ''
     substituteInPlace packages/terminal/terminal-bash/src/config.ts \
       --replace-fail \

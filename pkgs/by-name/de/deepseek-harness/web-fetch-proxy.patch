@@ -1,0 +1,22 @@
+diff --git a/packages/web/web-fetch-http/src/provider.ts b/packages/web/web-fetch-http/src/provider.ts
+--- a/packages/web/web-fetch-http/src/provider.ts	2026-09-01 16:47:23.327065353 +0800
++++ b/packages/web/web-fetch-http/src/provider.ts	2026-09-01 17:16:10.988047554 +0800
+@@ -115,6 +115,18 @@
+ 
+   private async requestOnce(url: URL, signal: AbortSignal) {
+     try {
++      if (process.env.NODE_USE_ENV_PROXY === '1') {
++        const response = await fetch(url, {
++          method: 'GET',
++          redirect: 'manual',
++          headers: {
++            'user-agent': this.limits.userAgent,
++            'accept': 'text/html,application/xhtml+xml,text/*;q=0.9,application/json;q=0.8',
++          },
++          signal,
++        }) as unknown as Response
++        return { response, close: async () => {} }
++      }
+       const addresses = await this.resolveAddresses(url.hostname, signal)
+       return await publicHttpNetwork.request(url, addresses, {
+         'user-agent': this.limits.userAgent,
