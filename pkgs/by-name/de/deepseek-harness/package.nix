@@ -140,6 +140,7 @@ stdenv.mkDerivation (finalAttrs: {
             ];
           }
           ''
+            cd "$HOME"
             ${lib.getExe finalAttrs.finalPackage} --profile web --no-open --port 0 >server.log 2>&1 &
             pid=$!
             trap 'kill $pid 2>/dev/null || true' EXIT
@@ -147,7 +148,7 @@ stdenv.mkDerivation (finalAttrs: {
             # The web profile gates access behind the ?token= launch URL (401
             # without it); follow it with a cookie jar so -L replays the 303 cookie.
             # --port 0 avoids clashing with anything already on 3080.
-            for i in $(seq 1 60); do
+            for i in {1..60}; do
               url=$(sed -n 's#.*dsh web: \(http://[^[:space:]]*\).*#\1#p' server.log | head -1)
               if [ -n "$url" ]; then
                 if curl --noproxy '*' -fsSL -c cookies.txt "$url" >page.html 2>/dev/null \
