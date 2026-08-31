@@ -59,43 +59,19 @@ stdenv.mkDerivation (finalAttrs: {
     export DSH_CLIENT_TITLE="DeepSeek Harness"
   '';
 
+  # The whole repo tree is the runtime: packages import each other by name,
+  # resolved through the node_modules links pnpm created; plugin names in
+  # config files resolve from ~/.dsh/profiles/node_modules, which dsh fills
+  # automatically on startup. So copy everything, don't prune. Docs and
+  # tests ride along, which is fine.
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out/libexec/dsh
     cp -r . $out/libexec/dsh/
 
-    # The whole tree is shipped because the CLI resolves workspace packages
-    # in-tree at runtime (linkWorkspacePackages: true in pnpm-workspace.yaml):
-    # the loader imports plugins by bare specifier and dsh-web-app locates the
-    # frontend dist via require.resolve('@deepseek-ai/dsh-web-frontend/dist/index.html').
-    # Dev/test/doc files come along for the ride.
-
-    # Optional packages for other platforms leave dangling symlinks in the
-    # virtual store; drop them so the fixup phase passes.
-    find $out/libexec/dsh/node_modules/.pnpm -type l ! -exec test -e {} \; -delete
-
-    # pnpm only links workspace packages into each dependent package's own
-    # node_modules, so the loader's bare import() of workspace specifiers does
-    # not resolve from its own directory. Mirror the virtual store's scoped
-    # links into the root node_modules so bare specifiers resolve anywhere in
-    # the tree.
-    shopt -s nullglob
-    store_scopes=("$out/libexec/dsh/node_modules/.pnpm/node_modules/"@*/)
-    for scope in "''${store_scopes[@]}"; do
-      scope_name=$(basename "$scope")
-      mkdir -p "$out/libexec/dsh/node_modules/$scope_name"
-      for pkg in "$scope"*; do
-        # -n: do not dereference an existing symlink-to-dir when replacing it.
-        ln -sfn "../.pnpm/node_modules/$scope_name/$(basename "$pkg")" \
-          "$out/libexec/dsh/node_modules/$scope_name/$(basename "$pkg")"
-      done
-    done
-
-    # --expose-internals is required by the HMR service (vendor/hmr throws
-    # without it) and preferred by the loader's internal module access. It is
-    # disallowed in NODE_OPTIONS, so it must precede the script path to land in
-    # process.execArgv.
+    # --expose-internals must sit before the script path: NODE_OPTIONS
+    # forbids it, and the hot-reload (HMR) service requires it.
     makeBinaryWrapper ${nodejs}/bin/node $out/bin/dsh \
       --add-flags "--expose-internals $out/libexec/dsh/apps/cli/lib/bin.js" \
       --prefix PATH : ${
