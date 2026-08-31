@@ -89,18 +89,14 @@ stdenv.mkDerivation (finalAttrs: {
   # Smoke the native modules that pnpmConfigHook skipped: a missing pty.node
   # would only surface when a terminal session starts, so exercise it here.
   installCheckPhase = ''
-    (
-      cd $out/libexec/dsh/packages/subprocess/subprocess-local
-      SHELL_PATH="${stdenv.shell}" ${nodejs}/bin/node -e '
-        const pty = require("node-pty");
-        const child = pty.spawn(process.env.SHELL_PATH, ["-c", "printf pty-ok"], {});
-        let out = "";
-        child.onData((d) => (out += d));
-        child.onExit(({ exitCode }) => {
-          if (exitCode !== 0 || !out.includes("pty-ok")) process.exit(1);
-        });
-      '
-    )
+    cd $out/libexec/dsh/packages/subprocess/subprocess-local
+    SHELL_PATH="${stdenv.shell}" ${nodejs}/bin/node -e '
+      const pty = require("node-pty");
+      let out = "";
+      const p = pty.spawn(process.env.SHELL_PATH, ["-c", "printf pty-ok"], {});
+      p.onData((d) => (out += d));
+      p.onExit(({ exitCode }) => process.exit(exitCode !== 0 || !out.includes("pty-ok") ? 1 : 0));
+    '
   '';
 
   pnpmDeps = fetchPnpmDeps {
