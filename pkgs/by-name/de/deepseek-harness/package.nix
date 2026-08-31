@@ -164,12 +164,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "AI agent harness with a plugin-based architecture";
-    longDescription = ''
-      DeepSeek Harness (dsh) is a self-hosted AI agent harness built around a
-      plugin architecture - "Everything is a Plugin". It ships a CLI and a web
-      UI and is extended through workspace plugins.
-    '';
+    description = "Open-source agent harness developed by DeepSeek AI";
     homepage = "https://github.com/deepseek-ai/deepseek-harness";
     license = lib.licenses.mit;
     sourceProvenance = with lib.sourceTypes; [
