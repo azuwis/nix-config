@@ -134,6 +134,10 @@ stdenv.mkDerivation (finalAttrs: {
               curl
               writableTmpDirAsHomeHook
             ];
+            __darwinAllowLocalNetworking = true;
+            # chokidar's native fs.watch fails with "EMFILE: too many open files"
+            # in the darwin sandbox, use stat polling there.
+            env.CHOKIDAR_USEPOLLING = lib.optionalString stdenv.hostPlatform.isDarwin "true";
           }
           ''
             cd "$HOME"
@@ -173,9 +177,5 @@ stdenv.mkDerivation (finalAttrs: {
     ];
     maintainers = [ ];
     mainProgram = "dsh";
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
   };
 })
