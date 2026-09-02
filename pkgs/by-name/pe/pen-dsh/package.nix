@@ -88,6 +88,7 @@ pen {
     "."
     "~/.dsh"
   ];
+  penPorts = [ 3080 ];
   extraPassthru = {
     skillsUpdate = builtins.mapAttrs (
       name: skill:

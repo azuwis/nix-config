@@ -78,6 +78,7 @@
     which
     xz
   ],
+  penPorts ? [ ],
 }:
 
 let
@@ -125,6 +126,7 @@ let
   penInit = writeShellApplication {
     name = "pen-init";
     text = ''
+      export PEN_PORTS="''${PEN_PORTS:-${lib.concatMapStringsSep "," toString penPorts}}"
       if [ -n "$http_proxy" ]; then
         socat TCP-LISTEN:8888,bind=127.0.0.1,fork UNIX-CONNECT:/tmp/proxy.sock 2>/dev/null &
       fi
@@ -181,6 +183,7 @@ let
   #     "tmpfs": [["/tmp"]]
   #   }
   penPreamble = ''
+    export PEN_PORTS="''${PEN_PORTS:-${lib.concatMapStringsSep "," toString penPorts}}"
     sanitized_cwd="''${PWD//\//_}"
     cachedir="$HOME/.cache/pen/$sanitized_cwd"
     rootdir="$cachedir/rootfs"
