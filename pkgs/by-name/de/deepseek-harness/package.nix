@@ -36,9 +36,9 @@ stdenv.mkDerivation (finalAttrs: {
     postCheckout = "git -C $out rev-parse HEAD > $out/.gitrev";
   };
 
-  # The built-in web fetch resolves DNS locally and pins the connection, which
-  # fails in proxy-only networks. This patch uses global fetch for it when
-  # NODE_USE_ENV_PROXY=1, and keeps the pinned transport otherwise.
+  # The built-in web fetch resolves DNS itself and pins the connection, which
+  # breaks on proxy-only networks. The patch uses global fetch instead when
+  # NODE_USE_ENV_PROXY=1, and leaves the pinned transport alone otherwise.
   patches = [ ./web-fetch-proxy.patch ];
 
   postPatch = ''
@@ -60,12 +60,12 @@ stdenv.mkDerivation (finalAttrs: {
     export DSH_CLIENT_COMMIT_HASH="$(< .gitrev)"
     rm .gitrev
 
-    # Same as official releases brand
+    # Matches official release branding
     export DSH_CLIENT_TITLE="DeepSeek Harness"
   '';
 
-  # The whole repo tree is the runtime: packages import each other by name,
-  # resolved through the node_modules links pnpm created; plugin names in
+  # The whole repo tree is the runtime. Packages import each other by name,
+  # resolved through the node_modules links pnpm created, and plugin names in
   # config files resolve from ~/.dsh/profiles/node_modules, which dsh fills
   # automatically on startup. So copy everything, don't prune. Docs and
   # tests ride along, which is fine.
@@ -110,7 +110,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-KK34f9oTm/ofvAR9VV/FGnR1jJAQUyFzQMz7a/Xv6VE=";
     fetcherVersion = 4;
     # The lockfile pulls in large tarballs (rolldown bindings, @openai/codex)
-    # for every platform; pnpm's default 60s fetch timeout is not enough on
+    # for every platform. pnpm's default 60s fetch timeout is not enough on
     # slow connections.
     prePnpmInstall = ''
       pnpm config set fetch-timeout 600000
@@ -129,9 +129,9 @@ stdenv.mkDerivation (finalAttrs: {
     tests = {
       version = testers.testVersion { package = finalAttrs.finalPackage; };
 
-      # Boots the web profile and verifies the server actually serves. Guards the
-      # fragile parts: the loader's bare import() of workspace specifiers and the
-      # --expose-internals requirement.
+      # Boots the web profile and checks it serves a page. Catches the two
+      # fragile pieces: the loader's bare import() of workspace packages, and
+      # the --expose-internals flag.
       web-boot =
         runCommand "deepseek-harness-web-boot"
           {
@@ -150,8 +150,8 @@ stdenv.mkDerivation (finalAttrs: {
             pid=$!
             trap 'kill $pid 2>/dev/null || true' EXIT
 
-            # The web profile gates access behind the ?token= launch URL (401
-            # without it); follow it with a cookie jar so -L replays the 303 cookie.
+            # The web profile requires the ?token= from the launch URL (401
+            # without it). -c turns on cookie handling for the token redirect.
             # --port 0 avoids clashing with anything already on 3080.
             for i in {1..60}; do
               url=$(sed -n 's#.*dsh web: \(http://[^[:space:]]*\).*#\1#p' server.log | head -1)
@@ -176,6 +176,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Open-source agent harness developed by DeepSeek AI";
     homepage = "https://github.com/deepseek-ai/deepseek-harness";
     license = lib.licenses.mit;
+    # Dependency closure ships prebuilt native modules (node-pty, @vscode/ripgrep, ...).
     sourceProvenance = with lib.sourceTypes; [
       fromSource
       binaryNativeCode
