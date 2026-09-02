@@ -81,6 +81,11 @@ pen {
     "--set"
     "NODE_USE_ENV_PROXY"
     "1"
+    # Force SSH environment: disable opening browser, set directory picker to
+    # `browse`, and others
+    "--set"
+    "SSH_CONNECTION"
+    "1"
     "--add-flags"
     "--patch ${skillsPatch}"
   ];
