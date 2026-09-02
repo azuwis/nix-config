@@ -39,6 +39,20 @@
         hash = "sha256-BwHCjJZBwMX1LBndaJNZmW9ywSv7LIlXZfjMlT27oGc=";
         rootDir = "skills";
       };
+    superpowers =
+      let
+        version = "6.3.0";
+      in
+      {
+        inherit version;
+      }
+      // fetchFromGitHub {
+        owner = "obra";
+        repo = "superpowers";
+        tag = "v${version}";
+        hash = "sha256-d7ic7Sd8IvHj0QNelAzx2jGHVdjA1sYSYiW51+P6FYU=";
+        rootDir = "skills";
+      };
   },
 }:
 
@@ -95,6 +109,7 @@ pen {
 
         nix-update pen-dsh.skillsUpdate.humanizer >&2
         nix-update pen-dsh.skillsUpdate.ponytail >&2
+        nix-update pen-dsh.skillsUpdate.superpowers >&2
 
         git diff HEAD | awk '
           /^ +[a-z][-a-z0-9]* =($| [^"])/   { name = $1 }
