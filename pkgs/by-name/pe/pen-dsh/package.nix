@@ -88,6 +88,8 @@ pen {
     "1"
     "--add-flags"
     "--patch ${skillsPatch}"
+    "--add-flags"
+    "--profile web"
   ];
   allowWrite = [
     "."
