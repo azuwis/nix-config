@@ -23,7 +23,7 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "deepseek-harness";
-  version = "0.1.2-alpha.3";
+  version = "0.1.2-rc.1";
 
   strictDeps = true;
   __structuredAttrs = true;
@@ -32,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "deepseek-ai";
     repo = "deepseek-harness";
     tag = "dsh-v${finalAttrs.version}";
-    hash = "sha256-2kEfAkror7msg7sSgYKO3OuWEWGSZsYRA1juNrbopCA=";
+    hash = "sha256-rEgSMq4Or2oOlb6IK4B5/qrDLfFUF3RpbCohW5VFTMA=";
     postCheckout = "git -C $out rev-parse HEAD > $out/.gitrev";
   };
 
