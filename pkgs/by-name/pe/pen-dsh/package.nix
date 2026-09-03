@@ -57,8 +57,22 @@
 }:
 
 let
-  skillsPatch = writeText "dsh-skills.patch.yml" (
+  cordisPatch = writeText "cordis.patch.yml" (
     builtins.toJSON [
+      # Disable telemetry
+      {
+        id = "plugin-package-inventory-deepseek";
+        disabled = true;
+      }
+      {
+        id = "session-log-deepseek";
+        disabled = true;
+      }
+      {
+        id = "session-telemetry-otel";
+        disabled = true;
+      }
+      # Skills
       {
         id = "skill-filesystem";
         disabled = false;
@@ -87,7 +101,7 @@ pen {
     "SSH_CONNECTION"
     "1"
     "--add-flags"
-    "--patch ${skillsPatch}"
+    "--patch ${cordisPatch}"
     "--add-flags"
     "--profile web"
   ];
