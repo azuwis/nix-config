@@ -359,6 +359,7 @@ let
         --bind "$proxydir/proxy-$$.sock" /tmp/proxy.sock
         --setenv http_proxy "http://127.0.0.1:8888"
         --setenv https_proxy "http://127.0.0.1:8888"
+        --setenv no_proxy "127.0.0.1,localhost"
       )
     else
       bwrap_args+=(
