@@ -7,7 +7,7 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "chnroutes2";
-  version = "0-unstable-2026-08-02";
+  version = "0-unstable-2026-09-05";
 
   strictDeps = true;
   __structuredAttrs = true;
@@ -15,8 +15,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "misakaio";
     repo = "chnroutes2";
-    rev = "d1d3df7ccdb7ce2b14777bc7df70fc0c5973d4cc";
-    hash = "sha256-CKrURxFibx2XcV/0Y1vj2NuO9GO6+TncQj/xxPclV3Y=";
+    rev = "6ebc9e8e6f20c044702f574d9e4cce8a5b10fe20";
+    hash = "sha256-AhwO0ydYRvkNND3oBLG9QxH0xdEWnWilrBApzYJbhNM=";
   };
 
   installPhase = ''
