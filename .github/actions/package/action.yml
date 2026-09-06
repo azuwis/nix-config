@@ -16,7 +16,7 @@ runs:
       with:
         key: package-${{ inputs.package }}
         debug: ${{ github.event_name == 'workflow_dispatch' && inputs.debug }}
-    - uses: cachix/cachix-action@f495f3ffa2f3810a92e5cc0abc2c5d6a2a07ec82 # v17
+    - uses: cachix/cachix-action@38b082610b782e7e93e209c35fd730d399dee866 # v17
       with:
         name: azuwis
         authToken: ${{ inputs.cachix_auth_token }}
