@@ -92,9 +92,6 @@ pen {
     "--set"
     "DSH_TELEMETRY_DISABLED"
     "1"
-    "--set"
-    "NODE_USE_ENV_PROXY"
-    "1"
     # Force SSH environment: disable opening browser, set directory picker to
     # `browse`, and others
     "--set"
