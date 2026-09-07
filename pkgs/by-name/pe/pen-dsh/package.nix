@@ -103,7 +103,6 @@ pen {
     "--profile web"
   ];
   allowWrite = [
-    "."
     "~/.dsh"
   ];
   penPorts = [ 3080 ];
