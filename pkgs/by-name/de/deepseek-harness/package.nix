@@ -10,6 +10,7 @@
   pnpmBuildHook,
   pnpmConfigHook,
   pnpm_11,
+  python3,
   testers,
   runCommand,
   writableTmpDirAsHomeHook,
@@ -23,7 +24,7 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "deepseek-harness";
-  version = "0.1.2-rc.1";
+  version = "0.1.3-alpha.2";
 
   strictDeps = true;
   __structuredAttrs = true;
@@ -32,14 +33,9 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "deepseek-ai";
     repo = "deepseek-harness";
     tag = "dsh-v${finalAttrs.version}";
-    hash = "sha256-rEgSMq4Or2oOlb6IK4B5/qrDLfFUF3RpbCohW5VFTMA=";
+    hash = "sha256-9PfcgeTOb1TmJ6xfao6mjlP5ei4SurvRVEYxBkIdtF4=";
     postCheckout = "git -C $out rev-parse HEAD > $out/.gitrev";
   };
-
-  # The built-in web fetch resolves DNS itself and pins the connection, which
-  # breaks on proxy-only networks. The patch uses global fetch instead when
-  # NODE_USE_ENV_PROXY=1, and leaves the pinned transport alone otherwise.
-  patches = [ ./web-fetch-proxy.patch ];
 
   postPatch = ''
     substituteInPlace packages/terminal/terminal-bash/src/config.ts \
@@ -54,6 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     pnpmConfigHook
     pnpmBuildHook
     makeBinaryWrapper
+    python3
   ];
 
   preBuild = ''
@@ -62,6 +59,18 @@ stdenv.mkDerivation (finalAttrs: {
 
     # Matches official release branding
     export DSH_CLIENT_TITLE="DeepSeek Harness"
+
+    # pnpmConfigHook installs with --ignore-scripts, so native addons never
+    # get compiled at install time. Run their own install scripts instead,
+    # mirroring upstream's pnpm allowBuilds entries. For node-pty,
+    # build_from_source makes prebuild.js drop the shipped prebuilds and fall
+    # through to node-gyp.
+    export npm_config_nodedir=${nodejs}
+    export npm_config_build_from_source=true
+    ( cd node_modules/.pnpm/node_modules/fs-ext && pnpm run install )
+    ( cd node_modules/.pnpm/node_modules/node-pty \
+      && pnpm run install \
+      && pnpm run postinstall )
   '';
 
   # The whole repo tree is the runtime. Packages import each other by name,
@@ -91,8 +100,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   doInstallCheck = true;
 
-  # Smoke the native modules that pnpmConfigHook skipped: a missing pty.node
-  # would only surface when a terminal session starts, so exercise it here.
+  # Smoke the native modules pnpmConfigHook's --ignore-scripts would have
+  # skipped: a missing pty.node surfaces only when a terminal session starts,
+  # and a missing fs_ext.node only when the session-persistence-jsonl plugin
+  # loads, so exercise both here.
   installCheckPhase = ''
     cd $out/libexec/dsh/packages/subprocess/subprocess-local
     SHELL_PATH="${stdenv.shell}" ${nodejs}/bin/node -e '
@@ -102,12 +113,20 @@ stdenv.mkDerivation (finalAttrs: {
       p.onData((d) => (out += d));
       p.onExit(({ exitCode }) => process.exit(exitCode !== 0 || !out.includes("pty-ok") ? 1 : 0));
     '
+
+    cd $out/libexec/dsh/packages/session/session-persistence-jsonl
+    ${nodejs}/bin/node -e '
+      const fs = require("fs");
+      const { flock } = require("fs-ext");
+      const fd = fs.openSync("/tmp/dsh-fs-ext-check", "w");
+      flock(fd, "exnb", (err) => process.exit(err ? 1 : 0));
+    '
   '';
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
-    hash = "sha256-KK34f9oTm/ofvAR9VV/FGnR1jJAQUyFzQMz7a/Xv6VE=";
+    hash = "sha256-/wtt1qzoto4QSuDPwn63tTgwOn0ARHbnpP4Vh5lM/Ug=";
     fetcherVersion = 4;
     # The lockfile pulls in large tarballs (rolldown bindings, @openai/codex)
     # for every platform. pnpm's default 60s fetch timeout is not enough on
