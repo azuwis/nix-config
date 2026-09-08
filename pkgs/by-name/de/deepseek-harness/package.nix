@@ -11,8 +11,8 @@
   pnpmConfigHook,
   pnpm_11,
   python3,
-  testers,
   runCommand,
+  testers,
   writableTmpDirAsHomeHook,
   nix-update-script,
 }:
@@ -138,13 +138,6 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   passthru = {
-    updateScript = nix-update-script {
-      extraArgs = [
-        "--version=unstable"
-        "--version-regex=dsh-v(.*)"
-      ];
-    };
-
     tests = {
       version = testers.testVersion { package = finalAttrs.finalPackage; };
 
@@ -158,10 +151,10 @@ stdenv.mkDerivation (finalAttrs: {
               curl
               writableTmpDirAsHomeHook
             ];
-            __darwinAllowLocalNetworking = true;
             # chokidar's native fs.watch fails with "EMFILE: too many open files"
             # in the darwin sandbox, use stat polling there.
             env.CHOKIDAR_USEPOLLING = lib.optionalString stdenv.hostPlatform.isDarwin "true";
+            __darwinAllowLocalNetworking = true;
           }
           ''
             cd "$HOME"
@@ -188,6 +181,12 @@ stdenv.mkDerivation (finalAttrs: {
             cat server.log >&2
             exit 1
           '';
+    };
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--version=unstable"
+        "--version-regex=dsh-v(.*)"
+      ];
     };
   };
 
