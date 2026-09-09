@@ -105,6 +105,10 @@ stdenv.mkDerivation (finalAttrs: {
     # Already replaced by nixpkgs' ripgrep in postPatch.
     rm -r node_modules/.pnpm/@vscode+ripgrep*
 
+    # vendor/loader only falls back to it without --expose-internals, which the
+    # wrapper always passes.
+    rm -r node_modules/.pnpm/node-addon-require-builtin*
+
     # Prune the links any package removal leaves dangling.
     find . -xtype l -delete
 
