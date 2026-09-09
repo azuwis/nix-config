@@ -38,6 +38,14 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   postPatch = ''
+    # Optional codex/claude-code subagents, still installable with
+    # `dsh plugin add`. Dropping them keeps their CLI binaries out of the build.
+    # See also `pnpmWorkspaces` in pnpmDeps.
+    rm -r packages/subagent/subagent-claude-code packages/subagent/subagent-codex
+    substituteInPlace tsconfig.host.json \
+      --replace-fail "    { \"path\": \"./packages/subagent/subagent-claude-code\" }," "" \
+      --replace-fail "    { \"path\": \"./packages/subagent/subagent-codex\" }," ""
+
     substituteInPlace packages/terminal/terminal-bash/src/config.ts \
       --replace-fail \
         "export const DEFAULT_BASH_SHELL = '/bin/bash'" \
@@ -139,7 +147,7 @@ stdenv.mkDerivation (finalAttrs: {
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
-    hash = "sha256-V5B91UbucTDKHw1i54pKm58VHm/iNBmCiDUAH35c9CA=";
+    hash = "sha256-LK1JaRMpkRZuh86o5GF2IL4NlLGCw7GHRuJ1FmLuAtA=";
     fetcherVersion = 4;
     # Fetch only the platforms in meta.platforms. `--force=false` is required
     # because fetchPnpmDeps passes `--force`, which would otherwise pull every
@@ -151,6 +159,12 @@ stdenv.mkDerivation (finalAttrs: {
       "--cpu=x64"
       "--cpu=arm64"
       "--libc=glibc"
+    ];
+    # `!` excludes these optional subagents, so their CLI binaries never reach
+    # the store. The main derivation's postPatch drops them from the built tree.
+    pnpmWorkspaces = [
+      "!@deepseek-ai/dsh-subagent-claude-code"
+      "!@deepseek-ai/dsh-subagent-codex"
     ];
   };
 
