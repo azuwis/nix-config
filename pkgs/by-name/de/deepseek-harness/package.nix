@@ -11,6 +11,7 @@
   pnpmConfigHook,
   pnpm_11,
   python3,
+  ripgrep,
   runCommand,
   testers,
   writableTmpDirAsHomeHook,
@@ -50,6 +51,12 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail \
         "export const DEFAULT_BASH_SHELL = '/bin/bash'" \
         "export const DEFAULT_BASH_SHELL = '${lib.getExe bashInteractive}'"
+
+    # Use nixpkgs' rg instead of the binary @vscode/ripgrep ships.
+    substituteInPlace packages/fs/tool-fs-search/src/search-core.ts \
+      --replace-fail \
+        "return (await import('@vscode/ripgrep')).rgPath" \
+        "return '${lib.getExe ripgrep}'"
   '';
 
   nativeBuildInputs = [
@@ -94,6 +101,12 @@ stdenv.mkDerivation (finalAttrs: {
     # node-gyp left the Python path in config.gypi. Dropping it keeps python3
     # out of the closure, which disallowedReferences enforces.
     rm node_modules/node-pty/build/config.gypi
+
+    # Already replaced by nixpkgs' ripgrep in postPatch.
+    rm -r node_modules/.pnpm/@vscode+ripgrep*
+
+    # Prune the links any package removal leaves dangling.
+    find . -xtype l -delete
 
     mkdir -p $out/libexec/dsh
     cp -r . $out/libexec/dsh/
