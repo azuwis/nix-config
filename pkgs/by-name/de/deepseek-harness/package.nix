@@ -6,7 +6,7 @@
   curl,
   fetchPnpmDeps,
   makeBinaryWrapper,
-  nodejs_24,
+  nodejs-slim_24,
   pnpmBuildHook,
   pnpmConfigHook,
   pnpm_11,
@@ -18,7 +18,7 @@
 }:
 
 let
-  nodejs = nodejs_24;
+  nodejs = nodejs-slim_24;
   pnpm = pnpm_11;
 in
 
@@ -53,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   nativeBuildInputs = [
-    nodejs
+    nodejs.out # Plain nodejs would also pull in the unneeded .dev output
     pnpm
     pnpmConfigHook
     pnpmBuildHook
