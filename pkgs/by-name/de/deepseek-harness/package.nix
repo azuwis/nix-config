@@ -24,7 +24,7 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "deepseek-harness";
-  version = "0.1.5-alpha.1";
+  version = "0.1.5-rc.1";
 
   strictDeps = true;
   __structuredAttrs = true;
@@ -33,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "deepseek-ai";
     repo = "deepseek-harness";
     tag = "dsh-v${finalAttrs.version}";
-    hash = "sha256-xkz9l3r9pYV+45Sdkh48rh9tpO+0HZnmjrD2stZXCwk=";
+    hash = "sha256-0fqzN43mDlUvp/fuOERC5ib4aaTbnfC2MiKxsc6aB14=";
     postCheckout = "git -C $out rev-parse HEAD > $out/.gitrev";
   };
 
@@ -159,7 +159,7 @@ stdenv.mkDerivation (finalAttrs: {
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
-    hash = "sha256-LK1JaRMpkRZuh86o5GF2IL4NlLGCw7GHRuJ1FmLuAtA=";
+    hash = "sha256-DiZ3PEn8oxj+GOP/WPtzbVB23ee/q0o+3yDNZhUnmAo=";
     fetcherVersion = 4;
     # Fetch only the platforms in meta.platforms. `--force=false` is required
     # because fetchPnpmDeps passes `--force`, which would otherwise pull every
