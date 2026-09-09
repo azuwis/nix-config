@@ -24,7 +24,7 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "deepseek-harness";
-  version = "0.1.3-alpha.2";
+  version = "0.1.5-alpha.1";
 
   strictDeps = true;
   __structuredAttrs = true;
@@ -33,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "deepseek-ai";
     repo = "deepseek-harness";
     tag = "dsh-v${finalAttrs.version}";
-    hash = "sha256-9PfcgeTOb1TmJ6xfao6mjlP5ei4SurvRVEYxBkIdtF4=";
+    hash = "sha256-xkz9l3r9pYV+45Sdkh48rh9tpO+0HZnmjrD2stZXCwk=";
     postCheckout = "git -C $out rev-parse HEAD > $out/.gitrev";
   };
 
@@ -60,17 +60,17 @@ stdenv.mkDerivation (finalAttrs: {
     # Matches official release branding
     export DSH_CLIENT_TITLE="DeepSeek Harness"
 
-    # pnpmConfigHook installs with --ignore-scripts, so native addons never
-    # get compiled at install time. Run their own install scripts instead,
-    # mirroring upstream's pnpm allowBuilds entries. For node-pty,
-    # build_from_source makes prebuild.js drop the shipped prebuilds and fall
-    # through to node-gyp.
+    # node-gyp needs the nixpkgs Node headers.
     export npm_config_nodedir=${nodejs}
-    export npm_config_build_from_source=true
-    ( cd node_modules/.pnpm/node_modules/fs-ext && pnpm run install )
-    ( cd node_modules/.pnpm/node_modules/node-pty \
-      && pnpm run install \
-      && pnpm run postinstall )
+
+    # pnpmConfigHook installs with --ignore-scripts, so build node-pty here.
+    # build_from_source drops the shipped prebuilds, so node-gyp compiles it.
+    (
+      export npm_config_build_from_source=true
+      cd node_modules/.pnpm/node_modules/node-pty
+      pnpm run install
+      pnpm run postinstall
+    )
   '';
 
   # The whole repo tree is the runtime. Packages import each other by name,
@@ -86,7 +86,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     # --expose-internals must sit before the script path: NODE_OPTIONS
     # forbids it, and the hot-reload (HMR) service requires it.
-    makeBinaryWrapper ${nodejs}/bin/node $out/bin/dsh \
+    makeBinaryWrapper ${lib.getExe nodejs} $out/bin/dsh \
       --add-flags "--expose-internals $out/libexec/dsh/apps/cli/lib/bin.js" \
       --prefix PATH : ${
         lib.makeBinPath [
@@ -100,33 +100,47 @@ stdenv.mkDerivation (finalAttrs: {
 
   doInstallCheck = true;
 
-  # Smoke the native modules pnpmConfigHook's --ignore-scripts would have
-  # skipped: a missing pty.node surfaces only when a terminal session starts,
-  # and a missing fs_ext.node only when the session-persistence-jsonl plugin
-  # loads, so exercise both here.
+  # Smoke the native addons the build never loads: a missing pty.node breaks
+  # startup, a missing system.node breaks the first session write lease.
   installCheckPhase = ''
-    cd $out/libexec/dsh/packages/subprocess/subprocess-local
-    SHELL_PATH="${stdenv.shell}" ${nodejs}/bin/node -e '
-      const pty = require("node-pty");
-      let out = "";
-      const p = pty.spawn(process.env.SHELL_PATH, ["-c", "printf pty-ok"], {});
-      p.onData((d) => (out += d));
-      p.onExit(({ exitCode }) => process.exit(exitCode !== 0 || !out.includes("pty-ok") ? 1 : 0));
-    '
+    (
+      cd $out/libexec/dsh/packages/subprocess/subprocess-local
+      SHELL_PATH="${stdenv.shell}" ${lib.getExe nodejs} --input-type=module -e '
+        import pty from "node-pty";
+        let out = "";
+        const p = pty.spawn(process.env.SHELL_PATH, ["-c", "printf pty-ok"], {});
+        p.onData((d) => (out += d));
+        p.onExit(({ exitCode }) => {
+          if (exitCode === 0 && out.includes("pty-ok")) return;
+          console.error("pty check failed: exit " + exitCode + ", output " + JSON.stringify(out));
+          process.exit(1);
+        });
+      '
+    )
 
-    cd $out/libexec/dsh/packages/session/session-persistence-jsonl
-    ${nodejs}/bin/node -e '
-      const fs = require("fs");
-      const { flock } = require("fs-ext");
-      const fd = fs.openSync("/tmp/dsh-fs-ext-check", "w");
-      flock(fd, "exnb", (err) => process.exit(err ? 1 : 0));
-    '
+    # Import the way session-persistence-jsonl does, which also tests
+    # platform-package resolution. A second lock on the same file must fail.
+    (
+      cd $out/libexec/dsh/packages/session/session-persistence-jsonl
+      ${lib.getExe nodejs} --input-type=module -e '
+        import { openSync } from "node:fs";
+        import { tryLockExclusive } from "@deepseek-ai/node-addon-system/flock";
+        const path = process.env.TMPDIR + "/dsh-flock-check";
+        await tryLockExclusive(openSync(path, "w"));
+        try {
+          await tryLockExclusive(openSync(path, "w"));
+          throw new Error("contender acquired the lock");
+        } catch (error) {
+          if (error.code !== "EAGAIN" && error.code !== "EWOULDBLOCK") throw error;
+        }
+      '
+    )
   '';
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
-    hash = "sha256-/wtt1qzoto4QSuDPwn63tTgwOn0ARHbnpP4Vh5lM/Ug=";
+    hash = "sha256-nNinjYYQQFqGuUi15u/Z5k/zsqHbXQcQOUfTRUy22zE=";
     fetcherVersion = 4;
     # The lockfile pulls in large tarballs (rolldown bindings, @openai/codex)
     # for every platform. pnpm's default 60s fetch timeout is not enough on
