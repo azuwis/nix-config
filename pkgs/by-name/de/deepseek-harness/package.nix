@@ -140,15 +140,19 @@ stdenv.mkDerivation (finalAttrs: {
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
-    hash = "sha256-nNinjYYQQFqGuUi15u/Z5k/zsqHbXQcQOUfTRUy22zE=";
+    hash = "sha256-V5B91UbucTDKHw1i54pKm58VHm/iNBmCiDUAH35c9CA=";
     fetcherVersion = 4;
-    # The lockfile pulls in large tarballs (rolldown bindings, @openai/codex)
-    # for every platform. pnpm's default 60s fetch timeout is not enough on
-    # slow connections.
-    prePnpmInstall = ''
-      pnpm config set fetch-timeout 600000
-      pnpm config set fetch-retries 5
-    '';
+    # Fetch only the platforms in meta.platforms. `--force=false` is required
+    # because fetchPnpmDeps passes `--force`, which would otherwise pull every
+    # platform in the lockfile.
+    pnpmInstallFlags = [
+      "--force=false"
+      "--os=linux"
+      "--os=darwin"
+      "--cpu=x64"
+      "--cpu=arm64"
+      "--libc=glibc"
+    ];
   };
 
   passthru = {
@@ -215,5 +219,13 @@ stdenv.mkDerivation (finalAttrs: {
     ];
     maintainers = [ ];
     mainProgram = "dsh";
+    # Upstream's native-addon support matrix, mirrored by the `fetchPnpmDeps` flags above:
+    # https://github.com/deepseek-ai/deepseek-harness/blob/master/native/system/docs/support-matrix.md
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
   };
 })
