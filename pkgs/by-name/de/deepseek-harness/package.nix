@@ -57,9 +57,6 @@ stdenv.mkDerivation (finalAttrs: {
     export DSH_CLIENT_COMMIT_HASH="$(< .gitrev)"
     rm .gitrev
 
-    # Matches official release branding
-    export DSH_CLIENT_TITLE="DeepSeek Harness"
-
     # node-gyp needs the nixpkgs Node headers.
     export npm_config_nodedir=${nodejs}
 
@@ -136,6 +133,8 @@ stdenv.mkDerivation (finalAttrs: {
       '
     )
   '';
+
+  pnpmBuildScript = "build:official";
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
