@@ -64,27 +64,36 @@ stdenv.mkDerivation (finalAttrs: {
   preBuild = ''
     export DSH_CLIENT_COMMIT_HASH="$(< .gitrev)"
     rm .gitrev
-
-    # node-gyp needs the nixpkgs Node headers.
-    export npm_config_nodedir=${nodejs}
-
-    # pnpmConfigHook installs with --ignore-scripts, so build node-pty here.
-    # build_from_source drops the shipped prebuilds, so node-gyp compiles it.
-    (
-      export npm_config_build_from_source=true
-      cd node_modules/.pnpm/node_modules/node-pty
-      pnpm run install
-      pnpm run postinstall
-    )
   '';
 
-  # The whole repo tree is the runtime. Packages import each other by name,
-  # resolved through the node_modules links pnpm created, and plugin names in
-  # config files resolve from ~/.dsh/profiles/node_modules, which dsh fills
-  # automatically on startup. So copy everything, don't prune. Docs and
-  # tests ride along, which is fine.
+  # The whole repo tree is the runtime: packages import each other by name
+  # through the node_modules links, and plugin names in config files resolve
+  # from ~/.dsh/profiles/node_modules, which dsh fills on startup.
   installPhase = ''
     runHook preInstall
+
+    # test-support is a leaf and drags vitest, vite and esbuild in with it.
+    rm -r packages/test-support
+
+    # Replace pnpmConfigHook's dev+prod strict node_modules with the
+    # production-only flat one the shipped tree needs: --prod drops the
+    # dev dependencies, hoisting keeps peer dependencies resolvable.
+    # The reinstall also discards pnpmConfigHook's patched shebangs, which is
+    # fine because nothing runs node_modules/.bin.
+    find . -name node_modules -type d -prune -exec rm -r {} +
+    pnpm install --prod --offline --ignore-scripts --frozen-lockfile --shamefully-hoist
+
+    # pnpm's bundled node-gyp needs the nixpkgs Node headers.
+    export npm_config_nodedir=${nodejs}
+
+    # pnpm rebuild does nothing unless the dependent project is named; the test
+    # below fails if the addon is missing. build_from_source drops the prebuilds.
+    npm_config_build_from_source=true pnpm --filter @deepseek-ai/dsh-subprocess-local rebuild node-pty
+    test -f node_modules/.pnpm/node-pty@*/node_modules/node-pty/build/Release/pty.node
+
+    # node-gyp left the Python path in config.gypi. Dropping it keeps python3
+    # out of the closure, which disallowedReferences enforces.
+    rm node_modules/node-pty/build/config.gypi
 
     mkdir -p $out/libexec/dsh
     cp -r . $out/libexec/dsh/
@@ -141,6 +150,9 @@ stdenv.mkDerivation (finalAttrs: {
       '
     )
   '';
+
+  # The shipped tree runs no Python, so a surviving reference fails the build.
+  disallowedReferences = [ python3 ];
 
   pnpmBuildScript = "build:official";
 
