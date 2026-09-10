@@ -109,6 +109,9 @@ stdenv.mkDerivation (finalAttrs: {
     # wrapper always passes.
     rm -r node_modules/.pnpm/node-addon-require-builtin*
 
+    # koffi's loader prefers the glibc build, so its musl copy is unused here.
+    find node_modules/.pnpm -path '*@koromix/koffi-*/musl_*' -delete
+
     # Prune the links any package removal leaves dangling.
     find . -xtype l -delete
 
