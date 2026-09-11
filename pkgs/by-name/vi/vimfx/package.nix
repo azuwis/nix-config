@@ -6,14 +6,14 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "vimfx";
-  version = "0.27.7";
+  version = "0.27.8";
 
   strictDeps = true;
   __structuredAttrs = true;
 
   src = fetchurl {
     url = "https://github.com/akhodakivskiy/VimFx/releases/download/v${finalAttrs.version}/VimFx.xpi";
-    hash = "sha256-M5JXApqSv87AvWUfzyPj47Mi2HI/b0noJl/kAmzRY6I=";
+    hash = "sha256-J+IB+CqyltccIVTA0G5NcHDZdAwkDRUX+lnknhbwf1A=";
   };
 
   dontUnpack = true;
