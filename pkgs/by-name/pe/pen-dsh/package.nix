@@ -8,7 +8,7 @@
   dshSkills ? {
     humanizer =
       let
-        version = "2.11.1";
+        version = "3.0.0";
       in
       {
         inherit version;
@@ -17,7 +17,7 @@
         owner = "blader";
         repo = "humanizer";
         tag = "v${version}";
-        hash = "sha256-k6n1fZZV+42FIn7fVibqICwLM4VMQeouRpGk53FP7js=";
+        hash = "sha256-IJQHUhJcb0FtPS+CcOaW8lepnQOSxXTMCT9Jwj3wy30=";
         nonConeMode = true;
         sparseCheckout = [ "/SKILL.md" ];
         postFetch = ''
