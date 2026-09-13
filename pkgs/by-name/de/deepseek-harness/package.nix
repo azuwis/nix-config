@@ -80,12 +80,14 @@ stdenv.mkDerivation (finalAttrs: {
     rm -r packages/test-support
 
     # Replace pnpmConfigHook's dev+prod strict node_modules with the
-    # production-only flat one the shipped tree needs: --prod drops the
-    # dev dependencies, hoisting keeps peer dependencies resolvable.
-    # The reinstall also discards pnpmConfigHook's patched shebangs, which is
-    # fine because nothing runs node_modules/.bin.
+    # production-only flat one the shipped tree needs, restricted to the CLI's
+    # dependency closure. --prod drops the dev dependencies, hoisting keeps
+    # peer dependencies resolvable. The reinstall also discards
+    # pnpmConfigHook's patched shebangs, which is fine because nothing runs
+    # node_modules/.bin.
     find . -name node_modules -type d -prune -exec rm -r {} +
-    pnpm install --prod --offline --ignore-scripts --frozen-lockfile --shamefully-hoist
+    pnpm install --prod --offline --ignore-scripts --frozen-lockfile --shamefully-hoist \
+      --filter '@deepseek-ai/dsh...'
 
     # pnpm's bundled node-gyp needs the nixpkgs Node headers.
     export npm_config_nodedir=${nodejs}
