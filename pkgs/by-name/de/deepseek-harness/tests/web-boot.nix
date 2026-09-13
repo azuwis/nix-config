@@ -33,7 +33,7 @@ runCommand "deepseek-harness-web-boot"
     for i in {1..60}; do
       url=$(sed -n 's#.*dsh web: \(http://[^[:space:]]*\).*#\1#p' server.log | head -1)
       if [ -n "$url" ]; then
-        if curl --noproxy '*' -fsSL -c cookies.txt "$url" >page.html 2>/dev/null \
+        if curl --noproxy '*' -fsSL -c cookies.txt "$url" >page.html \
           && grep -q '<!doctype html>' page.html; then
           touch $out
           exit 0
@@ -42,7 +42,7 @@ runCommand "deepseek-harness-web-boot"
       sleep 1
     done
 
-    echo "dsh web profile failed to serve ''${url:-its web UI}" >&2
-    cat server.log >&2
+    echo "dsh web profile failed to serve ''${url:-its web UI}"
+    cat server.log
     exit 1
   ''
