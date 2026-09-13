@@ -114,6 +114,9 @@ stdenv.mkDerivation (finalAttrs: {
     # Prune the links any package removal leaves dangling.
     find . -xtype l -delete
 
+    # Remove unnecessary files
+    find . -type f \( -name '*.map' -o -name '*.tsbuildinfo' \) -delete
+
     mkdir -p $out/libexec/dsh
     cp -r . $out/libexec/dsh/
 
