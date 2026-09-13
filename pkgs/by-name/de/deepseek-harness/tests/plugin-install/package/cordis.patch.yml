@@ -1,0 +1,3 @@
+- insert:
+    - id: dsh-plugin-install-test
+      name: dsh-plugin-install-test
