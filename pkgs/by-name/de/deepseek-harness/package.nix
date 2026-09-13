@@ -129,8 +129,8 @@ stdenv.mkDerivation (finalAttrs: {
       --add-flags "--expose-internals $out/libexec/dsh/apps/cli/lib/bin.js" \
       --prefix PATH : ${
         lib.makeBinPath [
-          bashInteractive
-          pnpm
+          bashInteractive # dsh-bash-local execs a bare `bash`
+          pnpm # `dsh plugin` execs a bare `pnpm`
         ]
       }
 
