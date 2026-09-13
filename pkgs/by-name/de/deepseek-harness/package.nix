@@ -92,7 +92,7 @@ stdenv.mkDerivation (finalAttrs: {
     # pnpm's bundled node-gyp needs the nixpkgs Node headers.
     export npm_config_nodedir=${nodejs}
 
-    # pnpm rebuild does nothing unless the dependent project is named; the test
+    # pnpm rebuild does nothing unless the dependent project is named. The test
     # below fails if the addon is missing. build_from_source drops the prebuilds.
     npm_config_build_from_source=true pnpm --filter @deepseek-ai/dsh-subprocess-local rebuild node-pty
     test -f node_modules/.pnpm/node-pty@*/node_modules/node-pty/build/Release/pty.node
@@ -224,7 +224,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Open-source agent harness developed by DeepSeek AI";
     homepage = "https://github.com/deepseek-ai/deepseek-harness";
     license = lib.licenses.mit;
-    # Dependency closure ships prebuilt native modules (node-pty, @vscode/ripgrep, ...).
+    # The closure still ships prebuilt native code: sharp's @img/* platform
+    # packages (libvips) and koffi's @koromix/koffi-* addon.
     sourceProvenance = with lib.sourceTypes; [
       fromSource
       binaryNativeCode
