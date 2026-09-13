@@ -143,5 +143,7 @@ in
                 exit 1
               '';
           });
+
+    uci.system."@system[0]".hostname = config.builder.hostname;
   };
 }

@@ -34,7 +34,5 @@ in
       '';
       "usr/bin/uci-import".source = ./uci-import.js;
     };
-
-    uci.system."@system[0]".hostname = config.builder.hostname;
   };
 }
