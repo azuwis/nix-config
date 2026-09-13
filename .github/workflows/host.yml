@@ -75,7 +75,7 @@ jobs:
           key: host-${{ matrix.host }}
           debug: ${{ github.event_name == 'workflow_dispatch' && inputs.debug }}
           btrfs: ${{ matrix.host == 'jovian' }}
-      - uses: cachix/cachix-action@f495f3ffa2f3810a92e5cc0abc2c5d6a2a07ec82 # v17
+      - uses: cachix/cachix-action@38b082610b782e7e93e209c35fd730d399dee866 # v17
         with:
           name: azuwis
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
