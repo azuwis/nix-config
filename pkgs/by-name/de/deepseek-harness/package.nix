@@ -117,6 +117,9 @@ stdenv.mkDerivation (finalAttrs: {
     # Remove unnecessary files
     find . -type f \( -name '*.map' -o -name '*.tsbuildinfo' \) -delete
 
+    # Remove non-deterministic files
+    rm node_modules/{.modules.yaml,.pnpm-workspace-state-v1.json}
+
     mkdir -p $out/libexec/dsh
     cp -r . $out/libexec/dsh/
 
