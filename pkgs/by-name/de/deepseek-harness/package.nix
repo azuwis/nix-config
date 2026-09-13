@@ -123,8 +123,8 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p $out/libexec/dsh
     cp -r . $out/libexec/dsh/
 
-    # --expose-internals must sit before the script path: NODE_OPTIONS
-    # forbids it, and the hot-reload (HMR) service requires it.
+    # `dsh web` needs `--expose-internals`, or it dies with `--expose-internals
+    # is required for HMR service`.
     makeBinaryWrapper ${lib.getExe nodejs} $out/bin/dsh \
       --add-flags "--expose-internals $out/libexec/dsh/apps/cli/lib/bin.js" \
       --prefix PATH : ${
