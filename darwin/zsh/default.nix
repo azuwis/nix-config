@@ -19,9 +19,9 @@ in
   # `hostname` on macOS does not accept `--fqdn` arg
   imports = [
     (mkReplaceStringsModule
-      [ "hostname --fqdn" "./zinputrc" ]
+      [ "HOST=$(\${lib.getExe pkgs.unixtools.hostname} --fqdn)" "./zinputrc" ]
       [
-        "hostname -f"
+        "HOST=$(hostname -f)"
         (modulesPath + "/programs/zsh/zinputrc")
       ]
       (modulesPath + "/programs/zsh/zsh.nix")
