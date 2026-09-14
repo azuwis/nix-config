@@ -1,6 +1,7 @@
 vim.filetype.add({
   extension = {
     tf = "opentofu",
+    tfvars = "opentofu-vars",
     tofu = "opentofu",
   },
 })
@@ -35,6 +36,7 @@ return {
     opts = {
       formatters_by_ft = {
         opentofu = { "tofu_fmt" },
+        ["opentofu-vars"] = { "tofu_fmt" },
       },
     },
   },
