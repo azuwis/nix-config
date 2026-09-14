@@ -19,7 +19,7 @@ in
     programs.lazyvim = {
       extraPackages = [ pkgs.terraform-ls ];
       config.terraform = ./spec.lua;
-      treesitterParsers = [ "hcl" ];
+      treesitterParsers = [ "terraform" ];
     };
   };
 }
