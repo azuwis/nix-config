@@ -2,7 +2,7 @@
   /* https://github.com/andreasgrafen/cascade/issues/20 */
   /* transition to oneline */
   #nav-bar:not([customizing]){
-    margin: calc((var(--urlbar-min-height) * -1) - 8px) 100vw 0 0 !important;
+    margin: calc((var(--urlbar-height) * -1) - 8px) 100vw 0 0 !important;
     z-index: 2 !important;
   }
 
