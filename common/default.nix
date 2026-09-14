@@ -35,7 +35,8 @@ in
   programs.lazyvim.nil.enable = true;
   # programs.lazyvim.nixd.enable = true;
   programs.lazyvim.nord.enable = true;
-  programs.lazyvim.terraform.enable = true;
+  programs.lazyvim.opentofu.enable = true;
+  # programs.lazyvim.terraform.enable = true;
   # programs.lazyvim.update-nix-fetchgit.enable = true;
   # programs.lazyvim.yaml.enable = true;
   programs.less.enhance = true;
