@@ -22,7 +22,7 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "deepseek-harness";
-  version = "0.1.5-rc.2";
+  version = "0.1.6-alpha.1";
 
   strictDeps = true;
   __structuredAttrs = true;
@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "deepseek-ai";
     repo = "deepseek-harness";
     tag = "dsh-v${finalAttrs.version}";
-    hash = "sha256-AmXK9c9tiLsmZEgFv0OeNsNeBon4zCsK6VNd5aMg9e8=";
+    hash = "sha256-5PxZRDEWPQiFvPg+DipTonUm2FrdtoK63Zu2lfagYxU=";
     postCheckout = "git -C $out rev-parse HEAD > $out/.gitrev";
   };
 
@@ -52,8 +52,8 @@ stdenv.mkDerivation (finalAttrs: {
     # Use nixpkgs' rg instead of the binary @vscode/ripgrep ships.
     substituteInPlace packages/fs/tool-fs-search/src/search-core.ts \
       --replace-fail \
-        "return (await import('@vscode/ripgrep')).rgPath" \
-        "return '${lib.getExe ripgrep}'"
+        "(await import('@vscode/ripgrep')).rgPath" \
+        "'${lib.getExe ripgrep}'"
   '';
 
   nativeBuildInputs = [
@@ -184,7 +184,7 @@ stdenv.mkDerivation (finalAttrs: {
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
-    hash = "sha256-DiZ3PEn8oxj+GOP/WPtzbVB23ee/q0o+3yDNZhUnmAo=";
+    hash = "sha256-Yco3toThctQ7sdq+lUNWqkXbVHoUtvjpjpm4yCndA/M=";
     fetcherVersion = 4;
     # Fetch only the platforms in meta.platforms. `--force=false` is required
     # because fetchPnpmDeps passes `--force`, which would otherwise pull every
