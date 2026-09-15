@@ -29,7 +29,7 @@
       };
     ponytail =
       let
-        version = "4.9.0";
+        version = "4.10.0";
       in
       {
         inherit version;
