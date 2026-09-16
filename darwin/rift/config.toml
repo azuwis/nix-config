@@ -1,0 +1,88 @@
+# https://github.com/acsandmann/rift/blob/main/rift.default.toml
+
+[settings]
+animate = true
+animation_duration = 0.15
+animation_fps = 60
+default_disable = false
+focus_follows_mouse = false
+mouse_follows_focus = false
+mouse_hides_on_focus = false
+run_on_start = [ "sketchybar --reload" ]
+
+[settings.layout]
+mode = "scrolling"
+
+[settings.layout.gaps]
+
+[settings.layout.gaps.outer]
+top = 26
+left = 0
+bottom = 0
+right = 0
+
+[settings.layout.gaps.inner]
+horizontal = 2
+vertical = 0
+
+[virtual_workspaces]
+enabled = true
+default_workspace_count = 9
+default_workspace = 1
+
+app_rules = [
+  { app_name = "Firefox", workspace = 2 },
+  { app_name = "Google Chrome", workspace = 2 },
+  { app_name = "Thunderbird", workspace = 3 },
+  { app_name = "网易POPO", workspace = 5, floating = true, manage = true },
+  { app_name = "kitty", title_regex = "^Fzf$", floating = true, focus = true },
+]
+
+[keys]
+"Alt + Z" = "toggle_space_activated"
+
+"Alt + H" = { move_focus = "left" }
+"Alt + J" = { move_focus = "down" }
+"Alt + K" = { move_focus = "up" }
+"Alt + L" = { move_focus = "right" }
+
+"Alt + Shift + H" = { move_node = "left" }
+"Alt + Shift + J" = { move_node = "down" }
+"Alt + Shift + K" = { move_node = "up" }
+"Alt + Shift + L" = { move_node = "right" }
+
+"Alt + 0" = { switch_to_workspace = 0 }
+"Alt + 1" = { switch_to_workspace = 1 }
+"Alt + 2" = { switch_to_workspace = 2 }
+"Alt + 3" = { switch_to_workspace = 3 }
+"Alt + 4" = { switch_to_workspace = 4 }
+"Alt + 5" = { switch_to_workspace = 5 }
+"Alt + 6" = { switch_to_workspace = 6 }
+"Alt + 7" = { switch_to_workspace = 7 }
+"Alt + 8" = { switch_to_workspace = 8 }
+
+"Alt + Shift + 0" = { move_window_to_workspace = 0 }
+"Alt + Shift + 1" = { move_window_to_workspace = 1 }
+"Alt + Shift + 2" = { move_window_to_workspace = 2 }
+"Alt + Shift + 3" = { move_window_to_workspace = 3 }
+"Alt + Shift + 4" = { move_window_to_workspace = 4 }
+"Alt + Shift + 5" = { move_window_to_workspace = 5 }
+"Alt + Shift + 6" = { move_window_to_workspace = 6 }
+"Alt + Shift + 7" = { move_window_to_workspace = 7 }
+"Alt + Shift + 8" = { move_window_to_workspace = 8 }
+
+"Alt + Comma" = "toggle_stack"
+
+"Alt + Tab" = "switch_to_last_workspace"
+
+"Alt + F" = "toggle_fullscreen_within_gaps"
+"Alt + Q" = "close_window"
+"Alt + V" = "toggle_window_floating"
+"Alt + Shift + F" = "toggle_fullscreen"
+
+"Alt + Equal" = "resize_window_grow"
+"Alt + Minus" = "resize_window_shrink"
+
+"Alt + Enter" = { "exec" = [ "daemon", "--chdir=~", "--", "kitty", "--single-instance" ] }
+"Alt + D" = { "exec" = [ "daemon", "--chdir=~", "--", "kitty", "--single-instance", "-o", "remember_window_size=no", "-o", "initial_window_width=80c", "-o", "initial_window_height=10c", "--title", "Fzf", "appfzf" ] }
+"Alt + Shift + P" = { "exec" = [ "daemon", "--chdir=~", "--", "kitty", "--single-instance", "-o", "remember_window_size=no", "-o", "initial_window_width=80c", "-o", "initial_window_height=10c", "--title", "Fzf", "passfzf" ] }
