@@ -83,6 +83,9 @@ app_rules = [
 "Alt + Equal" = "resize_window_grow"
 "Alt + Minus" = "resize_window_shrink"
 
-"Alt + Enter" = { "exec" = [ "daemon", "--chdir=~", "--", "kitty", "--single-instance" ] }
-"Alt + D" = { "exec" = [ "daemon", "--chdir=~", "--", "kitty", "--single-instance", "-o", "remember_window_size=no", "-o", "initial_window_width=80c", "-o", "initial_window_height=10c", "--title", "Fzf", "appfzf" ] }
-"Alt + Shift + P" = { "exec" = [ "daemon", "--chdir=~", "--", "kitty", "--single-instance", "-o", "remember_window_size=no", "-o", "initial_window_width=80c", "-o", "initial_window_height=10c", "--title", "Fzf", "passfzf" ] }
+# Use `open` when possible, macOS permissions (Local Network, etc.) are inherit
+# from parent process (rift) if not using `open`, when rift is replaced/updated,
+# permissions are lost, running ssh sessions in kitty may break
+"Alt + Enter" = { "exec" = [ "open", "-n", "-a", "kitty", "--args", "--single-instance", "--directory", "~" ] }
+"Alt + D" = { "exec" = [ "open", "-n", "-a", "kitty", "--args", "--single-instance", "--directory", "~", "-o", "remember_window_size=no", "-o", "initial_window_width=80c", "-o", "initial_window_height=10c", "--title", "Fzf", "appfzf" ] }
+"Alt + Shift + P" = { "exec" = [ "open", "-n", "-a", "kitty", "--args", "--single-instance", "--directory", "~", "-o", "remember_window_size=no", "-o", "initial_window_width=80c", "-o", "initial_window_height=10c", "--title", "Fzf", "passfzf" ] }
