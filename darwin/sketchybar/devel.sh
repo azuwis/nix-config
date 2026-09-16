@@ -4,4 +4,4 @@ trap 'launchctl load -w ~/Library/LaunchAgents/org.nixos.sketchybar.plist' SIGIN
 
 dir=$(readlink -f "$(dirname "${BASH_SOURCE[0]}")")
 launchctl unload ~/Library/LaunchAgents/org.nixos.sketchybar.plist
-nix-shell -p 'lua5_4.withPackages(ps: [ sbarlua ])' --run "sketchybar --config $dir/config/sketchybarrc"
+nix-shell -I nixpkgs="$dir/../../pkgs" -p 'sbarlua.luaModule.withPackages(ps: [ sbarlua rift-lua ])' --run "sketchybar --config $dir/config/sketchybarrc"

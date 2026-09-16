@@ -7,7 +7,10 @@
 
 let
   # Use the same lua version for sbarlua
-  lua = pkgs.sbarlua.luaModule.withPackages (ps: [ pkgs.sbarlua ]);
+  lua = pkgs.sbarlua.luaModule.withPackages (ps: [
+    pkgs.sbarlua
+    pkgs.rift-lua
+  ]);
 in
 
 {
