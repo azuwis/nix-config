@@ -22,8 +22,9 @@ in
     programs.mpv.enhance = true;
     programs.rime.enable = true;
     programs.thunderbird.enhance = true;
-    services.skhd.enhance = true;
-    services.yabai.enhance = true;
+    services.rift.enhance = true;
+    # services.skhd.enhance = true;
+    # services.yabai.enhance = true;
 
     # Suppress login message
     system.activationScripts.postActivation.text = ''
