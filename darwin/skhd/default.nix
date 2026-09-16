@@ -17,7 +17,9 @@ in
   config = lib.mkIf cfg.enhance {
     services.skhd =
       let
-        mkMenu = command: "kitty --single-instance --title Fzf ${command}";
+        mkMenu =
+          command:
+          "SHELL=/run/current-system/sw/bin/zsh open -n -a kitty --args --single-instance --title Fzf ${command}";
         # ''set -- -o window.dimensions.columns=50 -o window.dimensions.lines=6 -o window.position.x=1000 -o window.position.y=48 --title=Fzf --command ${command}; alacritty msg create-window "$@" || alacritty "$@"'';
       in
       {
@@ -70,7 +72,7 @@ in
           lalt - w : yabai -m space --layout stack
           lalt - e : yabai -m space --layout bsp
           lalt - s : yabai -m space --layout float
-          lalt - return : SHELL=/run/current-system/sw/bin/zsh kitty --single-instance
+          lalt - return : SHELL=/run/current-system/sw/bin/zsh open -n -a kitty --args --single-instance
         '';
       };
 
