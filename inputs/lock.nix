@@ -60,13 +60,13 @@
     submodules = false;
   };
   nix-darwin = {
-    lastModified = 1786845137;
-    lastModifiedDate = "20260816015217";
-    narHash = "sha256-oQFip+v0luP8NIxJzmiW4Wu8bILsbFWom5l0zonl8hQ=";
-    outPath = "/nix/store/8ggr67sci43hlp8ba6rhjrdhhj5490am-source";
-    rev = "4cff07de74b50e64bdd68cd4e722ab5b6b35ee48";
+    lastModified = 1787600047;
+    lastModifiedDate = "20260824193407";
+    narHash = "sha256-qo3bBiVBQRfIPjYf26mH8EsZBaqhZbEDCi4AiYJt+NQ=";
+    outPath = "/nix/store/wvr8kwsp007xn7gmsv2z2ljlbych3rl4-source";
+    rev = "f3b54bb3266c99e6b226f5f33b7b310d9074a359";
     revCount = 0;
-    shortRev = "4cff07d";
+    shortRev = "f3b54bb";
     submodules = false;
   };
   nix-homebrew = {

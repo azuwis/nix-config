@@ -26,7 +26,7 @@
   };
   nix-darwin = {
     url = "https://github.com/nix-darwin/nix-darwin";
-    ref = "master";
+    ref = "refs/pull/1857/merge"; # https://github.com/nix-darwin/nix-darwin/pull/1857
   };
   nix-homebrew = {
     url = "https://github.com/zhaofengli/nix-homebrew";
