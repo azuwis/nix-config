@@ -1,12 +1,13 @@
 {
   lib,
   fetchFromGitHub,
-  lua55Packages,
+  sbarlua,
   pkg-config,
   nix-update-script,
 }:
 
-lua55Packages.buildLuaPackage {
+# Use same lua version as sbarlua
+sbarlua.luaModule.pkgs.buildLuaPackage {
   pname = "rift-lua";
   version = "0-unstable-2026-09-07";
 
