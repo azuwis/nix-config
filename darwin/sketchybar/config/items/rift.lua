@@ -2,24 +2,37 @@ local colors = require("colors")
 local icons = require("icons")
 local rift = require("rift")
 local count = 8
+local current = nil
 local spaces = {}
 
 local client, err = rift.connect()
 if not client then
-  error(err)
+  print("rift.lua: " .. tostring(err))
+  return
 end
 
 local function mouse_click(index)
-  client:send_request(
+  local resp, send_err = client:send_request(
     string.format([[{"execute_command":{"command":"{\"Reactor\":{\"switch_to_workspace\":%d}}","args":[]}}]], index)
   )
+  if not resp then
+    print("rift.lua: " .. tostring(send_err))
+  end
 end
 
 client:subscribe({ "workspace_changed" }, function(env)
-  for index, space in ipairs(spaces) do
-    space:set({
-      icon = { highlight = index == env.DATA.workspace_id.idx - 1 },
-    })
+  local index = env.DATA.workspace_id.idx - 1
+  if index == current then
+    return
+  end
+  if spaces[current] then
+    spaces[current]:set({ icon = { highlight = false } })
+  end
+  if spaces[index] then
+    spaces[index]:set({ icon = { highlight = true } })
+    current = index
+  else
+    current = nil
   end
 end)
 
