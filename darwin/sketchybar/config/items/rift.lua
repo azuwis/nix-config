@@ -1,7 +1,6 @@
 local colors = require("colors")
 local icons = require("icons")
 local rift = require("rift")
-local count = 8
 local current = nil
 local spaces = {}
 
@@ -20,33 +19,44 @@ local function mouse_click(index)
   end
 end
 
-local function refresh()
-  local resp = client:send_request([[{"get_workspaces":{"space_id":null}}]])
-  if not resp or not resp.data then
-    return
-  end
-  for _, ws in ipairs(resp.data) do
-    local index = ws.index + 1
-    if spaces[index] then
-      spaces[index]:set({
-        icon = {
-          highlight = ws.is_active,
-          color = ws.window_count == 0 and colors.dim or colors.default,
-        },
-      })
-      if ws.is_active then
-        current = index
-      end
-    end
+local resp = client:send_request([[{"get_workspaces":{"space_id":null}}]])
+local data = (resp and resp.data) or {}
+if #data == 0 then
+  print("rift.lua: no workspaces, skipping item setup")
+  return
+end
+
+for index, ws in ipairs(data) do
+  local space = sbar.add("item", "rift" .. index, {
+    position = "center",
+    icon = {
+      color = ws.window_count == 0 and colors.dim or colors.default,
+      highlight = ws.is_active,
+      string = icons.space,
+      padding_left = 4,
+      padding_right = 4,
+    },
+    label = {
+      drawing = false,
+    },
+  })
+
+  space:subscribe("mouse.clicked", function()
+    mouse_click(index)
+  end)
+  spaces[index] = space
+
+  if ws.is_active then
+    current = index
   end
 end
 
--- Workspace indexes are global across native spaces (the k-th space owns
--- k * count + 1 .. k * count + count), fold them back into 1..count.
+-- Workspace indexes are global across native spaces, so the k-th space owns
+-- k * #spaces + 1 .. k * #spaces + #spaces; fold them back into 1..#spaces.
 client:subscribe({ "workspace_changed" }, function(env)
-  local index = env.DATA.workspace_id.idx % count
+  local index = env.DATA.workspace_id.idx % #spaces
   if index == 0 then
-    index = count
+    index = #spaces
   end
   if index == current then
     return
@@ -60,9 +70,9 @@ end)
 
 client:subscribe({ "windows_changed" }, function(env)
   local is_empty = next(env.DATA.windows) == nil
-  local index = env.DATA.workspace_id.idx % count
+  local index = env.DATA.workspace_id.idx % #spaces
   if index == 0 then
-    index = count
+    index = #spaces
   end
   spaces[index]:set({
     icon = {
@@ -70,25 +80,3 @@ client:subscribe({ "windows_changed" }, function(env)
     },
   })
 end)
-
-for i = 1, count do
-  local space = sbar.add("item", "rift" .. i, {
-    position = "center",
-    icon = {
-      color = colors.dim,
-      string = icons.space,
-      padding_left = 4,
-      padding_right = 4,
-    },
-    label = {
-      drawing = false,
-    },
-  })
-
-  space:subscribe("mouse.clicked", function()
-    mouse_click(i)
-  end)
-  spaces[i] = space
-end
-
-refresh()
