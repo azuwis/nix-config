@@ -193,7 +193,7 @@ stdenv.mkDerivation (finalAttrs: {
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
-    hash = "sha256-Q/uno7yFnxlcDYEO+Kwv6fe1Y6FI90lFmjQnSYL3asE=";
+    hash = "sha256-Ur06/y+PqI7FCtGMQGC+pgyQaHLjdLB37QE+Cr6bBE4=";
     fetcherVersion = 4;
     # Fetch only the platforms in meta.platforms. pnpm applies these flags only
     # while `--force` is off, see prePnpmInstall.
@@ -203,6 +203,9 @@ stdenv.mkDerivation (finalAttrs: {
       "--cpu=x64"
       "--cpu=arm64"
       "--libc=glibc"
+      # pnpm skips the libc check on Darwin and fetches linux-musl too. Listing
+      # musl here gives Linux the same set, so the hash matches on both.
+      "--libc=musl"
     ];
     # pnpm ignores --os/--cpu/--libc while `--force` is set, and fetchPnpmDeps
     # appends its own `--force` after pnpmInstallFlags. Shadow pnpm so
