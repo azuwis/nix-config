@@ -41,6 +41,8 @@ local function refresh()
   end
 end
 
+-- Workspace indexes are global across native spaces (the k-th space owns
+-- k * count + 1 .. k * count + count), fold them back into 1..count.
 client:subscribe({ "workspace_changed" }, function(env)
   local index = env.DATA.workspace_id.idx % count
   if index == 0 then
@@ -52,12 +54,8 @@ client:subscribe({ "workspace_changed" }, function(env)
   if spaces[current] then
     spaces[current]:set({ icon = { highlight = false } })
   end
-  if spaces[index] then
-    spaces[index]:set({ icon = { highlight = true } })
-    current = index
-  else
-    current = nil
-  end
+  spaces[index]:set({ icon = { highlight = true } })
+  current = index
 end)
 
 client:subscribe({ "windows_changed" }, function(env)
