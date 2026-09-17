@@ -20,6 +20,27 @@ local function mouse_click(index)
   end
 end
 
+local function refresh()
+  local resp = client:send_request([[{"get_workspaces":{"space_id":null}}]])
+  if not resp or not resp.data then
+    return
+  end
+  for _, ws in ipairs(resp.data) do
+    local index = ws.index + 1
+    if spaces[index] then
+      spaces[index]:set({
+        icon = {
+          highlight = ws.is_active,
+          color = ws.window_count == 0 and colors.dim or colors.default,
+        },
+      })
+      if ws.is_active then
+        current = index
+      end
+    end
+  end
+end
+
 client:subscribe({ "workspace_changed" }, function(env)
   local index = env.DATA.workspace_id.idx % count
   if index == 0 then
@@ -71,3 +92,5 @@ for i = 1, count do
   end)
   spaces[i] = space
 end
+
+refresh()
