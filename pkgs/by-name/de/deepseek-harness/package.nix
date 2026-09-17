@@ -184,19 +184,29 @@ stdenv.mkDerivation (finalAttrs: {
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
-    hash = "sha256-Yco3toThctQ7sdq+lUNWqkXbVHoUtvjpjpm4yCndA/M=";
+    hash = "sha256-7Hm617DItP1LMpE2DGOnz/DDMB6vpyLu5q4u96kz6bk=";
     fetcherVersion = 4;
-    # Fetch only the platforms in meta.platforms. `--force=false` is required
-    # because fetchPnpmDeps passes `--force`, which would otherwise pull every
-    # platform in the lockfile.
+    # Fetch only the platforms in meta.platforms. pnpm applies these flags only
+    # while `--force` is off, see prePnpmInstall.
     pnpmInstallFlags = [
-      "--force=false"
       "--os=linux"
       "--os=darwin"
       "--cpu=x64"
       "--cpu=arm64"
       "--libc=glibc"
     ];
+    # pnpm ignores --os/--cpu/--libc while `--force` is set, and fetchPnpmDeps
+    # appends its own `--force` after pnpmInstallFlags. Shadow pnpm so
+    # `install` gets `--force=false` as its last argument.
+    prePnpmInstall = ''
+      pnpm() {
+        if [ "''${1-}" = install ]; then
+          command pnpm "$@" --force=false
+        else
+          command pnpm "$@"
+        fi
+      }
+    '';
     # `!` excludes these optional subagents, so their CLI binaries never reach
     # the store. The main derivation's postPatch drops them from the built tree.
     pnpmWorkspaces = [
