@@ -38,6 +38,7 @@
   writeShellApplication,
   writeText,
   xz,
+  zstd,
 }:
 
 {
@@ -77,6 +78,7 @@
     unzip
     which
     xz
+    zstd
   ],
   penPorts ? [ ],
 }:
