@@ -91,6 +91,7 @@ pen {
     "~/.claude.json"
   ];
   extraPassthru = {
+    enable = false;
     pluginsUpdate = builtins.mapAttrs (
       name: plugin:
       if plugin ? src then
