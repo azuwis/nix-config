@@ -122,7 +122,10 @@ let
   penEnv = buildEnv {
     name = "pen-env";
     paths = penPackages ++ extraPenPackages ++ [ wrappedAgentPackage ];
-    pathsToLink = [ "/bin" ];
+    pathsToLink = [
+      "/bin"
+      "/share/fonts"
+    ];
   };
 
   penInit = writeShellApplication {

@@ -3,6 +3,8 @@
   fetchFromGitHub,
   pen,
   deepseek-harness,
+  dejavu_fonts,
+  wqy_microhei,
   writeScript,
   writeText,
   dshSkills ? {
@@ -101,6 +103,11 @@ pen {
     "--patch ${cordisPatch}"
     "--add-flags"
     "--profile web"
+  ];
+  # For Office files preview
+  extraPenPackages = [
+    dejavu_fonts
+    wqy_microhei
   ];
   allowWrite = [
     "~/.dsh"
