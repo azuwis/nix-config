@@ -22,7 +22,7 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "deepseek-harness";
-  version = "0.1.6-alpha.1";
+  version = "0.1.6-alpha.2";
 
   strictDeps = true;
   __structuredAttrs = true;
@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "deepseek-ai";
     repo = "deepseek-harness";
     tag = "dsh-v${finalAttrs.version}";
-    hash = "sha256-5PxZRDEWPQiFvPg+DipTonUm2FrdtoK63Zu2lfagYxU=";
+    hash = "sha256-haV/jDLVclRg63/8fncdx3QoXcZmdXq6qjy0212lcuA=";
     postCheckout = "git -C $out rev-parse HEAD > $out/.gitrev";
   };
 
@@ -54,6 +54,14 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail \
         "(await import('@vscode/ripgrep')).rgPath" \
         "'${lib.getExe ripgrep}'"
+
+    # node-addon-require-builtin does not recognize the internal getter in the
+    # Node that nixpkgs builds. The wrapper always passes --expose-internals, so
+    # use require() for the internals.
+    substituteInPlace packages/boot/app-boot/src/profile-resolution/resolver.ts \
+      --replace-fail \
+        "const addon = require('node-addon-require-builtin') as { requireBuiltin(moduleId: string): unknown }" \
+        "const addon = { requireBuiltin: (moduleId: string): unknown => require(moduleId) }"
   '';
 
   nativeBuildInputs = [
@@ -104,8 +112,9 @@ stdenv.mkDerivation (finalAttrs: {
     # Already replaced by nixpkgs' ripgrep in postPatch.
     rm -r node_modules/.pnpm/@vscode+ripgrep*
 
-    # vendor/loader only falls back to it without --expose-internals, which the
-    # wrapper always passes.
+    # The profile resolver is patched to require() the internals, and
+    # vendor/loader only falls back to the addon without --expose-internals,
+    # which the wrapper always passes.
     rm -r node_modules/.pnpm/node-addon-require-builtin*
 
     # koffi's loader prefers the glibc build, so its musl copy is unused here.
@@ -184,7 +193,7 @@ stdenv.mkDerivation (finalAttrs: {
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
-    hash = "sha256-7Hm617DItP1LMpE2DGOnz/DDMB6vpyLu5q4u96kz6bk=";
+    hash = "sha256-Q/uno7yFnxlcDYEO+Kwv6fe1Y6FI90lFmjQnSYL3asE=";
     fetcherVersion = 4;
     # Fetch only the platforms in meta.platforms. pnpm applies these flags only
     # while `--force` is off, see prePnpmInstall.
