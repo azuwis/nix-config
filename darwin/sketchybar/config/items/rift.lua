@@ -13,7 +13,7 @@ end
 
 local function mouse_click(index)
   local resp, send_err = client:send_request(
-    string.format([[{"execute_command":{"command":"{\"Reactor\":{\"switch_to_workspace\":%d}}","args":[]}}]], index)
+    string.format([[{"execute_command":{"command":"{\"Reactor\":{\"switch_to_workspace\":%d}}","args":[]}}]], index - 1)
   )
   if not resp then
     print("rift.lua: " .. tostring(send_err))
@@ -21,7 +21,10 @@ local function mouse_click(index)
 end
 
 client:subscribe({ "workspace_changed" }, function(env)
-  local index = env.DATA.workspace_id.idx - 1
+  local index = env.DATA.workspace_id.idx % count
+  if index == 0 then
+    index = count
+  end
   if index == current then
     return
   end
@@ -38,14 +41,15 @@ end)
 
 client:subscribe({ "windows_changed" }, function(env)
   local is_empty = next(env.DATA.windows) == nil
-  local index = env.DATA.workspace_id.idx - 1
-  if index >= 1 and index <= 8 then
-    spaces[index]:set({
-      icon = {
-        color = is_empty and colors.dim or colors.default,
-      },
-    })
+  local index = env.DATA.workspace_id.idx % count
+  if index == 0 then
+    index = count
   end
+  spaces[index]:set({
+    icon = {
+      color = is_empty and colors.dim or colors.default,
+    },
+  })
 end)
 
 for i = 1, count do
