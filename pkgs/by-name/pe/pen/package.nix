@@ -7,10 +7,12 @@
   closureInfo,
   coreutils,
   curl,
+  dejavu_fonts,
   diffutils,
   fd,
   file,
   findutils,
+  fontconfig,
   gawk,
   gh,
   git,
@@ -22,6 +24,7 @@
   jq,
   jujutsu,
   less,
+  makeFontsConf,
   makeWrapper,
   nix,
   path,
@@ -34,6 +37,7 @@
   tinyxxd,
   unzip,
   which,
+  wqy_microhei,
   writeClosure,
   writeShellApplication,
   writeText,
@@ -55,6 +59,7 @@
     cacert
     coreutils
     curl
+    dejavu_fonts
     diffutils
     fd
     file
@@ -77,6 +82,7 @@
     tinyxxd
     unzip
     which
+    wqy_microhei
     xz
     zstd
   ],
@@ -109,6 +115,12 @@ let
       };
     };
 
+  penFontsConf = makeFontsConf {
+    fontDirectories = [ ];
+    impureFontDirectories = [ "/usr/share/fonts" ];
+    includes = [ "${fontconfig.out}/etc/fonts/conf.d" ];
+  };
+
   penClosure = closureInfo {
     rootPaths = extraClosurePackages ++ [
       cacert
@@ -116,6 +128,7 @@ let
       nixpkgs
       penEnv
       penInit
+      penFontsConf
     ];
   };
 
@@ -235,6 +248,7 @@ let
       --dev /dev
       --ro-bind "${penEnv}" /usr
       --ro-bind "${penNixConf}" /etc/nix
+      --ro-bind "${penFontsConf}" /etc/fonts/fonts.conf
       --ro-bind /etc/hosts /etc/hosts
       --ro-bind /etc/localtime /etc/localtime
       --ro-bind-try /etc/gitconfig /etc/gitconfig
