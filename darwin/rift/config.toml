@@ -33,16 +33,16 @@ default_workspace_count = 8
 default_workspace = 0
 
 app_rules = [
-  { app_name = "Firefox", workspace = 1 },
-  { app_name = "Google Chrome", workspace = 1 },
-  { app_name = "Thunderbird", workspace = 2 },
+  { app_id = "org.nixos.firefox", workspace = 1 },
+  { app_id = "com.google.Chrome", workspace = 1 },
+  { app_id = "org.nixos.thunderbird", workspace = 2 },
   # POPO's search and picture popups have empty titles. Leave them unmanaged,
   # or the floating layout resizes and centers them.
   { app_id = "com.netease.game.popo", title_regex = "^$", manage = false },
   # POPO reports AXDialog for every window, and Rift only manages
   # AXStandardWindow, so the main window, which has a title, needs `manage = true`.
   { app_id = "com.netease.game.popo", "title_regex" = "^.+", workspace = 4, floating = true, manage = true },
-  { app_name = "kitty", title_regex = "^Fzf$", floating = true, focus = true },
+  { app_id = "net.kovidgoyal.kitty", title_regex = "^Fzf$", floating = true, focus = true },
 ]
 
 [keys]
