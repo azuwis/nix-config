@@ -1,4 +1,6 @@
 # https://github.com/acsandmann/rift/blob/main/rift.default.toml
+# If hot_reload does not work, check `rift-cli execute config reload`
+# Duplicate app_name bug https://github.com/acsandmann/rift/pull/510
 
 [settings]
 animate = true
@@ -36,10 +38,10 @@ app_rules = [
   { app_name = "Thunderbird", workspace = 2 },
   # POPO's search and picture popups have empty titles. Leave them unmanaged,
   # or the floating layout resizes and centers them.
-  { app_name = "网易POPO", title_regex = "^$", manage = false },
+  { app_id = "com.netease.game.popo", title_regex = "^$", manage = false },
   # POPO reports AXDialog for every window, and Rift only manages
   # AXStandardWindow, so the main window, which has a title, needs `manage = true`.
-  { app_name = "网易POPO", "title_regex" = "^.+", workspace = 4, floating = true, manage = true },
+  { app_id = "com.netease.game.popo", "title_regex" = "^.+", workspace = 4, floating = true, manage = true },
   { app_name = "kitty", title_regex = "^Fzf$", floating = true, focus = true },
 ]
 
