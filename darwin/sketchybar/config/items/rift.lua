@@ -20,7 +20,7 @@ local function mouse_click(index)
 end
 
 -- Workspace indexes are global across native spaces, so the k-th space owns
--- k * #spaces + 1 .. k * #spaces + #spaces; fold them back into 1..#spaces.
+-- k * #spaces + 1 .. k * #spaces + #spaces, fold them back into 1..#spaces.
 client:subscribe({ "workspace_changed" }, function(env)
   if #spaces == 0 then
     return
@@ -43,11 +43,11 @@ client:subscribe({ "windows_changed" }, function(env)
   if #spaces == 0 then
     return
   end
-  local is_empty = next(env.DATA.windows) == nil
   local index = env.DATA.workspace_id.idx % #spaces
   if index == 0 then
     index = #spaces
   end
+  local is_empty = next(env.DATA.windows) == nil
   spaces[index]:set({
     icon = {
       color = is_empty and colors.dim or colors.default,
