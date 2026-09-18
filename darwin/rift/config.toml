@@ -77,12 +77,14 @@ app_rules = [
 "Alt + Shift + 8" = { move_window_to_workspace = 7 }
 
 "Alt + Comma" = "toggle_stack"
+"Alt + Period" = "unjoin_windows"
 
 "Alt + Tab" = "switch_to_last_workspace"
 
 "Alt + F" = "toggle_fullscreen_within_gaps"
 "Alt + Q" = "close_window"
 "Alt + V" = "toggle_window_floating"
+"Alt + C" = { toggle_window_floating = { center = true, size = { w = 1200, h = 720 } } }
 "Alt + Shift + F" = "toggle_fullscreen"
 
 "Alt + Equal" = "resize_window_grow"
@@ -94,3 +96,5 @@ app_rules = [
 "Alt + Enter" = { "exec" = [ "open", "-n", "-a", "kitty", "--args", "--single-instance", "--directory", "~" ] }
 "Alt + D" = { "exec" = [ "open", "-n", "-a", "kitty", "--args", "--single-instance", "--directory", "~", "-o", "remember_window_size=no", "-o", "initial_window_width=80c", "-o", "initial_window_height=10c", "--title", "Fzf", "appfzf" ] }
 "Alt + Shift + P" = { "exec" = [ "open", "-n", "-a", "kitty", "--args", "--single-instance", "--directory", "~", "-o", "remember_window_size=no", "-o", "initial_window_width=80c", "-o", "initial_window_height=10c", "--title", "Fzf", "passfzf" ] }
+
+"Alt + Shift + E" = "save_and_exit"
