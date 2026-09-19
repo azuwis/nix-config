@@ -56,7 +56,7 @@ local function setup()
   local data = (resp and resp.data) or {}
   if #data == 0 then
     print("rift.lua: no workspaces yet, retrying")
-    sbar.delay(0.1, setup)
+    sbar.delay(0.5, setup)
     return
   end
 
