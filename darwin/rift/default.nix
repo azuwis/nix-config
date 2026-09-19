@@ -25,9 +25,18 @@ in
         ProgramArguments = lib.mkAfter [
           "--config"
           "${./config.toml}"
+          "--restore"
         ];
         WorkingDirectory = config.users.users.${config.my.user}.home;
       };
     };
+
+    # Save the layout during activation.
+    system.activationScripts.preActivation.text = ''
+      echo "saving rift layout..." >&2
+      launchctl asuser "$(id -u -- ${config.system.primaryUser})" \
+        sudo -H --user=${config.system.primaryUser} -- \
+        ${config.services.rift.package}/bin/rift-cli execute save-layout --master || true
+    '';
   };
 }
