@@ -56,6 +56,8 @@
       NSNavPanelExpandedStateForSaveMode2 = true;
       NSTableViewDefaultSizeMode = 2;
       NSWindowResizeTime = 1.0e-4;
+      # Move a window by holding Control + Command and dragging anywhere in it
+      NSWindowShouldDragOnGesture = true;
       PMPrintingExpandedStateForPrint = true;
       PMPrintingExpandedStateForPrint2 = true;
     };
