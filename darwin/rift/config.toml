@@ -4,8 +4,8 @@
 
 [settings]
 animate = true
-animation_duration = 0.15
-animation_fps = 60
+animation_duration = 0.1
+animation_fps = 60.0
 default_disable = false
 focus_follows_mouse = false
 mouse_follows_focus = false
