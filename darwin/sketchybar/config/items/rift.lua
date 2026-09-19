@@ -10,9 +10,9 @@ if not client then
   return
 end
 
-local function mouse_click(index)
+local function mouse_click(workspace_index)
   local resp, send_err = client:send_request(
-    string.format([[{"execute_command":{"command":{"layout":{"switch_to_workspace":%d}}}}]], index - 1)
+    string.format([[{"execute_command":{"command":{"layout":{"switch_to_workspace":%d}}}}]], workspace_index)
   )
   if not resp then
     print("rift.lua: " .. tostring(send_err))
@@ -82,7 +82,7 @@ local function setup()
     })
 
     space:subscribe("mouse.clicked", function()
-      mouse_click(index)
+      mouse_click(ws.index)
     end)
     spaces[index] = space
 
