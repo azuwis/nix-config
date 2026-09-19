@@ -25,10 +25,7 @@ client:subscribe({ "workspace_changed" }, function(env)
   if #spaces == 0 then
     return
   end
-  local index = env.DATA.workspace_id.idx % #spaces
-  if index == 0 then
-    index = #spaces
-  end
+  local index = (env.DATA.workspace_id.idx - 1) % #spaces + 1
   if index == current then
     return
   end
@@ -43,10 +40,7 @@ client:subscribe({ "windows_changed" }, function(env)
   if #spaces == 0 then
     return
   end
-  local index = env.DATA.workspace_id.idx % #spaces
-  if index == 0 then
-    index = #spaces
-  end
+  local index = (env.DATA.workspace_id.idx - 1) % #spaces + 1
   local is_empty = next(env.DATA.windows) == nil
   spaces[index]:set({
     icon = {
