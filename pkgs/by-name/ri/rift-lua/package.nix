@@ -9,7 +9,7 @@
 # Use same lua version as sbarlua
 sbarlua.luaModule.pkgs.buildLuaPackage {
   pname = "rift-lua";
-  version = "0-unstable-2026-09-07";
+  version = "0-unstable-2026-09-06";
 
   src = fetchFromGitHub {
     owner = "acsandmann";
