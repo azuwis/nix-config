@@ -22,7 +22,7 @@
       };
     ponytail =
       let
-        version = "4.9.0";
+        version = "4.10.0";
       in
       {
         inherit version;
@@ -31,7 +31,7 @@
         owner = "DietrichGebert";
         repo = "ponytail";
         tag = "v${version}";
-        hash = "sha256-JYrxSUPhwY+cv1FEVIS32ry5sQKv51ALqA843OlCPrM=";
+        hash = "sha256-aJqER/jFZFOmPpdeW4RSc0hCdf367gbF7gb2cdC2MYs=";
         # Keep the skills but drop the hooks, hooks need `node`, and ponytail
         # works without them
         postFetch = ''
@@ -40,7 +40,7 @@
       };
     superpowers =
       let
-        version = "6.3.0";
+        version = "6.4.1";
       in
       {
         inherit version;
@@ -49,7 +49,7 @@
         owner = "obra";
         repo = "superpowers";
         tag = "v${version}";
-        hash = "sha256-EsGNO0dULWf5Bx6bGrCv2kI2Z8aKH0kRvGiuN23wChQ=";
+        hash = "sha256-rgeJhjQyABYlhlyFRmgyhbZmmmIPPNkch4CXyTkGEyM=";
       };
   },
   claudeSettings ? {
