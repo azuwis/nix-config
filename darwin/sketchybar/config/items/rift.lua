@@ -12,7 +12,7 @@ end
 
 local function mouse_click(index)
   local resp, send_err = client:send_request(
-    string.format([[{"execute_command":{"command":"{\"Reactor\":{\"switch_to_workspace\":%d}}","args":[]}}]], index - 1)
+    string.format([[{"execute_command":{"command":{"layout":{"switch_to_workspace":%d}}}}]], index - 1)
   )
   if not resp then
     print("rift.lua: " .. tostring(send_err))
