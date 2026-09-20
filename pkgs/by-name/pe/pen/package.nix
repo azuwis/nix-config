@@ -64,6 +64,7 @@
     fd
     file
     findutils
+    fontconfig.bin
     gawk
     gh
     git
