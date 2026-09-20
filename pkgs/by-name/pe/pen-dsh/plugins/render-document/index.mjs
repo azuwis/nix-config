@@ -126,6 +126,7 @@ export async function apply(ctx) {
     name: 'render_document',
     description:
       'Render a Word, PowerPoint, Excel, or PDF file to page images for visual inspection. '
+      + 'Use it for layout and for PDFs with no text layer. For exact wording, extract the text with pdftotext. '
       + 'Omit pages to prepare page 1 and learn pageCount, then request the remaining pages in small batches. '
       + 'Pass each returned imagePath to read_image. '
       + 'When status is "skipped", complete the structural and content checks and state that visual layout was not inspected.',
