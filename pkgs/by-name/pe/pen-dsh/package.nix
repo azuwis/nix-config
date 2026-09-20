@@ -3,6 +3,7 @@
   stdenvNoCC,
   fetchFromGitHub,
   pen,
+  poppler-utils,
   deepseek-harness,
   python3,
   writeScript,
@@ -92,6 +93,10 @@ let
               id = "skill-office";
               name = "${deepseek-harness}/libexec/dsh/packages/skill/skill-office/lib/index.js";
             }
+            {
+              id = "render-document";
+              name = "${./plugins/render-document}/index.mjs";
+            }
           ];
         }
       ]
@@ -120,6 +125,8 @@ pen {
     "--profile web"
   ];
   extraPenPackages = lib.optionals enableOffice [
+    # For render-document plugin
+    poppler-utils
     # Office authoring libraries. `hiPrio` wins the `/bin/python3` collision
     # with pen's own `python3`, which buildEnv rejects outright.
     (lib.hiPrio (
