@@ -143,7 +143,13 @@ export async function apply(ctx) {
     },
     async execute(args, exec) {
       const fs = ctx.fs
-      const target = await fs.resolve(args.file_path, { signal: exec.signal })
+      // A relative path resolves against the calling session's workspace rather
+      // than the provider default, which is the server's own cwd.
+      const cwd = exec.agent?.session.header.cwd
+      const target = await fs.resolve(args.file_path, {
+        ...(cwd === undefined ? {} : { cwd }),
+        signal: exec.signal,
+      })
       const info = await fs.stat(target, exec.signal)
       if (info?.type !== 'file') throw new Error(`render_document: "${args.file_path}" is not a file`)
       const sourcePath = fs.processPath(target)
