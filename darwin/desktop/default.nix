@@ -23,6 +23,7 @@ in
     programs.rime.enable = true;
     programs.thunderbird.enhance = true;
     services.rift.enhance = true;
+    services.sketchybar.enhance = true;
     # services.skhd.enhance = true;
     # services.yabai.enhance = true;
 
