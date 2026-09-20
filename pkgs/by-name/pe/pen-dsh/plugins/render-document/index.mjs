@@ -1,5 +1,5 @@
 /**
- * Renders an Office document to page images for visual inspection.
+ * Renders an Office or PDF document to page images for visual inspection.
  *
  * The office skills call this on the finished file when visual inspection is
  * useful, and pass each returned `imagePath` to `read_image`.
@@ -16,7 +16,7 @@ import { promisify } from 'node:util'
 export const name = 'render-document'
 export const inject = ['tools', 'fs']
 
-const OFFICE_EXTENSIONS = ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx']
+const DOCUMENT_EXTENSIONS = ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'pdf']
 const DPI = 120
 const MAX_PAGES_PER_CALL = 8
 
@@ -120,7 +120,7 @@ export async function apply(ctx) {
   ctx.tools.register(defineTool({
     name: 'render_document',
     description:
-      'Render a Word, PowerPoint, or Excel file to page images for visual inspection. '
+      'Render a Word, PowerPoint, Excel, or PDF file to page images for visual inspection. '
       + 'Omit pages to prepare page 1 and learn pageCount, then request the remaining pages in small batches. '
       + 'Pass each returned imagePath to read_image. '
       + 'When status is "skipped", complete the structural and content checks and state that visual layout was not inspected.',
@@ -128,7 +128,7 @@ export async function apply(ctx) {
       file_path: {
         type: 'string',
         required: true,
-        description: 'Office file to render, resolved by the filesystem backend.',
+        description: 'Document to render (Word, PowerPoint, Excel, or PDF), resolved by the filesystem backend.',
       },
       pages: {
         type: 'array',
@@ -148,46 +148,44 @@ export async function apply(ctx) {
       if (info?.type !== 'file') throw new Error(`render_document: "${args.file_path}" is not a file`)
       const sourcePath = fs.processPath(target)
       const extension = extname(sourcePath).slice(1).toLowerCase()
-      if (!OFFICE_EXTENSIONS.includes(extension)) {
-        throw new Error(`render_document: "${args.file_path}" must end in ${OFFICE_EXTENSIONS.join(', ')}`)
+      if (!DOCUMENT_EXTENSIONS.includes(extension)) {
+        throw new Error(`render_document: "${args.file_path}" must end in ${DOCUMENT_EXTENSIONS.join(', ')}`)
       }
 
       const refusal = await imageRefusal(ctx, exec)
       if (refusal !== undefined) return skipped(refusal)
-      const officeToPdf = ctx.get('officeToPdf')
-      if (officeToPdf === undefined) return skipped('this profile mounts no Office converter')
 
-      let converted
-      try {
-        converted = await officeToPdf.convert({
-          extension,
-          priority: 'foreground',
-          source: {
-            key: sourcePath,
-            version: info.version,
-            ...(info.size === undefined ? {} : { bytes: info.size }),
-            // `officeToPdf` rejects a read version that differs from the
-            // requested one, so report the version seen after the read.
-            read: async (signal, maxBytes) => {
-              const bytes = await fs.readBytes(target, signal, maxBytes)
-              const after = await fs.stat(target, signal)
-              if (after?.type !== 'file') throw new Error('the source changed during conversion')
-              return { bytes, version: after.version }
-            },
-          },
-        }, exec.signal)
-      } catch (error) {
-        return skipped(error)
-      }
-
-      const warnings = converted.missingFonts.map((family) => `missing font: ${family}`)
       const directory = dshCachePath('render-document', pageName(sourcePath))
-      // pdftoppm reads this file and writes each page straight to its PNG.
-      const pdfPath = join(directory, 'document.pdf')
+      // A PDF already is what the rasterizer reads, so it is rendered in place;
+      // an Office file is converted into the cache directory first.
+      const pdfPath = extension === 'pdf' ? sourcePath : join(directory, 'document.pdf')
+      let warnings = []
       let pageCount
       try {
         await mkdir(directory, { recursive: true })
-        await writeFile(pdfPath, converted.pdf)
+        if (extension !== 'pdf') {
+          const officeToPdf = ctx.get('officeToPdf')
+          if (officeToPdf === undefined) return skipped('this profile mounts no Office converter')
+          const converted = await officeToPdf.convert({
+            extension,
+            priority: 'foreground',
+            source: {
+              key: sourcePath,
+              version: info.version,
+              ...(info.size === undefined ? {} : { bytes: info.size }),
+              // `officeToPdf` rejects a read version that differs from the
+              // requested one, so report the version seen after the read.
+              read: async (signal, maxBytes) => {
+                const bytes = await fs.readBytes(target, signal, maxBytes)
+                const after = await fs.stat(target, signal)
+                if (after?.type !== 'file') throw new Error('the source changed during conversion')
+                return { bytes, version: after.version }
+              },
+            },
+          }, exec.signal)
+          warnings = converted.missingFonts.map((family) => `missing font: ${family}`)
+          await writeFile(pdfPath, converted.pdf)
+        }
         pageCount = await readPageCount(pdfPath, exec.signal)
       } catch (error) {
         return skipped(error)
@@ -218,6 +216,12 @@ export async function apply(ctx) {
             '-f', String(page), '-l', String(page), pdfPath, prefix,
           ], exec.signal)
           pages.push({ page, imagePath: `${prefix}.png` })
+        }
+        if (extension === 'pdf') {
+          // The rasterizer read the source in place, so a source that changed
+          // mid-render turns the whole batch into a skipped outcome.
+          const after = await fs.stat(target, exec.signal)
+          if (after?.version !== info.version) return skipped('the source changed while rendering')
         }
         return { status: 'ready', pageCount, pages, warnings }
       } catch (error) {
