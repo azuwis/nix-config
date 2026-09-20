@@ -7,7 +7,7 @@
 
 import { execFile } from 'node:child_process'
 import { createHash } from 'node:crypto'
-import { mkdir, writeFile } from 'node:fs/promises'
+import { mkdir, stat, writeFile } from 'node:fs/promises'
 import { createRequire } from 'node:module'
 import { basename, extname, join } from 'node:path'
 import { pathToFileURL } from 'node:url'
@@ -19,6 +19,11 @@ export const inject = ['tools', 'fs']
 const DOCUMENT_EXTENSIONS = ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'pdf']
 const DPI = 120
 const MAX_PAGES_PER_CALL = 8
+/**
+ * Smallest PNG a rendered page may be. poppler reports a raster it could not
+ * allocate by writing a 1x1 image, which is under 100 bytes.
+ */
+const MIN_PAGE_IMAGE_BYTES = 128
 
 const PAGE_SCHEMA = {
   type: 'object',
@@ -212,6 +217,8 @@ export async function apply(ctx) {
         warnings.push(`rendering ${selected.length} of ${present.length} requested pages this call. Request the rest in another call.`)
       }
 
+      // `imageRefusal` above already required the attachment store.
+      const { maxImageBytes } = ctx.get('attachments').imageLimits
       try {
         const pages = []
         for (const page of selected) {
@@ -221,7 +228,11 @@ export async function apply(ctx) {
             '-png', '-singlefile', '-r', String(DPI),
             '-f', String(page), '-l', String(page), pdfPath, prefix,
           ], exec.signal)
-          pages.push({ page, imagePath: `${prefix}.png` })
+          const imagePath = `${prefix}.png`
+          const { size } = await stat(imagePath)
+          if (size < MIN_PAGE_IMAGE_BYTES) return skipped(`page ${page} rasterized to an empty image`)
+          if (size > maxImageBytes) return skipped(`page ${page} rasterized beyond the deployment's image byte limit`)
+          pages.push({ page, imagePath })
         }
         if (extension === 'pdf') {
           // The rasterizer read the source in place, so a source that changed
