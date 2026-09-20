@@ -5,12 +5,13 @@
  * useful, and pass each returned `imagePath` to `read_image`.
  */
 
-import { spawn } from 'node:child_process'
+import { execFile } from 'node:child_process'
 import { createHash } from 'node:crypto'
 import { mkdir, writeFile } from 'node:fs/promises'
 import { createRequire } from 'node:module'
 import { basename, extname, join } from 'node:path'
 import { pathToFileURL } from 'node:url'
+import { promisify } from 'node:util'
 
 export const name = 'render-document'
 export const inject = ['tools', 'fs']
@@ -57,6 +58,18 @@ const OUTPUT_SCHEMA = {
   },
 }
 
+const poppler = promisify(execFile)
+
+/** Run a poppler tool and return its stdout. */
+async function runPoppler(binary, args, signal) {
+  try {
+    return (await poppler(binary, args, { signal })).stdout
+  } catch (error) {
+    // Only a spawn that cannot find its binary means poppler is missing.
+    throw error.code === 'ENOENT' ? new Error(`poppler is not available (${error.path})`) : error
+  }
+}
+
 /**
  * Why page images cannot reach the calling model, or undefined when they can.
  * These are the deployment and route gates `read_image` applies: an attachment
@@ -74,7 +87,6 @@ async function imageRefusal(ctx, exec) {
   if (provider === undefined || model === undefined || llm === undefined) return 'the current model route could not be resolved'
   const info = await llm.resolveModelInfo(provider, model, exec.signal)
   if (!info.inputModalities?.includes('image')) return `model "${model}" does not declare image input`
-  return undefined
 }
 
 /** The `skipped` outcome for a reason string or an Error. An Error contributes its message. */
@@ -83,32 +95,9 @@ function skipped(reason) {
   return { status: 'skipped', pageCount: 0, pages: [], warnings: [`visual inspection skipped: ${text}`] }
 }
 
-/** Run a poppler tool with the PDF on stdin and return its stdout. */
-function runPoppler(binary, args, pdf, signal) {
-  return new Promise((resolve, reject) => {
-    const child = spawn(binary, args, { signal })
-    const stdout = []
-    const stderr = []
-    child.stdout.on('data', (chunk) => stdout.push(chunk))
-    child.stderr.on('data', (chunk) => stderr.push(chunk))
-    // Only a spawn that cannot find its binary means poppler is missing.
-    child.on('error', (error) => {
-      reject(error?.code === 'ENOENT' && error.syscall?.startsWith('spawn')
-        ? new Error(`poppler is not available (${error.path})`)
-        : error)
-    })
-    child.on('close', (code) => {
-      if (code === 0) resolve(Buffer.concat(stdout))
-      else reject(new Error(`${binary} exited with ${code}: ${Buffer.concat(stderr).toString('utf8').trim()}`))
-    })
-    child.stdin.on('error', () => {})
-    child.stdin.end(pdf)
-  })
-}
-
 /** Total page count reported by poppler. */
-async function readPageCount(pdf, signal) {
-  const text = (await runPoppler('pdfinfo', ['-'], pdf, signal)).toString('utf8')
+async function readPageCount(pdfPath, signal) {
+  const text = await runPoppler('pdfinfo', [pdfPath], signal)
   const match = /^Pages:\s+(\d+)$/m.exec(text)
   if (match === null) throw new Error('pdfinfo reported no page count')
   return Number(match[1])
@@ -192,9 +181,14 @@ export async function apply(ctx) {
       }
 
       const warnings = converted.missingFonts.map((family) => `missing font: ${family}`)
+      const directory = dshCachePath('render-document', pageName(sourcePath))
+      // pdftoppm reads this file and writes each page straight to its PNG.
+      const pdfPath = join(directory, 'document.pdf')
       let pageCount
       try {
-        pageCount = await readPageCount(converted.pdf, exec.signal)
+        await mkdir(directory, { recursive: true })
+        await writeFile(pdfPath, converted.pdf)
+        pageCount = await readPageCount(pdfPath, exec.signal)
       } catch (error) {
         return skipped(error)
       }
@@ -214,18 +208,16 @@ export async function apply(ctx) {
         warnings.push(`rendering ${selected.length} of ${present.length} requested pages this call. Request the rest in another call.`)
       }
 
-      const directory = dshCachePath('render-document', pageName(sourcePath))
       try {
-        await mkdir(directory, { recursive: true })
         const pages = []
         for (const page of selected) {
-          const imagePath = join(directory, `page-${page}.png`)
-          const png = await runPoppler('pdftoppm', [
+          // `-singlefile`: the page file is exactly `<prefix>.png`.
+          const prefix = join(directory, `page-${page}`)
+          await runPoppler('pdftoppm', [
             '-png', '-singlefile', '-r', String(DPI),
-            '-f', String(page), '-l', String(page), '-',
-          ], converted.pdf, exec.signal)
-          await writeFile(imagePath, png)
-          pages.push({ page, imagePath })
+            '-f', String(page), '-l', String(page), pdfPath, prefix,
+          ], exec.signal)
+          pages.push({ page, imagePath: `${prefix}.png` })
         }
         return { status: 'ready', pageCount, pages, warnings }
       } catch (error) {
