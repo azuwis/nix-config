@@ -1,8 +1,10 @@
 {
+  lib,
   stdenvNoCC,
   fetchFromGitHub,
   pen,
   deepseek-harness,
+  python3,
   writeScript,
   writeText,
   dshSkills ? {
@@ -54,36 +56,51 @@
         rootDir = "skills";
       };
   },
+  enableOffice ? false,
 }:
 
 let
   cordisPatch = writeText "cordis.patch.yml" (
-    builtins.toJSON [
-      # Disable telemetry
-      {
-        id = "plugin-package-inventory-deepseek";
-        disabled = true;
-      }
-      {
-        id = "session-log-deepseek";
-        disabled = true;
-      }
-      {
-        id = "session-telemetry-otel";
-        disabled = true;
-      }
-      # Skills
-      {
-        id = "skill-filesystem";
-        disabled = false;
-        config.customSkillDirs = builtins.attrValues dshSkills;
-      }
-    ]
+    builtins.toJSON (
+      [
+        # Disable telemetry
+        {
+          id = "plugin-package-inventory-deepseek";
+          disabled = true;
+        }
+        {
+          id = "session-log-deepseek";
+          disabled = true;
+        }
+        {
+          id = "session-telemetry-otel";
+          disabled = true;
+        }
+        # Skills
+        {
+          id = "skill-filesystem";
+          disabled = false;
+          config.customSkillDirs = builtins.attrValues dshSkills;
+        }
+      ]
+      ++ lib.optionals enableOffice [
+        # Office skill provider, addressed by module path: a package name does
+        # not resolve in a profile, and ESM needs the entry file.
+        {
+          insert = [
+            {
+              id = "skill-office";
+              name = "${deepseek-harness}/libexec/dsh/packages/skill/skill-office/lib/index.js";
+            }
+          ];
+        }
+      ]
+    )
   );
 in
 
 pen {
-  name = "pen-dsh";
+  name = if enableOffice then "pen-dsh-office" else "pen-dsh";
   agentPackage = deepseek-harness;
   agentWrapperArgs = [
     "--set"
@@ -101,6 +118,20 @@ pen {
     "--patch ${cordisPatch}"
     "--add-flags"
     "--profile web"
+  ];
+  extraPenPackages = lib.optionals enableOffice [
+    # Office authoring libraries. `hiPrio` wins the `/bin/python3` collision
+    # with pen's own `python3`, which buildEnv rejects outright.
+    (lib.hiPrio (
+      python3.withPackages (
+        ps: with ps; [
+          openpyxl
+          pandas
+          python-docx
+          python-pptx
+        ]
+      )
+    ))
   ];
   allowWrite = [
     "~/.dsh"
