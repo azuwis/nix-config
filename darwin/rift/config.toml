@@ -32,6 +32,10 @@ enabled = true
 default_workspace_count = 8
 default_workspace = 0
 
+workspace_rules = [
+  { workspace = 4, layout = "floating" }
+]
+
 app_rules = [
   { app_id = "org.nixos.firefox", workspace = 1 },
   { app_id = "com.google.Chrome", workspace = 1 },
