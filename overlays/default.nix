@@ -77,6 +77,21 @@ in
     # };
     # python3Packages = final.python3.pkgs;
 
+    rift-wm = prev.rift-wm.overrideAttrs (
+      finalAttrs: prevAttrs: {
+        version = "0.5.10";
+        src = prevAttrs.src.overrideAttrs {
+          hash = "sha256-0dsM+PxcgE+cvNUF2C4EdRlrDG+R1aBY29/AAiNWUYo=";
+        };
+        cargoDeps = final.rustPlatform.fetchCargoVendor {
+          inherit (finalAttrs) src;
+          name = "${finalAttrs.pname}-${finalAttrs.version}-vendor";
+          hash = "sha256-VQ0JtnfHjwDaki1J/z5q4CpE9TXsFdEIumA+jO3ziy4=";
+        };
+        doCheck = false;
+      }
+    );
+
     # vimPlugins =
     #   prev.vimPlugins
     #   // final.lib.packagesFromDirectoryRecursive {
