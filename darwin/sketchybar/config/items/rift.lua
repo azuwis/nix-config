@@ -86,4 +86,5 @@ local function setup()
   end
 end
 
-sbar.delay(0.1, setup)
+-- `get_workspaces` is ready after 0.1s, `ws.window_count` is ready after 0.3s
+sbar.delay(0.3, setup)
