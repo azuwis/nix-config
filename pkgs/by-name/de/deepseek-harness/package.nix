@@ -240,6 +240,8 @@ stdenv.mkDerivation (finalAttrs: {
         "--version-regex=dsh-v(.*)"
       ];
     };
+
+    withPlugins = callPackage ./plugins.nix { deepseek-harness = finalAttrs.finalPackage; };
   };
 
   meta = {

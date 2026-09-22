@@ -63,51 +63,44 @@
 
 let
   cordisPatch = writeText "cordis.patch.yml" (
-    builtins.toJSON (
-      [
-        # Disable telemetry
-        {
-          id = "plugin-package-inventory-deepseek";
-          disabled = true;
-        }
-        {
-          id = "session-log-deepseek";
-          disabled = true;
-        }
-        {
-          id = "session-telemetry-otel";
-          disabled = true;
-        }
-        # Skills
-        {
-          id = "skill-filesystem";
-          disabled = false;
-          config.customSkillDirs = builtins.attrValues dshSkills;
-        }
-      ]
-      ++ lib.optionals enableOffice [
-        # Module paths, not package names: a package name does not resolve in a
-        # profile, and ESM needs the entry file.
-        {
-          insert = [
-            {
-              id = "skill-office";
-              name = "${deepseek-harness}/libexec/dsh/packages/skill/skill-office/lib/index.js";
-            }
-            {
-              id = "render-document";
-              name = "${dsh-render-document}/index.mjs";
-            }
-          ];
-        }
-      ]
-    )
+    builtins.toJSON ([
+      # Disable telemetry
+      {
+        id = "plugin-package-inventory-deepseek";
+        disabled = true;
+      }
+      {
+        id = "session-log-deepseek";
+        disabled = true;
+      }
+      {
+        id = "session-telemetry-otel";
+        disabled = true;
+      }
+      # Skills
+      {
+        id = "skill-filesystem";
+        disabled = false;
+        config.customSkillDirs = builtins.attrValues dshSkills;
+      }
+    ])
   );
 in
 
 pen {
   name = if enableOffice then "pen-dsh-office" else "pen-dsh";
-  agentPackage = deepseek-harness;
+  agentPackage =
+    if enableOffice then
+      deepseek-harness.withPlugins [
+        dsh-render-document
+        # The skill provider lives in the harness tree, so this row names its entry module.
+        {
+          id = "skill-office";
+          name = "${deepseek-harness}/libexec/dsh/packages/skill/skill-office/lib/index.js";
+        }
+      ]
+    else
+      deepseek-harness;
   agentWrapperArgs = [
     "--set"
     "DSH_PERMISSION_MODE"

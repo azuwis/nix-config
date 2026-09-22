@@ -3,10 +3,10 @@
   runCommandLocal,
 }:
 
-# `render_document` tool plugin. `node_modules` is the dsh installation's, so
-# every bare import resolves to the packages the host itself runs.
+# `render_document` tool plugin. `node_modules` points at the dsh installation,
+# so every bare import resolves to the packages the host runs.
 runCommandLocal "dsh-render-document-${deepseek-harness.version}" { } ''
   mkdir -p $out
-  cp ${./index.mjs} $out/index.mjs
+  cp -r ${./src}/. $out/
   ln -s ${deepseek-harness}/libexec/dsh/node_modules $out/node_modules
 ''
