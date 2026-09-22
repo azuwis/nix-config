@@ -5,6 +5,7 @@
   pen,
   poppler-utils,
   deepseek-harness,
+  dsh-render-document,
   python3,
   writeScript,
   writeText,
@@ -85,8 +86,8 @@ let
         }
       ]
       ++ lib.optionals enableOffice [
-        # Office skill provider, addressed by module path: a package name does
-        # not resolve in a profile, and ESM needs the entry file.
+        # Module paths, not package names: a package name does not resolve in a
+        # profile, and ESM needs the entry file.
         {
           insert = [
             {
@@ -95,7 +96,7 @@ let
             }
             {
               id = "render-document";
-              name = "${./plugins/render-document}/index.mjs";
+              name = "${dsh-render-document}/index.mjs";
             }
           ];
         }

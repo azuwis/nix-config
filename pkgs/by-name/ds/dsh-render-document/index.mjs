@@ -8,10 +8,11 @@
 import { execFile } from 'node:child_process'
 import { createHash } from 'node:crypto'
 import { mkdir, stat, writeFile } from 'node:fs/promises'
-import { createRequire } from 'node:module'
 import { basename, extname, join } from 'node:path'
-import { pathToFileURL } from 'node:url'
 import { promisify } from 'node:util'
+
+import { dshCachePath } from '@deepseek-ai/dsh-home-paths'
+import { defineTool } from '@deepseek-ai/dsh-tools'
 
 export const name = 'render-document'
 export const inject = ['tools', 'fs']
@@ -114,14 +115,7 @@ function pageName(sourcePath) {
   return `${stem}-${createHash('sha256').update(sourcePath).digest('hex').slice(0, 8)}`
 }
 
-export async function apply(ctx) {
-  // A store plugin has no node_modules of its own, and the profile fallback
-  // under $DSH_HOME/profiles is out of reach, so resolve from the installation.
-  const fromInstallation = createRequire(ctx.profileContext.installAnchor)
-  const load = (specifier) => import(pathToFileURL(fromInstallation.resolve(specifier)).href)
-  const { defineTool } = await load('@deepseek-ai/dsh-tools')
-  const { dshCachePath } = await load('@deepseek-ai/dsh-home-paths')
-
+export function apply(ctx) {
   ctx.tools.register(defineTool({
     name: 'render_document',
     description:
