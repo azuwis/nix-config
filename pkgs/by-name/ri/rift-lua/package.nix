@@ -1,8 +1,8 @@
 {
   lib,
   fetchFromGitHub,
-  sbarlua,
   pkg-config,
+  sbarlua,
   nix-update-script,
 }:
 

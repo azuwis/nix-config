@@ -207,6 +207,12 @@ stdenv.mkDerivation (finalAttrs: {
       # musl here gives Linux the same set, so the hash matches on both.
       "--libc=musl"
     ];
+    # `!` excludes these optional subagents, so their CLI binaries never reach
+    # the store. The main derivation's postPatch drops them from the built tree.
+    pnpmWorkspaces = [
+      "!@deepseek-ai/dsh-subagent-claude-code"
+      "!@deepseek-ai/dsh-subagent-codex"
+    ];
     # pnpm ignores --os/--cpu/--libc while `--force` is set, and fetchPnpmDeps
     # appends its own `--force` after pnpmInstallFlags. Shadow pnpm so
     # `install` gets `--force=false` as its last argument.
@@ -219,12 +225,6 @@ stdenv.mkDerivation (finalAttrs: {
         fi
       }
     '';
-    # `!` excludes these optional subagents, so their CLI binaries never reach
-    # the store. The main derivation's postPatch drops them from the built tree.
-    pnpmWorkspaces = [
-      "!@deepseek-ai/dsh-subagent-claude-code"
-      "!@deepseek-ai/dsh-subagent-codex"
-    ];
   };
 
   passthru = {
