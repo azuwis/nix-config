@@ -46,6 +46,7 @@ app_rules = [
   # POPO reports AXDialog for every window, and Rift only manages
   # AXStandardWindow, so the main window, which has a title, needs `manage = true`.
   { app_id = "com.netease.game.popo", "title_regex" = "^.+", workspace = 4, floating = true, manage = true },
+  { app_id = "io.mpv", floating = true },
   { app_id = "net.kovidgoyal.kitty", title_regex = "^Fzf$", floating = true, focus = true },
 ]
 
