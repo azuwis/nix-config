@@ -6,7 +6,6 @@
   caladea,
   carlito,
   deepseek-harness,
-  dsh-render-document,
   liberation_ttf,
   poppler-utils,
   python3,
@@ -95,7 +94,6 @@ pen {
   agentPackage =
     if enableOffice then
       deepseek-harness.withPlugins [
-        dsh-render-document
         # The skill provider lives in the harness tree, so this row names its entry module.
         {
           id = "skill-office";
@@ -126,7 +124,7 @@ pen {
     caladea
     carlito
     liberation_ttf
-    # For render-document plugin
+    # pdftotext, pdftoppm
     poppler-utils
     # Office authoring libraries. `hiPrio` wins the `/bin/python3` collision
     # with pen's own `python3`, which buildEnv rejects outright.
