@@ -17,6 +17,7 @@
     clipboard_control write-clipboard write-primary
     copy_on_select yes
     cursor_blink_interval 0
+    cursor_trail 1
     editor vim
     env SHELL=/run/current-system/sw/bin/zsh
     font_family JetBrainsMono Nerd Font Mono
