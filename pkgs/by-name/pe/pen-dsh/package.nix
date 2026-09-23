@@ -3,9 +3,12 @@
   stdenvNoCC,
   fetchFromGitHub,
   pen,
-  poppler-utils,
+  caladea,
+  carlito,
   deepseek-harness,
   dsh-render-document,
+  liberation_ttf,
+  poppler-utils,
   python3,
   writeScript,
   writeText,
@@ -119,6 +122,10 @@ pen {
     "--profile web"
   ];
   extraPenPackages = lib.optionals enableOffice [
+    # Metric-compatible Arial/Calibri/Cambria/Times
+    caladea
+    carlito
+    liberation_ttf
     # For render-document plugin
     poppler-utils
     # Office authoring libraries. `hiPrio` wins the `/bin/python3` collision
