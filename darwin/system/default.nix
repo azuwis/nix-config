@@ -36,6 +36,17 @@
     # hide /nix from Finder and Spotlight
     test -e /nix/.metadata_never_index || touch /nix/.metadata_never_index
     chflags hidden /nix
+    # nix-darwin overwrites apps in `/Applications/Nix Apps` in place without
+    # touching their LaunchServices records, so `open -a <app>` can fail with
+    # "Launchd job spawn failed"
+    lsregister=/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister
+    for app in "/Applications/Nix Apps"/*.app; do
+      if [ -d "$app" ]; then
+        launchctl asuser "$(id -u -- ${config.system.primaryUser})" \
+          sudo --set-home --user=${config.system.primaryUser} -- \
+          "$lsregister" -f "$app" || true
+      fi
+    done
   '';
   system.defaults = {
     NSGlobalDomain = {
