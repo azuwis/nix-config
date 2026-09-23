@@ -22,7 +22,7 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "deepseek-harness";
-  version = "0.1.7-alpha.2";
+  version = "0.1.7-rc.1";
 
   strictDeps = true;
   __structuredAttrs = true;
@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "deepseek-ai";
     repo = "deepseek-harness";
     tag = "dsh-v${finalAttrs.version}";
-    hash = "sha256-NPJG+XIcn2lieBQhRUNqHHbo/YWxlg2e0vxpeCiqQjY=";
+    hash = "sha256-x5p1J/FZ7ATj2YQhXGuqAquI8m6WGHOu8RPhrQg1qr8=";
     postCheckout = "git -C $out rev-parse HEAD > $out/.gitrev";
   };
 
@@ -193,7 +193,7 @@ stdenv.mkDerivation (finalAttrs: {
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
-    hash = "sha256-koYburNHJQ8A/oare4VmKDepScnUPAFN058Nz68vqyg=";
+    hash = "sha256-d7iPuRczDMWDQvmQlXOvVCIoS4fADS/DKqSazE/57/U=";
     fetcherVersion = 4;
     # Fetch only the platforms in meta.platforms. pnpm applies these flags only
     # while `--force` is off, see prePnpmInstall.
@@ -248,8 +248,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Open-source agent harness developed by DeepSeek AI";
     homepage = "https://github.com/deepseek-ai/deepseek-harness";
     license = lib.licenses.mit;
-    # The closure still ships prebuilt native code: sharp's @img/* platform
-    # packages (libvips) and koffi's @koromix/koffi-* addon.
+    # The closure also ships prebuilt binaries from npm packages such as sharp,
+    # koffi, sherpa-onnx, and the LibreOffice kit.
     sourceProvenance = with lib.sourceTypes; [
       fromSource
       binaryNativeCode
