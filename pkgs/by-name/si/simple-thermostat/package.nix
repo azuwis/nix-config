@@ -7,14 +7,14 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "simple-thermostat";
-  version = "4.4.0";
+  version = "4.5.0";
 
   strictDeps = true;
   __structuredAttrs = true;
 
   src = fetchurl {
     url = "https://github.com/Wheemer/simple-thermostat/releases/download/v${finalAttrs.version}/simple-thermostat.js";
-    hash = "sha256-Ri77sXxaa0OYYCqgDJJwl8Q6SbbEyfoXlBokwOJ1Sgo=";
+    hash = "sha256-JdjE1eYCDCEAivaFwR08HaEFfe+qrjstferUNZmhUgU=";
   };
 
   dontUnpack = true;
