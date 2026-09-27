@@ -16,7 +16,7 @@ let
 
   generated = pkgs.runCommand "lovelace-generated" { } ''
     mkdir $out
-    for i in az tf yq; do
+    for i in az tf; do
       ${pkgs.imagemagick}/bin/magick -background transparent -fill "#ff9800" -font ${font} -size 128x128 -gravity center label:"''${i^^}" "$out/$i.png"
       ${pkgs.imagemagick}/bin/magick -background transparent -fill "#44739e" -font ${font} -size 128x128 -gravity center label:"''${i^^}" "$out/''${i}_away.png"
     done
@@ -164,7 +164,7 @@ let
     style = {
       left = "4%";
       top = "${top}%";
-      width = "5%";
+      width = "5.5%";
     };
   };
 
@@ -302,8 +302,8 @@ in
                 (state "binary_sensor.a4c138694c34_occupancy" "71" "9")
                 # bathroom
                 (state "light.bathroom" "51" "23")
-                (state "binary_sensor.dced8387eef4_occupancy" "45.5" "25.5")
-                (state' "climate.yeelink_v6_af1f_ptc_bath_heater" "45.5" "20" {
+                (state "binary_sensor.dced8387eef4_occupancy" "45.5" "21")
+                (state' "climate.yeelink_v6_af1f_ptc_bath_heater" "45.5" "14.7" {
                   card_mod.style."state-badge $" = ''
                     ha-state-icon {
                       color:
@@ -328,7 +328,7 @@ in
                     perform_action = "script.bath_heater";
                   };
                 })
-                (state' "binary_sensor.0x00158d00028f9af8_contact" "45.5" "14.7" {
+                (state' "binary_sensor.0x00158d00028f9af8_contact" "45.5" "27.1" {
                   # Reverse on/off color, https://www.home-assistant.io/integrations/frontend/#state-color
                   style = {
                     "--state-binary_sensor-door-on-color" = "var(--state-icon-color)";
@@ -341,9 +341,8 @@ in
                   suffix = "°C";
                 })
                 # people
-                (people "az" "89")
-                (people "tf" "92.3")
-                (people "yq" "95.6")
+                (people "az" "93.5")
+                (people "tf" "97")
               ];
             }
             (player' "media_player.edifier_r2000db" {
