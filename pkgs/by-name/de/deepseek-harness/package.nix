@@ -105,9 +105,10 @@ stdenv.mkDerivation (finalAttrs: {
     npm_config_build_from_source=true pnpm --filter @deepseek-ai/dsh-subprocess-local rebuild node-pty
     test -f node_modules/.pnpm/node-pty@*/node_modules/node-pty/build/Release/pty.node
 
-    # node-gyp left the Python path in config.gypi. Dropping it keeps python3
-    # out of the closure, which disallowedReferences enforces.
-    rm node_modules/node-pty/build/config.gypi
+    # node-gyp left the Python path in node_modules/node-pty/build/. Dropping
+    # it keeps python3 out of the closure, which disallowedReferences enforces.
+    pty_build='node_modules/node-pty/build/!(Release)'
+    (shopt -s extglob; rm -rf $pty_build) # syntax error when eval'd directly
 
     # Already replaced by nixpkgs' ripgrep in postPatch.
     rm -r node_modules/.pnpm/@vscode+ripgrep*
