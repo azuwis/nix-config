@@ -93,7 +93,7 @@ in
       - alias: Climate close all at morning workdays
         triggers:
           - trigger: time
-            at: "08:00:00"
+            at: "07:30:00"
         conditions:
           - condition: state
             entity_id: binary_sensor.workday_sensor
@@ -107,7 +107,7 @@ in
       - alias: Climate close all at morning holidays
         triggers:
           - trigger: time
-            at: "09:00:00"
+            at: "08:30:00"
         conditions:
           - condition: state
             entity_id: binary_sensor.workday_sensor
