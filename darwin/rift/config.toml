@@ -15,6 +15,10 @@ run_on_start = [ "sketchybar --reload" ]
 [settings.layout]
 mode = "scrolling"
 
+[settings.layout.scrolling]
+column_width_ratio = 0.9
+preserve_window_sizes = false
+
 [settings.layout.gaps]
 
 [settings.layout.gaps.outer]
