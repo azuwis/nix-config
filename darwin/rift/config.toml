@@ -31,6 +31,9 @@ right = 0
 horizontal = 2
 vertical = 0
 
+[settings.drag_drop]
+modifier = "alt"
+
 [virtual_workspaces]
 enabled = true
 default_workspace_count = 8
