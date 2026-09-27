@@ -20,7 +20,6 @@
   fonts.packages = with pkgs; [ nerd-fonts.jetbrains-mono ];
   nix.settings = {
     allowed-users = [ config.my.user ];
-    extra-platforms = [ "x86_64-darwin" ];
     sandbox = "relaxed";
   };
   # nix profile diff-closures --profile /nix/var/nix/profiles/system
