@@ -103,7 +103,7 @@ stdenv.mkDerivation (finalAttrs: {
     # pnpm rebuild does nothing unless the dependent project is named. The test
     # below fails if the addon is missing. build_from_source drops the prebuilds.
     npm_config_build_from_source=true pnpm --filter @deepseek-ai/dsh-subprocess-local rebuild node-pty
-    test -f node_modules/.pnpm/node-pty@*/node_modules/node-pty/build/Release/pty.node
+    test -f node_modules/node-pty/build/Release/pty.node
 
     # node-gyp left the Python path in node_modules/node-pty/build/. Dropping
     # it keeps python3 out of the closure, which disallowedReferences enforces.
@@ -119,7 +119,7 @@ stdenv.mkDerivation (finalAttrs: {
     rm -r node_modules/.pnpm/node-addon-require-builtin*
 
     # koffi's loader prefers the glibc build, so its musl copy is unused here.
-    find node_modules/.pnpm -path '*@koromix/koffi-*/musl_*' -delete
+    rm -rf node_modules/@koromix/koffi-*/musl_*
 
     # Prune the links any package removal leaves dangling.
     find . -xtype l -delete
