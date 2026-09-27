@@ -19,7 +19,6 @@
     cursor_blink_interval 0
     cursor_trail 1
     editor vim
-    env SHELL=/run/current-system/sw/bin/zsh
     font_family JetBrainsMono Nerd Font Mono
     font_size 15
     hide_window_decorations titlebar-only

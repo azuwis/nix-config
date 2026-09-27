@@ -14,6 +14,7 @@
   environment.variables = {
     LANG = "en_US.UTF-8";
     LC_ALL = "en_US.UTF-8";
+    SHELL = "/run/current-system/sw/bin/zsh";
   };
   documentation.doc.enable = false;
   documentation.info.enable = false;
