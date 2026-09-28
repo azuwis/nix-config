@@ -20,5 +20,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.firefox.enhance = true;
     programs.mpv.enhance = true;
+    programs.nix-index.enhance = true;
+    programs.nps.enable = true;
   };
 }
