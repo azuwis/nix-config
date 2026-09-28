@@ -6,20 +6,14 @@
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf;
   cfg = config.desktop;
 in
-{
-  options.desktop = {
-    enable = mkEnableOption "desktop";
-  };
 
-  config = mkIf cfg.enable {
+{
+  config = lib.mkIf cfg.enable {
     # programs.emacs.enable = true;
     # programs.hammerspoon.enable = true;
 
-    programs.firefox.enhance = true;
-    programs.mpv.enhance = true;
     programs.rime.enable = true;
     programs.thunderbird.enhance = true;
     services.rift.enhance = true;

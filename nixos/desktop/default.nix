@@ -6,15 +6,11 @@
 }:
 
 let
-  inherit (lib) mkDefault mkEnableOption mkIf;
   cfg = config.desktop;
 in
-{
-  options.desktop = {
-    enable = mkEnableOption "desktop";
-  };
 
-  config = mkIf cfg.enable {
+{
+  config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       evemu
       evtest
@@ -40,7 +36,6 @@ in
     programs.bluetooth.enable = true;
     programs.chromium.enhance = true;
     programs.fcitx5.enable = true;
-    programs.firefox.enhance = true;
     programs.gnupg.agent = {
       enable = true;
       # Keyboard typing on pinentry-gnome3 gets stuck
@@ -50,11 +45,10 @@ in
         max-cache-ttl = 14400;
       };
     };
-    programs.mpv.enhance = true;
     programs.niri.enhance = true;
     # programs.sway.enhance = true;
     programs.termfilechooser.enable = true;
-    programs.wayland.session = mkDefault "niri-session";
+    programs.wayland.session = lib.mkDefault "niri-session";
     # programs.wayland.session = "sway";
 
     # Reduce 700M closure size
