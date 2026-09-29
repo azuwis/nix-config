@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  options,
   pkgs,
   ...
 }:
@@ -33,6 +34,10 @@ in
   options = {
     documentation.man.cache = mkOption { };
     environment.pathsToLink = mkOption { };
+    # Join list values with ":" like environment.variables.
+    environment.sessionVariables = mkOption {
+      inherit (options.environment.variables) apply;
+    };
     environment.profileRelativeSessionVariables = mkOption { default = { }; };
     networking.fqdnOrHostName = mkOption { default = "droid"; };
     nix.optimise = mkOption { };
