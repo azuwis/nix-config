@@ -216,6 +216,22 @@ vimfx.addCommand({
 })
 map('gs', 'toggle_https', true)
 
+const proxyModes = [
+    [1, 'manual'],
+    [5, 'system'],
+]
+vimfx.addCommand({
+    name: 'toggle_proxy_mode',
+    description: 'Toggle proxy mode',
+}, ({vim}) => {
+    const current = Preferences.get('network.proxy.type')
+    const i = proxyModes.findIndex(([type]) => type === current)
+    const [next, name] = proxyModes[(i + 1) % proxyModes.length]
+    Preferences.set('network.proxy.type', next)
+    vim.notify(`Proxy: ${name}`)
+})
+map(',x', 'toggle_proxy_mode', true)
+
 vimfx.addCommand({
     name: 'org_capture',
     description: 'Capture the selected text using org-protocol'
