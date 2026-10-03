@@ -14,7 +14,7 @@
   dshSkills ? {
     humanizer =
       let
-        version = "3.0.0";
+        version = "3.1.0";
       in
       {
         inherit version;
@@ -23,7 +23,7 @@
         owner = "blader";
         repo = "humanizer";
         tag = "v${version}";
-        hash = "sha256-IJQHUhJcb0FtPS+CcOaW8lepnQOSxXTMCT9Jwj3wy30=";
+        hash = "sha256-4GhiKS9Cl8yNtlGa8ZhianGiGWgVu7p4r4Lgr0kRkKs=";
         nonConeMode = true;
         sparseCheckout = [ "/SKILL.md" ];
         postFetch = ''
@@ -33,7 +33,7 @@
       };
     ponytail =
       let
-        version = "4.10.0";
+        version = "4.10.3";
       in
       {
         inherit version;
