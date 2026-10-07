@@ -23,4 +23,5 @@ in
   environment.etc.zlogout.text = ''
     [ "$TTY" = /dev/pts/0 ] && [ -n "$SSH_AGENT_PID" ] && kill "$SSH_AGENT_PID"
   '';
+  services.libnss-netd.enable = true;
 }

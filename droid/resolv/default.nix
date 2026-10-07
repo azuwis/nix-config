@@ -16,9 +16,7 @@ let
 in
 {
   options.services.resolv = {
-    enable = mkEnableOption "resolv" // {
-      default = true;
-    };
+    enable = mkEnableOption "resolv";
     implement = mkOption {
       type = types.enum [
         "connectivity"
