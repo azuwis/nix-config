@@ -17,6 +17,7 @@ mode = "scrolling"
 
 [settings.layout.scrolling]
 column_width_ratio = 0.9
+expand_single_column = true
 preserve_window_sizes = false
 
 [settings.layout.gaps]
