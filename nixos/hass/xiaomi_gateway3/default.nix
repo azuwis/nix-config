@@ -146,6 +146,7 @@ in
             entity_id: binary_sensor.a4c138694c34_occupancy
             from: "on"
             to: "off"
+            for: "00:02:00"
         conditions:
           - condition: state
             entity_id: light.kitchen

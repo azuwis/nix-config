@@ -328,7 +328,7 @@ in
                     perform_action = "script.bath_heater";
                   };
                 })
-                (state' "binary_sensor.0x00158d00028f9af8_contact" "45.5" "27.1" {
+                (state' "binary_sensor.0x00158d00028f9af8_contact" "45.1" "26.9" {
                   # Reverse on/off color, https://www.home-assistant.io/integrations/frontend/#state-color
                   style = {
                     "--state-binary_sensor-door-on-color" = "var(--state-icon-color)";
