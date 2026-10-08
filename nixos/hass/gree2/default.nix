@@ -24,11 +24,13 @@ in
       climate = [
         {
           platform = "gree2";
-          host = "192.168.2.188";
+          # Store key is gree2.devices.<host>. After a change the first start
+          # fails but saves the store, the second start works.
+          host = "gree-climate.lan";
           scan_interval = 20;
           fake_server = "0.0.0.0";
           temp_step = 0.5;
-          temp_sensor."9424b8123fe900" = "sensor.1775bcf17c0e_temperature";
+          temp_sensor."9424b8123fe900" = "sensor.0x00158d000215c127_temperature";
         }
       ];
 
