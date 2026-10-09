@@ -22,7 +22,7 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "deepseek-harness";
-  version = "0.2.0-rc.2";
+  version = "0.2.1-alpha.2";
 
   strictDeps = true;
   __structuredAttrs = true;
@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "deepseek-ai";
     repo = "deepseek-harness";
     tag = "dsh-v${finalAttrs.version}";
-    hash = "sha256-dqfO2AUFcLJ/7I8w1Zc2hpbdRrBEaQ/lMdjFaP7YUfo=";
+    hash = "sha256-ZWHOjf0r09QyvAQfqlZVihKHssMcjPtiLsKmSLAfEMA=";
     postCheckout = "git -C $out rev-parse HEAD > $out/.gitrev";
   };
 
@@ -194,7 +194,7 @@ stdenv.mkDerivation (finalAttrs: {
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
-    hash = "sha256-U10Ij45qc0mul2LgQdRO0MGf1K6s6ctHvHnZMKjGRbo=";
+    hash = "sha256-QUH37m1R8b3douPJ926wIkCffCsBCXm63xfz65/GOik=";
     fetcherVersion = 4;
     # Fetch only the platforms in meta.platforms. pnpm applies these flags only
     # while `--force` is off, see prePnpmInstall.
