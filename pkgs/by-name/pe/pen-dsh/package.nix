@@ -33,7 +33,7 @@
       };
     ponytail =
       let
-        version = "4.12.0";
+        version = "5.1.0";
       in
       {
         inherit version;
@@ -42,12 +42,12 @@
         owner = "DietrichGebert";
         repo = "ponytail";
         tag = "v${version}";
-        hash = "sha256-Q2NcAYrcdZ2tCWovGH8iL/nsUj1ml+SuvopZ0JTKLqE=";
+        hash = "sha256-ntSqLbUdi7NLyivAw2Ls/IEx491sdiLSMYC0Lln9I8o=";
         rootDir = "skills";
       };
     superpowers =
       let
-        version = "6.4.2";
+        version = "7.0.0";
       in
       {
         inherit version;
@@ -56,7 +56,7 @@
         owner = "obra";
         repo = "superpowers";
         tag = "v${version}";
-        hash = "sha256-8qLa4zPC8y3a86EX4MfdQyL70E1CoGe9vK//UyzPx5g=";
+        hash = "sha256-ONnMOSsqxqY301YKhb7C3WS1zc6JAdqDbJkvM9WVU+w=";
         rootDir = "skills";
       };
   },
