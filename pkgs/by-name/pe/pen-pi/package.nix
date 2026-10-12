@@ -43,16 +43,20 @@
     #     runHook postInstall
     #   '';
     # });
-    pi-superpowers = {
-      version = "0-unstable-2026-03-05";
-    }
-    // fetchFromGitHub {
-      owner = "coctostan";
-      repo = "pi-superpowers";
-      rev = "efe1d158691bf064c24f0460fd4e46ca58de0055";
-      hash = "sha256-cwGs/Hdbk3h9Yk+vEMtXSyAgy+grxEc6eZAHZZjpcDk=";
-    };
     pi-monorepo-subagent = "${pi-coding-agent}/lib/node_modules/pi-monorepo/examples/extensions/subagent";
+    superpowers =
+      let
+        version = "7.0.0";
+      in
+      {
+        inherit version;
+      }
+      // fetchFromGitHub {
+        owner = "obra";
+        repo = "superpowers";
+        tag = "v${version}";
+        hash = "sha256-UCVI+T7j1Xh1LDkrvnJduis7eHFqrizCyGTWAGW5d6U=";
+      };
   },
 }:
 
@@ -97,8 +101,8 @@ pen {
         set -euo pipefail
 
         nix-update pen-pi.extensionsUpdate.pi-exa-mcp >&2
-        nix-update pen-pi.extensionsUpdate.pi-hashline-edit-pro --version=branch >&2
-        nix-update pen-pi.extensionsUpdate.pi-superpowers --version=branch >&2
+        # nix-update pen-pi.extensionsUpdate.pi-hashline-edit-pro --version=branch >&2
+        nix-update pen-pi.extensionsUpdate.superpowers >&2
 
         git diff HEAD | awk '
           /^ +[a-z][-a-z0-9]* =($| [^"])/   { name = $1 }
