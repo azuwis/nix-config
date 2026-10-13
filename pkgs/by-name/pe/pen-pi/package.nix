@@ -97,8 +97,17 @@ pen {
     "--set"
     "PI_TELEMETRY"
     "false"
-    "--add-flags"
-    "${lib.concatMapAttrsStringSep " " (name: _: "--extension ${extensionsDir}/${name}") piExtensions}"
+    # pi can't handle `pi --extension ... <subcommand>`. `set --` rewrites the
+    # "$@" that the wrapper's final `exec pi "$@"` uses.
+    "--run"
+    ''
+      case "$1" in
+        auth|config|install|list|mcp|remove|uninstall|update) ;;
+        *) set -- ${
+          lib.concatMapAttrsStringSep " " (name: _: "--extension ${extensionsDir}/${name}") piExtensions
+        } "$@" ;;
+      esac
+    ''
   ];
   extraPassthru = {
     extensionsUpdate = builtins.mapAttrs (
