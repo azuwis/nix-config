@@ -21,6 +21,6 @@ in
     programs.firefox.enhance = true;
     programs.mpv.enhance = true;
     programs.nix-index.enhance = true;
-    programs.nps.enable = true;
+    # programs.nps.enable = true;
   };
 }
