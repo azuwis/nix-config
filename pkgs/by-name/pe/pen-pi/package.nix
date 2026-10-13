@@ -6,6 +6,7 @@
   linkFarm,
   pen,
   pi-coding-agent,
+  runCommandLocal,
   writeScript,
   piExtensions ? {
     pi-exa-mcp =
@@ -43,7 +44,25 @@
     #     runHook postInstall
     #   '';
     # });
-    pi-monorepo-subagent = "${pi-coding-agent}/lib/node_modules/pi-monorepo/examples/extensions/subagent";
+    pi-monorepo-subagent = runCommandLocal "pi-monorepo-subagent" { } ''
+      cp -r ${pi-coding-agent}/lib/node_modules/pi-monorepo/examples/extensions/subagent $out
+      chmod -R u+w $out
+      sed -i '/^model: /d' $out/agents/*.md
+      cat > $out/package.json <<'EOF'
+      {
+        "name": "pi-monorepo-subagent",
+        "type": "module",
+        "pi": {
+          "extensions": ["./index.ts"],
+          "prompts": ["./prompts/*.md"]
+        }
+      }
+      EOF
+      substituteInPlace $out/agents.ts \
+        --replace-fail \
+          'const userAgents = scope === "project" ? [] : loadAgentsFromDir(userDir, "user");' \
+          'const userAgents = scope === "project" ? [] : [...loadAgentsFromDir("'"$out/agents"'", "user"), ...loadAgentsFromDir(userDir, "user")];'
+    '';
     superpowers =
       let
         version = "7.0.0";
