@@ -9,20 +9,6 @@
   runCommandLocal,
   writeScript,
   piExtensions ? {
-    pi-exa-mcp =
-      let
-        version = "2026-08-01";
-      in
-      {
-        inherit version;
-      }
-      // fetchFromGitHub {
-        owner = "ben-vargas";
-        repo = "pi-packages";
-        tag = version;
-        rootDir = "packages/pi-exa-mcp";
-        hash = "sha256-Wqw+Gp7skL5S4xB9Ktq9rs6F6ulA1XAuXb9PKe2pQV0=";
-      };
     # pi-hashline-edit-pro = buildNpmPackage (finalAttrs: {
     #   pname = "pi-hashline-edit-pro";
     #   version = "0-unstable-2026-08-02";
@@ -128,7 +114,6 @@ pen {
 
         set -euo pipefail
 
-        nix-update pen-pi.extensionsUpdate.pi-exa-mcp >&2
         # nix-update pen-pi.extensionsUpdate.pi-hashline-edit-pro --version=branch >&2
         nix-update pen-pi.extensionsUpdate.superpowers >&2
 
