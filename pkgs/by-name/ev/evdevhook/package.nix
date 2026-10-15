@@ -3,7 +3,7 @@
   stdenv,
   fetchFromGitHub,
   cmake,
-  glibmm,
+  glibmm_2_4,
   libevdev,
   nlohmann_json,
   pkg-config,
@@ -36,7 +36,7 @@ stdenv.mkDerivation {
   ];
 
   buildInputs = [
-    glibmm
+    glibmm_2_4
     libevdev
     nlohmann_json
     udev
