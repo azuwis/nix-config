@@ -54,8 +54,6 @@ in
       };
     };
 
-    # Save the layout during activation, then reset the Accessibility grant of
-    # the replaced build so its entry does not linger.
     system.activationScripts.preActivation.text = ''
       echo "saving rift layout..." >&2
       launchctl asuser "$(id -u -- ${config.system.primaryUser})" \
@@ -64,10 +62,26 @@ in
 
       if [ -e /run/current-system/sw/bin/rift ]; then
         if [ "$(readlink -f /run/current-system/sw/bin/rift)" != "${lib.getExe cfg.package}" ]; then
+          # Reset the Accessibility grant of the replaced build so its entry does not linger.
           echo "resetting rift accessibility permission..." >&2
           launchctl asuser "$(id -u -- ${config.system.primaryUser})" \
             sudo -H --user=${config.system.primaryUser} -- \
             /usr/bin/tccutil reset Accessibility org.nixos.${cfg.name} || true
+
+          # The agent plist still points at the previous build. Unregister that
+          # bundle, otherwise LaunchServices records pile up one per rebuild.
+          plist=${config.system.primaryUserHome}/Library/LaunchAgents/org.nixos.rift.plist
+          if [ -e "$plist" ]; then
+            oldApp=$(/usr/bin/plutil -extract ProgramArguments.0 raw "$plist" || true)
+            oldBundle=''${oldApp%/Contents/MacOS/*}
+            if [ "$oldBundle" != "$oldApp" ]; then
+              echo "unregistering previous rift app bundle..." >&2
+              lsregister=/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister
+              launchctl asuser "$(id -u -- ${config.system.primaryUser})" \
+                sudo -H --user=${config.system.primaryUser} -- \
+                "$lsregister" -u "$oldBundle" || true
+            fi
+          fi
         fi
       fi
     '';

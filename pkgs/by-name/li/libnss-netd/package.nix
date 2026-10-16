@@ -16,8 +16,8 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "azuwis";
     repo = "libnss-netd";
-    rev = "921ca20191c75ba602111d728c9237b71dfc3591";
-    hash = "sha256-hKEQ4ybC+W3RAtgk0WSvgXARQ9caD0B6iNMp9jb3W2Q=";
+    rev = "9705484013d00e71aa1e47d6d779fb9da7ad2e10";
+    hash = "sha256-foEne7I5/faC+F51/FfGXp+wfMH9X0QkitXfuCW08oQ=";
   };
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];

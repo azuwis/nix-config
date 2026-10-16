@@ -6,22 +6,9 @@
   linkFarm,
   pen,
   pi-coding-agent,
+  runCommandLocal,
   writeScript,
   piExtensions ? {
-    pi-exa-mcp =
-      let
-        version = "2026-08-01";
-      in
-      {
-        inherit version;
-      }
-      // fetchFromGitHub {
-        owner = "ben-vargas";
-        repo = "pi-packages";
-        tag = version;
-        rootDir = "packages/pi-exa-mcp";
-        hash = "sha256-Wqw+Gp7skL5S4xB9Ktq9rs6F6ulA1XAuXb9PKe2pQV0=";
-      };
     # pi-hashline-edit-pro = buildNpmPackage (finalAttrs: {
     #   pname = "pi-hashline-edit-pro";
     #   version = "0-unstable-2026-08-02";
@@ -43,16 +30,38 @@
     #     runHook postInstall
     #   '';
     # });
-    pi-superpowers = {
-      version = "0-unstable-2026-03-05";
-    }
-    // fetchFromGitHub {
-      owner = "coctostan";
-      repo = "pi-superpowers";
-      rev = "efe1d158691bf064c24f0460fd4e46ca58de0055";
-      hash = "sha256-cwGs/Hdbk3h9Yk+vEMtXSyAgy+grxEc6eZAHZZjpcDk=";
-    };
-    pi-monorepo-subagent = "${pi-coding-agent}/lib/node_modules/pi-monorepo/examples/extensions/subagent";
+    pi-monorepo-subagent = runCommandLocal "pi-monorepo-subagent" { } ''
+      cp -r ${pi-coding-agent}/lib/node_modules/pi-monorepo/examples/extensions/subagent $out
+      chmod -R u+w $out
+      sed -i '/^model: /d' $out/agents/*.md
+      cat > $out/package.json <<'EOF'
+      {
+        "name": "pi-monorepo-subagent",
+        "type": "module",
+        "pi": {
+          "extensions": ["./index.ts"],
+          "prompts": ["./prompts/*.md"]
+        }
+      }
+      EOF
+      substituteInPlace $out/agents.ts \
+        --replace-fail \
+          'const userAgents = scope === "project" ? [] : loadAgentsFromDir(userDir, "user");' \
+          'const userAgents = scope === "project" ? [] : [...loadAgentsFromDir("'"$out/agents"'", "user"), ...loadAgentsFromDir(userDir, "user")];'
+    '';
+    superpowers =
+      let
+        version = "7.0.0";
+      in
+      {
+        inherit version;
+      }
+      // fetchFromGitHub {
+        owner = "obra";
+        repo = "superpowers";
+        tag = "v${version}";
+        hash = "sha256-UCVI+T7j1Xh1LDkrvnJduis7eHFqrizCyGTWAGW5d6U=";
+      };
   },
 }:
 
@@ -74,8 +83,17 @@ pen {
     "--set"
     "PI_TELEMETRY"
     "false"
-    "--add-flags"
-    "${lib.concatMapAttrsStringSep " " (name: _: "--extension ${extensionsDir}/${name}") piExtensions}"
+    # pi can't handle `pi --extension ... <subcommand>`. `set --` rewrites the
+    # "$@" that the wrapper's final `exec pi "$@"` uses.
+    "--run"
+    ''
+      case "$1" in
+        auth|config|install|list|mcp|remove|uninstall|update) ;;
+        *) set -- ${
+          lib.concatMapAttrsStringSep " " (name: _: "--extension ${extensionsDir}/${name}") piExtensions
+        } "$@" ;;
+      esac
+    ''
   ];
   extraPassthru = {
     extensionsUpdate = builtins.mapAttrs (
@@ -96,9 +114,8 @@ pen {
 
         set -euo pipefail
 
-        nix-update pen-pi.extensionsUpdate.pi-exa-mcp >&2
-        nix-update pen-pi.extensionsUpdate.pi-hashline-edit-pro --version=branch >&2
-        nix-update pen-pi.extensionsUpdate.pi-superpowers --version=branch >&2
+        # nix-update pen-pi.extensionsUpdate.pi-hashline-edit-pro --version=branch >&2
+        nix-update pen-pi.extensionsUpdate.superpowers >&2
 
         git diff HEAD | awk '
           /^ +[a-z][-a-z0-9]* =($| [^"])/   { name = $1 }
