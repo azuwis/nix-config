@@ -85,5 +85,12 @@ in
         fi
       fi
     '';
+
+    system.activationScripts.postActivation.text = ''
+      echo "removing rift layout..." >&2
+      launchctl asuser "$(id -u -- ${config.system.primaryUser})" \
+        sudo -H --user=${config.system.primaryUser} -- \
+        rm -f ${config.system.primaryUserHome}/.rift/layout.ron || true
+    '';
   };
 }
