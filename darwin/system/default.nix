@@ -27,18 +27,19 @@
   # show upgrade diff
   # ${pkgs.nix}/bin/nix store --experimental-features nix-command diff-closures /run/current-system "$systemConfig"
   system.activationScripts.postActivation.text = ''
-    # disable spotlight
-    mdutil -a -i off -d &> /dev/null
-    mdutil -a -E &> /dev/null
-    # disable fseventsd on /nix volume
+    echo "disabling spotlight" >&2
+    mdutil -i off -d / || true
+    mdutil -E / || true
+    echo "disabling fseventsd on /nix volume" >&2
     mkdir -p /nix/.fseventsd
     test -e /nix/.fseventsd/no_log || touch /nix/.fseventsd/no_log
-    # hide /nix from Finder and Spotlight
+    echo "hiding /nix from Finder and Spotlight" >&2
     test -e /nix/.metadata_never_index || touch /nix/.metadata_never_index
-    chflags hidden /nix
+    chflags hidden /nix || true
     # nix-darwin overwrites apps in `/Applications/Nix Apps` in place without
     # touching their LaunchServices records, so `open -a <app>` can fail with
     # "Launchd job spawn failed"
+    echo "registering Nix Apps" >&2
     lsregister=/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister
     for app in "/Applications/Nix Apps"/*.app; do
       if [ -d "$app" ]; then
