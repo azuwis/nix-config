@@ -55,6 +55,22 @@ in
       };
     });
 
+    # https://github.com/nix-community/nix-direnv/issues/810
+    # 3.2.0 touches .direnv/nix-profile-*.rc on every cache hit while watching
+    # it, so multiple shells reload each other. Use 3.1.2 until #790 is released.
+    nix-direnv = prev.nix-direnv.overrideAttrs (old: {
+      version = "3.1.2";
+      # resholve wraps the package: old.src is the intermediate
+      # nix-direnv-unresholved derivation, not the GitHub source.
+      src = old.src.overrideAttrs (u: {
+        version = "3.1.2";
+        src = u.src.override {
+          tag = "3.1.2";
+          hash = "sha256-3qT5mSqHi+0cskdoOGPVbuSzkoWtwOHBVXUOL84dAM8=";
+        };
+      });
+    });
+
     # https://github.com/azuwis/nvd
     nvd = prev.nvd.overrideAttrs (old: {
       version = "0.2.4-unstable-2026-05-31";
