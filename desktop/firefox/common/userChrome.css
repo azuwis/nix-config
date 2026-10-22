@@ -9,15 +9,10 @@
     opacity: .5;
   }
 
-  /* remove menu icon */
-  :-moz-any(#contentAreaContextMenu, #tabContextMenu) > :-moz-any(menuitem, menu) > .menu-iconic-left {
-    visibility: hidden !important;
-  }
-
   /* remove outline and shadow of main window */
-  #tabbrowser-tabbox {
-    outline: inherit !important;
-    box-shadow: inherit !important;
+  #tabbrowser-tabbox .browserSidebarContainer {
+    outline: none !important;
+    box-shadow: none !important;
   }
 
   /* remove new tab button */
