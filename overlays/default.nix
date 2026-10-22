@@ -12,6 +12,8 @@ in
   (import (inputs.nixpkgs.outPath + "/pkgs/top-level/by-name-overlay.nix") ../pkgs/by-name)
 
   (final: prev: {
+    inherit (inputs) nixpkgs;
+
     # Remove bcachefs-tools reference from nixos-generate-config to reduce closure size
     # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/installer/tools/tools.nix#L41
     bcachefs-tools = prev.bcachefs-tools.overrideAttrs (old: {
