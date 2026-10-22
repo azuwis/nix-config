@@ -25,5 +25,9 @@
     top: 0 !important;
     left: 0 !important;
     width: 100%;
+    /* match the tabbar / window background */
+    background-color: var(--toolbox-background-color) !important;
+    background-image: var(--toolbox-background-image, none) !important;
+    background-size: 100% 100vh !important;
   }
 }
