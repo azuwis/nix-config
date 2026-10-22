@@ -1,4 +1,9 @@
 @-moz-document url(chrome://browser/content/browser.xhtml) {
+  /* keep the collapsed tabbar at the pre-Nova 42px */
+  :root:has(#tabbrowser-tabs[orient="vertical"]) {
+    --tab-margin-inline-inner: 7px !important;
+  }
+
   /* show close button only when hover on tabs */
   .tabbrowser-tab:not(:hover) .tab-close-button {
     display: none !important;
