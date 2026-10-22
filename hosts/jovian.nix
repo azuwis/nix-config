@@ -94,7 +94,7 @@ in
     ffmpegthumbs
     krdp
   ];
-  jovian.steam.desktopSession = "plasmax11";
+  jovian.steam.desktopSession = "plasma";
 
   # Fix permission of `/`, SteamOS may modify dir permission of the SD card
   # mount point, and make SSHD refuse any user to login.
