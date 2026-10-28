@@ -23,12 +23,13 @@
         owner = "blader";
         repo = "humanizer";
         tag = "v${version}";
-        hash = "sha256-4GhiKS9Cl8yNtlGa8ZhianGiGWgVu7p4r4Lgr0kRkKs=";
+        hash = "sha256-BYkujNnXknNDWbHIi7XfBZeW4v+z7Px6KEnoSXfZP30=";
         nonConeMode = true;
         sparseCheckout = [ "/SKILL.md" ];
         postFetch = ''
           mkdir $out/humanizer
           mv $out/SKILL.md $out/humanizer/
+          find $out -maxdepth 2 -name SKILL.md -exec sed -i '1s/^---$/---\ndisable-model-invocation: true/' {} +
         '';
       };
     ponytail =
@@ -42,8 +43,11 @@
         owner = "DietrichGebert";
         repo = "ponytail";
         tag = "v${version}";
-        hash = "sha256-zuBk+rYXKSp3svO9XaDzNWYlVPAd1166Tx9qnPxIIk8=";
+        hash = "sha256-jnbsQTsgW2P16XsZMduyvLwCAp52C2Rcw+uXfzMh+sg=";
         rootDir = "skills";
+        postFetch = ''
+          find $out -maxdepth 2 -name SKILL.md -exec sed -i '1s/^---$/---\ndisable-model-invocation: true/' {} +
+        '';
       };
     superpowers =
       let
@@ -56,8 +60,11 @@
         owner = "obra";
         repo = "superpowers";
         tag = "v${version}";
-        hash = "sha256-C6giqh/JjpZyHtiJit4hXewvG77Iv1LbAhxn3i9XxT8=";
+        hash = "sha256-ghDysbsAJBAs7fI4u9PqHztSwvJwSEga+5ZX19T0Dbo=";
         rootDir = "skills";
+        postFetch = ''
+          find $out -maxdepth 2 -name SKILL.md -exec sed -i '1s/^---$/---\ndisable-model-invocation: true/' {} +
+        '';
       };
   },
   enableOffice ? false,
