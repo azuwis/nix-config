@@ -23,7 +23,7 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "chameleon-cli";
-  version = "2.3.0-unstable-2026-10-24";
+  version = "2.3.0-unstable-2026-10-31";
 
   strictDeps = true;
   __structuredAttrs = true;
@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "RfidResearchGroup";
     repo = "ChameleonUltra";
-    rev = "23507c2887472ef86c0727a85e2e445f2be83e75";
+    rev = "4c5bc2cb6b023d23f7bbc383c9b2b5e39f95419e";
     rootDir = "software";
     hash = "sha256-HWBSKKpdl3GcGkU2BjBAwoonJ42V9XDXtS7knEL3f0U=";
   };
