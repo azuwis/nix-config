@@ -92,6 +92,27 @@ in
             target:
               entity_id: light.yeelink_fancl5_e358_switch_status
 
+      - alias: Button A double click
+        triggers:
+          - trigger: state
+            entity_id: sensor.0x00158d00023d57a9_action
+            to: double
+        actions:
+          - action: light.turn_off
+            target:
+              entity_id:
+                - light.living_room
+                - light.1660a6874242f000_group
+                - light.16609ab46d42b000_group
+                - light.1697cc678402b000_group
+                - light.yeelink_fancl5_e358_switch_status
+                - light.primary_bedroom
+                - light.secondary_bedroom
+                - light.kids_room
+                - light.kitchen_door
+                - light.kitchen_window
+                - light.bathroom
+
       - alias: Light bathroom on when sensor on
         triggers:
           - trigger: state
