@@ -28,6 +28,7 @@ in
     "/programs/git.nix"
     "/programs/less.nix"
     "/programs/nix-index.nix"
+    "/programs/nushell.nix"
     "/programs/xonsh.nix"
     "/programs/yazi.nix"
     "/programs/zsh/zsh.nix"
