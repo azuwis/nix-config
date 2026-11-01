@@ -39,7 +39,10 @@ in
       default = 8080;
     };
     DefaultSavePath = mkOption {
-      type = types.path;
+      type = types.pathWith {
+        inStore = false;
+        absolute = true;
+      };
       default = "/srv/torrent";
     };
   };
