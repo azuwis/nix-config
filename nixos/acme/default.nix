@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   pkgs,
@@ -17,12 +18,12 @@ in
   };
 
   config = mkIf cfg.enhance {
+    age.secrets.acme-dynu.file = "${inputs.my.outPath}/acme-dynu.age";
+
     security.acme = {
       acceptTerms = true;
       defaults = {
         inherit (config.my) email;
-        # DYNU_API_KEY=
-        environmentFile = "/etc/secrets/acme";
       };
       certs = {
         default = {
@@ -31,6 +32,7 @@ in
           inherit domain;
           extraDomainNames = [ "*.${domain}" ];
           dnsPropagationCheck = false;
+          credentialFiles.DYNU_API_KEY_FILE = config.age.secrets.acme-dynu.path;
           reloadServices = [ "nginx" ];
         };
       };
