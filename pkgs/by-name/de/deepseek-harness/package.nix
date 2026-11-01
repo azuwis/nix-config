@@ -246,6 +246,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = {
+    changelog = "https://github.com/deepseek-ai/deepseek-harness/releases/tag/dsh-v${finalAttrs.version}";
     description = "Open-source agent harness developed by DeepSeek AI";
     homepage = "https://github.com/deepseek-ai/deepseek-harness";
     license = lib.licenses.mit;
