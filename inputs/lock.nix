@@ -80,13 +80,13 @@
     submodules = false;
   };
   nix-index-database = {
-    lastModified = 1793528824;
-    lastModifiedDate = "20261101102704";
-    narHash = "sha256-nY/kf1wGGLfxA+cfiRjPiNrYosC3U1R58MGmV3SspLU=";
-    outPath = "/nix/store/nda7adlrvqby6lgnrg2bpqs0770dh75s-source";
-    rev = "7bc840c9573e07c2b98620d37056557ae0c04c5d";
+    lastModified = 1793543282;
+    lastModifiedDate = "20261101142802";
+    narHash = "sha256-PHtGxKYM99f8WhGR5YD7iiCiwemKa2wUD4yVI2oALFg=";
+    outPath = "/nix/store/mxy52g2pnvfcg8z7kf961gpawz21681a-source";
+    rev = "cee0f879d338cf08f814210fa6c2b280594ade0a";
     revCount = 0;
-    shortRev = "7bc840c";
+    shortRev = "cee0f87";
     submodules = false;
   };
   nix-on-droid = {

@@ -33,7 +33,7 @@
     ref = "main";
   };
   nix-index-database = {
-    url = "https://github.com/azuwis/nix-index-database";
+    url = "https://github.com/nix-community/nix-index-database";
     ref = "main";
   };
   nix-on-droid = {
