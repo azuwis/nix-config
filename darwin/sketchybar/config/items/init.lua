@@ -1,6 +1,5 @@
 require("items.front_app")
 
--- require("items.spaces")
 require("items.rift")
 
 require("items.calendar")
