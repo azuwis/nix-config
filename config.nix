@@ -22,8 +22,6 @@ in
     "platform-tools"
     "platforms"
     "tools"
-    # pkgs/by-name/pe/pen-claude
-    "claude-code"
     # nixos/retroarch
     "libretro-genesis-plus-gx"
     # pkgs/by-name/ch/chameleon-ultra-firmware

@@ -31,10 +31,10 @@
 }:
 
 {
-  name, # wrapper name, e.g. "fence-claude"
-  agentPackage, # the agent binary package, e.g. claude-code
+  name, # wrapper name, e.g. "fence-codex"
+  agentPackage, # the agent binary package, e.g. codex
   agentWrapperArgs ? [ ], # makeWrapper args for agentPackage
-  allowWrite, # filesystem paths writable inside sandbox, e.g. ["." "~/.claude"]
+  allowWrite, # filesystem paths writable inside sandbox, e.g. ["." "~/.codex"]
   preExecScript ? "", # shell code to run before exec (mkdir, config init, etc.)
   fencePackages ? [
     bash
