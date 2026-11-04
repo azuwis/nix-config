@@ -22,7 +22,7 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "deepseek-harness";
-  version = "0.2.1-rc.5";
+  version = "0.2.2-rc.1";
 
   strictDeps = true;
   __structuredAttrs = true;
@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "deepseek-ai";
     repo = "deepseek-harness";
     tag = "dsh-v${finalAttrs.version}";
-    hash = "sha256-fstVXfDcqxUeIfukjNjI8/GCaM5bfHd5ABpVqZOsvXg=";
+    hash = "sha256-mEvM7Tr92pr5fc/9KRRrufSeGtItu4b0MQLiRrW2eNw=";
     postCheckout = "git -C $out rev-parse HEAD > $out/.gitrev";
   };
 
@@ -40,9 +40,14 @@ stdenv.mkDerivation (finalAttrs: {
     # `dsh plugin add`. Dropping them keeps their CLI binaries out of the build.
     # See also `pnpmWorkspaces` in pnpmDeps.
     rm -r packages/subagent/subagent-claude-code packages/subagent/subagent-codex
+    # The experimental OAR provider is optional too, but its permission-mode
+    # e2e test imports the claude-code test fixture removed above, so the host
+    # aggregate typecheck fails while it stays.
+    rm -r packages/experimental/subagent-oar
     substituteInPlace tsconfig.host.json \
       --replace-fail "    { \"path\": \"./packages/subagent/subagent-claude-code\" }," "" \
-      --replace-fail "    { \"path\": \"./packages/subagent/subagent-codex\" }," ""
+      --replace-fail "    { \"path\": \"./packages/subagent/subagent-codex\" }," "" \
+      --replace-fail "    { \"path\": \"./packages/experimental/subagent-oar\" }," ""
 
     substituteInPlace packages/terminal/terminal-bash/src/config.ts \
       --replace-fail \
@@ -194,7 +199,7 @@ stdenv.mkDerivation (finalAttrs: {
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
-    hash = "sha256-SPKbsTd7sDTXuIOTPkK5jXFqoKhwL4hJPaTKNa51nLQ=";
+    hash = "sha256-yvUbSWmE5COJskecVvPXtIvmv4+uSa+CaMTaLpzDht8=";
     fetcherVersion = 4;
     # Fetch only the platforms in meta.platforms. pnpm applies these flags only
     # while `--force` is off, see prePnpmInstall.
