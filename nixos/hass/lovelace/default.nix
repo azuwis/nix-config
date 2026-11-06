@@ -7,7 +7,6 @@
 
 let
   inherit (lib) recursiveUpdate;
-  inherit (pkgs.home-assistant-custom-lovelace-modules) card-mod;
 
   font = pkgs.fetchurl {
     url = "https://github.com/google/fonts/raw/refs/heads/main/ofl/fascinateinline/FascinateInline-Regular.ttf";
@@ -20,7 +19,6 @@ let
       ${pkgs.imagemagick}/bin/magick -background transparent -fill "#ff9800" -font ${font} -size 128x128 -gravity center label:"''${i^^}" "$out/$i.png"
       ${pkgs.imagemagick}/bin/magick -background transparent -fill "#44739e" -font ${font} -size 128x128 -gravity center label:"''${i^^}" "$out/''${i}_away.png"
     done
-    ln -fns ${card-mod}/${card-mod.entrypoint} $out/
   '';
 
   # Don't name this "static", service worker route 1
@@ -192,10 +190,6 @@ in
       ln -fns ${generated} ${config.services.home-assistant.configDir}/www/generated
     '';
 
-    services.home-assistant.config.frontend.extra_module_url = [
-      "/local/generated/${card-mod.entrypoint}?${card-mod.version}"
-    ];
-
     services.home-assistant.config.lovelace.resource_mode = "yaml";
 
     services.home-assistant.config.lovelace.resources =
@@ -303,31 +297,6 @@ in
                 # bathroom
                 (state "light.bathroom" "51" "23")
                 (state "binary_sensor.dced8387eef4_occupancy" "45.5" "21")
-                (state' "climate.yeelink_v6_af1f_ptc_bath_heater" "45.5" "14.7" {
-                  card_mod.style."state-badge $" = ''
-                    ha-state-icon {
-                      color:
-                        {%- set preset_mode = state_attr(config.entity, 'preset_mode') %}
-                        {%- if preset_mode == 'Ventilate' %}
-                          var(--state-climate-cool-color) !important;
-                        {%- elif preset_mode == 'Quick Heat' %}
-                          var(--state-climate-heat-color) !important;
-                        {%- elif preset_mode in [ 'Defog', 'Quick Defog'] %}
-                          var(--state-climate-heat-cool-color) !important;
-                        {%- else %}
-                          var(--state-icon-color);
-                        {%- endif %}
-                    }
-                  '';
-                  double_tap_action = {
-                    action = "more-info";
-                    entity = "sensor.bath_heater";
-                  };
-                  hold_action = {
-                    action = "perform-action";
-                    perform_action = "script.bath_heater";
-                  };
-                })
                 (state' "binary_sensor.0x00158d00028f9af8_contact" "45.1" "26.9" {
                   # Reverse on/off color, https://www.home-assistant.io/integrations/frontend/#state-color
                   style = {
@@ -343,7 +312,58 @@ in
                 # people
                 (people "az" "93.5")
                 (people "tf" "97")
-              ];
+              ]
+              ++ (
+                let
+                  bathHeater = cond: color: {
+                    type = "conditional";
+                    conditions = [
+                      (
+                        {
+                          condition = "state";
+                          entity = "sensor.bath_heater";
+                        }
+                        // cond
+                      )
+                    ];
+                    elements = [
+                      (state' "climate.yeelink_v6_af1f_ptc_bath_heater" "45.5" "14.7" (
+                        {
+                          double_tap_action = {
+                            action = "more-info";
+                            entity = "sensor.bath_heater";
+                          };
+                          hold_action = {
+                            action = "perform-action";
+                            perform_action = "script.bath_heater";
+                          };
+                        }
+                        // lib.optionalAttrs (color != null) {
+                          style."--state-climate-off-color" = "var(--state-climate-${color}-color)";
+                        }
+                      ))
+                    ];
+                  };
+                in
+                [
+                  (bathHeater { state = "Ventilate"; } "cool")
+                  (bathHeater { state = "Quick Heat"; } "heat")
+                  (bathHeater {
+                    state = [
+                      "Defog"
+                      "Quick Defog"
+                    ];
+                  } "heat-cool")
+                  (bathHeater {
+                    state_not = [
+                      "Ventilate"
+                      "Quick Heat"
+                      "Defog"
+                      "Quick Defog"
+                    ];
+                  } null)
+                ]
+              );
             }
             (player' "media_player.edifier_r2000db" {
               hide.play_pause = true;
