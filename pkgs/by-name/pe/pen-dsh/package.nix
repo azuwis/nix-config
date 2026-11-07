@@ -51,7 +51,7 @@
       };
     superpowers =
       let
-        version = "7.0.1";
+        version = "7.0.2";
       in
       {
         inherit version;
@@ -60,7 +60,7 @@
         owner = "obra";
         repo = "superpowers";
         tag = "v${version}";
-        hash = "sha256-ghDysbsAJBAs7fI4u9PqHztSwvJwSEga+5ZX19T0Dbo=";
+        hash = "sha256-p58kYo7LXPkKO5PZ0+IN9jtvOi2owdCkExKIdI/IE7U=";
         rootDir = "skills";
         postFetch = ''
           find $out -maxdepth 2 -name SKILL.md -exec sed -i '1s/^---$/---\ndisable-model-invocation: true/' {} +
