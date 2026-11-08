@@ -329,6 +329,7 @@ in
                     elements = [
                       (state' "climate.yeelink_v6_af1f_ptc_bath_heater" "45.5" "14.7" (
                         {
+                          state_color = false;
                           double_tap_action = {
                             action = "more-info";
                             entity = "sensor.bath_heater";
@@ -339,7 +340,7 @@ in
                           };
                         }
                         // lib.optionalAttrs (color != null) {
-                          style."--state-climate-off-color" = "var(--state-climate-${color}-color)";
+                          style."--state-icon-color" = "var(--state-climate-${color}-color)";
                         }
                       ))
                     ];
