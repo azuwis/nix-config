@@ -7,7 +7,7 @@ launchd_plist="/Library/LaunchDaemons/$launchd_label.plist"
 each_cidr() {
   action="$1"
   shift
-  for cidr in 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 1.1.1.0/24; do
+  for cidr in 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 1.1.1.0/24 223.223.223.223/32; do
     route -q -n "$action" "$cidr" "$@" 1>/dev/null 2>/dev/null || {
       [ "$action" = "change" ] &&
         route -q -n add "$cidr" "$@" 1>/dev/null 2>/dev/null
