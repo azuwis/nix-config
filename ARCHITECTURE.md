@@ -73,6 +73,7 @@ Three variants, selected by hostname against `flakes/solo.nix`, with a `/nix/sto
 ### Custom packages and overlays
 
 - `pkgs/by-name/`: nixpkgs by-name convention, loaded automatically via nixpkgs' `by-name-overlay.nix`
+- `pkgs/{lua,python,vim}/`: extra packages for the `luaPackages`, `python3Packages`, and `vimPlugins` sets, loaded by the corresponding overrides in `overlays/default.nix`
 - `pkgs/wallpapers/`: wallpaper collections, loaded via `packagesFromDirectoryRecursive` in `overlays/default.nix`
 - `overlays/default.nix`: central overlay with custom package overrides, wallpapers attr, agenix overlay import
 - `overlays/jovian.nix`: per-host overlay pattern (Steam Deck), used only by `hosts/jovian.nix`
