@@ -115,7 +115,7 @@ builtins.mapAttrs (
   in
   (if update == "" then input else { })
   // (
-    if replacement != "" then
+    if update == "" && replacement != "" then
       # https://github.com/andir/npins/blob/5eb1bde1898a3c32a3aacb36ae120897a58c9ed8/src/default.nix#L36
       # Override with a path defined in an environment variable.
       let
