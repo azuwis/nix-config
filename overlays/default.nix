@@ -85,15 +85,15 @@ in
       };
     });
 
-    # python3 = prev.python3.override {
-    #   packageOverrides =
-    #     pyfinal: pyprev:
-    #     final.lib.packagesFromDirectoryRecursive {
-    #       inherit (final.python3.pkgs) callPackage;
-    #       directory = ../pkgs/python;
-    #     };
-    # };
-    # python3Packages = final.python3.pkgs;
+    python3 = prev.python3.override {
+      packageOverrides =
+        pyfinal: pyprev:
+        final.lib.packagesFromDirectoryRecursive {
+          inherit (final.python3.pkgs) callPackage;
+          directory = ../pkgs/python;
+        };
+    };
+    python3Packages = final.python3.pkgs;
 
     rift-wm = prev.rift-wm.overrideAttrs (
       finalAttrs: prevAttrs: {
