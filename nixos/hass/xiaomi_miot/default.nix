@@ -194,7 +194,7 @@ in
         triggers:
           - trigger: time
             at:
-              - "08:30:00"
+              - "07:45:00"
               - "21:30:00"
         actions:
           - variables:
@@ -211,15 +211,6 @@ in
             target:
               entity_id: >-
                 {{ expand(states.light) | selectattr('entity_id', 'search', '^light.xiaomi_mt0_.*_switch_status$') | map(attribute='entity_id') | list }}
-
-      - alias: Screen brightness climate secondary bedroom early on
-        triggers:
-          - trigger: time
-            at: "06:30:00"
-        actions:
-          - action: light.turn_on
-            target:
-              entity_id: light.xiaomi_mt0_cdd0_switch_status
 
       - alias: Bath heater dry/heat/fan_only auto off
         triggers:
@@ -297,7 +288,7 @@ in
           - trigger: state
             entity_id: binary_sensor.0x00158d00028f9af8_contact
             to: "off"
-            for: "00:02:00"
+            for: "00:03:00"
         actions:
           - action: automation.turn_on
             target:
@@ -326,9 +317,7 @@ in
         triggers:
           - trigger: time
             at:
-              - "06:25:00"
               - "06:56:00"
-              - "07:27:00"
         conditions:
           - condition: numeric_state
             entity_id: sensor.xiaomi_mt0_cdd0_co2_density
