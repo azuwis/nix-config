@@ -133,18 +133,21 @@ builtins.mapAttrs (
           "Overriding path of \"${name}\" with \"${toString outPath}\" due to set ${nixlockOverrideEnv}"
           { inherit outPath; }
     else if isLocked then
-      if input ? type && input.type == "git" then
-        builtins.fetchGit fetchGitArgs
+      if update == "" then
+        if input ? type && input.type == "git" then
+          builtins.fetchGit fetchGitArgs
+        else
+          # Default to sites that provide tarballs, use fetchTarball with sha256, it
+          # is content-addressed, no-op if the output already exists.
+          lock
+          // {
+            outPath = builtins.fetchTarball {
+              url = input.url + "/archive/" + lock.rev + ".tar.gz";
+              sha256 = lock.narHash;
+            };
+          }
       else
-        # Default to sites that provide tarballs, use fetchTarball with sha256, it
-        # is content-addressed, no-op if the output already exists.
         lock
-        // {
-          outPath = builtins.fetchTarball {
-            url = input.url + "/archive/" + lock.rev + ".tar.gz";
-            sha256 = lock.narHash;
-          };
-        }
     else
       builtins.trace "[1;33m${name} = builtins.fetchGit ${argsToString fetchGitArgs}[0m" (
         builtins.fetchGit fetchGitArgs
