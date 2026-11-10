@@ -30,10 +30,10 @@ runs:
         { package }:
         let
           pkgs = import ./pkgs { };
-          meta = pkgs.${package}.meta;
+          inherit (pkgs) lib;
+          pkg = lib.attrByPath (lib.splitString "." package) null pkgs;
         in
-        (meta ? platforms && builtins.elem builtins.currentSystem meta.platforms)
-          || !(meta ? platforms)
+          lib.meta.availableOn pkgs.stdenv.hostPlatform pkg
         ')" = false ]; then
           echo "::notice::Skip build, wrong platform"
           echo "CACHE_NEED_UPDATE=no" >>"$GITHUB_ENV"
@@ -47,8 +47,10 @@ runs:
         { package }:
         let
           pkgs = import ./pkgs { };
+          inherit (pkgs) lib;
+          pkg = lib.attrByPath (lib.splitString "." package) null pkgs;
         in
-          pkgs.${package} ? tests
+          pkg ? tests
         ')" = true ]; then
           echo "::group::Test $package"
           nix-build pkgs --attr "$package.tests"
