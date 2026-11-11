@@ -340,12 +340,14 @@ in
             attribute: current_temperature
             below: 23
           - condition: state
-            entity_id: climate.yeelink_v6_af1f_ptc_bath_heater
-            state: ventilate
+            entity_id: sensor.bath_heater
+            state: Ventilate
         actions:
-          - action: climate.turn_off
+          - action: climate.set_preset_mode
             target:
               entity_id: climate.yeelink_v6_af1f_ptc_bath_heater
+            data:
+              preset_mode: Idle
     '';
   };
 }
