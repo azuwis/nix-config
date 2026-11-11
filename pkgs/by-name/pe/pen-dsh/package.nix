@@ -14,7 +14,7 @@
   dshSkills ? {
     humanizer =
       let
-        version = "3.1.0";
+        version = "4.0.0";
       in
       {
         inherit version;
@@ -23,7 +23,7 @@
         owner = "blader";
         repo = "humanizer";
         tag = "v${version}";
-        hash = "sha256-BYkujNnXknNDWbHIi7XfBZeW4v+z7Px6KEnoSXfZP30=";
+        hash = "sha256-Y3e0A2HfWb1D/4Pjk5pKhjfRYbM4V4e/aWPMgn0p7yA=";
         nonConeMode = true;
         sparseCheckout = [ "/SKILL.md" ];
         postFetch = ''
@@ -51,7 +51,7 @@
       };
     superpowers =
       let
-        version = "7.0.1";
+        version = "7.0.2";
       in
       {
         inherit version;
@@ -60,7 +60,7 @@
         owner = "obra";
         repo = "superpowers";
         tag = "v${version}";
-        hash = "sha256-ghDysbsAJBAs7fI4u9PqHztSwvJwSEga+5ZX19T0Dbo=";
+        hash = "sha256-p58kYo7LXPkKO5PZ0+IN9jtvOi2owdCkExKIdI/IE7U=";
         rootDir = "skills";
         postFetch = ''
           find $out -maxdepth 2 -name SKILL.md -exec sed -i '1s/^---$/---\ndisable-model-invocation: true/' {} +
