@@ -100,7 +100,7 @@ in
     };
 
     launchd.daemons.scidns = {
-      command = "${cfg.package}/bin/dnsmasq --keep-in-foreground --listen-address=${cfg.bind} --port=${toString cfg.port} --no-resolv --server=${cfg.remoteServer} --servers-file=${scidnsConf}";
+      command = "${cfg.package}/bin/dnsmasq --keep-in-foreground --listen-address=${cfg.bind} --port=${toString cfg.port} --no-resolv --server=${cfg.remoteServer} --servers-file=${scidnsConf} --conf-file=${./dnsmasq.conf}";
       serviceConfig.KeepAlive = true;
       serviceConfig.RunAtLoad = true;
     };
