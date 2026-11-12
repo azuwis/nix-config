@@ -22,7 +22,7 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "deepseek-harness";
-  version = "0.2.2-rc.1";
+  version = "0.2.2-rc.2";
 
   strictDeps = true;
   __structuredAttrs = true;
@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "deepseek-ai";
     repo = "deepseek-harness";
     tag = "dsh-v${finalAttrs.version}";
-    hash = "sha256-mEvM7Tr92pr5fc/9KRRrufSeGtItu4b0MQLiRrW2eNw=";
+    hash = "sha256-qSgY5jNwSC8iWfgk79IiEVRKRBiXrEh1iaoKETk4b8c=";
     postCheckout = "git -C $out rev-parse HEAD > $out/.gitrev";
   };
 
@@ -55,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
         "export const DEFAULT_BASH_SHELL = '${lib.getExe bashInteractive}'"
 
     # Use nixpkgs' rg instead of the binary @vscode/ripgrep ships.
-    substituteInPlace packages/fs/tool-fs-search/src/search-core.ts \
+    substituteInPlace packages/util/ripgrep/src/index.ts \
       --replace-fail \
         "(await import('@vscode/ripgrep')).rgPath" \
         "'${lib.getExe ripgrep}'"
@@ -199,7 +199,7 @@ stdenv.mkDerivation (finalAttrs: {
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
-    hash = "sha256-yvUbSWmE5COJskecVvPXtIvmv4+uSa+CaMTaLpzDht8=";
+    hash = "sha256-4ChvCi+vVPV4BrHp3rZqNKmONvht27YKXDPyedoFvFU=";
     fetcherVersion = 4;
     # Fetch only the platforms in meta.platforms. pnpm applies these flags only
     # while `--force` is off, see prePnpmInstall.
@@ -251,9 +251,9 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    changelog = "https://github.com/deepseek-ai/deepseek-harness/releases/tag/dsh-v${finalAttrs.version}";
     description = "Open-source agent harness developed by DeepSeek AI";
     homepage = "https://github.com/deepseek-ai/deepseek-harness";
+    changelog = "https://github.com/deepseek-ai/deepseek-harness/releases/tag/dsh-v${finalAttrs.version}";
     license = lib.licenses.mit;
     # The closure also ships prebuilt binaries from npm packages such as sharp,
     # koffi, sherpa-onnx, and the LibreOffice kit.
