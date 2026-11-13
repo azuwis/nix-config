@@ -97,14 +97,14 @@ in
 
     rift-wm = prev.rift-wm.overrideAttrs (
       finalAttrs: prevAttrs: {
-        version = "0.7.2";
+        version = "0.8.2";
         src = prevAttrs.src.overrideAttrs {
-          hash = "sha256-LXht4AfIBiSeS5jRZiadNBFBtpvZkB9bPRF/svXLqbc=";
+          hash = "sha256-cLFGVkPF7qGgC4QIyEc8b9rZ0LB8PoH7golgwT59ZRA=";
         };
         cargoDeps = final.rustPlatform.fetchCargoVendor {
           inherit (finalAttrs) src;
           name = "${finalAttrs.pname}-${finalAttrs.version}-vendor";
-          hash = "sha256-ZyRcaoNOkUKMqS77tz5ijmJR8lyAujPSpkVNbQ+6/Jo=";
+          hash = "sha256-XFn/DXOimu4gkgOXKDgZ/RBVxida7mvq1+lMx0Wrt/4=";
         };
         doCheck = false;
       }
