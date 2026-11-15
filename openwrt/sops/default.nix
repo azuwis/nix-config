@@ -67,7 +67,7 @@ in
       ''^network\.(lan|wan)\.(netmask|ipaddr|netmask|proto|username)$''
       ''^network\.(globals\.|wg|rule_|route_)''
       ''^shadowsocks-libev\.''
-      ''^wireless\.default_radio[0-9]\.(ssid|encryption|disabled|hidden)$''
+      ''^wireless\.default_radio[0-9]\.(ssid|encryption|disabled|hidden|max_inactivity)$''
       ''^wireless\.radio[0-9]\.(channel|htmode|disabled|country)$''
     ];
 
