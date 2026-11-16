@@ -106,6 +106,12 @@ in
           name = "${finalAttrs.pname}-${finalAttrs.version}-vendor";
           hash = "sha256-OOQhpopVGKhS2QHfRuapVBx6bZdZAxNlOHM54c5JvxI=";
         };
+        patches = (prevAttrs.patches or [ ]) ++ [
+          (final.fetchpatch {
+            url = "https://github.com/acsandmann/rift/commit/16f431dbfffcc44f579aadbd7726a4af50244ef7.patch";
+            hash = "sha256-cZxtlXHov+uQ+OlxJNJ+jC4G9qmgj7GpK7wrwCJhYvI=";
+          })
+        ];
         doCheck = false;
       }
     );
