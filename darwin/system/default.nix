@@ -28,8 +28,9 @@
   # ${pkgs.nix}/bin/nix store --experimental-features nix-command diff-closures /run/current-system "$systemConfig"
   system.activationScripts.postActivation.text = ''
     echo "disabling spotlight" >&2
-    mdutil -i off -d / || true
-    mdutil -E / || true
+    # `mdutil` is noisy on success, only show its output when it fails
+    mdutil_out=$(mdutil -i off -d / 2>&1) || printf '%s\n' "$mdutil_out" >&2
+    mdutil_out=$(mdutil -E / 2>&1) || printf '%s\n' "$mdutil_out" >&2
     echo "disabling fseventsd on /nix volume" >&2
     mkdir -p /nix/.fseventsd
     test -e /nix/.fseventsd/no_log || touch /nix/.fseventsd/no_log
