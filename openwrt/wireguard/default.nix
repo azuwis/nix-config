@@ -18,5 +18,6 @@ in
   config = lib.mkIf cfg.enable {
     builder.packages = [ "wireguard-tools" ];
     files.file."etc/crontabs/root".text = lib.mkIf cfg.cron "* * * * * /usr/bin/wireguard_watchdog";
+    uci.system."@system[0]".cronloglevel = "9";
   };
 }
