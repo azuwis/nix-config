@@ -31,7 +31,10 @@ in
           dnsProvider = "dynu";
           inherit domain;
           extraDomainNames = [ "*.${domain}" ];
-          dnsPropagationCheck = false;
+          # `domain` and `*.domain` need two TXT values at the same
+          # `_acme-challenge` name, which makes the propagation check flaky.
+          dnsAuthoritativePropagationCheck = false;
+          dnsRecursivePropagationCheck = false;
           credentialFiles.DYNU_API_KEY_FILE = config.age.secrets.acme-dynu.path;
           reloadServices = [ "nginx" ];
         };
