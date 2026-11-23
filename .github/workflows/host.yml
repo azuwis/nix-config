@@ -70,15 +70,10 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: azuwis/actions/nix@main
-        with:
-          key: host-${{ matrix.host }}
-          debug: ${{ github.event_name == 'workflow_dispatch' && inputs.debug }}
-          btrfs: ${{ matrix.host == 'jovian' }}
-      - uses: cachix/cachix-action@38b082610b782e7e93e209c35fd730d399dee866 # v17
-        with:
-          name: azuwis
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+      - uses: NixOS/nix-installer-action@62c1943b776c509394b550f3f983adc14e9212d6 # v1.0.0
+      - uses: azuwis/actions/debug@main
+        if: ${{ inputs.debug }}
+      - uses: Mic92/hestia@dfed9ced335d28978ba74e513939a10db1f71025 # v3.1.0
       - name: Build
         env:
           HOST: ${{ matrix.host }}
@@ -93,12 +88,12 @@ jobs:
         with:
           name: report-${{ matrix.host }}
           path: /tmp/report/
-      - uses: azuwis/actions/nix/post@main
   summary:
     # For displaying `Final summary` in `Summary`
     name: Final
     needs: build
     permissions:
+      actions: read
       contents: write
     runs-on: ubuntu-latest
     steps:
