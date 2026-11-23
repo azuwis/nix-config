@@ -62,6 +62,10 @@ else
   command+=("$@")
 fi
 
+# Without this, nix-shell fetches bashInteractive from <nixpkgs>, and the
+# `flake:nixpkgs` NIX_PATH hook copies the whole nixpkgs tree to the store.
+export NIX_BUILD_SHELL="${NIX_BUILD_SHELL:-$BASH}"
+
 if [ "$filter_stderr" = "true" ]; then
   "${command[@]}" 2> >(grep -v ^fetching >&2)
 else
