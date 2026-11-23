@@ -27,7 +27,7 @@
   makeFontsConf,
   makeWrapper,
   nix,
-  path,
+  nixpkgs,
   procps,
   python3,
   ripgrep,
@@ -106,16 +106,6 @@ let
             ${lib.escapeShellArgs agentWrapperArgs}
         '';
 
-  nixpkgs =
-    let
-      str = toString path;
-    in
-    builtins.appendContext str {
-      "${str}" = {
-        path = true;
-      };
-    };
-
   penFontsConf = makeFontsConf {
     fontDirectories = [ ];
     impureFontDirectories = [ "/usr/share/fonts" ];
@@ -126,7 +116,6 @@ let
     rootPaths = extraClosurePackages ++ [
       cacert
       glibcLocales
-      nixpkgs
       penEnv
       penInit
       penFontsConf
@@ -175,8 +164,18 @@ let
     {
       "flakes": [
         {
-          "from": { "id": "nixpkgs", "type": "indirect" },
-          "to": { "path": "${nixpkgs}", "type": "path" }
+          "exact": true,
+          "from": {
+            "id": "nixpkgs",
+            "type": "indirect"
+          },
+          "to": {
+            "ref": "${nixpkgs.ref or "nixpkgs-unstable"}",
+            "rev": "${nixpkgs.rev}",
+            "shallow": true,
+            "type": "git",
+            "url": "${nixpkgs.url or "https://github.com/NixOS/nixpkgs"}"
+          }
         }
       ],
       "version": 2
