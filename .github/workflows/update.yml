@@ -29,6 +29,7 @@ on:
 jobs:
   update:
     permissions:
+      actions: read
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
@@ -44,9 +45,8 @@ jobs:
           echo "GH_TOKEN=$GH_TOKEN" >> "$GITHUB_ENV"
           git config --global user.name 'github-actions[bot]'
           git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
-      - uses: azuwis/actions/nix@main
-        with:
-          key: update
-          debug: ${{ github.event_name == 'workflow_dispatch' && inputs.debug }}
+      - uses: NixOS/nix-installer-action@62c1943b776c509394b550f3f983adc14e9212d6 # v1.0.0
+      - uses: azuwis/actions/debug@main
+        if: ${{ inputs.debug }}
+      - uses: Mic92/hestia@dfed9ced335d28978ba74e513939a10db1f71025 # v3.1.0
       - run: ./.github/workflows/update.sh
-      - uses: azuwis/actions/nix/post@main
