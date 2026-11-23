@@ -20,7 +20,6 @@
     ref = "development";
   };
   my = {
-    type = "git";
     url = "ssh://nuc/~/repo/my";
     ref = "master";
   };
