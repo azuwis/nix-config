@@ -125,7 +125,7 @@ pkgs.stdenv.mkDerivation {
       ''
     else
       ''
-        exec ${pkgs.python3.interpreter} "${nixpkgs}/maintainers/scripts/update.py" ${builtins.concatStringsSep " " args}
+        exec ${pkgs.python3.interpreter} "${../scripts/update.py}" ${builtins.concatStringsSep " " args}
       ''
   );
 }
