@@ -25,6 +25,8 @@ on:
         required: false
 jobs:
   build:
+    permissions:
+      actions: read
     if: ${{ startsWith(github.head_ref, 'update/') || inputs.package }}
     strategy:
       fail-fast: false
@@ -55,6 +57,5 @@ jobs:
       - uses: ./.github/actions/package
         if: ${{ steps.skip.outputs.cache-hit != 'true' }}
         with:
-          cachix_auth_token: ${{ secrets.CACHIX_AUTH_TOKEN }}
           debug: ${{ inputs.debug }}
           package: ${{ steps.package.outputs.package }}

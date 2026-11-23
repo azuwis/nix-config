@@ -1,8 +1,5 @@
 name: Build package
 inputs:
-  cachix_auth_token:
-    description: authToken pass to cachix/cachix-action
-    required: true
   debug:
     description: Enable debug
     default: false
@@ -12,14 +9,10 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: azuwis/actions/nix@main
-      with:
-        key: package-${{ inputs.package }}
-        debug: ${{ github.event_name == 'workflow_dispatch' && inputs.debug }}
-    - uses: cachix/cachix-action@38b082610b782e7e93e209c35fd730d399dee866 # v17
-      with:
-        name: azuwis
-        authToken: ${{ inputs.cachix_auth_token }}
+    - uses: NixOS/nix-installer-action@62c1943b776c509394b550f3f983adc14e9212d6 # v1.0.0
+    - uses: azuwis/actions/debug@main
+      if: ${{ inputs.debug }}
+    - uses: Mic92/hestia@dfed9ced335d28978ba74e513939a10db1f71025 # v3.1.0
     - name: Build
       env:
         PACKAGE: ${{ inputs.package }}
@@ -62,7 +55,6 @@ runs:
         echo "::group::List files of $package"
         tree -a result
         echo "::endgroup::"
-    - uses: azuwis/actions/nix/post@main
     - uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
       if: ${{ env.CACHE_NEED_UPDATE == 'no' }}
       with:
