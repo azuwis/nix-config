@@ -37,6 +37,8 @@ on:
         default: all
 jobs:
   build:
+    permissions:
+      actions: read
     strategy:
       fail-fast: false
       matrix:
@@ -93,7 +95,6 @@ jobs:
     name: Final
     needs: build
     permissions:
-      actions: read
       contents: write
     runs-on: ubuntu-latest
     steps:
