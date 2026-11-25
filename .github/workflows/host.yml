@@ -114,7 +114,10 @@ jobs:
             read -r cell </tmp/report/"$file"
             line="$line,$cell"
           done
-          echo "$line" >>data.csv
+          # Append only when a cell other than `time` and `nix-config` changes
+          if [ "${line#*,*,}" != "$(tail -n 1 data.csv | cut -d, -f3-)" ]; then
+            echo "$line" >>data.csv
+          fi
           {
             sed -e '1s/,/ | /g; 1p; 1s/[^ |]\+/---/g; q' data.csv
             numfmt --header --delimiter=, --field 4- --to=iec --format='%.2f' <data.csv | tail -n 21 | sed -e '1d; s/,/ | /g'
@@ -125,5 +128,7 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data.csv
-          git commit -m 'Update data.csv'
-          git push
+          if ! git diff --cached --quiet; then
+            git commit -m 'Update data.csv'
+            git push
+          fi
