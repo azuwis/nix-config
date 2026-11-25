@@ -24,7 +24,7 @@
 
 # `builtins.fetchGit` with `rev` skips `git fetch` when the rev is already
 # cached, but still calls `git ls-remote --symref` when `ref` is not provided.
-# Always pass `ref` for ssh inputs in inputs.nix to avoid this.
+# Always pass `ref` in inputs.nix to avoid this.
 
 {
   update ? "",

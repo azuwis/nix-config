@@ -1,9 +1,9 @@
 { ... }@args:
 
-# nixpkgs/maintainers/scripts/update.py and nix-update expect a nixpkgs-like repo.
-# When called with `--commit`, update.py will create a new git worktree, and run
-# updateScript (e.g. nix-update) in the git worktree root, so the root dir needs
-# to provide nixpkgs-like attrs.
-# https://discourse.nixos.org/t/25274
+# nix-update expects to import a nixpkgs-like package set, and it can run
+# inside ./pkgs, where pkgs/default.nix is already one. But when called with
+# `--commit`, update.py imports `./.` in a new git worktree and runs
+# updateScript (e.g. nix-update) there, so the repo root needs to provide
+# nixpkgs-like attrs.
 # https://github.com/jtojnar/nixfiles/blob/master/default.nix
 import ./pkgs args // import ./flakes

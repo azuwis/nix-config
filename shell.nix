@@ -5,7 +5,7 @@ let
   pkgs = import ./pkgs { };
 in
 
-# Provide a dummy shell for nixpkgs/maintainers/scripts/update.py, used by ./scripts/update
+# Provide a dummy shell for ./scripts/update.py, used by ./scripts/update
 (if builtins ? currentSystem then pkgs.mkShellNoCC { } else { })
 //
   # nix-shell -A <name>
