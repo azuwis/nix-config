@@ -12,7 +12,7 @@ Personal Nix/NixOS configuration monorepo. Host entry points are files in `hosts
 | OpenWrt | `openwrt/` | |
 | solo | `solo/` | non-NixOS Linux, no root needed |
 
-`scripts/os` is the primary operational interface: no args builds and switches the current host; `scripts/os -h` lists subcommands and aliases. `desktop/` holds desktop configs, imported by `nixos/` and `darwin/` only.
+`scripts/os` is the primary operational interface: with no arguments it builds and switches the current host, and `scripts/os -h` lists subcommands and aliases. `desktop/` holds desktop configs, imported by `nixos/` and `darwin/` only.
 
 ## Before committing
 
@@ -20,13 +20,15 @@ Run `./scripts/os run treefmt` (formatters configured in `apps/treefmt.nix`).
 
 ## Common commands
 
-Commands and flags: `./scripts/os -h` or `./scripts/update -h`. Notes: the `test/` stub for the `my` input keeps CI builds independent of private data. `scripts/update` drives package updates through `lib/update.nix` (the vendored `scripts/update.py`, from nixpkgs' `maintainers/scripts/update.py`). `lib/info.nix` backs `-i`.
+Commands and flags: `./scripts/os -h` or `./scripts/update -h`. Notes: the `test/` stub for the `my` input keeps CI builds independent of private data. `scripts/update` drives package updates through `lib/update.nix`, which runs the vendored `scripts/update.py` (from nixpkgs' `maintainers/scripts/update.py`). `lib/info.nix` backs `-i`.
 
 ## Core design
 
 ### Module discovery
 
-Except nix-on-droid (inline in `flakes/droid.nix`), each host imports OS-level modules from its directory, which import `common/` and use `lib.my.getModules` to auto-discover all `default.nix` files in their directory tree (`openwrt/` imports only `common/my`, no desktop tools). `common/` follows the same pattern: each program or infrastructure concern has its own subdirectory with a `default.nix`, activated via `programs.<name>.enable` or equivalent; nested modules like `common/lazyvim/` call `getModules` from their parent, discovering sub-modules recursively. The only inline exception is `direnv` in `common/default.nix` (not worth a module). `config.nix` holds nixpkgs configuration (`allowUnfreePackages` whitelist plus an `allowUnfreePredicate` for licenses, `allowAliases = false`), used by `pkgs/default.nix` and `common/nixpkgs/default.nix`.
+Except nix-on-droid (inline in `flakes/droid.nix`), a host file imports its OS dir, which imports `common/` and uses `getModules` from `lib/my.nix` to auto-discover all `default.nix` files in its directory tree. `openwrt/` imports only `common/my` and has no desktop tools.
+
+`common/` follows the same pattern: each program or infrastructure concern has its own subdirectory with a `default.nix`, activated via `programs.<name>.enable` or equivalent. Nested modules like `common/lazyvim/` call `getModules` from their parent, discovering sub-modules recursively. The only inline exception is `direnv` in `common/default.nix` (not worth a module).
 
 ### Input system
 
@@ -34,10 +36,10 @@ Except nix-on-droid (inline in `flakes/droid.nix`), each host imports OS-level m
 
 - `inputs/inputs.nix`: declares inputs (URLs, refs, freeze behavior)
 - `inputs/lock.nix`: pinned revisions (the lock file)
-- `inputs/default.nix`: resolves inputs; `--argstr update` triggers selective updates
+- `inputs/default.nix`: resolves inputs, and `--argstr update` triggers selective updates
 - `inputs/show.nix`: renders the lock as a table for `os ns`
 
-`scripts/os update` calls `nix-instantiate` with update targets and writes a new `inputs/lock.nix`; `NIXLOCK_OVERRIDE_*` env vars override input paths locally (used by CI via `os ci`). `scripts/os fu` (flake-update) is obsolete: `flake.nix` discards flake inputs (`outputs = _: ...`) and no `flake.lock` is tracked.
+`scripts/os update` calls `nix-instantiate` with update targets and writes a new `inputs/lock.nix`. `NIXLOCK_OVERRIDE_*` env vars override input paths locally (used by CI via `os ci`). `scripts/os fu` (flake-update) is obsolete: `flake.nix` discards flake inputs (`outputs = _: ...`) and no `flake.lock` is tracked.
 
 ### Input availability (circular dependency gotcha)
 
@@ -46,7 +48,7 @@ Inputs reach modules two ways:
 - **Direct eval: `import ../inputs { }`** for modules referencing `inputs` in `imports` (e.g. `inputs.agenix.outPath + "/modules/age.nix"`): `imports` is evaluated before function arguments resolve, so `{ inputs, ... }` creates a circular dependency. Bind inputs locally via `let` instead.
 - **Module injection: `_module.args.inputs = inputs`** (set in `common/default.nix`): sub-modules receive inputs via function args after the module system initializes, but only if they do NOT reference `inputs` in `imports`.
 
-OpenWrt passes inputs via `_module.args` directly; droid and solo evaluate inputs directly in their `compat` modules.
+OpenWrt passes inputs via `_module.args` directly, whereas droid and solo evaluate inputs directly in their `compat` modules.
 
 ### `runCommandLocal` vs `runCommand`
 
@@ -57,26 +59,27 @@ OpenWrt passes inputs via `_module.args` directly; droid and solo evaluate input
 Three variants, selected by hostname against `flakes/solo.nix`, with a `/nix/store` ownership + sticky-bit fallback that picks `solo` vs `solo-single`:
 
 - **solo**: full user environment for non-NixOS Linux, activated via `nix-env --set` + home activation script
-- **solo-shell**: PATH-only variant, used via `scripts/solo-shell`. It sets `environment.variables.PATH` to `${config.solo.path}/bin:$PATH` (`solo.path` builds from `systemPackages`); the shell stays out of `systemPackages` because it reads `environment.variables`, which would create a module-system cycle
+- **solo-shell**: PATH-only variant, used via `scripts/solo-shell`. It sets `environment.variables.PATH` to `${config.solo.path}/bin:$PATH` (`solo.path` builds from `systemPackages`). The shell stays out of `systemPackages` because it reads `environment.variables`, which would create a module-system cycle
 - **solo-single**: for single-user (no-daemon) Nix installations
 
 `solo/compat/default.nix` bridges NixOS modules for non-NixOS: imports selected NixOS modules, stubs NixOS-specific options, and uses `disabledModules` to exclude `common/system/default.nix`.
 
 ### linkdir module
 
-`lib/linkdir.nix` provides declarative symlink forests (`home.file`-style: inline text content, globbing, old-state tracking for cleanup, never replaces non-symlink files); used by `common/home` and `openwrt/builder`.
+`lib/linkdir.nix` provides declarative symlink forests (`home.file`-style: inline text content, globbing, old-state tracking for cleanup, never replaces non-symlink files). It is used by `common/home` and `openwrt/builder`.
 
 ### Flake wiring
 
-`flake.nix` is a thin wrapper around `flakes/`; `flakes/default.nix` aggregates all OS configurations. `devShells` auto-discover from `devshells/`, `packages` from overlays (only overlay-defined packages appear, not all of nixpkgs), `apps` from `apps/default.nix`.
+`flake.nix` is a thin wrapper around `flakes/`, and `flakes/default.nix` aggregates all OS configurations. `devShells` auto-discover from `devshells/`, `packages` from overlays (only overlay-defined packages appear, not all of nixpkgs), `apps` from `apps/default.nix`.
 
-### Custom packages and overlays
+### Custom packages, overlays, and nixpkgs configuration
 
 - `pkgs/by-name/`: nixpkgs by-name convention, loaded automatically via nixpkgs' `by-name-overlay.nix`
 - `pkgs/{lua,python,vim}/`: extra packages for the `luaPackages`, `python3Packages`, and `vimPlugins` sets, loaded by the corresponding overrides in `overlays/default.nix`
 - `pkgs/wallpapers/`: wallpaper collections, loaded via `packagesFromDirectoryRecursive` in `overlays/default.nix`
 - `overlays/default.nix`: central overlay with custom package overrides, wallpapers attr, agenix overlay import
 - `overlays/jovian.nix`: per-host overlay pattern (Steam Deck), used only by `hosts/jovian.nix`
+- `config.nix`: nixpkgs configuration used by `pkgs/default.nix` and `common/nixpkgs/default.nix`, including the unfree package whitelist and `allowAliases = false`
 
 ### CI
 
