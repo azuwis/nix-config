@@ -122,8 +122,10 @@ jobs:
             read -r cell </tmp/report/"$file"
             line="$line,$cell"
           done
-          # Append only when a cell other than `time` and `nix-config` changes
-          if [ "${line#*,*,}" != "$(tail -n 1 data.csv | cut -d, -f3-)" ]; then
+          # Append only when a cell other than `time`, `nix-config` and `jovian`
+          # changes. jovian's closure contains locally built Steam Deck packages
+          # which are not bit-reproducible, so its size jitters between builds.
+          if [ "$(cut -d, -f3,4,6- <<<"$line")" != "$(tail -n 1 data.csv | cut -d, -f3,4,6-)" ]; then
             echo "$line" >>data.csv
           fi
           {
