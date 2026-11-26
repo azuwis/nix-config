@@ -51,11 +51,13 @@ runs:
           nix-build pkgs --attr "$package.tests"
           echo "::endgroup::"
         fi
-        echo "::group::Install 'tree'"
-        nix-env -f '<nixpkgs>' -iA tree
-        echo "::endgroup::"
+        if [ "$RUNNER_OS" = macOS ]; then
+          echo "::group::Install 'tree'"
+          HOMEBREW_NO_AUTO_UPDATE=1 brew install tree
+          echo "::endgroup::"
+        fi
         echo "::group::List files of $package"
-        tree -a result
+        tree -a result*
         echo "::endgroup::"
     - uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
       if: ${{ env.CACHE_NEED_UPDATE == 'no' }}
