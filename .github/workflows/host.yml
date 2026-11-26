@@ -35,6 +35,11 @@ on:
           - mbp
           - all
         default: all
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     permissions:
@@ -96,6 +101,7 @@ jobs:
     # For displaying `Final summary` in `Summary`
     name: Final
     needs: build
+    if: ${{ github.ref == 'refs/heads/master' }}
     permissions:
       contents: write
     runs-on: ubuntu-latest
