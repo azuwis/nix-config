@@ -20,7 +20,7 @@ Run `./scripts/os run treefmt` (formatters configured in `apps/treefmt.nix`).
 
 ## Common commands
 
-Commands and flags: `./scripts/os -h` or `./scripts/update -h`. Notes: the `test/` stub for the `my` input keeps CI builds independent of private data; `scripts/update` drives package updates through `lib/update.nix` (nixpkgs' `maintainers/scripts/update.py`); `lib/info.nix` backs `-i`.
+Commands and flags: `./scripts/os -h` or `./scripts/update -h`. Notes: the `test/` stub for the `my` input keeps CI builds independent of private data. `scripts/update` drives package updates through `lib/update.nix` (the vendored `scripts/update.py`, from nixpkgs' `maintainers/scripts/update.py`). `lib/info.nix` backs `-i`.
 
 ## Core design
 
@@ -32,7 +32,7 @@ Except nix-on-droid (inline in `flakes/droid.nix`), each host imports OS-level m
 
 **Custom input system** (not flake inputs):
 
-- `inputs/inputs.nix`: declares inputs (URLs, types, freeze behavior)
+- `inputs/inputs.nix`: declares inputs (URLs, refs, freeze behavior)
 - `inputs/lock.nix`: pinned revisions (the lock file)
 - `inputs/default.nix`: resolves inputs; `--argstr update` triggers selective updates
 - `inputs/show.nix`: renders the lock as a table for `os ns`
@@ -82,6 +82,7 @@ Three variants, selected by hostname against `flakes/solo.nix`, with a `/nix/sto
 
 Workflows in `.github/workflows/`:
 
-- `host.yml`: builds a host matrix to Cachix, appends closure sizes to `data.csv` on `gh-pages`
+- `host.yml`: builds a host matrix with hestia, appends closure sizes to `data.csv` on `gh-pages`
 - `update.yml`: automated package updates pushed via SSH deploy keys rather than `GITHUB_TOKEN`, so PRs trigger downstream CI
 - `package.yml`: builds single packages with a platform-skip cache
+- `gc.yml`: runs `hestia gc` to keep the cache within GitHub's quota
