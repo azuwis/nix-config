@@ -133,7 +133,23 @@ builtins.mapAttrs (
           "Overriding path of \"${name}\" with \"${toString outPath}\" due to set ${nixlockOverrideEnv}"
           { inherit outPath; }
     else if isLocked then
-      if update == "" then builtins.fetchGit fetchGitArgs else lock
+      if update == "" then
+        if input ? type && input.type == "git" then
+          builtins.fetchGit fetchGitArgs
+        else if builtins.getEnv "CI" == "true" then
+          # CI starts with a cold git cache. A content-addressed tarball can be
+          # substituted from the binary cache, which is faster.
+          lock
+          // {
+            outPath = builtins.fetchTarball {
+              url = input.url + "/archive/" + lock.rev + ".tar.gz";
+              sha256 = lock.narHash;
+            };
+          }
+        else
+          builtins.fetchGit fetchGitArgs
+      else
+        lock
     else
       builtins.trace "[1;33m${name} = builtins.fetchGit ${argsToString fetchGitArgs}[0m" (
         builtins.fetchGit fetchGitArgs
